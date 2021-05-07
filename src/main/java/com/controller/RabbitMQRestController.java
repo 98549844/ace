@@ -45,7 +45,6 @@ public class RabbitMQRestController {
     @RequestMapping(method = RequestMethod.GET, value = "direct/send")
     public void sendDirectQueue() {
         String ace = "[ ACE ]";
-
         for (int i = 0; i < 15; i++) {
             log.info(ace + "  " + "version::" + i);
             this.amqpTemplate.convertAndSend(RabbitMQConfig.QUEUE, ace + "  " + "version::" + i);
