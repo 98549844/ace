@@ -42,7 +42,6 @@ public class RabbitMQRestController {
             rabbitSender.send(tlist, null);
         }
 
-
         return "send: " + tlist.size();
     }
 
