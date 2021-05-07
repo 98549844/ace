@@ -50,7 +50,11 @@ public class RabbitMQRestController {
             log.info(ace + "  " + "version::" + i);
             this.amqpTemplate.convertAndSend(RabbitMQConfig.QUEUE, ace + "  " + "version::" + i);
         }
-
+        int s =0;
+        while (true){
+            s++;
+            this.amqpTemplate.convertAndSend(RabbitMQConfig.QUEUE, ace + "  " + "version::" + s);
+        }
     }
 
 
