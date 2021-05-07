@@ -14,7 +14,7 @@ public class Ace {
 
     public static void main(String[] args) {
         List<String> a  = new ArrayList<>();
-        a.add("B");
+        a.add("BFFFF");
 
         try {
 
