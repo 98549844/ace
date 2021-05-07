@@ -1,0 +1,6 @@
+1.access到git workspace
+cmd
+cd \xxx\xxx\xxx
+
+2.取消push
+git reset HEAD~1

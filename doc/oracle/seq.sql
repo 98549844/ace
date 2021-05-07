@@ -1,0 +1,1 @@
+select * from user_sequences  where  sequence_name like '%DETAIN_VEH%';

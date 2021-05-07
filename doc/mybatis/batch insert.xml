@@ -1,0 +1,32 @@
+<!--batch insert-->
+
+    <!--Integer insertInPptyDtl(@Param("pptyDispVeIds") List<BigDecimal> pptyDispVerLs);-->
+<insert id="insertBatchByPptyDisposalVerificatn" parameterType="java.util.List">
+
+    insert into PPTY_DISPOSAL_VERIFICATN (
+    PPTY_DISPOSAL_VERIFICATN_ID,
+    PPTY_DISPOSAL_RESULT_ID,
+    PPTY_DTL_ID,
+    PPTY_DISPOSAL_INSTRUCTN_ID,
+    DISPOSAL_NO,
+    DISP_VERIFICATN_STATUS,
+    SEQ_NO_BATCH_DISPOSAL_EPD,
+    DATE_DISP_DESTRUTN
+    )
+    select
+    SEQ_PPTY_DISPOSAL_VERIFICATN.NEXTVAL , t.*
+    from (
+    <foreach collection="pptyDispVerLs" item="item" index="index" separator="UNION ALL">
+        select
+        #{item.pptyDisposalResultId,jdbcType=DECIMAL},
+        #{item.pptyDtlId,jdbcType=DECIMAL},
+        #{item.pptyDisposalInstructnId,jdbcType=DECIMAL},
+        #{item.disposalNo,jdbcType=DECIMAL},
+        #{item.dispVerificatnStatus,jdbcType=VARCHAR},
+        #{item.seqNoBatchDisposalEpd,jdbcType=DECIMAL},
+        #{item.dateDispDestrutn,jdbcType=TIMESTAMP},
+        #{item.dateDispAppl,jdbcType=TIMESTAMP},
+        from dual
+    </foreach>
+    ) t
+</insert>

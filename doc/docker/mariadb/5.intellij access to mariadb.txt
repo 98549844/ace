@@ -1,0 +1,5 @@
+host:localhost
+user:root
+pw:garlamau
+
+url:jdbc:mariadb://localhost:3306

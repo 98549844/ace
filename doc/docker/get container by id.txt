@@ -1,0 +1,8 @@
+1.容器執行狀況
+docker ps -a
+
+2.获取指定容器的ip
+docker inspect --format '{{ .NetworkSettings.IPAddress }}' container_id
+
+3.获取所有容器ip
+docker inspect --format='{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)

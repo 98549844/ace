@@ -1,0 +1,8 @@
+1.check version
+info
+
+redis-server -v
+redis-server --version
+
+redis-cli -v
+redis-cli --version

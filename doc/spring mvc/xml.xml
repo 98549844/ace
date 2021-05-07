@@ -1,0 +1,94 @@
+File: web.xml
+
+<web-app>
+</web-app>
+    web.xml文件必定需要用web-app把所有元素包起
+
+<display-name>PROJECT</display-name>
+    display-name元素提供GUI工具可能会用来标记此Web应用的一个名称
+
+<listener>
+<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+</listener>
+    监听器也叫Listener，是Servlet的监听器，它可以监听客户端的请求、服务端的操作等。通过监听器，可以自动激发一些操作，比如监听在线的用户的数量。
+
+<context-param>
+<param-name>contextConfigLocation</param-name>
+<param-value>
+    <!-- 从/WebContent后开始 -->
+    /WEB-INF/application-context.xml
+</param-value>
+</context-param>
+    元素声明应用范围内的初始化参数
+    context-param元素必须出现任意与文档有关的元素（icon、display-name或description）之后及filter、filter-mapping、listener或 servlet元素之前。
+
+<servlet>
+<servlet-name>Test</servlet-name>
+<servlet-class>moreservlets.TestServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+<!-- URL模式还可以包含通配符。例如，下面的小程序指示服务器发送所有以Web应用的URL前缀开始，以..asp结束的请求到名为BashMS的servlet。 -->
+<servlet-name>Test</servlet-name>
+<url-pattern>/UrlTest</url-pattern>
+</servlet-mapping>
+    这表示位于WEB-INF/classes/moreservlets/TestServlet的servlet已经得到了注册名Test。给 servlet一个名称具有两个主要的含义。首先，初始化参数、定制的URL模式以及其他定制通过此注册名而不是类名引用此servlet。其次,可在 URL而不是类名中使用此名称。因此，利用刚才给出的定义，URL http://host/webAppPrefix/servlet/Test 可用于 http://host/webAppPrefix/servlet/moreservlets.TestServlet 的场所
+
+<jsp-config>
+<taglib>
+    <!-- 在jsp文件指向tld路径 -->
+    <taglib-uri>/common</taglib-uri>
+    <!-- 配对uri的实际路径 -->
+    <taglib-location>/WEB-INF/common.tld</taglib-location>
+</taglib>
+</jsp-config>
+
+<welcome-file-list>
+<welcome-file>login.jsp</welcome-file>
+<welcome-file>index.jsp</welcome-file>
+</welcome-file-list>
+    进入uri, 未定义详细路径,自动进入welcome-file的jsp
+
+<error-page>
+<error-code>404</error-code>
+<location>/error.jsp</location>
+</error-page>
+<error-page>
+<error-code>500</error-code>
+<location>/error.jsp</location>
+</error-page>
+
+<filter>
+<filter-name>encoding</filter-name>
+<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+<init-param>
+    <param-name>encoding</param-name>
+    <param-value>UTF-8</param-value>
+</init-param>
+</filter>
+<filter-mapping>
+<filter-name>encoding</filter-name>
+<url-pattern>*.htmls</url-pattern>
+</filter-mapping>
+
+    File: application-context.xml
+<bean id="propertyConfigurer"
+      class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+<property name="locations">
+    <list>
+        <value>classpath*:jdbc.properties</value>
+    </list>
+</property>
+</bean>
+    classpath 和 classpath* 区别：
+    classpath：只会到你指定的class路径中查找找文件;
+    classpath*：不仅包含class路径，还包括jar文件中(class路径)进行查找.
+
+    File: dispatcher-servlet.xml
+<mvc:interceptors>
+<!-- 多个拦截器,顺序执行 -->
+<mvc:interceptor>
+    <mvc:mapping path="/**"/><!-- 如果不配置或/*,将拦截所有的Controller -->
+    <mvc:exclude-mapping path="/login/*.htmls"/><!-- 需排除拦截的地址 -->
+    <bean class="com.common.interceptor.LoginInterceptor"></bean>
+</mvc:interceptor>
+</mvc:interceptors>

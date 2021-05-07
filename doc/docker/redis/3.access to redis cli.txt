@@ -1,0 +1,5 @@
+1.redis-cli 连接测试使用 redis 服务
+docker exec -it redis /bin/bash
+
+2.进入cli mode
+redis-cli
