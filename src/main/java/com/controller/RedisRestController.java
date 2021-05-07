@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import util.LogUtil;
 
 /**
  * @Classname: RedisController
@@ -22,10 +23,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/redis")
 @Api(tags = "redis")
 public class RedisRestController {
-    private static Logger log = LogManager.getLogger(RedisRestController.class.getName());
+    private final static Logger log = LogManager.getLogger(RedisRestController.class.getName());
+
+
+    private final RedisService redisService;
 
     @Autowired
-    private RedisService redisService;
+    public RedisRestController(RedisService redisService) {
+        this.redisService = redisService;
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/get")
     public String test() {

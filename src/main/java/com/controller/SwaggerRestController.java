@@ -5,18 +5,21 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import util.LogUtil;
 
 @RestController
 @RequestMapping("/swagger")
 @Api(tags = "swagger")
 public class SwaggerRestController {
-    private final Log log = LogFactory.getLog(this.getClass());
+    private final static Logger log = LogManager.getLogger(SwaggerRestController.class.getName());
+
 
     @RequestMapping(method = RequestMethod.GET)
     public String getSwagger() {
-        log.info(Thread.currentThread().getStackTrace()[1].getMethodName() + ": ");
 
 
         String get = "Hello World ! GET";
@@ -25,7 +28,6 @@ public class SwaggerRestController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/{userName}")
     public String getSwagger(@PathVariable String userName) {
-        log.info(Thread.currentThread().getStackTrace()[1].getMethodName() + ": ");
 
 
         String get = "Hello World !" + userName + " GET";
@@ -35,7 +37,6 @@ public class SwaggerRestController {
     @ApiOperation(value = "swagger post body", notes = "{\n" + "    \"swaggerContent\": \"---CONTENT---\",\n" + "    \"swaggerDescription\": \"---DESCRIPTION---\",\n" + "    \"swaggerId\": 0,\n" + "    \"swaggerTitle\": \"---TITLE---\"\n" + "}")
     @RequestMapping(method = RequestMethod.POST)
     public SwaggerVo postSwagger(@RequestBody SwaggerVo swaggerVo) {
-        log.info(Thread.currentThread().getStackTrace()[1].getMethodName() + ": ");
         String post = "Hello World ! POST";
         System.out.println(post);
         swaggerVo.setSwaggerDescription(post);
@@ -51,7 +52,6 @@ public class SwaggerRestController {
 
     @RequestMapping(method = RequestMethod.DELETE)
     public String deleteSwagger() {
-        log.info(Thread.currentThread().getStackTrace()[1].getMethodName() + ": ");
 
 
         String delete = "Hello World ! DELETE";

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import util.LogUtil;
 
 /**
  * @Classname: AceController
@@ -24,10 +25,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/ace")
 @Api(tags = "ace")
 public class AceRestController {
-    private static Logger log = LogManager.getLogger(AceRestController.class.getName());
+    private final static Logger log = LogManager.getLogger(AceRestController.class.getName());
+
+
+    private final AceConfig aceConfig;
 
     @Autowired
-    AceConfig aceConfig;
+    public AceRestController(AceConfig aceConfig) {
+        this.aceConfig = aceConfig;
+    }
 
     // @ResponseBody
     @RequestMapping(method = RequestMethod.GET, value = "/get")
