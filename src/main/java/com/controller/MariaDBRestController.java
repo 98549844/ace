@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ import static com.sampleDataGenerator.DataGenerator.getTestEntity;
  */
 
 
-@Controller
+@RestController
 @RequestMapping("/mariadb")
 @Api(tags = "mariadb")
 public class MariaDBRestController {
@@ -32,21 +33,18 @@ public class MariaDBRestController {
     @Autowired
     TestService testService;
 
-    @ResponseBody
     @RequestMapping(method = RequestMethod.GET)
     public String getConnection() {
         return null;
     }
 
-    @ResponseBody
     @RequestMapping(method = RequestMethod.GET, value = "/getAll")
     public List<TestEntity> getAll() {
-        List<TestEntity> ls = testService.getTestEntities();
+        List<TestEntity> ls = testService.getAll();
         log.info("get records:" + ls.size());
         return ls;
     }
 
-    @ResponseBody
     @RequestMapping(method = RequestMethod.GET, value = "/insert")
     public String insert() {
         List<TestEntity> ls = getTestEntity();

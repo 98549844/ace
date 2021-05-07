@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @Classname: AceController
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 
 @EnableConfigurationProperties
-@Controller
+@RestController
 @RequestMapping("/ace")
 @Api(tags = "ace")
 public class AceRestController {
@@ -28,7 +29,7 @@ public class AceRestController {
     @Autowired
     AceConfig aceConfig;
 
-    @ResponseBody
+    // @ResponseBody
     @RequestMapping(method = RequestMethod.GET, value = "/get")
     public String getAce() {
         log.info(aceConfig.getName());

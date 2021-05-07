@@ -24,7 +24,7 @@ public class TestService {
     /**
      * @return all result
      */
-    public List<TestEntity> getTestEntities() {
+    public List<TestEntity> getAll() {
         List<TestEntity> list = null;
         try {
             list = testDao.findAll();

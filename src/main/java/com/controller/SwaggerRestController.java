@@ -8,13 +8,12 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/swagger")
 @Api(tags = "swagger")
 public class SwaggerRestController {
     private final Log log = LogFactory.getLog(this.getClass());
 
-    @ResponseBody
     @RequestMapping(method = RequestMethod.GET)
     public String getSwagger() {
         log.info(Thread.currentThread().getStackTrace()[1].getMethodName() + ": ");
@@ -24,7 +23,6 @@ public class SwaggerRestController {
         return get;
     }
 
-    @ResponseBody
     @RequestMapping(method = RequestMethod.GET, value = "/{userName}")
     public String getSwagger(@PathVariable String userName) {
         log.info(Thread.currentThread().getStackTrace()[1].getMethodName() + ": ");
@@ -44,7 +42,6 @@ public class SwaggerRestController {
         return swaggerVo;
     }
 
-    @ResponseBody
     @RequestMapping(method = RequestMethod.PUT)
     public String putSwagger() {
         log.info(Thread.currentThread().getStackTrace()[1].getMethodName() + ": ");
@@ -52,7 +49,6 @@ public class SwaggerRestController {
         return put;
     }
 
-    @ResponseBody
     @RequestMapping(method = RequestMethod.DELETE)
     public String deleteSwagger() {
         log.info(Thread.currentThread().getStackTrace()[1].getMethodName() + ": ");
