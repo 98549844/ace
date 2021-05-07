@@ -33,7 +33,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       #create:
       #根据entity新建表, 原table不动
       #create-drop:
