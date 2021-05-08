@@ -1,4 +1,4 @@
-package com.entity.dao.hibernate;
+package com.entity.dao;
 
 import com.entity.dao.base.baseEntity;
 import org.hibernate.annotations.GenericGenerator;
@@ -11,7 +11,7 @@ import java.io.Serializable;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "test")
 @Entity
-public class TestEntity extends baseEntity implements Serializable {
+public class Test extends baseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GenericGenerator(strategy = "identity", name = "id")

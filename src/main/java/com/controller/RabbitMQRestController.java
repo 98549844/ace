@@ -1,11 +1,6 @@
 package com.controller;
 
 import com.config.RabbitMQConfig;
-import com.entity.dao.hibernate.TestEntity;
-import com.entity.dao.hibernate.UserEntity;
-import com.mq.rabbit.RabbitReceiver;
-import com.mq.rabbit.RabbitSender;
-import com.sampleDataGenerator.DataGenerator;
 import com.service.TestService;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
@@ -16,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import util.LogUtil;
-
-import java.util.List;
+import util.SleepUtil;
 
 /**
  * @Classname: RabbitRestController
@@ -31,7 +24,7 @@ import java.util.List;
 @RequestMapping("/rabbitmq")
 @Api(tags = "rabbitmq")
 public class RabbitMQRestController {
-    private final static Logger log = LogManager.getLogger(LogUtil.class.getName());
+    private final static Logger log = LogManager.getLogger(RabbitMQRestController.class.getName());
 
 
 
@@ -47,9 +40,10 @@ public class RabbitMQRestController {
     @RequestMapping(method = RequestMethod.GET, value = "direct/send")
     public void sendDirectQueue() {
         String ace = "[ ACE ]";
-        for (int i = 0; i < 1500; i++) {
+        for (int i = 0; i < 50; i++) {
             log.info(ace + "  " + "version::" + i);
             this.amqpTemplate.convertAndSend(RabbitMQConfig.QUEUE, ace + "  " + "version::" + i);
+            SleepUtil.sleep(1);
         }
     }
 
@@ -57,6 +51,7 @@ public class RabbitMQRestController {
     // queues是指要监听的队列的名字
     @RabbitListener(queues = RabbitMQConfig.QUEUE)
     public void receiverDirectQueue(String msg) {
+        SleepUtil.sleep(3);
         log.info("【receiverDirectQueue监听到消息】" + msg);
     }
 

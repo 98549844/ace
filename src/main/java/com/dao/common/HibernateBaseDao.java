@@ -1,4 +1,4 @@
-package com.dao.hibernate.common;
+package com.dao.common;
 
 import java.io.Serializable;
 import java.util.List;

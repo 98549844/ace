@@ -1,4 +1,4 @@
-package com.entity.dao.hibernate;
+package com.entity.dao;
 
 import com.entity.dao.base.baseEntity;
 import org.hibernate.annotations.GenericGenerator;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "access_log")
 @Entity
-public class LogEntity extends baseEntity implements Serializable {
+public class ConsoleLog extends baseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GenericGenerator(strategy = "identity", name = "id")

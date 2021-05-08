@@ -2,6 +2,7 @@ package com;
 
 import com.config.BrowserConfig;
 import com.util.ApplicationContextUtil;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -24,6 +25,7 @@ import java.util.Map;
 */
 @SpringBootApplication
 @ComponentScan({"com", "util"})
+@MapperScan("com.mapper")
 public class AceApplication {
 
 

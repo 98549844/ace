@@ -9,19 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Ace {
-    private static Logger logger = LogManager.getLogger(Ace.class.getName());
-    private final static Log log = LogFactory.getLog(Ace.class);
+    private static Logger log = LogManager.getLogger(Ace.class.getName());
+   // private final static Log log = LogFactory.getLog(Ace.class);
 
     public static void main(String[] args) {
-        List<String> a  = new ArrayList<>();
-        a.add("BFFFF");
+        log.traceEntry();
+        log.trace("我是trace");
+        log.info("我是info信息:{}","ACE_UTIL");
+        log.error("我是error");
+        log.fatal("我是fatal");
 
-        try {
-
-        String c = a.get(2);
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
+        log.trace("退出程序.");
+        log.traceExit();
     }
 }

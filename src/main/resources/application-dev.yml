@@ -5,6 +5,22 @@ server:
   servlet:
     encoding:
       charset: UTF-8
+
+# mybatis 配置
+mybatis:
+  mapper-locations: classpath:com/mapper/xml/*.xml
+  type-aliases-package: com/entity/dao/mybatis
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#showSql
+logging:
+  level:
+    com:
+      example:
+        mapper : debug
+
+
 spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -83,4 +99,7 @@ spring:
     #password: guest
     #username: guest
     #virtual-host: /
+
+
+
 

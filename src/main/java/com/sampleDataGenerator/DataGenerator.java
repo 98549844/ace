@@ -1,44 +1,42 @@
 package com.sampleDataGenerator;
 
 
-import com.entity.dao.hibernate.TestEntity;
-import com.entity.dao.hibernate.UserEntity;
-import com.entity.dao.mybatis.TestEnt;
+import com.entity.dao.Test;
+import com.entity.dao.User;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 public class DataGenerator {
 
     public static void main(String[] args) {
-        List<TestEntity> ls = getTestEntity();
-        for (TestEntity t : ls) {
+        List<Test> ls = getTestEntity();
+        for (Test t : ls) {
             System.out.println(t.toString());
         }
     }
 
-    public static List<UserEntity> getTestDataList() {
-        UserEntity u1 = new UserEntity();
+    public static List<User> getTestDataList() {
+        User u1 = new User();
         u1.setUserName("Garlam");
         u1.setEmail("garlam_au@qq.com");
 
-        UserEntity u2 = new UserEntity();
+        User u2 = new User();
         u2.setUserName("lily");
         u2.setEmail("lily_fu@qq.com");
 
-        UserEntity u3 = new UserEntity();
+        User u3 = new User();
         u3.setUserName("peter");
         u3.setEmail("peter_lee@qq.com");
 
-        UserEntity u4 = new UserEntity();
+        User u4 = new User();
         u4.setUserName("mary");
         u4.setEmail("mary_ma@qq.com");
 
-        List<UserEntity> ulist = new ArrayList<>();
+        List<User> ulist = new ArrayList<>();
         ulist.add(u1);
         ulist.add(u2);
         ulist.add(u3);
@@ -49,74 +47,47 @@ public class DataGenerator {
     /**
      * @return
      */
-    public static List<TestEntity> getTestEntity() {
-        List<TestEntity> testEntityList = new ArrayList<>();
+    public static List<Test> getTestEntity() {
+        List<Test> testList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             if (i < 30) {
-                TestEntity testEntity = new TestEntity();
-                testEntity.setId(get4Int());
-                testEntity.setUserId(get1Int());
-                testEntity.setUserName("Peter");
-                testEntity.setEmail(get2Int() + "peter@domain.com");
-                testEntity.setCreatedBy("Peter");
-                testEntity.setLastUpdateBy(testEntity.getUserName());
-                testEntity.setCreatedDate(LocalDateTime.now());
-                testEntity.setLastUpdateDate(LocalDateTime.now());
-                testEntityList.add(testEntity);
+                Test test = new Test();
+                test.setId(get4Int());
+                test.setUserId(get1Int());
+                test.setUserName("Peter");
+                test.setEmail(get2Int() + "peter@domain.com");
+                test.setCreatedBy("Peter");
+                test.setLastUpdateBy(test.getUserName());
+                test.setCreatedDate(LocalDateTime.now());
+                test.setLastUpdateDate(LocalDateTime.now());
+                testList.add(test);
             } else if (i >= 30 && i < 85) {
-                TestEntity testEntity = new TestEntity();
-                testEntity.setId(get4Int());
-                testEntity.setUserId(get1Int());
-                testEntity.setUserName("Lily");
-                testEntity.setEmail(get2Int() + "lily@domain.com");
-                testEntity.setCreatedBy("Lily");
-                testEntity.setLastUpdateBy(testEntity.getUserName());
-                testEntity.setCreatedDate(LocalDateTime.now());
-                testEntity.setLastUpdateDate(LocalDateTime.now());
-                testEntityList.add(testEntity);
+                Test test = new Test();
+                test.setId(get4Int());
+                test.setUserId(get1Int());
+                test.setUserName("Lily");
+                test.setEmail(get2Int() + "lily@domain.com");
+                test.setCreatedBy("Lily");
+                test.setLastUpdateBy(test.getUserName());
+                test.setCreatedDate(LocalDateTime.now());
+                test.setLastUpdateDate(LocalDateTime.now());
+                testList.add(test);
             } else {
-                TestEntity testEntity = new TestEntity();
-                testEntity.setId(get4Int());
-                testEntity.setUserId(get1Int());
-                testEntity.setUserName("Garlam");
-                testEntity.setEmail(get2Int() + "garlam@domain.com");
-                testEntity.setCreatedBy("Garlam");
-                testEntity.setLastUpdateBy(testEntity.getUserName());
-                testEntity.setCreatedDate(LocalDateTime.now());
-                testEntity.setLastUpdateDate(LocalDateTime.now());
-                testEntityList.add(testEntity);
+                Test test = new Test();
+                test.setId(get4Int());
+                test.setUserId(get1Int());
+                test.setUserName("Garlam");
+                test.setEmail(get2Int() + "garlam@domain.com");
+                test.setCreatedBy("Garlam");
+                test.setLastUpdateBy(test.getUserName());
+                test.setCreatedDate(LocalDateTime.now());
+                test.setLastUpdateDate(LocalDateTime.now());
+                testList.add(test);
             }
         }
-        return testEntityList;
+        return testList;
     }
 
-    public static List<TestEnt> getMybatisTestEnt() {
-        List<TestEnt> testEntityList = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            if (i < 30) {
-                TestEnt testEntity = new TestEnt();
-                //   testEntity.setId(get4Int());
-                testEntity.setUserId(get1Int());
-                testEntity.setUserName("Peter");
-                testEntity.setEmail(get2Int() + "_peter@domain.com");
-                testEntityList.add(testEntity);
-            } else if (i >= 30 && i < 85) {
-                TestEnt testEntity = new TestEnt();
-                //   testEntity.setId(get4Int());
-                testEntity.setUserId(get1Int());
-                testEntity.setUserName("Lily");
-                testEntity.setEmail(get2Int() + "_lily@domain.com");
-                testEntityList.add(testEntity);
-            } else {
-                TestEnt testEntity = new TestEnt();
-                testEntity.setUserId(get1Int());
-                testEntity.setUserName("Garlam");
-                testEntity.setEmail(get2Int() + "_garlam@domain.com");
-                testEntityList.add(testEntity);
-            }
-        }
-        return testEntityList;
-    }
 
 
     private static int get1Int() {

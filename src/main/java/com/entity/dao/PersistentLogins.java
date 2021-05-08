@@ -1,4 +1,4 @@
-package com.entity.dao.hibernate;
+package com.entity.dao;
 
 import com.entity.dao.base.baseEntity;
 

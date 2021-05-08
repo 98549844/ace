@@ -1,4 +1,4 @@
-package com.entity.dao.hibernate;
+package com.entity.dao;
 
 
 import com.entity.dao.base.baseEntity;
@@ -13,7 +13,7 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "employee")
 @Entity
-public class EmployeeEntity extends baseEntity implements Serializable {
+public class Employee extends baseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

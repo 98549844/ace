@@ -1,4 +1,4 @@
-package com.dao.hibernate.common;
+package com.dao.common;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

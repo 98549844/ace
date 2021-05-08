@@ -1,8 +1,8 @@
 package com.service;
 
 import com.controller.AceRestController;
-import com.dao.hibernate.TestDao;
-import com.entity.dao.hibernate.TestEntity;
+import com.dao.TestDao;
+import com.entity.dao.Test;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +18,18 @@ import java.util.List;
 public class TestService {
     private static Logger log = LogManager.getLogger(AceRestController.class.getName());
 
-    @Autowired
     private TestDao testDao;
+
+    @Autowired
+    public TestService(TestDao testDao) {
+        this.testDao = testDao;
+    }
 
     /**
      * @return all result
      */
-    public List<TestEntity> getAll() {
-        List<TestEntity> list = null;
+    public List<Test> getAll() {
+        List<Test> list = null;
         try {
             list = testDao.findAll();
         } catch (Exception e) {
@@ -35,13 +39,13 @@ public class TestService {
     }
 
     /**
-     * @param testEntity obj
+     * @param test obj
      * @return accord object return list
      */
-    public List<TestEntity> getTestEntities(TestEntity testEntity) {
-        List<TestEntity> list = null;
+    public List<Test> getTestEntities(Test test) {
+        List<Test> list = null;
         try {
-            Specification<TestEntity> sp = toPredicate(testEntity);
+            Specification<Test> sp = toPredicate(test);
             list = testDao.findAll(sp);
         } catch (Exception e) {
             log.error(e);
@@ -49,21 +53,21 @@ public class TestService {
         return list;
     }
 
-    public TestEntity getTestEntityById(int id) {
-        TestEntity testEntity = testDao.findById(id);
-        if (testEntity == null) {
+    public Test getTestEntityById(int id) {
+        Test test = testDao.findById(id);
+        if (test == null) {
             return null;
         }
-        return testEntity;
+        return test;
     }
 
     /**
-     * @param testEntity
+     * @param test
      * @return
      */
-    public boolean save(TestEntity testEntity) {
+    public boolean save(Test test) {
         try {
-            testDao.save(testEntity);
+            testDao.save(test);
         } catch (Exception e) {
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -76,7 +80,7 @@ public class TestService {
      * @param testEntities
      * @return
      */
-    public boolean saveAll(Iterable<TestEntity> testEntities) {
+    public boolean saveAll(Iterable<Test> testEntities) {
         try {
             testDao.saveAll(testEntities);
         } catch (Exception e) {
@@ -87,10 +91,10 @@ public class TestService {
         return true;
     }
 
-    public boolean update(TestEntity testEntity) {
+    public boolean update(Test test) {
         try {
-            if (testEntity != null) {
-                testDao.update(testEntity);
+            if (test != null) {
+                testDao.update(test);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,13 +106,13 @@ public class TestService {
     }
 
     /**
-     * @param testEntity del by object
+     * @param test del by object
      * @return boolean
      */
-    public boolean delete(TestEntity testEntity) {
+    public boolean delete(Test test) {
         try {
-            List<TestEntity> list = getTestEntities(testEntity);
-            for (TestEntity t : list) {
+            List<Test> list = getTestEntities(test);
+            for (Test t : list) {
                 delete(t.getId());
             }
         } catch (Exception e) {
@@ -129,20 +133,20 @@ public class TestService {
         return true;
     }
 
-    private Specification<TestEntity> toPredicate(TestEntity testEntity) {
-        Specification<TestEntity> sp = (Specification<TestEntity>) (root, query, criteriaBuilder) -> {
+    private Specification<Test> toPredicate(Test test) {
+        Specification<Test> sp = (Specification<Test>) (root, query, criteriaBuilder) -> {
             List<Predicate> predicatesList = new ArrayList<>();
 
-            if (testEntity.getEmail() != null) {
-                Predicate predicate = criteriaBuilder.like(root.get("email"), "%" + testEntity.getEmail() + "%");
+            if (test.getEmail() != null) {
+                Predicate predicate = criteriaBuilder.like(root.get("email"), "%" + test.getEmail() + "%");
                 predicatesList.add(predicate);
             }
-            if (testEntity.getUserId() != null) {
-                Predicate predicate = criteriaBuilder.greaterThan(root.get("userId"), testEntity.getUserId());
+            if (test.getUserId() != null) {
+                Predicate predicate = criteriaBuilder.greaterThan(root.get("userId"), test.getUserId());
                 predicatesList.add(predicate);
             }
-            if (testEntity.getUserName() != null) {
-                Predicate predicate = criteriaBuilder.equal(root.get("userName"), testEntity.getUserName());
+            if (test.getUserName() != null) {
+                Predicate predicate = criteriaBuilder.equal(root.get("userName"), test.getUserName());
                 predicatesList.add(predicate);
             }
             return criteriaBuilder.and(predicatesList.toArray(new Predicate[predicatesList.size()]));
