@@ -37,7 +37,7 @@ public class AceRestController {
 
     // @ResponseBody
     @RequestMapping(method = RequestMethod.GET, value = "/get")
-    public String getAce() {
+    public String getAceProperties() {
         log.info(aceConfig.getName());
         log.info(aceConfig.getVersion());
         return aceConfig.getName() + " " + aceConfig.getVersion();
