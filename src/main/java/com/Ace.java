@@ -15,12 +15,12 @@ public class Ace {
     // private final static Log log = LogFactory.getLog(Ace.class);
 
     public static void main(String[] args) throws Exception {
-        File file = new File(".");
-        File files = new File("file/image/txt.txt");
+        File file = new File("src/main/resources/file");
+      //  File files = new File("file/image/");
         System.out.println("当前jvm虚拟机启动位置的绝对路径为：" + file.getAbsoluteFile());
         System.out.println("当前jvm虚拟机启动位置的绝对路径为：" + file.getPath());
 
-        System.out.println(files.getAbsolutePath());
-        System.out.println(files.getPath());
+      //  System.out.println(files.getAbsolutePath());
+      //  System.out.println(files.getPath());
     }
 }

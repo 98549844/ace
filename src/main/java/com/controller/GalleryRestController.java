@@ -44,12 +44,7 @@ public class GalleryRestController {
         tmp.put("UNKNOWN", "msg.unknown_error");
     }
 
-    public static void main(String[] args) {
-        GalleryRestController g = new GalleryRestController();
-        System.out.println(errorInfo.get("IO"));
-    }
-
-
+    static String filePath = "src/main/resources/file/image"; // 上传后的路径
     @PostMapping(value = "/upload")
     public String fileUpload(@RequestParam(value = "file") MultipartFile file, Model model, HttpServletRequest request) {
         if (file.isEmpty()) {
@@ -57,8 +52,9 @@ public class GalleryRestController {
         }
         String fileName = file.getOriginalFilename();  // 文件名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
-        //  String filePath = "file/image/"; // 上传后的路径
-        String filePath = "D://temp-rainy//"; // 上传后的路径
+
+        File t = new File(filePath);
+        filePath = t.getAbsolutePath() + "/";
 
         fileName = UUID.randomUUID() + suffixName; // 新文件名
         File dest = new File(filePath + fileName);
@@ -66,6 +62,7 @@ public class GalleryRestController {
             dest.getParentFile().mkdirs();
         }
         try {
+            log.info("transfer file to : {}", filePath);
             file.transferTo(dest);
         } catch (IOException e) {
             e.printStackTrace();
