@@ -20,10 +20,10 @@ import util.LogUtil;
  * @Description:
  */
 
-@EnableConfigurationProperties
 @RestController
 @RequestMapping("/ace")
 @Api(tags = "ace")
+@EnableConfigurationProperties
 public class AceRestController {
     private final static Logger log = LogManager.getLogger(AceRestController.class.getName());
 

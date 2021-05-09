@@ -1,8 +1,6 @@
 package com.config;
 
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +15,9 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
-@SuppressWarnings("unchecked")
 @Configuration
 @EnableSwagger2
 //@ComponentScan("com.aceboot")
@@ -27,11 +26,8 @@ import java.util.Optional;
 public class SwaggerConfig {
 
     @Value("${swagger.enabled}")
-    private Boolean enabled = false;
+    private final Boolean enabled = false;
 
-    /**
-     * @return
-     */
     /*
      * 创建API应用
      * apiInfo() 增加API相关信息
@@ -46,19 +42,24 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any()).build();
     }
 
+    @SuppressWarnings("unchecked")
     private static Optional<? extends Class<?>> declaringClass(RequestHandler input) {
         // return Optional.fromNullable(input.declaringClass())
         return Optional.ofNullable(input.declaringClass());
     }
 
     public static Predicate<RequestHandler> basePackage(final String basePackage) {
+        return input -> declaringClass(input).map(handlerPackage(basePackage)).orElse(true);
+    }
+
+ /*   public static Predicate<RequestHandler> basePackage(final String basePackage) {
         return new Predicate<RequestHandler>() {
             @Override
             public boolean apply(RequestHandler input) {
                 return declaringClass(input).map(handlerPackage(basePackage)::apply).orElse(true);
             }
         };
-    }
+    }*/
 
     /**
      * 处理包路径配置规则,支持多路径扫描匹配以逗号隔开
@@ -67,17 +68,14 @@ public class SwaggerConfig {
      * @return Function
      */
     private static Function<Class<?>, Boolean> handlerPackage(final String basePackage) {
-        return new Function<Class<?>, Boolean>() {
-            @Override
-            public Boolean apply(Class<?> input) {
-                for (String strPackage : basePackage.split(",")) {
-                    boolean isMatch = input.getPackage().getName().startsWith(strPackage);
-                    if (isMatch) {
-                        return true;
-                    }
+        return input -> {
+            for (String strPackage : basePackage.split(",")) {
+                boolean isMatch = input.getPackage().getName().startsWith(strPackage);
+                if (isMatch) {
+                    return true;
                 }
-                return false;
             }
+            return false;
         };
     }
 
