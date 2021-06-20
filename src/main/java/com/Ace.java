@@ -20,7 +20,9 @@ public class Ace {
         System.out.println("当前jvm虚拟机启动位置的绝对路径为：" + file.getAbsoluteFile());
         System.out.println("当前jvm虚拟机启动位置的绝对路径为：" + file.getPath());
 
-      //  System.out.println(files.getAbsolutePath());
+
+
+      //  System.out.println(files.getAbsolutePath()) //;
       //  System.out.println(files.getPath());
     }
 }
