@@ -18,7 +18,8 @@ logging:
   level:
     com:
       example:
-        mapper : debug
+        mapper: debug
+
 
 
 spring:
@@ -62,6 +63,13 @@ spring:
     show-sql: true
     #去掉WARN spring.jpa.open-in-view is enabled by default
     open-in-view: true
+    properties:
+      hibernate:
+        format_sql: true
+       # use_sql_comments: true
+        # 对应的entity
+
+
 
   redis:
     # Redis服务器地址
@@ -99,7 +107,3 @@ spring:
     #password: guest
     #username: guest
     #virtual-host: /
-
-
-
-

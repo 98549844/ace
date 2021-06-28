@@ -2,6 +2,7 @@ package com.entity.dao.base;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import util.NullUtil;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -28,9 +29,20 @@ public class baseEntity {
     @Column(name = "last_update_by")
     private String lastUpdateBy;
     @Column(name = "version")
-    private int version;
+    private Integer version;
 
+    public baseEntity() {
+        if (NullUtil.isNull(version) || version == 0) {
+            version = 1;
+        }
+        if (NullUtil.isNull(createdDate)) {
+            createdDate = LocalDateTime.now();
+        }
+        if (NullUtil.isNull(lastUpdateDate)) {
+            createdDate = LocalDateTime.now();
+        }
 
+    }
 
     public LocalDateTime getCreatedDate() {
         return createdDate;
@@ -64,11 +76,11 @@ public class baseEntity {
         this.lastUpdateBy = lastUpdateBy;
     }
 
-    public int getVersion() {
+    public Integer getVersion() {
         return version;
     }
 
-    public void setVersion(int version) {
+    public void setVersion(Integer version) {
         this.version = version;
     }
 }

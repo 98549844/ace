@@ -5,6 +5,7 @@ import com.util.ApplicationContextUtil;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import util.IpUtil;
@@ -26,6 +27,7 @@ import java.util.Map;
 @SpringBootApplication
 @ComponentScan({"com", "util"})
 @MapperScan("com.mapper")
+//@EntityScan("com.dao")
 public class AceApplication {
 
 

@@ -2,7 +2,7 @@ package com.sampleDataGenerator;
 
 
 import com.entity.dao.Test;
-import com.entity.dao.User;
+import com.entity.dao.Users;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -19,24 +19,24 @@ public class DataGenerator {
         }
     }
 
-    public static List<User> getTestDataList() {
-        User u1 = new User();
+    public static List<Users> getTestDataList() {
+        Users u1 = new Users();
         u1.setUserName("Garlam");
         u1.setEmail("garlam_au@qq.com");
 
-        User u2 = new User();
+        Users u2 = new Users();
         u2.setUserName("lily");
         u2.setEmail("lily_fu@qq.com");
 
-        User u3 = new User();
+        Users u3 = new Users();
         u3.setUserName("peter");
         u3.setEmail("peter_lee@qq.com");
 
-        User u4 = new User();
+        Users u4 = new Users();
         u4.setUserName("mary");
         u4.setEmail("mary_ma@qq.com");
 
-        List<User> ulist = new ArrayList<>();
+        List<Users> ulist = new ArrayList<>();
         ulist.add(u1);
         ulist.add(u2);
         ulist.add(u3);

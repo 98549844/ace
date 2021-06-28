@@ -24,16 +24,6 @@ public class Test extends baseEntity implements Serializable {
     @Column(name = "email")
     private String email;
 
-/*    @Column(name = "created_date")
-    private Date createdDate;
-    @Column(name = "last_update_date")
-    private Date lastUpdateDate;
-    @Column(name = "created_by")
-    private String createdBy;
-    @Column(name = "last_update_by")
-    private String lastUpdateBy;
-    @Column(name = "version")
-    private int version;*/
 
     public Integer getId() {
         return id;

@@ -12,19 +12,27 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "access_log")
 @Entity
-public class ConsoleLog extends baseEntity implements Serializable {
+public class AccessLog extends baseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GenericGenerator(strategy = "identity", name = "id")
     @Column(name = "logId")
-    Long logId;
+    private Long logId;
 
     @Column(name = "operator")
-    String operator;
+    private String operator;
     @Column(name = "description")
-    String description;
+    private String description;
     @Column(name = "accessTime")
-    LocalDateTime accessTime;
+    private LocalDateTime accessTime;
+
+    public Long getLogId() {
+        return logId;
+    }
+
+    public void setLogId(Long logId) {
+        this.logId = logId;
+    }
 
     public String getOperator() {
         return operator;
