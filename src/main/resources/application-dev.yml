@@ -17,8 +17,8 @@ mybatis:
 logging:
   level:
     com:
-      example:
-        mapper: debug
+      mapper: debug
+
 
 
 
@@ -27,8 +27,10 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
+    #driver-class-name: org.mariadb.jdbc.Driver
+    #url: jdbc:mariadb://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mariadb://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
     username: root
     password: garlamau
     type: com.zaxxer.hikari.HikariDataSource
@@ -60,9 +62,9 @@ spring:
       #validate:
       #会验证创建数据库表结构，只会和数据库中的表进行比较，不会创建新表，
       #但是会插入新值，运行程序会校验实体字段与数据库已有的表的字段类型是否相同，不同会报错
-    show-sql: true
     #去掉WARN spring.jpa.open-in-view is enabled by default
     open-in-view: true
+#    show-sql: true
     properties:
       hibernate:
         format_sql: true
@@ -107,3 +109,4 @@ spring:
     #password: guest
     #username: guest
     #virtual-host: /
+#debug: true

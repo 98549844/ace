@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import util.Console;
 import util.FileUtil;
 
 import java.io.File;
@@ -16,13 +17,12 @@ public class Ace {
 
     public static void main(String[] args) throws Exception {
         File file = new File("src/main/resources/file");
-      //  File files = new File("file/image/");
-        System.out.println("当前jvm虚拟机启动位置的绝对路径为：" + file.getAbsoluteFile());
-        System.out.println("当前jvm虚拟机启动位置的绝对路径为：" + file.getPath());
+        //  File files = new File("file/image/");
+        //   System.out.println("当前jvm虚拟机启动位置的绝对路径为：" + file.getAbsoluteFile());
+        //  System.out.println("当前jvm虚拟机启动位置的绝对路径为：" + file.getPath());
 
-
-
-      //  System.out.println(files.getAbsolutePath()) //;
-      //  System.out.println(files.getPath());
+        String s = "[http-nio-8088-exec-10]";
+        System.out.println(Console.BLACK);
+        //  System.out.println(files.getPath());
     }
 }
