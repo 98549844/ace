@@ -1,13 +1,17 @@
 package com;
 
+import com.config.AceConfig;
 import com.config.BrowserConfig;
 import com.util.ApplicationContextUtil;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import util.IpUtil;
 import util.MapUtil;
 
@@ -27,11 +31,13 @@ import java.util.Map;
 @SpringBootApplication
 @ComponentScan({"com", "util"})
 @MapperScan("com.mapper")
-//@EntityScan("com.dao")
+@EnableTransactionManagement
+@EnableCaching
 public class AceApplication {
 
 
     public static ApplicationContext applicationContext;
+
 
     public static void main(String[] args) throws IOException {
         applicationContext = SpringApplication.run(AceApplication.class, args);
@@ -45,12 +51,18 @@ public class AceApplication {
         MapUtil mapUtil = new MapUtil();
         mapUtil.iterateMapKeyset(m);
 
-        BrowserConfig.OpenMacDefaultBrowser();
-
-        // BrowserConfig.OpenWindowsDefaultBrowser();
-        // BrowserConfig.OpenSwaggerPage();
-
         //print all application context bean name
         //ApplicationContextUtil.printAllBeanName(applicationContext);
+        ApplicationContextUtil applicationContextUtil = new ApplicationContextUtil();
+        AceConfig aceConfig = (AceConfig) applicationContextUtil.getBeanByName("aceConfig");
+
+        BrowserConfig browserConfig = new BrowserConfig();
+        browserConfig.openMacDefaultBrowser(aceConfig.isIndexEnable());
+        browserConfig.openSwaggerOnMac(m, aceConfig.isSwaggerEnable());
+
+        //BrowserConfig.OpenWindowsDefaultBrowser();
+        //BrowserConfig.OpenSwaggerPage();
+
+
     }
 }

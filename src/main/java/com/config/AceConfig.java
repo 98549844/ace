@@ -15,12 +15,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 @PropertySource(value = {"classpath:ace.properties"}, ignoreResourceNotFound = false, encoding = "UTF-8", name = "ace.properties")
+@PropertySource(value = {"classpath:swagger2.properties"}, ignoreResourceNotFound = false, encoding = "UTF-8", name = "swagger2.properties")
 public class AceConfig {
     private static Logger log = LogManager.getLogger(AceConfig.class.getName());
     @Value("${ace.name}")
     private String name;
     @Value("${ace.version}")
     private String version;
+    @Value("${swagger.enabled}")
+    private boolean swaggerEnable;
+    @Value("${ace.indexEnable}")
+    private boolean indexEnable;
+
 
     public String getName() {
         return name;
@@ -36,6 +42,22 @@ public class AceConfig {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public boolean isSwaggerEnable() {
+        return swaggerEnable;
+    }
+
+    public void setSwaggerEnable(boolean swaggerEnable) {
+        this.swaggerEnable = swaggerEnable;
+    }
+
+    public boolean isIndexEnable() {
+        return indexEnable;
+    }
+
+    public void setIndexEnable(boolean indexEnable) {
+        this.indexEnable = indexEnable;
     }
 }
 

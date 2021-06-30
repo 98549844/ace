@@ -4,8 +4,8 @@ package com.config;
 import com.util.ApplicationContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
 import util.Console;
 import util.DataTypeUtil;
 import util.IpUtil;
@@ -24,15 +24,15 @@ public class BrowserConfig {
 
     static String url = "http://localhost:8088/";
     static String SwaggerUrl = "http://localhost:8088/swagger-ui.html";
-    static String browser = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe ";
+    static String windowsBrowser = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe ";
 
     /**
      * 打开默认Browser
      */
 
-    public static void OpenWindowsDefaultBrowser() {
+    public void openWindowsDefaultBrowser() {
         try {
-            ProcessBuilder proc = new ProcessBuilder(browser, url);
+            ProcessBuilder proc = new ProcessBuilder(windowsBrowser, url);
             proc.start();
             BrowserConfig config = new BrowserConfig();
             config.PrintUrl("WELCOME PAGE: ", url);
@@ -41,29 +41,37 @@ public class BrowserConfig {
         }
     }
 
-    public static void OpenMacDefaultBrowser() throws IOException {
+    public void openSwaggerOnMac(Map m, boolean isSwaggerEnable) throws IOException {
+        if (!isSwaggerEnable) {
+            return;
+        }
+        String macSwaggerUrl = SwaggerUrl.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
+        String Command = "open " + macSwaggerUrl;
+        log.info("Swagger2:\t\t" + SwaggerUrl);
+        Process Child = Runtime.getRuntime().exec(Command);
+    }
+
+
+    public void openMacDefaultBrowser(boolean indexEnable) throws IOException {
         ApplicationContextUtil app = new ApplicationContextUtil();
         IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
         Map m = ip.getHostInfo();
-
         String macUrl = url.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
-        String macSwaggerUrl = SwaggerUrl.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
-
         log.info("Home Page:\t\t" + macUrl);
-        String Command = "open " + macSwaggerUrl;
-        if (StringUtils.hasText(macSwaggerUrl)) {
-            log.info("Swagger2:\t\t" + SwaggerUrl);
+        if (true) {
+            String Command = "open " + macUrl;
             Process Child = Runtime.getRuntime().exec(Command);
         }
+
     }
 
 
     /**
      * 打开默认Browser
      */
-    public static void OpenSwaggerPage() {
+    public void openSwaggerPage() {
         try {
-            ProcessBuilder proc = new ProcessBuilder(browser, SwaggerUrl);
+            ProcessBuilder proc = new ProcessBuilder(windowsBrowser, SwaggerUrl);
             proc.start();
             BrowserConfig config = new BrowserConfig();
             config.PrintUrl("SWAGGER:\t\t", SwaggerUrl);
@@ -78,7 +86,7 @@ public class BrowserConfig {
         Console.println(banner + url, Console.BOLD, Console.BLUE);
     }
 
-    public static boolean getOsInfo() {
+    public boolean getOsInfo() {
         //Java获取当前操作系统的信息
         //https://blog.csdn.net/qq_35981283/article/details/73332040
         Properties props = System.getProperties();

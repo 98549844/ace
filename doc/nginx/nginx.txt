@@ -1,0 +1,12 @@
+1.
+docker exec -i -t nginx_7080 /bin/bash
+docker exec -it nginx_7080 bash
+进入容器
+
+2.
+/etc/nginx/conf.d# cat default.conf
+查看nginx容器的基本配置
+
+3.
+mkdir -p /data/nginx/{conf,conf.d,html,logs}
+创建挂载目录

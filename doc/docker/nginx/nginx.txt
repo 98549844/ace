@@ -1,0 +1,25 @@
+1.
+docker pull nginx
+2.
+docker run --name nginx_7080 -p 7080:80 -d nginx
+参数说明：
+-name nginx：容器名称
+-p 8080:80： 端口进行映射, 将本地 8080 端口映射到容器内部的 80 端口
+-d nginx： 设置容器在在后台一直运行
+
+3.
+docker exec -i -t nginx_7080 /bin/bash
+docker exec -it nginx_7080 bash
+进入容器
+
+4.
+/etc/nginx/conf.d# cat default.conf
+查看nginx容器的基本配置
+
+5.
+mkdir -p /data/nginx/{conf,conf.d,html,logs}
+创建挂载目录
+
+
+https://blog.csdn.net/qq_38234785/article/details/114703146
+https://www.cnblogs.com/hailun1987/p/9671801.html

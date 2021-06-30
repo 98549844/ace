@@ -23,6 +23,16 @@ logging:
 
 
 spring:
+  thymeleaf:
+    cache: true
+    mode: HTML
+    encoding: utf-8
+    servlet:
+      content-type: text/html
+    template-resolver-order: 1
+    check-template-location: true
+
+
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8

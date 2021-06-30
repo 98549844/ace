@@ -20,8 +20,8 @@ public class ApplicationContextUtil {
    //   private static final Logger logger = LoggerFactory.getLogger(ApplicationContextUtil.class);
     public static ApplicationContext applicationContext = null;
 
-    @Autowired
-    private RequestMappingHandlerMapping requestMappingHandlerMapping;
+    //@Autowired
+   // private RequestMappingHandlerMapping requestMappingHandlerMapping;
 
     public ApplicationContextUtil() {
         if (applicationContext == null) {
