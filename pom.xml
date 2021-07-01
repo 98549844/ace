@@ -212,15 +212,15 @@
                     <useSystemClassLoader>false</useSystemClassLoader>
                 </configuration>
             </plugin>
-            <plugin>
-                <!--解决@profiles.active@ 启动报错-->
+<!--            <plugin>
+                &lt;!&ndash;解决@profiles.active@ 启动报错&ndash;&gt;
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <configuration>
                     <delimiters>@</delimiters>
                     <useDefaultDelimiters>false</useDefaultDelimiters>
                 </configuration>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
     <repositories>

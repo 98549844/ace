@@ -39,7 +39,7 @@ public class baseEntity {
             createdDate = LocalDateTime.now();
         }
         if (NullUtil.isNull(lastUpdateDate)) {
-            createdDate = LocalDateTime.now();
+            lastUpdateDate = LocalDateTime.now();
         }
 
     }
