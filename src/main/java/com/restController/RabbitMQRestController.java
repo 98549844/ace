@@ -20,7 +20,7 @@ import util.SleepUtil;
  * @Description:
  */
 
-@RestController
+//@RestController
 @RequestMapping("/rest/rabbitmq")
 @Api(tags = "rabbitmq")
 public class RabbitMQRestController {
@@ -48,7 +48,7 @@ public class RabbitMQRestController {
     }
 
 
-    // queues是指要监听的队列的名字
+   //  queues是指要监听的队列的名字
     @RabbitListener(queues = RabbitMQConfig.QUEUE)
     public void receiverDirectQueue(String msg) {
         SleepUtil.sleep(3);

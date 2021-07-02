@@ -16,22 +16,27 @@ mybatis:
 #showSql
 logging:
   level:
+    #root logging mode
+    root: info
     com:
       mapper: debug
 
 
-
-
 spring:
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
   thymeleaf:
-    cache: true
-    mode: HTML
-    encoding: utf-8
+    cache: false
+    mode: HTML5
+    encoding: UTF-8
     servlet:
-      content-type: text/html
+      content-type: text/html; charset=utf-8
     template-resolver-order: 1
     check-template-location: true
-
+    prefix: classpath:/templates/
+    suffix: .html
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -119,4 +124,3 @@ spring:
     #password: guest
     #username: guest
     #virtual-host: /
-#debug: true

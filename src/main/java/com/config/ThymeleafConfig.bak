@@ -7,15 +7,9 @@ import com.interceptor.Interceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.*;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Collections;
 
 /**
  * @Classname: Configurator
@@ -25,8 +19,9 @@ import java.util.Collections;
  */
 
 @Configuration
-public class Configurator implements WebMvcConfigurer {
-    private static Logger log = LogManager.getLogger(Configurator.class.getName());
+@EnableWebMvc
+public class ThymeleafConfig implements WebMvcConfigurer {
+    private static Logger log = LogManager.getLogger(ThymeleafConfig.class.getName());
 
     /**
      * 修改主页

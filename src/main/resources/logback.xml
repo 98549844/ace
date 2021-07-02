@@ -9,7 +9,9 @@
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <!--<pattern>1-%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger - %msg%n</pattern>-->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %highlight(%-5level) [%boldMagenta(%-10t)] --- %green(%c) %boldCyan(%-10M): %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %highlight(%-5level) [%boldMagenta(%-10t)] --- %green(%c)
+                %boldCyan(%-10M): %msg%n
+            </pattern>
             <charset>utf-8</charset>
         </encoder>
     </appender>
@@ -21,13 +23,14 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_PATH}/${APPDIR}/error/log-error-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-               <!-- <maxHistory>90</maxHistory>-->
                 <maxFileSize>512MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
+<!--            <maxHistory>90</maxHistory>-->
+<!--            <cleanHistoryOnStart>true</cleanHistoryOnStart>-->
         </rollingPolicy>
         <append>true</append>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %highlight(%-5level) [%boldMagenta(%-10t)] --- %green(%c) %boldCyan(%-10M): %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %-5level [%-10t] --- %c %-10M: %msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -43,13 +46,14 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_PATH}/${APPDIR}/warn/log-warn-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <!--<maxHistory>90</maxHistory>-->
                 <maxFileSize>8MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
+<!--            <maxHistory>0</maxHistory>-->
+<!--            <cleanHistoryOnStart>true</cleanHistoryOnStart>-->
         </rollingPolicy>
         <append>true</append>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %highlight(%-5level) [%boldMagenta(%-10t)] --- %green(%c) %boldCyan(%-10M): %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %-5level [%-10t] --- %c %-10M: %msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -66,13 +70,14 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_PATH}/${APPDIR}/info/log-info-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <!--<maxHistory>90</maxHistory>-->
                 <maxFileSize>8MB</maxFileSize>
+<!--                <maxHistory>90</maxHistory>-->
+<!--                <cleanHistoryOnStart>true</cleanHistoryOnStart>-->
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <append>true</append>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %highlight(%-5level) [%boldMagenta(%-10t)] --- %green(%c) %boldCyan(%-10M): %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %-5level [%-10t] --- %c %-10M: %msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -84,7 +89,8 @@
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %highlight(%-5level) [%boldMagenta(%-10t)] --- %green(%c) %boldCyan(%-10M): %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %highlight(%-5level) [%boldMagenta(%-10t)] --- %green(%c) %boldCyan(%-10M): %msg%n
+            </pattern>
         </encoder>
     </appender>
 

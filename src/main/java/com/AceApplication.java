@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import util.IpUtil;
 import util.MapUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -52,13 +53,16 @@ public class AceApplication {
         mapUtil.iterateMapKeyset(m);
 
         //print all application context bean name
-        //ApplicationContextUtil.printAllBeanName(applicationContext);
+        ApplicationContextUtil.printAllBeanName(applicationContext);
+
         ApplicationContextUtil applicationContextUtil = new ApplicationContextUtil();
         AceConfig aceConfig = (AceConfig) applicationContextUtil.getBeanByName("aceConfig");
 
         BrowserConfig browserConfig = new BrowserConfig();
         browserConfig.openMacDefaultBrowser(aceConfig.isIndexEnable());
         browserConfig.openSwaggerOnMac(m, aceConfig.isSwaggerEnable());
+        browserConfig.getCss();
+        browserConfig.getIndex();
 
         //BrowserConfig.OpenWindowsDefaultBrowser();
         //BrowserConfig.OpenSwaggerPage();
