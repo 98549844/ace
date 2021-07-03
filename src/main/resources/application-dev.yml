@@ -27,20 +27,31 @@ spring:
     restart:
       enabled: true
       additional-paths: src/main/java
+
+  mvc:
+    static-path-pattern: /static/** # js ,css 等静态文件路径
+
   thymeleaf:
     cache: false
-    mode: HTML5
+    mode: HTML
     encoding: UTF-8
     servlet:
-      content-type: text/html; charset=utf-8
+      content-type: text/html
     template-resolver-order: 1
     check-template-location: true
-    prefix: classpath:/templates/
-    suffix: .html
+    #  prefix: classpath:/templates/
+    # suffix: .html
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+
   datasource:
     #driver-class-name: org.mariadb.jdbc.Driver
     #url: jdbc:mariadb://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
@@ -79,11 +90,11 @@ spring:
       #但是会插入新值，运行程序会校验实体字段与数据库已有的表的字段类型是否相同，不同会报错
     #去掉WARN spring.jpa.open-in-view is enabled by default
     open-in-view: true
-#    show-sql: true
+    #    show-sql: true
     properties:
       hibernate:
         format_sql: true
-       # use_sql_comments: true
+        # use_sql_comments: true
         # 对应的entity
 
 
@@ -101,6 +112,8 @@ spring:
     username: garlam
     password: garlamau
     virtual-host: /
+
+
 
     #receiver
     #rabbitmq:
@@ -124,3 +137,5 @@ spring:
     #password: guest
     #username: guest
     #virtual-host: /
+
+

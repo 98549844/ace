@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -23,7 +24,7 @@ import java.util.function.Predicate;
 //@ComponentScan("com.aceboot")
 @PropertySource(value = "classpath:swagger2.properties", ignoreResourceNotFound = true, encoding = "UTF-8")
 //@Profile("dev")
-public class SwaggerConfig {
+public class SwaggerConfig implements WebMvcConfigurer {
 
     @Value("${swagger.enabled}")
     private final Boolean enabled = false;
@@ -37,7 +38,9 @@ public class SwaggerConfig {
      */
     @Bean
     public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2).enable(enabled).apiInfo(apiInfo()).select().apis(RequestHandlerSelectors.basePackage("com.controller"))
+        return new Docket(DocumentationType.SWAGGER_2).enable(enabled).apiInfo(apiInfo()).select()
+                .apis(RequestHandlerSelectors.basePackage("com.restController"))
+               // .apis(RequestHandlerSelectors.basePackage("com.controller"))
                 //.apis(SwaggerConfig.basePackage("com.controller,com.restController"))
                 .paths(PathSelectors.any()).build();
     }

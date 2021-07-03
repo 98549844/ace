@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.interceptor.Interceptor;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -20,6 +21,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 @Configuration
 //@EnableWebMvc
+//@EnableAutoConfiguration
 public class ThymeleafConfig implements WebMvcConfigurer {
     private static Logger log = LogManager.getLogger(ThymeleafConfig.class.getName());
 
@@ -58,16 +60,14 @@ public class ThymeleafConfig implements WebMvcConfigurer {
      */
 //    @Override
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        //将templates目录下的CSS、JS文件映射为静态资源，防止Spring把这些资源识别成thymeleaf模版
+//       // 将templates目录下的CSS、JS文件映射为静态资源，防止Spring把这些资源识别成thymeleaf模版
 //        registry.addResourceHandler("/templates/**.js").addResourceLocations("classpath:/templates/");
 //        registry.addResourceHandler("/templates/**.css").addResourceLocations("classpath:/templates/");
-//        //其他静态资源
+//       // 其他静态资源
 //        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-//        //swagger增加url映射
-//        registry.addResourceHandler("swagger-ui.html")
-//                .addResourceLocations("classpath:/META-INF/resources/");
-//        registry.addResourceHandler("/webjars/**")
-//                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+//       // swagger增加url映射
+//        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+//        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 //    }
 
     /**

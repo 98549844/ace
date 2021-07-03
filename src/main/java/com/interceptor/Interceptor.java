@@ -38,9 +38,8 @@ public class Interceptor implements HandlerInterceptor {
         String status = Integer.toString(response.getStatus());
         String RequestURI = request.getRequestURI();
 
-        log.info("preHandle 1");
-        log.info("preHandle 2: " + "response.status : " + status);
-        log.info("preHandle 3: " + "request.RequestURI : " + RequestURI);
+        log.info("pre 1: " + "response.status : " + status);
+        log.info("pre3: " + "request.RequestURI : " + RequestURI);
 
         AccessLog accessLog = new AccessLog();
         accessLog.setOperator(request.getMethod());
@@ -53,14 +52,14 @@ public class Interceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-        log.info("postHandle 1:");
-        log.info("postHandle 2: response.status: " + response.getStatus());
+        log.info("post 1:");
+        log.info("post 2: response.status: " + response.getStatus());
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         // log.info("afterCompletion :【在整个请求结束之后被调用,也就是在DispatcherServlet渲染了对应的视图之后执行(主要用于资源清理工作)】");
-        log.info("afterCompletion :【finished calling , after complete DispatcherServlet】");
+        log.info("Completion!!!");
     }
 
 

@@ -3,7 +3,7 @@
     <!-- 从application.yml 中注入变量  -->
     <!-- <springProperty scope="context" name="LOG_PATH" source="log.home"/> -->
     <!-- <springProperty scope="context" name="APPDIR" source="spring.application.name"/> -->
-    <property name="LOG_PATH" value="./src/main/resources/"/>
+    <property name="LOG_PATH" value="./src/main/resources"/>
     <property name="APPDIR" value="log4j"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

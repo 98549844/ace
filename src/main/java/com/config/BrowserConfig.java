@@ -70,7 +70,7 @@ public class BrowserConfig {
         IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
         Map m = ip.getHostInfo();
         String macUrl = url.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
-        log.info("Home Page:\t\t" + macUrl);
+        log.info("Home Page:\t\t" + macUrl+ "assets/css/bootstrap.min.css");
         if (true) {
             String Command = "open " + macUrl + "assets/css/bootstrap.min.css";
             Process Child = Runtime.getRuntime().exec(Command);
@@ -82,7 +82,7 @@ public class BrowserConfig {
         IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
         Map m = ip.getHostInfo();
         String macUrl = url.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
-        log.info("Home Page:\t\t" + macUrl);
+        log.info("Home Page:\t\t" + macUrl+ "ace/index.html");
         if (true) {
             String Command = "open " + macUrl + "ace/index.html";
             Process Child = Runtime.getRuntime().exec(Command);
