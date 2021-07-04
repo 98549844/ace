@@ -4,14 +4,18 @@ import com.dao.UsersDao;
 import com.entity.dao.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import util.NullUtil;
 
 import javax.persistence.criteria.Predicate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -26,6 +30,22 @@ public class UsersService {
     private static Logger log = LogManager.getLogger(UsersService.class.getName());
 
     private UsersDao usersDao;
+
+
+    public boolean validate(Users users) {
+        boolean validate = false;
+        if (NullUtil.isNotNull(users)) {
+            if (NullUtil.isNull(users.getEmail())) {
+                validate = true;
+            } else if (NullUtil.isNull(users.getUserName())) {
+                validate = true;
+            } else if (NullUtil.isNull(users.getPassword())) {
+                validate = true;
+            }
+        }
+        return validate;
+    }
+
 
     @Autowired
     public UsersService(UsersDao usersDao) {
@@ -55,7 +75,6 @@ public class UsersService {
         }
         return list;
     }
-
 
 
     public Optional<Users> getUsersById(long id) {
