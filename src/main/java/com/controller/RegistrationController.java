@@ -33,7 +33,7 @@ public class RegistrationController extends CommonController {
         this.usersService = usersService;
     }
 
-    @RequestMapping("/registration")
+    @RequestMapping("/registration.html")
     public ModelAndView login(@ModelAttribute Users users) {
         ModelAndView modelAndView;
 

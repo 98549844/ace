@@ -17,7 +17,6 @@
     <description>project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
-<!--        <thymeleaf-spring5.version>3.0.12.RELEASE</thymeleaf-spring5.version>-->
     </properties>
     <dependencies>
         <dependency>
@@ -85,6 +84,10 @@
                     <groupId>org.springframework</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
         <!--rabbitmq-->

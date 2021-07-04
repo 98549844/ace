@@ -25,8 +25,23 @@ logging:
 spring:
   devtools:
     restart:
-      enabled: true
+      enabled: false
       additional-paths: src/main/java
+
+  mail:
+    host: smtp.qq.com
+    username: 87548744@qq.com
+    password: pyriobyuiqvxbgdc
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    default-encoding: UTF-8
+    port: 465
+    protocol: smtps
 
   mvc:
     static-path-pattern: /static/** # js ,css 等静态文件路径
@@ -137,5 +152,4 @@ spring:
     #password: guest
     #username: guest
     #virtual-host: /
-
 

@@ -64,8 +64,8 @@ public class ThymeleafConfig implements WebMvcConfigurer {
         // 其他静态资源
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
         // swagger增加url映射
-        // registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-        // registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     /**

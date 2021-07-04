@@ -21,7 +21,6 @@ import java.util.function.Predicate;
 
 @Configuration
 @EnableSwagger2
-//@ComponentScan("com.aceboot")
 @PropertySource(value = "classpath:swagger2.properties", ignoreResourceNotFound = true, encoding = "UTF-8")
 //@Profile("dev")
 public class SwaggerConfig implements WebMvcConfigurer {
