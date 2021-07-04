@@ -13,16 +13,17 @@ import java.util.List;
 
 public class Ace {
     private static Logger log = LogManager.getLogger(Ace.class.getName());
-    // private final static Log log = LogFactory.getLog(Ace.class);
 
     public static void main(String[] args) throws Exception {
-        File file = new File("src/main/resources/file");
-        //  File files = new File("file/image/");
-        //   System.out.println("当前jvm虚拟机启动位置的绝对路径为：" + file.getAbsoluteFile());
-        //  System.out.println("当前jvm虚拟机启动位置的绝对路径为：" + file.getPath());
 
-        String s = "[http-nio-8088-exec-10]";
-        System.out.println(Console.BLACK);
-        //  System.out.println(files.getPath());
+        int[][] a = new int[10][5];
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 5; j++) {
+                a[i][j] = i + j;
+                System.out.print(a[i][j]);
+            }
+            System.out.println();
+        }
     }
 }

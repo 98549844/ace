@@ -197,7 +197,7 @@
                                     <div class="space-6"></div>
                                     <p> Enter your details to begin: </p>
                                     <!--                                    <form th:action="@{/ace/registration}" th:object="${user}" th:method="post" id="registration">-->
-                                    <form action="/ace/registration" method="post" id="registration">
+                                    <form action="/ace/registration.html" method="post" id="registration">
                                         <fieldset>
                                             <label class="block clearfix">
                                                 <span class="block input-icon input-icon-right">
@@ -387,7 +387,7 @@
                 alert("Please read the agreement");
                 return;
             }
-            $("#registration").submit();
+            $("#registration.html").submit();
         })
     });
 </script>

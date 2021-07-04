@@ -1,5 +1,6 @@
 package com.entity.dao;
 
+import com.entity.dao.base.baseEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -10,7 +11,7 @@ import java.io.Serializable;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
 @Entity
-public class Users implements Serializable {
+public class Users extends baseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(strategy = "identity", name = "id")
@@ -36,6 +37,7 @@ public class Users implements Serializable {
     private String ip;
     @Column
     private String hostName;
+
 
     public Integer getId() {
         return id;
@@ -108,30 +110,4 @@ public class Users implements Serializable {
     public void setHostName(String hostName) {
         this.hostName = hostName;
     }
-
-    public String getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    @Column
-    private String createUser;
-    @Column
-    private String remark;
-
-
-
-
-
 }

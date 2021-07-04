@@ -55,15 +55,6 @@ public class SwaggerConfig implements WebMvcConfigurer {
         return input -> declaringClass(input).map(handlerPackage(basePackage)).orElse(true);
     }
 
- /*   public static Predicate<RequestHandler> basePackage(final String basePackage) {
-        return new Predicate<RequestHandler>() {
-            @Override
-            public boolean apply(RequestHandler input) {
-                return declaringClass(input).map(handlerPackage(basePackage)::apply).orElse(true);
-            }
-        };
-    }*/
-
     /**
      * 处理包路径配置规则,支持多路径扫描匹配以逗号隔开
      *

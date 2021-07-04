@@ -29,24 +29,13 @@ import java.util.Map;
 public class Interceptor implements HandlerInterceptor {
     private static Logger log = LogManager.getLogger(Interceptor.class.getName());
 
-    @Autowired
-    private AccessLogDao accessLogDao;
-
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String status = Integer.toString(response.getStatus());
         String RequestURI = request.getRequestURI();
 
         log.info("pre 1: " + "response.status : " + status);
-        log.info("pre3: " + "request.RequestURI : " + RequestURI);
-
-        AccessLog accessLog = new AccessLog();
-        accessLog.setOperator(request.getMethod());
-        accessLog.setDescription("status: " + status + " RequestURI: " + RequestURI);
-        accessLog.setAccessTime(LocalDateTime.now());
-        accessLogDao.save(accessLog);
-
+        log.info("pre 2: " + "request.RequestURI : " + RequestURI);
         return true;
     }
 

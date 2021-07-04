@@ -17,6 +17,7 @@
     <description>project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
+<!--        <thymeleaf-spring5.version>3.0.12.RELEASE</thymeleaf-spring5.version>-->
     </properties>
     <dependencies>
         <dependency>

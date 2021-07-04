@@ -27,7 +27,7 @@ public class baseEntity {
     @Column(name = "created_by")
     private String createdBy;
     @Column(name = "last_update_by")
-    private String lastUpdateBy;
+    private String lastUpdatedBy;
     @Column(name = "version")
     private Integer version;
 
@@ -38,9 +38,7 @@ public class baseEntity {
         if (NullUtil.isNull(createdDate)) {
             createdDate = LocalDateTime.now();
         }
-        if (NullUtil.isNull(lastUpdateDate)) {
-            lastUpdateDate = LocalDateTime.now();
-        }
+        lastUpdateDate = LocalDateTime.now();
 
     }
 
@@ -68,12 +66,12 @@ public class baseEntity {
         this.createdBy = createdBy;
     }
 
-    public String getLastUpdateBy() {
-        return lastUpdateBy;
+    public String getLastUpdatedBy() {
+        return lastUpdatedBy;
     }
 
-    public void setLastUpdateBy(String lastUpdateBy) {
-        this.lastUpdateBy = lastUpdateBy;
+    public void setLastUpdatedBy(String lastUpdatedBy) {
+        this.lastUpdatedBy = lastUpdatedBy;
     }
 
     public Integer getVersion() {

@@ -62,32 +62,31 @@ public class BrowserConfig {
             String Command = "open " + macUrl;
             Process Child = Runtime.getRuntime().exec(Command);
         }
-
     }
 
-    public void getCss() throws IOException {
-        ApplicationContextUtil app = new ApplicationContextUtil();
-        IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
-        Map m = ip.getHostInfo();
-        String macUrl = url.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
-        log.info("Home Page:\t\t" + macUrl+ "assets/css/bootstrap.min.css");
-        if (true) {
-            String Command = "open " + macUrl + "assets/css/bootstrap.min.css";
-            Process Child = Runtime.getRuntime().exec(Command);
-        }
-    }
-
-    public void getIndex() throws IOException {
-        ApplicationContextUtil app = new ApplicationContextUtil();
-        IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
-        Map m = ip.getHostInfo();
-        String macUrl = url.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
-        log.info("Home Page:\t\t" + macUrl+ "ace/index.html");
-        if (true) {
-            String Command = "open " + macUrl + "ace/index.html";
-            Process Child = Runtime.getRuntime().exec(Command);
-        }
-    }
+//    public void getCss() throws IOException {
+//        ApplicationContextUtil app = new ApplicationContextUtil();
+//        IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
+//        Map m = ip.getHostInfo();
+//        String macUrl = url.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
+//        log.info("Home Page:\t\t" + macUrl+ "assets/css/bootstrap.min.css");
+//        if (true) {
+//            String Command = "open " + macUrl + "assets/css/bootstrap.min.css";
+//            Process Child = Runtime.getRuntime().exec(Command);
+//        }
+//    }
+//
+//    public void getIndex() throws IOException {
+//        ApplicationContextUtil app = new ApplicationContextUtil();
+//        IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
+//        Map m = ip.getHostInfo();
+//        String macUrl = url.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
+//        log.info("Home Page:\t\t" + macUrl+ "ace/index.html");
+//        if (true) {
+//            String Command = "open " + macUrl + "ace/index.html";
+//            Process Child = Runtime.getRuntime().exec(Command);
+//        }
+//    }
 
     /**
      * 打开默认Browser

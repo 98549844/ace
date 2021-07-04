@@ -34,9 +34,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/v2/*").permitAll()
                 .antMatchers("/csrf").permitAll()
-                .antMatchers("/").permitAll()
+                .antMatchers("/login.html").permitAll()
                 //open spring security, login success can access
-                //.anyRequest().authenticated().and().formLogin()
+               // .anyRequest().authenticated().and().formLogin()
 
                 //close spring security
                 .anyRequest().permitAll()
@@ -53,13 +53,33 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         //swagger2所需要用到的静态资源，允许访问
+        //static文件, 允许访问
         web.ignoring()
                 .antMatchers("/v2/api-docs"
                         , "/swagger-resources/configuration/ui"
                         , "/swagger-resources"
                         , "/swagger-resources/configuration/security"
                         , "/swagger-resources/**"
-                        , "/swagger-ui.html");
+                        , "/swagger-ui.html"
+
+                        , "/**/*.html"
+                        , "/**/*.htm"
+                        , "/**/*.js"
+                        , "/**/*.png"
+                        , "/**/*.jpg"
+                        , "/favicon.ico"
+                        , "/**/*.css"
+                        , "/images/**"
+                 /*       , "/login.html"
+                        , "/js/**"
+                        , "/css/**"
+                        , "/images/**"
+                        , "/fonts/**"
+                        , "/font-awesome/**"*/
+
+
+
+                );
     }
 
     /**
@@ -72,7 +92,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("admin")
-                .password("{noop}adminpass")
+                .password("{noop}admin")
                 .roles("ADMIN", "USER")
                 .and()
                 .withUser("garlam")

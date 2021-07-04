@@ -1,10 +1,8 @@
 package com.config;
 
+import com.interceptor.Interceptor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.interceptor.Interceptor;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -13,15 +11,13 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 /**
- * @Classname: Configurator
+ * @Classname: ThymeleafConfig
  * @Date: 1/7/2021 2:27 上午
  * @Author: garlam
  * @Description:
  */
 
 @Configuration
-//@EnableWebMvc
-//@EnableAutoConfiguration
 public class ThymeleafConfig implements WebMvcConfigurer {
     private static Logger log = LogManager.getLogger(ThymeleafConfig.class.getName());
 
@@ -33,8 +29,8 @@ public class ThymeleafConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         //set static/login.html为主页
-        //registry.addViewController("/").setViewName("forward:/login.html");
-        // registry.addViewController("/").setViewName("xx.html");
+        //registry.addViewController("/").setViewName("forward:/ace.html");
+        // registry.addViewController("/").setViewName("ace.html");
         registry.addViewController("/").setViewName("/templates/ace/login.html");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
@@ -44,13 +40,15 @@ public class ThymeleafConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         //registry.addInterceptor(new Interceptor()).addPathPatterns("/**").excludePathPatterns("/js/**", "/css/**", "/images/**");
         //addPathPatterns("/**")对所有请求都拦截，但是排除了/toLogin和/login请求的拦截
-
         InterceptorRegistration interceptorRegistration = registry.addInterceptor(new Interceptor());
         interceptorRegistration.excludePathPatterns("/images/**");
         interceptorRegistration.excludePathPatterns("/css/**");
         interceptorRegistration.excludePathPatterns("/js/**");
-        //   interceptorRegistration.excludePathPatterns("/swagger-ui.html/**");
-        //   interceptorRegistration.excludePathPatterns("/swagger-resources/**");
+        interceptorRegistration.excludePathPatterns("/fonts/**");
+        interceptorRegistration.excludePathPatterns("/font-awesome/**");
+        //开方swagger访问
+        interceptorRegistration.excludePathPatterns("/swagger-ui.html/**");
+        interceptorRegistration.excludePathPatterns("/swagger-resources/**");
         interceptorRegistration.addPathPatterns("/**");
     }
 
@@ -58,17 +56,17 @@ public class ThymeleafConfig implements WebMvcConfigurer {
     /**
      * 设置访问静态文件路径
      */
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//       // 将templates目录下的CSS、JS文件映射为静态资源，防止Spring把这些资源识别成thymeleaf模版
-//        registry.addResourceHandler("/templates/**.js").addResourceLocations("classpath:/templates/");
-//        registry.addResourceHandler("/templates/**.css").addResourceLocations("classpath:/templates/");
-//       // 其他静态资源
-//        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-//       // swagger增加url映射
-//        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-//        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-//    }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 将templates目录下的CSS、JS文件映射为静态资源，防止Spring把这些资源识别成thymeleaf模版
+        //  registry.addResourceHandler("/templates/**.js").addResourceLocations("classpath:/templates/");
+        //  registry.addResourceHandler("/templates/**.css").addResourceLocations("classpath:/templates/");
+        // 其他静态资源
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+        // swagger增加url映射
+        // registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        // registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
 
     /**
      * config access resource folder
