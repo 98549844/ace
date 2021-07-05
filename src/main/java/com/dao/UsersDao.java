@@ -18,6 +18,6 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
 
     @Modifying
     @Transactional
-    @Query("update Users t set t.userName = :#{#users.userName} ,t.id=:#{#users.id} , t.email =:#{#users.email}  where t.password=:#{#users.password}")
+    @Query("update Users t set t.userName = :#{#users.userName} , t.email =:#{#users.email}  where t.id=:#{#users.id}")
     int update(@Param("users") Users users);
 }

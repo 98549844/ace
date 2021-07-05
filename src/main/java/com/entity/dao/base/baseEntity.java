@@ -1,13 +1,13 @@
 package com.entity.dao.base;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import util.NullUtil;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * @Classname: baseEntity
@@ -18,29 +18,28 @@ import java.util.Date;
 
 
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class baseEntity {
 
-    @Column(name = "created_date")
+    @CreatedDate
+    @Column(name = "created_date", updatable = false)
     private LocalDateTime createdDate;
+
+    @LastModifiedDate
     @Column(name = "last_update_date")
     private LocalDateTime lastUpdateDate;
-    @Column(name = "created_by")
+
+    @CreatedBy
+    @Column(name = "created_by", updatable = false)
     private String createdBy;
+
     @Column(name = "last_update_by")
+    @LastModifiedBy
     private String lastUpdatedBy;
+
+    @Version
     @Column(name = "version")
     private Integer version;
-
-    public baseEntity() {
-        if (NullUtil.isNull(version) || version == 0) {
-            version = 1;
-        }
-        if (NullUtil.isNull(createdDate)) {
-            createdDate = LocalDateTime.now();
-        }
-        lastUpdateDate = LocalDateTime.now();
-
-    }
 
     public LocalDateTime getCreatedDate() {
         return createdDate;

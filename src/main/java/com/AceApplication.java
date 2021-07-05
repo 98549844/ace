@@ -11,6 +11,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import util.IpUtil;
 import util.MapUtil;
@@ -34,6 +35,8 @@ import java.util.Map;
 @MapperScan("com.mapper")
 @EnableTransactionManagement
 @EnableCaching
+//for baseEntity using
+@EnableJpaAuditing
 public class AceApplication {
 
 
@@ -53,7 +56,7 @@ public class AceApplication {
         mapUtil.iterateMapKeyset(m);
 
         //print all application context bean name
-       // ApplicationContextUtil.printAllBeanName(applicationContext);
+        ApplicationContextUtil.printAllBeanName(applicationContext);
 
         ApplicationContextUtil applicationContextUtil = new ApplicationContextUtil();
         AceConfig aceConfig = (AceConfig) applicationContextUtil.getBeanByName("aceConfig");
