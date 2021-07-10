@@ -43,7 +43,7 @@ public class GalleryRestController {
         tmp.put("UNKNOWN", "msg.unknown_error");
     }
 
-    static String filePath = "src/main/resources/file/image"; // 上传后的路径
+    static String filePath = "src/main/resources/files/image"; // 上传后的路径
     @PostMapping(value = "/upload")
     public String fileUpload(@RequestParam(value = "file") MultipartFile file, Model model, HttpServletRequest request) {
         if (file.isEmpty()) {

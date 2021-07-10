@@ -58,7 +58,7 @@ public class BrowserConfig {
         Map m = ip.getHostInfo();
         String macUrl = url.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
         log.info("Home Page:\t\t" + macUrl);
-        if (true) {
+        if (indexEnable) {
             String Command = "open " + macUrl;
             Process Child = Runtime.getRuntime().exec(Command);
         }

@@ -20,5 +20,5 @@ public interface AccessLogMapper {
 
     int updateByPrimaryKeySelective(AccessLog record);
 
-    int updateByPrimaryKey(AccessLog record);
+    Long updateByPrimaryKey(AccessLog record);
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import util.NullUtil;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,14 +41,13 @@ public class AccessRestController {
     public boolean getAll() {
         List<AccessLog> ls = accessLogMapper.selectAll();
         log.info("ACCESS LOG TIMES: {}", ls.size());
-
-        if (NullUtil.isNotNull(ls) && ls.size() >= 2) {
-            accessLogMapper.deleteByPrimaryKey(ls.get(0).getLogId());
-            ls.get(1).setLastUpdateDate(LocalDateTime.now());
-            ls.get(1).setVersion(ls.get(1).getVersion() + 1);
-
-            accessLogMapper.updateByPrimaryKey(ls.get(1));
+        //just get first 10
+        for (int i = 0; i < 10; i++) {
+            ls.get(i).setAccessTime(LocalDateTime.now());
+            accessLogMapper.updateByPrimaryKey(ls.get(i));
+            System.out.println(ls.get(i).getLogId()+"; ");
         }
+
         return true;
     }
 

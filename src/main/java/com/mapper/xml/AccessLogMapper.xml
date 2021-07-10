@@ -5,7 +5,7 @@
         <id column="log_id" jdbcType="BIGINT" property="logId"/>
         <result column="created_by" jdbcType="VARCHAR" property="createdBy"/>
         <result column="created_date" jdbcType="TIMESTAMP" property="createdDate"/>
-        <result column="last_update_by" jdbcType="VARCHAR" property="lastUpdateBy"/>
+        <result column="last_update_by" jdbcType="VARCHAR" property="lastUpdatedBy"/>
         <result column="last_update_date" jdbcType="TIMESTAMP" property="lastUpdateDate"/>
         <result column="version" jdbcType="INTEGER" property="version"/>
         <result column="access_time" jdbcType="TIMESTAMP" property="accessTime"/>
@@ -41,7 +41,7 @@
         insert into access_log (created_by, created_date, last_update_by,
                                 last_update_date, version, access_time,
                                 description, `operator`)
-        values (#{createdBy,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP}, #{lastUpdateBy,jdbcType=VARCHAR},
+        values (#{createdBy,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP}, #{lastUpdatedBy,jdbcType=VARCHAR},
                 #{lastUpdateDate,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER}, #{accessTime,jdbcType=TIMESTAMP},
                 #{description,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR})
     </insert>
@@ -55,7 +55,7 @@
             <if test="createdDate != null">
                 created_date,
             </if>
-            <if test="lastUpdateBy != null">
+            <if test="lastUpdatedBy != null">
                 last_update_by,
             </if>
             <if test="lastUpdateDate != null">
@@ -81,8 +81,8 @@
             <if test="createdDate != null">
                 #{createdDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="lastUpdateBy != null">
-                #{lastUpdateBy,jdbcType=VARCHAR},
+            <if test="lastUpdatedBy != null">
+                #{lastUpdatedBy,jdbcType=VARCHAR},
             </if>
             <if test="lastUpdateDate != null">
                 #{lastUpdateDate,jdbcType=TIMESTAMP},
@@ -110,8 +110,8 @@
             <if test="createdDate != null">
                 created_date = #{createdDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="lastUpdateBy != null">
-                last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+            <if test="lastUpdatedBy != null">
+                last_update_by = #{lastUpdatedBy,jdbcType=VARCHAR},
             </if>
             <if test="lastUpdateDate != null">
                 last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
@@ -135,7 +135,7 @@
         update access_log
         set created_by       = #{createdBy,jdbcType=VARCHAR},
             created_date     = #{createdDate,jdbcType=TIMESTAMP},
-            last_update_by   = #{lastUpdateBy,jdbcType=VARCHAR},
+            last_update_by   = #{lastUpdatedBy,jdbcType=VARCHAR},
             last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
             version          = #{version,jdbcType=INTEGER},
             access_time      = #{accessTime,jdbcType=TIMESTAMP},

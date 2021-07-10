@@ -38,11 +38,7 @@ import java.util.Map;
 //for baseEntity using
 @EnableJpaAuditing
 public class AceApplication {
-
-
     public static ApplicationContext applicationContext;
-
-
     public static void main(String[] args) throws IOException {
         applicationContext = SpringApplication.run(AceApplication.class, args);
 
@@ -56,7 +52,7 @@ public class AceApplication {
         mapUtil.iterateMapKeyset(m);
 
         //print all application context bean name
-        ApplicationContextUtil.printAllBeanName(applicationContext);
+       // ApplicationContextUtil.printAllBeanName(applicationContext);
 
         ApplicationContextUtil applicationContextUtil = new ApplicationContextUtil();
         AceConfig aceConfig = (AceConfig) applicationContextUtil.getBeanByName("aceConfig");
