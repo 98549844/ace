@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+
 @Configuration
 @EnableSwagger2
 @PropertySource(value = "classpath:swagger2.properties", ignoreResourceNotFound = true, encoding = "UTF-8")
@@ -26,7 +27,9 @@ import java.util.function.Predicate;
 public class SwaggerConfig implements WebMvcConfigurer {
 
     @Value("${swagger.enabled}")
-    private final Boolean enabled = false;
+    private final Boolean swaggerEnabled = false;
+    @Value("${knife4j.enabled}")
+    private final Boolean knife4jEnabled = false;
 
     /*
      * 创建API应用
@@ -37,9 +40,13 @@ public class SwaggerConfig implements WebMvcConfigurer {
      */
     @Bean
     public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2).enable(enabled).apiInfo(apiInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("com.restController"))
-               // .apis(RequestHandlerSelectors.basePackage("com.controller"))
+        boolean enabled = false;
+        if (swaggerEnabled || knife4jEnabled) {
+            enabled = true;
+        }
+
+        return new Docket(DocumentationType.SWAGGER_2).enable(enabled).apiInfo(apiInfo()).select().apis(RequestHandlerSelectors.basePackage("com.restController"))
+                // .apis(RequestHandlerSelectors.basePackage("com.controller"))
                 //.apis(SwaggerConfig.basePackage("com.controller,com.restController"))
                 .paths(PathSelectors.any()).build();
     }
@@ -80,7 +87,9 @@ public class SwaggerConfig implements WebMvcConfigurer {
      * version：版本号
      */
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Ace API documents (Swagger)").description("base on SpringBoot").description("前后分离框架").version("1.0").license("version1.0").build();
+        return new ApiInfoBuilder().title("Ace API documents (Swagger)").description("base on SpringBoot").description("前后分离框架").version("1.0").license("version1.0")
+                //.licenseUrl(swagger.getLicenseUrl())
+                .build();
     }
     //http://localhost:8088/swagger-ui.html
 

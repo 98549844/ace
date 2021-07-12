@@ -24,6 +24,7 @@ public class BrowserConfig {
 
     static String url = "http://localhost:8088/";
     static String SwaggerUrl = "http://localhost:8088/swagger-ui.html";
+    static String Knife4jUrl = "http://localhost:8088/doc.html";
     static String windowsBrowser = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe ";
 
     /**
@@ -48,6 +49,16 @@ public class BrowserConfig {
         String macSwaggerUrl = SwaggerUrl.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
         String Command = "open " + macSwaggerUrl;
         log.info("Swagger2:\t\t" + SwaggerUrl);
+        Process Child = Runtime.getRuntime().exec(Command);
+    }
+
+    public void openKnife4jOnMac(Map m, boolean isKnife4jEnable) throws IOException {
+        if (!isKnife4jEnable) {
+            return;
+        }
+        String macSwaggerUrl = Knife4jUrl.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
+        String Command = "open " + macSwaggerUrl;
+        log.info("Knife4j:\t\t" + Knife4jUrl);
         Process Child = Runtime.getRuntime().exec(Command);
     }
 

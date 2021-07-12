@@ -47,7 +47,7 @@ public class PathUtil {
     }
 
 
-    public String getSystemPath() {
+    public static String getSystemPath() {
         return System.getProperty("user.dir");
     }
 //    public void testMethod3() throws IOException {

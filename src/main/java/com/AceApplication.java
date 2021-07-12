@@ -39,6 +39,7 @@ import java.util.Map;
 @EnableJpaAuditing
 public class AceApplication {
     public static ApplicationContext applicationContext;
+
     public static void main(String[] args) throws IOException {
         applicationContext = SpringApplication.run(AceApplication.class, args);
 
@@ -52,7 +53,7 @@ public class AceApplication {
         mapUtil.iterateMapKeyset(m);
 
         //print all application context bean name
-       // ApplicationContextUtil.printAllBeanName(applicationContext);
+        // ApplicationContextUtil.printAllBeanName(applicationContext);
 
         ApplicationContextUtil applicationContextUtil = new ApplicationContextUtil();
         AceConfig aceConfig = (AceConfig) applicationContextUtil.getBeanByName("aceConfig");
@@ -60,8 +61,9 @@ public class AceApplication {
         BrowserConfig browserConfig = new BrowserConfig();
         browserConfig.openMacDefaultBrowser(aceConfig.isIndexEnable());
         browserConfig.openSwaggerOnMac(m, aceConfig.isSwaggerEnable());
-      //  browserConfig.getCss();
-      //  browserConfig.getIndex();
+        browserConfig.openKnife4jOnMac(m, aceConfig.isKnife4jEnabled());
+        //  browserConfig.getCss();
+        //  browserConfig.getIndex();
 
         //BrowserConfig.OpenWindowsDefaultBrowser();
         //BrowserConfig.OpenSwaggerPage();

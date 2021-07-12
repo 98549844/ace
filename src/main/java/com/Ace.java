@@ -1,7 +1,9 @@
 package com;
 
+import com.util.PathUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import util.Console;
 import util.FileUtil;
 import util.SystemUtil;
 
@@ -14,6 +16,21 @@ public class Ace {
     private static Logger log = LogManager.getLogger(Ace.class.getName());
 
     public static void main(String[] args) {
+        String lab = null;
+        String csd = null;
+        String other = null;
+
+        if (!lab.isEmpty()) {
+        }
+        if (csd.isEmpty()) {
+
+        }
+        if (other.isEmpty()) {
+
+        }
+
 
     }
+
+
 }

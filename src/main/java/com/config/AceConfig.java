@@ -24,6 +24,8 @@ public class AceConfig {
     private String version;
     @Value("${swagger.enabled}")
     private boolean swaggerEnable;
+    @Value("${knife4j.enabled}")
+    private boolean knife4jEnabled;
     @Value("${ace.indexEnable}")
     private boolean indexEnable;
 
@@ -58,6 +60,14 @@ public class AceConfig {
 
     public void setIndexEnable(boolean indexEnable) {
         this.indexEnable = indexEnable;
+    }
+
+    public boolean isKnife4jEnabled() {
+        return knife4jEnabled;
+    }
+
+    public void setKnife4jEnabled(boolean knife4jEnabled) {
+        this.knife4jEnabled = knife4jEnabled;
     }
 }
 

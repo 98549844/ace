@@ -30,17 +30,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/doc.html").permitAll()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/v2/*").permitAll()
                 .antMatchers("/csrf").permitAll()
                 .antMatchers("/login.html").permitAll()
                 //open spring security, login success can access
-                .anyRequest().authenticated().and().formLogin()
+                //.anyRequest().authenticated().and().formLogin()
 
                 //close spring security
-                //.anyRequest().permitAll()
-                //.and().logout().permitAll()
+                .anyRequest().permitAll()
+                .and().logout().permitAll()
 
                 .and().rememberMe()
                 //.tokenValiditySeconds(84600).tokenRepository("保存用户token信息到数据库")

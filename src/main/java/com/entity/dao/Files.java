@@ -9,7 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 
 /**
- * @Classname: File
+ * @Classname: Files
  * @Date: 11/7/2021 2:32 上午
  * @Author: garlam
  * @Description:
@@ -34,6 +34,8 @@ public class Files extends baseEntity {
     private Integer size;
     @Column
     private String fileName;
+    @Column
+    private String owner;
     @Column
     private String remark;
 
@@ -91,6 +93,14 @@ public class Files extends baseEntity {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }
 
