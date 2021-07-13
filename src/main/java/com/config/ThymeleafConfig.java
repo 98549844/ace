@@ -46,6 +46,7 @@ public class ThymeleafConfig implements WebMvcConfigurer {
         interceptorRegistration.excludePathPatterns("/js/**");
         interceptorRegistration.excludePathPatterns("/fonts/**");
         interceptorRegistration.excludePathPatterns("/font-awesome/**");
+        interceptorRegistration.excludePathPatterns("/favicon.ico");
         //开方swagger访问
         interceptorRegistration.excludePathPatterns("/swagger-ui.html/**");
         interceptorRegistration.excludePathPatterns("/swagger-resources/**");

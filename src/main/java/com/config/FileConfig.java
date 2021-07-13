@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.util.unit.DataSize;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -16,13 +17,13 @@ import javax.servlet.MultipartConfigElement;
  * @Description:
  */
 
-
+@Component
 public class FileConfig implements WebMvcConfigurer {
     private static Logger log = LogManager.getLogger(FileConfig.class.getName());
 
     //Spring Boot默认上传的单个文件大小1MB, 一次上传的总文件大小为10MB
     @Bean
-    public MultipartConfigElement multipartConfigElement(){
+    public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
         // 单个文件大小
         factory.setMaxFileSize(DataSize.parse("10240MB"));

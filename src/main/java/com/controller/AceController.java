@@ -28,6 +28,18 @@ public class AceController extends CommonController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/elements.html", method = RequestMethod.GET)
+    public ModelAndView elements() {
+        ModelAndView modelAndView = super.page("ace/tool-pages/elements");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/buttons.html", method = RequestMethod.GET)
+    public ModelAndView buttons() {
+        ModelAndView modelAndView = super.page("ace/tool-pages/buttons");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/404.html", method = RequestMethod.GET)
     public ModelAndView error404() {
         ModelAndView modelAndView = super.page("ace/error404");
