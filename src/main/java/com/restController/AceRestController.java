@@ -50,9 +50,9 @@ public class AceRestController {
         aceList.add("Ace Profile: " + aceConfig.getProfile());
         aceList.add(aceConfig.getName());
         aceList.add(aceConfig.getVersion());
-      //  aceList.add(reportConfig.getUrl());
-      //  aceList.add(reportConfig.getUserName());
-        //aceList.add(reportConfig.getPassword());
+        aceList.add(reportConfig.getUrl());
+        aceList.add(reportConfig.getUserName());
+        aceList.add(reportConfig.getPassword());
 
         return aceList;
     }
