@@ -54,7 +54,7 @@ public class LoginController extends CommonController {
 
         String msg;
         Users user = new Users();
-        List<Users> users ;
+        List<Users> users;
 
         if (NullUtil.isNotNull(userName) && NullUtil.isNotNull(password)) {
             user.setUserName(userName);
@@ -68,8 +68,8 @@ public class LoginController extends CommonController {
         }
 
         if (users != null && users.size() == 1) {
-             usersService.update(users.get(0));
-             log.info("user: " + users.get(0).getUserName() + " update success!");
+            usersService.update(users.get(0));
+            log.info("user: " + users.get(0).getUserName() + " update success!");
             modelAndView = super.redirect("ace/index.html");
         } else {
             log.error("Login Fail!");

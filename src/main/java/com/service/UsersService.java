@@ -7,6 +7,10 @@ import org.apache.logging.log4j.Logger;
 import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import util.NullUtil;
@@ -26,10 +30,23 @@ import java.util.Optional;
  */
 
 @Service
-public class UsersService {
+public class UsersService implements UserDetailsService {
     private static Logger log = LogManager.getLogger(UsersService.class.getName());
 
     private UsersDao usersDao;
+  //  private PasswordEncoder passwordEncoder;
+
+
+    @Autowired
+    public UsersService(UsersDao usersDao/*, PasswordEncoder passwordEncoder*/) {
+        this.usersDao = usersDao;
+      //  this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return null;
+    }
 
 
     public boolean validate(Users users) {
@@ -46,11 +63,6 @@ public class UsersService {
         return validate;
     }
 
-
-    @Autowired
-    public UsersService(UsersDao usersDao) {
-        this.usersDao = usersDao;
-    }
 
     /**
      * @return all result
@@ -211,5 +223,7 @@ public class UsersService {
             return criteriaBuilder.and(predicatesList.toArray(new Predicate[predicatesList.size()]));
         };
     }
+
+
 }
 

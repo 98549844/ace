@@ -34,21 +34,18 @@ public class Interceptor implements HandlerInterceptor {
         String status = Integer.toString(response.getStatus());
         String RequestURI = request.getRequestURI();
 
-        log.info("pre 1: " + "response.status : " + status);
-        log.info("pre 2: " + "request.RequestURI : " + RequestURI);
+        log.info("status: {} ; RequestURI: {}", status, RequestURI);
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-        log.info("post 1:");
-        log.info("post 2: response.status: " + response.getStatus());
+        log.info("response.status: {}", response.getStatus());
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         // log.info("afterCompletion :【在整个请求结束之后被调用,也就是在DispatcherServlet渲染了对应的视图之后执行(主要用于资源清理工作)】");
-        log.info("Completion!!!");
     }
 
 

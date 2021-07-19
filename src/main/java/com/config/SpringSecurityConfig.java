@@ -15,11 +15,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @PropertySource(value = "classpath:application.yml", encoding = "UTF-8")
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private String logoutsuccessurl = "/定义一个logout页面";
-    private String permitall = "/api";
-    private String deniedpage = "/deny";
+    private String logOutSuccessUrl = "/ace/login.html";
+    private String permitAll = "/api";
+    private String deniedPage = "/deny";
     //邦定的用户组才能登入url
-    private String urlroles;
+    private String urlRoles;
 
 
     //RESTful and CRSF have conflict
@@ -29,15 +29,30 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/swagger-ui.html").permitAll()
+                //knife4j
                 .antMatchers("/doc.html").permitAll()
+                //swagger2
+                .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/v2/*").permitAll()
                 .antMatchers("/csrf").permitAll()
-                .antMatchers("/login.html").permitAll()
+                //allow access static
+                .antMatchers("classpath:/static/").permitAll()
+                //login
+                //.antMatchers(logOutSuccessUrl).permitAll()
                 //open spring security, login success can access
-                //.anyRequest().authenticated().and().formLogin()
+                //.anyRequest()
+                //.authenticated()
+                //.and()
+                //.formLogin()
+                //.loginPage(logOutSuccessUrl)
+                //.successHandler(new MyAuthenticationSuccessHandler())
+                //.permitAll()
+                //.and()
+                //.logout()
+                //.logoutUrl(logOutSuccessUrl)
+                //.logoutSuccessUrl(logOutSuccessUrl)
 
                 //close spring security
                 .anyRequest().permitAll()
@@ -51,37 +66,34 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     //静态资源配置
-    @Override
-    public void configure(WebSecurity web) {
-        //swagger2所需要用到的静态资源，允许访问
-        //static文件, 允许访问
-        web.ignoring()
-                .antMatchers("/v2/api-docs"
-                        , "/swagger-resources/configuration/ui"
-                        , "/swagger-resources"
-                        , "/swagger-resources/configuration/security"
-                        , "/swagger-resources/**"
-                        , "/swagger-ui.html"
-
-                        , "/**/*.html"
-                        , "/**/*.htm"
-                        , "/**/*.js"
-                        , "/**/*.png"
-                        , "/**/*.jpg"
-                        , "/favicon.ico"
-                        , "/**/*.css"
-                        , "/images/**"
-                 /*       , "/login.html"
-                        , "/js/**"
-                        , "/css/**"
-                        , "/images/**"
-                        , "/fonts/**"
-                        , "/font-awesome/**"*/
-
-
-
-                );
-    }
+//    @Override
+//    public void configure(WebSecurity web) {
+//        //swagger2所需要用到的静态资源，允许访问
+//        //static文件, 允许访问
+//        web.ignoring()
+//                .antMatchers("/v2/api-docs"
+//                        , "/swagger-resources/configuration/ui"
+//                        , "/swagger-resources"
+//                        , "/swagger-resources/configuration/security"
+//                        , "/swagger-resources/**"
+//                        , "/swagger-ui.html"
+//
+//                        , "/**/*.html"
+//                        , "/**/*.htm"
+//                        , "/**/*.js"
+//                        , "/**/*.png"
+//                        , "/**/*.jpg"
+//                        , "/favicon.ico"
+//                        , "/**/*.css"
+//                        , "/images/**"
+//                 /*       , "/login.html"
+//                        , "/js/**"
+//                        , "/css/**"
+//                        , "/images/**"
+//                        , "/fonts/**"
+//                        , "/font-awesome/**"*/
+//                );
+//    }
 
     /**
      * 设置admin 用户

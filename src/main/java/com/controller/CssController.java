@@ -21,14 +21,14 @@ public class CssController extends CommonController {
     @RequestMapping(value = "/active.html", method = RequestMethod.GET)
     public ModelAndView active() {
         ModelAndView modelAndView = super.page("ace/active");
-        modelAndView.addObject("active","");
+        modelAndView.addObject("active", "");
         return modelAndView;
     }
 
     @RequestMapping(value = "/open.html", method = RequestMethod.GET)
     public ModelAndView open() {
         ModelAndView modelAndView = super.page("ace/open");
-        modelAndView.addObject("open","");
+        modelAndView.addObject("open", "");
         return modelAndView;
     }
 }
