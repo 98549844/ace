@@ -3,8 +3,10 @@ package com.config;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import util.NullUtil;
 
 /**
  * @Classname: aceConfig
@@ -14,8 +16,9 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-@PropertySource(value = {"classpath:ace.properties"}, ignoreResourceNotFound = false, encoding = "UTF-8", name = "ace.properties")
-@PropertySource(value = {"classpath:swagger2.properties"}, ignoreResourceNotFound = false, encoding = "UTF-8", name = "swagger2.properties")
+@PropertySource(value = {"classpath:ace.properties"}, encoding = "UTF-8", name = "ace.properties")
+@PropertySource(value = {"classpath:swagger2.properties"}, encoding = "UTF-8", name = "swagger2.properties")
+@PropertySource(value = {"classpath:application.yml"}, encoding = "UTF-8", name = "application.yml")
 public class AceConfig {
     private static Logger log = LogManager.getLogger(AceConfig.class.getName());
     @Value("${ace.name}")
@@ -28,7 +31,17 @@ public class AceConfig {
     private boolean knife4jEnabled;
     @Value("${ace.indexEnable}")
     private boolean indexEnable;
+    @Value("${spring.profiles.active}")
+    private String profile;
 
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
 
     public String getName() {
         return name;

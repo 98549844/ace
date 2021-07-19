@@ -17,6 +17,18 @@
             padding: 50px;
             display: none;
         }
+
+        .blue {
+            color: blue;
+        }
+
+        .siblings * {
+            display: block;
+            border: 2px solid lightgrey;
+            color: lightgrey;
+            padding: 5px;
+            margin: 15px;
+        }
     </style>
 </head>
 <body>
@@ -37,6 +49,13 @@
 <div id="div2" style="width:80px;height:80px;display:none;background-color:green;"></div>
 <br>
 <div id="div3" style="width:80px;height:80px;display:none;background-color:blue;"></div>
+
+<br>
+<div>
+    --------------------------------------------------
+</div>
+<br>
+
 <div id="slideToggle">slideToggle</div>
 <div id="panel">Hello world!</div>
 
@@ -75,8 +94,144 @@
     <li>List item 2</li>
     <li>List item 3</li>
 </ol>
+
+<br>
 <button id="btn21">添加文本</button>
 <button id="btn22">添加列表项</button>
+
+<br><br>
+<button id="btn31">之前插入</button>
+<button id="btn32">之后插入</button>
+<br>
+<p id="insert_a">范例文本</p>
+<br>
+<img alt="图片">
+<br><br>
+
+<button id="btn41">移除div元素</button>
+<button id="btn42">empty div元素</button>
+<br>
+<div id="div_a" style="height:100px;width:300px;border:1px solid black;background-color:yellow;">
+    这是 div 中的一些文本。
+    <p>这是在 div 中的一个段落。</p>
+    <p>这是在 div 中的另外一个段落。</p>
+</div>
+
+<br><br>
+
+<p id="p5">这是一个段落。</p>
+<p class="italic"><i>这是另外一个段落。</i></p>
+<p class="italic"><i>这是另外一个段落。</i></p>
+<button id="btn5">移除所有 class="italic" 的 p 元素。</button>
+
+<br><br>
+<h1 id="cssh1" class="blue">标题 1</h1>
+<h2 id="cssh2" class="blue">标题 2</h2>
+<p id="cssp1" class="blue">这是一个段落。</p>
+<p id="cssp2">这是另外一个段落。</p>
+<br>
+<button id="btn6">切换 class</button>
+
+<br>
+<div>
+    --------------------------------------------------
+</div>
+<br>
+<h2 id="cssh21">这是一个标题</h2>
+<p id="cssRed" style="background-color:#ff0000">这是一个段落。</p>
+<p id="cssGreen" style="background-color:#00ff00">这是一个段落。</p>
+<p id="cssBlue" style="background-color:#0000ff">这是一个段落。</p>
+<button id="btn7">返回第一个 p 元素的 background-color</button>
+
+<br>
+<div>
+    --------------------------------------------------
+</div>
+<br>
+
+<h2>这是一个标题</h2>
+<p id="cssRed1" style="background-color:#ff0000">这是一个段落。</p>
+<p id="cssGreen1" style="background-color:#00ff00">这是一个段落。</p>
+<p id="cssBlue1" style="background-color:#0000ff">这是一个段落。</p>
+<p id="p11">这是一个段落。</p>
+<button id="btn8">设置 p 元素的 background-color</button>
+
+
+<br>
+<div>
+    --------------------------------------------------
+</div>
+<br>
+
+<div class="ancestors" id="iter1">
+    <div style="width:500px;">div (曾祖父元素)
+        <ul>ul (祖父元素)
+            <li>li (父元素)
+                <span id="span2">span</span>
+            </li>
+        </ul>
+    </div>
+
+    <div style="width:500px;">div (祖父元素)
+        <p>p (父元素)
+            <span id="span1">span</span>
+        </p>
+    </div>
+</div>
+
+<br>
+<div>
+    --------------------------------------------------
+</div>
+<br>
+
+<div style="width:500px;">div (曾祖父元素)
+    <ul>ul (祖父元素)
+        <li>li (父元素)
+            <span id="span3">span</span>
+        </li>
+    </ul>
+</div>
+
+<br>
+<div>
+    --------------------------------------------------
+</div>
+<br>
+<div id="ch1" class="descendants" style="width:500px;">div (当前元素)
+    <p class="a">p (儿子元素)
+        <span>span (孙子元素)</span>
+    </p>
+    <p class="b">p (儿子元素)
+        <span>span (孙子元素)</span>
+    </p>
+</div>
+
+
+<br>
+<div>
+    --------------------------------------------------
+</div>
+<br>
+<div class="siblings">div (父元素)
+    <p>p</p>
+    <span>span</span>
+    <h2 id="pall1">h2</h2>
+    <h3>h3</h3>
+    <p>p</p>
+</div>
+
+
+<br>
+<div>
+    --------------------------------------------------
+</div>
+<br>
+<h1>欢迎访问我的主页</h1>
+<p>菜鸟教程 (index 0).</p>
+<p class="url">http://www.baidu.com (index 1)。</p>
+<p>google (index 2).</p>
+<p class="url">http://www.google.com (index 3)。</p>
 
 </body>
 <script>
@@ -100,6 +255,78 @@
     $("#btn13").click(setVal);
     $("#btn21").click(setAppend);
     $("#btn22").click(setOlAppend);
+    $("#btn31").click(insertBefore);
+    $("#btn32").click(insertAfter);
+    $("#btn41").click(delDiv);
+    $("#btn42").click(delDiv);
+    $("#btn5").click(removeFiltered);
+    $("#btn6").click(toggleCss);
+    $("#btn7").click(getCssColorCode);
+    $("#btn8").click(setCss);
+
+    //历遍
+    $(document).ready(function () {
+        //find parent
+        $("#span1").parent().css({"color": "red", "border": "2px solid red"});
+        $("#span2").parent().css({"color": "red", "border": "2px solid red"});
+        //  $("#span3").parents().css({"color":"red","border":"2px solid red"});
+
+        //find children
+        $("#ch1").children("p.a").css({"color": "red", "border": "2px solid red"});
+        $("#ch1").find("span").css({"color": "red", "border": "2px solid red"});
+
+        //平行查找
+        $("#pall1").prev().css({"color": "blue", "border": "2px solid blue"});
+        $("#pall1").next().css({"color": "red", "border": "2px solid red"});
+
+        //filter
+        $("p").filter(".url").css("background-color","yellow");
+    });
+
+
+    //css operation
+    function setCss() {
+        $("#cssRed1").css({"background-color": "yellow", "font-size": "200%"});
+        $("#cssGreen1").css("background-color", "yellow");
+        $("#cssBlue1").css("background-color", "yellow");
+    }
+
+    function getCssColorCode() {
+        alert("背景颜色 = " + $("#cssRed").css("background-color"));
+        alert("背景颜色 = " + $("#cssGreen").css("background-color"));
+        alert("背景颜色 = " + $("#cssBlue").css("background-color"));
+    }
+
+
+    //jQuery css toggleClass() 方法
+    function toggleCss() {
+        $("h1,h2,p").toggleClass("blue");
+    }
+
+    //过滤被删除的元素
+    function removeFiltered() {
+        $("p").remove(".italic");
+    }
+
+    //jQuery - 删除元素
+    function delDiv() {
+        $("#div_a").remove();
+    }
+
+    function emptyDiv() {
+        $("#div_a").empty();
+    }
+
+    //jQuery after() 和 before() 方法
+    function insertBefore() {
+        $("#insert_a").before("<b>之前</b>");
+        // $("img").before("<b>之前</b>");
+    }
+
+    function insertAfter() {
+        $("#insert_a").after("<i>之后</i>");
+        // $("img").after("<i>之后</i>");
+    }
 
     //jQuery - 添加元素
     function setAppend() {
@@ -144,7 +371,7 @@
 
     //callback function
     function call_back() {
-        $("p").hide("slow", callAlert);
+        $("#chain").hide("slow", callAlert);
     }
 
     function callAlert() {

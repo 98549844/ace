@@ -16,19 +16,12 @@ public class Ace {
     private static Logger log = LogManager.getLogger(Ace.class.getName());
 
     public static void main(String[] args) {
-        String lab = null;
-        String csd = null;
-        String other = null;
+        Ace a = new Ace();
 
-        if (!lab.isEmpty()) {
-        }
-        if (csd.isEmpty()) {
+    }
 
-        }
-        if (other.isEmpty()) {
-
-        }
-
+    {
+        System.out.println("GARLAM");
 
     }
 
