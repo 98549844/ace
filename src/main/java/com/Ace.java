@@ -16,13 +16,17 @@ public class Ace {
     private static Logger log = LogManager.getLogger(Ace.class.getName());
 
     public static void main(String[] args) {
-        Ace a = new Ace();
 
-    }
+        double pi = Math.PI;
 
-    {
-        System.out.println("GARLAM");
+        double cc = (15.0 / 2) * (8.0 / 2);
+        double lc = (10.0 / 2) * (5.0 / 2);
 
+        double d1 = 2 * Math.sqrt(cc);
+        double d2 = 2 * Math.sqrt(lc);
+
+        System.out.println(d1);
+        System.out.println(d2);
     }
 
 
