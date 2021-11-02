@@ -1,6 +1,6 @@
 package com.dao;
 
-import com.entity.dao.Test;
+import com.models.entity.entity.dao.Test;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;

@@ -1,22 +1,12 @@
 package com.interceptor;
 
-import com.dao.AccessLogDao;
-import com.dao.UsersDao;
-import com.entity.dao.AccessLog;
-import com.entity.dao.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import util.IpUtil;
-import util.StringUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Map;
 
 /**
  * @Classname: Interceptor

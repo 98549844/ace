@@ -1,8 +1,6 @@
 package com.restController;
 
-import com.dao.UsersDao;
-import com.entity.dao.AccessLog;
-import com.entity.dao.Users;
+import com.models.entity.entity.dao.Users;
 import com.service.UsersService;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import util.RandomUtil;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**

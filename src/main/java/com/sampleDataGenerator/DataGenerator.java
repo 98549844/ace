@@ -1,8 +1,8 @@
 package com.sampleDataGenerator;
 
 
-import com.entity.dao.Test;
-import com.entity.dao.Users;
+import com.models.entity.entity.dao.Test;
+import com.models.entity.entity.dao.Users;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;

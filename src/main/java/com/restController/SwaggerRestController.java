@@ -1,6 +1,6 @@
 package com.restController;
 
-import com.entity.vo.SwaggerVo;
+import com.models.view.SwaggerVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;

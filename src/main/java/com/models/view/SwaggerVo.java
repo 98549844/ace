@@ -1,4 +1,4 @@
-package com.entity.vo;
+package com.models.view;
 
 public class SwaggerVo {
     private Integer swaggerId;

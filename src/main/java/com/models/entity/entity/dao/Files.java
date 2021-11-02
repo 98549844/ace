@@ -1,6 +1,6 @@
-package com.entity.dao;
+package com.models.entity.entity.dao;
 
-import com.entity.dao.base.baseEntity;
+import com.models.entity.entity.dao.base.baseEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.GenericGenerator;

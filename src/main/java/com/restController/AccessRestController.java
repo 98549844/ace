@@ -1,6 +1,6 @@
 package com.restController;
 
-import com.entity.dao.AccessLog;
+import com.models.entity.entity.dao.AccessLog;
 import com.mapper.AccessLogMapper;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
@@ -10,10 +10,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import util.NullUtil;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

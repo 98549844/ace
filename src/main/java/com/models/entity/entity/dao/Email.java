@@ -1,4 +1,4 @@
-package com.entity.dao;
+package com.models.entity.entity.dao;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

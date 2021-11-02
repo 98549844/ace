@@ -1,7 +1,7 @@
 package com.controller;
 
 import com.controller.common.CommonController;
-import com.entity.dao.Users;
+import com.models.entity.entity.dao.Users;
 import com.service.UsersService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
