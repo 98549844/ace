@@ -53,20 +53,20 @@ public class AceApplication {
         mapUtil.iterateMapKeyset(m);
 
         //print all application context bean name
-       // ApplicationContextUtil.printAllBeanName(applicationContext);
+        // ApplicationContextUtil.printAllBeanName(applicationContext);
 
         ApplicationContextUtil applicationContextUtil = new ApplicationContextUtil();
         AceConfig aceConfig = (AceConfig) applicationContextUtil.getBeanByName("aceConfig");
 
         BrowserConfig browserConfig = new BrowserConfig();
-        browserConfig.openMacDefaultBrowser(aceConfig.isIndexEnable());
-        browserConfig.openSwaggerOnMac(m, aceConfig.isSwaggerEnable());
-        browserConfig.openKnife4jOnMac(m, aceConfig.isKnife4jEnabled());
+        browserConfig.openAceIndexAndSwagger(aceConfig.isIndexEnable(), aceConfig.isSwaggerEnable());
+
+        // browserConfig.openMacDefaultBrowser(aceConfig.isIndexEnable());
+        // browserConfig.openSwaggerOnMac(m, aceConfig.isSwaggerEnable());
+        // browserConfig.openKnife4jOnMac(m, aceConfig.isKnife4jEnabled());
         //  browserConfig.getCss();
         //  browserConfig.getIndex();
 
-        //BrowserConfig.OpenWindowsDefaultBrowser();
-        //BrowserConfig.OpenSwaggerPage();
 
 
     }

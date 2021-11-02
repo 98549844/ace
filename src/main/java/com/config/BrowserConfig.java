@@ -28,10 +28,13 @@ public class BrowserConfig {
     static String windowsBrowser = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe ";
 
     /**
-     * 打开默认Browser
+     * 打开windows默认Browser
      */
 
-    public void openWindowsDefaultBrowser() {
+    private void openWindowsDefaultBrowser(boolean indexEnable) {
+        if (!indexEnable) {
+            return;
+        }
         try {
             ProcessBuilder proc = new ProcessBuilder(windowsBrowser, url);
             proc.start();
@@ -42,8 +45,8 @@ public class BrowserConfig {
         }
     }
 
-    public void openSwaggerOnMac(Map m, boolean isSwaggerEnable) throws IOException {
-        if (!isSwaggerEnable) {
+    private void openSwaggerOnMac(Map m, boolean swaggerEnable) throws IOException {
+        if (!swaggerEnable) {
             return;
         }
         String macSwaggerUrl = SwaggerUrl.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
@@ -52,7 +55,7 @@ public class BrowserConfig {
         Process Child = Runtime.getRuntime().exec(Command);
     }
 
-    public void openKnife4jOnMac(Map m, boolean isKnife4jEnable) throws IOException {
+    private void openKnife4jOnMac(Map m, boolean isKnife4jEnable) throws IOException {
         if (!isKnife4jEnable) {
             return;
         }
@@ -63,7 +66,7 @@ public class BrowserConfig {
     }
 
 
-    public void openMacDefaultBrowser(boolean indexEnable) throws IOException {
+    private void openMacDefaultBrowser(boolean indexEnable) throws IOException {
         ApplicationContextUtil app = new ApplicationContextUtil();
         IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
         Map m = ip.getHostInfo();
@@ -100,9 +103,9 @@ public class BrowserConfig {
 //    }
 
     /**
-     * 打开默认Browser
+     * 打开windows默认Browser
      */
-    public void openSwaggerPage() {
+    private void openSwaggerOnWindows() {
         try {
             ProcessBuilder proc = new ProcessBuilder(windowsBrowser, SwaggerUrl);
             proc.start();
@@ -119,17 +122,33 @@ public class BrowserConfig {
         Console.println(banner + url, Console.BOLD, Console.BLUE);
     }
 
-    public boolean getOsInfo() {
+    private static String getOsInfo() {
         //Java获取当前操作系统的信息
         //https://blog.csdn.net/qq_35981283/article/details/73332040
         Properties props = System.getProperties();
-        String osName = props.getProperty("os.name");
-        System.out.println("操作系统称种类：" + props.getProperty("os.name"));
-        if (osName != null && osName.toLowerCase().contains("windows")) {
-            return true;
-        } else {
-            return false;
+        String osName = props.getProperty("os.name").toUpperCase();
+        System.out.println("OPERATION SYSTEM TYPE：" + osName);
+        return osName;
+    }
+
+
+    public void openAceIndexAndSwagger(boolean openIndex, boolean openSwagger) throws IOException {
+        BrowserConfig browserConfig = new BrowserConfig();
+        if (openIndex) {
+            String osName = BrowserConfig.getOsInfo();
+            if (osName.contains("WINDOWS")) {
+                browserConfig.openWindowsDefaultBrowser(true);
+            } else if (osName.contains("MAC")) {
+                browserConfig.openMacDefaultBrowser(true);
+            }
+            if (openSwagger) {
+                ApplicationContextUtil app = new ApplicationContextUtil();
+                IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
+                Map m = ip.getHostInfo();
+                browserConfig.openSwaggerOnMac(m, true);
+            }
         }
     }
+
 
 }

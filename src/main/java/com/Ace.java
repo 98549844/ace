@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import util.Console;
 import util.FileUtil;
+import util.OsUtil;
 import util.SystemUtil;
 
 import java.io.File;
@@ -16,6 +17,8 @@ public class Ace {
     private static Logger log = LogManager.getLogger(Ace.class.getName());
 
     public static void main(String[] args) {
+        OsUtil.getOsInfo();
+
     }
 
 
