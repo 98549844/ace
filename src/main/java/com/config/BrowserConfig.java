@@ -71,7 +71,7 @@ public class BrowserConfig {
         IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
         Map m = ip.getHostInfo();
         String macUrl = url.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
-        log.info("Home Page:\t\t" + macUrl);
+        log.info("ACE INDEX:\t\t" + macUrl);
         if (indexEnable) {
             String Command = "open " + macUrl;
             Process Child = Runtime.getRuntime().exec(Command);
@@ -138,7 +138,7 @@ public class BrowserConfig {
             String osName = BrowserConfig.getOsInfo();
             if (osName.contains("WINDOWS")) {
                 browserConfig.openWindowsDefaultBrowser(true);
-            } else if (osName.contains("MAC")) {
+            } else if (osName.contains("MAC OS")) {
                 browserConfig.openMacDefaultBrowser(true);
             }
             if (openSwagger) {
