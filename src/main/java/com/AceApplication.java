@@ -59,7 +59,7 @@ public class AceApplication {
         AceConfig aceConfig = (AceConfig) applicationContextUtil.getBeanByName("aceConfig");
 
         BrowserConfig browserConfig = new BrowserConfig();
-        browserConfig.openAceIndexAndSwagger(aceConfig.isIndexEnable(), aceConfig.isSwaggerEnable());
+       // browserConfig.openAceIndexAndSwagger(aceConfig.isIndexEnable(), aceConfig.isSwaggerEnable());
 
         // browserConfig.openMacDefaultBrowser(aceConfig.isIndexEnable());
         // browserConfig.openSwaggerOnMac(m, aceConfig.isSwaggerEnable());
