@@ -1,8 +1,6 @@
 package com.config;
 
 
-import com.report.config.ReportConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +22,7 @@ import java.util.function.Predicate;
 
 @Configuration
 @EnableSwagger2
+//@EnableKnife4j
 @PropertySource(value = "classpath:swagger2.properties", ignoreResourceNotFound = true, encoding = "UTF-8")
 //@Profile("dev")
 public class SwaggerConfig implements WebMvcConfigurer {
@@ -48,7 +47,10 @@ public class SwaggerConfig implements WebMvcConfigurer {
             enabled = true;
         }
 
-        return new Docket(DocumentationType.SWAGGER_2).enable(enabled).apiInfo(apiInfo()).select().apis(RequestHandlerSelectors.basePackage("com.restController"))
+        return new Docket(DocumentationType.SWAGGER_2)
+                .enable(enabled).apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.restController"))
                 // .apis(RequestHandlerSelectors.basePackage("com.controller"))
                 //.apis(SwaggerConfig.basePackage("com.controller,com.restController"))
                 .paths(PathSelectors.any()).build();

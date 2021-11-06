@@ -61,8 +61,8 @@ public class AceApplication {
         BrowserConfig browserConfig = new BrowserConfig();
         browserConfig.openAceIndexAndSwagger(aceConfig.isIndexEnable(), aceConfig.isSwaggerEnable(), aceConfig.isKnife4jEnabled());
 
-        browserConfig.getCss();
-        browserConfig.getIndex();
+        // browserConfig.getCss();
+        // browserConfig.getIndex();
 
 
     }
