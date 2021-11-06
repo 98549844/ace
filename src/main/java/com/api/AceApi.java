@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = "aceJob", url = "http://localhost:8088/")
 public interface AceApi {
 
-
-
-
     @GetMapping("/api/test/get")
     ApiResponse getTest(@RequestParam("params") String params);
 

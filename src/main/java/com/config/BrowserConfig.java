@@ -39,7 +39,7 @@ public class BrowserConfig {
             ProcessBuilder proc = new ProcessBuilder(windowsBrowser, url);
             proc.start();
             BrowserConfig config = new BrowserConfig();
-            config.PrintUrl("WELCOME PAGE: ", url);
+            config.PrintUrl("ACE INDEX: ", url);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,29 +78,29 @@ public class BrowserConfig {
         }
     }
 
-//    public void getCss() throws IOException {
-//        ApplicationContextUtil app = new ApplicationContextUtil();
-//        IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
-//        Map m = ip.getHostInfo();
-//        String macUrl = url.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
-//        log.info("Home Page:\t\t" + macUrl+ "assets/css/bootstrap.min.css");
-//        if (true) {
-//            String Command = "open " + macUrl + "assets/css/bootstrap.min.css";
-//            Process Child = Runtime.getRuntime().exec(Command);
-//        }
-//    }
-//
-//    public void getIndex() throws IOException {
-//        ApplicationContextUtil app = new ApplicationContextUtil();
-//        IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
-//        Map m = ip.getHostInfo();
-//        String macUrl = url.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
-//        log.info("Home Page:\t\t" + macUrl+ "ace/index.html");
-//        if (true) {
-//            String Command = "open " + macUrl + "ace/index.html";
-//            Process Child = Runtime.getRuntime().exec(Command);
-//        }
-//    }
+    public void getCss() throws IOException {
+        ApplicationContextUtil app = new ApplicationContextUtil();
+        IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
+        Map m = ip.getHostInfo();
+        String macUrl = url.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
+        log.info("Home Page:\t\t" + macUrl + "assets/css/bootstrap.min.css");
+        if (true) {
+            String Command = "open " + macUrl + "assets/css/bootstrap.min.css";
+            Process Child = Runtime.getRuntime().exec(Command);
+        }
+    }
+
+    public void getIndex() throws IOException {
+        ApplicationContextUtil app = new ApplicationContextUtil();
+        IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
+        Map m = ip.getHostInfo();
+        String macUrl = url.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
+        log.info("Home Page:\t\t" + macUrl + "ace/index.html");
+        if (true) {
+            String Command = "open " + macUrl + "ace/index.html";
+            Process Child = Runtime.getRuntime().exec(Command);
+        }
+    }
 
     /**
      * 打开windows默认Browser
@@ -132,7 +132,7 @@ public class BrowserConfig {
     }
 
 
-    public void openAceIndexAndSwagger(boolean openIndex, boolean openSwagger) throws IOException {
+    public void openAceIndexAndSwagger(boolean openIndex, boolean openSwagger, boolean openKnife4j) throws IOException {
         BrowserConfig browserConfig = new BrowserConfig();
         if (openIndex) {
             String osName = BrowserConfig.getOsInfo();
@@ -141,13 +141,20 @@ public class BrowserConfig {
             } else if (osName.contains("MAC OS")) {
                 browserConfig.openMacDefaultBrowser(true);
             }
-            if (openSwagger) {
-                ApplicationContextUtil app = new ApplicationContextUtil();
-                IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
-                Map m = ip.getHostInfo();
-                browserConfig.openSwaggerOnMac(m, true);
-            }
         }
+        if (openSwagger) {
+            ApplicationContextUtil app = new ApplicationContextUtil();
+            IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
+            Map m = ip.getHostInfo();
+            browserConfig.openSwaggerOnMac(m, true);
+        }
+        if (openKnife4j) {
+            ApplicationContextUtil app = new ApplicationContextUtil();
+            IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
+            Map m = ip.getHostInfo();
+            browserConfig.openKnife4jOnMac(m, true);
+        }
+
     }
 
 

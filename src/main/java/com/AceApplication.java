@@ -59,14 +59,10 @@ public class AceApplication {
         AceConfig aceConfig = (AceConfig) applicationContextUtil.getBeanByName("aceConfig");
 
         BrowserConfig browserConfig = new BrowserConfig();
-       // browserConfig.openAceIndexAndSwagger(aceConfig.isIndexEnable(), aceConfig.isSwaggerEnable());
+        browserConfig.openAceIndexAndSwagger(aceConfig.isIndexEnable(), aceConfig.isSwaggerEnable(), aceConfig.isKnife4jEnabled());
 
-        // browserConfig.openMacDefaultBrowser(aceConfig.isIndexEnable());
-        // browserConfig.openSwaggerOnMac(m, aceConfig.isSwaggerEnable());
-        // browserConfig.openKnife4jOnMac(m, aceConfig.isKnife4jEnabled());
-        //  browserConfig.getCss();
-        //  browserConfig.getIndex();
-
+        browserConfig.getCss();
+        browserConfig.getIndex();
 
 
     }

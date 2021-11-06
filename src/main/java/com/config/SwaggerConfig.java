@@ -1,6 +1,8 @@
 package com.config;
 
 
+import com.report.config.ReportConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +32,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     private final Boolean swaggerEnabled = false;
     @Value("${knife4j.enabled}")
     private final Boolean knife4jEnabled = false;
+
 
     /*
      * 创建API应用
