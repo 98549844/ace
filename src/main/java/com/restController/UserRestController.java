@@ -1,6 +1,6 @@
 package com.restController;
 
-import com.models.entity.entity.dao.Users;
+import com.models.entity.dao.Users;
 import com.service.UsersService;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;

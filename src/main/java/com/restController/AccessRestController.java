@@ -1,6 +1,6 @@
 package com.restController;
 
-import com.models.entity.entity.dao.AccessLog;
+import com.models.entity.dao.AccessLog;
 import com.mapper.AccessLogMapper;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;

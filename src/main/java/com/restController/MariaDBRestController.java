@@ -1,6 +1,6 @@
 package com.restController;
 
-import com.models.entity.entity.dao.Test;
+import com.models.entity.dao.Test;
 import com.mapper.TestMapper;
 import com.service.TestService;
 import io.swagger.annotations.Api;

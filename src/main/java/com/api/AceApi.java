@@ -1,6 +1,6 @@
 package com.api;
 
-import com.models.entity.entity.dao.Test;
+import com.models.entity.dao.Test;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

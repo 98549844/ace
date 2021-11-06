@@ -1,7 +1,7 @@
 package com.service;
 
 import com.dao.UsersDao;
-import com.models.entity.entity.dao.Users;
+import com.models.entity.dao.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

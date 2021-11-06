@@ -1,4 +1,4 @@
-package com.models.entity.entity.dao.base;
+package com.models.entity.dao.base;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;

@@ -1,6 +1,6 @@
-package com.models.entity.entity.dao;
+package com.models.entity.dao;
 
-import com.models.entity.entity.dao.base.baseEntity;
+import com.models.entity.dao.base.baseEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 

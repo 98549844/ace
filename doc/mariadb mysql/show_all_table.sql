@@ -5,3 +5,4 @@ show tables
 
 show tables
     from information_schema;
+
