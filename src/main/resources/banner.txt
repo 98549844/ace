@@ -1,23 +1,89 @@
-${AnsiColor.BRIGHT_BLUE}
-            _____                    _____                    _____
-           /\    \                  /\    \                  /\    \
-          /::\    \                /::\    \                /::\    \
-         /::::\    \              /::::\    \              /::::\    \
-        /::::::\    \            /::::::\    \            /::::::\    \
-       /:::/\:::\    \          /:::/\:::\    \          /:::/\:::\    \
-      /:::/__\:::\    \        /:::/  \:::\    \        /:::/__\:::\    \
-     /::::\   \:::\    \      /:::/    \:::\    \      /::::\   \:::\    \
-    /::::::\   \:::\    \    /:::/    / \:::\    \    /::::::\   \:::\    \
-   /:::/\:::\   \:::\    \  /:::/    /   \:::\    \  /:::/\:::\   \:::\    \
-  /:::/  \:::\   \:::\____\/:::/____/     \:::\____\/:::/__\:::\   \:::\____\
-  \::/    \:::\  /:::/    /\:::\    \      \::/    /\:::\   \:::\   \::/    /
-   \/____/ \:::\/:::/    /  \:::\    \      \/____/  \:::\   \:::\   \/____/
-            \::::::/    /    \:::\    \               \:::\   \:::\    \
-             \::::/    /      \:::\    \               \:::\   \:::\____\
-             /:::/    /        \:::\    \               \:::\   \::/    /
-            /:::/    /          \:::\    \               \:::\   \/____/
-           /:::/    /            \:::\    \               \:::\    \
-          /:::/    /              \:::\____\               \:::\____\
-          \::/    /                \::/    /                \::/    /
-           \/____/                  \/____/                  \/____/
-
+.................... .:DKWK#WWWWEKDEKEKEDfti:;.
+....................:.EEKKWWWWWWWKKEDWEDDEDGLf;:.
+..................:.:KEWKWWWW#WWKKGEEK#WWKGDLtG,.
+.................. :KWKWWWW####WDEWKWWKWWKWKED,,..
+................. :EKEW#######WWWW#WWKW#W#WKKEt,..
+................. DW###W#####WWKWWKEEKWWW#W#WEDj;:
+................ LKW#W#W####WEKDKDEDEGGK###W#KEGL
+................,K#WW##W#KWWKEEDGGGffffDWW##WKDEL
+...............,EKWWK##WWWWEKKGLfjtjtttfDWWWWEEEft
+...............jWWW#####WKWGGLffttii;;itLWWWWKGKDG
+...............WWWW###WWKEGLfjjttti;;;;;ijDDWWWWKL
+..............KW######WKDLfjtttti;;;,::,;;tD##WKKL
+.............DK#W###WWWELjtiiiiii;;;,::::;ifK#KWED
+.............KWW####WKELjttiiiiii;;;,,:.:,;iG##WKL
+............KKW###W#WKGfjtiiiiiii;;;,:  .,;;f###DG
+...........tWW#W##WWWDLfjtii;i;;;;;;,,. .:,;tW##KE
+...........EDWW####KDLffjtii;;;;;;;,,,. .:,;iW#W#E
+..........,W#W#####KGffjjti;,,,,,,,,:::.::,;iW#WWE
+..........KWEW###WKGLffjtti;,,,,,,,,,:.::,,;t##WKW
+..........DWWWW#W#KLfffGGDGGf,,,:,::..:::,,;tW##KK
+....::...:W#K#WW#WEffjjjjtjLDEDi,,,,,::::,;;t###WW
+....::::.,WWEDKWWKDfjjjjjtti;fKDf,,,,,:,,,,;t###KW
+::.::.:.:f##ELLGKDfjjjfffjti;,;GGLi;;,,,,,,,f###KW
+:::::.:::E##DGEDWDfjtjfGGDDKj;,iLGj;;,,;,,,,f##DKW
+.:.::::::W##LEGGDGjtiijLDEffG#ftjft;;,,;i,,,j#WGW#
+.::::::::W##DGDLDfjti;;tffttWKKjfft;,,tfGDWGf#WWDK
+.:::::::GW##GDGKEfjti;;;iiffEEWiffi,,;tjjjfLD#EKjL
+:::::::,:####GfGLjjti;,,,;iiii,;fj;:;ttti,,;##:KEW
+:::::::,iK###f;GLtjji;,,,,,,;;,ijt,,itffjji,##fK,f
+::::::,:j####WjLfjjjt;;,,,,,,;itji:,;fiWKWf##DEK#.
+::::::,,GK#####Lfjjtti;,,,,,;ittt;:,;itKGGE#LLEift
+::::;,,:jWW#####fjjtti;;,,,,;tttt;.,,itiLi##Eiti;.
+::::,;;,G#######ftjjtt;;,,,,;tfft;:,,;;,,;#j  jD;K
+:,,,,,,,LW######fjjjjt;;,,,,ifLft;:,;;;,,,#:ftf.:
+,,,,,i,,,W######fttjtti;,,,,jLjjt;:,,,,,,WK;,fL :,
+,,,,,,i;i#######Ljjttti;,,:,Gftjt,.,,,,,,#K;tE::
+,,,,;;,,fW#######jjjttii;,:iDfffj;,,,,,,:#f;ij  .
+,,,,;;,iDW#######fjtttii;,,;jDDDft,,,,,,#WK  .  ..
+,,;,;;iiDW#######Ljjjttii;,;ijLft;:,,,;#W##Gi .
+;;;;;;itKW####K##Efjjjtti;;iii,i,:,,,,###W#Wj,.
+;;;ijt;##WW#####WKfjjjttijLffji;,,,,,L######KGj:
+iiiiiiKWKW###K##KDGfjjjjttjfEDLjj;,;t########EK .
+i;ttK###WE#####WEDGLfjjjjjLfjtjjLj;i#W########G;.
+EWWKWW####W###WWEGLDLfjjjjjfLjtitiiKWK#L######i, .
+##WWW#WK#####WKEGGGGGLfjjttttfjtii###G##KW####KG
+DiGEEEjD#KEWKKKEGGGGDDffjti;,,;i####W##K.tW###WG..
+itfiGijGjGtKKKEDDGGGGGGffjti;,;fLGWKj#########WWD
+:i;ij:ji.;;EEEWDGGGGGGGLLfjjtitfLDKD,E#########WK.
+i:;i.,;,;;t;EDEDGGLLLLffjtiiiDjfLDE:.;iL######KWWi
+.:tt::,.,,.,GDGGLLLLffjjttt;jjfGDEEt :;ttW####WWWG
+ ::,,t; ;,;;tjfftffjjjtttiijjLGGDKf fiitt;W###K#WE
+fG ,,:.:::.;;iitjEjtttiiittttjjfE;,;,.,E,;tKfWEWK#
+.:  .:.,,.:i:;;iittiiiiiiiittttL. .,:,:ti;:DiGjG#W
+.. ..::: :.;;:;;iiiiiiiitijttjL.  :: i::::,,,i::DE
+   .:::,...:;,,;iiit;iiitttffL    :.t,..ti:,.:;:LG
+   .::,. .:.,;,.iiiit;ittfjL.     .:,f;::;,..,i.f,
+   ..::.. ..,;;,,itttfijjKL    .. ,,;;.::i;,:j.. :
+   ..,:   :.:,;i;,tttjGE,..   ..:,,:: ;,.f;;t: .,.
+  ...,:.  ..t:iii,,,,:::. .  :,,::....D;,;it; .;:
+ ...:,.. . ..,,i;,::::...  .::::.. ...:,;tji: :;
+.....,.  . ...;:,,::.:   :,,:.......:,,;ttf: ,;: :
+ ...:, .......:;,,,: .::;:........;:;,;ttt, :t; ::
+..:.,,.  .......:,,:;;;i:........::::;itti::i;.,,.
+:..:,  ..:......::,,it: .....: ::,:::iti;.:fi; ;,
+...,,.........:::,;i:.  ...:::.:::::;ti;: :t;.:,:
+:::,:..:......::,i,.. ....::.:::.;,;ii;:.,ii, i,:
+.::::...:...::,i;.... :.::,.::::::;tii,.:ii;: ,: .
+.,,: .... :.,ii:  .....:::::::.::;tii;. ;t;; i:, i
+,,: ......,;i,  .. ..;:::.::..::;ti;;:.,t;;,.,..,i
+;:.. ....;,,:  ..  .,.::::.:::.,iii;:.:ti;;.; .:t:
+,....:,,,.. ..:..:.::.::::.::,:iii;:..ii;; :,.,t:.
+:. :::.:..:...:..::..::,::.::,;ii;,,.;ii;; : it,:.
+:.::,:..,..::....:..:::::::.,,;i;,:. i;;i:,.tj,:.
+:::.:.GGGGGDf....:....:.:::,,;;i,:..ti;;; .tj,..
+,,:,LL ..tGLjLt::...:.::..:;i;;;:..:;;i;:.jt::...
+.:DDG..::.GLtfLt;..::.,::.,,;;;:...ti;;, j;:::...
+DGDDG.:.:.;LD. DGE:.,::,:;;;ii,,..,i;;;:j,,,. .:.
+LDGG.,.:..DD. ..jLL:::,,,,;it,::..t;;;: ,,,:..   .
+EDKK,:::. E ....GGGD:::;,,,,;,:..it;;;:,;::.   .
+f:::,:.K.. ... .jLiLE,,;,;;;;,:..fi;;,.,,.:::::..
+,,,,,:..E:.K....jGLfD;;,;:,,::..it;;i.,,;,,,:... .
+,,,,:::.  G.....LGLLLK,;;;,:::..ji;i; ,;;:::::. ..
+K,::t...f D#....LGGLGD;;i,:::..:fi;;:,;;,,.:......
+,G,,.: tti....: .GDGGf,,;:::...;fi;;.:;;i;,:....:.
+,,L,:.j::i....L :DGGDGW,:,:....,fii, ;tii,,..... .
+,,,::.jj:t.:.K.::,KLGGL::,.:...iL;i,,;;;:;,:......
+,,:,::jjjt.::.:.:,:GGGG,,.,:. .tL;;:ti;;i,::......
+:j::::fjj::::::,:EKfLLG,:.:....jG;:,Ltt,,::.......
+,,;,::::,:EKE,.,,::EfGG:::.. ..fG;,fffjj::.......
