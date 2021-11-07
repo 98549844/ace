@@ -129,6 +129,20 @@ spring:
     virtual-host: /
 
 
+#自定义springboot banner
+#  main:
+#    banner-mode: log
+#  banner:
+#    charset: utf-8
+#    image:
+#      location: banner.png
+#      bitdepth: 4
+#      height: 70
+#      width: 100
+#      invert: false
+#      margin: 2
+#      pixelmode: text
+#    location: banner.txt
 
     #receiver
     #rabbitmq:
