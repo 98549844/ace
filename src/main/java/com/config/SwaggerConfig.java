@@ -42,10 +42,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
      */
     @Bean
     public Docket createRestApi() {
-        boolean enabled = false;
-        if (swaggerEnabled || knife4jEnabled) {
-            enabled = true;
-        }
+        boolean enabled = swaggerEnabled || knife4jEnabled;
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .enable(enabled).apiInfo(apiInfo())

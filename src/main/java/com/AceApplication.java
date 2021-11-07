@@ -4,10 +4,8 @@ import com.config.AceConfig;
 import com.config.BrowserConfig;
 import com.util.ApplicationContextUtil;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,7 +14,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import util.IpUtil;
 import util.MapUtil;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
