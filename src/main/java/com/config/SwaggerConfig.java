@@ -11,6 +11,7 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -44,10 +45,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     public Docket createRestApi() {
         boolean enabled = swaggerEnabled || knife4jEnabled;
 
-        return new Docket(DocumentationType.SWAGGER_2)
-                .enable(enabled).apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.restController"))
+        return new Docket(DocumentationType.SWAGGER_2).enable(enabled).apiInfo(apiInfo()).select().apis(RequestHandlerSelectors.basePackage("com.restController"))
                 // .apis(RequestHandlerSelectors.basePackage("com.controller"))
                 //.apis(SwaggerConfig.basePackage("com.controller,com.restController"))
                 .paths(PathSelectors.any()).build();
@@ -89,7 +87,13 @@ public class SwaggerConfig implements WebMvcConfigurer {
      * version：版本号
      */
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Ace API documents (Swagger)").description("base on SpringBoot").description("前后分离框架").version("1.0").license("version1.0")
+        return new ApiInfoBuilder()
+                .title("Ace API documents (Swagger)")
+                .description("base on SpringBoot")
+                .description("前后分离框架")
+                .contact(new Contact("Garlam Au", "", "garlam_au@qq.com"))
+                .version("1.0")
+                .license("version1.0")
                 //.licenseUrl(swagger.getLicenseUrl())
                 .build();
     }
