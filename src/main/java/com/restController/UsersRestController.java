@@ -25,29 +25,25 @@ import java.util.List;
 @RequestMapping("/rest/user")
 @Api(tags = "user")
 @EnableConfigurationProperties
-public class UserRestController {
-    private static Logger log = LogManager.getLogger(UserRestController.class.getName());
+public class UsersRestController {
+    private static Logger log = LogManager.getLogger(UsersRestController.class.getName());
 
 
     private UsersService usersService;
 
     @Autowired
-    public UserRestController(UsersService usersService) {
+    public UsersRestController(UsersService usersService) {
         this.usersService = usersService;
     }
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/get")
     public boolean getUsers() {
-
         List<Users> ls = usersService.getAll();
-
         for (Users u : ls) {
             u.setMobile("0000 0000"+ RandomUtil.getInt(10));
             usersService.save(u);
-
         }
-
         return true;
     }
 
