@@ -128,7 +128,6 @@ spring:
     password: garlamau
     virtual-host: /
 
-
 #自定义springboot banner
 #  main:
 #    banner-mode: log
@@ -167,3 +166,5 @@ spring:
     #username: guest
     #virtual-host: /
 
+  security:
+    loginType: JSON

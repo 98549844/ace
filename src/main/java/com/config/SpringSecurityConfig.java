@@ -1,5 +1,6 @@
 package com.config;
 
+import com.handler.MyAuthenticationSuccessHandler;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -16,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private String loginUrl = "/ace/login.html";
+    private String indexUrl = "/ace/login.html";
     private String permitAll = "/api";
     private String deniedPage = "/deny";
     //邦定的用户组才能登入url
@@ -39,24 +41,26 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/csrf").permitAll()
                 //allow access static
                 .antMatchers("classpath:/static/").permitAll()
+                //allow access templates
+              //  .antMatchers("classpath:/templates/").permitAll()
                 //login
-                //.antMatchers(loginUrl).permitAll()
-                //open spring security, login success can access
-                //.anyRequest()
-                //.authenticated()
-                //.and()
-                //.formLogin()
-                //.loginPage(loginUrl)
-                //.successHandler(new MyAuthenticationSuccessHandler())
-                //.permitAll()
-                //.and()
-                //.logout()
-                //.logoutUrl(loginUrl)
-                //.logoutSuccessUrl(loginUrl)
+                .antMatchers(loginUrl).permitAll()
+               // open spring security, login success can access
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+      //          .loginPage("/")
+  //              .successHandler(new MyAuthenticationSuccessHandler())
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .logoutUrl(loginUrl)
+//                .logoutSuccessUrl(loginUrl)
 
                 //close spring security
-                .anyRequest().permitAll()
-                .and().logout().permitAll()
+                //.anyRequest().permitAll()
+                //.and().logout().permitAll()
 
                 .and().rememberMe()
                 //.tokenValiditySeconds(84600).tokenRepository("保存用户token信息到数据库")

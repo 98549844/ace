@@ -15,7 +15,7 @@ public class Users extends baseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(strategy = "identity", name = "id")
     @Column
-    private Integer id;
+    private Integer userId;
     @Column
     private String password;
 
@@ -38,12 +38,12 @@ public class Users extends baseEntity implements Serializable {
     private String hostName;
 
 
-    public Integer getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer id) {
+        this.userId = id;
     }
 
     public String getPassword() {

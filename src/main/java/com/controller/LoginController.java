@@ -71,7 +71,7 @@ public class LoginController extends CommonController {
             log.error("Login Fail!");
             modelAndView = super.page("ace/login.html");
             if (userName.isEmpty() || password.isEmpty()) {
-                msg = "Please enter Username and Password !";
+                msg = "Username / password empty";
             } else {
                 msg = "Login Fail, Please try again!";
             }

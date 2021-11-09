@@ -134,7 +134,7 @@ public class UsersService implements UserDetailsService {
         try {
             List<Users> list = getUsers(users);
             for (Users user : list) {
-                delete(user.getId());
+                delete(user.getUserId());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -172,8 +172,8 @@ public class UsersService implements UserDetailsService {
     private Specification<Users> toPredicate(Users users) {
         return (Specification<Users>) (root, query, criteriaBuilder) -> {
             List<Predicate> predicatesList = new ArrayList<>();
-            if (users.getId() != null) {
-                Predicate predicate = criteriaBuilder.equal(root.get("id"), users.getId());
+            if (users.getUserId() != null) {
+                Predicate predicate = criteriaBuilder.equal(root.get("id"), users.getUserId());
                 predicatesList.add(predicate);
             }
             if (users.getPassword() != null) {

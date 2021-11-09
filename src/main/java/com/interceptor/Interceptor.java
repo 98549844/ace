@@ -24,13 +24,13 @@ public class Interceptor implements HandlerInterceptor {
         String status = Integer.toString(response.getStatus());
         String RequestURI = request.getRequestURI();
 
-        log.info("status: {} ; RequestURI: {}", status, RequestURI);
+      //  log.info("status: {} ; RequestURI: {}", status, RequestURI);
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-        log.info("response.status: {}", response.getStatus());
+      //  log.info("response.status: {}", response.getStatus());
     }
 
     @Override
