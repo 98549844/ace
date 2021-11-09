@@ -15,7 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @PropertySource(value = "classpath:application.yml", encoding = "UTF-8")
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private String logOutSuccessUrl = "/ace/login.html";
+    private String loginUrl = "/ace/login.html";
     private String permitAll = "/api";
     private String deniedPage = "/deny";
     //邦定的用户组才能登入url
@@ -40,19 +40,19 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 //allow access static
                 .antMatchers("classpath:/static/").permitAll()
                 //login
-                //.antMatchers(logOutSuccessUrl).permitAll()
+                //.antMatchers(loginUrl).permitAll()
                 //open spring security, login success can access
                 //.anyRequest()
                 //.authenticated()
                 //.and()
                 //.formLogin()
-                //.loginPage(logOutSuccessUrl)
+                //.loginPage(loginUrl)
                 //.successHandler(new MyAuthenticationSuccessHandler())
                 //.permitAll()
                 //.and()
                 //.logout()
-                //.logoutUrl(logOutSuccessUrl)
-                //.logoutSuccessUrl(logOutSuccessUrl)
+                //.logoutUrl(loginUrl)
+                //.logoutSuccessUrl(loginUrl)
 
                 //close spring security
                 .anyRequest().permitAll()
