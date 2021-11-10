@@ -7,6 +7,8 @@ flush privileges;#立即启用配置
 
 drop schema ace;#删除数据库
 
+commit;
+
 
 #
 create schema ace_dev default character set utf8 collate utf8_general_ci;#创建数据库
