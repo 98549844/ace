@@ -61,7 +61,6 @@ values (1, 1, sysdate(), 1, sysdate(), 1, 1);
 insert into user_roles (userRolesId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId, userId)
 values (2, 1, sysdate(), 1, sysdate(), 2, 4);
 
-
 insert into user_roles (userRolesId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId, userId)
 values (3, 1, sysdate(), 1, sysdate(), 3, 2);
 insert into user_roles (userRolesId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId, userId)

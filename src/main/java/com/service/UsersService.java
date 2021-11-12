@@ -11,9 +11,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import util.BigDecimalUtil;
 import util.NullUtil;
 
 import javax.persistence.criteria.Predicate;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -142,9 +144,9 @@ public class UsersService implements UserDetailsService {
         return true;
     }
 
-    public boolean delete(long id) {
+    public boolean delete(BigDecimal id) {
         try {
-            usersDao.deleteById(id);
+            usersDao.deleteById(BigDecimalUtil.bigDecimalToLong(id));
         } catch (Exception e) {
             e.printStackTrace();
             return false;

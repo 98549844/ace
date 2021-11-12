@@ -6,6 +6,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @EntityListeners(AuditingEntityListener.class)
@@ -16,7 +17,7 @@ public class Users extends baseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(strategy = "identity", name = "id")
     @Column
-    private Integer userId;
+    private BigDecimal userId;
     @Column
     private String password;
 
@@ -50,13 +51,20 @@ public class Users extends baseEntity implements Serializable {
     @Column
     private String remark;
 
-
-    public Integer getUserId() {
+    public BigDecimal getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer id) {
-        this.userId = id;
+    public void setUserId(BigDecimal userId) {
+        this.userId = userId;
+    }
+
+    public String getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(String userAccount) {
+        this.userAccount = userAccount;
     }
 
     public String getPassword() {

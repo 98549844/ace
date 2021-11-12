@@ -6,6 +6,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "permissions")
@@ -16,7 +17,7 @@ public class Permissions extends baseEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@GenericGenerator(strategy = "identity", name = "id")
 	@Column
-	private Integer permissionsId;
+	private BigDecimal permissionsId;
 	@Column
 	private String permissionCode;
 	@Column
@@ -27,11 +28,11 @@ public class Permissions extends baseEntity implements Serializable {
 	private String status;
 
 
-	public Integer getPermissionsId() {
+	public BigDecimal getPermissionsId() {
 		return permissionsId;
 	}
 
-	public void setPermissionsId(Integer permissionsId) {
+	public void setPermissionsId(BigDecimal permissionsId) {
 		this.permissionsId = permissionsId;
 	}
 
