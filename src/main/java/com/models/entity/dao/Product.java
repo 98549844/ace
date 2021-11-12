@@ -6,7 +6,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 
 @SuppressWarnings("JpaDataSourceORMInspection")
@@ -18,7 +17,7 @@ public class Product extends baseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GenericGenerator(strategy = "identity", name = "id")
-    private BigDecimal id;
+    private Long id;
     @Column
     private String item;
     @Column
@@ -30,11 +29,11 @@ public class Product extends baseEntity implements Serializable {
     @Column
     Integer qty;
 
-    public BigDecimal getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

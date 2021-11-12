@@ -9,6 +9,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.Optional;
+
 @Repository
 @Transactional
 public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationExecutor<Users> {
@@ -17,4 +20,6 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
     @Modifying
     @Query("update Users t set t.userName = :#{#users.userName} , t.email =:#{#users.email}, t.mobile = :#{#users.mobile}  where t.userId=:#{#users.userId}")
     int update(@Param("users") Users users);
+
+    Optional<Users> findById(long id);
 }

@@ -7,7 +7,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 /**
  * @Classname: Files
@@ -26,13 +25,13 @@ public class Files extends baseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(strategy = "identity", name = "id")
     @Column
-    private BigDecimal id;
+    private Long id;
     @Column
     private String ext;
     @Column
     private String location;
     @Column
-    private BigDecimal size;
+    private Long size;
     @Column
     private String fileName;
     @Column
@@ -48,11 +47,11 @@ public class Files extends baseEntity {
         Files.log = log;
     }
 
-    public BigDecimal getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -72,11 +71,11 @@ public class Files extends baseEntity {
         this.location = location;
     }
 
-    public BigDecimal getSize() {
+    public Long getSize() {
         return size;
     }
 
-    public void setSize(BigDecimal size) {
+    public void setSize(Long size) {
         this.size = size;
     }
 

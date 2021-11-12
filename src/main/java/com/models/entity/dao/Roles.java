@@ -7,7 +7,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "roles")
@@ -18,7 +17,7 @@ public class Roles extends baseEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@GenericGenerator(strategy = "identity", name = "id")
 	@Column
-	private BigDecimal roleId;
+	private Long roleId;
 
 
 	@Column
@@ -26,11 +25,11 @@ public class Roles extends baseEntity implements Serializable {
 	@Column
 	private String description;
 
-	public BigDecimal getRoleId() {
+	public Long getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(BigDecimal roleId) {
+	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
 

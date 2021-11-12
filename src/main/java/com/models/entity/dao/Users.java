@@ -6,7 +6,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @EntityListeners(AuditingEntityListener.class)
@@ -17,7 +16,7 @@ public class Users extends baseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(strategy = "identity", name = "id")
     @Column
-    private BigDecimal userId;
+    private Long userId;
     @Column
     private String password;
 
@@ -51,20 +50,13 @@ public class Users extends baseEntity implements Serializable {
     @Column
     private String remark;
 
-    public BigDecimal getUserId() {
+
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(BigDecimal userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public String getUserAccount() {
-        return userAccount;
-    }
-
-    public void setUserAccount(String userAccount) {
-        this.userAccount = userAccount;
     }
 
     public String getPassword() {
@@ -73,6 +65,14 @@ public class Users extends baseEntity implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(String userAccount) {
+        this.userAccount = userAccount;
     }
 
     public String getUserName() {
@@ -91,6 +91,14 @@ public class Users extends baseEntity implements Serializable {
         this.status = status;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -105,38 +113,6 @@ public class Users extends baseEntity implements Serializable {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
-    }
-
-    public String getDomain() {
-        return domain;
-    }
-
-    public void setDomain(String domain) {
-        this.domain = domain;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public String getHostName() {
-        return hostName;
-    }
-
-    public void setHostName(String hostName) {
-        this.hostName = hostName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getGender() {
@@ -161,6 +137,30 @@ public class Users extends baseEntity implements Serializable {
 
     public void setExpireDate(LocalDateTime expireDate) {
         this.expireDate = expireDate;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public String getHostName() {
+        return hostName;
+    }
+
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
     }
 
     public String getRemark() {

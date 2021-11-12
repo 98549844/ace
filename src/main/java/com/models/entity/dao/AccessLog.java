@@ -6,8 +6,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 
@@ -19,7 +17,7 @@ public class AccessLog extends baseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GenericGenerator(strategy = "identity", name = "id")
     @Column(name = "logId")
-    private BigDecimal logId;
+    private Long logId;
 
     @Column(name = "operator")
     private String operator;
@@ -28,11 +26,11 @@ public class AccessLog extends baseEntity implements Serializable {
     @Column(name = "accessTime")
     private LocalDateTime accessTime;
 
-    public BigDecimal getLogId() {
+    public Long getLogId() {
         return logId;
     }
 
-    public void setLogId(BigDecimal logId) {
+    public void setLogId(Long logId) {
         this.logId = logId;
     }
 

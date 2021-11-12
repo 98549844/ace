@@ -32,13 +32,13 @@ public class UsersService implements UserDetailsService {
     private static Logger log = LogManager.getLogger(UsersService.class.getName());
 
     private UsersDao usersDao;
-  //  private PasswordEncoder passwordEncoder;
+    //  private PasswordEncoder passwordEncoder;
 
 
     @Autowired
     public UsersService(UsersDao usersDao/*, PasswordEncoder passwordEncoder*/) {
         this.usersDao = usersDao;
-      //  this.passwordEncoder = passwordEncoder;
+        //  this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -144,9 +144,9 @@ public class UsersService implements UserDetailsService {
         return true;
     }
 
-    public boolean delete(BigDecimal id) {
+    public boolean delete(Long id) {
         try {
-            usersDao.deleteById(BigDecimalUtil.bigDecimalToLong(id));
+            usersDao.deleteById(id);
         } catch (Exception e) {
             e.printStackTrace();
             return false;

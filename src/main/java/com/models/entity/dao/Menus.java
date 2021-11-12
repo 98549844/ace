@@ -6,7 +6,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 /**
  * @Classname: Menus
@@ -25,19 +24,19 @@ public class Menus {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(strategy = "identity", name = "id")
     @Column
-    private BigDecimal menuId;
+    private Long menuId;
 
     @Column
     private String menu;
     @Column
-    private BigDecimal menuCode;
+    private Long menuCode;
 
     @Column
-    private BigDecimal parentId;
+    private Long parentId;
     @Column
     private String parentMenu;
     @Column
-    private BigDecimal parentMenuCode;
+    private Long parentMenuCode;
 
     public static Logger getLog() {
         return log;
@@ -47,11 +46,11 @@ public class Menus {
         Menus.log = log;
     }
 
-    public BigDecimal getMenuId() {
+    public Long getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(BigDecimal menuId) {
+    public void setMenuId(Long menuId) {
         this.menuId = menuId;
     }
 
@@ -63,19 +62,19 @@ public class Menus {
         this.menu = menu;
     }
 
-    public BigDecimal getMenuCode() {
+    public Long getMenuCode() {
         return menuCode;
     }
 
-    public void setMenuCode(BigDecimal menuCode) {
+    public void setMenuCode(Long menuCode) {
         this.menuCode = menuCode;
     }
 
-    public BigDecimal getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(BigDecimal parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
@@ -87,11 +86,11 @@ public class Menus {
         this.parentMenu = parentMenu;
     }
 
-    public BigDecimal getParentMenuCode() {
+    public Long getParentMenuCode() {
         return parentMenuCode;
     }
 
-    public void setParentMenuCode(BigDecimal parentMenuCode) {
+    public void setParentMenuCode(Long parentMenuCode) {
         this.parentMenuCode = parentMenuCode;
     }
 }
