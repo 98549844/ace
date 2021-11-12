@@ -6,6 +6,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
@@ -24,11 +25,19 @@ public class Users extends baseEntity implements Serializable {
     @Column
     private String userName;
     @Column
-    private String status;
+    private String status; // A:active D:inactive
+    @Column
+    private String description;
     @Column
     private String email;
     @Column
     private String mobile;
+    @Column
+    private String gender;
+    @Column
+    private LocalDateTime birthday;
+    @Column
+    private LocalDateTime expireDate;
 
     @Column
     private String domain;
@@ -36,6 +45,8 @@ public class Users extends baseEntity implements Serializable {
     private String ip;
     @Column
     private String hostName;
+    @Column
+    private String remark;
 
 
     public Integer getUserId() {
@@ -108,5 +119,45 @@ public class Users extends baseEntity implements Serializable {
 
     public void setHostName(String hostName) {
         this.hostName = hostName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public LocalDateTime getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDateTime birthday) {
+        this.birthday = birthday;
+    }
+
+    public LocalDateTime getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(LocalDateTime expireDate) {
+        this.expireDate = expireDate;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }
