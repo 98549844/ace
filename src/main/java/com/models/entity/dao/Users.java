@@ -23,6 +23,8 @@ public class Users extends baseEntity implements Serializable {
 
     //personal info
     @Column
+    private String userAccount;
+    @Column
     private String userName;
     @Column
     private String status; // A:active D:inactive
