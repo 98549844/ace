@@ -1,11 +1,13 @@
 package com.models.entity.dao;
 
+import com.models.entity.dao.base.baseEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @Classname: Menus
@@ -17,8 +19,7 @@ import javax.persistence.*;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "menus")
 @Entity
-public class Menus {
-    private static Logger log = LogManager.getLogger(Menus.class.getName());
+public class Menus extends baseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,23 +29,13 @@ public class Menus {
 
     @Column
     private String menu;
-    @Column
-    private Long menuCode;
 
     @Column
     private Long parentId;
     @Column
     private String parentMenu;
-    @Column
-    private Long parentMenuCode;
 
-    public static Logger getLog() {
-        return log;
-    }
 
-    public static void setLog(Logger log) {
-        Menus.log = log;
-    }
 
     public Long getMenuId() {
         return menuId;
@@ -62,14 +53,6 @@ public class Menus {
         this.menu = menu;
     }
 
-    public Long getMenuCode() {
-        return menuCode;
-    }
-
-    public void setMenuCode(Long menuCode) {
-        this.menuCode = menuCode;
-    }
-
     public Long getParentId() {
         return parentId;
     }
@@ -81,17 +64,8 @@ public class Menus {
     public String getParentMenu() {
         return parentMenu;
     }
-
     public void setParentMenu(String parentMenu) {
         this.parentMenu = parentMenu;
-    }
-
-    public Long getParentMenuCode() {
-        return parentMenuCode;
-    }
-
-    public void setParentMenuCode(Long parentMenuCode) {
-        this.parentMenuCode = parentMenuCode;
     }
 }
 
