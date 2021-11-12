@@ -93,6 +93,8 @@ spring:
 
   jpa:
     hibernate:
+      #使用驼峰式命名生成table
+      physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: update
       #create:
       #根据entity新建表, 原table不动
