@@ -105,7 +105,10 @@ public class BrowserConfig {
     /**
      * 打开windows默认Browser
      */
-    private void openSwaggerOnWindows() {
+    private void openSwaggerOnWindows(boolean swaggerEnable) {
+	    if (!swaggerEnable) {
+		    return;
+	    }
         try {
             ProcessBuilder proc = new ProcessBuilder(windowsBrowser, SwaggerUrl);
             proc.start();
@@ -133,9 +136,9 @@ public class BrowserConfig {
 
 
     public void openAceIndexAndSwagger(boolean openIndex, boolean openSwagger, boolean openKnife4j) throws IOException {
+            String osName = BrowserConfig.getOsInfo();
         BrowserConfig browserConfig = new BrowserConfig();
         if (openIndex) {
-            String osName = BrowserConfig.getOsInfo();
             if (osName.contains("WINDOWS")) {
                 browserConfig.openWindowsDefaultBrowser(true);
             } else if (osName.contains("MAC OS")) {
@@ -146,7 +149,12 @@ public class BrowserConfig {
             ApplicationContextUtil app = new ApplicationContextUtil();
             IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
             Map m = ip.getHostInfo();
-            browserConfig.openSwaggerOnMac(m, true);
+
+	        if (osName.contains("WINDOWS")) {
+		        browserConfig.openSwaggerOnWindows(true);
+	        } else if (osName.contains("MAC OS")) {
+                browserConfig.openSwaggerOnMac(m, true);
+	        }
         }
         if (openKnife4j) {
             ApplicationContextUtil app = new ApplicationContextUtil();
