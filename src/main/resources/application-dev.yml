@@ -108,10 +108,10 @@ spring:
       #但是会插入新值，运行程序会校验实体字段与数据库已有的表的字段类型是否相同，不同会报错
     #去掉WARN spring.jpa.open-in-view is enabled by default
     open-in-view: true
-    #    show-sql: true
+    #show-sql: true
     properties:
       hibernate:
-        format_sql: false
+        #format_sql: true
         # use_sql_comments: true
         # 对应的entity
 

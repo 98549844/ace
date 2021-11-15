@@ -59,7 +59,7 @@ public class LoginController extends CommonController {
         } else {
             log.error("check input param fail!");
             modelAndView = super.page("ace/login.html");
-            modelAndView.addObject("msg", "User Name or password is empty !");
+            modelAndView.addObject("msg", "UserName/password is empty!");
             return modelAndView;
         }
 

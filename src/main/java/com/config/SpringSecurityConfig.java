@@ -16,8 +16,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @PropertySource(value = "classpath:application.yml", encoding = "UTF-8")
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private String loginUrl = "/ace/login.html";
-    private String indexUrl = "/ace/login.html";
+    private final String loginUrl = "/ace/login.html";
+    private String indexUrl = "/ace/index.html";
     private String permitAll = "/api";
     private String deniedPage = "/deny";
     //邦定的用户组才能登入url
@@ -30,19 +30,21 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     //refer to hankuikui/p/14024637.html
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.csrf().disable()
+                .authorizeRequests()
                 //knife4j
                 .antMatchers("/doc.html").permitAll()
                 //swagger2
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
-                .antMatchers("/v2/*").permitAll()
+                .antMatchers("/v2/**").permitAll()
+                .antMatchers("/api/**").permitAll()
                 .antMatchers("/csrf").permitAll()
                 //allow access static
                 .antMatchers("classpath:/static/").permitAll()
                 //allow access templates
-              //  .antMatchers("classpath:/templates/").permitAll()
+                //.antMatchers("classpath:/templates/").permitAll()
                 //login
                 .antMatchers(loginUrl).permitAll()
                // open spring security, login success can access
@@ -50,8 +52,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .formLogin()
-      //          .loginPage("/")
-  //              .successHandler(new MyAuthenticationSuccessHandler())
+                .loginPage(loginUrl)
+            //    .successHandler(new MyAuthenticationSuccessHandler())
 //                .permitAll()
 //                .and()
 //                .logout()
@@ -61,43 +63,55 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 //close spring security
                 //.anyRequest().permitAll()
                 //.and().logout().permitAll()
-
-                .and().rememberMe()
                 //.tokenValiditySeconds(84600).tokenRepository("保存用户token信息到数据库")
-                .and().csrf().disable();
+                .and().rememberMe();
 
     }
 
-
-    //静态资源配置
 //    @Override
-//    public void configure(WebSecurity web) {
-//        //swagger2所需要用到的静态资源，允许访问
-//        //static文件, 允许访问
-//        web.ignoring()
-//                .antMatchers("/v2/api-docs"
-//                        , "/swagger-resources/configuration/ui"
-//                        , "/swagger-resources"
-//                        , "/swagger-resources/configuration/security"
-//                        , "/swagger-resources/**"
-//                        , "/swagger-ui.html"
-//
-//                        , "/**/*.html"
-//                        , "/**/*.htm"
-//                        , "/**/*.js"
-//                        , "/**/*.png"
-//                        , "/**/*.jpg"
-//                        , "/favicon.ico"
-//                        , "/**/*.css"
-//                        , "/images/**"
-//                 /*       , "/login.html"
-//                        , "/js/**"
-//                        , "/css/**"
-//                        , "/images/**"
-//                        , "/fonts/**"
-//                        , "/font-awesome/**"*/
-//                );
+//    public void configure(WebSecurity web) throws Exception {
+//        //解决静态资源被拦截的问题
+//        web.ignoring().antMatchers("/static/**");
 //    }
+
+   // 静态资源配置
+    @Override
+    public void configure(WebSecurity web) {
+        //swagger2所需要用到的静态资源，允许访问
+        //static文件, 允许访问
+        web.ignoring()
+                .antMatchers("/v2/api-docs"
+                        , "/swagger-resources/configuration/ui"
+                        , "/swagger-resources"
+                        , "/swagger-resources/configuration/security"
+                        , "/swagger-resources/**"
+                        , "/swagger-ui.html"
+
+                        , "/**/*.html"
+                        , "/**/*.htm"
+                        , "/**/*.js"
+                        , "/**/*.png"
+                        , "/**/*.jpg"
+                        , "/favicon.ico"
+                        , "/**/*.css"
+                        , "/images/**"
+//                        , "/font-awesome/4.5.0/fonts/**.*"
+                        , "/**/*.woff2"
+                        , "/**/*.woff"
+                        , "/**/*.ttf"
+                        , "/**/*.svg"
+                        , "/**/*.eot"
+                        , "/error"
+
+
+                 /*       , "/login.html"
+                        , "/js/**"
+                        , "/css/**"
+                        , "/images/**"
+                        , "/fonts/**"
+                        , "/font-awesome/**"*/
+                );
+    }
 
     /**
      * 设置admin 用户
@@ -117,4 +131,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("USER");
 
     }
+
+
 }

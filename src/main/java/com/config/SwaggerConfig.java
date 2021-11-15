@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -45,10 +48,14 @@ public class SwaggerConfig implements WebMvcConfigurer {
     public Docket createRestApi() {
         boolean enabled = swaggerEnabled || knife4jEnabled;
 
-        return new Docket(DocumentationType.SWAGGER_2).enable(enabled).apiInfo(apiInfo()).select().apis(RequestHandlerSelectors.basePackage("com.restController"))
+        return new Docket(DocumentationType.SWAGGER_2)
+                .enable(enabled).apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.restController"))
                 // .apis(RequestHandlerSelectors.basePackage("com.controller"))
                 //.apis(SwaggerConfig.basePackage("com.controller,com.restController"))
-                .paths(PathSelectors.any()).build();
+                .paths(PathSelectors.any())
+                .build();
     }
 
     @SuppressWarnings("unchecked")
@@ -78,6 +85,26 @@ public class SwaggerConfig implements WebMvcConfigurer {
             return false;
         };
     }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+
+//        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+//        registry.addResourceHandler("swagger-ui.html")
+//                .addResourceLocations("classpath:/META-INF/resources/");
+//        registry.addResourceHandler("/webjars/**")
+//                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+
+
+
+
 
 
     /*
