@@ -1,33 +1,33 @@
 
 
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
-                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName)
+                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName,version)
 values (1, sysdate(), 1, sysdate(), 'Administrator', null, 'garlam_au@qq.com', null, 'M', null, null, 1, sysdate(), '95186540',
-        '909394', null, 'A', 'A1', 'Garlam Au');
+        '909394', null, 'A', 'A1', 'Garlam Au', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
-                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName)
+                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName,version)
 values (2, sysdate(), 2, sysdate(), 'Information', null, 'peter_wong@qq.com', null, 'M', null, null, 2, sysdate(), '12314564',
-        '909394', null, 'A', 'B1', 'Peter Wong');
+        '909394', null, 'A', 'B1', 'Peter Wong', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
-                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName)
+                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName,version)
 values (3, sysdate(), 3, sysdate(), 'Editor', null, 'mary_leeg@qq.com', null, 'F', null, null, 3, sysdate(), '44557878',
-        '909394', null, 'A', 'C2', 'Mary Lee');
+        '909394', null, 'A', 'C2', 'Mary Lee', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
-                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName)
+                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName,version)
 values (4, sysdate(), 1, sysdate(), 'Disable', null, 'kalam@qq.com', null, 'M', null, null, 1, sysdate(), '95186540',
-        '909394', null, 'A', 'A2', 'Ka Lam');
+        '909394', null, 'A', 'A2', 'Ka Lam', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
-                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName)
+                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName,version)
 values (5, sysdate(), 2, sysdate(), 'Logger', null, 'may_tang@qq.com', null, 'M', null, null, 2, sysdate(), '12314564',
-        '909394', null, 'A', 'B2', 'May Tang');
+        '909394', null, 'A', 'B2', 'May Tang', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
-                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName)
+                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName,version)
 values (6, sysdate(), 2, sysdate(), 'Information', null, 'frank_chow@qq.com', null, 'M', null, null, 2, sysdate(), '12314564',
-        '909394', null, 'A', 'B3', 'Frank Chow');
+        '909394', null, 'A', 'B3', 'Frank Chow', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
-                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName)
+                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName,version)
 values (7, sysdate(), 2, sysdate(), 'Disable', null, 'eric_luk@qq.com', null, 'M', null, null, 2, sysdate(), '12314564',
-        '909394', null, 'D', 'D1', 'Eric Luk');
+        '909394', null, 'D', 'D1', 'Eric Luk', 1);
 commit;
 
 select userId, birthday,  description,  email, expireDate, gender,

@@ -45,6 +45,7 @@ public class baseEntity {
     @Column()
     private String lastUpdatedBy;
 
+    //@Column(name = "version", columnDefinition = "int default 1")
     @Version
     @Column(name = "version")
     private Integer version = 1;

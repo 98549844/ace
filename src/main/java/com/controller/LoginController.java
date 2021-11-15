@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import util.NullUtil;
+import util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -64,8 +64,10 @@ public class LoginController extends CommonController {
         }
 
         if (users != null && users.size() == 1) {
-            usersService.update(users.get(0));
-            log.info("user: " + users.get(0).getUserName() + " update success!");
+           // usersService.update(users.get(0));
+           // log.info("user: " + users.get(0).getUserName() + " update success!");
+            usersService.save(users.get(0));
+            log.info("user: " + users.get(0).getUserName() + " save success!");
             modelAndView = super.redirect("ace/index.html");
         } else {
             log.error("Login Fail!");
