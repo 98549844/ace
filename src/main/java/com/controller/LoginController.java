@@ -56,7 +56,10 @@ public class LoginController extends CommonController {
             user.setUserName(userName);
             user.setPassword(password);
             users = usersService.getUsers(user);
-        } else {
+        } else if (NullUtil.isNull(userName) && NullUtil.isNull(password)){
+            modelAndView = super.page("ace/login.html");
+            return modelAndView;
+        }else{
             log.error("check input param fail!");
             modelAndView = super.page("ace/login.html");
             modelAndView.addObject("msg", "UserName/password is empty!");
@@ -64,8 +67,6 @@ public class LoginController extends CommonController {
         }
 
         if (users != null && users.size() == 1) {
-           // usersService.update(users.get(0));
-           // log.info("user: " + users.get(0).getUserName() + " update success!");
             String mobile = users.get(0).getMobile();
             Integer newMobile = DataTypeUtil.stringToInteger(mobile)+1;
             mobile = newMobile.toString();
