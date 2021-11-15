@@ -1,17 +1,12 @@
 package com.dao;
 
-import com.models.entity.dao.Menus;
-import com.models.entity.dao.Users;
-import org.hibernate.sql.Select;
+import com.models.entity.dao.Menu;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -24,11 +19,11 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface MenuDao extends JpaRepository<Menus, Long>, JpaSpecificationExecutor<Menus> {
+public interface MenuDao extends JpaRepository<Menu, Long>, JpaSpecificationExecutor<Menu> {
 
 
     @Modifying
-    List<Menus> getDistinctByParentId(Long rootParentId);
+    List<Menu> getDistinctByParentId(Long rootParentId);
 
 
 }

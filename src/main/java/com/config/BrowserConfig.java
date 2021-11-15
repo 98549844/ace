@@ -119,6 +119,20 @@ public class BrowserConfig {
         }
     }
 
+    private void openKnife4jOnWindows(boolean Knife4jEnable) {
+        if (!Knife4jEnable) {
+            return;
+        }
+        try {
+            ProcessBuilder proc = new ProcessBuilder(windowsBrowser, Knife4jUrl);
+            proc.start();
+            BrowserConfig config = new BrowserConfig();
+            config.PrintUrl("KNIFE4J:\t\t", Knife4jUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void PrintUrl(String banner, String url) {
         System.out.print(LocalDateTime.now() + "  ");
         Console.print("INFO ", Console.GREEN);
@@ -138,6 +152,10 @@ public class BrowserConfig {
     public void openAceIndexAndSwagger(boolean openIndex, boolean openSwagger, boolean openKnife4j) throws IOException {
             String osName = BrowserConfig.getOsInfo();
         BrowserConfig browserConfig = new BrowserConfig();
+
+        ApplicationContextUtil app = new ApplicationContextUtil();
+        IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
+        Map m = ip.getHostInfo();
         if (openIndex) {
             if (osName.contains("WINDOWS")) {
                 browserConfig.openWindowsDefaultBrowser(true);
@@ -146,10 +164,6 @@ public class BrowserConfig {
             }
         }
         if (openSwagger) {
-            ApplicationContextUtil app = new ApplicationContextUtil();
-            IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
-            Map m = ip.getHostInfo();
-
 	        if (osName.contains("WINDOWS")) {
 		        browserConfig.openSwaggerOnWindows(true);
 	        } else if (osName.contains("MAC OS")) {
@@ -157,10 +171,12 @@ public class BrowserConfig {
 	        }
         }
         if (openKnife4j) {
-            ApplicationContextUtil app = new ApplicationContextUtil();
-            IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
-            Map m = ip.getHostInfo();
-            browserConfig.openKnife4jOnMac(m, true);
+            if (osName.contains("WINDOWS")) {
+                browserConfig.openKnife4jOnWindows(true);
+            } else if (osName.contains("MAC OS")) {
+                browserConfig.openKnife4jOnMac(m, true);
+
+            }
         }
 
     }

@@ -1,7 +1,7 @@
 package com.controller;
 
 import com.controller.common.CommonController;
-import com.models.entity.dao.Menus;
+import com.models.entity.dao.Menu;
 import com.service.MenuService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,20 +22,20 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/ace")
-public class MenusController extends CommonController {
-    private static Logger log = LogManager.getLogger(MenusController.class.getName());
+public class MenuController extends CommonController {
+    private static Logger log = LogManager.getLogger(MenuController.class.getName());
 
     private MenuService menuService;
 
     @Autowired
-    public MenusController(MenuService menuService) {
+    public MenuController(MenuService menuService) {
         this.menuService = menuService;
     }
 
     @RequestMapping(value = "/menu.html", method = RequestMethod.GET)
     public ModelAndView getMenuList() {
 
-        List<Menus> menusList = menuService.getMenuList();
+        List<Menu> menuList = menuService.getMenuList();
 
         ModelAndView modelAndView = super.page("ace/modules/menus/menu");
         return modelAndView;
@@ -44,7 +44,7 @@ public class MenusController extends CommonController {
     @RequestMapping(value = "/menu/delete.html", method = RequestMethod.DELETE)
     public ModelAndView deleteMenu() {
 
-        List<Menus> menusList = menuService.getMenuList();
+        List<Menu> menuList = menuService.getMenuList();
 
         ModelAndView modelAndView = super.page("ace/modules/menus/menu");
         return modelAndView;
@@ -53,7 +53,7 @@ public class MenusController extends CommonController {
     @RequestMapping(value = "/menu/add.html", method = RequestMethod.GET)
     public ModelAndView addMenu() {
 
-        List<Menus> menusList = menuService.getMenuList();
+        List<Menu> menuList = menuService.getMenuList();
 
         ModelAndView modelAndView = super.page("ace/modules/menus/menu");
         return modelAndView;
@@ -62,7 +62,7 @@ public class MenusController extends CommonController {
     @RequestMapping(value = "/menu/edit.html", method = RequestMethod.GET)
     public ModelAndView editMenu() {
 
-        List<Menus> menusList = menuService.getMenuList();
+        List<Menu> menuList = menuService.getMenuList();
 
         ModelAndView modelAndView = super.page("ace/modules/menus/menu");
         return modelAndView;
