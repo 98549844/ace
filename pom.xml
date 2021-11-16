@@ -117,6 +117,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+             
+             
+        <!--swagger2 3.0.0 配合knife4j3.0.3, 有机会swagger2 报404错误, knife4j 使用正常-->
+        <!--swagger2 单独驶用, 版本是2.9.2-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
