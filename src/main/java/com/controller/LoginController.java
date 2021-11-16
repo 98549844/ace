@@ -68,7 +68,7 @@ public class LoginController extends CommonController {
 
         if (users != null && users.size() == 1) {
             String mobile = users.get(0).getMobile();
-            Integer newMobile = DataTypeUtil.stringToInteger(mobile)+1;
+            Integer newMobile = DataTypeUtil.stringToInteger(mobile == null ? "1" : mobile)+1;
             mobile = newMobile.toString();
             users.get(0).setMobile(mobile);
             usersService.save(users.get(0));
