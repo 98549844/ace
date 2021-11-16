@@ -3,10 +3,8 @@ package com.config;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import util.NullUtil;
 
 /**
  * @Classname: aceConfig
@@ -27,21 +25,12 @@ public class AceConfig {
     private String version;
     @Value("${swagger.enabled}")
     private boolean swaggerEnable;
-    @Value("${knife4j.enabled}")
-    private boolean knife4jEnabled;
+    @Value("${docHtml.enabled}")
+    private boolean docHtmlEnabled;
     @Value("${ace.indexEnable}")
     private boolean indexEnable;
     @Value("${spring.profiles.active}")
     private String profile;
-
-
-    public String getProfile() {
-        return profile;
-    }
-
-    public void setProfile(String profile) {
-        this.profile = profile;
-    }
 
     public String getName() {
         return name;
@@ -67,6 +56,14 @@ public class AceConfig {
         this.swaggerEnable = swaggerEnable;
     }
 
+    public boolean isDocHtmlEnabled() {
+        return docHtmlEnabled;
+    }
+
+    public void setDocHtmlEnabled(boolean docHtmlEnabled) {
+        this.docHtmlEnabled = docHtmlEnabled;
+    }
+
     public boolean isIndexEnable() {
         return indexEnable;
     }
@@ -75,12 +72,12 @@ public class AceConfig {
         this.indexEnable = indexEnable;
     }
 
-    public boolean isKnife4jEnabled() {
-        return knife4jEnabled;
+    public String getProfile() {
+        return profile;
     }
 
-    public void setKnife4jEnabled(boolean knife4jEnabled) {
-        this.knife4jEnabled = knife4jEnabled;
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 }
 

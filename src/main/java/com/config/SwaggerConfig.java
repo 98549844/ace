@@ -33,7 +33,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     @Value("${swagger.enabled}")
     private final Boolean swaggerEnabled = false;
-    @Value("${knife4j.enabled}")
+    @Value("${docHtml.enabled}")
     private final Boolean knife4jEnabled = false;
 
 

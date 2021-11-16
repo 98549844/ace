@@ -56,7 +56,7 @@ public class AceApplication {
         AceConfig aceConfig = (AceConfig) applicationContextUtil.getBeanByName("aceConfig");
 
         BrowserConfig browserConfig = new BrowserConfig();
-        browserConfig.openAceIndexAndSwagger(aceConfig.isIndexEnable(), aceConfig.isSwaggerEnable(), aceConfig.isKnife4jEnabled());
+        browserConfig.openAceIndexAndSwagger(aceConfig.isIndexEnable(), aceConfig.isSwaggerEnable(), aceConfig.isDocHtmlEnabled());
 
         // browserConfig.getCss();
         // browserConfig.getIndex();

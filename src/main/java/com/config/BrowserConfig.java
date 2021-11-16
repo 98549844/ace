@@ -4,7 +4,6 @@ package com.config;
 import com.util.ApplicationContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import util.Console;
 import util.DataTypeUtil;
@@ -23,8 +22,8 @@ public class BrowserConfig {
     private static final Log log = LogFactory.getLog(BrowserConfig.class);
 
     static String url = "http://localhost:8088/";
-    static String SwaggerUrl = "http://localhost:8088/swagger-ui.html";
-    static String Knife4jUrl = "http://localhost:8088/doc.html";
+    static String swaggerUrl = "http://localhost:8088/swagger-ui.html";
+    static String docUrl = "http://localhost:8088/doc.html";
     static String windowsBrowser = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe ";
 
     /**
@@ -49,19 +48,19 @@ public class BrowserConfig {
         if (!swaggerEnable) {
             return;
         }
-        String macSwaggerUrl = SwaggerUrl.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
+        String macSwaggerUrl = swaggerUrl.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
         String Command = "open " + macSwaggerUrl;
-        log.info("Swagger2:\t\t" + SwaggerUrl);
+        log.info("Swagger2:\t\t" + swaggerUrl);
         Process Child = Runtime.getRuntime().exec(Command);
     }
 
-    private void openKnife4jOnMac(Map m, boolean isKnife4jEnable) throws IOException {
-        if (!isKnife4jEnable) {
+    private void openDocHtmlOnMac(Map m, boolean isDocHtmlEnable) throws IOException {
+        if (!isDocHtmlEnable) {
             return;
         }
-        String macSwaggerUrl = Knife4jUrl.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
+        String macSwaggerUrl = docUrl.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
         String Command = "open " + macSwaggerUrl;
-        log.info("Knife4j:\t\t" + Knife4jUrl);
+        log.info("doc.html:\t\t" + docUrl);
         Process Child = Runtime.getRuntime().exec(Command);
     }
 
@@ -106,28 +105,28 @@ public class BrowserConfig {
      * 打开windows默认Browser
      */
     private void openSwaggerOnWindows(boolean swaggerEnable) {
-	    if (!swaggerEnable) {
-		    return;
-	    }
+        if (!swaggerEnable) {
+            return;
+        }
         try {
-            ProcessBuilder proc = new ProcessBuilder(windowsBrowser, SwaggerUrl);
+            ProcessBuilder proc = new ProcessBuilder(windowsBrowser, swaggerUrl);
             proc.start();
             BrowserConfig config = new BrowserConfig();
-            config.PrintUrl("SWAGGER:\t\t", SwaggerUrl);
+            config.PrintUrl("SWAGGER:\t\t", swaggerUrl);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void openKnife4jOnWindows(boolean Knife4jEnable) {
-        if (!Knife4jEnable) {
+    private void openDocHtmlOnWindows(boolean docHtmlEnable) {
+        if (!docHtmlEnable) {
             return;
         }
         try {
-            ProcessBuilder proc = new ProcessBuilder(windowsBrowser, Knife4jUrl);
+            ProcessBuilder proc = new ProcessBuilder(windowsBrowser, docUrl);
             proc.start();
             BrowserConfig config = new BrowserConfig();
-            config.PrintUrl("KNIFE4J:\t\t", Knife4jUrl);
+            config.PrintUrl("doc.html:\t\t", docUrl);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -149,8 +148,8 @@ public class BrowserConfig {
     }
 
 
-    public void openAceIndexAndSwagger(boolean openIndex, boolean openSwagger, boolean openKnife4j) throws IOException {
-            String osName = BrowserConfig.getOsInfo();
+    public void openAceIndexAndSwagger(boolean openIndex, boolean openSwagger, boolean openDocHtml) throws IOException {
+        String osName = BrowserConfig.getOsInfo();
         BrowserConfig browserConfig = new BrowserConfig();
 
         ApplicationContextUtil app = new ApplicationContextUtil();
@@ -164,17 +163,17 @@ public class BrowserConfig {
             }
         }
         if (openSwagger) {
-	        if (osName.contains("WINDOWS")) {
-		        browserConfig.openSwaggerOnWindows(true);
-	        } else if (osName.contains("MAC OS")) {
-                browserConfig.openSwaggerOnMac(m, true);
-	        }
-        }
-        if (openKnife4j) {
             if (osName.contains("WINDOWS")) {
-                browserConfig.openKnife4jOnWindows(true);
+                browserConfig.openSwaggerOnWindows(true);
             } else if (osName.contains("MAC OS")) {
-                browserConfig.openKnife4jOnMac(m, true);
+                browserConfig.openSwaggerOnMac(m, true);
+            }
+        }
+        if (openDocHtml) {
+            if (osName.contains("WINDOWS")) {
+                browserConfig.openDocHtmlOnWindows(true);
+            } else if (osName.contains("MAC OS")) {
+                browserConfig.openDocHtmlOnMac(m, true);
 
             }
         }
