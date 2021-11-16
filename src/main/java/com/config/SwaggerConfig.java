@@ -1,6 +1,7 @@
 package com.config;
 
 
+import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,7 @@ import java.util.function.Predicate;
 
 @Configuration
 @EnableSwagger2
+@EnableSwaggerBootstrapUI
 //@EnableKnife4j
 @PropertySource(value = "classpath:swagger2.properties", ignoreResourceNotFound = true, encoding = "UTF-8")
 //@Profile("dev")
