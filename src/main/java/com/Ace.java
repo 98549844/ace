@@ -16,5 +16,11 @@ public class Ace {
 	private static Logger log = LogManager.getLogger(Ace.class.getName());
 
 
-	
+	public static void main(String[] args) {
+		String m =  "10";
+		System.out.println(m == null ? 1 : m);
+
+	}
+
+
 }

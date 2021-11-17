@@ -52,8 +52,8 @@ public class DataGenerator {
         for (int i = 0; i < 100; i++) {
             if (i < 30) {
                 Test test = new Test();
-                test.setId(get4Int());
-                test.setUserId(get1Int());
+                test.setId(new Long(get4Int()));
+                test.setUserId(new Long(get1Int()));
                 test.setUserName("Peter");
                 test.setEmail(get2Int() + "peter@domain.com");
                 test.setCreatedBy("Peter");
@@ -63,8 +63,8 @@ public class DataGenerator {
                 testList.add(test);
             } else if (i >= 30 && i < 85) {
                 Test test = new Test();
-                test.setId(get4Int());
-                test.setUserId(get1Int());
+                test.setId(new Long(get4Int()));
+                test.setUserId(new Long(get1Int()));
                 test.setUserName("Lily");
                 test.setEmail(get2Int() + "lily@domain.com");
                 test.setCreatedBy("Lily");
@@ -74,8 +74,8 @@ public class DataGenerator {
                 testList.add(test);
             } else {
                 Test test = new Test();
-                test.setId(get4Int());
-                test.setUserId(get1Int());
+                test.setId(new Long(get4Int()));
+                test.setUserId(new Long(get1Int()));
                 test.setUserName("Garlam");
                 test.setEmail(get2Int() + "garlam@domain.com");
                 test.setCreatedBy("Garlam");
