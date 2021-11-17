@@ -27,7 +27,7 @@ public class Product extends baseEntity implements Serializable {
     @Column
     private String category;
     @Column
-    Integer qty;
+    Long qty;
 
     public Long getId() {
         return id;
@@ -69,11 +69,11 @@ public class Product extends baseEntity implements Serializable {
         this.category = category;
     }
 
-    public Integer getQty() {
+    public Long getQty() {
         return qty;
     }
 
-    public void setQty(Integer qty) {
+    public void setQty(Long qty) {
         this.qty = qty;
     }
 }
