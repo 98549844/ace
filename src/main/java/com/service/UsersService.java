@@ -1,18 +1,24 @@
 package com.service;
 
+import com.dao.UserRolesDao;
 import com.dao.UsersDao;
+import com.models.entity.dao.Roles;
+import com.models.entity.dao.UserRoles;
 import com.models.entity.dao.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import util.BigDecimalUtil;
-import util.NullUtil;
+import util.*;
 
 import javax.persistence.criteria.Predicate;
 import java.math.BigDecimal;
@@ -32,19 +38,37 @@ public class UsersService implements UserDetailsService {
     private static Logger log = LogManager.getLogger(UsersService.class.getName());
 
     private UsersDao usersDao;
-    //  private PasswordEncoder passwordEncoder;
-
+    private UserRolesDao userRolesDao;
 
     @Autowired
-    public UsersService(UsersDao usersDao/*, PasswordEncoder passwordEncoder*/) {
+    public UsersService(UsersDao usersDao, UserRolesDao userRolesDao) {
         this.usersDao = usersDao;
-        //  this.passwordEncoder = passwordEncoder;
+        this.userRolesDao = userRolesDao;
     }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
+        Users user = usersDao.findUsersByUserNameLike("%"+s+"%");
+        if (NullUtil.isNull(user) || NullUtil.isNull(user.getUserId())) {
+            ////抛出异常，会根据配置跳到登录失败页面
+            throw new UsernameNotFoundException("找不到该账户信息！");
+        }
+	    Long userId = user.getUserId();
+
+        List<UserRoles> userRolesList = userRolesDao.findByUserId(userId);
+	    List<GrantedAuthority> list = new ArrayList<>();
+        for(UserRoles role : userRolesList){
+	        list.add(new SimpleGrantedAuthority("ROLE_"+role.getRoleId().toString()));
+        }
+
+        org.springframework.security.core.userdetails.User authUser = new
+  org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),list);
+        return  authUser;
     }
+
+
+
+
 
 
     public boolean validate(Users users) {
@@ -154,22 +178,8 @@ public class UsersService implements UserDetailsService {
         return true;
     }
 
-//    private Specification<Users> toPredicate(Users users) {
-//        Specification<Users> sp = (Specification<Users>) (root, query, criteriaBuilder) -> {
-//            List<Predicate> predicatesList = new ArrayList<>();
-//
-//            if (users.getEmail() != null) {
-//                Predicate predicate = criteriaBuilder.like(root.get("email"), "%" + users.getEmail() + "%");
-//                predicatesList.add(predicate);
-//            }
-//            if (users.getUserName() != null) {
-//                Predicate predicate = criteriaBuilder.equal(root.get("userName"), users.getUserName());
-//                predicatesList.add(predicate);
-//            }
-//            return criteriaBuilder.and(predicatesList.toArray(new Predicate[predicatesList.size()]));
-//        };
-//        return sp;
-//    }
+
+
 
     private Specification<Users> toPredicate(Users users) {
         return (Specification<Users>) (root, query, criteriaBuilder) -> {

@@ -1,4 +1,4 @@
-package com.handler;
+package com.handler.springsecurity;
 
 import com.exception.CustomException;
 import com.exception.CustomExceptionType;
@@ -26,7 +26,7 @@ import java.io.IOException;
 public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     private static Logger log = LogManager.getLogger(MyAuthenticationFailureHandler.class.getName());
     //在application配置文件中配置登陆的类型是JSON数据响应还是做页面响应
-    @Value("${spring.security.logintype}")
+    @Value("${spring.security.loginType}")
     private String loginType;
     private static ObjectMapper objectMapper = new ObjectMapper();
 

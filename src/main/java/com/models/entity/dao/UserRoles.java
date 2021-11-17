@@ -18,6 +18,11 @@ public class UserRoles extends baseEntity implements Serializable {
 	@Column
 	private Long userRolesId;
 
+	@Column
+	private Long roleId;
+	@Column
+	private Long userId;
+
 	public Long getUserRolesId() {
 		return userRolesId;
 	}
@@ -26,26 +31,19 @@ public class UserRoles extends baseEntity implements Serializable {
 		this.userRolesId = userRolesId;
 	}
 
-	public Integer getRoleId() {
+	public Long getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(Integer roleId) {
+	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
 
-	public Integer getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-
-	@Column
-	private Integer roleId;
-	@Column
-	private Integer userId;
-
-
 }

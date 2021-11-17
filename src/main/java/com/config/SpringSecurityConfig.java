@@ -1,6 +1,7 @@
 package com.config;
 
-import com.handler.MyAuthenticationSuccessHandler;
+import com.service.UsersService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -23,6 +24,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     //邦定的用户组才能登入url
     private String urlRoles;
 
+    @Autowired
+    private UsersService usersService;
 
     //RESTful and CRSF have conflict
     //CRSF default support GET,head,trace,options,biy not support post
@@ -53,13 +56,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .formLogin()
-               // .loginPage(loginUrl)
-            //    .successHandler(new MyAuthenticationSuccessHandler())
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .logoutUrl(loginUrl)
-//                .logoutSuccessUrl(loginUrl)
+                //.loginPage(loginUrl)
+                .permitAll()
+                .and()
+                .logout()
+                .permitAll()
+
 
                 //close spring security
                 //.anyRequest().permitAll()
@@ -69,11 +71,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        //解决静态资源被拦截的问题
-//        web.ignoring().antMatchers("/static/**");
-//    }
+
+
+
+
+
 
    // 静态资源配置
     @Override
@@ -103,14 +105,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         , "/**/*.svg"
                         , "/**/*.eot"
                         , "/error"
-
-
-                 /*       , "/login.html"
-                        , "/js/**"
-                        , "/css/**"
-                        , "/images/**"
-                        , "/fonts/**"
-                        , "/font-awesome/**"*/
                 );
     }
 
@@ -130,6 +124,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("garlam")
                 .password("{noop}garlamau")
                 .roles("USER");
+        auth.userDetailsService(usersService);
 
     }
 
