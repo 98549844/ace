@@ -10,26 +10,30 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Scanner;
+
 
 @RestController
-public class ExceptionController extends CommonController {
+public class AceException extends CommonController implements ErrorController {
     private Log log = LogFactory.getLog(this.getClass());
 
-   // @RequestMapping(value = {"/error"})
+    @RequestMapping(value = {"/error"})
+    @ResponseBody
     public ModelAndView error() {
         log.info(super.getRequest().getRequestURL());
         ModelAndView modelAndView;
         int status = super.getResponse().getStatus();
         if (status == 404) {
-            log.info("ERROR CODE : " + status);
+            log.info("error code: "+ status);
             modelAndView = super.page("ace/error404");
-        } else if (status == 500) {
-            log.info("ERROR CODE : " + status);
+        } else if (status == 500){
+            log.info("error code: "+ status);
             modelAndView = super.page("ace/error500");
-        } else {
-            log.info("ERROR CODE : " + status);
+        } else{
+            log.info("error code: "+ status);
             modelAndView = super.page("ace/error");
         }
         return modelAndView;
     }
+
 }
