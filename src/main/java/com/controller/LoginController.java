@@ -42,7 +42,7 @@ public class LoginController extends CommonController {
     }
 
 
-  //  @RequestMapping("/login.html")
+    @RequestMapping(value = "/logging.html", method = RequestMethod.POST)
     public ModelAndView login(String userName, String password, HttpServletRequest request) {
         log.info("userName: " + userName);
         log.info("password: " + password);

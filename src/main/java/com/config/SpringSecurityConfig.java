@@ -38,7 +38,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                //knife4j
+                //doc html
                 .antMatchers("/doc.html").permitAll()
                 //swagger2
                 .antMatchers("/swagger-ui.html").permitAll()
@@ -128,7 +128,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
 
     @Bean
     public PasswordEncoder encoder() {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(11);
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(8);
         return passwordEncoder;
     }
 

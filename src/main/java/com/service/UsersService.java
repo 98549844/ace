@@ -45,14 +45,14 @@ public class UsersService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Users user = usersDao.findUsersByUserNameLike("%"+s+"%");
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        Users user = usersDao.findUsersByUserNameLike("%"+userName+"%");
         if (NullUtil.isNull(user) || NullUtil.isNull(user.getUserId())) {
             ////抛出异常，会根据配置跳到登录失败页面
             throw new UsernameNotFoundException("找不到该账户信息！");
         }
 
-        return new User(s, user.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        return new User(user.getUserName(), user.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
 
     }
 
@@ -112,11 +112,7 @@ public class UsersService implements UserDetailsService {
 
 
     public Optional<Users> getUsersById(long id) {
-        Optional<Users> users = usersDao.findById(id);
-        if (users == null) {
-            return null;
-        }
-        return users;
+        return usersDao.findById(id);
     }
 
 
