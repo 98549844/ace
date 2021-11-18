@@ -58,6 +58,8 @@ public class LoginController extends CommonController {
         }
 
         String msg;
+
+        // occur issue***********************************************************************
         Users user = new Users();
         List<Users> users;
 
@@ -94,6 +96,10 @@ public class LoginController extends CommonController {
             modelAndView.addObject("msg", msg);
             //modelAndView.addObject("userName", userName);
         }
+
+        // occur issue***********************************************************************
+
+
         return modelAndView;
     }
 }
