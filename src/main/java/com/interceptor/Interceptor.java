@@ -24,7 +24,7 @@ public class Interceptor implements HandlerInterceptor {
         String status = Integer.toString(response.getStatus());
         String RequestURI = request.getRequestURI();
 
-        log.info("status: {} ; request uri: {}", status, RequestURI);
+        log.info("status: {}; request uri: {}", status, RequestURI);
         return true;
     }
 
