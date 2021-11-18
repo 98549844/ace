@@ -3,6 +3,7 @@ package com.config;
 import com.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,12 +11,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 @ConfigurationProperties(prefix = "springsecurityconfig")
 @PropertySource(value = "classpath:application.yml", encoding = "UTF-8")
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
 
     private final String loginUrl = "/ace/login.html";
     private String indexUrl = "/ace/index.html";
@@ -44,7 +47,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/v2/**").permitAll()
                 .antMatchers("/api/**").permitAll()
-                .antMatchers("/csrf").permitAll()
                 //allow access static
                 .antMatchers("classpath:/static/").permitAll()
                 //allow access templates
@@ -56,12 +58,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .formLogin()
-                //.loginPage(loginUrl)
+                .loginPage(loginUrl)
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll()
-
 
                 //close spring security
                 //.anyRequest().permitAll()
@@ -70,10 +71,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().rememberMe();
 
     }
-
-
-
-
 
 
 
@@ -110,7 +107,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 设置admin 用户
-     *
+     * 自定义配置认证规则
      * @param auth
      * @throws Exception
      */
@@ -124,9 +121,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("garlam")
                 .password("{noop}garlamau")
                 .roles("USER");
-        auth.userDetailsService(usersService);
+        auth.userDetailsService(usersService).passwordEncoder(encoder());
 
     }
 
+
+    @Bean
+    public PasswordEncoder encoder() {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(11);
+        return passwordEncoder;
+    }
 
 }
