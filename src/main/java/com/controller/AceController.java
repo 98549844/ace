@@ -40,18 +40,6 @@ public class AceController extends CommonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/404.html", method = RequestMethod.GET)
-    public ModelAndView error404() {
-        ModelAndView modelAndView = super.page("ace/error404");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/500.html", method = RequestMethod.GET)
-    public ModelAndView error500() {
-        ModelAndView modelAndView = super.page("ace/error500");
-        return modelAndView;
-    }
-
     @RequestMapping(value = "/blank.html", method = RequestMethod.GET)
     public ModelAndView blank() {
         ModelAndView modelAndView = super.page("ace/blank");

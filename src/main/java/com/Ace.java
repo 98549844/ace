@@ -5,6 +5,8 @@ import com.models.entity.dao.Menu;
 import net.sf.jasperreports.engine.util.JsonUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -17,8 +19,9 @@ public class Ace {
 
 
 	public static void main(String[] args) {
-		String m =  "10";
-		System.out.println(m == null ? 1 : m);
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(11);
+		String pw = passwordEncoder.encode("909394");
+		System.out.println(pw);
 
 	}
 

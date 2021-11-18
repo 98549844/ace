@@ -2,26 +2,22 @@ package com.service;
 
 import com.dao.UserRolesDao;
 import com.dao.UsersDao;
-import com.models.entity.dao.Roles;
-import com.models.entity.dao.UserRoles;
 import com.models.entity.dao.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import util.BigDecimalUtil;
 import util.*;
 
 import javax.persistence.criteria.Predicate;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,11 +35,13 @@ public class UsersService implements UserDetailsService {
 
     private UsersDao usersDao;
     private UserRolesDao userRolesDao;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UsersService(UsersDao usersDao, UserRolesDao userRolesDao) {
+    public UsersService(UsersDao usersDao, UserRolesDao userRolesDao,PasswordEncoder passwordEncoder) {
         this.usersDao = usersDao;
         this.userRolesDao = userRolesDao;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -53,22 +51,24 @@ public class UsersService implements UserDetailsService {
             ////抛出异常，会根据配置跳到登录失败页面
             throw new UsernameNotFoundException("找不到该账户信息！");
         }
-	    Long userId = user.getUserId();
 
-        List<UserRoles> userRolesList = userRolesDao.findByUserId(userId);
-	    List<GrantedAuthority> list = new ArrayList<>();
-        for(UserRoles role : userRolesList){
-	        list.add(new SimpleGrantedAuthority("ROLE_"+role.getRoleId().toString()));
-        }
+        return new User(s, user.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
 
-        org.springframework.security.core.userdetails.User authUser = new
-  org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),list);
-        return  authUser;
     }
 
 
 
-
+    public boolean save(Users users) {
+        try {
+            users.setPassword(passwordEncoder.encode(users.getPassword()));
+            usersDao.save(users);
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return false;
+        }
+        return true;
+    }
 
 
     public boolean validate(Users users) {
@@ -117,17 +117,6 @@ public class UsersService implements UserDetailsService {
             return null;
         }
         return users;
-    }
-
-    public boolean save(Users users) {
-        try {
-            usersDao.save(users);
-        } catch (Exception e) {
-            e.printStackTrace();
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return false;
-        }
-        return true;
     }
 
 

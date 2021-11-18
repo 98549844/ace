@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import util.*;
 
@@ -33,7 +34,15 @@ public class LoginController extends CommonController {
         this.usersService = usersService;
     }
 
-    @RequestMapping("/login.html")
+    @RequestMapping(value = "/login.html", method = RequestMethod.GET)
+    public ModelAndView login(){
+
+        ModelAndView modelAndView = super.page("ace/login.html");
+        return modelAndView;
+    }
+
+
+  //  @RequestMapping("/login.html")
     public ModelAndView login(String userName, String password, HttpServletRequest request) {
         log.info("userName: " + userName);
         log.info("password: " + password);

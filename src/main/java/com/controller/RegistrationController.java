@@ -53,7 +53,7 @@ public class RegistrationController extends CommonController {
             modelAndView = super.page("ace/index.html");
         } else {
             modelAndView = super.redirect("ace/login.html?msg=exist");
-            modelAndView.addObject("msg", "User already exist !");
+            modelAndView.addObject("msg", "User exist");
         }
         return modelAndView;
     }
