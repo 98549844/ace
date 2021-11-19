@@ -1,3 +1,12 @@
+delete from users where userId is not null;
+delete from roles where roleId is not null;
+delete from user_roles where userRolesId is not null;
+delete from permissions where permissionsId is not null;
+delete from role_permissions where rolePermissionsId is not null;
+
+
+
+
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
 values (1001, sysdate(), 1, sysdate(), 'Administrator', null, 'garlam_au@qq.com', null, 'M', null, null, 1, sysdate(),
@@ -10,7 +19,8 @@ values (1002, sysdate(), 2, sysdate(), 'Information', null, 'peter_wong@qq.com',
         '$2a$10$5RZINlmOyDZNEC9alvr44uVoZzdTUQmaQel1t70S4ueQtdeei/paW', null, 'A', 'peter', 'Peter Wong', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
-values (1003, sysdate(), 3, sysdate(), 'Editor', null, 'mary_leeg@qq.com', null, 'F', null, null, 3, sysdate(), '44557878',
+values (1003, sysdate(), 3, sysdate(), 'Editor', null, 'mary_leeg@qq.com', null, 'F', null, null, 3, sysdate(),
+        '44557878',
         '$2a$10$5RZINlmOyDZNEC9alvr44uVoZzdTUQmaQel1t70S4ueQtdeei/paW', null, 'A', 'mary', 'Mary Lee', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
@@ -18,7 +28,8 @@ values (1004, sysdate(), 1, sysdate(), 'Disable', null, 'kalam@qq.com', null, 'M
         '$2a$10$5RZINlmOyDZNEC9alvr44uVoZzdTUQmaQel1t70S4ueQtdeei/paW', null, 'A', 'kalam', 'Ka Lam', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
-values (1005, sysdate(), 2, sysdate(), 'Logger', null, 'may_tang@qq.com', null, 'M', null, null, 2, sysdate(), '12314564',
+values (1005, sysdate(), 2, sysdate(), 'Logger', null, 'may_tang@qq.com', null, 'M', null, null, 2, sysdate(),
+        '12314564',
         '$2a$10$5RZINlmOyDZNEC9alvr44uVoZzdTUQmaQel1t70S4ueQtdeei/paW', null, 'A', 'may', 'May Tang', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
@@ -27,11 +38,12 @@ values (1006, sysdate(), 2, sysdate(), 'Information', null, 'frank_chow@qq.com',
         '$2a$10$5RZINlmOyDZNEC9alvr44uVoZzdTUQmaQel1t70S4ueQtdeei/paW', null, 'A', 'frank', 'Frank Chow', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
-values (1007, sysdate(), 2, sysdate(), 'Disable', null, 'eric_luk@qq.com', null, 'M', null, null, 2, sysdate(), '12314564',
+values (1007, sysdate(), 2, sysdate(), 'Disable', null, 'eric_luk@qq.com', null, 'M', null, null, 2, sysdate(),
+        '12314564',
         '$2a$10$5RZINlmOyDZNEC9alvr44uVoZzdTUQmaQel1t70S4ueQtdeei/paW', null, 'D', 'eric', 'Eric Luk', 1);
 commit;
 
-delete from users where userId is not null ;
+
 
 select userId,
        birthday,
@@ -67,7 +79,6 @@ commit;
 select *
 from roles;
 
-delete from roles where roleId is not null;
 
 insert into user_roles (userRolesId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId, userId, version)
 values (1001, 1, sysdate(), 1, sysdate(), 1001, 1001, 1);
@@ -85,7 +96,7 @@ values (1006, 1, sysdate(), 1, sysdate(), 1003, 1006, 1);
 insert into user_roles (userRolesId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId, userId, version)
 values (1007, 1, sysdate(), 1, sysdate(), 1002, 1007, 1);
 
-commit ;
+commit;
 
 select r.roleId, r.roleCode, u.description, u.userId, u.userName
 from users u,
@@ -95,16 +106,6 @@ where u.userId = ur.userId
   and r.roleId = ur.roleId
 order by u.userId;
 
-
-delete
-from users
-where userId is not null;
-delete
-from user_roles
-where userRolesId is not null;
-delete
-from roles
-where roleId is not null;
 #------------------------------------------------
 
 insert into permissions (permissionsId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate,
@@ -145,7 +146,7 @@ insert into permissions (permissionsId, createdBy, createdDate, description, las
 VALUES (1009, 1, sysdate(), 'Deny any operation', 1, sysdate(), 10, 'DENY', 'A', 1);
 
 commit;
-delete from permissions where permissionsId is not null ;
+
 
 select permissionsId, description, permissionCode, action, status
 from permissions;
@@ -177,8 +178,6 @@ insert into role_permissions (rolePermissionsId, createdBy, createdDate, lastUpd
 VALUES (1005, 1, sysdate(), 1, sysdate(), 1002, 1009, 1);
 
 commit;
-delete  from
-              role_permissions where permissionsId is not null;
 
 select roleId, roleCode, description
 from roles;

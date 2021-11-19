@@ -34,7 +34,7 @@ public class ApplicationContextUtil {
      *
      * @param applicationContext
      */
-    public static void printAllBeanName(ApplicationContext applicationContext) {
+    public static void printBeanName(ApplicationContext applicationContext) {
         String[] beanNames = applicationContext.getBeanDefinitionNames();
         // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加该注解的bean
         log.info("total bean: " + applicationContext.getBeanDefinitionCount());

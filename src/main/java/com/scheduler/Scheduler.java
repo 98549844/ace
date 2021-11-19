@@ -1,12 +1,17 @@
-package com.schedule;
+package com.scheduler;
 
 
+import com.scheduler.task.ClearLog;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.time.LocalDateTime;
 
+//@Scheduled注解各参数详解
+//https://www.jianshu.com/p/1defb0f22ed1
+//      cron表达式语法
+//      [秒] [分] [小时] [日] [月] [周] [年]
 //      每隔5秒执行一次：*/5 * * * * ?
 //		每隔1分钟执行一次：0 */1 * * * ?
 //		每天23点执行一次：0 0 23 * * ?
@@ -20,15 +25,15 @@ import java.time.LocalDateTime;
 
 @Configuration      //1.主要用于标记配置类，兼备Component的效果。
 @EnableScheduling   // 2.开启定时任务
-public class Schedule {
+public class Scheduler {
 
-	//3.添加定时任务
-	@Scheduled(cron = "0 */1 * * * ?")
-	//或直接指定时间间隔，例如：5秒
-	//@Scheduled(fixedRate=5000)
-	private void configureTasks() {
-		System.err.println("执行静态定时任务时间: " + LocalDateTime.now());
-	}
+    //@Scheduled(cron = "0 */1 * * * ?")
+    //直接指定时间间隔，例如：5秒 = 5000
+    @Scheduled(fixedRate = 600000)
+    private void runClearLog() throws Exception {
+        ClearLog c = new ClearLog();
+        c.clearLog();
+    }
 
 
 }
