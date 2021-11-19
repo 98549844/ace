@@ -2,6 +2,7 @@ package com.util;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import util.NullUtil;
 
 import java.io.*;
 
@@ -50,14 +51,16 @@ public class PathUtil {
     public static String getSystemPath() {
         return System.getProperty("user.dir");
     }
-//    public void testMethod3() throws IOException {
-//        File file = new File(Thread.currentThread().getContextClassLoader().getResource("AceApplication.java").getFile());
-//        BufferedReader br = new BufferedReader(new FileReader(file));
-//        String len = null;
-//        if ((len = br.readLine()) != null) {
-//            System.out.println(len);
-//        }
-//    }
+
+    public static String getSystemPath(String empty) throws IOException {
+        if (NullUtil.isNotEmpty(empty)) {
+            empty = "";
+        }
+        File directory = new File(empty);//参数为空
+        String path = directory.getCanonicalPath();
+        return path;
+    }
+
 
 }
 

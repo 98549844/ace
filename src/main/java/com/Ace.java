@@ -7,7 +7,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import util.FileUtil;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,31 +18,15 @@ import java.util.Map;
 
 
 public class Ace {
-	private static Logger log = LogManager.getLogger(Ace.class.getName());
+    private static Logger log = LogManager.getLogger(Ace.class.getName());
 
 
-//	public static void main(String[] args) {
-//		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(11);
-//		String pw = passwordEncoder.encode("909394");
-//		System.out.println(pw);
-//
-//	}
+    public static void main(String[] args) throws IOException {
+        System.out.println(System.getProperty("user.dir"));
 
-
-	private static BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-	//加密,密码
-	public static String encodePassword(String password){
-		return bCryptPasswordEncoder.encode(password);
-	}
-
-	public static void main(String[] args) {
-		String str = "909394";
-		String password = encodePassword(str);
-		System.out.println(password);
-		//进行密码对比第一个参数为未加密密码,第二个参数为加密后数据库中的密码
-		boolean b = bCryptPasswordEncoder.matches("909394", "$2a$11$7nuTCVhHRtpctpBam50Yr.2Breu0upOHSYiWCwwr1.E/efMMJQNLG");
-		System.out.println(b);
-	}
-
+        File directory = new File("");//参数为空
+        String courseFile = directory.getCanonicalPath() ;
+        System.out.println(courseFile);
+    }
 
 }
