@@ -95,7 +95,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
                         , "/favicon.ico"
                         , "/**/*.css"
                         , "/images/**"
-//                        , "/font-awesome/4.5.0/fonts/**.*"
+                      //, "/font-awesome/4.5.0/fonts/**.*"
                         , "/**/*.woff2"
                         , "/**/*.woff"
                         , "/**/*.ttf"
