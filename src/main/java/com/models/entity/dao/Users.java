@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(name = "constraint_userAccount", columnNames = "userAccount")})
 @Entity
 public class Users extends baseEntity implements Serializable {
     @Id

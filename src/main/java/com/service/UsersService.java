@@ -59,7 +59,8 @@ public class UsersService implements UserDetailsService {
 
 
 	public Users getUserByUserName(Users param) {
-		Users user = usersDao.findUsersByUserNameLike("%" + param.getUserName() + "%");
+	//	Users user = usersDao.findUsersByUserNameLike("%" + param.getUserName() + "%");
+		Users user = usersDao.findByUserAccount(param.getUserAccount());
 		if (NullUtil.isNull(user) || NullUtil.isNull(user.getUserId())) {
 			////抛出异常，会根据配置跳到登录失败页面
 			throw new UsernameNotFoundException("找不到该账户信息！");

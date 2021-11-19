@@ -44,8 +44,8 @@ public class LoginController extends CommonController {
 
 
 	@RequestMapping(value = "/logging.html", method = RequestMethod.POST)
-	public ModelAndView login(String userName, String password, HttpServletRequest request) {
-		log.info("userName: " + userName);
+	public ModelAndView login(String userAccount, String password, HttpServletRequest request) {
+		log.info("userAccount: " + userAccount);
 		log.info("password: " + password);
 
 		String userMsg = request.getParameter("msg");
@@ -57,18 +57,14 @@ public class LoginController extends CommonController {
 			modelAndView.addObject("msg", "User already exist !");
 			return modelAndView;
 		}
-
 		String msg;
 
-		// occur issue***********************************************************************
 		Users user = new Users();
-	//	List<Users> users = new ArrayList<>();
-
-		if (NullUtil.isNotNull(userName) && NullUtil.isNotNull(password)) {
-			user.setUserName(userName);
+		if (NullUtil.isNotNull(userAccount) && NullUtil.isNotNull(password)) {
+			user.setUserAccount(userAccount);
 			user.setPassword(password);
 			user = usersService.getUserByUserName(user);
-		} else if (NullUtil.isNull(userName) && NullUtil.isNull(password)) {
+		} else if (NullUtil.isNull(userAccount) && NullUtil.isNull(password)) {
 			modelAndView = super.page("ace/login.html");
 			return modelAndView;
 		} else {
@@ -89,18 +85,14 @@ public class LoginController extends CommonController {
 		} else {
 			log.error("Login Fail!");
 			modelAndView = super.page("ace/login.html");
-			if (userName.isEmpty() || password.isEmpty()) {
-				msg = "Username / password empty";
+			if (userAccount.isEmpty() || password.isEmpty()) {
+				msg = "Account / password empty";
 			} else {
 				msg = "Login Fail, Please try again!";
 			}
 			modelAndView.addObject("msg", msg);
-			//modelAndView.addObject("userName", userName);
+			//modelAndView.addObject("userAccount", userAccount);
 		}
-
-		// occur issue***********************************************************************
-
-
 		return modelAndView;
 	}
 }
