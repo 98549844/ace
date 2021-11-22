@@ -34,7 +34,7 @@ values (1003, sysdate(), 3, sysdate(), 'Editor', null, 'mary_leeg@qq.com', null,
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
 values (1004, sysdate(), 1, sysdate(), 'Disable', null, 'kalam@qq.com', null, 'M', null, null, 1, sysdate(), '95186540',
-        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, 'A', 'kalam', 'Ka Lam', 1);
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, 'D', 'kalam', 'Ka Lam', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
 values (1005, sysdate(), 2, sysdate(), 'Logger', null, 'may_tang@qq.com', null, 'M', null, null, 2, sysdate(),

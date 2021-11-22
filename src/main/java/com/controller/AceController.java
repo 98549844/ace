@@ -24,6 +24,7 @@ public class AceController extends CommonController {
 
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
     public ModelAndView index() {
+        log.info("access ace/index.html");
         ModelAndView modelAndView = super.page("ace/index");
         return modelAndView;
     }
@@ -42,6 +43,7 @@ public class AceController extends CommonController {
 
     @RequestMapping(value = "/blank.html", method = RequestMethod.GET)
     public ModelAndView blank() {
+        log.info("access ace/blank.html");
         ModelAndView modelAndView = super.page("ace/blank");
         return modelAndView;
     }

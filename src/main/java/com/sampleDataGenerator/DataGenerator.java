@@ -56,8 +56,8 @@ public class DataGenerator {
                 test.setUserId(new Long(get1Int()));
                 test.setUserName("Peter");
                 test.setEmail(get2Int() + "peter@domain.com");
-                test.setCreatedBy("Peter");
-                test.setLastUpdatedBy(test.getUserName());
+                test.setCreatedBy(1004l);
+                test.setLastUpdatedBy(1004l);
                 test.setCreatedDate(LocalDateTime.now());
                 test.setLastUpdateDate(LocalDateTime.now());
                 testList.add(test);
@@ -67,8 +67,8 @@ public class DataGenerator {
                 test.setUserId(new Long(get1Int()));
                 test.setUserName("Lily");
                 test.setEmail(get2Int() + "lily@domain.com");
-                test.setCreatedBy("Lily");
-                test.setLastUpdatedBy(test.getUserName());
+                test.setCreatedBy(1004l);
+                test.setLastUpdatedBy(1004l);
                 test.setCreatedDate(LocalDateTime.now());
                 test.setLastUpdateDate(LocalDateTime.now());
                 testList.add(test);
@@ -78,8 +78,8 @@ public class DataGenerator {
                 test.setUserId(new Long(get1Int()));
                 test.setUserName("Garlam");
                 test.setEmail(get2Int() + "garlam@domain.com");
-                test.setCreatedBy("Garlam");
-                test.setLastUpdatedBy(test.getUserName());
+                test.setCreatedBy(1001l);
+                test.setLastUpdatedBy(1001l);
                 test.setCreatedDate(LocalDateTime.now());
                 test.setLastUpdateDate(LocalDateTime.now());
                 testList.add(test);

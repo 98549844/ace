@@ -67,7 +67,7 @@ public class UsersService implements UserDetailsService {
 		}
 		String sp = user.getUserName() + "," + user.getPassword();
 		UserDetails userDetails = this.loadUserByUsername(sp);
-		boolean matches = passwordEncoder.matches(param.getPassword(), userDetails.getPassword());
+		boolean matches = passwordEncoder.matches(param.getPassword(), user.getPassword());
 		log.info("Match result: {}", matches);
 		if (!matches) {
 			throw new BadCredentialsException("密码不正确");
@@ -134,6 +134,9 @@ public class UsersService implements UserDetailsService {
 
 
 	public boolean saveAll(Iterable<Users> usersIterable) {
+		//save all 未加密
+		passwordEncoder.encode(users.getPassword())
+
 		try {
 			usersDao.saveAll(usersIterable);
 		} catch (Exception e) {
@@ -178,6 +181,16 @@ public class UsersService implements UserDetailsService {
 		return true;
 	}
 
+	public boolean deleteAll() {
+		try {
+			usersDao.deleteAllByVersionIsNotNull();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 
 	private Specification<Users> toPredicate(Users users) {
 		return (Specification<Users>) (root, query, criteriaBuilder) -> {
@@ -219,11 +232,11 @@ public class UsersService implements UserDetailsService {
 				predicatesList.add(predicate);
 			}
 			if (users.getCreatedBy() != null) {
-				Predicate predicate = criteriaBuilder.like(root.get("createdBy"), "%" + users.getCreatedBy().toLowerCase() + "%");
+				Predicate predicate = criteriaBuilder.like(root.get("createdBy"), "%" + users.getCreatedBy() + "%");
 				predicatesList.add(predicate);
 			}
 			if (users.getLastUpdatedBy() != null) {
-				Predicate predicate = criteriaBuilder.like(root.get("lastUpdatedBy"), "%" + users.getLastUpdatedBy().toLowerCase() + "%");
+				Predicate predicate = criteriaBuilder.like(root.get("lastUpdatedBy"), "%" + users.getLastUpdatedBy() + "%");
 				predicatesList.add(predicate);
 			}
 			return criteriaBuilder.and(predicatesList.toArray(new Predicate[predicatesList.size()]));

@@ -1,7 +1,6 @@
 package com.dao;
 
 import com.models.entity.dao.Users;
-import org.apache.ibatis.annotations.Update;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
@@ -10,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,5 +41,7 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
 	List<Users> findByUserAccountOrEmail(String userAccount, String email);
 
 	Integer countByUserAccountOrEmail(String userAccount, String email);
+
+	void deleteAllByVersionIsNotNull();
 
 }

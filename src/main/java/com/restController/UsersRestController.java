@@ -1,6 +1,8 @@
 package com.restController;
 
 import com.models.entity.dao.Users;
+import com.sampleDataGenerator.DataGenerator;
+import com.sampleDataGenerator.insertUsers;
 import com.service.UsersService;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import util.RandomUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,6 +47,19 @@ public class UsersRestController {
             u.setMobile("0000 0000"+ RandomUtil.getInt(10));
             usersService.save(u);
         }
+        return true;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/save")
+    public boolean save() {
+        //generate users data
+        List<Users> usersList = new ArrayList<>();
+        insertUsers insertUsers = new insertUsers();
+        usersList = insertUsers.insertUsers();
+
+        usersService.deleteAll();
+
+        usersService.saveAll(usersList);
         return true;
     }
 

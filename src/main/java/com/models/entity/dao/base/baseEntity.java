@@ -12,6 +12,8 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import java.time.LocalDateTime;
+import util.*;
+
 
 /**
  * @Classname: baseEntity
@@ -41,17 +43,18 @@ public class baseEntity {
     @CreatedBy
     //@Column(name = "created_by", updatable = false)
     @Column( updatable = false)
-    private String createdBy;
+    private Long createdBy;
 
     @LastModifiedBy
     //@Column(name = "last_update_by")
     @Column()
-    private String lastUpdatedBy;
+    private Long lastUpdatedBy;
 
     //@Column(name = "version", columnDefinition = "int default 1")
     @Version
     @Column(name = "version")
     private Integer version = 1;
+
 
     public LocalDateTime getCreatedDate() {
         return createdDate;
@@ -69,19 +72,19 @@ public class baseEntity {
         this.lastUpdateDate = lastUpdateDate;
     }
 
-    public String getCreatedBy() {
+    public Long getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
     }
 
-    public String getLastUpdatedBy() {
+    public Long getLastUpdatedBy() {
         return lastUpdatedBy;
     }
 
-    public void setLastUpdatedBy(String lastUpdatedBy) {
+    public void setLastUpdatedBy(Long lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 
@@ -90,6 +93,9 @@ public class baseEntity {
     }
 
     public void setVersion(Integer version) {
+        if(NullUtil.isNull(version)){
+            version = 1;
+        }
         this.version = version;
     }
 }
