@@ -1,9 +1,18 @@
-delete from users where userId is not null;
-delete from roles where roleId is not null;
-delete from user_roles where userRolesId is not null;
-delete from permissions where permissionsId is not null;
-delete from role_permissions where rolePermissionsId is not null;
-
+delete
+from users
+where userId is not null;
+delete
+from roles
+where roleId is not null;
+delete
+from user_roles
+where userRolesId is not null;
+delete
+from permissions
+where permissionsId is not null;
+delete
+from role_permissions
+where rolePermissionsId is not null;
 
 
 
@@ -11,36 +20,36 @@ insert into users (userId, birthday, createdBy, createdDate, description, domain
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
 values (1001, sysdate(), 1, sysdate(), 'Administrator', null, 'garlam_au@qq.com', null, 'M', null, null, 1, sysdate(),
         '95186540',
-        '$2a$10$5RZINlmOyDZNEC9alvr44uVoZzdTUQmaQel1t70S4ueQtdeei/paW', null, 'A', 'garlam', 'Garlam Au', 1);
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, 'A', 'garlam', 'Garlam Au', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
 values (1002, sysdate(), 2, sysdate(), 'Information', null, 'peter_wong@qq.com', null, 'M', null, null, 2, sysdate(),
         '12314564',
-        '$2a$10$5RZINlmOyDZNEC9alvr44uVoZzdTUQmaQel1t70S4ueQtdeei/paW', null, 'A', 'peter', 'Peter Wong', 1);
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, 'A', 'peter', 'Peter Wong', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
 values (1003, sysdate(), 3, sysdate(), 'Editor', null, 'mary_leeg@qq.com', null, 'F', null, null, 3, sysdate(),
         '44557878',
-        '$2a$10$5RZINlmOyDZNEC9alvr44uVoZzdTUQmaQel1t70S4ueQtdeei/paW', null, 'A', 'mary', 'Mary Lee', 1);
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, 'A', 'mary', 'Mary Lee', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
 values (1004, sysdate(), 1, sysdate(), 'Disable', null, 'kalam@qq.com', null, 'M', null, null, 1, sysdate(), '95186540',
-        '$2a$10$5RZINlmOyDZNEC9alvr44uVoZzdTUQmaQel1t70S4ueQtdeei/paW', null, 'A', 'kalam', 'Ka Lam', 1);
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, 'A', 'kalam', 'Ka Lam', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
 values (1005, sysdate(), 2, sysdate(), 'Logger', null, 'may_tang@qq.com', null, 'M', null, null, 2, sysdate(),
         '12314564',
-        '$2a$10$5RZINlmOyDZNEC9alvr44uVoZzdTUQmaQel1t70S4ueQtdeei/paW', null, 'A', 'may', 'May Tang', 1);
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, 'A', 'may', 'May Tang', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
 values (1006, sysdate(), 2, sysdate(), 'Information', null, 'frank_chow@qq.com', null, 'M', null, null, 2, sysdate(),
         '12314564',
-        '$2a$10$5RZINlmOyDZNEC9alvr44uVoZzdTUQmaQel1t70S4ueQtdeei/paW', null, 'A', 'frank', 'Frank Chow', 1);
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, 'A', 'frank', 'Frank Chow', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
 values (1007, sysdate(), 2, sysdate(), 'Disable', null, 'eric_luk@qq.com', null, 'M', null, null, 2, sysdate(),
         '12314564',
-        '$2a$10$5RZINlmOyDZNEC9alvr44uVoZzdTUQmaQel1t70S4ueQtdeei/paW', null, 'D', 'eric', 'Eric Luk', 1);
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, 'D', 'eric', 'Eric Luk', 1);
 commit;
 
 

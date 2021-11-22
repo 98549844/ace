@@ -40,7 +40,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
     //RESTful and CRSF have conflict
     //CRSF default support GET,head,trace,options,biy not support post
     //in security config, disable .and().csrf().disable()
-    //refer to hankuikui/p/14024637.html
+    // @param authenticationManager:             认证管理器
+    // @param adminAuthenticationSuccessHandler: 认证成功处理
+    // @param adminAuthenticationFailureHandler: 认证失败处理
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -65,7 +67,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
                 .authenticated()
                 .and()
                 .formLogin()
-                .loginPage(loginUrl)
+                .loginPage(loginUrl).loginProcessingUrl(blankUrl)
                 .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll()
@@ -134,7 +136,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
 
     @Bean
     public PasswordEncoder encoder() {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(8);
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder;
     }
 
