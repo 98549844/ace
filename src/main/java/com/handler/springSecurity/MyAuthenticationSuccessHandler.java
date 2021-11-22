@@ -1,4 +1,4 @@
-package com.handler.springsecurity;
+package com.handler.springSecurity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.models.common.AjaxResponse;

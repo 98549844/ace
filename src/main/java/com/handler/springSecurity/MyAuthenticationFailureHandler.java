@@ -1,4 +1,4 @@
-package com.handler.springsecurity;
+package com.handler.springSecurity;
 
 import com.exception.CustomException;
 import com.exception.CustomExceptionType;

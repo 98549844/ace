@@ -27,8 +27,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
     //邦定的用户组才能登入url
     private String urlRoles;
 
-    @Autowired
     private UsersService usersService;
+
+    @Autowired
+    public void setUsersService(UsersService usersService) {
+        this.usersService = usersService;
+    }
+
+
 
     //RESTful and CRSF have conflict
     //CRSF default support GET,head,trace,options,biy not support post
@@ -61,8 +67,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
                 .loginPage(loginUrl)
                 .permitAll()
                 .and()
-                .logout()
-                .permitAll()
+                .logout().logoutSuccessUrl("/").permitAll()
 
                 //close spring security
                 //.anyRequest().permitAll()
