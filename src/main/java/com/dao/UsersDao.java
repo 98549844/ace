@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -38,5 +39,9 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
 	Users findByUserId(Long userId);
 
 	Users findByUserAccount(String userName);
+
+	List<Users> findByUserAccountOrEmail(Users users);
+
+	Integer countByUserAccountOrEmail(Users users);
 
 }

@@ -59,7 +59,7 @@ public class UsersService implements UserDetailsService {
 
 
 	public Users getUserByUserName(Users param) {
-	//	Users user = usersDao.findUsersByUserNameLike("%" + param.getUserName() + "%");
+		//	Users user = usersDao.findUsersByUserNameLike("%" + param.getUserName() + "%");
 		Users user = usersDao.findByUserAccount(param.getUserAccount());
 		if (NullUtil.isNull(user) || NullUtil.isNull(user.getUserId())) {
 			////抛出异常，会根据配置跳到登录失败页面
@@ -68,7 +68,7 @@ public class UsersService implements UserDetailsService {
 		String sp = user.getUserName() + "," + user.getPassword();
 		UserDetails userDetails = this.loadUserByUsername(sp);
 		boolean matches = passwordEncoder.matches(param.getPassword(), userDetails.getPassword());
-		log.info("Match result: {}",matches);
+		log.info("Match result: {}", matches);
 		if (!matches) {
 			throw new BadCredentialsException("密码不正确");
 		}
@@ -90,14 +90,14 @@ public class UsersService implements UserDetailsService {
 
 
 	public boolean validate(Users users) {
-		boolean validate = false;
+		boolean validate = true;
 		if (NullUtil.isNotNull(users)) {
 			if (NullUtil.isNull(users.getEmail())) {
-				validate = true;
-			} else if (NullUtil.isNull(users.getUserName())) {
-				validate = true;
+				validate = false;
+			} else if (NullUtil.isNull(users.getUserAccount().trim())) {
+				validate = false;
 			} else if (NullUtil.isNull(users.getPassword())) {
-				validate = true;
+				validate = false;
 			}
 		}
 		return validate;
@@ -117,15 +117,15 @@ public class UsersService implements UserDetailsService {
 		return list;
 	}
 
-	public List<Users> getUsers(Users users) {
-		List<Users> list = null;
+	public Integer countByUserAccountOrEmail(Users users) {
+		Integer count = 0;
 		try {
-			Specification<Users> sp = toPredicate(users);
-			list = usersDao.findAll(sp);
+			count = usersDao.countByUserAccountOrEmail(users);
+			//list = usersDao.findByUserAccountOrEmail(users);
 		} catch (Exception e) {
 			log.error(e);
 		}
-		return list;
+		return count;
 	}
 
 
@@ -161,14 +161,12 @@ public class UsersService implements UserDetailsService {
 
 	public boolean delete(Users users) {
 		try {
-			List<Users> list = getUsers(users);
-			for (Users user : list) {
-				delete(user.getUserId());
-			}
+			usersDao.delete(users);
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
-		return true;
 	}
 
 	public boolean delete(Long id) {

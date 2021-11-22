@@ -43,13 +43,13 @@ public class RegistrationController extends CommonController {
             return modelAndView;
         }
 
-
         Users u = new Users();
         u.setEmail(users.getEmail());
-        List<Users> userList = usersService.getUsers(u);
-        if (userList.size() == 0) {
+        u.setUserAccount(users.getUserAccount());
+        Integer count = usersService.countByUserAccountOrEmail(u);
+        if (count == 0) {
             usersService.save(users);
-            log.info("新建用户：" + users.getUserName());
+            log.info("新建用户：" + users.getUserAccount());
             modelAndView = super.page("ace/index.html");
         } else {
             modelAndView = super.redirect("ace/login.html?msg=exist");
