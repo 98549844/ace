@@ -6,6 +6,8 @@ import com.service.UsersService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,63 +38,54 @@ public class LoginController extends CommonController {
 	}
 
 	@RequestMapping(value = "/login.html", method = RequestMethod.GET)
-	public ModelAndView login() {
-
+	public ModelAndView login(HttpServletRequest request) {
 		ModelAndView modelAndView = super.page("ace/login.html");
+		String userMsg = request.getParameter("msg");
+		//用户存在
+		if ("exist".equals(userMsg)) {
+			modelAndView.addObject("msg", "User exist");
+		}
 		return modelAndView;
 	}
 
 
 	@RequestMapping(value = "/logging.html", method = RequestMethod.POST)
-	public ModelAndView login(String userAccount, String password, HttpServletRequest request) {
+	public ModelAndView logging(String userAccount, String password, HttpServletRequest request) {
 		log.info("userAccount: " + userAccount);
 		log.info("password: " + password);
 
-		String userMsg = request.getParameter("msg");
 		ModelAndView modelAndView;
-
-		//用户存在
-		if ("exist".equals(userMsg)) {
-			modelAndView = super.page("ace/login.html");
-			modelAndView.addObject("msg", "User already exist !");
-			return modelAndView;
-		}
 		String msg;
-
 		Users user = new Users();
-		if (NullUtil.isNotNull(userAccount) && NullUtil.isNotNull(password)) {
+		if (userAccount.isEmpty() || password.isEmpty()) {
+			//check input param
+			log.error("Account/Password empty");
+			msg = "Account/Password empty";
+			modelAndView = super.page("ace/login.html");
+			modelAndView.addObject("msg", msg);
+			return modelAndView;
+		} else if (NullUtil.isNotNull(userAccount) && NullUtil.isNotNull(password)) {
 			user.setUserAccount(userAccount);
 			user.setPassword(password);
-			user = usersService.getUserByUserName(user);
-		} else if (NullUtil.isNull(userAccount) && NullUtil.isNull(password)) {
-			modelAndView = super.page("ace/login.html");
-			return modelAndView;
-		} else {
-			log.error("check input param fail!");
-			modelAndView = super.page("ace/login.html");
-			modelAndView.addObject("msg", "UserName/password is empty!");
-			return modelAndView;
+			try {
+				//get user information
+				user = usersService.findByUserAccount(user);
+			} catch (UsernameNotFoundException | BadCredentialsException e) {
+				e.printStackTrace();
+				modelAndView = super.page("ace/login.html");
+				msg = "Login Fail, Please try again!";
+				modelAndView.addObject("msg", msg);
+				return modelAndView;
+			}
 		}
 
-		if (NullUtil.isNotNull(user.getUserId())) {
-			String mobile = user.getMobile();
-			Integer newMobile = DataTypeUtil.stringToInteger(mobile == null ? "1" : mobile) + 1;
-			mobile = newMobile.toString();
-			user.setMobile(mobile);
-			usersService.save(user);
-			log.info("user: " + user.getUserName() + " save success!");
-			modelAndView = super.redirect("ace/index.html");
-		} else {
-			log.error("Login Fail!");
-			modelAndView = super.page("ace/login.html");
-			if (userAccount.isEmpty() || password.isEmpty()) {
-				msg = "Account / password empty";
-			} else {
-				msg = "Login Fail, Please try again!";
-			}
-			modelAndView.addObject("msg", msg);
-			//modelAndView.addObject("userAccount", userAccount);
-		}
+		String mobile = user.getMobile();
+		Integer newMobile = DataTypeUtil.stringToInteger(mobile == null ? "1" : mobile) + 1;
+		mobile = newMobile.toString();
+		user.setMobile(mobile);
+		usersService.save(user);
+		log.info("user: " + user.getUserName() + " save success!");
+		modelAndView = super.redirect("ace/index.html");
 		return modelAndView;
 	}
 }

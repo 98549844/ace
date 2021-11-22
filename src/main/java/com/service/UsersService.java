@@ -58,7 +58,7 @@ public class UsersService implements UserDetailsService {
 	}
 
 
-	public Users getUserByUserName(Users param) {
+	public Users findByUserAccount(Users param) {
 		//	Users user = usersDao.findUsersByUserNameLike("%" + param.getUserName() + "%");
 		Users user = usersDao.findByUserAccount(param.getUserAccount());
 		if (NullUtil.isNull(user) || NullUtil.isNull(user.getUserId())) {
@@ -120,8 +120,7 @@ public class UsersService implements UserDetailsService {
 	public Integer countByUserAccountOrEmail(Users users) {
 		Integer count = 0;
 		try {
-			count = usersDao.countByUserAccountOrEmail(users);
-			//list = usersDao.findByUserAccountOrEmail(users);
+			count = usersDao.countByUserAccountOrEmail(users.getUserAccount(), users.getEmail());
 		} catch (Exception e) {
 			log.error(e);
 		}

@@ -40,8 +40,8 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
 
 	Users findByUserAccount(String userName);
 
-	List<Users> findByUserAccountOrEmail(Users users);
+	List<Users> findByUserAccountOrEmail(String userAccount, String email);
 
-	Integer countByUserAccountOrEmail(Users users);
+	Integer countByUserAccountOrEmail(String userAccount, String email);
 
 }

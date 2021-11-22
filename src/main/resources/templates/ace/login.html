@@ -210,9 +210,9 @@
 
                                             <label class="block clearfix">
                                                 <span class="block input-icon input-icon-right">
-                                                    <input type="text" class="form-control" id="user_Name"
-                                                           name="userName"
-                                                           placeholder="Username"/>
+                                                    <input type="text" class="form-control" id="user_Account"
+                                                           name="userAccount"
+                                                           placeholder="Account"/>
                                                     <i class="ace-icon fa fa-user"></i>
                                                 </span>
                                             </label>
@@ -354,7 +354,7 @@
         //检查注册是否为空并提交
         $("#register-btn").bind("click", function () {
             var email = $("#email").val();
-            var userName = $("#user_Name").val();
+            var userAccount = $("#user_Account").val();
             var password = $("#pass_word").val();
             var confirm_pw = $("#confirm-password").val();
 
@@ -367,8 +367,8 @@
                 alert("email格式不对");
                 return;
             }
-            if (userName == null || userName == "") {
-                alert("userName不能为空");
+            if (userAccount == null || userAccount == "") {
+                alert("userAccount不能为空");
                 return;
             }
             if (password == null || password == "") {

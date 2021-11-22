@@ -36,7 +36,7 @@ public class RegistrationController extends CommonController {
     public ModelAndView login(@ModelAttribute Users users) {
         ModelAndView modelAndView;
 
-        if (usersService.validate(users)) {
+        if (!usersService.validate(users)) {
             log.error("users information incorrect");
             modelAndView = super.redirect("ace/login.html?msg=incorrect");
             modelAndView.addObject("msg", "information incorrect!");
