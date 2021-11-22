@@ -48,7 +48,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
                 .antMatchers("/v2/**").permitAll()
                 .antMatchers("/api/**").permitAll()
                 //allow access static
-                .antMatchers("classpath:/static/").permitAll()
+                //.antMatchers("classpath:/static/").permitAll()
                 //allow access templates
                 //.antMatchers("classpath:/templates/").permitAll()
                 //login
