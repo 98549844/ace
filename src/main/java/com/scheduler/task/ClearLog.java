@@ -21,23 +21,28 @@ public class ClearLog {
     public void clearLog() throws Exception {
         if (osName.contains("MAC OS")) {
             File errorFolder = new File(macErrorPath);
-            File[] errorFiles = errorFolder.listFiles();
-            clearingLogFile(errorFiles);
+            clearingLogFile(errorFolder);
 
             File infoFolder = new File(macInfoPath);
-            File[] infoFiles = infoFolder.listFiles();
-            clearingLogFile(infoFiles);
+            clearingLogFile(infoFolder);
 
             File warnFolder = new File(macWarnPath);
-            File[] warnFiles = warnFolder.listFiles();
-            clearingLogFile(warnFiles);
+            clearingLogFile(warnFolder);
         } else if (osName.contains("WINDOWS")) {
+            File errorFolder = new File(windowsErrorPath);
+            clearingLogFile(errorFolder);
 
+            File infoFolder = new File(windowsInfoPath);
+            clearingLogFile(infoFolder);
+
+            File warnFolder = new File(windowsWarnPath);
+            clearingLogFile(warnFolder);
         }
     }
 
-    private void clearingLogFile(File[] fs) {
-        for (File f : fs) {
+    private void clearingLogFile(File file) {
+        File[] Files = file.listFiles();
+        for (File f : Files) {
             f.delete();
         }
     }
