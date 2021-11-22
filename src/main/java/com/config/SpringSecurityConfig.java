@@ -22,6 +22,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
 
     private final String loginUrl = "/ace/login.html";
     private String indexUrl = "/ace/index.html";
+    private String blankUrl = "/ace/blank.html";
     private String permitAll = "/api";
     private String deniedPage = "/deny";
     //邦定的用户组才能登入url
