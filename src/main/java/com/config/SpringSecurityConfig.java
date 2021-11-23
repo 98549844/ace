@@ -63,17 +63,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
                 //login
                 .antMatchers(loginUrl).permitAll()
                // open spring security, login success can access
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage(loginUrl).loginProcessingUrl(blankUrl)
-//                .permitAll()
-//                .and()
-//                .logout().logoutSuccessUrl("/").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage(loginUrl).loginProcessingUrl(blankUrl)
+                .permitAll()
+                .and()
+                .logout().logoutSuccessUrl("/").permitAll()
 
                 //close spring security
-                .anyRequest().permitAll()
-                .and().logout().permitAll()
+                //.anyRequest().permitAll()
+                //.and().logout().permitAll()
                 //.tokenValiditySeconds(84600).tokenRepository("保存用户token信息到数据库")
                 .and().rememberMe();
 
