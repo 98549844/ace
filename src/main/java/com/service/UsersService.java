@@ -63,7 +63,7 @@ public class UsersService implements UserDetailsService {
             throw new UsernameNotFoundException("找不到该账户信息！");
         }
         String sp = user.getUserName() + "," + user.getPassword();
-     //   UserDetails userDetails = this.loadUserByUsername(sp);
+        //   UserDetails userDetails = this.loadUserByUsername(sp);
         boolean matches = passwordEncoder.matches(param.getPassword(), user.getPassword());
         log.info("Match result: {}", matches);
         if (!matches) {
@@ -75,6 +75,10 @@ public class UsersService implements UserDetailsService {
 
     public boolean save(Users users) {
         try {
+            if (!users.getPassword().contains("$2a$10$") && users.getPassword().length() != 60) {
+                String encode = passwordEncoder.encode(users.getPassword());
+                users.setPassword(encode);
+            }
             usersDao.save(users);
         } catch (Exception e) {
             e.printStackTrace();
@@ -130,7 +134,7 @@ public class UsersService implements UserDetailsService {
 
 
     public boolean saveAll(List<Users> usersIterable) {
-     //   passwordEncoder.encode(usersIterable.iterator().next().getPassword());
+        //   passwordEncoder.encode(usersIterable.iterator().next().getPassword());
 
         List<Users> usersList = new ArrayList<>();
         for (Users u : usersIterable) {
