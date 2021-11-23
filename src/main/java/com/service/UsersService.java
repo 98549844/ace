@@ -46,12 +46,10 @@ public class UsersService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String param) throws UsernameNotFoundException {
-        //Users user = usersDao.findUsersByUserNameLike("%" + userName + "%");
-        String[] sp = param.split(",");
-        String userName = sp[0];
-        String password = sp[1];
-        UserDetails u = new User(userName, password, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+    public UserDetails loadUserByUsername(String userAccount) throws UsernameNotFoundException {
+        Users user = usersDao.findByUserAccount(userAccount);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        UserDetails u = new User(user.getUserName(), user.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
         return u;
 
     }
