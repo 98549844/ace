@@ -128,14 +128,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
                 .withUser("garlam")
                 .password("{noop}garlamau")
                 .roles("USER");
-        auth.userDetailsService(usersService).passwordEncoder(encoder());
+        auth.userDetailsService(usersService).passwordEncoder(passwordEncoder());
 
     }
 
 
     @Bean
-    public PasswordEncoder encoder() {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(11);
         return passwordEncoder;
     }
 

@@ -1,12 +1,10 @@
 package com.service;
 
-import com.controller.LoginController;
 import com.dao.UserRolesDao;
 import com.dao.UsersDao;
 import com.models.entity.dao.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.jdt.internal.compiler.ast.ForeachStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -22,7 +20,6 @@ import util.*;
 
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,7 +65,7 @@ public class UsersService implements UserDetailsService {
             throw new UsernameNotFoundException("找不到该账户信息！");
         }
         String sp = user.getUserName() + "," + user.getPassword();
-        UserDetails userDetails = this.loadUserByUsername(sp);
+     //   UserDetails userDetails = this.loadUserByUsername(sp);
         boolean matches = passwordEncoder.matches(param.getPassword(), user.getPassword());
         log.info("Match result: {}", matches);
         if (!matches) {
@@ -80,7 +77,6 @@ public class UsersService implements UserDetailsService {
 
     public boolean save(Users users) {
         try {
-            users.setPassword(passwordEncoder.encode(users.getPassword()));
             usersDao.save(users);
         } catch (Exception e) {
             e.printStackTrace();
