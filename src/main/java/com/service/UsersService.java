@@ -75,10 +75,10 @@ public class UsersService implements UserDetailsService {
 
     public boolean save(Users users) {
         try {
-            if (!users.getPassword().contains("$2a$10$") && users.getPassword().length() != 60) {
-                String encode = passwordEncoder.encode(users.getPassword());
-                users.setPassword(encode);
-            }
+//            if (!users.getPassword().contains("$2a$10$") && users.getPassword().length() != 60) {
+//                String encode = passwordEncoder.encode(users.getPassword());
+//                users.setPassword(encode);
+//            }
             usersDao.save(users);
         } catch (Exception e) {
             e.printStackTrace();
