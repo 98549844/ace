@@ -48,11 +48,9 @@ public class LoginController extends CommonController {
 		return modelAndView;
 	}
 
-//https://blog.csdn.net/qq_38526573/article/details/103402060
-//	https://blog.csdn.net/wang5701071/article/details/111978449
-//	https://blog.csdn.net/weixin_43886909/article/details/116904535
 //	https://blog.csdn.net/hjjjjjjj_/article/details/120239371
-	@RequestMapping(value = "/AAAAlogging.html", method = RequestMethod.POST)
+//	https://blog.csdn.net/hjjjjjjj_/article/details/120235512
+	@RequestMapping(value = "/logging.html", method = RequestMethod.POST)
 	public ModelAndView logging(String userAccount, String password, HttpServletRequest request) {
 		log.info("userAccount: " + userAccount);
 		log.info("password: " + password);

@@ -22,4 +22,7 @@ public class ErrorController extends CommonController {
 		ModelAndView modelAndView = super.page("ace/error500");
 		return modelAndView;
 	}
+
+
+
 }

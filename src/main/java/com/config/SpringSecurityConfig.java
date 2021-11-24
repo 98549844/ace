@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
 
     private final String loginUrl = "/ace/login.html";
+    private final String loggingUrl = "/ace/logging.html";
     private String indexUrl = "/ace/index.html";
     private String blankUrl = "/ace/blank.html";
     private String permitAll = "/api";
@@ -60,13 +61,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
                 //.antMatchers("classpath:/static/").permitAll()
                 //allow access templates
                 //.antMatchers("classpath:/templates/").permitAll()
+
                 //login
                 .antMatchers(loginUrl).permitAll()
                // open spring security, login success can access
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage(loginUrl).loginProcessingUrl("/ace/logging.html")
+                .loginPage("/ace/login.html").loginProcessingUrl("/ace/logging.html")
                 .defaultSuccessUrl("/ace/blank.html").failureUrl("/ace/500.html")
                 .permitAll()
                 .and()
