@@ -85,8 +85,6 @@ insert into roles (roleId, createdBy, createdDate, description, lastUpdatedBy, l
 values (1005, 1, sysdate(), 'Logger', 1, sysdate(), 'LOGGER', 1);
 commit;
 
-select *
-from roles;
 
 
 insert into user_roles (userRolesId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId, userId, version)
@@ -104,7 +102,6 @@ insert into user_roles (userRolesId, createdBy, createdDate, lastUpdatedBy, last
 values (1006, 1, sysdate(), 1, sysdate(), 1003, 1006, 1);
 insert into user_roles (userRolesId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId, userId, version)
 values (1007, 1, sysdate(), 1, sysdate(), 1002, 1007, 1);
-
 commit;
 
 select r.roleId, r.roleCode, u.description, u.userId, u.userName
@@ -153,7 +150,6 @@ VALUES (1008, 1, sysdate(), 'Allow select update insert', 1, sysdate(), 8, 'SELE
 insert into permissions (permissionsId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate,
                          permissionCode, action, status, version)
 VALUES (1009, 1, sysdate(), 'Deny any operation', 1, sysdate(), 10, 'DENY', 'A', 1);
-
 commit;
 
 
@@ -185,7 +181,6 @@ VALUES (1004, 1, sysdate(), 1, sysdate(), 1004, 1008, 1);
 insert into role_permissions (rolePermissionsId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId,
                               permissionsId, version)
 VALUES (1005, 1, sysdate(), 1, sysdate(), 1002, 1009, 1);
-
 commit;
 
 select roleId, roleCode, description
