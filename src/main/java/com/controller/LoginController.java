@@ -50,6 +50,8 @@ public class LoginController extends CommonController {
 
 //	https://blog.csdn.net/hjjjjjjj_/article/details/120239371
 //	https://blog.csdn.net/hjjjjjjj_/article/details/120235512
+//	https://segmentfault.com/q/1010000018082229
+//	https://blog.csdn.net/xiaozhuzhuyang/article/details/115631458
 	@RequestMapping(value = "/logging.html", method = RequestMethod.POST)
 	public ModelAndView logging(String userAccount, String password, HttpServletRequest request) {
 		log.info("userAccount: " + userAccount);
