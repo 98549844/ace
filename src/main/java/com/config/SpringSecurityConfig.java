@@ -64,6 +64,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
 
                 //login
                 .antMatchers(loginUrl).permitAll()
+                .antMatchers(loggingUrl).permitAll()
                // open spring security, login success can access
                 .anyRequest().authenticated()
                 .and()

@@ -110,14 +110,38 @@ public class insertUsers {
 		u6.setPassword("909394");
 		u7.setPassword("909394");
 
-//		u1.setStatus("A");
-//		u2.setStatus("A");
-//		u3.setStatus("A");
-//		u4.setStatus("D");
-//		u5.setStatus("A");
-//		u6.setStatus("A");
-//		u7.setStatus("D");
 
+		u1.setEnabled(true);
+		u2.setEnabled(true);
+		u3.setEnabled(true);
+		u4.setEnabled(true);
+		u5.setEnabled(true);
+		u6.setEnabled(true);
+		u7.setEnabled(true);
+
+		u1.setAccountNonExpired(true);
+		u2.setAccountNonExpired(true);
+		u3.setAccountNonExpired(true);
+		u4.setAccountNonExpired(true);
+		u5.setAccountNonExpired(true);
+		u6.setAccountNonExpired(true);
+		u7.setAccountNonExpired(true);
+
+		u1.setAccountNonLocked(true);
+		u2.setAccountNonLocked(true);
+		u3.setAccountNonLocked(true);
+		u4.setAccountNonLocked(true);
+		u5.setAccountNonLocked(true);
+		u6.setAccountNonLocked(true);
+		u7.setAccountNonLocked(true);
+
+		u1.setCredentialsNonExpired(true);
+		u2.setCredentialsNonExpired(true);
+		u3.setCredentialsNonExpired(true);
+		u4.setCredentialsNonExpired(true);
+		u5.setCredentialsNonExpired(true);
+		u6.setCredentialsNonExpired(true);
+		u7.setCredentialsNonExpired(true);
 
 		u1.setUserAccount("garlam");
 		u2.setUserAccount("peter");
