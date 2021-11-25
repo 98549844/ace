@@ -63,7 +63,6 @@ public class UsersService implements UserDetailsService {
 
 
 	public Users findByUserAccount(Users param) {
-		//	Users user = usersDao.findUsersByUserNameLike("%" + param.getUserName() + "%");
 		Users user = usersDao.findByUserAccount(param.getUserAccount());
 		if (NullUtil.isNull(user) || NullUtil.isNull(user.getUserId())) {
 			////抛出异常，会根据配置跳到登录失败页面
