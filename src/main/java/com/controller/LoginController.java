@@ -52,6 +52,11 @@ public class LoginController extends CommonController {
 //	https://blog.csdn.net/hjjjjjjj_/article/details/120239371
 //	https://blog.csdn.net/hjjjjjjj_/article/details/120235512
 //	https://segmentfault.com/q/1010000018082229
+//	https://www.cnblogs.com/MrSi/p/7993875.html
+
+//  action接两个可选的请求参数error,logout
+//	@RequestParam(value = "error", required = false) String error,
+//	@RequestParam(value = "logout", required = false) String logout
 	@RequestMapping(value = "/logging.html", method = RequestMethod.POST)
 	public ModelAndView logging(String userAccount, String password, HttpServletRequest request) {
 		log.info("userAccount: " + userAccount);
