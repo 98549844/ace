@@ -110,13 +110,13 @@ public class insertUsers {
 		u6.setPassword("909394");
 		u7.setPassword("909394");
 
-		u1.setStatus("A");
-		u2.setStatus("A");
-		u3.setStatus("A");
-		u4.setStatus("D");
-		u5.setStatus("A");
-		u6.setStatus("A");
-		u7.setStatus("D");
+//		u1.setStatus("A");
+//		u2.setStatus("A");
+//		u3.setStatus("A");
+//		u4.setStatus("D");
+//		u5.setStatus("A");
+//		u6.setStatus("A");
+//		u7.setStatus("D");
 
 
 		u1.setUserAccount("garlam");
@@ -127,13 +127,13 @@ public class insertUsers {
 		u6.setUserAccount("frank");
 		u7.setUserAccount("eric");
 
-		u1.setUserName("Garlam Au");
-		u2.setUserName("Peter Wong");
-		u3.setUserName("Mary Lee");
-		u4.setUserName("Ka Lam");
-		u5.setUserName("May Tang");
-		u6.setUserName("Frank Chow");
-		u7.setUserName("Eric Luk");
+		u1.setUsername("Garlam Au");
+		u2.setUsername("Peter Wong");
+		u3.setUsername("Mary Lee");
+		u4.setUsername("Ka Lam");
+		u5.setUsername("May Tang");
+		u6.setUsername("Frank Chow");
+		u7.setUsername("Eric Luk");
 
 		usersList.add(u1);
 		usersList.add(u2);

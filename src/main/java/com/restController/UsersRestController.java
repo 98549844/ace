@@ -68,7 +68,7 @@ public class UsersRestController {
 		List<String> result = new ArrayList<>();
 		String u;
 		for (Users user : usersList) {
-			u = user.getUserName() + "   [" + user.getPassword() + "]";
+			u = user.getUsername() + "   [" + user.getPassword() + "]";
 			result.add(u);
 		}
 		return AjaxResponse.success(result);
@@ -97,7 +97,7 @@ public class UsersRestController {
 		for (Users users : ls) {
 			boolean match = passwordEncoder.matches(password, users.getPassword());
 			log.info("encode: {}", match);
-			result.add(users.getUserName() + "[ " + match + " ]");
+			result.add(users.getUsername() + "[ " + match + " ]");
 		}
 		return AjaxResponse.success(result);
 	}

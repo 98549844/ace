@@ -54,6 +54,13 @@ public class HttpUtil {
         return m;
     }
 
+    public String getClientIP(HttpServletRequest request) {
+        final String xfHeader = request.getHeader("X-Forwarded-For");
+        if (xfHeader != null) {
+            return xfHeader.split(",")[0];
+        }
+        return request.getRemoteAddr();
+    }
 
 }
 

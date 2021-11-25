@@ -25,18 +25,18 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
 	@Query("update xxx set x = ? where x = ?")，这里提供最简单的解决办法，语句里时间字段赋值CURRENT_TIMESTAMP即可*/
 
 	@Modifying
-	@Query("update Users t set t.userName = :#{#users.userName} , t.email =:#{#users.email}, t.mobile = :#{#users.mobile} ,t.version = t.version+1, t.lastUpdateDate=CURRENT_TIMESTAMP where t.userId=:#{#users.userId}")
+	@Query("update Users t set t.username = :#{#users.username} , t.email =:#{#users.email}, t.mobile = :#{#users.mobile}  where t.userId=:#{#users.userId}")
 	int update(@Param("users") Users users);
 
 	Optional<Users> findById(long id);
 
-	Users findUsersByUserName(String userName);
+	List<Users> findUsersByUsername(String username);
 
-	Users findUsersByUserNameLike(String userName);
+	List<Users> findUsersByUsernameLike(String username);
 
 	Users findByUserId(Long userId);
 
-	Users findByUserAccount(String userName);
+	Users findByUserAccount(String username);
 
 	List<Users> findByUserAccountOrEmail(String userAccount, String email);
 

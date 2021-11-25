@@ -1,7 +1,7 @@
 package com.restController;
 
 import com.config.RabbitMQConfig;
-import com.service.TestService;
+import com.service.UsersService;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,7 +10,6 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import util.SleepUtil;
 
 /**
@@ -28,12 +27,12 @@ public class RabbitMQRestController {
 
 
 
-    private final TestService testService;
     private final AmqpTemplate amqpTemplate;
+    private UsersService usersService;
 
     @Autowired
-    public RabbitMQRestController(TestService testService, AmqpTemplate amqpTemplate) {
-        this.testService = testService;
+    public RabbitMQRestController(UsersService usersService, AmqpTemplate amqpTemplate) {
+        this.usersService = usersService;
         this.amqpTemplate = amqpTemplate;
     }
 

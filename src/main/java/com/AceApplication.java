@@ -50,7 +50,7 @@ public class AceApplication {
         mapUtil.iterateMapKeyset(m);
 
         //print all application context bean name
-         ApplicationContextUtil.printBeanName(applicationContext);
+        // ApplicationContextUtil.printBeanName(applicationContext);
 
         ApplicationContextUtil applicationContextUtil = new ApplicationContextUtil();
         AceConfig aceConfig = (AceConfig) applicationContextUtil.getBeanByName("aceConfig");

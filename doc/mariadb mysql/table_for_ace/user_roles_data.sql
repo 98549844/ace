@@ -15,41 +15,40 @@ from role_permissions
 where rolePermissionsId is not null;
 
 
-
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
-                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
+                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version)
 values (1001, sysdate(), 1, sysdate(), 'Administrator', null, 'garlam_au@qq.com', null, 'M', null, null, 1, sysdate(),
         '95186540',
-        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, 'A', 'garlam', 'Garlam Au', 1);
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'garlam', 'Garlam Au', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
-                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
+                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version)
 values (1002, sysdate(), 2, sysdate(), 'Information', null, 'peter_wong@qq.com', null, 'M', null, null, 2, sysdate(),
         '12314564',
-        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, 'A', 'peter', 'Peter Wong', 1);
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'peter', 'Peter Wong', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
-                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
+                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version)
 values (1003, sysdate(), 3, sysdate(), 'Editor', null, 'mary_leeg@qq.com', null, 'F', null, null, 3, sysdate(),
         '44557878',
-        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, 'A', 'mary', 'Mary Lee', 1);
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'mary', 'Mary Lee', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
-                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
+                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version)
 values (1004, sysdate(), 1, sysdate(), 'Disable', null, 'kalam@qq.com', null, 'M', null, null, 1, sysdate(), '95186540',
-        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, 'D', 'kalam', 'Ka Lam', 1);
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, false, 'kalam', 'Ka Lam', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
-                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
+                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version)
 values (1005, sysdate(), 2, sysdate(), 'Logger', null, 'may_tang@qq.com', null, 'M', null, null, 2, sysdate(),
         '12314564',
-        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, 'A', 'may', 'May Tang', 1);
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'may', 'May Tang', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
-                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
+                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version)
 values (1006, sysdate(), 2, sysdate(), 'Information', null, 'frank_chow@qq.com', null, 'M', null, null, 2, sysdate(),
         '12314564',
-        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, 'A', 'frank', 'Frank Chow', 1);
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'frank', 'Frank Chow', 1);
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, expireDate, gender, hostName,
-                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, status, userAccount, userName, version)
+                   ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version)
 values (1007, sysdate(), 2, sysdate(), 'Disable', null, 'eric_luk@qq.com', null, 'M', null, null, 2, sysdate(),
         '12314564',
-        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, 'D', 'eric', 'Eric Luk', 1);
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, false, 'eric', 'Eric Luk', 1);
 commit;
 
 
@@ -63,7 +62,7 @@ select userId,
        ip,
        mobile,
        password,
-       status,
+       enabled,
        userAccount,
        userName
 from users
@@ -115,45 +114,45 @@ order by u.userId;
 #------------------------------------------------
 
 insert into permissions (permissionsId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate,
-                         permissionCode, action, status, version)
-VALUES (1001, 1, sysdate(), 'Allow all operation', 1, sysdate(), 0, 'ALL', 'A', 1);
+                         permissionCode, action, enabled, version)
+VALUES (1001, 1, sysdate(), 'Allow all operation', 1, sysdate(), 0, 'ALL', true, 1);
 
 insert into permissions (permissionsId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate,
-                         permissionCode, action, status, version)
-VALUES (1002, 1, sysdate(), 'Insert only', 1, sysdate(), 1, 'INSERT', 'A', 1);
+                         permissionCode, action, enabled, version)
+VALUES (1002, 1, sysdate(), 'Insert only', 1, sysdate(), 1, 'INSERT', true, 1);
 
 insert into permissions (permissionsId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate,
-                         permissionCode, action, status, version)
-VALUES (1003, 1, sysdate(), 'Update only', 1, sysdate(), 2, 'UPDATE', 'A', 1);
+                         permissionCode, action, enabled, version)
+VALUES (1003, 1, sysdate(), 'Update only', 1, sysdate(), 2, 'UPDATE', true, 1);
 
 insert into permissions (permissionsId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate,
-                         permissionCode, action, status, version)
-VALUES (1004, 1, sysdate(), 'Delete only', 1, sysdate(), 3, 'DELETE', 'A', 1);
+                         permissionCode, action, enabled, version)
+VALUES (1004, 1, sysdate(), 'Delete only', 1, sysdate(), 3, 'DELETE', true, 1);
 
 insert into permissions (permissionsId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate,
-                         permissionCode, action, status, version)
-VALUES (1005, 1, sysdate(), 'Read only', 1, sysdate(), 4, 'SELECT', 'A', 1);
+                         permissionCode, action, enabled, version)
+VALUES (1005, 1, sysdate(), 'Read only', 1, sysdate(), 4, 'SELECT', true, 1);
 
 #select update
 insert into permissions (permissionsId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate,
-                         permissionCode, action, status, version)
-VALUES (1006, 1, sysdate(), 'Allow select update', 1, sysdate(), 6, 'SELECT UPDATE', 'A', 1);
+                         permissionCode, action, enabled, version)
+VALUES (1006, 1, sysdate(), 'Allow select update', 1, sysdate(), 6, 'SELECT UPDATE', true, 1);
 #select insert
 insert into permissions (permissionsId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate,
-                         permissionCode, action, status, version)
-VALUES (1007, 1, sysdate(), 'Allow select insert', 1, sysdate(), 7, 'SELECT INSERT', 'A', 1);
+                         permissionCode, action, enabled, version)
+VALUES (1007, 1, sysdate(), 'Allow select insert', 1, sysdate(), 7, 'SELECT INSERT', true, 1);
 #select update insert
 insert into permissions (permissionsId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate,
-                         permissionCode, action, status, version)
-VALUES (1008, 1, sysdate(), 'Allow select update insert', 1, sysdate(), 8, 'SELECT UPDATE INSERT', 'A', 1);
+                         permissionCode, action, enabled, version)
+VALUES (1008, 1, sysdate(), 'Allow select update insert', 1, sysdate(), 8, 'SELECT UPDATE INSERT', true, 1);
 
 insert into permissions (permissionsId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate,
-                         permissionCode, action, status, version)
-VALUES (1009, 1, sysdate(), 'Deny any operation', 1, sysdate(), 10, 'DENY', 'A', 1);
+                         permissionCode, action, enabled, version)
+VALUES (1009, 1, sysdate(), 'Deny any operation', 1, sysdate(), 10, 'DENY', true, 1);
 commit;
 
 
-select permissionsId, description, permissionCode, action, status
+select permissionsId, description, permissionCode, action, enabled
 from permissions;
 #------------------------------------------------
 
@@ -209,3 +208,4 @@ where 1 = 1
 order by userId
 ;
 
+commit ;

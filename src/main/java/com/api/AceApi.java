@@ -1,6 +1,6 @@
 package com.api;
 
-import com.models.entity.dao.Test;
+import com.models.entity.dao.Users;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +19,11 @@ public interface AceApi {
     ApiResponse getTest(@RequestParam("params") String params);
 
     @PostMapping("/api/insert")
-    ApiResponse<Test> create(@RequestBody Test test);
+    ApiResponse<Users> create(@RequestBody Users users);
 
     @PostMapping("/api/delete/{id}")
-    ApiResponse<Test> delete(@PathVariable("id") Integer id);
+    ApiResponse<Users> delete(@PathVariable("id") Integer id);
 
     @PostMapping("/api/getAll")
-    ApiResponse<Integer> query(@RequestBody Test test);
+    ApiResponse<Integer> query(@RequestBody Users users);
 }

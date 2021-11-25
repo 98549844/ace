@@ -1,7 +1,6 @@
 package com.sampleDataGenerator;
 
 
-import com.models.entity.dao.Test;
 import com.models.entity.dao.Users;
 
 import java.security.SecureRandom;
@@ -13,27 +12,27 @@ import java.util.Random;
 public class DataGenerator {
 
     public static void main(String[] args) {
-        List<Test> ls = getTestEntity();
-        for (Test t : ls) {
+        List<Users> ls = getTestEntity();
+        for (Users t : ls) {
             System.out.println(t.toString());
         }
     }
 
     public static List<Users> getTestDataList() {
         Users u1 = new Users();
-        u1.setUserName("Garlam");
+        u1.setUsername("Garlam");
         u1.setEmail("garlam_au@qq.com");
 
         Users u2 = new Users();
-        u2.setUserName("lily");
+        u2.setUsername("lily");
         u2.setEmail("lily_fu@qq.com");
 
         Users u3 = new Users();
-        u3.setUserName("peter");
+        u3.setUsername("peter");
         u3.setEmail("peter_lee@qq.com");
 
         Users u4 = new Users();
-        u4.setUserName("mary");
+        u4.setUsername("mary");
         u4.setEmail("mary_ma@qq.com");
 
         List<Users> ulist = new ArrayList<>();
@@ -47,14 +46,14 @@ public class DataGenerator {
     /**
      * @return
      */
-    public static List<Test> getTestEntity() {
-        List<Test> testList = new ArrayList<>();
+    public static List<Users> getTestEntity() {
+        List<Users> testList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             if (i < 30) {
-                Test test = new Test();
-                test.setId(new Long(get4Int()));
+                Users test = new Users();
+                test.setUserId(new Long(get4Int()));
                 test.setUserId(new Long(get1Int()));
-                test.setUserName("Peter");
+                test.setUsername("Peter");
                 test.setEmail(get2Int() + "peter@domain.com");
                 test.setCreatedBy(1004l);
                 test.setLastUpdatedBy(1004l);
@@ -62,10 +61,10 @@ public class DataGenerator {
                 test.setLastUpdateDate(LocalDateTime.now());
                 testList.add(test);
             } else if (i >= 30 && i < 85) {
-                Test test = new Test();
-                test.setId(new Long(get4Int()));
+                Users test = new Users();
+                test.setUserId(new Long(get4Int()));
                 test.setUserId(new Long(get1Int()));
-                test.setUserName("Lily");
+                test.setUsername("Lily");
                 test.setEmail(get2Int() + "lily@domain.com");
                 test.setCreatedBy(1004l);
                 test.setLastUpdatedBy(1004l);
@@ -73,10 +72,10 @@ public class DataGenerator {
                 test.setLastUpdateDate(LocalDateTime.now());
                 testList.add(test);
             } else {
-                Test test = new Test();
-                test.setId(new Long(get4Int()));
+                Users test = new Users();
+                test.setUserId(new Long(get4Int()));
                 test.setUserId(new Long(get1Int()));
-                test.setUserName("Garlam");
+                test.setUsername("Garlam");
                 test.setEmail(get2Int() + "garlam@domain.com");
                 test.setCreatedBy(1001l);
                 test.setLastUpdatedBy(1001l);

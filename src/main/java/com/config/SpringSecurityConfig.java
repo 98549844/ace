@@ -68,7 +68,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/ace/login.html").loginProcessingUrl("/ace/logging.html")
+                .loginPage("/ace/login.html")//.loginProcessingUrl("/ace/logging.html")
                 .defaultSuccessUrl("/ace/blank.html").failureUrl("/ace/500.html")
                 .permitAll()
                 .and()
@@ -131,7 +131,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
                 .withUser("garlam")
                 .password("{noop}garlamau")
                 .roles("USER");
-        auth.userDetailsService(usersService).passwordEncoder(passwordEncoder());
+      //  auth.userDetailsService(usersService).passwordEncoder(passwordEncoder());
 
     }
 

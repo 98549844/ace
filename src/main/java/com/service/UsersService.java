@@ -56,7 +56,7 @@ public class UsersService implements UserDetailsService {
 		} else {
 			Users user = usersDao.findByUserAccount(userAccount);
 			String encode = passwordEncoder.encode(user.getPassword());
-			u = new User(user.getUserName(), encode, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+			u = new User(user.getUsername(), encode, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
 		}
 		return u;
 	}
@@ -69,7 +69,7 @@ public class UsersService implements UserDetailsService {
 			////抛出异常，会根据配置跳到登录失败页面
 			throw new UsernameNotFoundException("找不到该账户信息！");
 		}
-		String sp = user.getUserName() + "," + user.getPassword();
+		String sp = user.getUsername() + "," + user.getPassword();
 		//   UserDetails userDetails = this.loadUserByUsername(sp);
 		boolean matches = passwordEncoder.matches(param.getPassword(), user.getPassword());
 		log.info("Match result: {}", matches);
@@ -217,14 +217,14 @@ public class UsersService implements UserDetailsService {
 				Predicate predicate = criteriaBuilder.equal(root.get("password"), users.getPassword());
 				predicatesList.add(predicate);
 			}
-			if (users.getUserName() != null) {
-				Predicate predicate = criteriaBuilder.like(root.get("userName"), "%" + users.getUserName().toLowerCase() + "%");
+			if (users.getUsername() != null) {
+				Predicate predicate = criteriaBuilder.like(root.get("userName"), "%" + users.getUsername().toLowerCase() + "%");
 				predicatesList.add(predicate);
 			}
-			if (users.getStatus() != null) {
-				Predicate predicate = criteriaBuilder.equal(root.get("status"), users.getStatus());
-				predicatesList.add(predicate);
-			}
+//			if (users.getStatus() != null) {
+//				Predicate predicate = criteriaBuilder.equal(root.get("status"), users.getStatus());
+//				predicatesList.add(predicate);
+//			}
 			if (users.getEmail() != null) {
 				Predicate predicate = criteriaBuilder.like(root.get("email"), "%" + users.getEmail().toLowerCase() + "%");
 				predicatesList.add(predicate);

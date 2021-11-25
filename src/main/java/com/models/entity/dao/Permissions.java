@@ -24,7 +24,7 @@ public class Permissions extends baseEntity implements Serializable {
 	@Column
 	private String description;
 	@Column
-	private String status;
+	private boolean enabled;
 
 
 	public Long getPermissionsId() {
@@ -59,11 +59,11 @@ public class Permissions extends baseEntity implements Serializable {
 		this.description = description;
 	}
 
-	public String getStatus() {
-		return status;
+	public boolean isEnabled() {
+		return enabled;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 }

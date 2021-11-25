@@ -19,7 +19,6 @@ public class Roles extends baseEntity implements Serializable {
 	@Column
 	private Long roleId;
 
-
 	@Column
 	private String roleCode;
 	@Column

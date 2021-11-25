@@ -39,6 +39,7 @@ public class LoginController extends CommonController {
 
 	@RequestMapping(value = "/login.html", method = RequestMethod.GET)
 	public ModelAndView login(HttpServletRequest request) {
+		log.info("LoginController.login(): " );
 		ModelAndView modelAndView = super.page("ace/login.html");
 		String userMsg = request.getParameter("msg");
 		//用户存在
@@ -51,7 +52,6 @@ public class LoginController extends CommonController {
 //	https://blog.csdn.net/hjjjjjjj_/article/details/120239371
 //	https://blog.csdn.net/hjjjjjjj_/article/details/120235512
 //	https://segmentfault.com/q/1010000018082229
-//	https://blog.csdn.net/xiaozhuzhuyang/article/details/115631458
 	@RequestMapping(value = "/logging.html", method = RequestMethod.POST)
 	public ModelAndView logging(String userAccount, String password, HttpServletRequest request) {
 		log.info("userAccount: " + userAccount);
@@ -87,7 +87,7 @@ public class LoginController extends CommonController {
 		mobile = newMobile.toString();
 		user.setMobile(mobile);
 		usersService.save(user);
-		log.info("user: " + user.getUserName() + " save success!");
+		log.info("user: " + user.getUsername() + " save success!");
 		modelAndView = super.redirect("ace/index.html");
 		return modelAndView;
 	}
