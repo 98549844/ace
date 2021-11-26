@@ -70,6 +70,10 @@ public class UsersService implements UserDetailsService {
 		return u;
 	}
 
+	public List<Users> findAll (){
+		return usersDao.findAll();
+	}
+
 
 	public Users findByUserAccount(Users param) {
 		Users user = usersDao.findByUserAccount(param.getUserAccount());
@@ -91,6 +95,7 @@ public class UsersService implements UserDetailsService {
 	public Users accountRegistration(Users users) {
 		users.setPassword(passwordEncoder.encode(users.getPassword()));
 		users.setDescription(Constant.information);
+		users.setUsername(users.getUserAccount()+"_ace"+RandomUtil.getRangeInt(1, 500));
 		Users u = usersDao.saveAndFlush(users);
 
 		//default role is information
