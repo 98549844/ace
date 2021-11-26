@@ -100,6 +100,7 @@ insert into roles (roleId, createdBy, createdDate, description, lastUpdatedBy, l
 values (1005, 1, sysdate(), 'Logger', 1, sysdate(), 'LOGGER', 1);
 commit;
 
+select * from roles;
 
 
 insert into user_roles (userRolesId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId, userId, version)
@@ -168,8 +169,11 @@ VALUES (1009, 1, sysdate(), 'Deny any operation', 1, sysdate(), 10, 'DENY', true
 commit;
 
 
-select permissionsId, description, permissionCode, action, enabled
+select *
 from permissions;
+
+select * from role_permissions;
+
 #------------------------------------------------
 
 #admin role: allow all operation
@@ -210,7 +214,8 @@ select p.permissionsId,
        r.roleCode,
        u.userId,
        u.description,
-       u.userName
+       u.userAccount,
+       u.username
 from role_permissions rp,
      permissions p,
      roles r,
@@ -224,4 +229,6 @@ where 1 = 1
 order by userId
 ;
 
-commit;
+
+
+

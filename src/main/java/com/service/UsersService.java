@@ -1,8 +1,9 @@
 package com.service;
 
+import com.constant.Constant;
 import com.dao.UserRolesDao;
 import com.dao.UsersDao;
-import com.models.entity.dao.Users;
+import com.models.entity.dao.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import util.*;
 
@@ -36,15 +38,22 @@ public class UsersService implements UserDetailsService {
 	private static Logger log = LogManager.getLogger(UsersService.class.getName());
 
 	private UsersDao usersDao;
-	private UserRolesDao userRolesDao;
 	private PasswordEncoder passwordEncoder;
+	private UserRolesService userRolesService;
+	private RolesService rolesService;
+	private PermissionsService permissionsService;
+
 
 	@Autowired
-	public UsersService(UsersDao usersDao, UserRolesDao userRolesDao, PasswordEncoder passwordEncoder) {
+	public UsersService(UsersDao usersDao, PasswordEncoder passwordEncoder, UserRolesService userRolesService, RolesService rolesService, PermissionsService permissionsService) {
 		this.usersDao = usersDao;
-		this.userRolesDao = userRolesDao;
 		this.passwordEncoder = passwordEncoder;
+		this.userRolesService = userRolesService;
+		this.rolesService = rolesService;
+		this.permissionsService = permissionsService;
 	}
+
+
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -78,20 +87,33 @@ public class UsersService implements UserDetailsService {
 		return user;
 	}
 
+	@Transactional
+	public Users accountRegistration(Users users) {
+		users.setPassword(passwordEncoder.encode(users.getPassword()));
+		users.setDescription(Constant.information);
+		Users u = usersDao.saveAndFlush(users);
 
-	public boolean save(Users users) {
-		try {
-//            if (!users.getPassword().contains("$2a$10$") && users.getPassword().length() != 60) {
-//                String encode = passwordEncoder.encode(users.getPassword());
-//                users.setPassword(encode);
-//            }
-			usersDao.save(users);
-		} catch (Exception e) {
-			e.printStackTrace();
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			return false;
-		}
-		return true;
+		//default role is information
+		Roles role = rolesService.findByRoleCode(Constant.INFORMATION);
+
+		UserRoles userRoles = new UserRoles();
+		userRoles.setUserId(u.getUserId());
+		userRoles.setRoleId(role.getRoleId());
+		userRolesService.save(userRoles);
+
+		//default permission is select
+		Permissions permissions = permissionsService.findPermissionsByPermissionCode(Constant.SELECT);
+
+		RolePermissions rolePermissions = new RolePermissions();
+		rolePermissions.setPermissionsId(permissions.getPermissionsId());
+		rolePermissions.setRoleId(role.getRoleId());
+
+		return users;
+	}
+
+	@Transactional
+	public Users save(Users users) {
+		return usersDao.save(users);
 	}
 
 
@@ -100,11 +122,10 @@ public class UsersService implements UserDetailsService {
 		if (NullUtil.isNotNull(users)) {
 			if (NullUtil.isNull(users.getEmail())) {
 				validate = false;
-			} else if (NullUtil.isNull(users.getUserAccount().trim())) {
-				validate = false;
-			} else if (NullUtil.isNull(users.getPassword())) {
+			} else if (NullUtil.isNull(users.getUserAccount().trim()) || NullUtil.isNull(users.getPassword())) {
 				validate = false;
 			}
+
 		}
 		return validate;
 	}
@@ -138,17 +159,14 @@ public class UsersService implements UserDetailsService {
 		return usersDao.findById(id);
 	}
 
-
+	@Transactional
 	public boolean saveAll(List<Users> usersIterable) {
-		//   passwordEncoder.encode(usersIterable.iterator().next().getPassword());
-
 		List<Users> usersList = new ArrayList<>();
 		for (Users u : usersIterable) {
 			String encode = passwordEncoder.encode(u.getPassword());
 			u.setPassword(encode);
 			usersList.add(u);
 		}
-
 
 		try {
 			usersDao.saveAll(usersList);

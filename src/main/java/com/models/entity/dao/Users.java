@@ -39,8 +39,8 @@ public class Users extends baseEntity implements Serializable , UserDetails {
     private String gender;
     @Column
     private LocalDateTime birthday;
-    @Column
-    private LocalDateTime expireDate;
+
+
 
     @Column
     private String domain;
@@ -52,13 +52,13 @@ public class Users extends baseEntity implements Serializable , UserDetails {
     private String remark;
 
     @Column
-    private boolean accountNonExpired;
+    private boolean accountNonExpired = true;
     @Column
-    private boolean accountNonLocked;
+    private boolean accountNonLocked = true;
     @Column
-    private boolean credentialsNonExpired;
+    private boolean credentialsNonExpired = true;
     @Column
-    private boolean enabled;
+    private boolean enabled = true;
 
 
     public Long getUserId() {
@@ -140,13 +140,8 @@ public class Users extends baseEntity implements Serializable , UserDetails {
         this.birthday = birthday;
     }
 
-    public LocalDateTime getExpireDate() {
-        return expireDate;
-    }
 
-    public void setExpireDate(LocalDateTime expireDate) {
-        this.expireDate = expireDate;
-    }
+
 
     public String getDomain() {
         return domain;

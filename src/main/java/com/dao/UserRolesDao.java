@@ -9,6 +9,5 @@ import java.util.List;
 
 public interface UserRolesDao extends JpaRepository<UserRoles, Long>, JpaSpecificationExecutor<UserRoles> {
 
-	List<UserRoles> findByUserId(Long userId);
 
 }

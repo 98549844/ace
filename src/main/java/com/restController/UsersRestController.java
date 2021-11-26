@@ -2,8 +2,7 @@ package com.restController;
 
 import com.models.common.AjaxResponse;
 import com.models.entity.dao.Users;
-import com.sampleDataGenerator.DataGenerator;
-import com.sampleDataGenerator.insertUsers;
+import com.DataGenerator.insertUsers;
 import com.service.UsersService;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;

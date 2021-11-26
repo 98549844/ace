@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Locale;
 
-import static com.sampleDataGenerator.DataGenerator.getTestEntity;
+import static com.DataGenerator.DataGenerator.getTestEntity;
 
 /**
  * @Classname: MariaDBController

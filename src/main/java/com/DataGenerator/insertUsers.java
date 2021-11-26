@@ -1,4 +1,4 @@
-package com.sampleDataGenerator;
+package com.DataGenerator;
 
 import com.models.entity.dao.Users;
 

@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "permissions")
+@Table(name = "permissions",  uniqueConstraints = {@UniqueConstraint(name = "constraint_permissionCode", columnNames = "permissionCode")})
 @Entity
 public class Permissions extends baseEntity implements Serializable {
 
