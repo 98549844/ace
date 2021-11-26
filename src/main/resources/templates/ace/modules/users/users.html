@@ -106,6 +106,7 @@
                                     <tbody>
 
                                     <tr th:each="user:${users}">
+
                                         <td class="center">
                                             <div class="action-buttons">
                                                 <a href="#" class="green bigger-140 show-details-btn"
@@ -115,6 +116,7 @@
                                                 </a>
                                             </div>
                                         </td>
+
 
                                         <input type="hidden" th:value="${user.userId}"/>
                                         <td th:text="${user.userAccount}"></td>
@@ -128,8 +130,8 @@
 
                                         <td th:text="${user.lastUpdateDate}"></td>
 
-                                        <td  th:if="${user.accountNonExpired}">Normal</td>
-                                        <td  th:if="${not user.accountNonLocked}" class="red"><strong>Yes</strong></td>
+                                        <td th:if="${user.accountNonExpired}">Normal</td>
+                                        <td th:if="${not user.accountNonLocked}" class="red"><strong>Yes</strong></td>
 
 
                                         <td>
@@ -150,48 +152,10 @@
                                                     <i class="ace-icon fa fa-flag bigger-120"></i>
                                                 </button>
                                             </div>
-
-                                            <div class="hidden-md hidden-lg">
-                                                <div class="inline pos-rel">
-                                                    <button class="btn btn-minier btn-primary dropdown-toggle"
-                                                            data-toggle="dropdown" data-position="auto">
-                                                        <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-                                                    </button>
-
-                                                    <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                                        <li>
-                                                            <a href="#" class="tooltip-info" data-rel="tooltip"
-                                                               title="View">
-																			<span class="blue">
-																				<i class="ace-icon fa fa-search-plus bigger-120"></i>
-																			</span>
-                                                            </a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" class="tooltip-success" data-rel="tooltip"
-                                                               title="Edit">
-																			<span class="green">
-																				<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																			</span>
-                                                            </a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#" class="tooltip-error" data-rel="tooltip"
-                                                               title="Delete">
-																			<span class="red">
-																				<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																			</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
                                         </td>
                                     </tr>
 
-                                    <tr class="detail-row">
+                                    <tr class="detail-row open">
                                         <td colspan="8">
                                             <div class="table-detail">
                                                 <div class="row">
@@ -199,7 +163,7 @@
                                                         <div class="text-center">
                                                             <img height="150" class="thumbnail inline no-margin-bottom"
                                                                  alt="Domain Owner's Avatar"
-                                                                 src="assets/images/avatars/profile-pic.jpg"/>
+                                                                 th:src="@{/assets/images/avatars/profile-pic.jpg}"/>
                                                             <br/>
                                                             <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
                                                                 <div class="inline position-relative">
@@ -301,8 +265,6 @@
                                             </div>
                                         </td>
                                     </tr>
-
-
                                     </tbody>
                                 </table>
                             </div><!-- /.span -->
@@ -344,5 +306,17 @@
 <script th:src="@{/assets/js/ace.min.js}"></script>
 
 <!-- inline scripts related to this page -->
+<script type="text/javascript">
+    jQuery(function ($) {
+        /***************/
+        $('.show-details-btn').on('click', function (e) {
+            e.preventDefault();
+            $(this).closest('tr').next().toggleClass('open');
+            $(this).find(ace.vars['.icon']).toggleClass('fa-angle-double-down').toggleClass('fa-angle-double-up');
+        });
+        /***************/
+    })
+</script>
+
 </body>
 </html>
