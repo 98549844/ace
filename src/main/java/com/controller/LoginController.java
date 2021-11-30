@@ -49,10 +49,7 @@ public class LoginController extends CommonController {
 		return modelAndView;
 	}
 
-//	https://blog.csdn.net/hjjjjjjj_/article/details/120239371
-//	https://blog.csdn.net/hjjjjjjj_/article/details/120235512
-//	https://segmentfault.com/q/1010000018082229
-//	https://www.cnblogs.com/MrSi/p/7993875.html
+
 
 //  action接两个可选的请求参数error,logout
 //	@RequestParam(value = "error", required = false) String error,

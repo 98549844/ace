@@ -41,6 +41,8 @@ public class RolesController extends CommonController {
 
 		ModelAndView modelAndView = super.page("ace/modules/roles/roles");
 		modelAndView.addObject("roles",rolesList);
+
+
 		return modelAndView;
 	}
 }
