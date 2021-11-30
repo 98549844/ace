@@ -35,7 +35,7 @@ import java.util.Optional;
 
 @Service
 public class UsersService implements UserDetailsService {
-	private static Logger log = LogManager.getLogger(UsersService.class.getName());
+	private static final Logger log = LogManager.getLogger(UsersService.class.getName());
 
 	private UsersDao usersDao;
 	private PasswordEncoder passwordEncoder;
