@@ -66,18 +66,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
                 .antMatchers(loginUrl).permitAll()
                 .antMatchers(loggingUrl).permitAll()
                // open spring security, login success can access
-                .anyRequest().authenticated()
+            /*    .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/ace/login.html").loginProcessingUrl("/ace/logging.html")
                 .defaultSuccessUrl("/ace/blank.html").failureUrl("/ace/500.html")
                 .permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/").permitAll()
+                .logout().logoutSuccessUrl("/").permitAll()*/
 
                 //close spring security
-                //.anyRequest().permitAll()
-                //.and().logout().permitAll()
+                .anyRequest().permitAll()
+                .and().logout().permitAll()
                 //.tokenValiditySeconds(84600).tokenRepository("保存用户token信息到数据库")
                 .and().rememberMe();
 
@@ -140,5 +140,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter  {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(11);
         return passwordEncoder;
     }
+
+
+
 
 }
