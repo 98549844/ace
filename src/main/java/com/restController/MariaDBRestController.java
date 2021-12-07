@@ -1,18 +1,20 @@
 package com.restController;
 
+import com.models.common.AjaxResponse;
+import com.models.entity.Columns;
 import com.models.entity.dao.Users;
+import com.service.DataBaseService;
 import com.service.UsersService;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
-import static com.DataGenerator.DataGenerator.getTestEntity;
 
 /**
  * @Classname: MariaDBController
@@ -28,24 +30,37 @@ import static com.DataGenerator.DataGenerator.getTestEntity;
 public class MariaDBRestController {
     private final static Logger log = LogManager.getLogger(MariaDBRestController.class.getName());
 
-
     private UsersService usersService;
 
-
     @Autowired
-    public MariaDBRestController(UsersService usersService) {
+    public MariaDBRestController(UsersService usersService, DataBaseService dataBaseService) {
         this.usersService = usersService;
+        this.dataBaseService = dataBaseService;
+    }
+
+    private DataBaseService dataBaseService;
+
+
+    @RequestMapping(value = "/tableList", method = RequestMethod.GET)
+    public AjaxResponse getTableList() throws ClassNotFoundException {
+
+        List<String> list = dataBaseService.getAllTableName();
+        return AjaxResponse.success(list);
     }
 
 
+    @RequestMapping(method = RequestMethod.GET, value = "/{table}")
+    public AjaxResponse getColumnByTable(@PathVariable String table) throws ClassNotFoundException {
 
+        List<Columns> list = dataBaseService.getColumnName(table);
+        return AjaxResponse.success(list);
+    }
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getConnection() {
-        return null;
+    public AjaxResponse getConnection() {
+        return AjaxResponse.success("getConnection success");
     }
-
 
     @RequestMapping(method = RequestMethod.GET, value = "/hibernate/getAll")
     public List<Users> getAllHibernate() {
@@ -54,18 +69,8 @@ public class MariaDBRestController {
         return ls;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/hibernate/insert")
-    public String inserthibernate() {
-        List<Users> ls = getTestEntity();
-        for (Users test : ls) {
-            test.setUserId(null);
-        }
-        usersService.saveAll(ls);
-        return "Success insert: " + ls.size();
-    }
-
     @RequestMapping(method = RequestMethod.GET, value = "/mybatis/getById")
-    public Users getAByIdMybatis() {
+    public Users getAllByIdMybatis() {
         Users u = new Users();
         u.setUserAccount("garlam".toLowerCase());
         Users ls = usersService.findByUserAccount(u);
@@ -73,14 +78,5 @@ public class MariaDBRestController {
         return ls;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/mybatis/insert")
-    public String insertMybatis() {
-        List<Users> ls = getTestEntity();
-        for (Users test : ls) {
-            test.setUserId(null);
-        }
-        usersService.saveAll(ls);
-        return "Success insert: " + ls.size();
-    }
 }
 

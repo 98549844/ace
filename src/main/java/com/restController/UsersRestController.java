@@ -2,7 +2,7 @@ package com.restController;
 
 import com.models.common.AjaxResponse;
 import com.models.entity.dao.Users;
-import com.DataGenerator.insertUsers;
+import com.DataGenerator.InsertUsers;
 import com.service.UsersService;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
@@ -59,7 +59,7 @@ public class UsersRestController {
 			usersService.delete(users.getUserId());
 		}
 		//generate users data
-		insertUsers insertUsers = new insertUsers();
+		InsertUsers insertUsers = new InsertUsers();
 		List<Users> usersList = insertUsers.insertUsers();
 		//default password = 909394
 		usersService.saveAll(usersList);

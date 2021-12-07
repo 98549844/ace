@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class insertUsers {
+public class InsertUsers {
 
-	public List<Users> insertUsers() {
+	public static List<Users> insertUsers() {
 		List<Users> usersList = new ArrayList<>();
 		Users u1 = new Users();
 		Users u2 = new Users();

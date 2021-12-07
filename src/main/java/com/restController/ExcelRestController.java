@@ -1,10 +1,13 @@
 package com.restController;
 
-import com.Ace;
-import com.config.SpringSecurityConfig;
-import com.mapper.DataBaseMapper;
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.write.metadata.WriteSheet;
 import com.models.common.AjaxResponse;
+import com.models.entity.Columns;
+import com.models.entity.dao.Users;
 import com.service.DataBaseService;
+import com.service.UsersService;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,11 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import util.EasyExcelUtil;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Classname: ExcelRestController
@@ -27,28 +29,49 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/rest/excel")
-@Api(tags = "excel")
+@RequestMapping("/rest/easyExcel")
+@Api(tags = "easyExcel")
 public class ExcelRestController {
     private static Logger log = LogManager.getLogger(ExcelRestController.class.getName());
 
-    final static String path = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/output/";
-    final static String fileName = "excel.xls";
+    final static String path = "/Users/garlam/IdeaProjects/ace/src/main/resources/files/output/";
+    final static String fileName = path + "excel.xls";
 
     private DataBaseService dataBaseService;
+    private UsersService usersService;
 
 
     @Autowired
-    public ExcelRestController(DataBaseService dataBaseService) {
+    public ExcelRestController(DataBaseService dataBaseService, UsersService usersService) {
         this.dataBaseService = dataBaseService;
+        this.usersService = usersService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{table}")
-    public AjaxResponse generateDbToExcel(@PathVariable String table) throws ClassNotFoundException {
+    @RequestMapping(method = RequestMethod.GET)
+    public AjaxResponse getTableList(@PathVariable String table) throws ClassNotFoundException {
 
         List<String> list = dataBaseService.getAllTableName();
         return AjaxResponse.success(list);
     }
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{table}")
+    public AjaxResponse generateTableToExcel(@PathVariable String table) throws ClassNotFoundException {
+
+        List<Columns> list = dataBaseService.getColumnName(table);
+        List<String> columns = new ArrayList<>();
+        for (Columns c : list) {
+            columns.add(c.getColumnName());
+        }
+        List<Users> users = usersService.getAll();
+
+        EasyExcelUtil easyExcelUtil = new EasyExcelUtil();
+        easyExcelUtil.write(fileName, users, new Users());
+        // write(users);
+
+        return AjaxResponse.success(list);
+    }
+
 
 }
 

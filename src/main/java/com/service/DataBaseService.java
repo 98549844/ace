@@ -1,6 +1,7 @@
 package com.service;
 
 import com.mapper.DataBaseMapper;
+import com.models.entity.Columns;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,11 @@ public class DataBaseService {
         String schema = null;
         return dataBaseMapper.getAllTableName(schema);
     }
+
+    public List<Columns> getColumnName (String tableName){
+        String schema = "ace";
+        return dataBaseMapper.getColumnNameByTable(tableName, schema);
+    }
+
 }
 

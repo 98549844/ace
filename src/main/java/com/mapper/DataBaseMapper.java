@@ -1,5 +1,6 @@
 package com.mapper;
 
+import com.models.entity.Columns;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,8 @@ import java.util.List;
 public interface DataBaseMapper {
 
     List<String> getAllTableName(String schema);
+
+    List<Columns> getColumnNameByTable (String tableName, String schema);
 
 }
 
