@@ -55,7 +55,7 @@
     <select id="getAllTableName" parameterType="java.lang.Integer" resultType="java.lang.String">
         show
             tables
-            from ace
+            from ${schema,jdbcType=VARCHAR}
     </select>
 
     <select id="getColumnNameByTable" parameterType="string" resultMap="ColumnMap">

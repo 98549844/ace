@@ -31,7 +31,7 @@ public class DataBaseService {
 
 
     public List<String> getAllTableName (){
-        String schema = null;
+        String schema = "ace";
         return dataBaseMapper.getAllTableName(schema);
     }
 

@@ -1,30 +1,24 @@
 package com.service;
 
 import com.constant.Constant;
-import com.dao.UserRolesDao;
 import com.dao.UsersDao;
+import com.exception.PasswordNotMatchException;
+import com.exception.UserNotFoundException;
 import com.models.entity.dao.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import util.*;
+import util.NullUtil;
+import util.RandomUtil;
 
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @Classname: usersService
@@ -34,7 +28,7 @@ import java.util.Optional;
  */
 
 @Service
-public class UsersService implements UserDetailsService {
+public class UsersService  {
 	private static final Logger log = LogManager.getLogger(UsersService.class.getName());
 
 	private UsersDao usersDao;
@@ -55,38 +49,24 @@ public class UsersService implements UserDetailsService {
 
 
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		log.info("***UsersService.loadUserByUsername {}", username);
-		UserDetails u;
-		if ("admin".equals(username)) {
-			List<GrantedAuthority> auth = AuthorityUtils.commaSeparatedStringToAuthorityList("admin");
-			u = new User("admin", passwordEncoder.encode("admin"), auth);
-		} else {
-			Users user = usersDao.findByUserAccount(username);
-			String encode = passwordEncoder.encode(user.getPassword());
-			u = new User(user.getUsername(), encode, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
-		}
-		return u;
-	}
 
 	public List<Users> findAll (){
 		return usersDao.findAll();
 	}
 
 
-	public Users findByUserAccount(Users param) {
+	public Users findByUserAccount(Users param) throws UserNotFoundException, PasswordNotMatchException {
 		Users user = usersDao.findByUserAccount(param.getUserAccount());
 		if (NullUtil.isNull(user) || NullUtil.isNull(user.getUserId())) {
 			////抛出异常，会根据配置跳到登录失败页面
-			throw new UsernameNotFoundException("找不到该账户信息！");
+			throw new UserNotFoundException(user.getUsername());
 		}
 		String sp = user.getUsername() + "," + user.getPassword();
 		//   UserDetails userDetails = this.loadUserByUsername(sp);
 		boolean matches = passwordEncoder.matches(param.getPassword(), user.getPassword());
 		log.info("Match result: {}", matches);
 		if (!matches) {
-			throw new BadCredentialsException("密码不正确");
+			throw new PasswordNotMatchException();
 		}
 		return user;
 	}
@@ -160,7 +140,7 @@ public class UsersService implements UserDetailsService {
 	}
 
 
-	public Optional<Users> getUsersById(long id) {
+	public Users getUsersById(long id) {
 		return usersDao.findById(id);
 	}
 

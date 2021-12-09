@@ -1,5 +1,7 @@
 package com.restController;
 
+import com.exception.PasswordNotMatchException;
+import com.exception.UserNotFoundException;
 import com.models.common.AjaxResponse;
 import com.models.entity.Columns;
 import com.models.entity.dao.Users;
@@ -70,7 +72,7 @@ public class MariaDBRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/mybatis/getById")
-    public Users getAllByIdMybatis() {
+    public Users getAllByIdMybatis() throws UserNotFoundException, PasswordNotMatchException {
         Users u = new Users();
         u.setUserAccount("garlam".toLowerCase());
         Users ls = usersService.findByUserAccount(u);

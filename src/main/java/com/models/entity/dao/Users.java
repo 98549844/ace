@@ -3,8 +3,6 @@ package com.models.entity.dao;
 import com.models.entity.dao.base.baseEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,7 +12,7 @@ import java.util.Collection;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(name = "constraint_userAccount", columnNames = "userAccount")})
 @Entity
-public class Users extends baseEntity implements Serializable , UserDetails {
+public class Users extends baseEntity implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(strategy = "identity", name = "id")
@@ -52,14 +50,10 @@ public class Users extends baseEntity implements Serializable , UserDetails {
     private String remark;
 
     @Column
-    private boolean accountNonExpired = true;
-    @Column
-    private boolean accountNonLocked = true;
-    @Column
-    private boolean credentialsNonExpired = true;
-    @Column
-    private boolean enabled = true;
+    private  LocalDateTime expireDate ;
 
+    @Column
+    private boolean enabled = true; // user control
 
     public Long getUserId() {
         return userId;
@@ -69,12 +63,6 @@ public class Users extends baseEntity implements Serializable , UserDetails {
         this.userId = userId;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
     public String getPassword() {
         return password;
     }
@@ -91,7 +79,6 @@ public class Users extends baseEntity implements Serializable , UserDetails {
         this.userAccount = userAccount;
     }
 
-    @Override
     public String getUsername() {
         return username;
     }
@@ -140,9 +127,6 @@ public class Users extends baseEntity implements Serializable , UserDetails {
         this.birthday = birthday;
     }
 
-
-
-
     public String getDomain() {
         return domain;
     }
@@ -175,34 +159,14 @@ public class Users extends baseEntity implements Serializable , UserDetails {
         this.remark = remark;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return accountNonExpired;
+    public LocalDateTime getExpireDate() {
+        return expireDate;
     }
 
-    public void setAccountNonExpired(boolean accountNonExpired) {
-        this.accountNonExpired = accountNonExpired;
+    public void setExpireDate(LocalDateTime expireDate) {
+        this.expireDate = expireDate;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return accountNonLocked;
-    }
-
-    public void setAccountNonLocked(boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return credentialsNonExpired;
-    }
-
-    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
-        this.credentialsNonExpired = credentialsNonExpired;
-    }
-
-    @Override
     public boolean isEnabled() {
         return enabled;
     }

@@ -18,14 +18,6 @@ public class InsertUsers {
 		Users u6 = new Users();
 		Users u7 = new Users();
 
-//		u1.setUserId(1001l);
-//		u2.setUserId(2001l);
-//		u3.setUserId(3001l);
-//		u4.setUserId(4001l);
-//		u5.setUserId(5001l);
-//		u6.setUserId(6001l);
-//		u7.setUserId(7001l);
-
 		u1.setBirthday(LocalDateTime.now());
 		u2.setBirthday(LocalDateTime.now());
 		u3.setBirthday(LocalDateTime.now());
@@ -33,6 +25,14 @@ public class InsertUsers {
 		u5.setBirthday(LocalDateTime.now());
 		u6.setBirthday(LocalDateTime.now());
 		u7.setBirthday(LocalDateTime.now());
+
+		u1.setExpireDate(LocalDateTime.now());
+		u2.setExpireDate(LocalDateTime.now());
+		u3.setExpireDate(LocalDateTime.now());
+		u4.setExpireDate(LocalDateTime.now());
+		u5.setExpireDate(LocalDateTime.now());
+		u6.setExpireDate(LocalDateTime.now());
+		u7.setExpireDate(LocalDateTime.now());
 
 		u1.setCreatedDate(LocalDateTime.now());
 		u2.setCreatedDate(LocalDateTime.now());
@@ -119,29 +119,7 @@ public class InsertUsers {
 		u6.setEnabled(true);
 		u7.setEnabled(true);
 
-		u1.setAccountNonExpired(true);
-		u2.setAccountNonExpired(true);
-		u3.setAccountNonExpired(true);
-		u4.setAccountNonExpired(true);
-		u5.setAccountNonExpired(true);
-		u6.setAccountNonExpired(true);
-		u7.setAccountNonExpired(true);
 
-		u1.setAccountNonLocked(true);
-		u2.setAccountNonLocked(true);
-		u3.setAccountNonLocked(true);
-		u4.setAccountNonLocked(true);
-		u5.setAccountNonLocked(true);
-		u6.setAccountNonLocked(true);
-		u7.setAccountNonLocked(true);
-
-		u1.setCredentialsNonExpired(true);
-		u2.setCredentialsNonExpired(true);
-		u3.setCredentialsNonExpired(true);
-		u4.setCredentialsNonExpired(true);
-		u5.setCredentialsNonExpired(true);
-		u6.setCredentialsNonExpired(true);
-		u7.setCredentialsNonExpired(true);
 
 		u1.setUserAccount("garlam");
 		u2.setUserAccount("peter");

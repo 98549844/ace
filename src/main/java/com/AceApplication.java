@@ -1,8 +1,12 @@
 package com;
 
+import cn.dev33.satoken.SaManager;
 import com.config.AceConfig;
 import com.config.BrowserConfig;
+import com.restController.SaTakenRestController;
 import com.util.ApplicationContextUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -35,6 +39,7 @@ import java.util.Map;
 //for baseEntity using
 @EnableJpaAuditing
 public class AceApplication {
+    private static final Logger log = LogManager.getLogger(SaTakenRestController.class.getName());
     public static ApplicationContext applicationContext;
 
     public static void main(String[] args) throws IOException {
@@ -61,6 +66,6 @@ public class AceApplication {
         // browserConfig.getCss();
         // browserConfig.getIndex();
 
-
+        log.info("Running success：Sa-Token config：{}" , SaManager.getConfig());
     }
 }

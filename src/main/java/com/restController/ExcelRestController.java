@@ -47,14 +47,6 @@ public class ExcelRestController {
         this.usersService = usersService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public AjaxResponse getTableList(@PathVariable String table) throws ClassNotFoundException {
-
-        List<String> list = dataBaseService.getAllTableName();
-        return AjaxResponse.success(list);
-    }
-
-
     @RequestMapping(method = RequestMethod.GET, value = "/{table}")
     public AjaxResponse generateTableToExcel(@PathVariable String table) throws ClassNotFoundException {
 

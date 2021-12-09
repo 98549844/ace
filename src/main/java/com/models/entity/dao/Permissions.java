@@ -24,7 +24,7 @@ public class Permissions extends baseEntity implements Serializable {
 	@Column
 	private String description;
 	@Column
-	private boolean enabled;
+	private boolean enabled = true;
 
 
 	public Long getPermissionsId() {

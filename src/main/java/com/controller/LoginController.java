@@ -1,13 +1,13 @@
 package com.controller;
 
 import com.controller.common.CommonController;
+import com.exception.PasswordNotMatchException;
+import com.exception.UserNotFoundException;
 import com.models.entity.dao.Users;
 import com.service.UsersService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -75,7 +75,7 @@ public class LoginController extends CommonController {
 			try {
 				//get user information
 				user = usersService.findByUserAccount(user);
-			} catch (UsernameNotFoundException | BadCredentialsException e) {
+			} catch (UserNotFoundException | PasswordNotMatchException e) {
 				e.printStackTrace();
 				modelAndView = super.page("ace/login.html");
 				msg = "Login Fail, Please try again!";
