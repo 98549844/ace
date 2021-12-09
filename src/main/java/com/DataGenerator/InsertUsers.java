@@ -18,6 +18,9 @@ public class InsertUsers {
 		Users u6 = new Users();
 		Users u7 = new Users();
 
+
+
+
 		u1.setBirthday(LocalDateTime.now());
 		u2.setBirthday(LocalDateTime.now());
 		u3.setBirthday(LocalDateTime.now());
