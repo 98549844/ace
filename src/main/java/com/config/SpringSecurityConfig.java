@@ -16,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 //@EnableWebSecurity
-@ConfigurationProperties(prefix = "springsecurityconfig")
 @PropertySource(value = "classpath:application.yml", encoding = "UTF-8")
 public class SpringSecurityConfig /*extends WebSecurityConfigurerAdapter*/  {
 
@@ -35,8 +34,6 @@ public class SpringSecurityConfig /*extends WebSecurityConfigurerAdapter*/  {
 //    public void setUsersService(UsersService usersService) {
 //        this.usersService = usersService;
 //    }
-//
-//
 //
 //    //RESTful and CRSF have conflict
 //    //CRSF default support GET,head,trace,options,biy not support post
@@ -140,8 +137,4 @@ public class SpringSecurityConfig /*extends WebSecurityConfigurerAdapter*/  {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(11);
         return passwordEncoder;
     }
-
-
-
-
 }

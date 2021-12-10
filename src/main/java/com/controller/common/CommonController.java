@@ -1,5 +1,6 @@
 package com.controller.common;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.constant.WebServiceInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,6 +34,12 @@ public class CommonController {
     }
 
 
+    protected ModelAndView loggedOut() {
+            ModelAndView modelAndView = page("ace/login.html");
+            String msg = "illegal access, logged out";
+            modelAndView.addObject("msg", msg);
+            return modelAndView;
+    }
 
     /**
      * 返回页面

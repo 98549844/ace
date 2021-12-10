@@ -1,9 +1,8 @@
 package com.restController;
 
 import com.models.common.AjaxResponse;
-import com.models.entity.dao.Roles;
 import com.models.entity.dao.Users;
-import com.DataGenerator.InsertUsers;
+import com.configDataGenerator.InsertUsers;
 import com.service.RolesService;
 import com.service.UsersService;
 import io.swagger.annotations.Api;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import util.RandomUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +24,8 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/rest/user")
-@Api(tags = "用户组")
+@RequestMapping("/rest/users")
+@Api(tags = "users")
 @EnableConfigurationProperties
 public class UsersRestController {
     private static Logger log = LogManager.getLogger(UsersRestController.class.getName());

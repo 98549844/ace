@@ -1,5 +1,6 @@
 package com.controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.controller.common.CommonController;
 import com.exception.PasswordNotMatchException;
 import com.exception.UserNotFoundException;
@@ -12,11 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import util.*;
+import util.NullUtil;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Classname: LoginController
@@ -49,11 +48,6 @@ public class LoginController extends CommonController {
 		return modelAndView;
 	}
 
-
-
-//  action接两个可选的请求参数error,logout
-//	@RequestParam(value = "error", required = false) String error,
-//	@RequestParam(value = "logout", required = false) String logout
 	@RequestMapping(value = "/logging.html", method = RequestMethod.POST)
 	public ModelAndView logging(String userAccount, String password, HttpServletRequest request) {
 		log.info("userAccount: " + userAccount);
@@ -83,14 +77,9 @@ public class LoginController extends CommonController {
 				return modelAndView;
 			}
 		}
-
-		String mobile = user.getMobile();
-		Integer newMobile = DataTypeUtil.stringToInteger(mobile == null ? "1" : mobile) + 1;
-		mobile = newMobile.toString();
-		user.setMobile(mobile);
-		usersService.save(user);
 		log.info("user: " + user.getUsername() + " save success!");
 		modelAndView = super.redirect("ace/index.html");
+		StpUtil.login(user.getUserId());
 		return modelAndView;
 	}
 }

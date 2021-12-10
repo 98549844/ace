@@ -24,13 +24,13 @@ values (1001, sysdate(), 1, sysdate(), 'Administrator', null, 'garlam_au@qq.com'
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version
     ,  expireDate)
-values (1002, sysdate(), 2, sysdate(), 'Information', null, 'peter_wong@qq.com', 'M', null, null, 2, sysdate(),
+values (1002, sysdate(), 2, sysdate(), 'User', null, 'peter_wong@qq.com', 'M', null, null, 2, sysdate(),
         '12314564',
         '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'peter', 'Peter Wong', 1, sysdate());
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version
     ,  expireDate)
-values (1003, sysdate(), 3, sysdate(), 'Editor', null, 'mary_leeg@qq.com', 'F', null, null, 3, sysdate(),
+values (1003, sysdate(), 3, sysdate(), 'Viewer', null, 'mary_leeg@qq.com', 'F', null, null, 3, sysdate(),
         '44557878',
         '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'mary', 'Mary Lee', 1, sysdate());
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, gender, hostName,
@@ -41,13 +41,13 @@ values (1004, sysdate(), 1, sysdate(), 'Disable', null, 'kalam@qq.com', 'M', nul
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version
     ,  expireDate)
-values (1005, sysdate(), 2, sysdate(), 'Logger', null, 'may_tang@qq.com', 'M', null, null, 2, sysdate(),
+values (1005, sysdate(), 2, sysdate(), 'Viewer', null, 'may_tang@qq.com', 'M', null, null, 2, sysdate(),
         '12314564',
         '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'may', 'May Tang', 1, sysdate());
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version
     ,  expireDate)
-values (1006, sysdate(), 2, sysdate(), 'Information', null, 'frank_chow@qq.com', 'M', null, null, 2, sysdate(),
+values (1006, sysdate(), 2, sysdate(), 'User', null, 'frank_chow@qq.com', 'M', null, null, 2, sysdate(),
         '12314564',
         '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'frank', 'Frank Chow', 1, sysdate());
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, gender, hostName,
@@ -64,7 +64,6 @@ select userId,
        birthday,
        description,
        email,
-
        gender,
        ip,
        mobile,
@@ -84,11 +83,9 @@ insert into roles (roleId, createdBy, createdDate, description, lastUpdatedBy, l
 values (1002, 1, sysdate(), 'Disable', 1, sysdate(), 'DISABLE', 1);
 
 insert into roles (roleId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate, roleCode, version)
-values (1003, 1, sysdate(), 'Information', 1, sysdate(), 'INFORMATION', 1);
+values (1003, 1, sysdate(), 'User', 1, sysdate(), 'USER', 1);
 insert into roles (roleId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate, roleCode, version)
-values (1004, 1, sysdate(), 'Editor', 1, sysdate(), 'EDITOR', 1);
-insert into roles (roleId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate, roleCode, version)
-values (1005, 1, sysdate(), 'Logger', 1, sysdate(), 'LOGGER', 1);
+values (1004, 1, sysdate(), 'Viewer', 1, sysdate(), 'VIEWER', 1);
 commit;
 
 select *
@@ -105,7 +102,7 @@ values (1003, 1, sysdate(), 1, sysdate(), 1003, 1002, 1);
 insert into user_roles (userRolesId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId, userId, version)
 values (1004, 1, sysdate(), 1, sysdate(), 1004, 1003, 1);
 insert into user_roles (userRolesId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId, userId, version)
-values (1005, 1, sysdate(), 1, sysdate(), 1005, 1005, 1);
+values (1005, 1, sysdate(), 1, sysdate(), 1004, 1005, 1);
 insert into user_roles (userRolesId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId, userId, version)
 values (1006, 1, sysdate(), 1, sysdate(), 1003, 1006, 1);
 insert into user_roles (userRolesId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId, userId, version)
@@ -142,18 +139,10 @@ insert into permissions (permissionsId, createdBy, createdDate, description, las
                          permissionCode, action, enabled, version)
 VALUES (1005, 1, sysdate(), 'Read only', 1, sysdate(), 4, 'SELECT', true, 1);
 
-#select update
-insert into permissions (permissionsId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate,
-                         permissionCode, action, enabled, version)
-VALUES (1006, 1, sysdate(), 'Allow select update', 1, sysdate(), 6, 'SELECT UPDATE', true, 1);
-#select insert
-insert into permissions (permissionsId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate,
-                         permissionCode, action, enabled, version)
-VALUES (1007, 1, sysdate(), 'Allow select insert', 1, sysdate(), 7, 'SELECT INSERT', true, 1);
 #select update insert
 insert into permissions (permissionsId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate,
                          permissionCode, action, enabled, version)
-VALUES (1008, 1, sysdate(), 'Allow select update insert', 1, sysdate(), 8, 'SELECT UPDATE INSERT', true, 1);
+VALUES (1006, 1, sysdate(), 'Allow select update insert', 1, sysdate(), 8, 'SELECT UPDATE INSERT', true, 1);
 
 insert into permissions (permissionsId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate,
                          permissionCode, action, enabled, version)
@@ -169,46 +158,42 @@ from role_permissions;
 
 #------------------------------------------------
 
+
 #admin role: allow all operation
 insert into role_permissions (rolePermissionsId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId,
                               permissionsId, version)
 VALUES (1001, 1, sysdate(), 1, sysdate(), 1001, 1001, 1);
 
-#information
+#user role: select update insert
 insert into role_permissions (rolePermissionsId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId,
                               permissionsId, version)
-VALUES (1002, 1, sysdate(), 1, sysdate(), 1003, 1005, 1);
-#logger
-insert into role_permissions (rolePermissionsId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId,
-                              permissionsId, version)
-VALUES (1003, 1, sysdate(), 1, sysdate(), 1005, 1007, 1);
+VALUES (1002, 1, sysdate(), 1, sysdate(), 1003, 1006, 1);
 
-#editor
+#viewer role: select
 insert into role_permissions (rolePermissionsId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId,
                               permissionsId, version)
-VALUES (1004, 1, sysdate(), 1, sysdate(), 1004, 1008, 1);
-
+VALUES (1003, 1, sysdate(), 1, sysdate(), 1004, 1005, 1);
 
 #disable role: deny all operation
 insert into role_permissions (rolePermissionsId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleId,
                               permissionsId, version)
-VALUES (1005, 1, sysdate(), 1, sysdate(), 1002, 1009, 1);
+VALUES (1004, 1, sysdate(), 1, sysdate(), 1002, 1009, 1);
 commit;
 
 select roleId, roleCode, description
 from roles;
 
 
-select p.permissionsId,
-       p.permissionCode,
-       p.action,
-       p.description,
-       r.roleId,
-       r.roleCode,
+select
        u.userId,
+       r.roleId,
+       p.permissionsId,
+       p.permissionCode,
+       u.username,
+       p.action,
+       r.roleCode,
        u.description,
-       u.userAccount,
-       u.username
+       u.userAccount
 from role_permissions rp,
      permissions p,
      roles r,

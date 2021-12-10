@@ -1,5 +1,6 @@
 package com.models.entity.dao.base;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -13,6 +14,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import util.*;
 
 
@@ -28,30 +30,23 @@ import util.*;
 @EntityListeners(AuditingEntityListener.class)
 public class baseEntity {
 
-
-	//https://blog.csdn.net/qq_28804275/article/details/84801457?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.showsourcetag&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.showsourcetag
-
 	@CreatedDate
-	//@Column(name = "created_date", updatable = false)
 	@Column(updatable = false)
 	private LocalDateTime createdDate;
 
 	@LastModifiedDate
-	//@Column(name = "last_update_date")
 	@Column()
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime lastUpdateDate;
 
 	@CreatedBy
-	//@Column(name = "created_by", updatable = false)
 	@Column(updatable = false)
 	private Long createdBy = 0l;
 
 	@LastModifiedBy
-	//@Column(name = "last_update_by")
 	@Column()
 	private Long lastUpdatedBy = 0l;
 
-	//@Column(name = "version", columnDefinition = "int default 1")
 	@Version
 	@Column(name = "version")
 	private Integer version = 1;

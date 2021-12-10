@@ -78,7 +78,7 @@ public class UserReport {
 
         report.setPageFormat(PageType.A5); //设置每一页的格式
 
-        report.columns(Columns.column("操作日期", "created_date", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("用户姓名", "user_name", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("ip", "ip", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("主机", "host_name", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("用户ID", "id", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("email", "email", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER)).setColumnStyle(fontStyleBuilder)   //查询的数据的字体格式
+        report.columns(Columns.column("操作日期", "createdDate", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("用户姓名", "username", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("ip", "ip", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("主机", "hostName", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("用户ID", "userId", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("email", "email", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER)).setColumnStyle(fontStyleBuilder)   //查询的数据的字体格式
                 .setColumnTitleStyle(columnTitleStl) //设置列名的风格
                 .setHighlightDetailEvenRows(true)  //偶数行高亮显示
                 .title(Components.text("客户消费单").setStyle(titleStl))//标题

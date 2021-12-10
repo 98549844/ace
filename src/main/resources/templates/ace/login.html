@@ -61,8 +61,9 @@
                                         <i class="ace-icon fa fa-coffee green"></i>
                                         Please Enter Your Information
                                     </h4>
-                                    <h4 class="header blue lighter bigger" th:if="${msg != null}">
-                                        <i class="ace-icon fa fa-exclamation-triangle red bigger-110"></i>
+                                    <h4 class="header blue lighter bigger" th:if="${msg != null} ">
+                                        <i class="ace-icon fa fa-exclamation-triangle red bigger-110" th:if="${msg} ne 'Please login your account'"></i>
+                                        <i class="ace-icon fa fa-coffee green" th:if="${msg} eq 'Please login your account'"></i>
                                         <span th:text="${msg}"/>
                                     </h4>
 

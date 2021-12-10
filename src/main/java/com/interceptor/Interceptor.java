@@ -1,5 +1,6 @@
 package com.interceptor;
 
+import cn.dev33.satoken.stp.StpUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -21,16 +22,26 @@ public class Interceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+//        if (!StpUtil.isLogin()) {
+//            ModelAndView modelAndView = null;
+//            try {
+//                String url = "ace/login.html";
+//                log.info("重定向地址：" + url);
+//                modelAndView = new ModelAndView("redirect:/" + url);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+
         String status = Integer.toString(response.getStatus());
         String RequestURI = request.getRequestURI();
-
         log.info("status: {}; request uri: {}", status, RequestURI);
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-      //  log.info("response.status: {}", response.getStatus());
+        //  log.info("response.status: {}", response.getStatus());
     }
 
     @Override

@@ -48,7 +48,7 @@ public class SaTakenRestController extends CommonController {
     }
 
     @RequestMapping(value = "/isLogin", method = RequestMethod.GET)
-    public String isLogin() {
+    public String LoginStatus() {
         return "当前session是否登录：" + StpUtil.isLogin();
     }
 

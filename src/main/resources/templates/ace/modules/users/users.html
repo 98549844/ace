@@ -91,13 +91,12 @@
                                         <th>Account</th>
                                         <th>User Name</th>
                                         <th class="hidden-480">Account Status</th>
-                                        <th class="hidden-480">Account Lock</th>
 
                                         <th>
                                             <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
                                             Login Time
                                         </th>
-                                        <th class="hidden-480">Expired</th>
+                                        <th class="hidden-480">Expire Date</th>
 
                                         <th></th>
                                     </tr>
@@ -125,13 +124,8 @@
                                         <td th:if="${user.enabled}">Enable</td>
                                         <td th:if="${not user.enabled}" class="red"><strong>Disable</strong></td>
 
-                                        <td th:if="${user.accountNonLocked}">Normal</td>
-                                        <td th:if="${not user.accountNonLocked}" class="red"><strong>No</strong></td>
-
-                                        <td th:text="${user.lastUpdateDate}"></td>
-
-                                        <td th:if="${user.accountNonExpired}">Normal</td>
-                                        <td th:if="${not user.accountNonLocked}" class="red"><strong>Yes</strong></td>
+                                        <td th:text="${#temporals.format(user.lastUpdateDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                        <td th:text="${#temporals.format(user.expireDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
 
 
                                         <td>

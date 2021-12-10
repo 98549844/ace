@@ -1,5 +1,6 @@
 package com.controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.controller.common.CommonController;
 import com.models.entity.dao.Users;
 import com.service.UsersService;
@@ -50,7 +51,9 @@ public class RegistrationController extends CommonController {
         if (count == 0) {
             usersService.accountRegistration(users);
             log.info("新建用户：" + users.getUserAccount());
-            modelAndView = super.page("ace/index.html");
+            modelAndView = super.page("ace/login.html");
+            String msg = "Please login your account";
+            modelAndView.addObject("msg", msg);
         } else {
             modelAndView = super.redirect("ace/login.html?msg=exist");
             modelAndView.addObject("msg", "User exist");

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import util.entity.Users;
 
 import javax.persistence.EntityManagerFactory;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,18 +20,7 @@ public class Ace {
 
 
     public static void main(String[] args) {
-        Ace a = new Ace();
-        a.b(new Users());
-    }
 
-    public void a(T t) {
-        System.out.println(T.class);
-
-    }
-
-    public void b(Users users) {
-        System.out.println(users.getClass());
-        System.out.println(Users.class);
-
+        System.out.println(LocalDateTime.now().plusYears(1));
     }
 }
