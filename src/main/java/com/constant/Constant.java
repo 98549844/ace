@@ -25,4 +25,8 @@ public class Constant {
 	public static final String SELECT = "4";
 	public static final String SELECT_UPDATE_INSERT = "8";
 	public static final String DENY = "10";
+
+	//login warning logo
+	public static final String red = "red";
+	public static final String green = "green";
 }

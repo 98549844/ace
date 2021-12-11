@@ -57,17 +57,20 @@ public class UsersService {
     public Users findByUserAccount(Users param) throws UserNotFoundException, PasswordNotMatchException {
         Users user = usersDao.findByUserAccount(param.getUserAccount());
         if (NullUtil.isNull(user) || NullUtil.isNull(user.getUserId())) {
-            ////抛出异常，会根据配置跳到登录失败页面
+            //抛出异常，会根据配置跳到登录失败页面
             throw new UserNotFoundException(user.getUsername());
         }
         String sp = user.getUsername() + "," + user.getPassword();
-        //   UserDetails userDetails = this.loadUserByUsername(sp);
         boolean matches = passwordEncoder.matches(param.getPassword(), user.getPassword());
         log.info("Match result: {}", matches);
         if (!matches) {
             throw new PasswordNotMatchException();
         }
         return user;
+    }
+
+    public Users findByUserAccount(String userAccount) {
+        return usersDao.findByUserAccount(userAccount);
     }
 
     @Transactional

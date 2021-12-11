@@ -122,6 +122,12 @@
             <artifactId>sa-token-spring-boot-starter</artifactId>
             <version>1.28.0</version>
         </dependency>
+        <!-- 在 thymeleaf 标签中使用 Sa-Token -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-dialect-thymeleaf</artifactId>
+            <version>1.28.0</version>
+        </dependency>
 
         <dependency>
             <groupId>io.springfox</groupId>

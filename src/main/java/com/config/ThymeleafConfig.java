@@ -1,5 +1,6 @@
 package com.config;
 
+import com.controller.common.CommonController;
 import com.interceptor.Interceptor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +19,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
  */
 
 @Configuration
-public class ThymeleafConfig implements WebMvcConfigurer {
+public class ThymeleafConfig implements WebMvcConfigurer{
     private static Logger log = LogManager.getLogger(ThymeleafConfig.class.getName());
 
     /**
@@ -31,6 +32,7 @@ public class ThymeleafConfig implements WebMvcConfigurer {
         //set static/login.html为主页
         //registry.addViewController("/").setViewName("forward:/ace.html");
         // registry.addViewController("/").setViewName("ace.html");
+
         registry.addViewController("/").setViewName("/templates/ace/login.html");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }

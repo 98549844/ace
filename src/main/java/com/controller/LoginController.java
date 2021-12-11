@@ -1,6 +1,6 @@
 package com.controller;
 
-import cn.dev33.satoken.stp.StpUtil;
+import com.constant.Constant;
 import com.controller.common.CommonController;
 import com.exception.PasswordNotMatchException;
 import com.exception.UserNotFoundException;
@@ -27,60 +27,77 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/ace")
 public class LoginController extends CommonController {
-	private static Logger log = LogManager.getLogger(LoginController.class.getName());
+    private static Logger log = LogManager.getLogger(LoginController.class.getName());
 
-	private UsersService usersService;
+    private UsersService usersService;
 
-	@Autowired
-	public LoginController(UsersService usersService) {
-		this.usersService = usersService;
-	}
+    @Autowired
+    public LoginController(UsersService usersService) {
+        this.usersService = usersService;
+    }
 
-	@RequestMapping(value = "/login.html", method = RequestMethod.GET)
-	public ModelAndView login(HttpServletRequest request) {
-		log.info("LoginController.login(): " );
-		ModelAndView modelAndView = super.page("ace/login.html");
-		String userMsg = request.getParameter("msg");
-		//用户存在
-		if ("exist".equals(userMsg)) {
-			modelAndView.addObject("msg", "User exist");
-		}
-		return modelAndView;
-	}
+    @RequestMapping(value = "/login.html", method = RequestMethod.GET)
+    public ModelAndView login(HttpServletRequest request) {
+        if (isLogin()) {
+            return super.page("ace/index.html");
+        } else {
+            return super.page("ace/login.html");
+        }
+//        String userMsg = request.getParameter("msg");
+//        //用户存在
+//        if ("exist".equals(userMsg)) {
+//            String msg = "User exist";
+//            String msgCss = Constant.red;
+//            modelAndView.addObject("msg", msg);
+//            modelAndView.addObject("msgCss", msgCss);
+//        }
+    }
 
-	@RequestMapping(value = "/logging.html", method = RequestMethod.POST)
-	public ModelAndView logging(String userAccount, String password, HttpServletRequest request) {
-		log.info("userAccount: " + userAccount);
-		log.info("password: " + password);
+    @RequestMapping(value = "/logging.html", method = RequestMethod.POST)
+    public ModelAndView logging(String userAccount, String password, String rememberMe) {
+        log.info("userAccount: " + userAccount);
+        log.info("password: " + password);
+        log.info("rememberMe: {}", rememberMe);
 
-		ModelAndView modelAndView;
-		String msg;
-		Users user = new Users();
-		if (userAccount.isEmpty() || password.isEmpty()) {
-			//check input param
-			log.error("Account/Password empty");
-			msg = "Account/Password empty";
-			modelAndView = super.page("ace/login.html");
-			modelAndView.addObject("msg", msg);
-			return modelAndView;
-		} else if (NullUtil.isNotNull(userAccount) && NullUtil.isNotNull(password)) {
-			user.setUserAccount(userAccount);
-			user.setPassword(password);
-			try {
-				//get user information
-				user = usersService.findByUserAccount(user);
-			} catch (UserNotFoundException | PasswordNotMatchException e) {
-				e.printStackTrace();
-				modelAndView = super.page("ace/login.html");
-				msg = "Login Fail, Please try again!";
-				modelAndView.addObject("msg", msg);
-				return modelAndView;
-			}
-		}
-		log.info("user: " + user.getUsername() + " save success!");
-		modelAndView = super.redirect("ace/index.html");
-		StpUtil.login(user.getUserId());
-		return modelAndView;
-	}
+        ModelAndView modelAndView;
+        String msg;
+        Users user = new Users();
+        if (userAccount.isEmpty() || password.isEmpty()) {
+            //check input param
+            log.error("Account/Password empty");
+            modelAndView = super.page("ace/login.html");
+            msg = "Account/Password empty";
+            String msgCss = Constant.red;
+            modelAndView.addObject("msg", msg);
+            modelAndView.addObject("msgCss", msgCss);
+            return modelAndView;
+        } else if (NullUtil.isNotNull(userAccount) && NullUtil.isNotNull(password)) {
+            user.setUserAccount(userAccount);
+            user.setPassword(password);
+            try {
+                //get user information
+                user = usersService.findByUserAccount(user);
+            } catch (UserNotFoundException | PasswordNotMatchException e) {
+                e.printStackTrace();
+                modelAndView = super.page("ace/login.html");
+                msg = "Login Fail, Please try again";
+                String msgCss = Constant.red;
+                modelAndView.addObject("msg", msg);
+                modelAndView.addObject("msgCss", msgCss);
+                return modelAndView;
+            }
+        }
+        log.info("user: " + user.getUsername() + " save success!");
+        modelAndView = super.redirect("ace/index.html");
+
+        if (NullUtil.isNotNull(rememberMe)) {
+            //rememberMe = on 记住我
+            login(user.getUserId(), true);
+        } else {
+            login(user.getUserId(), false);
+        }
+        setSession(user);
+        return modelAndView;
+    }
 }
 
