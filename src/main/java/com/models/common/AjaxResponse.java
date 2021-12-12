@@ -1,12 +1,9 @@
 package com.models.common;
 
-import com.exception.CustomException;
-import com.exception.CustomExceptionType;
+import com.exception.ResponseException;
+import com.exception.ResponseExceptionType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Classname: AjaxResponse
@@ -31,17 +28,17 @@ public class AjaxResponse {
     }
 
     //请求出现异常时的响应数据封装
-    public static AjaxResponse error(CustomException e) {
+    public static AjaxResponse error(ResponseException e) {
 
         AjaxResponse resultBean = new AjaxResponse();
         resultBean.setOk(false);
         resultBean.setCode(e.getCode());
-        if(e.getCode() == CustomExceptionType.USER_INPUT_ERROR.getCode()){
+        if (e.getCode() == ResponseExceptionType.USER_INPUT_ERROR.getCode()) {
             resultBean.setMessage(e.getMessage());
-        }else if(e.getCode() == CustomExceptionType.SYSTEM_ERROR.getCode()){
-            resultBean.setMessage(e.getMessage() + ",系统出现异常，请联系管理员电话：1375610xxxx进行处理!");
-        }else{
-            resultBean.setMessage("系统出现未知异常，请联系管理员电话：13756108xxx进行处理!");
+        } else if (e.getCode() == ResponseExceptionType.SYSTEM_ERROR.getCode()) {
+            resultBean.setMessage(e.getMessage() + ",系统出现异常，请联系管理员!");
+        } else {
+            resultBean.setMessage(e.getMessage() + "系统出现未知异常，请联系管理员!");
         }
         return resultBean;
     }

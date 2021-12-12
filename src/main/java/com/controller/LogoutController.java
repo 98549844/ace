@@ -2,6 +2,7 @@ package com.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.constant.Constant;
+import com.constant.Css;
 import com.models.entity.dao.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,13 +32,11 @@ public class LogoutController extends CommonController {
     public ModelAndView logout(HttpServletRequest request) {
         ModelAndView modelAndView = super.page("ace/login.html");
         String msg = "Logout success";
-        String msgCss = Constant.green;
+        String msgCss = Css.green;
         modelAndView.addObject("msg", msg);
         modelAndView.addObject("msgCss", msgCss);
 
-        Users a = getCurrentUser();
         clearSession();
-        Users a1 = getCurrentUser();
         StpUtil.logout();
 
         return modelAndView;

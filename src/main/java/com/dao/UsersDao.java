@@ -17,31 +17,35 @@ import java.util.Optional;
 public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationExecutor<Users> {
 
 
-	//LastModifiedDate不起作用的解决办法
+    //LastModifiedDate不起作用的解决办法
 	/*在实体中添加注解 @EntityListeners(AuditingEntityListener.class)监听实体变化
 	在自动更新时间戳字段增加 @LastModifiedDate
 	在Spring boot启动类增加注解 @EnableJpaAuditing启用JPA审计(自动填充默认值)
 	如果你是使用JPA的save(实体)方法去更新数据是没有问题的，如果是使用SQL/JPQL语句就会失效。比如：
 	@Query("update xxx set x = ? where x = ?")，这里提供最简单的解决办法，语句里时间字段赋值CURRENT_TIMESTAMP即可*/
 
-	@Modifying
-	@Query("update Users t set t.username = :#{#users.username} , t.email =:#{#users.email}, t.mobile = :#{#users.mobile}  where t.userId=:#{#users.userId}")
-	int update(@Param("users") Users users);
+    @Modifying
+    @Query("update Users t set t.username = :#{#users.username} , t.email =:#{#users.email}, t.mobile = :#{#users.mobile}  where t.userId=:#{#users.userId}")
+    int update(@Param("users") Users users);
 
-	Users findById(long id);
+    Users findById(long id);
 
-	List<Users> findUsersByUsername(String username);
+    List<Users> findUsersByUsername(String username);
 
-	List<Users> findUsersByUsernameLike(String username);
+    List<Users> findUsersByUsernameLike(String username);
 
-	Users findByUserId(Long userId);
+    Users findByUserId(Long userId);
 
-	Users findByUserAccount(String username);
+    Users findByUserAccount(String username);
 
-	List<Users> findByUserAccountOrEmail(String userAccount, String email);
+    List<Users> findByUserAccountOrEmail(String userAccount, String email);
 
-	Integer countByUserAccountOrEmail(String userAccount, String email);
+    Integer countByUserAccountOrEmail(String userAccount, String email);
 
-	void deleteAll();
+    void deleteAll();
+
+    @Query(nativeQuery = true, value = "select u.userId, r.roleId, p.permissionsId, p.permissionCode, u.username, p.action, r.roleCode, u.description, u.userAccount from role_permissions rp, permissions p, roles r, user_roles ur, users u where 1 = 1 and rp.permissionsId = p.permissionsId and rp.roleId = r.roleId and ur.roleId = r.roleId and ur.userId = u.userId order by userId")
+    List<Object> findUserRolePermission();
+
 
 }

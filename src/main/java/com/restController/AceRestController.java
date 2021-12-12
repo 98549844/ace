@@ -38,7 +38,6 @@ public class AceRestController {
         this.reportConfig = reportConfig;
     }
 
-    // @ResponseBody
     @RequestMapping(method = RequestMethod.GET, value = "/get")
     public List getAceProperties() {
         log.info("aceConfig.getName(): " + aceConfig.getName());

@@ -3,6 +3,7 @@ package com.controller.common;
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
 import com.constant.Constant;
+import com.constant.Css;
 import com.constant.WebServiceInfo;
 import com.models.entity.dao.Users;
 import org.apache.commons.logging.Log;
@@ -41,7 +42,7 @@ public class CommonController {
     protected ModelAndView logOut() {
         ModelAndView modelAndView = page("ace/login.html");
         String msg = "Logged out";
-        String msgCss = Constant.red;
+        String msgCss = Css.red;
         modelAndView.addObject("msg", msg);
         modelAndView.addObject("msgCss", msgCss);
 
@@ -51,7 +52,7 @@ public class CommonController {
 
     protected ModelAndView logOut(String msg) {
         ModelAndView modelAndView = page("ace/login.html");
-        String msgCss = Constant.red;
+        String msgCss = Css.red;
         modelAndView.addObject("msg", msg);
         modelAndView.addObject("msgCss", msgCss);
         StpUtil.logout();
@@ -67,18 +68,19 @@ public class CommonController {
     protected ModelAndView page(String page) {
         if (!isLogin()) {
             ModelAndView modelAndView = new ModelAndView("ace/login.html");
-            String msg = "Logged out";
-            String msgCss = Constant.red;
-            modelAndView.addObject("msg", msg);
-            modelAndView.addObject("msgCss", msgCss);
+            modelAndView.addObject("user", new Users());
             return modelAndView;
         }
-
         ModelAndView modelAndView = new ModelAndView(page);
         Users user = getCurrentUser();
         modelAndView.addObject("user", user);
         return modelAndView;
     }
+
+    //原文
+//    protected ModelAndView page(String page) {
+//        return new ModelAndView(page);
+//    }
 
 
     protected ModelAndView redirect(String url) {
@@ -86,8 +88,12 @@ public class CommonController {
         try {
             log.info("重定向地址：" + url);
             modelAndView = new ModelAndView("redirect:/" + url);
-            Users user = getCurrentUser();
-            modelAndView.addObject("user", user);
+            if (isLogin()) {
+                Users user = getCurrentUser();
+                modelAndView.addObject("user", user);
+            } else {
+                modelAndView.addObject("user", new Users());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -2,6 +2,7 @@ package com.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.constant.Constant;
+import com.constant.Css;
 import com.controller.common.CommonController;
 import com.models.entity.dao.Users;
 import com.service.UsersService;
@@ -45,7 +46,7 @@ public class RegistrationController extends CommonController {
             log.error("users information incorrect");
             modelAndView = super.redirect("ace/login.html?msg=error");
             String msg = "information error";
-            String msgCss = Constant.red;
+            String msgCss = Css.red;
             modelAndView.addObject("msg", msg);
             modelAndView.addObject("msgCss", msgCss);
             return modelAndView;
@@ -57,14 +58,14 @@ public class RegistrationController extends CommonController {
             log.info("新建用户：" + users.getUserAccount());
             modelAndView = super.page("ace/login.html");
             String msg = "Please login your account";
-            String msgCss = Constant.green;
+            String msgCss = Css.green;
             modelAndView.addObject("msg", msg);
             modelAndView.addObject("msgCss", msgCss);
         } else {
           //  modelAndView = super.redirect("ace/login.html?msg=exist");
             modelAndView = super.page("ace/login.html");
             String msg = "User exist";
-            String msgCss = Constant.red;
+            String msgCss = Css.red;
             modelAndView.addObject("msg", msg);
             modelAndView.addObject("msgCss", msgCss);
         }

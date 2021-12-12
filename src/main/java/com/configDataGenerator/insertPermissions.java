@@ -2,9 +2,9 @@ package com.configDataGenerator;
 
 import com.constant.Constant;
 import com.models.entity.dao.Permissions;
+import com.models.entity.dao.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import util.entity.Users;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -99,6 +99,14 @@ public class insertPermissions {
         p5.setEnabled(true);
         p6.setEnabled(true);
         p7.setEnabled(true);
+
+        ls.add(p1);
+        ls.add(p2);
+        ls.add(p3);
+        ls.add(p4);
+        ls.add(p5);
+        ls.add(p6);
+        ls.add(p7);
 
         return ls;
     }

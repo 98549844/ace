@@ -33,7 +33,10 @@ public class ThymeleafConfig implements WebMvcConfigurer{
         //registry.addViewController("/").setViewName("forward:/ace.html");
         // registry.addViewController("/").setViewName("ace.html");
 
-        registry.addViewController("/").setViewName("/templates/ace/login.html");
+      //  registry.addViewController("/").setViewName("/templates/ace/login.html");
+
+        // call controller url
+      //  registry.addViewController("/").setViewName("ace/login.html");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 

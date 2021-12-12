@@ -26,7 +26,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/rest/users")
 @Api(tags = "users")
-@EnableConfigurationProperties
 public class UsersRestController {
     private static Logger log = LogManager.getLogger(UsersRestController.class.getName());
 
@@ -43,16 +42,26 @@ public class UsersRestController {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/get")
+    @RequestMapping(method = RequestMethod.GET, value = "/getUsers")
     public AjaxResponse getUsers() {
-        List<Users> ls = usersService.getAll();
-        return AjaxResponse.success(ls);
+        List<Users> ls = usersService.findAll();
+        List<String> result = new ArrayList<>();
+        for (Users user : ls) {
+            String u = user.getUsername() + "   [" + user.getPassword() + "]";
+            result.add(u);
+        }
+        return AjaxResponse.success(result);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/reinsertUser")
-    public AjaxResponse reinsertUser() {
-        //get all user
-        List<Users> ls = usersService.getAll();
+    @RequestMapping(method = RequestMethod.GET, value = "/deleteAllUser")
+    public AjaxResponse deleteAllUser() {
+        usersService.deleteAll();
+        return AjaxResponse.success("All users deleted");
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/insertUser")
+    public AjaxResponse insertUser() {
         usersService.deleteAll();
 
         //generate users data
@@ -62,33 +71,35 @@ public class UsersRestController {
         usersService.saveAll(usersList);
 
         List<String> result = new ArrayList<>();
-        String u;
         for (Users user : usersList) {
-            u = user.getUsername() + "   [" + user.getPassword() + "]";
+            String u = user.getUsername() + "   [" + user.getPassword() + "]";
             result.add(u);
         }
         return AjaxResponse.success(result);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/updatePassword/")
+
+    @RequestMapping(method = RequestMethod.GET, value = "/reEncodePassword")
     public AjaxResponse reEncodePassword(@RequestParam("password") String password) {
         //get all user
         log.info("password: {}", password);
-        List<Users> ls = usersService.getAll();
-        List<Boolean> result = new ArrayList<>();
+        List<Users> ls = usersService.findAll();
+
+        List<Users> usersWithReEncodePassword = new ArrayList<>();
         for (Users users : ls) {
             String encode = passwordEncoder.encode(password);
             users.setPassword(encode);
-            usersService.save(users);
+            usersWithReEncodePassword.add(users);
         }
-        return AjaxResponse.success();
+        usersService.saveAll(usersWithReEncodePassword);
+        return AjaxResponse.success("All password re-encoded");
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/validatePassword/{password}")
     public AjaxResponse validatePassword(@PathVariable String password) {
         log.info("password: {}", password);
         //get all user
-        List<Users> ls = usersService.getAll();
+        List<Users> ls = usersService.findAll();
         List<String> result = new ArrayList<>();
         for (Users users : ls) {
             boolean match = passwordEncoder.matches(password, users.getPassword());
@@ -97,5 +108,7 @@ public class UsersRestController {
         }
         return AjaxResponse.success(result);
     }
+
+
 }
 

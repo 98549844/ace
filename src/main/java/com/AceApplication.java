@@ -1,6 +1,8 @@
 package com;
 
 import cn.dev33.satoken.SaManager;
+import cn.dev33.satoken.session.SaSession;
+import cn.dev33.satoken.stp.StpUtil;
 import com.config.AceConfig;
 import com.config.BrowserConfig;
 import com.restController.SaTakenRestController;
@@ -66,6 +68,6 @@ public class AceApplication {
         // browserConfig.getCss();
         // browserConfig.getIndex();
 
-        log.info("Running success：Sa-Token config：{}" , SaManager.getConfig());
+        log.info("Running success：Sa-Token config：{}", SaManager.getConfig());
     }
 }

@@ -54,13 +54,16 @@ public class UsersService {
     }
 
 
+    public List<Object> findUserRolePermission() {
+        return usersDao.findUserRolePermission();
+    }
+
     public Users findByUserAccount(Users param) throws UserNotFoundException, PasswordNotMatchException {
         Users user = usersDao.findByUserAccount(param.getUserAccount());
         if (NullUtil.isNull(user) || NullUtil.isNull(user.getUserId())) {
             //抛出异常，会根据配置跳到登录失败页面
-            throw new UserNotFoundException(user.getUsername());
+            throw new UserNotFoundException(param.getUserAccount());
         }
-        String sp = user.getUsername() + "," + user.getPassword();
         boolean matches = passwordEncoder.matches(param.getPassword(), user.getPassword());
         log.info("Match result: {}", matches);
         if (!matches) {
@@ -70,13 +73,13 @@ public class UsersService {
     }
 
     public Users findByUserAccount(String userAccount) {
-        return usersDao.findByUserAccount(userAccount);
+        return usersDao.findByUserAccount(userAccount.toLowerCase());
     }
 
     @Transactional
     public Users accountRegistration(Users users) {
         users.setPassword(passwordEncoder.encode(users.getPassword()));
-        users.setDescription(Constant.viewer);
+        users.setDescription(Constant.Viewer);
         users.setUsername(users.getUserAccount() + "_ace" + RandomUtil.getRangeInt(1, 500));
         users.setExpireDate(LocalDateTime.now().plusYears(3));
         Users u = usersDao.saveAndFlush(users);
@@ -120,19 +123,6 @@ public class UsersService {
     }
 
 
-    /**
-     * @return all result
-     */
-    public List<Users> getAll() {
-        List<Users> list = null;
-        try {
-            list = usersDao.findAll();
-        } catch (Exception e) {
-            log.error(e);
-        }
-        return list;
-    }
-
     public Integer countByUserAccountOrEmail(Users users) {
         Integer count = 0;
         try {
@@ -144,7 +134,7 @@ public class UsersService {
     }
 
 
-    public Users getUsersById(long id) {
+    public Users findUsersById(long id) {
         return usersDao.findById(id);
     }
 
@@ -201,14 +191,8 @@ public class UsersService {
         return true;
     }
 
-    public boolean deleteAll() {
-        try {
-            usersDao.deleteAll();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+    public void deleteAll() {
+        usersDao.deleteAll();
     }
 
 

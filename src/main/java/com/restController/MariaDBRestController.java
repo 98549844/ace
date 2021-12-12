@@ -66,7 +66,7 @@ public class MariaDBRestController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/hibernate/getAll")
     public List<Users> getAllHibernate() {
-        List<Users> ls = usersService.getAll();
+        List<Users> ls = usersService.findAll();
         log.info("get records:" + ls.size());
         return ls;
     }

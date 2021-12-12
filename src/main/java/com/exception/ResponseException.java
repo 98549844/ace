@@ -11,17 +11,17 @@ import org.apache.logging.log4j.Logger;
  */
 
 
-public class CustomException extends RuntimeException{
-    private static Logger log = LogManager.getLogger(CustomException.class.getName());
+public class ResponseException extends RuntimeException{
+    private static Logger log = LogManager.getLogger(ResponseException.class.getName());
 
     //异常错误编码
     private int code ;
     //异常信息
     private String message;
 
-    private CustomException(){}
+    private ResponseException(){}
 
-    public CustomException(CustomExceptionType exceptionTypeEnum, String message) {
+    public ResponseException(ResponseExceptionType exceptionTypeEnum, String message) {
         this.code = exceptionTypeEnum.getCode();
         this.message = message;
     }

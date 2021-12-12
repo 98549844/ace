@@ -16,16 +16,12 @@ public class SwaggerRestController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String getSwagger() {
-
-
         String get = "Hello World ! GET";
         return get;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{userName}")
     public String getSwagger(@PathVariable String userName) {
-
-
         String get = "Hello World !" + userName + " GET";
         return get;
     }
@@ -48,8 +44,6 @@ public class SwaggerRestController {
 
     @RequestMapping(method = RequestMethod.DELETE)
     public String deleteSwagger() {
-
-
         String delete = "Hello World ! DELETE";
         return delete;
     }

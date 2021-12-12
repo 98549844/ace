@@ -17,42 +17,45 @@ where rolePermissionsId is not null;
 
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version
-    ,  expireDate)
+    , expireDate)
 values (1001, sysdate(), 1, sysdate(), 'Administrator', null, 'garlam_au@qq.com', 'M', null, null, 1, sysdate(),
         '95186540',
-        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'garlam', 'Garlam Au', 1, sysdate());
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'garlam', 'Garlam Au', 1,
+        sysdate());
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version
-    ,  expireDate)
+    , expireDate)
 values (1002, sysdate(), 2, sysdate(), 'User', null, 'peter_wong@qq.com', 'M', null, null, 2, sysdate(),
         '12314564',
-        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'peter', 'Peter Wong', 1, sysdate());
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'peter', 'Peter Wong', 1,
+        sysdate());
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version
-    ,  expireDate)
+    , expireDate)
 values (1003, sysdate(), 3, sysdate(), 'Viewer', null, 'mary_leeg@qq.com', 'F', null, null, 3, sysdate(),
         '44557878',
         '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'mary', 'Mary Lee', 1, sysdate());
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version
-    ,  expireDate)
+    , expireDate)
 values (1004, sysdate(), 1, sysdate(), 'Disable', null, 'kalam@qq.com', 'M', null, null, 1, sysdate(), '95186540',
         '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, false, 'kalam', 'Ka Lam', 1, sysdate());
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version
-    ,  expireDate)
+    , expireDate)
 values (1005, sysdate(), 2, sysdate(), 'Viewer', null, 'may_tang@qq.com', 'M', null, null, 2, sysdate(),
         '12314564',
         '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'may', 'May Tang', 1, sysdate());
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version
-    ,  expireDate)
+    , expireDate)
 values (1006, sysdate(), 2, sysdate(), 'User', null, 'frank_chow@qq.com', 'M', null, null, 2, sysdate(),
         '12314564',
-        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'frank', 'Frank Chow', 1, sysdate());
+        '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, true, 'frank', 'Frank Chow', 1,
+        sysdate());
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version
-    ,  expireDate)
+    , expireDate)
 values (1007, sysdate(), 2, sysdate(), 'Disable', null, 'eric_luk@qq.com', 'M', null, null, 2, sysdate(),
         '12314564',
         '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, false, 'eric', 'Eric Luk', 1, sysdate());
@@ -77,15 +80,15 @@ order by userId;
 
 #------------------------------------------------
 
-insert into roles (roleId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate, roleCode, version)
-values (1001, 1, sysdate(), 'Administrator', 1, sysdate(), 'ADMIN', 1);
-insert into roles (roleId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate, roleCode, version)
-values (1002, 1, sysdate(), 'Disable', 1, sysdate(), 'DISABLE', 1);
+insert into roles (roleId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleCode, version)
+values (1001, 1, sysdate(), 1, sysdate(), 'ADMIN', 1);
+insert into roles (roleId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleCode, version)
+values (1002, 1, sysdate(), 1, sysdate(), 'DISABLE', 1);
 
-insert into roles (roleId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate, roleCode, version)
-values (1003, 1, sysdate(), 'User', 1, sysdate(), 'USER', 1);
-insert into roles (roleId, createdBy, createdDate, description, lastUpdatedBy, lastUpdateDate, roleCode, version)
-values (1004, 1, sysdate(), 'Viewer', 1, sysdate(), 'VIEWER', 1);
+insert into roles (roleId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleCode, version)
+values (1003, 1, sysdate(), 1, sysdate(), 'USER', 1);
+insert into roles (roleId, createdBy, createdDate, lastUpdatedBy, lastUpdateDate, roleCode, version)
+values (1004, 1, sysdate(), 1, sysdate(), 'VIEWER', 1);
 commit;
 
 select *
@@ -109,7 +112,7 @@ insert into user_roles (userRolesId, createdBy, createdDate, lastUpdatedBy, last
 values (1007, 1, sysdate(), 1, sysdate(), 1002, 1007, 1);
 commit;
 
-select r.roleId, r.roleCode, u.description, u.userId, u.userName
+select r.roleId, r.roleCode, u.description, u.userId, u.userName, u.userAccount
 from users u,
      user_roles ur,
      roles r
@@ -150,11 +153,19 @@ VALUES (1009, 1, sysdate(), 'Deny any operation', 1, sysdate(), 10, 'DENY', true
 commit;
 
 
-select *
+select permissionsId, permissionCode, action
 from permissions;
 
 select *
-from role_permissions;
+from roles;
+
+select rp.rolePermissionsId, r.roleId, r.roleCode, p.permissionsId, p.permissionCode, p.action
+from role_permissions rp,
+     roles r,
+     permissions p
+where rp.roleId = r.roleId
+  and rp.permissionsId = p.permissionsId
+;
 
 #------------------------------------------------
 
@@ -180,12 +191,45 @@ insert into role_permissions (rolePermissionsId, createdBy, createdDate, lastUpd
 VALUES (1004, 1, sysdate(), 1, sysdate(), 1002, 1009, 1);
 commit;
 
-select roleId, roleCode, description
+
+select userId,
+       userAccount,
+       username,
+       version,
+       description,
+       email,
+       enabled,
+       gender,
+       mobile
+from users;
+
+select roleId, roleCode
 from roles;
 
+select permissionsId, action, permissionCode, description
+from permissions;
 
-select
-       u.userId,
+
+select r.roleId, r.roleCode, u.description, u.userId, u.userName, u.userAccount
+from users u,
+     user_roles ur,
+     roles r
+where u.userId = ur.userId
+  and r.roleId = ur.roleId
+order by u.userId;
+
+
+select rp.rolePermissionsId, r.roleId, r.roleCode, p.permissionsId, p.permissionCode, p.action
+from role_permissions rp,
+     roles r,
+     permissions p
+where rp.roleId = r.roleId
+  and rp.permissionsId = p.permissionsId;
+
+select rolePermissionsId, roleId, permissionsId
+from role_permissions;
+
+select u.userId,
        r.roleId,
        p.permissionsId,
        p.permissionCode,

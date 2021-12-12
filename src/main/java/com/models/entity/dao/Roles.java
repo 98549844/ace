@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "roles")
+@Table(name = "roles", uniqueConstraints = {@UniqueConstraint(name = "constraint_roleCode", columnNames = "roleCode")})
 @Entity
 public class Roles extends baseEntity implements Serializable {
 
@@ -21,8 +21,7 @@ public class Roles extends baseEntity implements Serializable {
 
 	@Column
 	private String roleCode;
-	@Column
-	private String description;
+
 
 	public Long getRoleId() {
 		return roleId;
@@ -40,11 +39,4 @@ public class Roles extends baseEntity implements Serializable {
 		this.roleCode = roleCode;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 }

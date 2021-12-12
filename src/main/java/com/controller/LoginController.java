@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.constant.Constant;
+import com.constant.Css;
 import com.controller.common.CommonController;
 import com.exception.PasswordNotMatchException;
 import com.exception.UserNotFoundException;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 
 @Controller
-@RequestMapping("/ace")
+//@RequestMapping("/ace")
 public class LoginController extends CommonController {
     private static Logger log = LogManager.getLogger(LoginController.class.getName());
 
@@ -36,24 +37,16 @@ public class LoginController extends CommonController {
         this.usersService = usersService;
     }
 
-    @RequestMapping(value = "/login.html", method = RequestMethod.GET)
+    @RequestMapping(value = {"/ace/login.html","/"}, method = RequestMethod.GET)
     public ModelAndView login(HttpServletRequest request) {
         if (isLogin()) {
             return super.page("ace/index.html");
         } else {
             return super.page("ace/login.html");
         }
-//        String userMsg = request.getParameter("msg");
-//        //用户存在
-//        if ("exist".equals(userMsg)) {
-//            String msg = "User exist";
-//            String msgCss = Constant.red;
-//            modelAndView.addObject("msg", msg);
-//            modelAndView.addObject("msgCss", msgCss);
-//        }
     }
 
-    @RequestMapping(value = "/logging.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/ace/logging.html", method = RequestMethod.POST)
     public ModelAndView logging(String userAccount, String password, String rememberMe) {
         log.info("userAccount: " + userAccount);
         log.info("password: " + password);
@@ -67,11 +60,16 @@ public class LoginController extends CommonController {
             log.error("Account/Password empty");
             modelAndView = super.page("ace/login.html");
             msg = "Account/Password empty";
-            String msgCss = Constant.red;
+            String msgCss = Css.red;
             modelAndView.addObject("msg", msg);
             modelAndView.addObject("msgCss", msgCss);
             return modelAndView;
         } else if (NullUtil.isNotNull(userAccount) && NullUtil.isNotNull(password)) {
+            if(isLogin()){
+                log.info("Logged into Ace");
+                return super.page("ace/index.html");
+            }
+
             user.setUserAccount(userAccount);
             user.setPassword(password);
             try {
@@ -80,16 +78,13 @@ public class LoginController extends CommonController {
             } catch (UserNotFoundException | PasswordNotMatchException e) {
                 e.printStackTrace();
                 modelAndView = super.page("ace/login.html");
-                msg = "Login Fail, Please try again";
-                String msgCss = Constant.red;
+                msg = "Account/Password incorrect";
+                String msgCss = Css.red;
                 modelAndView.addObject("msg", msg);
                 modelAndView.addObject("msgCss", msgCss);
                 return modelAndView;
             }
         }
-        log.info("user: " + user.getUsername() + " save success!");
-        modelAndView = super.redirect("ace/index.html");
-
         if (NullUtil.isNotNull(rememberMe)) {
             //rememberMe = on 记住我
             login(user.getUserId(), true);
@@ -97,6 +92,7 @@ public class LoginController extends CommonController {
             login(user.getUserId(), false);
         }
         setSession(user);
+        modelAndView = super.page("ace/index.html");
         return modelAndView;
     }
 }

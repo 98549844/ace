@@ -1,6 +1,15 @@
 package com.restController;
 
+import cn.dev33.satoken.SaManager;
+import cn.dev33.satoken.action.SaTokenAction;
+import cn.dev33.satoken.config.SaTokenConfig;
+import cn.dev33.satoken.context.SaTokenContext;
+import cn.dev33.satoken.dao.SaTokenDao;
+import cn.dev33.satoken.listener.SaTokenListener;
+import cn.dev33.satoken.stp.StpInterface;
+import cn.dev33.satoken.stp.StpLogic;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.temp.SaTempInterface;
 import com.controller.common.CommonController;
 import com.models.common.AjaxResponse;
 import com.models.entity.dao.Users;
@@ -43,7 +52,7 @@ public class SaTakenRestController extends CommonController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public AjaxResponse doLogin(String username, String password) {
-        Users users = usersService.getUsersById(1001l);
+        Users users = usersService.findUsersById(1001l);
         if (NullUtil.isNotNull(users.getUserId())) {
             StpUtil.login(users.getUserId());
             return AjaxResponse.success(users.getUsername() + " login success !");
@@ -60,7 +69,7 @@ public class SaTakenRestController extends CommonController {
     public AjaxResponse apiInfo() {
         // 标记当前会话登录的账号id
         // 建议的参数类型：long | int | String， 不可以传入复杂类型，如：User、Admin等等
-        Users users = usersService.getUsersById(1001l);
+        Users users = usersService.findUsersById(1001l);
         StpUtil.login(users.getUserId());
         log.info("login success {} ", users.getUserId());
 
@@ -149,14 +158,14 @@ public class SaTakenRestController extends CommonController {
         // 获取当前账号id的Session, 并决定在Session尚未创建时，是否新建并返回
         String SessionId = StpUtil.getSession(true).getId();
         Map map = StpUtil.getSession(true).getDataMap();
-        log.info("SessionId: {}", SessionId );
+        log.info("SessionId: {}", SessionId);
         log.info("map: {}", map.keySet());
 
         // 获取账号id为users.getUserId()的Session
         StpUtil.getSessionByLoginId(users.getUserId());
         String getSessionByLoginId = StpUtil.getSession(true).getId();
         Map m = StpUtil.getSession(true).getDataMap();
-        log.info("getSessionByLoginId: {}", getSessionByLoginId );
+        log.info("getSessionByLoginId: {}", getSessionByLoginId);
         log.info("map: {}", m.keySet());
 
         // 获取账号id为users.getUserId()的Session, 并决定在Session尚未创建时，是否新建并返回
@@ -165,10 +174,36 @@ public class SaTakenRestController extends CommonController {
         // 获取SessionId为xxxx-xxxx的Session, 在Session尚未创建时, 返回null
         String getSessionBySessionId = StpUtil.getSessionBySessionId(SessionId).getId();
         Map dataMap = StpUtil.getSessionBySessionId(SessionId).getDataMap();
-        log.info("getSessionBySessionId: {}", getSessionBySessionId );
+        log.info("getSessionBySessionId: {}", getSessionBySessionId);
         log.info("dataMap: {}", dataMap.keySet());
 
         return AjaxResponse.success();
+    }
+
+    @RequestMapping(value = "/getSaManager", method = RequestMethod.GET)
+    public AjaxResponse getSaManager() {
+        SaTokenConfig saTokenConfig = SaManager.getConfig();                // 获取全局配置对象
+        SaTokenDao saTokenDao = SaManager.getSaTokenDao();                  // 获取数据持久化对象
+        StpInterface stpInterface = SaManager.getStpInterface();            // 获取权限认证对象
+        SaTokenAction saTokenAction = SaManager.getSaTokenAction();         // 获取框架行为对象
+        SaTokenContext saTokenContext = SaManager.getSaTokenContext();      // 获取上下文处理对象
+        SaTokenListener saTokenListener = SaManager.getSaTokenListener();   // 获取侦听器对象
+        SaTempInterface saTempInterface = SaManager.getSaTemp();            // 获取临时令牌认证模块对象
+     //   StpLogic stpLogic = SaManager.getStpLogic("type");         // 获取指定账号类型的StpLogic对象
+
+
+
+        List<Object> ls = new ArrayList<>();
+        ls.add(saTokenConfig);
+        ls.add(saTokenDao);
+        ls.add(stpInterface);
+        ls.add(saTokenAction);
+        ls.add(saTokenContext);
+        ls.add(saTokenListener);
+        ls.add(saTempInterface);
+      //  ls.add(stpLogic);
+
+        return AjaxResponse.success("OK");
     }
 
 }

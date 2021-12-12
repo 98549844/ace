@@ -21,7 +21,7 @@ public class PasswordNotMatchException extends Exception{
 
     public PasswordNotMatchException(String message) {
         super(message);
-        log.error("Password atch result: {} ", message);
+        log.error("Password match result: {} ", message);
     }
 
 

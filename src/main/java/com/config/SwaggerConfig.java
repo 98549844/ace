@@ -34,7 +34,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     @Value("${swagger.enabled}")
     private final Boolean swaggerEnabled = false;
     @Value("${docHtml.enabled}")
-    private final Boolean knife4jEnabled = false;
+    private final Boolean docHtml = false;
 
 
     /*
@@ -46,7 +46,8 @@ public class SwaggerConfig implements WebMvcConfigurer {
      */
     @Bean
     public Docket createRestApi() {
-        boolean enabled = swaggerEnabled || knife4jEnabled;
+      //  boolean enabled = swaggerEnabled || docHtml;
+        boolean enabled = true;
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .enable(enabled)
@@ -113,9 +114,8 @@ public class SwaggerConfig implements WebMvcConfigurer {
         return new ApiInfoBuilder()
                 .title("Ace API documents (Swagger)")
                 .description("base on SpringBoot")
-                .description("MUST LOGIN SPRING SECURITY FIRST")
                 .contact(new Contact("Garlam Au", "", "garlam_au@qq.com"))
-                .version("1.0").license("version1.0")
+                .version("1.1").license("version 1.1")
                 //.licenseUrl(swagger.getLicenseUrl())
                 .build();
     }

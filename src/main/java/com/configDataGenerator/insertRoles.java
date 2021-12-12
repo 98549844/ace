@@ -2,9 +2,9 @@ package com.configDataGenerator;
 
 import com.constant.Constant;
 import com.models.entity.dao.Roles;
+import com.models.entity.dao.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import util.entity.Users;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -39,10 +39,10 @@ public class insertRoles {
         r3.setCreatedDate(LocalDateTime.now());
         r4.setCreatedDate(LocalDateTime.now());
 
-        r1.setDescription(Constant.administrator);
-        r2.setDescription(Constant.disable);
-        r3.setDescription(Constant.user);
-        r4.setDescription(Constant.viewer);
+//        r1.setDescription(Constant.Administrator);
+//        r2.setDescription(Constant.Disable);
+//        r3.setDescription(Constant.User);
+//        r4.setDescription(Constant.Viewer);
 
         r1.setLastUpdatedBy(users.getUserId());
         r2.setLastUpdatedBy(users.getUserId());
@@ -55,9 +55,15 @@ public class insertRoles {
         r4.setLastUpdateDate(LocalDateTime.now());
 
         r1.setRoleCode(Constant.ROLECODE_ADMIN);
-        r1.setRoleCode(Constant.ROLECODE_DISABLE);
-        r1.setRoleCode(Constant.ROLECODE_USER);
-        r1.setRoleCode(Constant.ROLECODE_VIEWER);
+        r2.setRoleCode(Constant.ROLECODE_DISABLE);
+        r3.setRoleCode(Constant.ROLECODE_USER);
+        r4.setRoleCode(Constant.ROLECODE_VIEWER);
+
+
+        ls.add(r1);
+        ls.add(r2);
+        ls.add(r3);
+        ls.add(r4);
 
         return ls;
     }

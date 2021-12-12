@@ -55,7 +55,7 @@ public class ExcelRestController {
         for (Columns c : list) {
             columns.add(c.getColumnName());
         }
-        List<Users> users = usersService.getAll();
+        List<Users> users = usersService.findAll();
 
         EasyExcelUtil easyExcelUtil = new EasyExcelUtil();
         easyExcelUtil.write(fileName, users, new Users());

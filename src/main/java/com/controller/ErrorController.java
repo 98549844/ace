@@ -23,6 +23,11 @@ public class ErrorController extends CommonController {
 		return modelAndView;
 	}
 
+	@RequestMapping(value = "/error.html", method = RequestMethod.GET)
+	public ModelAndView error() {
+		ModelAndView modelAndView = super.page("ace/error");
+		return modelAndView;
+	}
 
 
 }

@@ -6,13 +6,13 @@ package com.exception;
  * @Author: garlam
  * @Description:
  */
-public enum CustomExceptionType {
+public enum ResponseExceptionType {
 
     USER_INPUT_ERROR(400,"用户输入异常"),
     SYSTEM_ERROR (500,"系统服务异常"),
     OTHER_ERROR(999,"其他未知异常");
 
-    CustomExceptionType(int code, String typeDesc) {
+    ResponseExceptionType(int code, String typeDesc) {
         this.code = code;
         this.typeDesc = typeDesc;
     }
