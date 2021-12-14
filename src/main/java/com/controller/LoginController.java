@@ -76,7 +76,7 @@ public class LoginController extends CommonController {
             try {
                 //get user information
                 user = usersService.findByUserAccount(user);
-                user.setLastUpdateDate(LocalDateTime.now());
+                user.setLoginDateTime(LocalDateTime.now());
                 usersService.saveAndFlush(user);
             } catch (UserNotFoundException | PasswordNotMatchException e) {
                 e.printStackTrace();

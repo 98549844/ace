@@ -14,6 +14,7 @@ import util.entity.Users;
 import javax.persistence.EntityManagerFactory;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,21 +25,19 @@ public class Ace {
 
     public static void main(String[] args) {
 
-        String str = null;
-        try {
-            System.out.println(str.charAt(0));
-            //System.out.println(1/0);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println(e.fillInStackTrace().getMessage());
-            e.printStackTrace();
-            StringWriter sw = new StringWriter();
-            e.printStackTrace(new PrintWriter(sw, true));
-            String strs = sw.toString();
-            System.out.println("--------------------------美丽的分割线----------------------");
-            System.out.println(strs);
-        }
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println("计算两个时间的差：");
+        LocalDateTime end = LocalDateTime.now().plusYears(-10);
+        Duration duration = Duration.between( end, now);
+        long days = duration.toDays(); //相差的天数
+        long hours = duration.toHours();//相差的小时数
+        long minutes = duration.toMinutes();//相差的分钟数
+        long millis = duration.toMillis();//相差毫秒数
+        long nanos = duration.toNanos();//相差的纳秒数
+        System.out.println(now);
+        System.out.println(end);
 
-
+        System.out.println(days / 365);
+        System.out.println("发送短信耗时【 " + days + "天：" + hours + " 小时：" + minutes + " 分钟：" + millis + " 毫秒：" + nanos + " 纳秒】");
     }
 }

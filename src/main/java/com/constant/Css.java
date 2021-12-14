@@ -22,5 +22,8 @@ public class Css extends CommonController {
     public static final String faSitemap = "fa-sitemap";
     public static final String faRandom = "fa-random";
     public static final String faGear = "fa-gear";
+
+    //display sub menu
+    public static final String navShow = "nav-show";
 }
 
