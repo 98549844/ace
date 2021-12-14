@@ -24,7 +24,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/ace")
+@RequestMapping("/ace/users")
 public class UserController extends CommonController {
 	private static Logger log = LogManager.getLogger(UserController.class.getName());
 
@@ -35,17 +35,25 @@ public class UserController extends CommonController {
 		this.usersService = usersService;
 	}
 
-	@RequestMapping(value = "/users.html", method = RequestMethod.GET)
+	@RequestMapping(value = "/user.html", method = RequestMethod.GET)
 	public ModelAndView getUserList() {
 		List<Users> userList = usersService.findAll();
 
 		ModelAndView modelAndView = super.page("ace/modules/users/users");
 		modelAndView.addObject("users", userList);
+		modelAndView.addObject("userDetail", userList);
 
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/users/profile.html", method = RequestMethod.GET)
+	@RequestMapping(value = "/{enable}.html", method = RequestMethod.GET)
+	public String setEnable( @PathVariable String enable) {
+		log.info("enable {}", enable);
+		return "OK";
+	}
+
+
+	@RequestMapping(value = "/profile.html", method = RequestMethod.GET)
 	public ModelAndView getAllUsers() {
 
 		ModelAndView modelAndView = super.page("ace/modules/users/profile");

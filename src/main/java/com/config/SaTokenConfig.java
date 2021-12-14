@@ -28,12 +28,23 @@ public class SaTokenConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 注册Sa-Token的路由拦截器
-        registry.addInterceptor(new SaRouteInterceptor()).addPathPatterns("/**")
+        registry.addInterceptor(new SaRouteInterceptor())
+                .addPathPatterns("/**")
                 .excludePathPatterns("/ace/logging.html", "/ace/login.html", "/")
-                // .excludePathPatterns("css/**","/font-awesome/4.5.0/fonts/**","fonts","images/**","js/**")
+                .excludePathPatterns(
+                        "/**/*.js",
+                        "/**/*.png",
+                        "/**/*.jpg",
+                        "/favicon.ico",
+                        "/**/*.css",
+                        "/**/*.woff2",
+                        "/**/*.woff",
+                        "/**/*.ttf",
+                        "/**/*.svg",
+                        "/**/*.eot",
+                        "/images/**")
                 //swagger
-                .excludePathPatterns("/doc.html")
-                .excludePathPatterns("/swagger-ui.html", "/csrf", "/webjars/**", "/swagger-resources/**", "/v2/**");
+                .excludePathPatterns("/doc.html").excludePathPatterns("/swagger-ui.html", "/csrf", "/webjars/**", "/swagger-resources/**", "/v2/**");
     }
 
 //    @Override

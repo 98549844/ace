@@ -103,8 +103,7 @@
                                     </thead>
 
                                     <tbody>
-
-                                    <tr th:each="user:${users}">
+                                    <tr th:each="rowUser:${users}">
                                         <td class="center">
                                             <div class="action-buttons">
                                                 <a href="#" class="green bigger-140 show-details-btn"
@@ -116,15 +115,28 @@
                                         </td>
 
 
-                                        <input type="hidden" th:value="${user.userId}"/>
-                                        <td th:text="${user.userAccount}"></td>
-                                        <td th:text="${user.Username}"></td>
+                                        <input type="hidden" th:value="${rowUser.userId}" th:id="${rowUser.userId}"/>
 
-                                        <td th:if="${user.enabled}">Enable</td>
-                                        <td th:if="${not user.enabled}" class="red"><strong>Disable</strong></td>
+                                        <td th:text="${rowUser.userAccount}"></td>
+                                        <td th:text="${rowUser.Username}"></td>
 
-                                        <td th:text="${#temporals.format(user.lastUpdateDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                                        <td th:text="${#temporals.format(user.expireDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                        <td th:if="${rowUser.enabled}">
+                                            Enable
+                                            <input th:id="'id-button-borders-'+${rowUser.userId}" checked=""
+                                                   type="checkbox"
+                                                   class="ace ace-switch ace-switch-5 id-button-borders"/>
+                                            <span class="lbl middle"></span>
+                                        </td>
+                                        <td th:if="${not rowUser.enabled}" class="red">
+                                            <strong>Disable</strong>
+                                            <input th:id="'id-button-borders-'+${rowUser.userId}" checked=""
+                                                   type="checkbox"
+                                                   class="ace ace-switch ace-switch-5 id-button-borders"/>
+                                            <span class="lbl middle"></span>
+                                        </td>
+
+                                        <td th:text="${#temporals.format(rowUser.lastUpdateDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                        <td th:text="${#temporals.format(rowUser.expireDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
 
 
                                         <td>
@@ -147,7 +159,10 @@
                                             </div>
                                         </td>
                                     </tr>
-
+                                    <tr th:each="rowUserDetail:${userDetail}">
+                                        <input type="hidden" th:value="'rowUserDetail-'+${rowUserDetail.userId}"
+                                               th:id="'rowUserDetail-'+${rowUserDetail.userId}"/>
+                                    </tr>
                                     <tr class="detail-row open">
                                         <td colspan="8">
                                             <div class="table-detail">
@@ -308,6 +323,36 @@
             $(this).find(ace.vars['.icon']).toggleClass('fa-angle-double-down').toggleClass('fa-angle-double-up');
         });
         /***************/
+
+        /***************/
+        // $(".id-button-borders").on('click', function (e) {
+        //     alert("不能读取table row数据");
+        // });
+        /***************/
+
+        /***************/
+        $(":checkbox").on('click', function (e) {
+            alert("press checkbox");
+            $.ajax(
+                {
+                    type: "GET",
+                    url: "/ace/users/enable.html",
+                    data: {enable: false},
+                    dataType: "json",
+                    cache: false,
+                    success: function () {
+                        alert("AJAX OK");
+                    },
+                    error: function () {
+                        alert("AJAX fail");
+                    }
+
+                }
+            )
+
+        });
+        /***************/
+
     })
 </script>
 

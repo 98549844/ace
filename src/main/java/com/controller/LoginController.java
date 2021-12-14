@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import util.NullUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 /**
  * @Classname: LoginController
@@ -75,6 +76,8 @@ public class LoginController extends CommonController {
             try {
                 //get user information
                 user = usersService.findByUserAccount(user);
+                user.setLastUpdateDate(LocalDateTime.now());
+                usersService.saveAndFlush(user);
             } catch (UserNotFoundException | PasswordNotMatchException e) {
                 e.printStackTrace();
                 modelAndView = super.page("ace/login.html");

@@ -25,6 +25,9 @@ public class MySaTokenListener implements SaTokenListener {
         log.info("loginType: {}", loginType);
         log.info("loginId: {}", loginId);
         SaLoginModel saLoginModel = SaLoginModel;
+        log.info("device: {}", saLoginModel.device);
+        log.info("isLastingCookie: {}", saLoginModel.isLastingCookie);
+        log.info("timeout: {}", saLoginModel.timeout);
 
     }
 

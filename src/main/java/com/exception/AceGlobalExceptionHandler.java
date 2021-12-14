@@ -107,9 +107,9 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
         StringWriter sw = new StringWriter();
         e.printStackTrace(new PrintWriter(sw, true));
         String stackTrace = sw.toString();
-        exceptionLog(e.getMessage(),stackTrace );
+        exceptionLog(e.getMessage(), stackTrace);
 
-        int status =super.getResponse().getStatus();
+        int status = super.getResponse().getStatus();
         String warningMsg = "OCCUR EXCEPTION";
         ModelAndView modelAndView = exceptionModelAndView("ace/error", Css.faGear, status, warningMsg);
         modelAndView.addObject("exceptionMsg", e.getMessage() + "<br><br>" + stackTrace);
@@ -117,38 +117,38 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
         return modelAndView;
     }
 
-/*    @ExceptionHandler(value = NullPointerException.class)
-    @ResponseBody
-    public ModelAndView exceptionHandler(NullPointerException e) {
-        StringWriter sw = new StringWriter();
-        e.printStackTrace(new PrintWriter(sw, true));
-        String stackTrace = sw.toString();
-        exceptionLog(e.getMessage(),stackTrace );
+    /*    @ExceptionHandler(value = NullPointerException.class)
+        @ResponseBody
+        public ModelAndView exceptionHandler(NullPointerException e) {
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw, true));
+            String stackTrace = sw.toString();
+            exceptionLog(e.getMessage(),stackTrace );
 
-        int status =super.getResponse().getStatus();
-        String warningMsg = "Occur unknown exception";
-        ModelAndView modelAndView = exceptionModelAndView("ace/error", Css.faGear, status, warningMsg);
-        modelAndView.addObject("exceptionMsg", e.getMessage() + "<br><br>" + stackTrace);
+            int status =super.getResponse().getStatus();
+            String warningMsg = "Occur unknown exception";
+            ModelAndView modelAndView = exceptionModelAndView("ace/error", Css.faGear, status, warningMsg);
+            modelAndView.addObject("exceptionMsg", e.getMessage() + "<br><br>" + stackTrace);
 
-        return modelAndView;
-    }
+            return modelAndView;
+        }
 
-    @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
-    @ResponseBody
-    public ModelAndView httpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
-        StringWriter sw = new StringWriter();
-        e.printStackTrace(new PrintWriter(sw, true));
-        String stackTrace = sw.toString();
-        exceptionLog(e.getMessage(),stackTrace );
+        @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
+        @ResponseBody
+        public ModelAndView httpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw, true));
+            String stackTrace = sw.toString();
+            exceptionLog(e.getMessage(),stackTrace );
 
-        int status =super.getResponse().getStatus();
-        String warningMsg = "Occur HttpRequestMethodNotSupportedException";
-        ModelAndView modelAndView = exceptionModelAndView("ace/error", Css.faGear, status, warningMsg);
-        modelAndView.addObject("exceptionMsg", e.getMessage() + "<br><br>" + stackTrace);
+            int status =super.getResponse().getStatus();
+            String warningMsg = "Occur HttpRequestMethodNotSupportedException";
+            ModelAndView modelAndView = exceptionModelAndView("ace/error", Css.faGear, status, warningMsg);
+            modelAndView.addObject("exceptionMsg", e.getMessage() + "<br><br>" + stackTrace);
 
-        return modelAndView;
-    }
-
+            return modelAndView;
+        }
+    */
     //未提供token
     //token无效
     @ExceptionHandler(value = NotLoginException.class)
@@ -157,16 +157,11 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
         StringWriter sw = new StringWriter();
         e.printStackTrace(new PrintWriter(sw, true));
         String stackTrace = sw.toString();
-        exceptionLog(e.getMessage(),stackTrace );
+        exceptionLog(e.getMessage(), stackTrace);
 
-        int status =super.getResponse().getStatus();
-        // String warningMsg = "Occur notLoginExceptionHandler";
-        // ModelAndView modelAndView = new ModelAndView("ace/login");
-        String warningMsg = "Occur NotLoginException";
-        ModelAndView modelAndView = exceptionModelAndView("ace/error", Css.faGear, status, warningMsg);
-        modelAndView.addObject("exceptionMsg", e.getMessage() + "<br><br>" + stackTrace);
+        ModelAndView modelAndView = new ModelAndView("ace/login");
         return modelAndView;
-    }*/
+    }
 
 
     private ModelAndView exceptionModelAndView(String url, String faCss, int status, String warningMsg) {
@@ -182,11 +177,11 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
         return modelAndView;
     }
 
-    private void exceptionLog (String message, String stackTrace){
+    private void exceptionLog(String message, String stackTrace) {
         log.error("URL: " + super.getRequest().getRequestURL().toString());
         log.error("HTTP_METHOD: " + super.getRequest().getMethod());
         log.error("error code: {}", super.getResponse().getStatus());
-        log.error("发生业务异常！原因是：{} -- {}", message, stackTrace);
+        log.error("Throws Exception：{} -- {}", message, stackTrace);
     }
 
 }
