@@ -24,6 +24,6 @@ public class Css extends CommonController {
     public static final String faGear = "fa-gear";
 
     //display sub menu
-    public static final String navShow = "nav-show";
+    public static final String open = "open";
 }
 

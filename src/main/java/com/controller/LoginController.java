@@ -6,6 +6,7 @@ import com.controller.common.CommonController;
 import com.exception.PasswordNotMatchException;
 import com.exception.UserNotFoundException;
 import com.models.entity.dao.Users;
+import com.service.LoginService;
 import com.service.UsersService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import util.DateTimeUtil;
 import util.NullUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,13 +34,15 @@ public class LoginController extends CommonController {
     private static Logger log = LogManager.getLogger(LoginController.class.getName());
 
     private UsersService usersService;
+    private LoginService loginService;
 
     @Autowired
-    public LoginController(UsersService usersService) {
+    public LoginController(LoginService loginService, UsersService usersService) {
+        this.loginService = loginService;
         this.usersService = usersService;
     }
 
-    @RequestMapping(value = {"/ace/login.html","/"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/ace/login.html", "/"}, method = RequestMethod.GET)
     public ModelAndView login(HttpServletRequest request) {
         if (isLogin()) {
             return super.page("ace/index.html");
@@ -58,15 +62,11 @@ public class LoginController extends CommonController {
         Users user = new Users();
         if (userAccount.isEmpty() || password.isEmpty()) {
             //check input param
-            log.error("Account/Password empty");
-            modelAndView = super.page("ace/login.html");
             msg = "Account/Password empty";
-            String msgCss = Css.red;
-            modelAndView.addObject("msg", msg);
-            modelAndView.addObject("msgCss", msgCss);
+            modelAndView = loginService.loginError(msg);
             return modelAndView;
         } else if (NullUtil.isNotNull(userAccount) && NullUtil.isNotNull(password)) {
-            if(isLogin()){
+            if (isLogin()) {
                 log.info("Logged into Ace");
                 return super.page("ace/index.html");
             }
@@ -76,15 +76,24 @@ public class LoginController extends CommonController {
             try {
                 //get user information
                 user = usersService.findByUserAccount(user);
+                Long expired = DateTimeUtil.differenceMinutesByLocalDateTime(LocalDateTime.now(), user.getExpireDate());
+                if (!user.isEnabled()) {
+                    msg = "Account disabled";
+                    modelAndView = loginService.loginError(msg);
+                    return modelAndView;
+                } else if (expired < 0l) {
+                    msg = "Account expired";
+                    modelAndView = loginService.loginError(msg);
+                    return modelAndView;
+                }
+
+
                 user.setLoginDateTime(LocalDateTime.now());
                 usersService.saveAndFlush(user);
             } catch (UserNotFoundException | PasswordNotMatchException e) {
                 e.printStackTrace();
-                modelAndView = super.page("ace/login.html");
                 msg = "Account/Password incorrect";
-                String msgCss = Css.red;
-                modelAndView.addObject("msg", msg);
-                modelAndView.addObject("msgCss", msgCss);
+                modelAndView = loginService.loginError(msg);
                 return modelAndView;
             }
         }

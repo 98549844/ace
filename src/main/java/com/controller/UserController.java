@@ -55,6 +55,8 @@ public class UserController extends CommonController {
 
         ModelAndView modelAndView = super.page("ace/modules/users/users");
         modelAndView.addObject("users", userList);
+        //submenu css control
+        modelAndView.addObject(Css.open, Css.open);
 
         return modelAndView;
     }
@@ -72,23 +74,18 @@ public class UserController extends CommonController {
 
     @RequestMapping(value = "/enable.html", method = RequestMethod.POST)
     public ModelAndView setEnable(@RequestParam(value = "userId") Long userId, @RequestParam(value = "enable") String enable) {
-        log.info("enable {}", enable);
         log.info("userId {}", userId);
         ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
 
         Users user = usersService.findUsersById(userId);
         if (user.isEnabled()) {
             user.setEnabled(false);
-            modelAndView.addObject("ajaxResult", "<strong>Disable</strong>");
+            modelAndView.addObject("ajaxResult", "Disable");
         } else {
             user.setEnabled(true);
             modelAndView.addObject("ajaxResult", "Enable");
         }
         usersService.save(user);
-
-
-        //submenu css control
-        modelAndView.addObject("navShow", Css.navShow);
         return modelAndView;
     }
 

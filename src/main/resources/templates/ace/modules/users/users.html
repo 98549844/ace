@@ -121,17 +121,17 @@
                                             <td th:text="${rowUser.Username}"></td>
 
                                             <td th:if="${rowUser.enabled}" class="green enable">
-                                                Enable
-                                                <!--[(${ajaxResult})]-->
-                                                <input th:id="${rowUser.userId}" checked="" th:checked="${rowUser.enabled}"
+                                                <span>Enable</span>
+                                                <input th:id="${rowUser.userId}" checked=""
+                                                       th:checked="${rowUser.enabled}"
                                                        type="checkbox"
                                                        class="ace ace-switch ace-switch-5 "/>
                                                 <span class="lbl middle"></span>
                                             </td>
                                             <td th:if="${not rowUser.enabled}" class="red enable">
-                                                <strong>Disable</strong>
-                                                <!--[(${ajaxResult})]-->
-                                                <input th:id="${rowUser.userId}" checked="" th:checked="${rowUser.enabled}"
+                                                <span><strong>Disable</strong></span>
+                                                <input th:id="${rowUser.userId}" checked=""
+                                                       th:checked="${rowUser.enabled}"
                                                        type="checkbox"
                                                        class="ace ace-switch ace-switch-5 "/>
                                                 <span class="lbl middle"></span>
@@ -334,6 +334,14 @@
         /***************/
         $(":checkbox").on('click', function (e) {
             const userId = $(this).attr("id");
+            if(userId == [(${user.userId})]){
+                alert("Not allow to operate");
+                return;
+            }
+
+
+            let text = "";
+            // const cc = $(this).parent('.enable').text();
             $.ajax(
                 {
                     type: "POST",
@@ -342,10 +350,9 @@
                     // url: "/ace/users/enable.html?enable=false",
                     // data:{},
                     cache: false,
-                    success: function (responseData) {
-                        const cc = $(this).attr("id");
-                        alert(cc);
-                        //  alert("AJAX OK : " + responseData);
+                    success: function (ajaxResult) {
+                        text = ajaxResult;
+                        alert("ajaxResult text : " + text);
                     },
                     error: function () {
                         // alert("AJAX fail");
@@ -353,10 +360,11 @@
 
                 }
             )
+            const cc = $(this).parent('.enable').html();
+            alert(cc);
 
         });
         /***************/
-
     })
 </script>
 
