@@ -51,11 +51,18 @@ public class UsersService {
     }
 
 
+    public List<Users> findUsersByUsernameLikeIgnoreCaseOrderByLoginDateTime(String username) {
+        List<Users> usersList = usersDao.findUsersByUsernameLikeIgnoreCaseOrderByLoginDateTime("%" + username + "%");
+        calcAges(usersList);
+        return usersList;
+    }
+
     public List<Users> findAll() {
         List<Users> usersList = usersDao.findAll();
         calcAges(usersList);
         return usersList;
     }
+
 
     public List<Users> findUsersOrderByLoginDateTime(Integer limit) {
         List<Users> usersList = usersDao.findUsersOrderByLoginDateTime(limit == null ? 0 : limit);
@@ -88,6 +95,8 @@ public class UsersService {
         calcAges(user);
         return user;
     }
+
+
 
     /**
      * accountRegistration

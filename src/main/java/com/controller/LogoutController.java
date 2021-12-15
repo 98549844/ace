@@ -32,9 +32,8 @@ public class LogoutController extends CommonController {
     public ModelAndView logout(HttpServletRequest request) {
         ModelAndView modelAndView = super.page("ace/login.html");
         String msg = "Logout success";
-        String msgCss = Css.green;
         modelAndView.addObject("msg", msg);
-        modelAndView.addObject("msgCss", msgCss);
+        modelAndView.addObject(Css.css, Css.green);
 
         clearSession();
         StpUtil.logout();

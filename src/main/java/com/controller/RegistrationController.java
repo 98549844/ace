@@ -46,9 +46,8 @@ public class RegistrationController extends CommonController {
             log.error("users information incorrect");
             modelAndView = super.redirect("ace/login.html?msg=error");
             String msg = "information error";
-            String msgCss = Css.red;
             modelAndView.addObject("msg", msg);
-            modelAndView.addObject("msgCss", msgCss);
+            modelAndView.addObject(Css.css, Css.red);
             return modelAndView;
         }
 
@@ -58,16 +57,15 @@ public class RegistrationController extends CommonController {
             log.info("新建用户：" + users.getUserAccount());
             modelAndView = super.page("ace/login.html");
             String msg = "Please login your account";
-            String msgCss = Css.green;
             modelAndView.addObject("msg", msg);
-            modelAndView.addObject("msgCss", msgCss);
+            modelAndView.addObject(Css.css, Css.green);
         } else {
           //  modelAndView = super.redirect("ace/login.html?msg=exist");
             modelAndView = super.page("ace/login.html");
             String msg = "User exist";
             String msgCss = Css.red;
             modelAndView.addObject("msg", msg);
-            modelAndView.addObject("msgCss", msgCss);
+            modelAndView.addObject(Css.css, msgCss);
         }
         return modelAndView;
     }

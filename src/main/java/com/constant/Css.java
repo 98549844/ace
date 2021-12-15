@@ -16,6 +16,8 @@ import com.controller.common.CommonController;
 public class Css extends CommonController {
     private static final Logger log = LogManager.getLogger(Css.class.getName());
 
+    public static final String css = "msgCss";
+
     //login warning logo
     public static final String red = "red";
     public static final String green = "green";

@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta charset="utf-8"/>
-    <title>Blank Page - Ace Admin</title>
+    <title>Profile - Ace Admin</title>
 
     <meta name="description" content=""/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
@@ -124,7 +124,7 @@
                                                 <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
                                                     <i class="ace-icon fa fa-circle light-green"></i>
                                                     &nbsp;
-                                                    <span class="white">Alex M. Doe</span>
+                                                    <span class="white" th:text="${user.username}"></span>
                                                 </a>
 
                                                 <ul class="align-left dropdown-menu dropdown-caret dropdown-lighter">
@@ -268,7 +268,7 @@
                                             <div class="profile-info-name"> Username </div>
 
                                             <div class="profile-info-value">
-                                                <span class="editable" id="username">alexdoe</span>
+                                                <span class="editable" id="username" th:text="${user.username}"></span>
                                             </div>
                                         </div>
 
@@ -277,16 +277,15 @@
 
                                             <div class="profile-info-value">
                                                 <i class="fa fa-map-marker light-orange bigger-110"></i>
-                                                <span class="editable" id="country">Netherlands</span>
-                                                <span class="editable" id="city">Amsterdam</span>
+                                                <span class="editable" id="city" th:text="${user.ip}">Amsterdam</span>
                                             </div>
                                         </div>
 
                                         <div class="profile-info-row">
-                                            <div class="profile-info-name"> Age </div>
+                                            <div class="profile-info-name" > Age </div>
 
                                             <div class="profile-info-value">
-                                                <span class="editable" id="age">38</span>
+                                                <span class="editable" id="age" th:text="${user.age}"></span>
                                             </div>
                                         </div>
 
@@ -294,7 +293,7 @@
                                             <div class="profile-info-name"> Joined </div>
 
                                             <div class="profile-info-value">
-                                                <span class="editable" id="signup">2010/06/20</span>
+                                                <span class="editable" id="signup" th:text="${#temporals.format(user.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
                                             </div>
                                         </div>
 
@@ -302,7 +301,7 @@
                                             <div class="profile-info-name"> Last Online </div>
 
                                             <div class="profile-info-value">
-                                                <span class="editable" id="login">3 hours ago</span>
+                                                <span class="editable" id="login" th:text="${#temporals.format(user.loginDateTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
                                             </div>
                                         </div>
 
@@ -310,7 +309,7 @@
                                             <div class="profile-info-name"> About Me </div>
 
                                             <div class="profile-info-value">
-                                                <span class="editable" id="about">Editable as WYSIWYG</span>
+                                                <span class="editable" id="about" th:text="${user.description}"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -436,7 +435,7 @@
 
                                                     <div class="profile-activity clearfix">
                                                         <div>
-                                                            <img class="pull-left" alt="David Palms's avatar" th:src="@{/assets/images/avatars/avatar4.png" />
+                                                            <img class="pull-left" alt="David Palms's avatar" th:src="@{/assets/images/avatars/avatar4.png}" />
                                                             <a class="user" href="#"> David Palms </a>
 
                                                             left a comment on Alex's wall.
@@ -649,7 +648,7 @@
 
                                                 <div class="col-xs-12 col-sm-9">
                                                     <h4 class="blue">
-                                                        <span class="middle">Alex M. Doe</span>
+                                                        <span class="middle" >Alex M. Doe</span>
 
                                                         <span class="label label-purple arrowed-in-right">
 																	<i class="ace-icon fa fa-circle smaller-80 align-middle"></i>

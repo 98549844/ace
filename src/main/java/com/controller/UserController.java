@@ -1,7 +1,7 @@
 package com.controller;
 
 
-import com.constant.Constant;
+import cn.dev33.satoken.stp.StpUtil;
 import com.constant.Css;
 import com.controller.common.CommonController;
 import com.models.entity.dao.Users;
@@ -10,16 +10,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import util.DateTimeUtil;
 import util.NullUtil;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * @Classname: UserController
@@ -51,39 +52,46 @@ public class UserController extends CommonController {
         return modelAndView;
     }
 
-//	@RequestMapping(value = "/{enable}.html", method = RequestMethod.POST)
-//	public ModelAndView setEnable(@PathVariable String enable) {
-//		log.info("enable {}", enable);
-//		Map<String,String> map = new HashMap<>();
-//		map.put("enable", enable);
-//		ModelAndView modelAndView = page("ace/index.html");
-//		return modelAndView;
-//
-//
-//	}
 
-    @RequestMapping(value = "/enable.html", method = RequestMethod.POST)
-    public ModelAndView setEnable(@RequestParam(value = "userId") Long userId, @RequestParam(value = "enable") String enable) {
+    @RequestMapping(value = "/enable.html", method = RequestMethod.GET)
+    public ModelAndView setEnable(@RequestParam(value = "userId") Long userId) {
         log.info("userId {}", userId);
         ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
 
         Users user = usersService.findUsersById(userId);
         if (user.isEnabled()) {
             user.setEnabled(false);
-            modelAndView.addObject("ajaxResult", "Disable");
+            modelAndView.addObject("ajaxResult", "<strong class=\"red\">Disable</strong>");
         } else {
             user.setEnabled(true);
-            modelAndView.addObject("ajaxResult", "Enable");
+            modelAndView.addObject("ajaxResult", "<strong class=\"green\">Enable</strong>");
         }
         usersService.save(user);
+        kickOut(user.getUserId());
         return modelAndView;
     }
 
     @RequestMapping(value = "/profile.html", method = RequestMethod.GET)
-    public ModelAndView getAllUsers() {
-
+    public ModelAndView getProfile() {
         ModelAndView modelAndView = super.page("ace/modules/users/profile");
         return modelAndView;
     }
+
+    @RequestMapping(value = "/search.html", method = RequestMethod.GET)
+    public ModelAndView getUserById(String username) {
+        log.info("username: {}", username);
+        List<Users> userList ;
+        if (NullUtil.isNull(username) || "".equals(username)) {
+            userList = usersService.findUsersOrderByLoginDateTime(30);
+        } else {
+            userList = usersService.findUsersByUsernameLikeIgnoreCaseOrderByLoginDateTime(username);
+        }
+        ModelAndView modelAndView = super.page("ace/modules/users/users");
+        modelAndView.addObject("users", userList);
+        //submenu css control
+        modelAndView.addObject(Css.open, Css.open);
+        return modelAndView;
+    }
+
 
 }

@@ -23,8 +23,8 @@ public class CommonController {
     /**
      * Request对象(存在于用户的每个请求)
      */
-    protected HttpServletResponse response;
-    protected HttpServletRequest request;
+    private HttpServletResponse response;
+    private HttpServletRequest request;
 
     protected HttpServletRequest getRequest() {
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -42,9 +42,8 @@ public class CommonController {
     protected ModelAndView logOut() {
         ModelAndView modelAndView = page("ace/login.html");
         String msg = "Logged out";
-        String msgCss = Css.red;
         modelAndView.addObject("msg", msg);
-        modelAndView.addObject("msgCss", msgCss);
+        modelAndView.addObject(Css.css, Css.red);
 
         StpUtil.logout();
         return modelAndView;
@@ -54,9 +53,13 @@ public class CommonController {
         ModelAndView modelAndView = page("ace/login.html");
         String msgCss = Css.red;
         modelAndView.addObject("msg", msg);
-        modelAndView.addObject("msgCss", msgCss);
+        modelAndView.addObject(Css.css, msgCss);
         StpUtil.logout();
         return modelAndView;
+    }
+
+    protected void kickOut(Long userId) {
+        StpUtil.kickout(userId);
     }
 
     /**

@@ -1,0 +1,4 @@
+jQuery中attr()解决checked属性问题
+
+$(this).attr("checked") == "checked"
+$(this).prop("checked") == true/false

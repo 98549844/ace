@@ -1,13 +1,12 @@
 package com.controller;
 
-import com.constant.Constant;
-import com.constant.Css;
 import com.controller.common.CommonController;
 import com.exception.PasswordNotMatchException;
 import com.exception.UserNotFoundException;
 import com.models.entity.dao.Users;
 import com.service.LoginService;
 import com.service.UsersService;
+import com.util.HttpUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import util.DateTimeUtil;
-import util.NullUtil;
+import util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -42,8 +40,18 @@ public class LoginController extends CommonController {
         this.usersService = usersService;
     }
 
+
+    public void a() {
+        String path = PathUtil.getSystemPath();
+        String osName = OsUtil.getOsInfo();
+        System.out.println(path);
+        System.out.println(osName);
+
+    }
+
     @RequestMapping(value = {"/ace/login.html", "/"}, method = RequestMethod.GET)
     public ModelAndView login(HttpServletRequest request) {
+        a();
         if (isLogin()) {
             return super.page("ace/index.html");
         } else {
@@ -87,6 +95,7 @@ public class LoginController extends CommonController {
                     return modelAndView;
                 }
                 user.setLoginDateTime(LocalDateTime.now());
+                user.setIp(HttpUtil.getClientIP(getRequest()));
                 usersService.saveAndFlush(user);
             } catch (UserNotFoundException | PasswordNotMatchException e) {
                 e.printStackTrace();

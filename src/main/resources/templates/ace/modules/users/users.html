@@ -82,14 +82,14 @@
 
                 <div class="col-xs-12 col-sm-3">
                     <div class="search-area well well-sm">
-                        <form>
+                        <form action="/ace/users/search.html" method="get">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-11 col-md-10">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="keywords"
+                                        <input type="text" class="form-control" name="username"
                                                placeholder="Search user"/>
                                         <div class="input-group-btn">
-                                            <button type="button" class="btn btn-default no-border btn-sm">
+                                            <button type="submit" class="btn btn-default no-border btn-sm">
                                                 <i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
                                             </button>
                                         </div>
@@ -141,18 +141,22 @@
                                             <td th:text="${rowUser.userAccount}"></td>
                                             <td th:text="${rowUser.Username}"></td>
 
-                                            <td th:if="${rowUser.enabled}" class="green enable">
-                                                <span>Enable</span>
-                                                <input th:id="${rowUser.userId}" checked=""
+                                            <td th:if="${rowUser.enabled}">
+                                                <span th:id="'enanle-'+${rowUser.userId}">
+                                                    <strong class="green">Enable</strong></span>
+                                                <input th:id="'check-'+${rowUser.userId}" checked=""
                                                        th:checked="${rowUser.enabled}"
+                                                       th:if="${rowUser.userId} ne ${user.userId}"
                                                        type="checkbox"
                                                        class="ace ace-switch ace-switch-5 "/>
                                                 <span class="lbl middle"></span>
                                             </td>
-                                            <td th:if="${not rowUser.enabled}" class="red enable">
-                                                <span><strong>Disable</strong></span>
-                                                <input th:id="${rowUser.userId}" checked=""
+                                            <td th:if="${not rowUser.enabled}">
+                                                <span th:id="'enanle-'+${rowUser.userId}">
+                                                    <strong class="red">Disable</strong></span>
+                                                <input th:id="'check-'+${rowUser.userId}" checked=""
                                                        th:checked="${rowUser.enabled}"
+                                                       th:if="${rowUser.userId} ne ${user.userId}"
                                                        type="checkbox"
                                                        class="ace ace-switch ace-switch-5 "/>
                                                 <span class="lbl middle"></span>
@@ -222,7 +226,7 @@
 
                                                                     <div class="profile-info-value">
                                                                         <i class="fa fa-map-marker light-orange bigger-110"></i>
-                                                                        <span>Netherlands, Amsterdam</span>
+                                                                        <span th:text="${rowUser.ip}"></span>
                                                                     </div>
                                                                 </div>
 
@@ -246,7 +250,7 @@
                                                                     <div class="profile-info-name"> Last Online</div>
 
                                                                     <div class="profile-info-value">
-                                                                        <span th:text="${#temporals.format(rowUser.loginDateTime, 'yyyy-MM-dd HH:mm:ss')}">3 hours ago</span>
+                                                                        <span th:text="${#temporals.format(rowUser.loginDateTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
                                                                     </div>
                                                                 </div>
 
@@ -347,43 +351,24 @@
         /***************/
 
         /***************/
-        // $(".id-button-borders").on('click', function (e) {
-        //     alert("不能读取table row数据");
-        // });
-        /***************/
-
-        /***************/
         $(":checkbox").on('click', function (e) {
-            const userId = $(this).attr("id");
-            if (userId == [(${user.userId})]) {
-                alert("Not allow to operate");
-                return;
-            }
+            const checkId = $(this).attr("id");
+            const userId = checkId.split("-");
 
-
-            let text = "";
-            // const cc = $(this).parent('.enable').text();
             $.ajax(
                 {
-                    type: "POST",
+                    type: "GET",
                     url: "/ace/users/enable.html",
-                    data: {userId: userId, enable: "false"},
-                    // url: "/ace/users/enable.html?enable=false",
-                    // data:{},
+                    data: {userId: userId[1]},
                     cache: false,
                     success: function (ajaxResult) {
-                        text = ajaxResult;
-                        alert("ajaxResult text : " + text);
+                        $("#enanle-" + userId[1]).html(ajaxResult);
                     },
                     error: function () {
-                        // alert("AJAX fail");
+                        alert("AJAX FAILURE");
                     }
-
                 }
             )
-            const cc = $(this).parent('.enable').html();
-            alert(cc);
-
         });
         /***************/
     })

@@ -23,9 +23,8 @@ public class LoginService extends CommonController {
     public ModelAndView loginError(String msg) {
         log.error(msg);
         ModelAndView modelAndView = super.page("ace/login.html");
-        String msgCss = Css.red;
         modelAndView.addObject("msg", msg);
-        modelAndView.addObject("msgCss", msgCss);
+        modelAndView.addObject(Css.css, Css.red);
         return modelAndView;
     }
 

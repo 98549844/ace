@@ -33,11 +33,13 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
 
     List<Users> findUsersByUsername(String username);
 
-    List<Users> findUsersByUsernameLike(String username);
+    List<Users> findUsersByUsernameLikeIgnoreCaseOrderByLoginDateTime(String username);
 
     Users findByUserId(Long userId);
 
-    Users findByUserAccount(String username);
+    Users findByUserAccount(String userAccount);
+
+ //   List<Users> findByUserAccountIgnoreCase(String userAccount);
 
     List<Users> findByUserAccountOrEmail(String userAccount, String email);
 
@@ -50,5 +52,6 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
 
     @Query(nativeQuery = true, value = "select u.* from Users u order by u.loginDateTime desc limit :#{#limit}")
     List<Users> findUsersOrderByLoginDateTime(@Param("limit") Integer limit);
+
 
 }

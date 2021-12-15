@@ -157,9 +157,14 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
         StringWriter sw = new StringWriter();
         e.printStackTrace(new PrintWriter(sw, true));
         String stackTrace = sw.toString();
-        exceptionLog(e.getMessage(), stackTrace);
+        String message = e.getMessage();
+        exceptionLog(message, stackTrace);
 
         ModelAndView modelAndView = new ModelAndView("ace/login");
+        if (message.contains("Token已被踢下线")) {
+            modelAndView.addObject(Css.css, Css.red);
+            modelAndView.addObject("msg", "Account kicked out");
+        }
         return modelAndView;
     }
 
@@ -181,7 +186,8 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
         log.error("URL: " + super.getRequest().getRequestURL().toString());
         log.error("HTTP_METHOD: " + super.getRequest().getMethod());
         log.error("error code: {}", super.getResponse().getStatus());
-        log.error("Throws Exception：{} -- {}", message, stackTrace);
+        log.error("Exception message：{}", message);
+        log.error("Exception stackTrace：{}", stackTrace);
     }
 
 }
