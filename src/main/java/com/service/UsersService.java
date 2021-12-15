@@ -8,11 +8,13 @@ import com.models.entity.dao.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import util.DateTimeUtil;
 import util.NullUtil;
 import util.RandomUtil;
 
@@ -50,7 +52,15 @@ public class UsersService {
 
 
     public List<Users> findAll() {
-        return usersDao.findAll();
+        List<Users> usersList = usersDao.findAll();
+        calcAges(usersList);
+        return usersList;
+    }
+
+    public List<Users> findUsersOrderByLoginDateTime(Integer limit) {
+        List<Users> usersList = usersDao.findUsersOrderByLoginDateTime(limit == null ? 0 : limit);
+        calcAges(usersList);
+        return usersList;
     }
 
 
@@ -69,13 +79,22 @@ public class UsersService {
         if (!matches) {
             throw new PasswordNotMatchException();
         }
+        calcAges(user);
         return user;
     }
 
     public Users findByUserAccount(String userAccount) {
-        return usersDao.findByUserAccount(userAccount.toLowerCase());
+        Users user = usersDao.findByUserAccount(userAccount.toLowerCase());
+        calcAges(user);
+        return user;
     }
 
+    /**
+     * accountRegistration
+     *
+     * @param users
+     * @return
+     */
     @Transactional
     public Users accountRegistration(Users users) {
         users.setPassword(passwordEncoder.encode(users.getPassword()));
@@ -124,18 +143,14 @@ public class UsersService {
 
 
     public Integer countByUserAccountOrEmail(Users users) {
-        Integer count = 0;
-        try {
-            count = usersDao.countByUserAccountOrEmail(users.getUserAccount(), users.getEmail());
-        } catch (Exception e) {
-            log.error(e);
-        }
-        return count;
+        return usersDao.countByUserAccountOrEmail(users.getUserAccount(), users.getEmail());
     }
 
 
     public Users findUsersById(long id) {
-        return usersDao.findById(id);
+        Users user = usersDao.findById(id);
+        calcAges(user);
+        return user;
     }
 
     @Transactional
@@ -146,12 +161,10 @@ public class UsersService {
             u.setPassword(encode);
             usersList.add(u);
         }
-
         try {
             usersDao.saveAll(usersList);
         } catch (Exception e) {
             e.printStackTrace();
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return false;
         }
         return true;
@@ -159,15 +172,11 @@ public class UsersService {
 
     public boolean update(Users users) {
         try {
-            if (users != null) {
-                usersDao.update(users);
-            }
+            usersDao.update(users);
         } catch (Exception e) {
             e.printStackTrace();
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return false;
         }
-
         return true;
     }
 
@@ -195,6 +204,26 @@ public class UsersService {
         usersDao.deleteAll();
     }
 
+
+    public void calcAges(List<Users> userList) {
+        for (Users users : userList) {
+            if (NullUtil.isNotNull(users.getBirthday())) {
+                LocalDateTime now = LocalDateTime.now();
+                LocalDateTime birthDate = users.getBirthday();
+                long age = DateTimeUtil.differenceYearsByLocalDateTime(birthDate, now);
+                users.setAge(age);
+            }
+        }
+    }
+
+    public void calcAges(Users user) {
+        if (NullUtil.isNotNull(user.getBirthday())) {
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime birthDate = user.getBirthday();
+            long age = DateTimeUtil.differenceYearsByLocalDateTime(birthDate, now);
+            user.setAge(age);
+        }
+    }
 
     private Specification<Users> toPredicate(Users users) {
         return (Specification<Users>) (root, query, criteriaBuilder) -> {

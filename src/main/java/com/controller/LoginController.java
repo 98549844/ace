@@ -86,8 +86,6 @@ public class LoginController extends CommonController {
                     modelAndView = loginService.loginError(msg);
                     return modelAndView;
                 }
-
-
                 user.setLoginDateTime(LocalDateTime.now());
                 usersService.saveAndFlush(user);
             } catch (UserNotFoundException | PasswordNotMatchException e) {

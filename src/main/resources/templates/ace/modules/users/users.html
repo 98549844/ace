@@ -79,6 +79,27 @@
                         </small>
                     </h1>
                 </div><!-- /.page-header -->
+
+                <div class="col-xs-12 col-sm-3">
+                    <div class="search-area well well-sm">
+                        <form>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-11 col-md-10">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="keywords"
+                                               placeholder="Search user"/>
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-default no-border btn-sm">
+                                                <i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
@@ -334,7 +355,7 @@
         /***************/
         $(":checkbox").on('click', function (e) {
             const userId = $(this).attr("id");
-            if(userId == [(${user.userId})]){
+            if (userId == [(${user.userId})]) {
                 alert("Not allow to operate");
                 return;
             }

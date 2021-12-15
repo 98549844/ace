@@ -42,22 +42,12 @@ public class UserController extends CommonController {
 
     @RequestMapping(value = "/user.html", method = RequestMethod.GET)
     public ModelAndView getUserList() {
-        List<Users> userList = usersService.findAll();
-
-        for (Users users : userList) {
-            if (NullUtil.isNotNull(users.getBirthday())) {
-                LocalDateTime now = LocalDateTime.now();
-                LocalDateTime birthDate = users.getBirthday();
-                long age = DateTimeUtil.differenceYearsByLocalDateTime(birthDate, now);
-                users.setAge(age);
-            }
-        }
+        List<Users> userList = usersService.findUsersOrderByLoginDateTime(15);
 
         ModelAndView modelAndView = super.page("ace/modules/users/users");
         modelAndView.addObject("users", userList);
         //submenu css control
         modelAndView.addObject(Css.open, Css.open);
-
         return modelAndView;
     }
 
