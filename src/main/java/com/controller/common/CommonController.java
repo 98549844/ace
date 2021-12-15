@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class CommonController {
     private Log log = LogFactory.getLog(this.getClass());
-    protected final String keyAjaxResult = "ajaxResult";
+
     /**
      * Request对象(存在于用户的每个请求)
      */
@@ -36,30 +36,6 @@ public class CommonController {
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         response = servletRequestAttributes.getResponse();
         return response;
-    }
-
-
-    protected ModelAndView logOut() {
-        ModelAndView modelAndView = page("ace/login.html");
-        String msg = "Logged out";
-        modelAndView.addObject("msg", msg);
-        modelAndView.addObject(Css.css, Css.red);
-
-        StpUtil.logout();
-        return modelAndView;
-    }
-
-    protected ModelAndView logOut(String msg) {
-        ModelAndView modelAndView = page("ace/login.html");
-        String msgCss = Css.red;
-        modelAndView.addObject("msg", msg);
-        modelAndView.addObject(Css.css, msgCss);
-        StpUtil.logout();
-        return modelAndView;
-    }
-
-    protected void kickOut(Long userId) {
-        StpUtil.kickout(userId);
     }
 
     /**
@@ -80,12 +56,6 @@ public class CommonController {
         return modelAndView;
     }
 
-    //原文
-//    protected ModelAndView page(String page) {
-//        return new ModelAndView(page);
-//    }
-
-
     protected ModelAndView redirect(String url) {
         ModelAndView modelAndView = null;
         try {
@@ -103,60 +73,82 @@ public class CommonController {
         return modelAndView;
     }
 
+    protected void kickOut(Long userId) {
+        StpUtil.kickout(userId);
+    }
+
     /**
-     * 返回json数据
+     * 不需要原因地被登出
      *
-     * @param
      * @return
      */
-    protected ModelAndView json(Integer status, String msg, Object obj) {
-        WebServiceInfo webServiceInfo = new WebServiceInfo(status, msg, obj);
-        ModelAndView json = json(webServiceInfo);
-        return json;
+    protected ModelAndView logOut() {
+        ModelAndView modelAndView = page("ace/login.html");
+        String msg = "Logged out";
+        modelAndView.addObject("msg", msg);
+        modelAndView.addObject(Css.css, Css.red);
+        StpUtil.logout();
+        return modelAndView;
     }
 
     /**
-     * 返回json数据
+     * 需要原因地被登出
+     *
+     * @param msg
+     * @return
      */
-    protected ModelAndView json(WebServiceInfo rs) {
-        ModelAndView mv = new ModelAndView("pb-pages/ajax-result.jsp");
-        System.out.println(JsonUtil.getInstance().toJson(rs));
-        mv.addObject(keyAjaxResult, JsonUtil.getInstance().toJson(rs));
-        return mv;
+    protected ModelAndView logOut(String msg) {
+        ModelAndView modelAndView = page("ace/login.html");
+        String msgCss = Css.red;
+        modelAndView.addObject("msg", msg);
+        modelAndView.addObject(Css.css, msgCss);
+        StpUtil.logout();
+        return modelAndView;
     }
 
-    public void setSession(Users users) {
+    protected void setSession(Users users) {
         StpUtil.getSession().set("user", users);
     }
 
-    public Users getCurrentUser() {
+    protected Users getCurrentUser() {
         Users user = (Users) StpUtil.getSession().get("user");
         return user;
     }
 
-    public SaSession getSession() {
+    protected SaSession getSession() {
         return StpUtil.getSession();
     }
 
-    public SaSession getSessionByLoginId(Long id) {
+    protected SaSession getSessionByLoginId(Long id) {
         return StpUtil.getSessionByLoginId(id);
     }
 
+    /**
+     * 不记住登入
+     *
+     * @param userId
+     */
     public void login(long userId) {
         StpUtil.login(userId);
     }
 
-    public void login(long userId, boolean rememberMe) {
+    /**
+     * 记住我登入
+     *
+     * @param userId
+     * @param rememberMe
+     */
+    protected void login(long userId, boolean rememberMe) {
         StpUtil.login(userId, rememberMe);
     }
 
-    public void clearSession() {
+    protected void clearSession() {
         // 注销此Session会话 (从持久库删除此Session)
         SaSession session = getSession();
         session.logout();
     }
 
-    public boolean isLogin() {
+    protected boolean isLogin() {
         return StpUtil.isLogin();
     }
 

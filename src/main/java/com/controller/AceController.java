@@ -26,7 +26,7 @@ public class AceController extends CommonController {
 
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
     public ModelAndView index() {
-        if (!StpUtil.isLogin()) {
+        if (!isLogin()) {
             return logOut();
         }
         ModelAndView modelAndView = super.page("ace/index");
