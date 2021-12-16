@@ -46,7 +46,9 @@ public class MySaTokenListener implements SaTokenListener {
      */
     @Override
     public void doKickout(String loginType, Object loginId, String tokenValue) {
-        // ...
+        log.info("loginType: {}");
+        log.info("loginId: {}", loginId);
+        log.info("tokenValue: {}", tokenValue);
     }
 
     /**
@@ -54,7 +56,9 @@ public class MySaTokenListener implements SaTokenListener {
      */
     @Override
     public void doReplaced(String loginType, Object loginId, String tokenValue) {
-        // ...
+        log.info("loginType: {}");
+        log.info("loginId: {}", loginId);
+        log.info("tokenValue: {}", tokenValue);
     }
 
     /**
@@ -62,7 +66,9 @@ public class MySaTokenListener implements SaTokenListener {
      */
     @Override
     public void doDisable(String loginType, Object loginId, long disableTime) {
-        // ...
+        log.info("loginType: {}");
+        log.info("loginId: {}", loginId);
+        log.info("disableTime: {}", disableTime);
     }
 
     /**
@@ -70,7 +76,8 @@ public class MySaTokenListener implements SaTokenListener {
      */
     @Override
     public void doUntieDisable(String loginType, Object loginId) {
-        // ...
+        log.info("loginType: {}");
+        log.info("loginId: {}", loginId);
     }
 
     /**
@@ -78,7 +85,7 @@ public class MySaTokenListener implements SaTokenListener {
      */
     @Override
     public void doCreateSession(String id) {
-        // ...
+        log.info("Created session id: {}", id);
     }
 
     /**
@@ -86,7 +93,8 @@ public class MySaTokenListener implements SaTokenListener {
      */
     @Override
     public void doLogoutSession(String id) {
-        // ...
+        log.info("Logged out session id: {}", id);
+
     }
 
 

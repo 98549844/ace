@@ -39,7 +39,6 @@ logging:
     com:
       mapper: debug
 
-
 spring:
   devtools:
     restart:
@@ -81,8 +80,8 @@ spring:
   servlet:
     multipart:
       enabled: true
-      max-file-size: 50MB
-      max-request-size: 50MB
+      max-file-size: 100MB
+      max-request-size: 100MB
 
   datasource:
     #driver-class-name: org.mariadb.jdbc.Driver
@@ -129,10 +128,8 @@ spring:
     properties:
       hibernate:
         #format_sql: true
-        # use_sql_comments: true
-        # 对应的entity
-
-
+        #use_sql_comments: true
+        #对应的entity
 
   redis:
     # Redis服务器地址

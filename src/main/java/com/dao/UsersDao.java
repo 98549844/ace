@@ -39,16 +39,14 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
 
     Users findByUserAccount(String userAccount);
 
- //   List<Users> findByUserAccountIgnoreCase(String userAccount);
-
-    List<Users> findByUserAccountOrEmail(String userAccount, String email);
+    List<Users> findByUserAccountOrEmailIgnoreCase(String userAccount, String email);
 
     Integer countByUserAccountOrEmail(String userAccount, String email);
 
     void deleteAll();
 
     @Query(nativeQuery = true, value = "select u.userId, r.roleId, p.permissionsId, p.permissionCode, u.username, p.action, r.roleCode, u.description, u.userAccount from role_permissions rp, permissions p, roles r, user_roles ur, users u where 1 = 1 and rp.permissionsId = p.permissionsId and rp.roleId = r.roleId and ur.roleId = r.roleId and ur.userId = u.userId order by userId")
-    List<Object> findUserRolePermission();
+    List<Object[]> findUserRolePermission();
 
     @Query(nativeQuery = true, value = "select u.* from Users u order by u.loginDateTime desc limit :#{#limit}")
     List<Users> findUsersOrderByLoginDateTime(@Param("limit") Integer limit);

@@ -71,9 +71,6 @@ public class UsersService {
     }
 
 
-    public List<Object> findUserRolePermission() {
-        return usersDao.findUserRolePermission();
-    }
 
     public Users findByUserAccount(Users param) throws UserNotFoundException, PasswordNotMatchException {
         Users user = usersDao.findByUserAccount(param.getUserAccount());
@@ -97,6 +94,9 @@ public class UsersService {
     }
 
 
+    public List<Object[]> findUserRolePermission(){
+        return usersDao.findUserRolePermission();
+    }
 
     /**
      * accountRegistration

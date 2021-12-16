@@ -124,7 +124,7 @@
 
                                     <tbody>
                                     <div th:each="rowUser:${users}">
-                                        <tr>
+                                        <tr th:id="'trBase-'+${rowUser.userId}">
                                             <td class="center">
                                                 <div class="action-buttons">
                                                     <a href="#" class="green bigger-140 show-details-btn"
@@ -137,7 +137,6 @@
 
                                             <input type="hidden" th:value="${rowUser.userId}"
                                                    th:id="${rowUser.userId}"/>
-
                                             <td th:text="${rowUser.userAccount}"></td>
                                             <td th:text="${rowUser.Username}"></td>
 
@@ -175,7 +174,8 @@
                                                         <i class="ace-icon fa fa-pencil bigger-120"></i>
                                                     </button>
 
-                                                    <button class="btn btn-xs btn-danger">
+                                                    <button class="btn btn-xs btn-danger"
+                                                            th:id="'btnDanger-'+${rowUser.userId}">
                                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                     </button>
 
@@ -185,7 +185,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr class="detail-row">
+                                        <tr class="detail-row" th:id="'trDetail-'+${rowUser.userId}">
                                             <td colspan="8">
                                                 <div class="table-detail">
                                                     <div class="row">
@@ -247,7 +247,8 @@
                                                                 </div>
 
                                                                 <div class="profile-info-row">
-                                                                    <div class="profile-info-name"> Last Online</div>
+                                                                    <div class="profile-info-name"> Last Online
+                                                                    </div>
 
                                                                     <div class="profile-info-value">
                                                                         <span th:text="${#temporals.format(rowUser.loginDateTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
@@ -266,7 +267,8 @@
 
                                                         <div class="col-xs-12 col-sm-3">
                                                             <div class="space visible-xs"></div>
-                                                            <h4 class="header blue lighter less-margin">Send a message
+                                                            <h4 class="header blue lighter less-margin">Send a
+                                                                message
                                                                 to
                                                                 [(${rowUser.username})]</h4>
 
@@ -350,7 +352,17 @@
         });
         /***************/
 
+        $("button.btn-danger").on('click', function (e) {
+            const btnDangerId = $(this).attr("id");
+            const userId = btnDangerId.split("-");
+
+
+            $("#trBase-" + userId[1]).remove();
+            $("#trDetail-" + userId[1]).remove();
+        });
+
         /***************/
+        //set account enable/disable
         $(":checkbox").on('click', function (e) {
             const checkId = $(this).attr("id");
             const userId = checkId.split("-");

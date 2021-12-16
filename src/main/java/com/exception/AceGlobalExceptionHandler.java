@@ -104,16 +104,53 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ModelAndView exceptionHandler(Exception e) {
-        StringWriter sw = new StringWriter();
-        e.printStackTrace(new PrintWriter(sw, true));
-        String stackTrace = sw.toString();
-        exceptionLog(e.getMessage(), stackTrace);
+        if (e instanceof NotLoginException) {
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw, true));
+            String stackTrace = sw.toString();
+            String message = e.getMessage();
+            exceptionLog(message, stackTrace);
 
-        int status = super.getResponse().getStatus();
-        String warningMsg = "OCCUR EXCEPTION";
-        ModelAndView modelAndView = exceptionModelAndView("ace/error", Css.faGear, status, warningMsg);
-        modelAndView.addObject("exceptionMsg", e.getMessage() + "<br><br>" + stackTrace);
+            ModelAndView modelAndView = new ModelAndView("ace/login");
+            if (message.contains("Token已被踢下线")) {
+                modelAndView.addObject(Css.css, Css.red);
+                modelAndView.addObject("msg", "Account kicked out");
+            }
+            return modelAndView;
+        } else {
 
+
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw, true));
+            String stackTrace = sw.toString();
+            exceptionLog(e.getMessage(), stackTrace);
+
+            int status = super.getResponse().getStatus();
+            String warningMsg = "OCCUR EXCEPTION";
+            ModelAndView modelAndView = exceptionModelAndView("ace/error", Css.faGear, status, warningMsg);
+            modelAndView.addObject("exceptionMsg", e.getMessage() + "<br><br>" + stackTrace);
+            return modelAndView;
+        }
+    }
+
+    private void exceptionLog(String message, String stackTrace) {
+        log.error("URL: " + super.getRequest().getRequestURL().toString());
+        log.error("HTTP_METHOD: " + super.getRequest().getMethod());
+        log.error("error code: {}", super.getResponse().getStatus());
+        log.error("Exception message：{}", message);
+        log.error("Exception stackTrace：{}", stackTrace);
+    }
+
+    private ModelAndView exceptionModelAndView(String url, String faCss, int status, String warningMsg) {
+        ModelAndView modelAndView = new ModelAndView(url);
+        if (isLogin()) {
+            modelAndView.addObject("user", getCurrentUser());
+        } else {
+            modelAndView.addObject("user", new Users());
+        }
+        modelAndView.addObject("faCss", faCss);
+        modelAndView.addObject("httpStatus", status);
+        modelAndView.addObject("warningMsg", warningMsg);
         return modelAndView;
     }
 
@@ -151,7 +188,7 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
     */
     //未提供token
     //token无效
-    @ExceptionHandler(value = NotLoginException.class)
+/*    @ExceptionHandler(value = NotLoginException.class)
     @ResponseBody
     public ModelAndView notLoginExceptionHandler(NotLoginException e) {
         StringWriter sw = new StringWriter();
@@ -166,29 +203,12 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
             modelAndView.addObject("msg", "Account kicked out");
         }
         return modelAndView;
-    }
+    }*/
 
 
-    private ModelAndView exceptionModelAndView(String url, String faCss, int status, String warningMsg) {
-        ModelAndView modelAndView = new ModelAndView(url);
-        if (isLogin()) {
-            modelAndView.addObject("user", getCurrentUser());
-        } else {
-            modelAndView.addObject("user", new Users());
-        }
-        modelAndView.addObject("faCss", faCss);
-        modelAndView.addObject("httpStatus", status);
-        modelAndView.addObject("warningMsg", warningMsg);
-        return modelAndView;
-    }
 
-    private void exceptionLog(String message, String stackTrace) {
-        log.error("URL: " + super.getRequest().getRequestURL().toString());
-        log.error("HTTP_METHOD: " + super.getRequest().getMethod());
-        log.error("error code: {}", super.getResponse().getStatus());
-        log.error("Exception message：{}", message);
-        log.error("Exception stackTrace：{}", stackTrace);
-    }
+
+
 
 }
 

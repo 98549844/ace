@@ -2,6 +2,7 @@ package com.config;
 
 import cn.dev33.satoken.interceptor.SaAnnotationInterceptor;
 import cn.dev33.satoken.interceptor.SaRouteInterceptor;
+import cn.dev33.satoken.thymeleaf.dialect.SaTokenDialect;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.controller.common.CommonController;
@@ -57,6 +58,12 @@ public class SaTokenConfig implements WebMvcConfigurer {
     public PasswordEncoder passwordEncoder() {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(11);
         return passwordEncoder;
+    }
+
+    // Sa-Token 标签方言 (Thymeleaf版)
+    @Bean
+    public SaTokenDialect getSaTokenDialect() {
+        return new SaTokenDialect();
     }
 }
 

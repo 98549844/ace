@@ -22,17 +22,6 @@ public class Interceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-//        if (!StpUtil.isLogin()) {
-//            ModelAndView modelAndView = null;
-//            try {
-//                String url = "ace/login.html";
-//                log.info("重定向地址：" + url);
-//                modelAndView = new ModelAndView("redirect:/" + url);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-
         String status = Integer.toString(response.getStatus());
         String RequestURI = request.getRequestURI();
         log.info("status: {}; request uri: {}", status, RequestURI);

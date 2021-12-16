@@ -3,3 +3,6 @@ docker exec -it redis /bin/bash
 
 2.进入cli mode
 redis-cli
+
+3.check redis version (6.2.1)
+info
