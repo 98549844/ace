@@ -36,6 +36,9 @@ public class RolesService {
         rolesDao.saveAll(roles);
     }
 
+    public Roles findRolesByRoleId (Long rolesId){
+        return rolesDao.findRolesByRoleId(rolesId);
+    }
 
     public void saveAllAndFlush(List<Roles> roles) {
         rolesDao.saveAllAndFlush(roles);

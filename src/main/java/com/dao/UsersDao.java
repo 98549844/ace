@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -46,7 +47,7 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
     void deleteAll();
 
     @Query(nativeQuery = true, value = "select u.userId, r.roleId, p.permissionsId, p.permissionCode, u.username, p.action, r.roleCode, u.description, u.userAccount from role_permissions rp, permissions p, roles r, user_roles ur, users u where 1 = 1 and rp.permissionsId = p.permissionsId and rp.roleId = r.roleId and ur.roleId = r.roleId and ur.userId = u.userId order by userId")
-    List<Object[]> findUserRolePermission();
+    List<Map> findUserRolePermission();
 
     @Query(nativeQuery = true, value = "select u.* from Users u order by u.loginDateTime desc limit :#{#limit}")
     List<Users> findUsersOrderByLoginDateTime(@Param("limit") Integer limit);

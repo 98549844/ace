@@ -340,6 +340,8 @@
 <!-- ace scripts -->
 <script th:src="@{/assets/js/ace-elements.min.js}"></script>
 <script th:src="@{/assets/js/ace.min.js}"></script>
+<div th:include="templates/ace/pb-pages/common-script :: common-script"></div>
+
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
@@ -352,10 +354,10 @@
         });
         /***************/
 
+        //delete user account
         $("button.btn-danger").on('click', function (e) {
             const btnDangerId = $(this).attr("id");
             const userId = btnDangerId.split("-");
-
 
             $("#trBase-" + userId[1]).remove();
             $("#trDetail-" + userId[1]).remove();
@@ -374,7 +376,13 @@
                     data: {userId: userId[1]},
                     cache: false,
                     success: function (ajaxResult) {
-                        $("#enanle-" + userId[1]).html(ajaxResult);
+                        if (ajaxResult) {
+                            $("#enanle-" + userId[1]).html("<strong class=\"green\">Enable</strong>");
+                        } else {
+                            $("#enanle-" + userId[1]).html("<strong class=\"red\">Disable</strong>");
+                        }
+
+
                     },
                     error: function () {
                         alert("AJAX FAILURE");

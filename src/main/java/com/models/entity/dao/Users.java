@@ -41,7 +41,8 @@ public class Users extends baseEntity implements Serializable  {
     private long age = 0l;
     @Column
     private LocalDateTime loginDateTime;
-
+    @Column
+    private String status = "ACTIVE"; // ACTIVE || INACTIVE
 
 
     @Column
@@ -193,5 +194,13 @@ public class Users extends baseEntity implements Serializable  {
 
     public void setAge(long age) {
         this.age = age;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

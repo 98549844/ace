@@ -101,6 +101,7 @@ public class LoginController extends CommonController {
                 e.printStackTrace();
                 msg = "Account/Password incorrect";
                 modelAndView = loginService.loginError(msg);
+                modelAndView.addObject("userAccount", userAccount);
                 return modelAndView;
             }
         }
@@ -111,7 +112,8 @@ public class LoginController extends CommonController {
             login(user.getUserId(), false);
         }
         setSession(user);
-        modelAndView = super.page("ace/index.html");
+      //  modelAndView = super.page("ace/index.html");
+        modelAndView = super.redirect("ace/index.html");
         return modelAndView;
     }
 }

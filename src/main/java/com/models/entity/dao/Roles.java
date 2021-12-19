@@ -22,6 +22,12 @@ public class Roles extends baseEntity implements Serializable {
 	@Column
 	private String roleCode;
 
+	@Column
+	private String roleName;
+
+	@Column
+	private String status = "ACTIVE"; // ACTIVE || INACTIVE
+
 
 	public Long getRoleId() {
 		return roleId;
@@ -39,4 +45,19 @@ public class Roles extends baseEntity implements Serializable {
 		this.roleCode = roleCode;
 	}
 
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }

@@ -31,8 +31,6 @@ public class UsersRestController {
 
 
     private UsersService usersService;
-    private RolesService rolesService;
-
     private PasswordEncoder passwordEncoder;
 
     @Autowired

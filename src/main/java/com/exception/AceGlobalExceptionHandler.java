@@ -115,6 +115,12 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
             if (message.contains("Token已被踢下线")) {
                 modelAndView.addObject(Css.css, Css.red);
                 modelAndView.addObject("msg", "Account kicked out");
+            }else if(message.contains("Token无效")){
+                modelAndView.addObject(Css.css, Css.red);
+                modelAndView.addObject("msg", "Session timeout");
+            }else if (message.contains("Token已被顶下线")){
+                modelAndView.addObject(Css.css, Css.red);
+                modelAndView.addObject("msg", "Account was offline");
             }
             return modelAndView;
         } else {

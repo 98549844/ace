@@ -203,14 +203,14 @@ select userId,
        mobile
 from users;
 
-select roleId, roleCode
-from roles;
+select r.roleId, r.roleCode
+from roles r;
 
 select permissionsId, action, permissionCode, description
 from permissions;
 
 
-select r.roleId, r.roleCode, u.description, u.userId, u.userName, u.userAccount
+select r.roleId, r.roleCode, u.userId, u.userName, u.userAccount, u.description
 from users u,
      user_roles ur,
      roles r

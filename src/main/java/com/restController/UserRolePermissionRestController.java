@@ -11,9 +11,11 @@ import com.controller.common.CommonController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import util.MapUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -122,6 +124,14 @@ public class UserRolePermissionRestController extends CommonController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/findUserRolePermission")
     public AjaxResponse findUserRolePermission() {
+        List<Map> list = usersService.findUserRolePermission();
+
+        MapUtil mapUtil = new MapUtil();
+        for (Map map : list) {
+            System.out.println("--------------");
+            mapUtil.iterateMapKeyset(map);
+        }
+
         return AjaxResponse.success(usersService.findUserRolePermission());
     }
 

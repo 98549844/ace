@@ -1,5 +1,6 @@
-$(document).ready(function () {
-    //menuclass
+//$(document).ready(function () {
+jQuery(function ($) {
+    //menu class
     //active:selected
     //open:open
 
@@ -13,10 +14,10 @@ $(document).ready(function () {
             $(this).parent().addClass('active');
 
             //获取父类html
-            var fatherHTML = $("#main-menu").find('.active, .open').find('a span.menu-text').text().trim();
+            const fatherHTML = $("#main-menu").find('.active, .open').find('a span.menu-text').text().trim();
             $("#breadcrumb-lv2").html(fatherHTML);
             //获取自已html
-            var selfHTML = $(this).text().trim();
+            const selfHTML = $(this).text().trim();
             if (fatherHTML != selfHTML) {
                 $("#breadcrumb-lv3").html(selfHTML);
             } else {
@@ -42,13 +43,16 @@ $(document).ready(function () {
     });
 
     //其他需要动态加载的事件绑定
+    //loading bar
     docReady();
+    manuCss();
 });
 
 /**
  * 弹出一个加载弹出框
  */
-var d;
+let d;
+
 function showLoading() {
     d = dialog({
         content: $("#loading_img").html(),
@@ -66,17 +70,42 @@ function closeLoading() {
     d.close().remove();
 }
 
+function manuCss() {
+    $(".menu").each(function () {
+        // full url
+        const fullHref = window.location.href;
+        // url
+        const href = $(this).attr("href");
+        const result = fullHref.indexOf(href)!== -1 ;
+
+        if(result && href === "/ace/users/user.html"){
+            $("#userMenu").addClass("open");
+        }else if (result && href === "/ace/users/search.html"){
+            $("#userMenu").addClass("open");
+        }else if (result && href === "/ace/users/roles.html"){
+            $("#userMenu").addClass("open");
+            $("#widgetBox").addClass("widget-box collapsed");
+            $("#faChevron").addClass("ace-icon fa fa-chevron-down");
+        }else if (result && href === "/ace/users/create.html"){
+            $("#userMenu").addClass("open");
+            $("#widgetBox").addClass("widget-box");
+            $("#faChevron").addClass("ace-icon fa fa-chevron-up");
+        }
+
+    })
+}
+
 function docReady() {
     //提交表单验证
-    $("#current_form").unbind("submit");
-    $("#current_form").bind("submit", function () {
+    $("#current_form").off("submit");
+    $("#current_form").on("submit", function () {
         showLoading();
         return true;
     });
 
     //链接点击绑定弹出加载框
-    $("a[href*='.html']").unbind();
-    $("a[href*='.html']").bind("click", function () {
+    $("a[href*='.html']").off();
+    $("a[href*='.html']").on("click", function () {
         if ($(this).attr("target") != "_blank") {
             showLoading();
         }

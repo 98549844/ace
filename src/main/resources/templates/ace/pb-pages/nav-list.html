@@ -1,11 +1,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <ul th:fragment="nav-list">
 
-
-
     <!--左菜单列--> <!--active: selected menu-->
     <li class="active">
-        <a th:href="@{/ace/index.html}">
+        <a class="menu" th:href="@{/ace/index.html}">
             <i class="menu-icon fa fa-tachometer"></i>
             <span class="menu-text"> Dashboard </span>
         </a>
@@ -13,7 +11,7 @@
     </li>
 
     <li class="">
-        <a th:href="@{/#}" class="dropdown-toggle">
+        <a th:href="@{/#}" class="menu dropdown-toggle">
             <i class="menu-icon fa fa-desktop"></i>
             <span class="menu-text">
                 UI &amp; Elements
@@ -25,7 +23,7 @@
 
         <ul class="submenu">
             <li class="">
-                <a th:href="@{/#}" class="dropdown-toggle">
+                <a th:href="@{/#}" class="menu dropdown-toggle">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Layouts
                     <b class="arrow fa fa-angle-down"></b>
@@ -33,7 +31,7 @@
                 <b class="arrow"></b>
                 <ul class="submenu">
                     <li class="">
-                        <a th:href="@{/top-menu.html}">
+                        <a class="menu" th:href="@{/top-menu.html}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Top Menu
                         </a>
@@ -41,21 +39,21 @@
                         <b class="arrow"></b>
                     </li>
                     <li class="">
-                        <a th:href="@{/two-menu-1.html}">
+                        <a class="menu" th:href="@{/two-menu-1.html}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Two Menus 1
                         </a>
                         <b class="arrow"></b>
                     </li>
                     <li class="">
-                        <a th:href="@{/two-menu-2.html}">
+                        <a class="menu" th:href="@{/two-menu-2.html}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Two Menus 2
                         </a>
                         <b class="arrow"></b>
                     </li>
                     <li class="">
-                        <a th:href="@{/mobile-menu-1.html}">
+                        <a class="menu" th:href="@{/mobile-menu-1.html}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Default Mobile Menu
                         </a>
@@ -63,7 +61,7 @@
                         <b class="arrow"></b>
                     </li>
                     <li class="">
-                        <a th:href="@{/mobile-menu-2.html}">
+                        <a class="menu" th:href="@{/mobile-menu-2.html}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Mobile Menu 2
                         </a>
@@ -71,7 +69,7 @@
                         <b class="arrow"></b>
                     </li>
                     <li class="">
-                        <a th:href="@{/mobile-menu-3.html}">
+                        <a class="menu" th:href="@{/mobile-menu-3.html}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Mobile Menu 3
                         </a>
@@ -80,14 +78,14 @@
                 </ul>
             </li>
             <li class="">
-                <a th:href="@{/typography.html}">
+                <a class="menu" th:href="@{/typography.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Typography
                 </a>
                 <b class="arrow"></b>
             </li>
             <li class="">
-                <a th:href="@{/ace/elements.html}">
+                <a class="menu" th:href="@{/ace/elements.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Elements
                 </a>
@@ -95,7 +93,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/ace/buttons.html}">
+                <a class="menu" th:href="@{/ace/buttons.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Buttons &amp; Icons
                 </a>
@@ -103,7 +101,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/content-slider.html}">
+                <a class="menu" th:href="@{/content-slider.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Content Sliders
                 </a>
@@ -111,14 +109,14 @@
                 <b class="arrow"></b>
             </li>
             <li class="">
-                <a th:href="@{/treeview.html}">
+                <a class="menu" th:href="@{/treeview.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Treeview
                 </a>
                 <b class="arrow"></b>
             </li>
             <li class="">
-                <a th:href="@{/jquery-ui.html}">
+                <a class="menu" th:href="@{/jquery-ui.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     jQuery UI
                 </a>
@@ -126,7 +124,7 @@
                 <b class="arrow"></b>
             </li>
             <li class="">
-                <a th:href="@{/nestable-list.html}">
+                <a class="menu" th:href="@{/nestable-list.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Nestable Lists
                 </a>
@@ -134,7 +132,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/#}" class="dropdown-toggle">
+                <a th:href="@{/#}" class="menu dropdown-toggle">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Three Level Menu
                     <b class="arrow fa fa-angle-down"></b>
@@ -144,7 +142,7 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a th:href="@{/#}">
+                        <a class="menu" th:href="@{/#}">
                             <i class="menu-icon fa fa-leaf green"></i>
                             Item #}1
                         </a>
@@ -152,7 +150,7 @@
                     </li>
 
                     <li class="">
-                        <a th:href="@{/#}" class="dropdown-toggle">
+                        <a th:href="@{/#}" class="menu dropdown-toggle">
                             <i class="menu-icon fa fa-pencil orange"></i>
                             4th level
                             <b class="arrow fa fa-angle-down"></b>
@@ -161,7 +159,7 @@
                         <b class="arrow"></b>
                         <ul class="submenu">
                             <li class="">
-                                <a th:href="@{/#}">
+                                <a class="menu" th:href="@{/#}">
                                     <i class="menu-icon fa fa-plus purple"></i>
                                     Add Product
                                 </a>
@@ -169,7 +167,7 @@
                             </li>
 
                             <li class="">
-                                <a th:href="@{/#}">
+                                <a class="menu" th:href="@{/#}">
                                     <i class="menu-icon fa fa-eye pink"></i>
                                     View Products
                                 </a>
@@ -183,7 +181,7 @@
     </li>
 
     <li class="">
-        <a th:href="@{/#}" class="dropdown-toggle">
+        <a th:href="@{/#}" class="menu dropdown-toggle">
             <i class="menu-icon fa fa-list"></i>
             <span class="menu-text"> Tables </span>
 
@@ -194,7 +192,7 @@
 
         <ul class="submenu">
             <li class="">
-                <a th:href="@{/tables.html}">
+                <a class="menu" th:href="@{/tables.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Simple &amp; Dynamic
                 </a>
@@ -203,7 +201,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/jqgrid.html}">
+                <a class="menu" th:href="@{/jqgrid.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     jqGrid plugin
                 </a>
@@ -214,7 +212,7 @@
     </li>
 
     <li class="">
-        <a th:href="@{/#}" class="dropdown-toggle">
+        <a th:href="@{/#}" class="menu dropdown-toggle">
             <i class="menu-icon fa fa-pencil-square-o"></i>
             <span class="menu-text"> Forms </span>
 
@@ -225,8 +223,7 @@
 
         <ul class="submenu">
             <li class="">
-                <a th:href="@{/ace/form.html}">
-                    <!--                <a href="http://www.padpadblog.com/2019/06/gungho-top-3.html">-->
+                <a class="menu" th:href="@{/ace/form.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Form Elements
                 </a>
@@ -235,7 +232,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/form-elements-2.html}">
+                <a class="menu" th:href="@{/form-elements-2.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Form Elements 2
                 </a>
@@ -244,7 +241,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/form-wizard.html}">
+                <a class="menu" th:href="@{/form-wizard.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Wizard &amp; Validation
                 </a>
@@ -252,7 +249,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/wysiwyg.html}">
+                <a class="menu" th:href="@{/wysiwyg.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Wysiwyg &amp; Markdown
                 </a>
@@ -260,7 +257,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/dropzone.html}">
+                <a class="menu" th:href="@{/dropzone.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Dropzone File Upload
                 </a>
@@ -271,7 +268,7 @@
     </li>
 
     <li class="">
-        <a th:href="@{/widgets.html}">
+        <a class="menu" th:href="@{/widgets.html}">
             <i class="menu-icon fa fa-list-alt"></i>
             <span class="menu-text"> Widgets </span>
         </a>
@@ -280,7 +277,7 @@
     </li>
 
     <li class="">
-        <a th:href="@{/calendar.html}">
+        <a class="menu" th:href="@{/calendar.html}">
             <i class="menu-icon fa fa-calendar"></i>
 
             <span class="menu-text">
@@ -295,7 +292,7 @@
     </li>
 
     <li class="">
-        <a th:href="@{/ace/gallery.html}">
+        <a class="menu" th:href="@{/ace/gallery.html}">
             <i class="menu-icon fa fa-picture-o"></i>
             <span class="menu-text"> Gallery </span>
         </a>
@@ -304,7 +301,7 @@
     </li>
 
     <li class="">
-        <a th:href="@{/#}" class="dropdown-toggle">
+        <a th:href="@{/#}" class="menu dropdown-toggle">
             <i class="menu-icon fa fa-tag"></i>
             <span class="menu-text"> More Pages </span>
 
@@ -315,7 +312,7 @@
 
         <ul class="submenu">
             <li class="">
-                <a th:href="@{/profile.html}">
+                <a class="menu" th:href="@{/profile.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     User Profile
                 </a>
@@ -324,7 +321,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/inbox.html}">
+                <a class="menu" th:href="@{/inbox.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Inbox
                 </a>
@@ -333,7 +330,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/pricing.html}">
+                <a class="menu" th:href="@{/pricing.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Pricing Tables
                 </a>
@@ -342,7 +339,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/invoice.html}">
+                <a class="menu" th:href="@{/invoice.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Invoice
                 </a>
@@ -351,7 +348,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/timeline.html}">
+                <a class="menu" th:href="@{/timeline.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Timeline
                 </a>
@@ -360,7 +357,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/search.html}">
+                <a class="menu" th:href="@{/search.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Search Results
                 </a>
@@ -368,17 +365,17 @@
                 <b class="arrow"></b>
             </li>
 
-               <li class="">
-                   <a th:href="@{/email.html}">
-                       <i class="menu-icon fa fa-caret-right"></i>
-                       Email Templates
-                   </a>
+            <li class="">
+                <a class="menu" th:href="@{/email.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    Email Templates
+                </a>
 
-                   <b class="arrow"></b>
-               </li>
+                <b class="arrow"></b>
+            </li>
 
             <li class="">
-                <a th:href="@{/ace/login.html}">
+                <a class="menu" th:href="@{/ace/login.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Login &amp; Register
                 </a>
@@ -388,14 +385,13 @@
         </ul>
     </li>
 
-    <li class="" th:class="${open}" >
-        <a th:href="@{/#}" class="dropdown-toggle">
+    <li class="" id="userMenu" >
+        <a th:href="@{/#}" class="menu dropdown-toggle">
             <i class="menu-icon fa fa-users"></i>
             <span class="menu-text">
                 用户管理
                 <span class="badge badge-primary">3</span>
             </span>
-
             <b class="arrow fa fa-angle-down"></b>
         </a>
 
@@ -403,16 +399,15 @@
 
         <ul class="submenu">
             <li class="">
-                <a th:href="@{/ace/users/user.html}">
+                <a class="menu" th:href="@{/ace/users/user.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     用户列表
                 </a>
-
                 <b class="arrow"></b>
             </li>
 
             <li class="">
-                <a th:href="@{/ace/roles.html}">
+                <a class="menu" th:href="@{/ace/roles.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     角色列表
                 </a>
@@ -421,7 +416,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/ace/permissions.html}">
+                <a class="menu" th:href="@{/ace/permissions.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     权限列表
                 </a>
@@ -432,7 +427,7 @@
     </li>
 
     <li class="">
-        <a th:href="@{/#}" class="dropdown-toggle">
+        <a th:href="@{/#}" class="menu dropdown-toggle">
             <i class="menu-icon fa fa-list"></i>
             <span class="menu-text">
                 菜单管理
@@ -446,7 +441,7 @@
 
         <ul class="submenu">
             <li class="">
-                <a th:href="@{/ace/menu.html}">
+                <a class="menu" th:href="@{/ace/menu.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     编辑菜单
                 </a>
@@ -456,9 +451,8 @@
     </li>
 
 
-
     <li class="">
-        <a th:href="@{/#}" class="dropdown-toggle">
+        <a th:href="@{/#}" class="menu dropdown-toggle">
             <i class="menu-icon fa fa-file-o"></i>
             <span class="menu-text">
                 Other Pages
@@ -472,7 +466,7 @@
 
         <ul class="submenu">
             <li class="">
-                <a th:href="@{/ace/faq.html}">
+                <a class="menu" th:href="@{/ace/faq.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     FAQ
                 </a>
@@ -481,7 +475,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/ace/404.html}">
+                <a class="menu" th:href="@{/ace/404.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Error 404
                 </a>
@@ -490,7 +484,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/ace/500.html}">
+                <a class="menu" th:href="@{/ace/500.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Error 500
                 </a>
@@ -499,7 +493,7 @@
             </li>
 
             <li class="">
-                <a th:href="@{/ace/grid.html}">
+                <a class="menu" th:href="@{/ace/grid.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Grid
                 </a>
@@ -508,14 +502,14 @@
             </li>
 
             <li class="">
-                <a th:href="@{/ace/blank.html}">
+                <a class="menu" th:href="@{/ace/blank.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Blank Page
                 </a>
                 <b class="arrow"></b>
             </li>
             <li class="">
-                <a th:href="@{/logout}">
+                <a class="menu" th:href="@{/logout}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Log out
                 </a>

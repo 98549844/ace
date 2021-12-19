@@ -5,7 +5,7 @@ public class MessageConstants {
         // private constructor
     }
 
-    public static final String MESSAGE_SUCCESS = "SUCESS";
+    public static final String MESSAGE_SUCCESS = "SUCCESS";
     public static final String MESSAGE_FAIL = "FAIL";
 
     public static final String MESSAGE_GENERAL_ERROR = "An exceptions was encountered. Please contact your system administrator.";

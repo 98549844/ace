@@ -1,9 +1,12 @@
 package com.config;
 
 import cn.dev33.satoken.stp.StpInterface;
+import com.models.entity.dao.Users;
+import com.service.UsersService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.controller.common.CommonController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -21,15 +24,16 @@ import java.util.List;
 
 
 @Component
-public class SaRightConfig extends CommonController implements StpInterface {
-    private static final Logger log = LogManager.getLogger(SaRightConfig.class.getName());
-
+public class StpInterfaceConfig extends CommonController implements StpInterface {
+    private static final Logger log = LogManager.getLogger(StpInterfaceConfig.class.getName());
 
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
+        log.info("getPermissionList: {}", loginId);
+
         //项目中要根据具体业务逻辑来查询权限
         List<String> list = new ArrayList<>();
-        list.add("101");
+        list.add((String) loginId);
         list.add("user-add");
         list.add("user-delete");
         list.add("user-update");
@@ -44,10 +48,7 @@ public class SaRightConfig extends CommonController implements StpInterface {
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
         //项目中要根据具体业务逻辑来查询角色
-        List<String> list = new ArrayList<>();
-        list.add("admin");
-        list.add("super-admin");
-        return list;
+        return null;
     }
 }
 

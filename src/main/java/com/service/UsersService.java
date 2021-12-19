@@ -22,6 +22,7 @@ import javax.persistence.criteria.Predicate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname: usersService
@@ -94,7 +95,7 @@ public class UsersService {
     }
 
 
-    public List<Object[]> findUserRolePermission(){
+    public List<Map> findUserRolePermission(){
         return usersDao.findUserRolePermission();
     }
 

@@ -1,6 +1,7 @@
 package com.controller;
 
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.constant.Css;
 import com.controller.common.CommonController;
 import com.models.entity.dao.Users;
@@ -42,24 +43,26 @@ public class UserController extends CommonController {
 
         ModelAndView modelAndView = super.page("ace/modules/users/users");
         modelAndView.addObject("users", userList);
-        //submenu css control
-        modelAndView.addObject(Css.open, Css.open);
         return modelAndView;
     }
 
 
     @RequestMapping(value = "/enable.html", method = RequestMethod.GET)
     public ModelAndView setEnable(@RequestParam(value = "userId") Long userId) {
-        log.info("userId {}", userId);
+        getPermission();
+
+        log.info("userId: {}", userId);
         ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
 
         Users user = usersService.findUsersById(userId);
         if (user.isEnabled()) {
             user.setEnabled(false);
-            modelAndView.addObject("ajaxResult", "<strong class=\"red\">Disable</strong>");
+            modelAndView.addObject("ajaxResult", false);
+        //    modelAndView.addObject("ajaxResult", "<strong class=\"red\">Disable</strong>");
         } else {
             user.setEnabled(true);
-            modelAndView.addObject("ajaxResult", "<strong class=\"green\">Enable</strong>");
+            modelAndView.addObject("ajaxResult", true);
+          //  modelAndView.addObject("ajaxResult", "<strong class=\"green\">Enable</strong>");
         }
         usersService.save(user);
         kickOut(user.getUserId());
@@ -84,7 +87,7 @@ public class UserController extends CommonController {
         ModelAndView modelAndView = super.page("ace/modules/users/users");
         modelAndView.addObject("users", userList);
         //submenu css control
-        modelAndView.addObject(Css.open, Css.open);
+        // modelAndView.addObject(Css.open, Css.open);
         return modelAndView;
     }
 
@@ -94,24 +97,18 @@ public class UserController extends CommonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/getUserRolePermission.html", method = RequestMethod.GET)
-    public ModelAndView getUserRolePermission() {
-        List<Object[]> list = usersService.findUserRolePermission();
+    private void getPermission() {
+        // 判断：当前账号是否含有指定权限, 返回true或false
+        boolean hasPermission = StpUtil.hasPermission("user-update");
+        log.info("hasPermission: {}", hasPermission);
 
-        for (Object[] obj : list) {
-            System.out.println("--------------");
-            System.out.println(obj[0]);
-            System.out.println(obj[1]);
-            System.out.println(obj[2]);
-            System.out.println(obj[3]);
-            System.out.println(obj[4]);
-            System.out.println(obj[5]);
-            System.out.println(obj[6]);
-            System.out.println(obj[7]);
-            System.out.println(obj[8]);
-        }
-        ModelAndView modelAndView = super.page("ace/modules/users/profile");
-        return modelAndView;
+        // 校验：当前账号是否含有指定权限, 如果验证未通过，则抛出异常: NotPermissionException
+        StpUtil.checkPermission("user-update");
+
+        // 校验：当前账号是否含有指定权限 [指定多个，必须全部验证通过]
+        StpUtil.checkPermissionAnd("user-update", "user-delete");
+
+        // 校验：当前账号是否含有指定权限 [指定多个，只要其一验证通过即可]
+        StpUtil.checkPermissionOr("user-update", "user-delete");
     }
-
 }
