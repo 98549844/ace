@@ -264,3 +264,27 @@ $(function(){
            }
          });
      }
+
+
+
+     Ajax调用返回Object（对象），如何获取值从中
+     $('#parseBtn').click(function() {
+         var parseMsg = $('#msgText').val();
+         alert("parse message is " + parseMsg);
+         $.ajax({
+         type: "GET",
+         url: "/parseMessage",
+         data: {
+          "msg": parseMsg
+         },
+         success: function(data) {
+          //data format looks like Object {SubsystemChannel: "F", MessageNumber: "200257", DebugQueue: " ", WorkStationNumber: "023", FrontEndNumber: "0000"…}
+
+
+            $('#headerTable input').each(function() {
+                var field = data[$(this).attr('id')];
+                $(this).val(field);
+            });
+         }
+         });
+     });

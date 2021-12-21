@@ -107,7 +107,7 @@
                                             <i class="ace-icon fa fa-check bigger-120"></i>
                                         </button>
 
-                                        <button class="btn btn-xs btn-info">
+                                        <button class="btn btn-xs btn-info" th:id="'btnInfo-'+${rowRole.roleId}">
                                             <i class="ace-icon fa fa-pencil bigger-120"></i>
                                         </button>
 
@@ -126,27 +126,26 @@
                         </table>
                         <div class="hr hr-24"></div>
                         <div class="col-xs-5">
-                            <!--                            <div class="widget-box collapsed">-->
-                            <div id="widgetBox" class="">
+                            <div id="widgetBox" class="widget-box collapsed">
                                 <div class="widget-header">
                                     <h4 class="widget-title glyphicon-plus"> Create New Role</h4>
 
                                     <div class="widget-toolbar">
                                         <a href="#" data-action="collapse">
-                                            <!--                                            <i class="ace-icon fa fa-chevron-down"></i>-->
-                                            <i id="faChevron" class=""></i>
+                                            <i id="faChevron" class="ace-icon fa fa-chevron-down"></i>
                                         </a>
                                     </div>
                                 </div>
                                 <div class="widget-body">
                                     <div class="widget-main">
-                                        <form action="/ace/roles/create.html" method="get" class="form-horizontal"
+                                        <form action="/ace/roles/create.html" method="get"
+                                              class="form-horizontal pageForm" id="roleForm"
                                               role="form">
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label no-padding-right"
                                                        for="roleCode"> Role Code </label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" id="roleCode" name="roleCode"
+                                                    <input type="text" id="roleCode" name="roleCode" required="required"
                                                            placeholder="Role Code"
                                                            class="col-xs-10 col-sm-5"/>
                                                 </div>
@@ -156,40 +155,42 @@
                                                 <label class="col-sm-3 control-label no-padding-right"
                                                        for="roleName"> Role Name </label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" id="roleName" name="roleName"
+                                                    <input type="text" id="roleName" name="roleName" required="required"
                                                            placeholder="Role Name"
                                                            class="form-control"/>
                                                 </div>
                                             </div>
 
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input name="select" type="checkbox" class="ace"/>
-                                                    <span class="lbl">select</span>
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input name="update" type="checkbox" class="ace"/>
-                                                    <span class="lbl">update</span>
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input name="insert" type="checkbox" class="ace"/>
-                                                    <span class="lbl">insert</span>
-                                                </label>
-                                            </div>
-                                            <div class=" checkbox">
-                                                <label>
-                                                    <input name="delete" type="checkbox" class="ace"/>
-                                                    <span class="lbl">delete</span>
-                                                </label>
+                                            <div class="">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input name="select" type="checkbox" class="ace"/>
+                                                        <span class="lbl">select</span>
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input name="update" type="checkbox" class="ace"/>
+                                                        <span class="lbl">update</span>
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input name="insert" type="checkbox" class="ace"/>
+                                                        <span class="lbl">insert</span>
+                                                    </label>
+                                                </div>
+                                                <div class=" checkbox">
+                                                    <label>
+                                                        <input name="delete" type="checkbox" class="ace"/>
+                                                        <span class="lbl">delete</span>
+                                                    </label>
+                                                </div>
                                             </div>
 
                                             <div class="clearfix form-actions">
                                                 <div class="col-md-offset-3 col-md-9">
-                                                    <button class="btn btn-info" type="submit" id="createRole">
+                                                    <button class="btn btn-info" type="submit" id="createRoleBtn">
                                                         <i class="ace-icon fa fa-check bigger-110"></i>
                                                         Submit
                                                     </button>
@@ -248,13 +249,31 @@
     jQuery(function ($) {
 
         /***************/
-        //set account enable/disable
+        $("button.btn-info").on("click", function (e) {
+            const infoId = $(this).attr("id");
+            const roleId = infoId.split("-");
+            $.ajax(
+                {
+                    type: "GET",
+                    url: "/ace/roles/edit.html",
+                    data: {roleId: roleId[1]},
+                    cache: false,
+                    success: function (ajaxResult) {
+                        alert(ajaxResult);
+                    },
+                    error: function () {
+                        alert("AJAX FAILURE");
+                    }
+                }
+            )
+
+        });
+
+        /***************/
+        //delete role
         $("button.btn-danger").on('click', function (e) {
             const dangerId = $(this).attr("id");
-            const rolesId = dangerId.split("-");
-
-            // alert(checkId);
-            // alert(userId);
+            const roleId = dangerId.split("-");
 
             let d = dialog({
                 title: '提示',
@@ -266,7 +285,7 @@
                         {
                             type: "GET",
                             url: "/ace/roles/create.html",
-                            data: {rolesId: rolesId[1]},
+                            data: {roleId: roleId[1]},
                             cache: false,
                             success: function (ajaxResult) {
                                 $("#enanle-" + userId[1]).html(ajaxResult);
@@ -284,6 +303,30 @@
             });
             d.showModal();
         });
+        /***************/
+        $("#roleCode").on('blur', function () {
+            const value = $("input[name='roleCode']").val();
+            $.ajax(
+                {
+                    type: "GET",
+                    url: "/ace/roles/check.html",
+                    data: {roleCode: value},
+                    cache: false,
+                    success: function (ajaxResult) {
+                        if (ajaxResult === "exist") {
+                            let d = dialog({
+                                title: 'Message',
+                                content: '<span class="red"><strong>Role code exist</strong></span>'
+                            });
+                            d.show();
+                        }
+                    },
+                    error: function () {
+                        alert("AJAX FAILURE");
+                    }
+                }
+            )
+        })
         /***************/
     })
 </script>

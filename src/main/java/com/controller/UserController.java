@@ -57,12 +57,10 @@ public class UserController extends CommonController {
         Users user = usersService.findUsersById(userId);
         if (user.isEnabled()) {
             user.setEnabled(false);
-            modelAndView.addObject("ajaxResult", false);
-        //    modelAndView.addObject("ajaxResult", "<strong class=\"red\">Disable</strong>");
+            modelAndView.addObject("ajaxResult", "<strong class=\"red\">Disable</strong>");
         } else {
             user.setEnabled(true);
-            modelAndView.addObject("ajaxResult", true);
-          //  modelAndView.addObject("ajaxResult", "<strong class=\"green\">Enable</strong>");
+            modelAndView.addObject("ajaxResult", "<strong class=\"green\">Enable</strong>");
         }
         usersService.save(user);
         kickOut(user.getUserId());
@@ -86,8 +84,6 @@ public class UserController extends CommonController {
         }
         ModelAndView modelAndView = super.page("ace/modules/users/users");
         modelAndView.addObject("users", userList);
-        //submenu css control
-        // modelAndView.addObject(Css.open, Css.open);
         return modelAndView;
     }
 

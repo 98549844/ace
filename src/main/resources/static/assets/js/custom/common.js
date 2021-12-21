@@ -45,6 +45,7 @@ jQuery(function ($) {
     //其他需要动态加载的事件绑定
     //loading bar
     docReady();
+    pageCss();
     manuCss();
 });
 
@@ -70,29 +71,44 @@ function closeLoading() {
     d.close().remove();
 }
 
+//menu css controller
 function manuCss() {
     $(".menu").each(function () {
         // full url
         const fullHref = window.location.href;
         // url
         const href = $(this).attr("href");
-        const result = fullHref.indexOf(href)!== -1 ;
+        const result = fullHref.indexOf(href) !== -1;
 
-        if(result && href === "/ace/users/user.html"){
+        if (result && href === "/ace/users/user.html") {
             $("#userMenu").addClass("open");
-        }else if (result && href === "/ace/users/search.html"){
+            $("#userSubMenu1").addClass("active");
+        } else if (result && href === "/ace/users/search.html") {
             $("#userMenu").addClass("open");
-        }else if (result && href === "/ace/users/roles.html"){
+            $("#userSubMenu1").addClass("active");
+        } else if (result && href === "/ace/roles.html") {
             $("#userMenu").addClass("open");
-            $("#widgetBox").addClass("widget-box collapsed");
-            $("#faChevron").addClass("ace-icon fa fa-chevron-down");
-        }else if (result && href === "/ace/users/create.html"){
+            $("#userSubMenu2").addClass("active");
+
+        }
+    });
+}
+
+//page css controller
+function pageCss() {
+    $(".pageForm").each(function () {
+        // full url
+        const fullHref = window.location.href;
+        // url
+        const href = $(this).attr("action");
+        const result = fullHref.indexOf(href) !== -1;
+
+        if (result && href === "/ace/roles/create.html") {
             $("#userMenu").addClass("open");
-            $("#widgetBox").addClass("widget-box");
+            $("#widgetBox").removeClass("collapsed");
             $("#faChevron").addClass("ace-icon fa fa-chevron-up");
         }
-
-    })
+    });
 }
 
 function docReady() {
