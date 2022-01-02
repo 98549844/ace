@@ -29,7 +29,6 @@ import java.util.List;
 public class UsersRestController {
     private static Logger log = LogManager.getLogger(UsersRestController.class.getName());
 
-
     private UsersService usersService;
     private PasswordEncoder passwordEncoder;
 

@@ -72,7 +72,6 @@ public class UsersService {
     }
 
 
-
     public Users findByUserAccount(Users param) throws UserNotFoundException, PasswordNotMatchException {
         Users user = usersDao.findByUserAccount(param.getUserAccount());
         if (NullUtil.isNull(user) || NullUtil.isNull(user.getUserId())) {
@@ -95,7 +94,7 @@ public class UsersService {
     }
 
 
-    public List<Map> findUserRolePermission(){
+    public List<Map> findUserRolePermission() {
         return usersDao.findUserRolePermission();
     }
 

@@ -59,6 +59,7 @@ public class UserRolePermissionRestController extends CommonController {
 
         List<UserRoles> userRolesList = new ArrayList<>();
         int userSize = users.size();
+        //用户加入角色
         for (int i = 0; i < userSize; i++) {
             UserRoles userRoles = new UserRoles();
             switch (users.get(i).getDescription()) {
@@ -88,36 +89,71 @@ public class UserRolePermissionRestController extends CommonController {
 
         List<Roles> rolesList = rolesService.findAll();
         int rolesSize = rolesList.size();
-        Permissions p0 = permissionsService.findPermissionsByPermissionCode("0");
-        Permissions p10 = permissionsService.findPermissionsByPermissionCode("10");
-        Permissions p8 = permissionsService.findPermissionsByPermissionCode("8");
-        Permissions p4 = permissionsService.findPermissionsByPermissionCode("4");
+        Permissions p1 = permissionsService.findPermissionsByPermissionCode(Constant.INSERT);
+        Permissions p2 = permissionsService.findPermissionsByPermissionCode(Constant.UPDATE);
+        Permissions p3 = permissionsService.findPermissionsByPermissionCode(Constant.DELETE);
+        Permissions p4 = permissionsService.findPermissionsByPermissionCode(Constant.SELECT);
+        Permissions p10 = permissionsService.findPermissionsByPermissionCode(Constant.DENY);
 
-        List<RolePermissions> permissionsArrayList = new ArrayList<>();
+
+
+
         for (int i = 0; i < rolesSize; i++) {
-            RolePermissions rolePermissions = new RolePermissions();
+            RolePermissions insert = new RolePermissions();
+            RolePermissions update = new RolePermissions();
+            RolePermissions delete = new RolePermissions();
+            RolePermissions select = new RolePermissions();
+            RolePermissions deny = new RolePermissions();
+
             switch (rolesList.get(i).getRoleCode()) {
                 case "ADMIN":
-                    rolePermissions.setRoleId(rolesList.get(i).getRoleId());
-                    rolePermissions.setPermissionsId(p0.getPermissionsId());
+                    insert.setRoleId(rolesList.get(i).getRoleId());
+                    insert.setPermissionsId(p1.getPermissionsId());
+
+                    update.setRoleId(rolesList.get(i).getRoleId());
+                    update.setPermissionsId(p2.getPermissionsId());
+
+                    select.setRoleId(rolesList.get(i).getRoleId());
+                    select.setPermissionsId(p4.getPermissionsId());
+
+                    delete.setRoleId(rolesList.get(i).getRoleId());
+                    delete.setPermissionsId(p3.getPermissionsId());
+
+                    rolePermissionsService.save(insert);
+                    rolePermissionsService.save(update);
+                    rolePermissionsService.save(delete);
+                    rolePermissionsService.save(select);
+
                     break;
                 case "DISABLE":
-                    rolePermissions.setRoleId(rolesList.get(i).getRoleId());
-                    rolePermissions.setPermissionsId(p10.getPermissionsId());
+                    deny.setRoleId(rolesList.get(i).getRoleId());
+                    deny.setPermissionsId(p10.getPermissionsId());
+
+                    rolePermissionsService.save(deny);
+
                     break;
                 case "USER":
-                    rolePermissions.setRoleId(rolesList.get(i).getRoleId());
-                    rolePermissions.setPermissionsId(p8.getPermissionsId());
+                    insert.setRoleId(rolesList.get(i).getRoleId());
+                    insert.setPermissionsId(p1.getPermissionsId());
+
+                    update.setRoleId(rolesList.get(i).getRoleId());
+                    update.setPermissionsId(p2.getPermissionsId());
+
+                    select.setRoleId(rolesList.get(i).getRoleId());
+                    select.setPermissionsId(p4.getPermissionsId());
+
+                    rolePermissionsService.save(insert);
+                    rolePermissionsService.save(update);
+                    rolePermissionsService.save(select);
                     break;
                 case "VIEWER":
-                    rolePermissions.setRoleId(rolesList.get(i).getRoleId());
-                    rolePermissions.setPermissionsId(p4.getPermissionsId());
+                    select.setRoleId(rolesList.get(i).getRoleId());
+                    select.setPermissionsId(p4.getPermissionsId());
+
+                    rolePermissionsService.save(select);
                     break;
             }
-            permissionsArrayList.add(rolePermissions);
         }
-        rolePermissionsService.saveAll(permissionsArrayList);
-
         return AjaxResponse.success("User Roles Permission merged");
     }
 

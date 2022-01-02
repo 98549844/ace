@@ -224,7 +224,8 @@ from role_permissions rp,
      roles r,
      permissions p
 where rp.roleId = r.roleId
-  and rp.permissionsId = p.permissionsId;
+  and rp.permissionsId = p.permissionsId
+order by r.roleCode;
 
 select rolePermissionsId, roleId, permissionsId
 from role_permissions;

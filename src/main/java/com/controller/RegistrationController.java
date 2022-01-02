@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -30,15 +31,13 @@ public class RegistrationController extends CommonController {
     private static Logger log = LogManager.getLogger(RegistrationController.class.getName());
 
     private UsersService usersService;
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public RegistrationController(UsersService usersService, PasswordEncoder passwordEncoder) {
+    public RegistrationController(UsersService usersService) {
         this.usersService = usersService;
-        this.passwordEncoder = passwordEncoder;
     }
 
-    @RequestMapping("/registration.html")
+    @RequestMapping(value = "/registration.html", method = RequestMethod.POST)
     public ModelAndView registration(@ModelAttribute Users users) {
         ModelAndView modelAndView;
 

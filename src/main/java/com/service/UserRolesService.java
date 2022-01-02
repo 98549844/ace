@@ -36,4 +36,15 @@ public class UserRolesService {
         userRolesDao.deleteAll();
     }
 
+    public void delete(UserRoles userRoles) {
+        userRolesDao.delete(userRoles);
+    }
+
+    public List<UserRoles> findAllByUserId(Long userId) {
+        return userRolesDao.findAllByUserId(userId);
+
+    }
+
+    ;
+
 }

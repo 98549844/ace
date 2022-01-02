@@ -21,6 +21,10 @@ public class RolePermissionsService {
         return rolePermissionsDao.saveAndFlush(rolePermissions);
     }
 
+    public List<RolePermissions> findRolePermissionsByRoleId(Long roleId) {
+        return rolePermissionsDao.findRolePermissionsByRoleId(roleId);
+    }
+
     public List<RolePermissions> saveAll(List<RolePermissions> permissionsArrayList) {
         return rolePermissionsDao.saveAll(permissionsArrayList);
     }
@@ -28,4 +32,9 @@ public class RolePermissionsService {
     public void deleteAll() {
         rolePermissionsDao.deleteAll();
     }
+
+    public void delete(RolePermissions rolePermissions) {
+        rolePermissionsDao.delete(rolePermissions);
+    }
+
 }

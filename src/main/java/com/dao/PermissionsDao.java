@@ -8,4 +8,6 @@ public interface PermissionsDao extends JpaRepository<Permissions, Long>, JpaSpe
 
 
 	Permissions findPermissionsByPermissionCode(String permissionCode);
+
+	Permissions findPermissionsByAction(String action);
 }

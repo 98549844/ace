@@ -22,8 +22,8 @@ public class RolePermissions extends baseEntity implements Serializable {
 	private Long roleId;
 	@Column
 	private Long permissionsId;
-	@Column
-	private String url;
+//	@Column
+//	private String url;
 
 	public Long getRolePermissionsId() {
 		return rolePermissionsId;
@@ -49,11 +49,11 @@ public class RolePermissions extends baseEntity implements Serializable {
 		this.permissionsId = permissionsId;
 	}
 
-	public String getUrl() {
+/*	public String getUrl() {
 		return url;
 	}
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
+	}*/
 }
