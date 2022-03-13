@@ -1,6 +1,10 @@
 package com.restController;
 
+import com.google.gson.Gson;
+import com.models.common.AjaxResponse;
+import com.models.entity.dao.Users;
 import com.service.RedisService;
+import com.service.UsersService;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Classname: RedisController
@@ -24,10 +31,12 @@ public class RedisRestController {
 
 
     private final RedisService redisService;
+    private final UsersService usersService;
 
     @Autowired
-    public RedisRestController(RedisService redisService) {
+    public RedisRestController(RedisService redisService, UsersService usersService) {
         this.redisService = redisService;
+        this.usersService = usersService;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/get")
@@ -40,6 +49,20 @@ public class RedisRestController {
         return redisService.get("ace") + ":" + redisService.get("version");
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/getUsers")
+    public AjaxResponse getUsers() {
+        List<Users> users = usersService.findAll();
+        Users user = usersService.findByUserAccount("garlam");
+
+        redisService.set("all", new Gson().toJson(users));
+        redisService.set(user.getUsername(), new Gson().toJson(user));
+
+        List<Object> ls = new ArrayList<>();
+        ls.add(redisService.get("all"));
+        ls.add(redisService.get(user.getUsername()));
+
+        return AjaxResponse.success(ls);
+    }
 
 }
 

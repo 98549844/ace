@@ -26,8 +26,7 @@ import java.io.File;
 
 @RestController
 @RequestMapping("/rest")
-@Api(tags = {"Mail"})
-//@CrossOrigin
+@Api(tags = {"mail"})
 public class MailRestController {
     private static Logger log = LogManager.getLogger(MailRestController.class.getName());
 
