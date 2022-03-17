@@ -31,7 +31,7 @@ public class Ace {
         return stringLocal.get();
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main1(String[] args) throws InterruptedException {
         final Ace test = new Ace();
 
         test.set();
@@ -52,6 +52,10 @@ public class Ace {
 
         System.out.println(test.getLong());
         System.out.println(test.getString());
+    }
+
+    public static void main(String[] args){
+        System.out.println("Hello World ! ");
     }
 
 }

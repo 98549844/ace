@@ -1,0 +1,24 @@
+压缩
+gzip [选项] [文件和文件夹]
+zip [选项] [压缩后的文件名.zip] [路径]
+选项
+-r: 递归文件压缩
+
+解压
+gunzip [选项] [.gz文件]
+unzip [选项] [解压后的存放路径] [.zip文件]
+
+
+tar [选项] xxx.tar.gz 打包内容
+选项
+-c 產生.tar文件
+-v 显示详细信息和压缩过程
+-f 指定压缩后的文件名 xxx.tar.gz
+-z 打包同时压缩
+-x 解压.tar文件
+压缩
+tar -zcvf xxx.tar.gz 文件1 文件2 文件3
+tar -zcvf xxx.tar.gz 文件夹1 文件夹2 文件夹3
+解压
+tar -zxvf xxx.tar.gz 解压到当前文件夹
+tar -zcvf xxx.tar.gz -C target文件夹
