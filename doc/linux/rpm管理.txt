@@ -1,0 +1,30 @@
+rpm包管理
+
+介绍
+rpm用于互联网下载包的打包及安装工具, 它包念在linux分发牌本中,
+后缀.rpm,是redhat package manager.类似windows的setup.exe
+
+rpm -qa | grep xxx
+-qa 查询已安装的rpm列表
+-q  [软件名] 查询该软件是否被安装
+-qi [软件名] 查询该软件信息
+-ql [软件名] 查询软件包中的文件
+-qf [文件]   查询文件归属于哪个软件
+
+
+删除rpm软件
+rpm [选项]
+选项
+-e [软件]    删除软件
+rpm -e -nodeps [软件名] 强制删除
+
+安装rpm包
+rpm [-ivh] [软件的绝对路经
+-i 安装
+-v 提示
+-h 进度条
+
+
+
+
+

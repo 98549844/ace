@@ -1,8 +1,9 @@
 find [路径] [选项]
 *: 通配符
--name 文件名
+-name 文件名 [*.tar.gz 通配所有.tar.gz的文件]
 -user 查找属于该用户文件
 -size 查找指定大小的文件, +为大于, -为小于
+-atime +n天数 查找n天前的资料
 find 路径 +200M -300M
 
 locate [文件名] 快速定位文件

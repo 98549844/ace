@@ -1,0 +1,19 @@
+1.安装 ubuntu 镜像
+docker pull ubuntu
+
+2.查看 docker 镜像
+docker images
+
+3.创建容器
+注意：首次创建容器时，需要使用nvidia-docker命令，否则容器中访问不到GPU资源,Macbook M1不需要
+同时将docker挂载本地文件夹（需要先创建需要挂载的本地文件夹，否则该文件夹的权限会被改为root）
+nvidia-docker run -it --name <容器名称> -v <本地文件夹目录>：<docker文件夹> <镜像：版本> <交互式bash>
+nvidia-docker run -it --name docker-ubuntu -v /home/xx/Docker/ubuntu14/:/home/ ubuntu:14.04 /bin/bash
+
+4.验证安装
+docker ps -a
+
+5.使用 docker
+重新使用容器时，不再使用run命令创建，用start和attach命令
+docker start <容器名称>
+docker attach <容器名称>

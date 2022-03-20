@@ -1,0 +1,12 @@
+yum
+
+介绍
+yum是一个shell的前端软件包管理器,基于rpm包管理
+能从自定服务器下载rpm包并安装,可以自动处理依赖关系
+并一次安装所有依赖软件包
+
+查询yum服务器是否有需要安装软件
+yum list | grep xxxx
+
+安装指定yum包
+yum install xxx

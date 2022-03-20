@@ -1,0 +1,15 @@
+设置主机名和host影射
+
+hostname 查看主机名
+
+vim /etc/hostname 修改主机名, 需要重启
+
+windows
+在c:\winsowssystem32\drivers\etc\
+加入 192.168.xx.xx 对方hostname
+
+linux
+在/etc/hosts
+加入 192.168.xx.xx 对方hostname
+
+主机解析过程 (hosts DNS)

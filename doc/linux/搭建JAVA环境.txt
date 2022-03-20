@@ -1,0 +1,69 @@
+安装jdk
+1.mkdir /opt/jdk
+2.通过xftp6 上传到/opt/jdk下
+3.cd opt/jdk
+4.解压tar -zxvf jdk-8.tar.gz
+5.mkdir /usr/local/java
+6.mv /opt/jdk/jdk-8 /usr/local/java
+7.配置环境变量的配置文件 vim /etc/profile
+8.export JAVA_HOME=/usr/local/java/jdk-8
+9.export PATH=$JAVA_HOME/bin:$PATH (PATH引入回原先的环境变量)
+10.source /etc/profile [让文件生效]
+
+
+安装tomcat
+1.上传tomcat到/opt/tomcat
+2.解压目录/bin,启动tomcat 在taomcat入面的bin文件夹 ./startup.sh
+3.开放端口 8080
+    1.firewall-cmd-permanent --add--port=8080/tcp
+    2 firewall-cmd-permanent --reload
+
+
+测试安装成功
+访问 http://localhost:8080
+
+
+安装mysql
+1.mkdir /opt/mysql
+2.wget http://dev.mysql.com/mysql-5.7.rpm-bundle.tar 下载安装包
+3.解压tar -xvf mysql-5.7.rpm-bundle.tar
+4.rpm -qa | grep mariadb
+5.rpm -e nodeps mariadb 强制删除
+6.安装mysql
+    rpm -ivh mysql-community-common.rpm
+    rpm -ivh mysql-community-libs.rpm
+    rpm -ivh mysql-community-client.rpm
+    rpm -ivh mysql-community-server.rpm
+7.启动mysql
+    systemctl start mysqld.service
+8.查看当前MySQL root密码
+    grep "password" /var/log/mysqld.log
+9.设置root密码
+    1.mysql -u root -p access mysql
+      copy 生成密码
+    2.设置密码策略
+      set global validate_password_policy=0; 默认是1, 2是最强密码策略
+    3.设置root密码
+      set password 'root'@'localhost' = password('new_password')
+10.运行flush privileges, 策略生效
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

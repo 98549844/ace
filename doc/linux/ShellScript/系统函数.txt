@@ -1,0 +1,13 @@
+系统函数
+basename
+功能: 返回完整路径最后"/"的部分,常用于获取文件名
+basename [路径] [后缀]
+
+dirname: 返回完整路径最后"/"的前部分,常用于获取文件名路径
+
+自定义function
+[ function ] functionName[()]
+{
+    Action;
+    [return int;]
+}

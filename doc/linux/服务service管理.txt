@@ -1,0 +1,73 @@
+服务service管理
+服务service本质就是进程, 运行在后台, 通常监听某个端口,等待其他程序的请求
+比如mysqld,sshd等, 因此也叫守护进程
+
+service/systemctl
+service 服务名 [start|stop|restart|reload|status]
+
+service管理的服务在 /etc/init.d查看
+ls -l /etc/init.d
+
+查看所有服务service
+setup
+[*] 自动启动
+[ ] 手动启动
+
+
+开机流程
+开机=> bios=> /boot => systemd进程1 => 运行级别 => 运行级别对应服务
+
+chkconfig命令
+1.给服务的各运行级别设置自开启/关闭
+2.chkconfig 在/etc/init.d查看
+
+查看服务chkconfig
+chkconfig --list | grep xxx
+chkconfig --level 5 服务名 on/off (重启后生效)
+
+systemctl [start|stop|restart|reload|status] 服务名 实时启停服务
+1.systemctl服务指命在/usr/lib/systemd/system查看
+
+systemctl设置服务的自启动状态
+1.systemctl list-unit-files | grep xxx 查看服务
+2.systemctl enable/disable 设置服务的on/off
+3.systectl os-enable [服务名] 查看服务运得状态
+
+
+netstat -anp | more 查看端口资讯
+
+打开或关闭防火墙指定端口
+1.firewall-cmd-permanent --add--port=端口/协议
+2.firewall-cmd-permanent --remove--port=端口/协议
+3.systemctl reload firewalld
+3.1 firewall-cmd-permanent --reload
+4.firewall-cmd-permanent --query--port=端口/协议 查询端口是否打开
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
