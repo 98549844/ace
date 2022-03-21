@@ -4,7 +4,7 @@ crond: 进行定时调用shell script执行任务
 
 crontab [选项]
 [*****时间规则] [命令]
-[*****时间规则] [.sh表示执行script]
+[*****时间规则] [.sh 表示执行script]
 选项
 -e 编辑crontab定时任务
 -l 查询crontab任务列表
