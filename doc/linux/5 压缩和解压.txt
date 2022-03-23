@@ -21,4 +21,4 @@ tar -zcvf xxx.tar.gz 文件1 文件2 文件3
 tar -zcvf xxx.tar.gz 文件夹1 文件夹2 文件夹3
 解压
 tar -zxvf xxx.tar.gz 解压到当前文件夹
-tar -zcvf xxx.tar.gz -C target文件夹
+tar -zxvf xxx.tar.gz -C target文件夹

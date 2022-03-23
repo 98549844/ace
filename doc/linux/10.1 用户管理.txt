@@ -11,11 +11,11 @@ useradd -d /home/kalam garlam   添加用户garlam并自定用户文件夹
 
 2.修改密码
 passwd          给当前用户修改密码
-passwd 用户名    给指定用户修改密码
+passwd [用户名]    给指定用户修改密码
 
 3.删除用户
-userdel 用户名         删除用户但保留home目录
-userdel -r 用户名      删除用户同时删除home目录
+userdel [用户名]         删除用户但保留home目录
+userdel -r [用户名]      删除用户同时删除home目录
 
 4.查看用户信息
 id 用户名
@@ -27,6 +27,8 @@ whoami          查看当前用户
 6.用户登陆和注销
 logout          注销当前用户
 
+
+**********************************************************************
 用户组
 1.groupdel 组名  删除用户组
 2.groupadd 组名  添加新用户组

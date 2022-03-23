@@ -13,7 +13,7 @@ ps [-aux选项] 查看程序及状况
 -ef 以全格式显示所有进程 ps -ef | grep xxx
 
 PID: 进程号
-tty: 络端信息
+tty: 终端信息
 stat: 状态 s=sleep r=run d=短期等待 z=僵死程序 t=被跟踪或被停止进程
 
 终止进程

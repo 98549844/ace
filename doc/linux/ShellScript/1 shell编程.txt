@@ -11,7 +11,7 @@ shellscript格式要求
 4.变量一般用大写
 
 5.将命令的返回值赋值给变量
-    A='date'
+    A=`date`
     A=$(date)
 
 shell的变量
@@ -24,6 +24,7 @@ shell的变量
 
 2.设置环境变量
 语法
+vim /etc/profile
 export 变量名=变量值 将shell变量输出为环境变量/全局变量
 source 配量文件
 echo $变量名

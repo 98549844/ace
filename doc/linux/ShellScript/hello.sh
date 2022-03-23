@@ -45,6 +45,8 @@ OK=not_ok
 if [ "ok" = $OK ]
 then
   echo "17 equal"
+  else
+    echo "17 not equal"
 fi
 
 N86=86
