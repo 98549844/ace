@@ -50,6 +50,17 @@ public class UsersRestController {
         return AjaxResponse.success(result);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/getUsersByMybatis")
+    public AjaxResponse getUsersByMybatis() {
+        List<Users> ls = usersService.findAllByMybatis();
+        List<String> result = new ArrayList<>();
+        for (Users user : ls) {
+            String u = user.getUsername() + "   [" + user.getPassword() + "]";
+            result.add(u);
+        }
+        return AjaxResponse.success(result);
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/deleteAllUser")
     public AjaxResponse deleteAllUser() {
         usersService.deleteAll();

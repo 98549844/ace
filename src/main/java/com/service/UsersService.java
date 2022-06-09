@@ -4,6 +4,7 @@ import com.constant.Constant;
 import com.dao.UsersDao;
 import com.exception.PasswordNotMatchException;
 import com.exception.UserNotFoundException;
+import com.mapper.UsersMapper;
 import com.models.entity.dao.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,6 +37,7 @@ public class UsersService {
     private static final Logger log = LogManager.getLogger(UsersService.class.getName());
 
     private UsersDao usersDao;
+    private UsersMapper usersMapper;
     private PasswordEncoder passwordEncoder;
     private UserRolesService userRolesService;
     private RolesService rolesService;
@@ -43,12 +45,13 @@ public class UsersService {
 
 
     @Autowired
-    public UsersService(UsersDao usersDao, PasswordEncoder passwordEncoder, UserRolesService userRolesService, RolesService rolesService, PermissionsService permissionsService) {
+    public UsersService(UsersMapper usersMapper, UsersDao usersDao, PasswordEncoder passwordEncoder, UserRolesService userRolesService, RolesService rolesService, PermissionsService permissionsService) {
         this.usersDao = usersDao;
         this.passwordEncoder = passwordEncoder;
         this.userRolesService = userRolesService;
         this.rolesService = rolesService;
         this.permissionsService = permissionsService;
+        this.usersMapper = usersMapper;
     }
 
 
@@ -60,6 +63,13 @@ public class UsersService {
 
     public List<Users> findAll() {
         List<Users> usersList = usersDao.findAll();
+        calcAges(usersList);
+        return usersList;
+    }
+
+
+    public List<Users> findAllByMybatis() {
+        List<Users> usersList = usersMapper.findAll();
         calcAges(usersList);
         return usersList;
     }

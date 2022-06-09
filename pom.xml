@@ -9,6 +9,7 @@
         <!--        m2.location: /Users/garlam/.m2/repository/org/springframework/boot/spring-boot-starter-parent-->
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com</groupId>
     <artifactId>ace</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -120,13 +121,13 @@
         <dependency>
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-spring-boot-starter</artifactId>
-            <version>1.28.0</version>
+            <version>1.29.0</version>
         </dependency>
         <!-- 在 thymeleaf 标签中使用 Sa-Token -->
         <dependency>
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-dialect-thymeleaf</artifactId>
-            <version>1.28.0</version>
+            <version>1.29.0</version>
         </dependency>
 
         <dependency>
@@ -138,7 +139,20 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.9.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.swagger</groupId>
+                    <artifactId>swagger-models</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-models</artifactId>
+            <version>1.5.21</version>
+        </dependency>
+
+        <!-- docHTML http://localhost:8088/doc.html-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
@@ -171,10 +185,10 @@
         <!--            <version>2.0.9</version>-->
         <!--        </dependency>-->
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-security</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-security</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>

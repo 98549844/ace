@@ -44,11 +44,13 @@ public class AceRestController {
         log.info("aceConfig.getVersion():" + aceConfig.getVersion());
         log.info("aceConfig.profile " + aceConfig.getProfile());
         log.info("aceConfig.isSwaggerEnable(): " + aceConfig.isSwaggerEnable());
+        log.info("aceConfig.getProfile(): " + aceConfig.getProfile());
 
         List aceList = new ArrayList();
         aceList.add("Ace Profile: " + aceConfig.getProfile());
         aceList.add(aceConfig.getName());
         aceList.add(aceConfig.getVersion());
+        aceList.add(aceConfig.getProfile());
         aceList.add(reportConfig.getUrl());
         aceList.add(reportConfig.getUserName());
         aceList.add(reportConfig.getPassword());

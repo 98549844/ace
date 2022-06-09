@@ -63,6 +63,7 @@ public class AceApplication {
         AceConfig aceConfig = (AceConfig) applicationContextUtil.getBeanByName("aceConfig");
 
         BrowserConfig browserConfig = new BrowserConfig();
+        //决定项目启动时, 是否主动打开swagger/docHtml
         browserConfig.openAceIndexAndSwagger(aceConfig.isIndexEnable(), aceConfig.isSwaggerEnable(), aceConfig.isDocHtmlEnabled());
 
         // browserConfig.getCss();

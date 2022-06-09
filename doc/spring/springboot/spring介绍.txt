@@ -1,0 +1,6 @@
+spring核心
+1.IOC
+2.AOP
+3.MVC
+
+1.在没有web.xml下部薯项目到tomcat

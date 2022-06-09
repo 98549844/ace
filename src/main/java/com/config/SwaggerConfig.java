@@ -46,6 +46,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
      */
     @Bean
     public Docket createRestApi() {
+        //决定swagger是否开放
       //  boolean enabled = swaggerEnabled || docHtml;
         boolean enabled = true;
 

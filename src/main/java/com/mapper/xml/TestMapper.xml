@@ -10,7 +10,7 @@
         <result column="created_date" jdbcType="DATE" property="createdDate"/>
         <result column="last_update_date" jdbcType="DATE" property="lastUpdateDate"/>
         <result column="created_by" jdbcType="VARCHAR" property="createdBy"/>
-        <result column="last_update_by" jdbcType="VARCHAR" property="lastUpdateBy"/>
+        <result column="last_update_by" jdbcType="VARCHAR" property="lastUpdatedBy"/>
         <result column="version" jdbcType="INTEGER" property="version"/>
 
 
