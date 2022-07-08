@@ -1,0 +1,6 @@
+https://www.myeclipsecn.com/learningcenter/websphere-development/websphere8/
+WebSphere 8安装指南（多图）
+
+
+https://blog.csdn.net/coderjiang/article/details/8696363
+使用 Rational Development 工具和 WebSphere Application Server V8.5 开发基于 EJB 的 OSGi 应用

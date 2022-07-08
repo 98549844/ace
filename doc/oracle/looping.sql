@@ -71,9 +71,26 @@ BEGIN
         dbms_output.put_line('line: ' || num || ' : POL_CASE_ID : ' || V_POL_CASE_ID);
         dbms_output.put_line(num || ' : *** POL_CASE_ID : ' || V_POL_CASE_ID);
         dbms_output.put_line('----------------------------------');
-
     END LOOP;
     CLOSE v_pc;
+END;
 
+DECLARE
+accGrpId VARCHAR2(100);
+CURSOR grpId (userName VARCHAR2 ) IS SELECT UAC_ACC_GRP_ID
+                                     FROM R_UAC_USER_ACC_GRP
+                                     WHERE UAC_USER_ID = userName;
+BEGIN
+OPEN grpId('BILLY');
+LOOP
+FETCH grpId INTO accGrpId;
+        EXIT WHEN grpId%NOTFOUND;
+        dbms_output.put_line(accGrpId);
 
+INSERT INTO R_UAC_USER_ACC_GRP (UAC_USER_ID, UAC_ACC_GRP_ID, UAC_CREATE_DT, UAC_CREATE_USER)
+VALUES ('KALAM', accGrpId, SYSDATE, 'KALAM');
+
+END LOOP;
+CLOSE grpId;
+COMMIT;
 END;
