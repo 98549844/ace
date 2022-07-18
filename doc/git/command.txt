@@ -4,3 +4,20 @@ cd \xxx\xxx\xxx
 
 2.取消push
 git reset HEAD~1
+
+
+查看git狀態
+git status
+
+
+對比文件
+git diff
+
+1.提交到repo
+git add xxx
+2.commit到git
+git commit -m "comment"
+
+
+
+
