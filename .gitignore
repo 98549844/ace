@@ -20,6 +20,16 @@ target/
 *.ipr
 *.log
 
+#eclipse
+*.class
+.gitignore
+
+.classpath
+.settings
+.project
+.factorypath
+
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
