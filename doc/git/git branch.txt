@@ -24,3 +24,9 @@ git remote prune origin
 
 8.拉取remote分支到local
 git fetch
+
+9.切換分支
+git checkout 分支名
+
+10.合並分支
+git merge 分支名
