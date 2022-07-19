@@ -11,7 +11,13 @@
 
 4.git push origin branch-name --force
 
-
 备注：
+可能存在 git rebase --continue 提示, 按照提示执行即可
 
-可能存在 git rebase --continue 提示，按照提示执行即可。
+
+删除已经提交到远程仓库的commit
+1.git reset --hard commit_id(為要回滾的版本id)
+2.git push -f
+
+1.git reset --hard commit_id(為要回滾的版本id)
+2.git push origin HEAD --force
