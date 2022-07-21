@@ -1,0 +1,5 @@
+Run/Debug Configuration: WebSphere Server
+https://www.jetbrains.com/help/idea/run-debug-configuration-websphere-server.html
+
+Support for WebSphere Server is not bundled with IntelliJ IDEA.
+You can install the WebSphere Server plugin from the JetBrains repository as described in Install plugins.
