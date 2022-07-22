@@ -21,14 +21,14 @@ public class MySaTokenListener implements SaTokenListener {
      * 每次登录时触发
      */
     @Override
-    public void doLogin(String loginType, Object loginId, SaLoginModel SaLoginModel) {
+    public void doLogin(String loginType, Object loginId, String tokenValue, SaLoginModel loginModel) {
         log.info("loginType: {}", loginType);
         log.info("loginId: {}", loginId);
-        SaLoginModel saLoginModel = SaLoginModel;
+        log.info("tokenValue: {}", tokenValue);
+        SaLoginModel saLoginModel = loginModel;
         log.info("device: {}", saLoginModel.device);
         log.info("isLastingCookie: {}", saLoginModel.isLastingCookie);
         log.info("timeout: {}", saLoginModel.timeout);
-
     }
 
     /**

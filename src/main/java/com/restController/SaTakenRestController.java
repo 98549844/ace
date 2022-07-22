@@ -1,7 +1,8 @@
 package com.restController;
 
 import cn.dev33.satoken.SaManager;
-import cn.dev33.satoken.action.SaTokenAction;
+//sa-taken version 1.29.0
+//import cn.dev33.satoken.action.SaTokenAction;
 import cn.dev33.satoken.config.SaTokenConfig;
 import cn.dev33.satoken.context.SaTokenContext;
 import cn.dev33.satoken.dao.SaTokenDao;
@@ -185,7 +186,7 @@ public class SaTakenRestController extends CommonController {
         SaTokenConfig saTokenConfig = SaManager.getConfig();                // 获取全局配置对象
         SaTokenDao saTokenDao = SaManager.getSaTokenDao();                  // 获取数据持久化对象
         StpInterface stpInterface = SaManager.getStpInterface();            // 获取权限认证对象
-        SaTokenAction saTokenAction = SaManager.getSaTokenAction();         // 获取框架行为对象
+      //  SaTokenAction saTokenAction = SaManager.getSaTokenAction();         // 获取框架行为对象
         SaTokenContext saTokenContext = SaManager.getSaTokenContext();      // 获取上下文处理对象
         SaTokenListener saTokenListener = SaManager.getSaTokenListener();   // 获取侦听器对象
         SaTempInterface saTempInterface = SaManager.getSaTemp();            // 获取临时令牌认证模块对象
@@ -197,7 +198,7 @@ public class SaTakenRestController extends CommonController {
         ls.add(saTokenConfig);
         ls.add(saTokenDao);
         ls.add(stpInterface);
-        ls.add(saTokenAction);
+       // ls.add(saTokenAction);
         ls.add(saTokenContext);
         ls.add(saTokenListener);
         ls.add(saTempInterface);
