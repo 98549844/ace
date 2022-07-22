@@ -111,6 +111,11 @@ public class CommonController {
         return user;
     }
 
+    protected String getTokenValue() {
+        String takeValue = (String) StpUtil.getTokenValue();
+        return takeValue;
+    }
+
     protected SaSession getSession() {
         return StpUtil.getSession();
     }
