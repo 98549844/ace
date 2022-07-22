@@ -122,7 +122,7 @@
         <dependency>
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-spring-boot-starter</artifactId>
-            <version>1.29.0</version>
+            <version>1.30.0</version>
         </dependency>
         <!-- 在 thymeleaf 标签中使用 Sa-Token -->
         <dependency>
