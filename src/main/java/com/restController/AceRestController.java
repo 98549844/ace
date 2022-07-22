@@ -1,5 +1,6 @@
 package com.restController;
 
+import com.api.AceApi;
 import com.config.AceConfig;
 import com.report.config.ReportConfig;
 import io.swagger.annotations.Api;
@@ -31,11 +32,15 @@ public class AceRestController {
 
     private AceConfig aceConfig;
     private ReportConfig reportConfig;
+    private AceApi aceApi;
+
 
     @Autowired
-    public AceRestController(AceConfig aceConfig, ReportConfig reportConfig) {
+    public AceRestController(AceConfig aceConfig, ReportConfig reportConfig, AceApi aceApi) {
         this.aceConfig = aceConfig;
         this.reportConfig = reportConfig;
+        this.aceApi = aceApi;
+
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/get")
@@ -56,6 +61,21 @@ public class AceRestController {
         aceList.add(reportConfig.getPassword());
 
         return aceList;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/get/AceApi")
+    public void getAceApi() {
+        //test  FeignClient
+        int k = 100;
+        for (int i = 0; k < 100; i++) {
+            //access control not fix, malfunction this FeignClient
+            aceApi.getAce();
+        }
+        List<String> ls = new ArrayList<>();
+        ls.add("[ ACE3 ]");
+        ls.add("[ ACE API FeignClient ]");
+        ls.add("looping times: " + k);
+
     }
 
 }

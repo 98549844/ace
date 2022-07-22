@@ -27,6 +27,6 @@ public interface AceApi {
     @PostMapping("/api/getAll")
     ApiResponse<Integer> query(@RequestBody Users users);
 
-    @GetMapping("/get/ace")
+    @GetMapping("/api/get/ace")
     void getAce();
 }

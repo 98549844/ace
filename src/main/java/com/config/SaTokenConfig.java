@@ -35,6 +35,8 @@ public class SaTokenConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/ace/logging.html", "/ace/login.html","/ace/registration.html", "/")
                 //开放restController
                 .excludePathPatterns( "/rest/**")
+                //开方api
+                .excludePathPatterns( "/api/**")
                 .excludePathPatterns(
                         "/**/*.js",
                         "/**/*.png",

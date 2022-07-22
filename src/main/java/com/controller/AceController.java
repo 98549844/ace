@@ -25,30 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class AceController extends CommonController {
     private static Logger log = LogManager.getLogger(AceController.class.getName());
 
-
-    private AceApi aceApi;
-
-    public AceController(AceApi aceApi) {
-        this.aceApi = aceApi;
-    }
-
-    @GetMapping(value = "/get/AceApi")
-    public ModelAndView getAceApi() {
-        Users user = (Users) StpUtil.getSession().get("user");
-        log.info("userId: {} ; userAccount: {} ; userName: {}", user.getUserId(), user.getUserAccount(), user.getUsername());
-        boolean isLogin = isLogin();
-        if (!isLogin) {
-            log.info("system logout");
-            return logOut();
-        }
-        for (int i = 0; i < 100; i++) {
-            //access control not fix, malfunction this FeignClient
-            aceApi.getAce();
-        }
-        ModelAndView modelAndView = super.page("ace/index");
-        return modelAndView;
-    }
-
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
     public ModelAndView index() {
         if (!isLogin()) {
