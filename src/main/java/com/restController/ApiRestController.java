@@ -22,20 +22,8 @@ import java.util.Map;
 public class ApiRestController {
     private static Logger log = LogManager.getLogger(ApiRestController.class.getName());
 
-    private AceApi aceApi;
-
-    public ApiRestController(AceApi aceApi) {
-        this.aceApi = aceApi;
-    }
 
 
-    @GetMapping(value = "/get/AceApi")
-    public void getAceApi() {
-        for (int i = 0; i < 100; i++) {
-            aceApi.getAce();
-        }
-
-    }
 
 
     /**

@@ -96,14 +96,16 @@ public class LoginController extends CommonController {
                 return modelAndView;
             }
         }
+
         if (NullUtil.isNotNull(rememberMe)) {
             //rememberMe = on 记住我
             login(user.getUserId(), true);
         } else {
             login(user.getUserId(), false);
         }
+        log.info("UserId: {}", user.getUserId());
         setSession(user);
-      //  modelAndView = super.page("ace/index.html");
+        //  modelAndView = super.page("ace/index.html");
         modelAndView = super.redirect("ace/index.html");
         return modelAndView;
     }
