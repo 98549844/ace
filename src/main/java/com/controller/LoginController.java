@@ -41,17 +41,8 @@ public class LoginController extends CommonController {
     }
 
 
-    public void a() {
-        String path = PathUtil.getSystemPath();
-        String osName = OsUtil.getOsInfo();
-        System.out.println(path);
-        System.out.println(osName);
-
-    }
-
     @RequestMapping(value = {"/ace/login.html", "/"}, method = RequestMethod.GET)
     public ModelAndView login(HttpServletRequest request) {
-        a();
         if (isLogin()) {
             return super.page("ace/index.html");
         } else {
