@@ -1,10 +1,16 @@
+https://blog.csdn.net/ithaibiantingsong/article/details/82350352
+https://www.51cto.com/article/650560.html
+
+
 导出和导入容器
 1. 导出容器意味着从容器的文件系统创建压缩文件,
    导出的文件保存为"gzip"文件
 docker export container-name | gzip > container-name.gz
+docker export 容器名 > ./全路径新容器名.tar
 
 2. 在新服务器中, 这个gzip文件随后被导入到一个新容器中
 zcat container-name.gz | docker import - container-name
+docker import 容器文件.tar 容器名
 
 保存和加载镜像
 1. Docker镜像是应用程序的代码, 库, 配置文件等的包.
