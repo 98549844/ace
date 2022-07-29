@@ -1,3 +1,5 @@
+SELECT * FROM information_schema.SCHEMATA; #查看schema
+
 create schema ace default character set utf8 collate utf8_general_ci;#创建数据库
 grant select,insert,update,delete,create on ace.* to root;#用户授权数据库
 grant select,insert,update,delete,create on ace.* to garlam;#用户授权数据库
