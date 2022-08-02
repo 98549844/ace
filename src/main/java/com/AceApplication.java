@@ -7,6 +7,7 @@ import com.config.AceConfig;
 import com.config.BrowserConfig;
 import com.restController.SaTakenRestController;
 import com.util.ApplicationContextUtil;
+import com.util.PropertiesUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mybatis.spring.annotation.MapperScan;
@@ -20,6 +21,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import util.IpUtil;
 import util.MapUtil;
+import util.SystemUtil;
 
 import java.io.IOException;
 import java.util.Map;
@@ -43,7 +45,7 @@ import java.util.Map;
 //for baseEntity using
 @EnableJpaAuditing
 public class AceApplication {
-    private static final Logger log = LogManager.getLogger(SaTakenRestController.class.getName());
+    private static final Logger log = LogManager.getLogger(AceApplication.class.getName());
     public static ApplicationContext applicationContext;
 
     public static void main(String[] args) throws IOException {
@@ -59,7 +61,10 @@ public class AceApplication {
         mapUtil.iterateMapKeyset(m);
 
         //print all application context bean name
-         ApplicationContextUtil.printBeanName(applicationContext);
+        ApplicationContextUtil.printBeanName(applicationContext);
+
+        System.out.println(SystemUtil.LINE);
+        PropertiesUtil.printLoadedProperties();
 
         ApplicationContextUtil applicationContextUtil = new ApplicationContextUtil();
         AceConfig aceConfig = (AceConfig) applicationContextUtil.getBeanByName("aceConfig");

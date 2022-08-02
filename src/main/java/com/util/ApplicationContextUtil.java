@@ -1,27 +1,24 @@
 package com.util;
 
 import com.AceApplication;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class ApplicationContextUtil {
-    static private final Log log = LogFactory.getLog(ApplicationContextUtil.class);
+    private static final Logger log = LogManager.getLogger(ApplicationContextUtil.class.getName());
 
-   //   private static final Logger logger = LoggerFactory.getLogger(ApplicationContextUtil.class);
     public static ApplicationContext applicationContext = null;
 
     //@Autowired
-   // private RequestMappingHandlerMapping requestMappingHandlerMapping;
+    // private RequestMappingHandlerMapping requestMappingHandlerMapping;
 
     public ApplicationContextUtil() {
         if (applicationContext == null) {
@@ -41,8 +38,8 @@ public class ApplicationContextUtil {
         // logger.info("total bean: {}", applicationContext.getBeanDefinitionCount());
         int i = 0;
         for (String s : beanNames) {
-            log.info(++i + ",beanName: " + s);
-           //  logger.info("{},beanName:{}", ++i, s);
+            log.info("{},beanName: {}", ++i, s);
+            //  logger.info("{},beanName:{}", ++i, s);
         }
     }
 
@@ -94,4 +91,6 @@ public class ApplicationContextUtil {
         ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(context);
         Object clazz = (Object) ctx.getBean("beanName");
     }
+
+
 }
