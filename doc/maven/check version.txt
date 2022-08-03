@@ -1,0 +1,2 @@
+1. 使用 list maven 依赖插件显示
+mvn dependency:list -DincludeArtifactIds=thymeleaf
