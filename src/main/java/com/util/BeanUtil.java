@@ -12,16 +12,17 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class ApplicationContextUtil {
-    private static final Logger log = LogManager.getLogger(ApplicationContextUtil.class.getName());
+public class BeanUtil {
+    private static final Logger log = LogManager.getLogger(BeanUtil.class.getName());
 
     public static ApplicationContext applicationContext = null;
 
     //@Autowired
     // private RequestMappingHandlerMapping requestMappingHandlerMapping;
 
-    public ApplicationContextUtil() {
+    public BeanUtil() {
         if (applicationContext == null) {
+            log.info("applicationContext loaded from ACE !");
             applicationContext = AceApplication.applicationContext;
         }
     }
@@ -34,13 +35,11 @@ public class ApplicationContextUtil {
      */
     public static void printBeanName(ApplicationContext applicationContext) {
         String[] beanNames = applicationContext.getBeanDefinitionNames();
+        log.info("total bean: {}", applicationContext.getBeanDefinitionCount());
         // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加该注解的bean
-        log.info("total bean: " + applicationContext.getBeanDefinitionCount());
-        // logger.info("total bean: {}", applicationContext.getBeanDefinitionCount());
         int i = 0;
         for (String s : beanNames) {
             log.info("{},beanName: {}", ++i, s);
-            //  logger.info("{},beanName:{}", ++i, s);
         }
     }
 
@@ -57,7 +56,7 @@ public class ApplicationContextUtil {
     }
 
     public static void main(String[] args) {
-
+        getXmlConfigFile();
     }
 
     /**
@@ -65,7 +64,7 @@ public class ApplicationContextUtil {
      *
      * @param
      */
-    public void getXmlConfigFile() {
+    public static void getXmlConfigFile() {
         //第一种: FileSystemXmlApplicationContext
         //加载单个配置文件
         ApplicationContext ctx1 = new FileSystemXmlApplicationContext("bean.xml");

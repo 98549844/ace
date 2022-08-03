@@ -1,7 +1,7 @@
 package com.config;
 
 
-import com.util.ApplicationContextUtil;
+import com.util.BeanUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Configuration;
@@ -85,7 +85,7 @@ public class BrowserConfig {
 
 
 	private void openAceIndexOnMac(boolean indexEnable) throws IOException {
-		ApplicationContextUtil app = new ApplicationContextUtil();
+		BeanUtil app = new BeanUtil();
 		IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
 		Map m = ip.getHostInfo();
 		String macUrl = url.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
@@ -171,7 +171,7 @@ public class BrowserConfig {
 		String osName = BrowserConfig.getOsInfo();
 		BrowserConfig browserConfig = new BrowserConfig();
 
-		ApplicationContextUtil app = new ApplicationContextUtil();
+		BeanUtil app = new BeanUtil();
 		IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
 		Map m = ip.getHostInfo();
 		if (openIndex) {

@@ -1,12 +1,9 @@
 package com;
 
 import cn.dev33.satoken.SaManager;
-import cn.dev33.satoken.session.SaSession;
-import cn.dev33.satoken.stp.StpUtil;
 import com.config.AceConfig;
 import com.config.BrowserConfig;
-import com.restController.SaTakenRestController;
-import com.util.ApplicationContextUtil;
+import com.util.BeanUtil;
 import com.util.PropertiesUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -53,7 +50,7 @@ public class AceApplication {
 
         //iterate bean value by name
         //print server side information
-        ApplicationContextUtil app = new ApplicationContextUtil();
+        BeanUtil app = new BeanUtil();
         //print host info
         IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
         Map m = ip.getHostInfo();
@@ -61,12 +58,12 @@ public class AceApplication {
         mapUtil.iterateMapKeyset(m);
 
         //print all application context bean name
-        ApplicationContextUtil.printBeanName(applicationContext);
+        BeanUtil.printBeanName(applicationContext);
 
         System.out.println(SystemUtil.LINE);
         PropertiesUtil.printLoadedProperties();
 
-        ApplicationContextUtil applicationContextUtil = new ApplicationContextUtil();
+        BeanUtil applicationContextUtil = new BeanUtil();
         AceConfig aceConfig = (AceConfig) applicationContextUtil.getBeanByName("aceConfig");
 
         BrowserConfig browserConfig = new BrowserConfig();
