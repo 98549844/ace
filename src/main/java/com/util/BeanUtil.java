@@ -22,7 +22,7 @@ public class BeanUtil {
 
     public BeanUtil() {
         if (applicationContext == null) {
-            log.info("applicationContext loaded from ACE !");
+            log.info("ApplicationContext loaded from ACE !");
             applicationContext = AceApplication.applicationContext;
         }
     }
