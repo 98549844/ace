@@ -16,6 +16,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import util.Console;
 import util.IpUtil;
 import util.MapUtil;
 import util.SystemUtil;
@@ -47,24 +48,22 @@ public class AceApplication {
 
     public static void main(String[] args) throws IOException {
         applicationContext = SpringApplication.run(AceApplication.class, args);
+        //print all loaded BeanName and properties value
+        System.out.println(SystemUtil.LINE);
+        Console.println(SystemUtil.LINE, Console.BOLD, Console.GREEN);
+        BeanUtil.printBeanName(applicationContext);
+        PropertiesUtil.printLoadedProperties();
+        Console.println(SystemUtil.LINE, Console.BOLD, Console.GREEN);
 
         //iterate bean value by name
         //print server side information
-        BeanUtil app = new BeanUtil();
         //print host info
-        IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
+        BeanUtil beanUtil = new BeanUtil();
+        IpUtil ip = (IpUtil) beanUtil.getBeanByName("ipUtil");
         Map m = ip.getHostInfo();
-        MapUtil mapUtil = new MapUtil();
-        mapUtil.iterateMapKeyset(m);
+        MapUtil.iterateMapKeyset(m);
 
-        //print all application context bean name
-        BeanUtil.printBeanName(applicationContext);
-
-        System.out.println(SystemUtil.LINE);
-        PropertiesUtil.printLoadedProperties();
-
-        BeanUtil applicationContextUtil = new BeanUtil();
-        AceConfig aceConfig = (AceConfig) applicationContextUtil.getBeanByName("aceConfig");
+        AceConfig aceConfig = (AceConfig) beanUtil.getBeanByName("aceConfig");
 
         BrowserConfig browserConfig = new BrowserConfig();
         //决定项目启动时, 是否主动打开swagger/docHtml
