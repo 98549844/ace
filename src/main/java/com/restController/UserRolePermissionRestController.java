@@ -31,11 +31,11 @@ import java.util.Map;
 public class UserRolePermissionRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(UserRolePermissionRestController.class.getName());
 
-    private UsersService usersService;
-    private RolesService rolesService;
-    private PermissionsService permissionsService;
-    private UserRolesService userRolesService;
-    private RolePermissionsService rolePermissionsService;
+    private final UsersService usersService;
+    private final RolesService rolesService;
+    private final PermissionsService permissionsService;
+    private final UserRolesService userRolesService;
+    private final RolePermissionsService rolePermissionsService;
 
     public UserRolePermissionRestController(RolePermissionsService rolePermissionsService, UserRolesService userRolesService, UsersService usersService, RolesService rolesService, PermissionsService permissionsService) {
         this.usersService = usersService;

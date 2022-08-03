@@ -24,8 +24,8 @@ public class DisposableConfig implements DisposableBean {
     public void destroy() throws Exception {
         log.info("Shutting down AceApplication ... ");
         // 注销此Session会话 (从持久库删除此Session)
-       // StpUtil.getSession().logout();
-       // StpUtil.logout();
+        StpUtil.getSession().logout();
+        StpUtil.logout();
         log.info("AceApplication shutdown completed");
     }
 }
