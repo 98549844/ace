@@ -22,9 +22,9 @@ public class HttpUtil {
 
     public static Map getHttpServletRequest(HttpServletRequest request) {
         Map map = new HashMap();
-        Enumeration paramNames = request.getParameterNames();
+        Enumeration<String> paramNames = request.getParameterNames();
         while (paramNames.hasMoreElements()) {
-            String paramName = (String) paramNames.nextElement();
+            String paramName = paramNames.nextElement();
             String[] paramValues = request.getParameterValues(paramName);
             if (paramValues.length == 1) {
                 String paramValue = paramValues[0];
@@ -87,7 +87,7 @@ public class HttpUtil {
         System.out.println("Server Name: " + request.getServerName());
         System.out.println("Server Port: " + request.getServerPort());
         System.out.println("Protocol: " + request.getProtocol());
-        System.out.println("Remote Addr: " + request.getRemoteAddr());
+        System.out.println("Remote Address: " + request.getRemoteAddr());
         System.out.println("Remote Host: " + request.getRemoteHost());
         System.out.println("Character Encoding: " + request.getCharacterEncoding());
         System.out.println("Content Length: " + request.getContentLength());
