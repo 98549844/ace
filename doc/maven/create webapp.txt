@@ -1,0 +1,8 @@
+打开IDEA选择菜单栏上面的【File】→【New]→【Project】
+或者【Module】新键项目选择【Project】,
+新建模块选择【Module】
+
+选择【Project】新建项目如下图所示,
+按照其步骤选择最后点击在第四步打开【Add Archetype】添加原型
+
+REMARK: maven web项目要选择【maven-archetype-webapp】
