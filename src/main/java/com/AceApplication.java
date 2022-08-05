@@ -49,11 +49,10 @@ public class AceApplication {
     public static void main(String[] args) throws IOException {
         applicationContext = SpringApplication.run(AceApplication.class, args);
         //print all loaded BeanName and properties value
-        System.out.println(SystemUtil.LINE);
-        Console.println(SystemUtil.LINE, Console.BOLD, Console.GREEN);
+        Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
         BeanUtil.printBeanName(applicationContext);
         PropertiesUtil.printLoadedProperties();
-        Console.println(SystemUtil.LINE, Console.BOLD, Console.GREEN);
+        Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
 
         //iterate bean value by name
         //print server side information
@@ -65,8 +64,8 @@ public class AceApplication {
 
         AceConfig aceConfig = (AceConfig) beanUtil.getBeanByName("aceConfig");
 
-        BrowserConfig browserConfig = new BrowserConfig();
         //决定项目启动时, 是否主动打开swagger/docHtml
+        BrowserConfig browserConfig = new BrowserConfig();
         browserConfig.openAceIndexAndSwagger(aceConfig.isIndexEnable(), aceConfig.isSwaggerEnable(), aceConfig.isDocHtmlEnabled());
 
         // browserConfig.getCss();
