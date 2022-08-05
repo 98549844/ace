@@ -88,7 +88,7 @@ public class BeanUtil {
         ApplicationContext ctx2 = new FileSystemXmlApplicationContext(locations);
         //根据具体路径加载文件
         log.info("Absolute path => C:/xxx/xxx/xxx/xxx.xml");
-        ApplicationContext ctx3 = new FileSystemXmlApplicationContext("D:/project/bean.xml");
+        ApplicationContext ctx3 = new FileSystemXmlApplicationContext("C:/project/application_xxx.xml");
 
     }
 
