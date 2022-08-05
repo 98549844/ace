@@ -59,7 +59,7 @@ public class AceApplication {
         //print host info
         BeanUtil beanUtil = new BeanUtil();
         IpUtil ip = (IpUtil) beanUtil.getBeanByName("ipUtil");
-        Map<String, String> m = ip.getHostInfo();
+        Map m = ip.getHostInfo();
         MapUtil.iterateMapKeyset(m);
 
         AceConfig aceConfig = (AceConfig) beanUtil.getBeanByName("aceConfig");
