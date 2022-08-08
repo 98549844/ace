@@ -66,6 +66,8 @@ public class PermissionRestController extends CommonController {
     @RequestMapping(method = RequestMethod.GET, value = "/insertPermission")
     public AjaxResponse insertPermission() {
         permissionsService.deleteAll();
+        log.info("All permissions DELETED !");
+
 
         Users user = usersService.findByUserAccount("garlam");
         //generate roles data
@@ -73,6 +75,8 @@ public class PermissionRestController extends CommonController {
         List<Permissions> ls = insertPermissions.insertPermissions(user);
 
         permissionsService.saveAll(ls);
+        log.info("Default permissions has been CREATED !");
+
 
         List<String> result = new ArrayList<>();
         for (Permissions permissions : ls) {

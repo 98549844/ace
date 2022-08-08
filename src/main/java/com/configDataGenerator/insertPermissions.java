@@ -5,6 +5,7 @@ import com.models.entity.dao.Permissions;
 import com.models.entity.dao.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import util.NullUtil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,8 +24,7 @@ public class insertPermissions {
 
     public List<Permissions> insertPermissions(Users users) {
         List<Permissions> ls = new ArrayList<>();
-
-       // Permissions p1 = new Permissions();
+        Permissions p1 = new Permissions();
         Permissions p2 = new Permissions();
         Permissions p3 = new Permissions();
         Permissions p4 = new Permissions();
@@ -32,80 +32,100 @@ public class insertPermissions {
         //Permissions p6 = new Permissions();
         Permissions p7 = new Permissions();
 
-      //  p1.setCreatedBy(users.getUserId());
-        p2.setCreatedBy(users.getUserId());
-        p3.setCreatedBy(users.getUserId());
-        p4.setCreatedBy(users.getUserId());
-        p5.setCreatedBy(users.getUserId());
-       // p6.setCreatedBy(users.getUserId());
-        p7.setCreatedBy(users.getUserId());
+
+        if (NullUtil.isNull(users) || NullUtil.isNull(users.getUserId())) {
+            log.warn("User is null, default id = 1");
+            p1.setCreatedBy(1l);
+            p2.setCreatedBy(1l);
+            p3.setCreatedBy(1l);
+            p4.setCreatedBy(1l);
+            p5.setCreatedBy(1l);
+            // p6.setCreatedBy(1l);
+            p7.setCreatedBy(1l);
+
+            p1.setLastUpdatedBy(1l);
+            p2.setLastUpdatedBy(1l);
+            p3.setLastUpdatedBy(1l);
+            p4.setLastUpdatedBy(1l);
+            p5.setLastUpdatedBy(1l);
+            // p6.setLastUpdatedBy(1l);
+            p7.setLastUpdatedBy(1l);
+
+        } else {
+            p1.setCreatedBy(users.getUserId());
+            p2.setCreatedBy(users.getUserId());
+            p3.setCreatedBy(users.getUserId());
+            p4.setCreatedBy(users.getUserId());
+            p5.setCreatedBy(users.getUserId());
+            // p6.setCreatedBy(users.getUserId());
+            p7.setCreatedBy(users.getUserId());
+
+            p1.setLastUpdatedBy(users.getUserId());
+            p2.setLastUpdatedBy(users.getUserId());
+            p3.setLastUpdatedBy(users.getUserId());
+            p4.setLastUpdatedBy(users.getUserId());
+            p5.setLastUpdatedBy(users.getUserId());
+            // p6.setLastUpdatedBy(users.getUserId());
+            p7.setLastUpdatedBy(users.getUserId());
+        }
 
 
-       // p1.setCreatedDate(LocalDateTime.now());
+        p1.setCreatedDate(LocalDateTime.now());
         p2.setCreatedDate(LocalDateTime.now());
         p3.setCreatedDate(LocalDateTime.now());
         p4.setCreatedDate(LocalDateTime.now());
         p5.setCreatedDate(LocalDateTime.now());
-       // p6.setCreatedDate(LocalDateTime.now());
+        // p6.setCreatedDate(LocalDateTime.now());
         p7.setCreatedDate(LocalDateTime.now());
 
 
-       // p1.setDescription("Allow all operation");
+        p1.setDescription("Allow all operation");
         p2.setDescription("Insert only");
         p3.setDescription("Update only");
         p4.setDescription("Delete only");
         p5.setDescription("Read only");
-       // p6.setDescription("Allow select update insert");
+        // p6.setDescription("Allow select update insert");
         p7.setDescription("Deny any operation");
 
 
-       // p1.setLastUpdatedBy(users.getUserId());
-        p2.setLastUpdatedBy(users.getUserId());
-        p3.setLastUpdatedBy(users.getUserId());
-        p4.setLastUpdatedBy(users.getUserId());
-        p5.setLastUpdatedBy(users.getUserId());
-       // p6.setLastUpdatedBy(users.getUserId());
-        p7.setLastUpdatedBy(users.getUserId());
-
-
-        //p1.setLastUpdateDate(LocalDateTime.now());
+        p1.setLastUpdateDate(LocalDateTime.now());
         p2.setLastUpdateDate(LocalDateTime.now());
         p3.setLastUpdateDate(LocalDateTime.now());
         p4.setLastUpdateDate(LocalDateTime.now());
         p5.setLastUpdateDate(LocalDateTime.now());
-       // p6.setLastUpdateDate(LocalDateTime.now());
+        // p6.setLastUpdateDate(LocalDateTime.now());
         p7.setLastUpdateDate(LocalDateTime.now());
 
-       // p1.setPermissionCode(Constant.ALL);
+        p1.setPermissionCode(Constant.ALL);
         p2.setPermissionCode(Constant.INSERT);
         p3.setPermissionCode(Constant.UPDATE);
         p4.setPermissionCode(Constant.DELETE);
         p5.setPermissionCode(Constant.SELECT);
-       // p6.setPermissionCode(Constant.SELECT_UPDATE_INSERT);
+        // p6.setPermissionCode(Constant.SELECT_UPDATE_INSERT);
         p7.setPermissionCode(Constant.DENY);
 
-       // p1.setAction("ALL");
+        p1.setAction("ALL");
         p2.setAction("INSERT");
         p3.setAction("UPDATE");
         p4.setAction("DELETE");
         p5.setAction("SELECT");
-       // p6.setAction("SELECT UPDATE INSERT");
+        // p6.setAction("SELECT UPDATE INSERT");
         p7.setAction("DENY");
 
-       // p1.setEnabled(true);
+        p1.setEnabled(true);
         p2.setEnabled(true);
         p3.setEnabled(true);
         p4.setEnabled(true);
         p5.setEnabled(true);
-       // p6.setEnabled(true);
+        // p6.setEnabled(true);
         p7.setEnabled(true);
 
-      //  ls.add(p1);
+        ls.add(p1);
         ls.add(p2);
         ls.add(p3);
         ls.add(p4);
         ls.add(p5);
-       // ls.add(p6);
+        // ls.add(p6);
         ls.add(p7);
 
         return ls;

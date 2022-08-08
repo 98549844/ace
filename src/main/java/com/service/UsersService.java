@@ -9,8 +9,6 @@ import com.models.entity.dao.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -57,27 +55,27 @@ public class UsersService {
 
     public List<Users> findUsersByUsernameLikeIgnoreCaseOrderByLoginDateTime(String username) {
         List<Users> usersList = usersDao.findUsersByUsernameLikeIgnoreCaseOrderByLoginDateTime("%" + username + "%");
-        calcAges(usersList);
+        calcAge(usersList);
         return usersList;
     }
 
     public List<Users> findAll() {
         List<Users> usersList = usersDao.findAll();
-        calcAges(usersList);
+        calcAge(usersList);
         return usersList;
     }
 
 
     public List<Users> findAllByMybatis() {
         List<Users> usersList = usersMapper.findAll();
-        calcAges(usersList);
+        calcAge(usersList);
         return usersList;
     }
 
 
     public List<Users> findUsersOrderByLoginDateTime(Integer limit) {
         List<Users> usersList = usersDao.findUsersOrderByLoginDateTime(limit == null ? 0 : limit);
-        calcAges(usersList);
+        calcAge(usersList);
         return usersList;
     }
 
@@ -93,13 +91,13 @@ public class UsersService {
         if (!matches) {
             throw new PasswordNotMatchException();
         }
-        calcAges(user);
+        calcAge(user);
         return user;
     }
 
     public Users findByUserAccount(String userAccount) {
         Users user = usersDao.findByUserAccount(userAccount.toLowerCase());
-        calcAges(user);
+        calcAge(user);
         return user;
     }
 
@@ -168,7 +166,7 @@ public class UsersService {
 
     public Users findUsersById(long id) {
         Users user = usersDao.findById(id);
-        calcAges(user);
+        calcAge(user);
         return user;
     }
 
@@ -224,7 +222,7 @@ public class UsersService {
     }
 
 
-    public void calcAges(List<Users> userList) {
+    public void calcAge(List<Users> userList) {
         for (Users users : userList) {
             if (NullUtil.isNotNull(users.getBirthday())) {
                 LocalDateTime now = LocalDateTime.now();
@@ -235,12 +233,14 @@ public class UsersService {
         }
     }
 
-    public void calcAges(Users user) {
-        if (NullUtil.isNotNull(user.getBirthday())) {
+    public void calcAge(Users user) {
+        if (NullUtil.isNotNull(user) && NullUtil.isNotNull(user.getBirthday())) {
             LocalDateTime now = LocalDateTime.now();
             LocalDateTime birthDate = user.getBirthday();
             long age = DateTimeUtil.differenceYearsByLocalDateTime(birthDate, now);
             user.setAge(age);
+        } else {
+            log.warn("User is null");
         }
     }
 

@@ -54,14 +54,14 @@ public class InsertUsers {
         u7.setCreatedBy(7001l);
         u8.setCreatedBy(0l);
 
-        u1.setDescription(Constant.Administrator);
-        u2.setDescription(Constant.User);
+        u1.setDescription(Constant.administrator);
+        u2.setDescription(Constant.user);
         u3.setDescription(Constant.Viewer);
-        u4.setDescription(Constant.Disable);
+        u4.setDescription(Constant.disable);
         u5.setDescription(Constant.Viewer);
-        u6.setDescription(Constant.User);
-        u7.setDescription(Constant.Disable);
-        u8.setDescription(Constant.Administrator);
+        u6.setDescription(Constant.user);
+        u7.setDescription(Constant.disable);
+        u8.setDescription(Constant.administrator);
 
 
         u1.setEmail("garlam_au@qq.com");
@@ -150,7 +150,6 @@ public class InsertUsers {
         u7.setUsername("Eric Luk");
         u8.setUsername("Root");
 
-        usersList.add(u8);
         usersList.add(u1);
         usersList.add(u2);
         usersList.add(u3);
@@ -158,6 +157,7 @@ public class InsertUsers {
         usersList.add(u5);
         usersList.add(u6);
         usersList.add(u7);
+        usersList.add(u8);
 
         return usersList;
     }

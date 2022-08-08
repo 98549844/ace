@@ -32,11 +32,10 @@ import java.util.List;
 public class RolesRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(RolesRestController.class.getName());
 
-    private UsersService usersService;
-    private RolesService rolesService;
+    private final UsersService usersService;
+    private final RolesService rolesService;
 
     @Autowired
-
     public RolesRestController(RolesService rolesService, UsersService usersService) {
         this.rolesService = rolesService;
         this.usersService = usersService;
@@ -45,14 +44,17 @@ public class RolesRestController extends CommonController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/insertRoles")
     public AjaxResponse insertRoles() {
-        rolesService.deleteAll();
-
         Users user = usersService.findByUserAccount("garlam");
+        rolesService.deleteAll();
+        log.info("All roles DELETED !");
+
         //generate roles data
         insertRoles insertRoles = new insertRoles();
         List<Roles> ls = insertRoles.insertRoles(user);
 
         rolesService.saveAllAndFlush(ls);
+        log.info("Default roles has been CREATED !");
+
 
         List<String> result = new ArrayList<>();
         for (Roles roles : ls) {

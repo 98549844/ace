@@ -14,6 +14,10 @@ delete
 from role_permissions
 where rolePermissionsId is not null;
 
+delete
+from roles
+where roleId is not null;
+
 
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, gender, hostName,
                    ip, lastUpdatedBy, lastUpdateDate, mobile, password, remark, enabled, userAccount, userName, version
