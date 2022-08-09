@@ -1,5 +1,6 @@
 package com.restController;
 
+import com.constant.Constant;
 import com.models.common.AjaxResponse;
 import com.models.entity.dao.Users;
 import com.configDataGenerator.InsertUsers;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import util.NullUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +87,7 @@ public class UsersRestController {
         }
         return AjaxResponse.success(result);
     }
+
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/reEncodePassword")

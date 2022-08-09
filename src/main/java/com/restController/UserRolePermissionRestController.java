@@ -53,6 +53,17 @@ public class UserRolePermissionRestController extends CommonController {
         this.permissionRestController = permissionRestController;
     }
 
+    public void checkDefaultUser() {
+        Users admin = usersService.findByUserAccount("admin");
+        if (NullUtil.isNull(admin) && NullUtil.isNull(admin.getUserAccount())) {
+            log.warn("administrator was DESTROYED");
+            addDefaultAdminUsers();
+            log.info("administrator rebuild success !!!");
+            return;
+        }
+        log.info("default administrator account health check: PASS");
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/addDefaultUsers")
     public AjaxResponse addDefaultAdminUsers() {
         rolesService.findAll();
@@ -118,8 +129,6 @@ public class UserRolePermissionRestController extends CommonController {
             userRolesService.save(garlamUsersRoles);
 
         }
-
-
         return AjaxResponse.success("User: administrator and garlam has been created and added into roles");
     }
 

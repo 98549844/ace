@@ -3,11 +3,14 @@ package com;
 import cn.dev33.satoken.SaManager;
 import com.config.AceConfig;
 import com.config.BrowserConfig;
+import com.restController.UserRolePermissionRestController;
+import com.service.UsersService;
 import com.util.BeanUtil;
 import com.util.PropertiesUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -46,6 +49,7 @@ public class AceApplication {
     private static final Logger log = LogManager.getLogger(AceApplication.class.getName());
     public static ApplicationContext applicationContext;
 
+
     public static void main(String[] args) throws IOException {
         applicationContext = SpringApplication.run(AceApplication.class, args);
 
@@ -75,5 +79,9 @@ public class AceApplication {
         // browserConfig.getIndex();
 
         log.info("Running success：Sa-Token config：{}", SaManager.getConfig());
+
+        UserRolePermissionRestController checkDefault = (UserRolePermissionRestController) beanUtil.getBeanByName("userRolePermissionRestController");
+        checkDefault.checkDefaultUser();
     }
+
 }
