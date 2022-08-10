@@ -2,7 +2,7 @@ package com;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import util.VersionUtil;
+import com.util.VersionUtil;
 
 /**
  * @Classname: Ace
