@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.controller.common.CommonController;
 import org.springframework.web.bind.annotation.*;
-import util.NullUtil;
+import com.util.NullUtil;
 
 
 /**

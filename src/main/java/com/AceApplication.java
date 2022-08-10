@@ -4,13 +4,12 @@ import cn.dev33.satoken.SaManager;
 import com.config.AceConfig;
 import com.config.BrowserConfig;
 import com.restController.UserRolePermissionRestController;
-import com.service.UsersService;
 import com.util.BeanUtil;
-import com.util.PropertiesUtil;
+import com.util.IpUtil;
+import com.util.MapUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -19,10 +18,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import util.Console;
-import util.IpUtil;
-import util.MapUtil;
-import util.SystemUtil;
 
 import java.io.IOException;
 import java.util.Map;
@@ -38,7 +33,7 @@ import java.util.Map;
         属于Spring框架(@Component,@Service,@Controller,@Repository,@Entity)，扫描范围默认情况下是启动类坐在的同名包及其子孙包
 */
 @SpringBootApplication
-@ComponentScan({"com", "util"})
+@ComponentScan({"com", "com.util"})
 @MapperScan("com.mapper")
 @EnableTransactionManagement
 @EnableCaching

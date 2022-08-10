@@ -5,9 +5,9 @@ import com.util.BeanUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Configuration;
-import util.Console;
-import util.DataTypeUtil;
-import util.IpUtil;
+import com.util.Console;
+import com.util.DataTypeUtil;
+import com.util.IpUtil;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

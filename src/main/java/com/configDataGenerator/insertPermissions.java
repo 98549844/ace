@@ -5,7 +5,7 @@ import com.models.entity.dao.Permissions;
 import com.models.entity.dao.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import util.NullUtil;
+import com.util.NullUtil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

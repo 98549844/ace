@@ -2,8 +2,8 @@ package com.scheduler.task;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import util.OsUtil;
-import util.PathUtil;
+import com.util.OsUtil;
+import com.util.PathUtil;
 
 import java.io.File;
 

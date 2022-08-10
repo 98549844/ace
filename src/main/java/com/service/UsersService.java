@@ -13,9 +13,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import util.DateTimeUtil;
-import util.NullUtil;
-import util.RandomUtil;
+import com.util.DateTimeUtil;
+import com.util.NullUtil;
+import com.util.RandomUtil;
 
 import javax.persistence.criteria.Predicate;
 import java.time.LocalDateTime;
