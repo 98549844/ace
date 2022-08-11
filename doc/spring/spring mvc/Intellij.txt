@@ -1,5 +1,0 @@
-
-psvm:生成main方法
-sout:System.out.println();
-fori:生成for loop
-itli:生成List遍历
