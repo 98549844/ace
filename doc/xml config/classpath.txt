@@ -1,0 +1,7 @@
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:springmvc-servlet.xml</param-value>
+        </init-param>
+
+       1. classpath:springmvc-servlet.xml =>指向resourcey下的文件
+       2. webapp/WEB-INF/applicationContext.xml =>指向相对路径

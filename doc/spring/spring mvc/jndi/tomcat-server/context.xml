@@ -1,0 +1,46 @@
+<!--tomcat 9-->
+<!--1.edit context.xml-->
+<!--location: tomcat\conf\context.xml-->
+
+
+<Context>
+
+    <Resource
+        name="dmap/global"
+        auth="Container"
+        type="javax.sql.DataSource"
+        maxActive="100"
+        maxIdle="30"
+        maxWait="10000"
+        username="USERPROV"
+        password="Passw0rd"
+        driverClassName="oracle.jdbc.driver.OracleDriver"
+        url="jdbc:oracle:thin:@192.168.8.66:1521:MPFADB"/>
+
+
+    <Resource
+        name="jdbc/mysql"
+        auth="Container"
+        type="javax.sql.DataSource"
+        maxTotal="100"
+        maxIdle="30"
+        maxWait="10000"
+        username="root"
+        password="root"
+        driverClassName="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://localhost:3306/ace?characterEncoding=UTF-8&amp;useSSL=false&amp;useTimezone=true&amp;serverTimezone=GMT%2B8"/>
+
+    <Resource
+        name="jdbc/sqlserver"
+        auth="Container"
+        type="javax.sql.DataSource"
+        maxActive="100"
+        maxIdle="30"
+        maxWait="10000"
+        username="sa"
+        password="p@ssw0rd"
+        driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+        url="jdbc:sqlserver://192.168.1.51:1433;DatabaseName=demo"/>
+
+
+</Context>

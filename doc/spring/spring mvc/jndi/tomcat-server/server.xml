@@ -1,0 +1,66 @@
+<!--tomcat 9-->
+<!--1.edit server.xml-->
+<!--location: tomcat\conf\server.xml-->
+
+<GlobalNamingResources>
+        <!-- Editable user database that can also be used by
+             UserDatabaseRealm to authenticate users
+        -->
+        <Resource name="UserDatabase" auth="Container"
+                  type="org.apache.catalina.UserDatabase"
+                  description="User database that can be updated and saved"
+                  factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+                  pathname="conf/tomcat-users.xml"/>
+        <!--
+        |- name：表示以后要查找的名称。通过此名称可以找到DataSource，此名称任意更换，但是程序中最终要查找的就是此名称，
+                 为了不与其他的名称混淆，所以使用jdbc/oracle，现在配置的是一个jdbc的关于oracle的命名服务。
+        |- auth：由容器进行授权及管理，指的用户名和密码是否可以在容器上生效
+        |- type：此名称所代表的类型，现在为javax.sql.DataSource
+        |- maxActive：表示一个数据库在此服务器上所能打开的最大连接数
+        |- maxIdle：表示一个数据库在此服务器上维持的最小连接数
+        |- maxWait：最大等待时间。10000毫秒
+        |- username：数据库连接的用户名
+        |- password：数据库连接的密码
+        |- driverClassName：数据库连接的驱动程序
+        |- url：数据库连接的地址
+        -->
+        <!--配置Oracle数据库的JNDI数据源-->
+        <Resource
+            name="dmap/global"
+            auth="Container"
+            type="javax.sql.DataSource"
+            maxActive="100"
+            maxIdle="30"
+            maxWait="10000"
+            username="USERPROV"
+            password="Passw0rd"
+            driverClassName="oracle.jdbc.driver.OracleDriver"
+            url="jdbc:oracle:thin:@192.168.8.66:1521:MPFADB"/>
+
+        <!--配置MySQL数据库的JNDI数据源-->
+        <Resource
+            name="jdbc/mysql"
+            auth="Container"
+            type="javax.sql.DataSource"
+            maxTotal="100"
+            maxIdle="30"
+            maxWait="10000"
+            username="root"
+            password="root"
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/ace?characterEncoding=UTF-8&amp;useSSL=false&amp;useTimezone=true&amp;serverTimezone=GMT%2B8"/>
+
+        <!--配置SQLServer数据库的JNDI数据源-->
+    <Resource
+        name="jdbc/sqlserver"
+        auth="Container"
+        type="javax.sql.DataSource"
+        maxActive="100"
+        maxIdle="30"
+        maxWait="10000"
+        username="sa"
+        password="p@ssw0rd"
+        driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+        url="jdbc:sqlserver://192.168.1.51:1433;DatabaseName=demo"/>
+
+    </GlobalNamingResources>

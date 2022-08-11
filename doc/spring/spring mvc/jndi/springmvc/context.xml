@@ -1,0 +1,3 @@
+<!--create and edit src/main/webapp/META-INF/context.xml-->
+
+<ResourceLink global="jdbc/mysql" name="jdbc/mysql" type="javax.sql.DataSource"/>
