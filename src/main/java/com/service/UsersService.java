@@ -223,13 +223,17 @@ public class UsersService {
 
 
     public void calcAge(List<Users> userList) {
-        for (Users users : userList) {
-            if (NullUtil.isNotNull(users.getBirthday())) {
-                LocalDateTime now = LocalDateTime.now();
-                LocalDateTime birthDate = users.getBirthday();
-                long age = DateTimeUtil.differenceYearsByLocalDateTime(birthDate, now);
-                users.setAge(age);
+        if (NullUtil.isNotNull(userList)) {
+            for (Users users : userList) {
+                if (NullUtil.isNotNull(users.getBirthday())) {
+                    LocalDateTime now = LocalDateTime.now();
+                    LocalDateTime birthDate = users.getBirthday();
+                    long age = DateTimeUtil.differenceYearsByLocalDateTime(birthDate, now);
+                    users.setAge(age);
+                }
             }
+        }else {
+            log.warn("User list is null");
         }
     }
 

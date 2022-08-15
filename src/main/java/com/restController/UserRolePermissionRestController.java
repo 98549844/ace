@@ -55,10 +55,11 @@ public class UserRolePermissionRestController extends CommonController {
 
     public void checkDefaultUser() {
         Users admin = usersService.findByUserAccount("admin");
-        if (NullUtil.isNull(admin) && NullUtil.isNull(admin.getUserAccount())) {
-            log.warn("administrator was DESTROYED");
+        Users garlam = usersService.findByUserAccount("garlam");
+        if (NullUtil.isNull(admin) || NullUtil.isNull(garlam)) {
+            log.warn("administrator/garlam was DESTROYED");
             addDefaultAdminUsers();
-            log.info("administrator rebuild success !!!");
+            log.info("administrator/garlam rebuild success !!!");
             return;
         }
         log.info("default administrator account health check: PASS");
@@ -66,8 +67,6 @@ public class UserRolePermissionRestController extends CommonController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/addDefaultUsers")
     public AjaxResponse addDefaultAdminUsers() {
-        rolesService.findAll();
-        permissionsService.findAll();
         if (0 == rolesService.findAll().size() || 0 == permissionsService.findAll().size()) {
             log.warn("roles or permission is empty, rebuild default roles and permission ...");
             relateRolesAndPermissions();
@@ -99,6 +98,7 @@ public class UserRolePermissionRestController extends CommonController {
             admin.setRemark("ACE APPLICATION");
             admin.setEnabled(true);
             usersService.saveAndFlush(admin);
+
             UserRoles adminUsersRoles = new UserRoles();
             adminUsersRoles.setRoleId(adminRoles.getRoleId());
             adminUsersRoles.setUserId(admin.getUserId());
@@ -112,8 +112,8 @@ public class UserRolePermissionRestController extends CommonController {
             garlam.setUsername("garlam");
             garlam.setDescription(Constant.administrator);
             garlam.setEmail("garlam@ace.com");
-            garlam.setMobile("0000 0000");
-            garlam.setGender(null);
+            garlam.setMobile("9518 6540");
+            garlam.setGender("M");
             garlam.setBirthday(LocalDateTime.now());
             garlam.setLoginDateTime(LocalDateTime.now());
             garlam.setStatus(Constant.ACTIVE);
@@ -123,6 +123,7 @@ public class UserRolePermissionRestController extends CommonController {
             garlam.setRemark("ACE APPLICATION");
             garlam.setEnabled(true);
             usersService.saveAndFlush(garlam);
+
             UserRoles garlamUsersRoles = new UserRoles();
             garlamUsersRoles.setRoleId(adminRoles.getRoleId());
             garlamUsersRoles.setUserId(garlam.getUserId());
@@ -141,20 +142,19 @@ public class UserRolePermissionRestController extends CommonController {
     @RequestMapping(method = RequestMethod.GET, value = "/relateRolesAndPermissions")
     public AjaxResponse relateRolesAndPermissions() {
 
-        if (0 == rolesService.findAll().size() && 0 == permissionsService.findAll().size()) {
+        int rSize = rolesService.findAll().size();
+        int pSize = permissionsService.findAll().size();
+        if (0 == rSize && 0 == pSize) {
             log.info("Clean ROLES and PERMISSION DATA ...");
             rolesService.deleteAll();
             permissionsService.deleteAll();
-            log.info("ROLES and PERMISSION COMPLETED !");
+            log.info("Clean ROLES and PERMISSION COMPLETED !");
 
             log.info("Build ROLES and PERMISSION data ...");
             rolesRestController.insertRoles();
             permissionRestController.insertPermission();
             log.info("Build ROLES and PERMISSION COMPLETE !");
         } else {
-            int rSize = rolesService.findAll().size();
-            int pSize = permissionsService.findAll().size();
-
             log.info("Roles size: {}", rolesService.findAll().size());
             log.info("Permission size: {}", permissionsService.findAll().size());
             StringBuilder c = new StringBuilder();
@@ -164,39 +164,51 @@ public class UserRolePermissionRestController extends CommonController {
             return AjaxResponse.success(c.toString());
         }
 
-
+        //insert default roles
         Roles roleAdmin = rolesService.findByRoleCode(Constant.ROLECODE_ADMIN);
         Roles roleUser = rolesService.findByRoleCode(Constant.ROLECODE_USER);
         Roles RoleDisable = rolesService.findByRoleCode(Constant.ROLECODE_DISABLE);
         Roles roleViewer = rolesService.findByRoleCode(Constant.ROLECODE_VIEWER);
-        List<Permissions> permissionsList = permissionsService.findAll();
 
+        RolePermissions all;
+        RolePermissions insert;
+        RolePermissions update;
+        RolePermissions select;
+//        RolePermissions delete ;
+        RolePermissions deny;
 
-        RolePermissions all = new RolePermissions();
-        RolePermissions insert = new RolePermissions();
-        RolePermissions update = new RolePermissions();
-        RolePermissions delete = new RolePermissions();
-        RolePermissions select = new RolePermissions();
-        RolePermissions deny = new RolePermissions();
-
-
-        for (Permissions permission : permissionsList) {
-
-            if (permission.isEnabled()) {
-                switch (permission.getPermissionCode()) {
-                    case Constant.ALL:
+        Permissions permission;
+        for (Roles roles : rolesService.findAll()) {
+            if (Constant.ACTIVE.equals(roles.getStatus())) {
+                switch (roles.getRoleCode()) {
+                    case Constant.ROLECODE_ADMIN:
+                        all = new RolePermissions();
+                        permission = permissionsService.findPermissionsByPermissionCode(Constant.ALL);
                         all.setPermissionsId(permission.getPermissionsId());
                         all.setRoleId(roleAdmin.getRoleId());
 
                         rolePermissionsService.save(all);
                         break;
+                    case Constant.ROLECODE_DISABLE:
+                        deny = new RolePermissions();
+                        permission = permissionsService.findPermissionsByPermissionCode(Constant.DENY);
+                        deny.setPermissionsId(permission.getPermissionsId());
+                        deny.setRoleId(RoleDisable.getRoleId());
+                        rolePermissionsService.save(deny);
+                        break;
                     case Constant.ROLECODE_USER:
+                        select = new RolePermissions();
+                        permission = permissionsService.findPermissionsByPermissionCode(Constant.SELECT);
                         select.setPermissionsId(permission.getPermissionsId());
                         select.setRoleId(roleUser.getRoleId());
 
+                        update = new RolePermissions();
+                        permission = permissionsService.findPermissionsByPermissionCode(Constant.UPDATE);
                         update.setPermissionsId(permission.getPermissionsId());
                         update.setRoleId(roleUser.getRoleId());
 
+                        insert = new RolePermissions();
+                        permission = permissionsService.findPermissionsByPermissionCode(Constant.INSERT);
                         insert.setPermissionsId(permission.getPermissionsId());
                         insert.setRoleId(roleUser.getRoleId());
 
@@ -205,12 +217,64 @@ public class UserRolePermissionRestController extends CommonController {
                         rolePermissionsService.save(insert);
                         break;
                     case Constant.ROLECODE_VIEWER:
+                        select = new RolePermissions();
+                        permission = permissionsService.findPermissionsByPermissionCode(Constant.SELECT);
                         select.setPermissionsId(permission.getPermissionsId());
                         select.setRoleId(roleViewer.getRoleId());
 
                         rolePermissionsService.save(select);
                         break;
-                    case Constant.ROLECODE_DISABLE:
+
+
+                }
+            }
+
+        }
+
+/*
+        for (Permissions permission : permissionsService.findAll()) {
+            if (permission.isEnabled()) {
+                switch (permission.getPermissionCode()) {
+                    case Constant.ALL:
+                        all = new RolePermissions();
+                        all.setPermissionsId(permission.getPermissionsId());
+                        all.setRoleId(roleAdmin.getRoleId());
+
+                        rolePermissionsService.save(all);
+                        break;
+                    case Constant.INSERT:
+                        select = new RolePermissions();
+                        select.setPermissionsId(permission.getPermissionsId());
+                        select.setRoleId(roleUser.getRoleId());
+
+                        update = new RolePermissions();
+                        update.setPermissionsId(permission.getPermissionsId());
+                        update.setRoleId(roleUser.getRoleId());
+
+                        insert = new RolePermissions();
+                        insert.setPermissionsId(permission.getPermissionsId());
+                        insert.setRoleId(roleUser.getRoleId());
+
+                        rolePermissionsService.save(select);
+                        rolePermissionsService.save(update);
+                        rolePermissionsService.save(insert);
+                        break;
+                    case Constant.UPDATE:
+                        select = new RolePermissions();
+                        select.setPermissionsId(permission.getPermissionsId());
+                        select.setRoleId(roleViewer.getRoleId());
+
+                        rolePermissionsService.save(select);
+                        break;
+                    case Constant.SELECT:
+                        deny = new RolePermissions();
+                        deny.setPermissionsId(permission.getPermissionsId());
+                        deny.setRoleId(RoleDisable.getRoleId());
+
+                        rolePermissionsService.save(deny);
+                        rolePermissionsService.save(deny);
+                    case Constant.DENY:
+                        deny = new RolePermissions();
                         deny.setPermissionsId(permission.getPermissionsId());
                         deny.setRoleId(RoleDisable.getRoleId());
 
@@ -219,7 +283,7 @@ public class UserRolePermissionRestController extends CommonController {
 
                 }
             }
-        }
+        }*/
         return AjaxResponse.success("Roles Permission merged");
     }
 

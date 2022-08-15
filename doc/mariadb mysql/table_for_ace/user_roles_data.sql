@@ -13,10 +13,7 @@ where permissionsId is not null;
 delete
 from role_permissions
 where rolePermissionsId is not null;
-
-delete
-from roles
-where roleId is not null;
+commit;
 
 
 insert into users (userId, birthday, createdBy, createdDate, description, domain, email, gender, hostName,
@@ -64,22 +61,6 @@ values (1007, sysdate(), 2, sysdate(), 'Disable', null, 'eric_luk@qq.com', 'M', 
         '12314564',
         '$2a$08$yN1CpSMd1axnrqDVQXWYxulE1dFt5L3KnoRr9PzbUWj0tQ4Uihtm2', null, false, 'eric', 'Eric Luk', 1, sysdate());
 commit;
-
-
-
-select userId,
-       birthday,
-       description,
-       email,
-       gender,
-       ip,
-       mobile,
-       password,
-       enabled,
-       userAccount,
-       userName
-from users
-order by userId;
 
 
 #------------------------------------------------
@@ -256,6 +237,24 @@ where 1 = 1
 order by userId
 ;
 
+select u.userAccount,
+       u.userId,
+       ur.userRolesId,
+       r.roleId,
+       r.roleCode,
+       rp.rolePermissionsId
+from users u,
+     user_roles ur,
+     roles r,
+     role_permissions rp
+where u.userId = ur.userId
+  and r.roleId = ur.roleId
+ -- and r.roleId = rp.roleId
+;
 
+select userId,userAccount from users;
+# 26,admin
+# 24,garlam
+select userRolesId, userId, roleId from user_roles;
 
-
+select rolePermissionsId,roleId,permissionsId from role_permissions;

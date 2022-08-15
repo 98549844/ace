@@ -80,8 +80,8 @@ public class AceApplication {
 
         log.info("Running success：Sa-Token config：{}", SaManager.getConfig());
 
-        UserRolePermissionRestController checkDefault = (UserRolePermissionRestController) beanUtil.getBeanByName("userRolePermissionRestController");
-        checkDefault.checkDefaultUser();
+        UserRolePermissionRestController userRolePermissionRestController = (UserRolePermissionRestController) beanUtil.getBeanByName("userRolePermissionRestController");
+        userRolePermissionRestController.checkDefaultUser();
 
 
 
