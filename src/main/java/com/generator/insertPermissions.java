@@ -1,4 +1,4 @@
-package com.configDataGenerator;
+package com.generator;
 
 import com.constant.Constant;
 import com.models.entity.dao.Permissions;

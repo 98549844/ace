@@ -1,6 +1,6 @@
 package com.restController;
 
-import com.configDataGenerator.insertRoles;
+import com.generator.insertRoles;
 import com.controller.common.CommonController;
 import com.models.common.AjaxResponse;
 import com.models.entity.dao.Roles;

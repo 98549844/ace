@@ -7,12 +7,12 @@ flush privileges;#立即启用配置
 commit;
 drop schema ace;#删除数据库
 
-create schema ace_remote default character set utf8 collate utf8_general_ci;#创建数据库
-grant select,insert,update,delete,create on ace_remote.* to root;#用户授权数据库
-grant select,insert,update,delete,create on ace_remote.* to garlam;#用户授权数据库
+create schema remote_ace default character set utf8 collate utf8_general_ci;#创建数据库
+grant select,insert,update,delete,create on remote_ace.* to root;#用户授权数据库
+grant select,insert,update,delete,create on remote_ace.* to garlam;#用户授权数据库
 flush privileges;#立即启用配置
 commit;
-drop schema ace_remote;#删除数据库
+drop schema remote_ace;#删除数据库
 
 
 #

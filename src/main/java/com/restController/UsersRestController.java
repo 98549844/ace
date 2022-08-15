@@ -1,19 +1,15 @@
 package com.restController;
 
-import com.constant.Constant;
 import com.models.common.AjaxResponse;
 import com.models.entity.dao.Users;
-import com.configDataGenerator.InsertUsers;
-import com.service.RolesService;
+import com.generator.InsertUsers;
 import com.service.UsersService;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import com.util.NullUtil;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -16,6 +16,8 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Component
@@ -51,6 +53,32 @@ public class BeanUtil implements ApplicationContextAware {
         }
     }
 
+    public static List<String> getBeanNameList(ApplicationContext applicationContext) {
+        String[] beanNames = applicationContext.getBeanDefinitionNames();
+        log.info("total bean: {}", applicationContext.getBeanDefinitionCount());
+        // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加该注解的bean
+        List<String> ls = new ArrayList<>();
+        for (String s : beanNames) {
+            ls.add(s);
+        }
+        return ls;
+    }
+
+    public static List<String> getBeanNameList() {
+        BeanUtil.applicationContext = ContextLoader.getCurrentWebApplicationContext();
+        List<String> ls = new ArrayList<>();
+        if (NullUtil.isNull(BeanUtil.applicationContext)) {
+            log.info("ApplicationContext is null");
+            return ls;
+        }
+        String[] beanNames = BeanUtil.applicationContext.getBeanDefinitionNames();
+        log.info("total bean: {}", applicationContext.getBeanDefinitionCount());
+        // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加该注解的bean
+        for (String s : beanNames) {
+            ls.add(s);
+        }
+        return ls;
+    }
 
     /**
      * 从spring容器中获取bean和servletContext
@@ -58,6 +86,10 @@ public class BeanUtil implements ApplicationContextAware {
     public static void printBeanNameFromContextLoader() {
         BeanUtil.applicationContext = ContextLoader.getCurrentWebApplicationContext();
         String[] beanNames = BeanUtil.applicationContext.getBeanDefinitionNames();
+        if (NullUtil.isNull(BeanUtil.applicationContext)) {
+            log.info("ApplicationContext is null");
+            return;
+        }
         log.info("total bean: {}", applicationContext.getBeanDefinitionCount());
         // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加该注解的bean
         int i = 0;

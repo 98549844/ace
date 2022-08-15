@@ -3,6 +3,7 @@ package com;
 import cn.dev33.satoken.SaManager;
 import com.config.AceConfig;
 import com.config.BrowserConfig;
+import com.generator.MapperNameGenerator;
 import com.restController.UserRolePermissionRestController;
 import com.util.BeanUtil;
 import com.util.IpUtil;
@@ -10,6 +11,9 @@ import com.util.MapUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -20,6 +24,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 
@@ -77,6 +82,13 @@ public class AceApplication {
 
         UserRolePermissionRestController checkDefault = (UserRolePermissionRestController) beanUtil.getBeanByName("userRolePermissionRestController");
         checkDefault.checkDefaultUser();
+
+
+
+//        List<String> ls = BeanUtil.getBeanNameList(applicationContext);
+//        for (String s : ls) {
+//            BeanNameGenerator beanNameGenerator = new MapperNameGenerator(s);
+//        }
     }
 
 }
