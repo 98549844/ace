@@ -147,6 +147,11 @@ public class UsersService {
         return usersDao.saveAndFlush(users);
     }
 
+    @Transactional
+    public void flush() {
+        usersDao.flush();
+    }
+
 
     public boolean validate(Users users) {
         boolean validate = true;
@@ -232,7 +237,7 @@ public class UsersService {
                     users.setAge(age);
                 }
             }
-        }else {
+        } else {
             log.warn("User list is null");
         }
     }

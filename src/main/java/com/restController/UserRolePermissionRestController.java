@@ -98,6 +98,8 @@ public class UserRolePermissionRestController extends CommonController {
             admin.setRemark("ACE APPLICATION");
             admin.setEnabled(true);
             usersService.saveAndFlush(admin);
+            //   usersService.save(admin);
+            //   usersService.flush();
 
             UserRoles adminUsersRoles = new UserRoles();
             adminUsersRoles.setRoleId(adminRoles.getRoleId());
@@ -123,6 +125,8 @@ public class UserRolePermissionRestController extends CommonController {
             garlam.setRemark("ACE APPLICATION");
             garlam.setEnabled(true);
             usersService.saveAndFlush(garlam);
+            //usersService.save(garlam);
+            //usersService.flush();
 
             UserRoles garlamUsersRoles = new UserRoles();
             garlamUsersRoles.setRoleId(adminRoles.getRoleId());
