@@ -16,7 +16,7 @@ public class Users extends baseEntity implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(strategy = "identity", name = "id")
-    @Column(nullable = false)
+    @Column/*(nullable = false)*/
     private Long userId;
     @Column
     private String password;

@@ -15,7 +15,7 @@ public class UserRoles extends baseEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@GenericGenerator(strategy = "identity", name = "id")
-	@Column(nullable = false)
+	@Column/*(nullable = false)*/
 	private Long userRolesId;
 
 	@Column
