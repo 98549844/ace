@@ -15,8 +15,8 @@ public class RolePermissions extends baseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @GenericGenerator(strategy = "identity", name = "id") //use for mariadb
-//	@GeneratedValue(strategy = GenerationType.IDENTITY) // mysql5 需要table AUTO_INCREMENT配合
+    @GenericGenerator(strategy = "identity", name = "id")
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long rolePermissionsId;
     @Column

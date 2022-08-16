@@ -97,7 +97,7 @@ public class UserRolePermissionRestController extends CommonController {
             admin.setRemark("ACE APPLICATION");
             admin.setEnabled(true);
             usersService.saveAndFlush(admin);
-            admin = usersService.findByUserAccount(admin.getUserAccount()); //mysql5 saveAndFlush后 userId is null issue
+            admin = usersService.findByUserAccount(admin.getUserAccount());
 
             UserRoles adminUsersRoles = new UserRoles();
             adminUsersRoles.setRoleId(adminRoles.getRoleId());
@@ -123,7 +123,7 @@ public class UserRolePermissionRestController extends CommonController {
             garlam.setRemark("ACE APPLICATION");
             garlam.setEnabled(true);
             usersService.saveAndFlush(garlam);
-            garlam = usersService.findByUserAccount(garlam.getUserAccount()); //mysql5 saveAndFlush后 userId is null issue
+            garlam = usersService.findByUserAccount(garlam.getUserAccount());
 
             UserRoles garlamUsersRoles = new UserRoles();
             garlamUsersRoles.setRoleId(adminRoles.getRoleId());
