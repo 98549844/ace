@@ -225,8 +225,6 @@ public class UserRolePermissionRestController extends CommonController {
 
                         rolePermissionsService.save(select);
                         break;
-
-
                 }
             }
 
@@ -301,7 +299,7 @@ public class UserRolePermissionRestController extends CommonController {
                 case Constant.ROLECODE_ADMIN:
                     all = new RolePermissions();
                     all.setRoleId(rolesList.get(i).getRoleId());
-                    all.setPermissionsId(p1.getPermissionsId());
+                    all.setPermissionsId(p0.getPermissionsId());
 
                     rolePermissionsService.save(all);
                     break;
