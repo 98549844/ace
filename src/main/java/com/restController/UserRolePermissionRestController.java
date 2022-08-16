@@ -11,7 +11,6 @@ import com.controller.common.CommonController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.util.DateTimeUtil;
 import com.util.MapUtil;
 import com.util.NullUtil;
 
@@ -69,7 +68,7 @@ public class UserRolePermissionRestController extends CommonController {
     public AjaxResponse addDefaultAdminUsers() {
         if (0 == rolesService.findAll().size() || 0 == permissionsService.findAll().size()) {
             log.warn("roles or permission is empty, rebuild default roles and permission ...");
-            relateRolesAndPermissions();
+            mapRolesAndPermissions();
             log.info("rebuild roles and permission complete !");
         }
 
@@ -142,7 +141,7 @@ public class UserRolePermissionRestController extends CommonController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET, value = "/relateRolesAndPermissions")
-    public AjaxResponse relateRolesAndPermissions() {
+    public AjaxResponse mapRolesAndPermissions() {
 
         int rSize = rolesService.findAll().size();
         int pSize = permissionsService.findAll().size();
@@ -232,72 +231,18 @@ public class UserRolePermissionRestController extends CommonController {
             }
 
         }
-
-/*
-        for (Permissions permission : permissionsService.findAll()) {
-            if (permission.isEnabled()) {
-                switch (permission.getPermissionCode()) {
-                    case Constant.ALL:
-                        all = new RolePermissions();
-                        all.setPermissionsId(permission.getPermissionsId());
-                        all.setRoleId(roleAdmin.getRoleId());
-
-                        rolePermissionsService.save(all);
-                        break;
-                    case Constant.INSERT:
-                        select = new RolePermissions();
-                        select.setPermissionsId(permission.getPermissionsId());
-                        select.setRoleId(roleUser.getRoleId());
-
-                        update = new RolePermissions();
-                        update.setPermissionsId(permission.getPermissionsId());
-                        update.setRoleId(roleUser.getRoleId());
-
-                        insert = new RolePermissions();
-                        insert.setPermissionsId(permission.getPermissionsId());
-                        insert.setRoleId(roleUser.getRoleId());
-
-                        rolePermissionsService.save(select);
-                        rolePermissionsService.save(update);
-                        rolePermissionsService.save(insert);
-                        break;
-                    case Constant.UPDATE:
-                        select = new RolePermissions();
-                        select.setPermissionsId(permission.getPermissionsId());
-                        select.setRoleId(roleViewer.getRoleId());
-
-                        rolePermissionsService.save(select);
-                        break;
-                    case Constant.SELECT:
-                        deny = new RolePermissions();
-                        deny.setPermissionsId(permission.getPermissionsId());
-                        deny.setRoleId(RoleDisable.getRoleId());
-
-                        rolePermissionsService.save(deny);
-                        rolePermissionsService.save(deny);
-                    case Constant.DENY:
-                        deny = new RolePermissions();
-                        deny.setPermissionsId(permission.getPermissionsId());
-                        deny.setRoleId(RoleDisable.getRoleId());
-
-                        rolePermissionsService.save(deny);
-                        break;
-
-                }
-            }
-        }*/
         return AjaxResponse.success("Roles Permission merged");
     }
 
 
     /**
-     * 整理没有用户组别的用户
+     * 整理没有用户组别的现有用户
      *
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/merge")
-    public AjaxResponse merge() {
-        userRolesService.deleteAll();
+    @RequestMapping(method = RequestMethod.GET, value = "/remapUsersRolesPermissionRelation")
+    public AjaxResponse remapUsersRolesPermissionRelation() {
+        userRolesService.deleteAll(); // delete all user roles relation
         List<Users> users = usersService.findAll();
 
         Roles roleAdmin = rolesService.findByRoleCode(Constant.ROLECODE_ADMIN);
@@ -312,19 +257,19 @@ public class UserRolePermissionRestController extends CommonController {
         for (int i = 0; i < userSize; i++) {
             UserRoles userRoles = new UserRoles();
             switch (users.get(i).getDescription()) {
-                case "Administrator":
+                case Constant.administrator:
                     userRoles.setUserId(users.get(i).getUserId());
                     userRoles.setRoleId(roleAdmin.getRoleId());
                     break;
-                case "Disable":
+                case Constant.disable:
                     userRoles.setUserId(users.get(i).getUserId());
                     userRoles.setRoleId(RoleDisable.getRoleId());
                     break;
-                case "User":
+                case Constant.user:
                     userRoles.setUserId(users.get(i).getUserId());
                     userRoles.setRoleId(roleUser.getRoleId());
                     break;
-                case "Viewer":
+                case Constant.Viewer:
                     userRoles.setUserId(users.get(i).getUserId());
                     userRoles.setRoleId(roleViewer.getRoleId());
                     break;
@@ -333,11 +278,11 @@ public class UserRolePermissionRestController extends CommonController {
         }
         userRolesService.saveAll(userRolesList);
 
-
-        rolePermissionsService.deleteAll();
+        rolePermissionsService.deleteAll(); // delete all roles and permission relation
 
         List<Roles> rolesList = rolesService.findAll();
         int rolesSize = rolesList.size();
+        Permissions p0 = permissionsService.findPermissionsByPermissionCode(Constant.ALL);
         Permissions p1 = permissionsService.findPermissionsByPermissionCode(Constant.INSERT);
         Permissions p2 = permissionsService.findPermissionsByPermissionCode(Constant.UPDATE);
         Permissions p3 = permissionsService.findPermissionsByPermissionCode(Constant.DELETE);
@@ -345,46 +290,38 @@ public class UserRolePermissionRestController extends CommonController {
         Permissions p10 = permissionsService.findPermissionsByPermissionCode(Constant.DENY);
 
         for (int i = 0; i < rolesSize; i++) {
-            RolePermissions insert = new RolePermissions();
-            RolePermissions update = new RolePermissions();
-            RolePermissions delete = new RolePermissions();
-            RolePermissions select = new RolePermissions();
-            RolePermissions deny = new RolePermissions();
+            RolePermissions all;
+            RolePermissions insert;
+            RolePermissions update;
+            RolePermissions delete;
+            RolePermissions select;
+            RolePermissions deny;
 
             switch (rolesList.get(i).getRoleCode()) {
-                case "ADMIN":
-                    insert.setRoleId(rolesList.get(i).getRoleId());
-                    insert.setPermissionsId(p1.getPermissionsId());
+                case Constant.ROLECODE_ADMIN:
+                    all = new RolePermissions();
+                    all.setRoleId(rolesList.get(i).getRoleId());
+                    all.setPermissionsId(p1.getPermissionsId());
 
-                    update.setRoleId(rolesList.get(i).getRoleId());
-                    update.setPermissionsId(p2.getPermissionsId());
-
-                    select.setRoleId(rolesList.get(i).getRoleId());
-                    select.setPermissionsId(p4.getPermissionsId());
-
-                    delete.setRoleId(rolesList.get(i).getRoleId());
-                    delete.setPermissionsId(p3.getPermissionsId());
-
-                    rolePermissionsService.save(insert);
-                    rolePermissionsService.save(update);
-                    rolePermissionsService.save(delete);
-                    rolePermissionsService.save(select);
-
+                    rolePermissionsService.save(all);
                     break;
-                case "DISABLE":
+                case Constant.ROLECODE_DISABLE:
+                    deny = new RolePermissions();
                     deny.setRoleId(rolesList.get(i).getRoleId());
                     deny.setPermissionsId(p10.getPermissionsId());
 
                     rolePermissionsService.save(deny);
-
                     break;
-                case "USER":
+                case Constant.ROLECODE_USER:
+                    insert = new RolePermissions();
                     insert.setRoleId(rolesList.get(i).getRoleId());
                     insert.setPermissionsId(p1.getPermissionsId());
 
+                    update = new RolePermissions();
                     update.setRoleId(rolesList.get(i).getRoleId());
                     update.setPermissionsId(p2.getPermissionsId());
 
+                    select = new RolePermissions();
                     select.setRoleId(rolesList.get(i).getRoleId());
                     select.setPermissionsId(p4.getPermissionsId());
 
@@ -392,7 +329,8 @@ public class UserRolePermissionRestController extends CommonController {
                     rolePermissionsService.save(update);
                     rolePermissionsService.save(select);
                     break;
-                case "VIEWER":
+                case Constant.ROLECODE_VIEWER:
+                    select = new RolePermissions();
                     select.setRoleId(rolesList.get(i).getRoleId());
                     select.setPermissionsId(p4.getPermissionsId());
 

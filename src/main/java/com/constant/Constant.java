@@ -7,7 +7,7 @@ public class Constant {
 	public static final String administrator = "administrator";
 //	public static final String Editor = "Editor"; // part of read update insert
 	public static final String disable = "disable";
-	public static final String user = "User"; // read update
+	public static final String user = "user"; // read update
 	public static final String Viewer = "viewer"; // read only
 
 	//roles_rolesCode
