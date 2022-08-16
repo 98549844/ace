@@ -96,8 +96,7 @@ public class UserRolePermissionRestController extends CommonController {
             admin.setDomain("ace.com");
             admin.setRemark("ACE APPLICATION");
             admin.setEnabled(true);
-            usersService.saveAndFlush(admin);
-            admin = usersService.findByUserAccount(admin.getUserAccount());
+            admin = usersService.saveAndFlush(admin);
 
             UserRoles adminUsersRoles = new UserRoles();
             adminUsersRoles.setRoleId(adminRoles.getRoleId());
@@ -122,8 +121,7 @@ public class UserRolePermissionRestController extends CommonController {
             garlam.setDomain("ace.com");
             garlam.setRemark("ACE APPLICATION");
             garlam.setEnabled(true);
-            usersService.saveAndFlush(garlam);
-            garlam = usersService.findByUserAccount(garlam.getUserAccount());
+            garlam = usersService.saveAndFlush(garlam);
 
             UserRoles garlamUsersRoles = new UserRoles();
             garlamUsersRoles.setRoleId(adminRoles.getRoleId());

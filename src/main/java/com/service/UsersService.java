@@ -97,7 +97,7 @@ public class UsersService {
 
     public Users findByUserAccount(String userAccount) {
         Users user = usersDao.findByUserAccount(userAccount.toLowerCase());
-        calcAge(user);
+        //calcAge(user);
         return user;
     }
 
