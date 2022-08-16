@@ -12,39 +12,39 @@ import java.io.Serializable;
 @Table(name = "user_roles")
 @Entity
 public class UserRoles extends baseEntity implements Serializable {
-	@Id
-	//    @GeneratedValue(strategy = GenerationType.AUTO)
-//	@GenericGenerator(strategy = "identity", name = "id") //use for mariadb
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // mysql5 需要table AUTO_INCREMENT配合
-	@Column/*(nullable = false)*/
-	private Long userRolesId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(strategy = "identity", name = "id") //use for mariadb
+//	@GeneratedValue(strategy = GenerationType.IDENTITY) // mysql5 需要table AUTO_INCREMENT配合
+    @Column
+    private Long userRolesId;
 
-	@Column
-	private Long roleId;
-	@Column
-	private Long userId;
+    @Column
+    private Long roleId;
+    @Column
+    private Long userId;
 
-	public Long getUserRolesId() {
-		return userRolesId;
-	}
+    public Long getUserRolesId() {
+        return userRolesId;
+    }
 
-	public void setUserRolesId(Long userRolesId) {
-		this.userRolesId = userRolesId;
-	}
+    public void setUserRolesId(Long userRolesId) {
+        this.userRolesId = userRolesId;
+    }
 
-	public Long getRoleId() {
-		return roleId;
-	}
+    public Long getRoleId() {
+        return roleId;
+    }
 
-	public void setRoleId(Long roleId) {
-		this.roleId = roleId;
-	}
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
 
-	public Long getUserId() {
-		return userId;
-	}
+    public Long getUserId() {
+        return userId;
+    }
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }

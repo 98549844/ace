@@ -8,63 +8,63 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "permissions",  uniqueConstraints = {@UniqueConstraint(name = "constraint_permissionCode", columnNames = "permissionCode")})
+@Table(name = "permissions", uniqueConstraints = {@UniqueConstraint(name = "constraint_permissionCode", columnNames = "permissionCode")})
 @Entity
 public class Permissions extends baseEntity implements Serializable {
 
-	@Id
-	//    @GeneratedValue(strategy = GenerationType.AUTO)
-//	@GenericGenerator(strategy = "identity", name = "id") //use for mariadb
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // mysql5 需要table AUTO_INCREMENT配合
-	@Column/*(nullable = false)*/
-	private Long permissionsId;
-	@Column
-	private String permissionCode;
-	@Column
-	private String action;
-	@Column
-	private String description;
-	@Column
-	private boolean enabled = true;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(strategy = "identity", name = "id") //use for mariadb
+//	@GeneratedValue(strategy = GenerationType.IDENTITY) // mysql5 需要table AUTO_INCREMENT配合
+    @Column
+    private Long permissionsId;
+    @Column
+    private String permissionCode;
+    @Column
+    private String action;
+    @Column
+    private String description;
+    @Column
+    private boolean enabled = true;
 
 
-	public Long getPermissionsId() {
-		return permissionsId;
-	}
+    public Long getPermissionsId() {
+        return permissionsId;
+    }
 
-	public void setPermissionsId(Long permissionsId) {
-		this.permissionsId = permissionsId;
-	}
+    public void setPermissionsId(Long permissionsId) {
+        this.permissionsId = permissionsId;
+    }
 
-	public String getPermissionCode() {
-		return permissionCode;
-	}
+    public String getPermissionCode() {
+        return permissionCode;
+    }
 
-	public void setPermissionCode(String permissionCode) {
-		this.permissionCode = permissionCode;
-	}
+    public void setPermissionCode(String permissionCode) {
+        this.permissionCode = permissionCode;
+    }
 
-	public String getAction() {
-		return action;
-	}
+    public String getAction() {
+        return action;
+    }
 
-	public void setAction(String action) {
-		this.action = action;
-	}
+    public void setAction(String action) {
+        this.action = action;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 }

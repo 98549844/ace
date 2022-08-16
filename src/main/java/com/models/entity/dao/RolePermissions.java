@@ -13,42 +13,42 @@ import java.io.Serializable;
 @Entity
 public class RolePermissions extends baseEntity implements Serializable {
 
-	@Id
-	//    @GeneratedValue(strategy = GenerationType.AUTO)
-//	@GenericGenerator(strategy = "identity", name = "id") //use for mariadb
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // mysql5 需要table AUTO_INCREMENT配合
-	@Column/*(nullable = false)*/
-	private Long rolePermissionsId;
-	@Column
-	private Long roleId;
-	@Column
-	private Long permissionsId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(strategy = "identity", name = "id") //use for mariadb
+//	@GeneratedValue(strategy = GenerationType.IDENTITY) // mysql5 需要table AUTO_INCREMENT配合
+    @Column
+    private Long rolePermissionsId;
+    @Column
+    private Long roleId;
+    @Column
+    private Long permissionsId;
 //	@Column
 //	private String url;
 
-	public Long getRolePermissionsId() {
-		return rolePermissionsId;
-	}
+    public Long getRolePermissionsId() {
+        return rolePermissionsId;
+    }
 
-	public void setRolePermissionsId(Long rolePermissionsId) {
-		this.rolePermissionsId = rolePermissionsId;
-	}
+    public void setRolePermissionsId(Long rolePermissionsId) {
+        this.rolePermissionsId = rolePermissionsId;
+    }
 
-	public Long getRoleId() {
-		return roleId;
-	}
+    public Long getRoleId() {
+        return roleId;
+    }
 
-	public void setRoleId(Long roleId) {
-		this.roleId = roleId;
-	}
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
 
-	public Long getPermissionsId() {
-		return permissionsId;
-	}
+    public Long getPermissionsId() {
+        return permissionsId;
+    }
 
-	public void setPermissionsId(Long permissionsId) {
-		this.permissionsId = permissionsId;
-	}
+    public void setPermissionsId(Long permissionsId) {
+        this.permissionsId = permissionsId;
+    }
 
 /*	public String getUrl() {
 		return url;

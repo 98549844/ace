@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(name = "constraint_userAccount", columnNames = "userAccount")})
 @Entity
-public class Users extends baseEntity implements Serializable  {
+public class Users extends baseEntity implements Serializable {
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @GenericGenerator(strategy = "identity", name = "id") //use for mariadb
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // mysql5 需要table AUTO_INCREMENT配合
-    @Column/*(nullable = false)*/
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(strategy = "identity", name = "id") //use for mariadb
+    // @GeneratedValue(strategy = GenerationType.IDENTITY) // mysql5 需要table AUTO_INCREMENT配合
+    @Column
     private Long userId;
     @Column
     private String password;
@@ -56,7 +56,7 @@ public class Users extends baseEntity implements Serializable  {
     private String remark;
 
     @Column
-    private  LocalDateTime expireDate ;
+    private LocalDateTime expireDate;
 
     @Column
     private boolean enabled = true; // user control
