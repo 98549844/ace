@@ -52,22 +52,23 @@
     </delete>
     <insert id="insert" keyColumn="userId" keyProperty="userId" parameterType="com.models.entity.dao.Users"
             useGeneratedKeys="true">
+        <selectKey keyProperty="users.userId" order="AFTER" resultType="java.lang.Long"></selectKey>
         insert into users (createdBy, createdDate, lastUpdateDate,
-                           lastUpdatedBy, version, age,
-                           birthday, description, `domain`,
-                           email, enabled, expireDate,
-                           gender, hostName, ip,
-                           loginDateTime, mobile, `password`,
-                           remark, `status`, userAccount,
-                           username)
+        lastUpdatedBy, version, age,
+        birthday, description, `domain`,
+        email, enabled, expireDate,
+        gender, hostName, ip,
+        loginDateTime, mobile, `password`,
+        remark, `status`, userAccount,
+        username)
         values (#{createdby,jdbcType=BIGINT}, #{createddate,jdbcType=TIMESTAMP}, #{lastupdatedate,jdbcType=TIMESTAMP},
-                #{lastupdatedby,jdbcType=BIGINT}, #{version,jdbcType=INTEGER}, #{age,jdbcType=BIGINT},
-                #{birthday,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR},
-                #{email,jdbcType=VARCHAR}, #{enabled,jdbcType=BIT}, #{expiredate,jdbcType=TIMESTAMP},
-                #{gender,jdbcType=VARCHAR}, #{hostname,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR},
-                #{logindatetime,jdbcType=TIMESTAMP}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-                #{remark,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{useraccount,jdbcType=VARCHAR},
-                #{username,jdbcType=VARCHAR})
+        #{lastupdatedby,jdbcType=BIGINT}, #{version,jdbcType=INTEGER}, #{age,jdbcType=BIGINT},
+        #{birthday,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR},
+        #{email,jdbcType=VARCHAR}, #{enabled,jdbcType=BIT}, #{expiredate,jdbcType=TIMESTAMP},
+        #{gender,jdbcType=VARCHAR}, #{hostname,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR},
+        #{logindatetime,jdbcType=TIMESTAMP}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+        #{remark,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{useraccount,jdbcType=VARCHAR},
+        #{username,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" keyColumn="userId" keyProperty="userId" parameterType="com.models.entity.dao.Users"
             useGeneratedKeys="true">
