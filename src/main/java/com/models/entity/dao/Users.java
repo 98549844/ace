@@ -14,8 +14,9 @@ import java.time.LocalDateTime;
 @Entity
 public class Users extends baseEntity implements Serializable  {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @GenericGenerator(strategy = "identity", name = "id")
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GenericGenerator(strategy = "identity", name = "id") //use for mariadb
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // mysql5 需要table AUTO_INCREMENT配合
     @Column/*(nullable = false)*/
     private Long userId;
     @Column

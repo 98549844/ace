@@ -106,6 +106,10 @@ public class UsersService {
         return usersDao.findUserRolePermission();
     }
 
+    public List<Map> findUserRolePermissionDetail() {
+        return usersDao.findUserRolePermissionDetail();
+    }
+
     /**
      * accountRegistration
      *

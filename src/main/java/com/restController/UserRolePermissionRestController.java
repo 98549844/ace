@@ -53,7 +53,7 @@ public class UserRolePermissionRestController extends CommonController {
         this.permissionRestController = permissionRestController;
     }
 
-    public void checkDefaultUser() {
+    public void defaultUser() {
         Users admin = usersService.findByUserAccount("admin");
         Users garlam = usersService.findByUserAccount("garlam");
         if (NullUtil.isNull(admin) || NullUtil.isNull(garlam)) {
@@ -62,7 +62,7 @@ public class UserRolePermissionRestController extends CommonController {
             log.info("administrator/garlam rebuild success !!!");
             return;
         }
-        log.info("default administrator account health check: PASS");
+        log.info("default ADMIN account health check: PASS");
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/addDefaultUsers")
@@ -98,8 +98,7 @@ public class UserRolePermissionRestController extends CommonController {
             admin.setRemark("ACE APPLICATION");
             admin.setEnabled(true);
             usersService.saveAndFlush(admin);
-            //   usersService.save(admin);
-            //   usersService.flush();
+            admin = usersService.findByUserAccount(admin.getUserAccount()); //mysql5 saveAndFlush后 userId is null issue
 
             UserRoles adminUsersRoles = new UserRoles();
             adminUsersRoles.setRoleId(adminRoles.getRoleId());
@@ -125,8 +124,7 @@ public class UserRolePermissionRestController extends CommonController {
             garlam.setRemark("ACE APPLICATION");
             garlam.setEnabled(true);
             usersService.saveAndFlush(garlam);
-            //usersService.save(garlam);
-            //usersService.flush();
+            garlam = usersService.findByUserAccount(garlam.getUserAccount()); //mysql5 saveAndFlush后 userId is null issue
 
             UserRoles garlamUsersRoles = new UserRoles();
             garlamUsersRoles.setRoleId(adminRoles.getRoleId());
@@ -408,15 +406,26 @@ public class UserRolePermissionRestController extends CommonController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/findUserRolePermission")
     public AjaxResponse findUserRolePermission() {
+        log.info("List detail by USERS");
         List<Map> list = usersService.findUserRolePermission();
-
         MapUtil mapUtil = new MapUtil();
         for (Map map : list) {
             System.out.println("--------------");
             mapUtil.iterateMapKeyset(map);
         }
+        return AjaxResponse.success(list);
+    }
 
-        return AjaxResponse.success(usersService.findUserRolePermission());
+    @RequestMapping(method = RequestMethod.GET, value = "/findUserRolePermissionDetail")
+    public AjaxResponse findUserRolePermissionDetail() {
+        log.info("List detail by UserRolePermission");
+        List<Map> list = usersService.findUserRolePermissionDetail();
+        MapUtil mapUtil = new MapUtil();
+        for (Map map : list) {
+            System.out.println("--------------");
+            mapUtil.iterateMapKeyset(map);
+        }
+        return AjaxResponse.success(list);
     }
 
 }

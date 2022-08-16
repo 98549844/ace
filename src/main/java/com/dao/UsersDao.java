@@ -49,6 +49,9 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
     @Query(nativeQuery = true, value = "select u.userId, r.roleId, p.permissionsId, p.permissionCode, u.username, p.action, r.roleCode, u.description, u.userAccount from role_permissions rp, permissions p, roles r, user_roles ur, users u where 1 = 1 and rp.permissionsId = p.permissionsId and rp.roleId = r.roleId and ur.roleId = r.roleId and ur.userId = u.userId order by userId")
     List<Map> findUserRolePermission();
 
+    @Query(nativeQuery = true, value = "select u.userAccount, u.username, u.enabled user_enable, u.status user_status, u.userId, ur.userRolesId, r.roleId, r.roleCode, r.roleName, r.status role_status, rp.rolePermissionsId, p.permissionsId, p.action, p.enabled permission_enable, p.permissionCode from users u, user_roles ur, roles r, role_permissions rp, permissions p where u.userId = ur.userId and r.roleId = ur.roleId and p.permissionsId = rp.permissionsId order by u.userAccount")
+    List<Map> findUserRolePermissionDetail();
+
     @Query(nativeQuery = true, value = "select u.* from Users u order by u.loginDateTime desc limit :#{#limit}")
     List<Users> findUsersOrderByLoginDateTime(@Param("limit") Integer limit);
 
