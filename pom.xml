@@ -175,31 +175,31 @@
             <version>1.9.6</version>
         </dependency>
 
-   <!--     swagger2 3.0.0 配合knife4j3.0.3, 有机会swagger2 报404错误, knife4j 使用正常
-        swagger2 单独驶用, 版本是2.9.2
-                <dependency>
-                    <groupId>io.springfox</groupId>
-                    <artifactId>springfox-swagger2</artifactId>
-                    <version>3.0.0</version>
-                    &lt;!&ndash;            <version>2.9.2</version>&ndash;&gt;
-                </dependency>
-                <dependency>
-                    <groupId>io.springfox</groupId>
-                    <artifactId>springfox-swagger-ui</artifactId>
-                    <version>3.0.0</version>
-                    &lt;!&ndash;            <version>2.9.2</version>&ndash;&gt;
-                </dependency>
-                <dependency>
-                    <groupId>com.github.xiaoymin</groupId>
-                    <artifactId>knife4j-spring-boot-starter</artifactId>
-                    <version>3.0.3</version>
-                </dependency>
-                <dependency>
-                    <groupId>com.github.xiaoymin</groupId>
-                    <artifactId>knife4j-spring-boot-starter</artifactId>
-                    &lt;!&ndash;在引用时请在maven中央仓库搜索2.X最新版本号&ndash;&gt;
-                    <version>2.0.9</version>
-                </dependency>-->
+        <!--     swagger2 3.0.0 配合knife4j3.0.3, 有机会swagger2 报404错误, knife4j 使用正常
+             swagger2 单独驶用, 版本是2.9.2
+                     <dependency>
+                         <groupId>io.springfox</groupId>
+                         <artifactId>springfox-swagger2</artifactId>
+                         <version>3.0.0</version>
+                         &lt;!&ndash;            <version>2.9.2</version>&ndash;&gt;
+                     </dependency>
+                     <dependency>
+                         <groupId>io.springfox</groupId>
+                         <artifactId>springfox-swagger-ui</artifactId>
+                         <version>3.0.0</version>
+                         &lt;!&ndash;            <version>2.9.2</version>&ndash;&gt;
+                     </dependency>
+                     <dependency>
+                         <groupId>com.github.xiaoymin</groupId>
+                         <artifactId>knife4j-spring-boot-starter</artifactId>
+                         <version>3.0.3</version>
+                     </dependency>
+                     <dependency>
+                         <groupId>com.github.xiaoymin</groupId>
+                         <artifactId>knife4j-spring-boot-starter</artifactId>
+                         &lt;!&ndash;在引用时请在maven中央仓库搜索2.X最新版本号&ndash;&gt;
+                         <version>2.0.9</version>
+                     </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -306,15 +306,20 @@
     <build>
         <resources>
             <resource>
-                <!-- xml放在java目录下-->
                 <directory>src/main/java</directory>
                 <includes>
+                    <include>**/*.properties</include>
                     <include>**/*.xml</include>
                 </includes>
+                <filtering>false</filtering>
             </resource>
-            <!--指定资源的位置（xml放在resources下，可以不用指定）-->
             <resource>
                 <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
             </resource>
         </resources>
         <plugins>
@@ -329,8 +334,11 @@
                 <configuration>
                     <!--解决useSystemClassLoader not found 问题-->
                     <useSystemClassLoader>false</useSystemClassLoader>
+                    <!--maven build skip test-->
+                    <skip>true</skip>
                 </configuration>
             </plugin>
+
             <!--
             <plugin>
                 &lt;!&ndash;解决@profiles.active@ 启动报错&ndash;&gt;
