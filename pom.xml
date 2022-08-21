@@ -335,7 +335,7 @@
                     <!--解决useSystemClassLoader not found 问题-->
                     <useSystemClassLoader>false</useSystemClassLoader>
                     <!--maven build skip test-->
-                    <skip>true</skip>
+                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
 
