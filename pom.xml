@@ -56,6 +56,10 @@
                     <artifactId>jboss-logging</artifactId>
                     <groupId>org.jboss.logging</groupId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-data-jpa</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -304,24 +308,45 @@
 
 
     <build>
+        <!--
+                <resource>
+                    <directory>src/main/java</directory>
+                    <includes>
+                        <include>**/*.properties</include>
+                        <include>**/*.xml</include>
+                    </includes>
+                    <filtering>false</filtering>
+                </resource>
+                <resource>
+                    <directory>src/main/resources</directory>
+                    <includes>
+                        <include>**/*.properties</include>
+                        <include>**/*.xml</include>
+                    </includes>
+                    <filtering>false</filtering>
+                </resource>
+        -->
         <resources>
             <resource>
+                <!-- xml放在java目录下-->
                 <directory>src/main/java</directory>
                 <includes>
-                    <include>**/*.properties</include>
                     <include>**/*.xml</include>
+                    <include>**/*.properties</include>
                 </includes>
-                <filtering>false</filtering>
             </resource>
+            <!--指定资源的位置（xml放在resources下，可以不用指定）-->
             <resource>
                 <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.properties</include>
+                <!--<includes>
                     <include>**/*.xml</include>
-                </includes>
-                <filtering>false</filtering>
+                    <include>**/*.properties</include>
+                    <include>**/*.yml</include>
+                </includes>-->
             </resource>
         </resources>
+
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -334,10 +359,19 @@
                 <configuration>
                     <!--解决useSystemClassLoader not found 问题-->
                     <useSystemClassLoader>false</useSystemClassLoader>
-                    <!--maven build skip test-->
-                    <skipTests>true</skipTests>
+                    <!--skip maven test-->
+                    <skip>true</skip>
                 </configuration>
             </plugin>
+
+            <!--            <plugin>&lt;!&ndash;编译跳过测试文件检查的生命周期&ndash;&gt;
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-plugin</artifactId>
+                            <configuration>
+                                <skip>true</skip>
+                            </configuration>
+                        </plugin>-->
+
 
             <!--
             <plugin>

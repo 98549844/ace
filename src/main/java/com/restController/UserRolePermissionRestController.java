@@ -362,5 +362,14 @@ public class UserRolePermissionRestController extends CommonController {
         return AjaxResponse.success(list);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/findUserRolePermissionByMybatis")
+    public AjaxResponse findUserRolePermissionDetailByMybatis() {
+        log.info("List detail by UserRolePermission Mybatis");
+        List<Map> m1 = usersService.findUserRolePermissionByMybatis(6l);
+        List<Map> m2 = usersService.findAllUserRolePermissionByMybatis();
+
+        return AjaxResponse.success(m2);
+    }
+
 }
 

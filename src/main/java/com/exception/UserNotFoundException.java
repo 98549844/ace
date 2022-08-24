@@ -14,9 +14,7 @@ import org.apache.logging.log4j.Logger;
 public class UserNotFoundException extends Exception{
     private static final Logger log = LogManager.getLogger(UserNotFoundException.class.getName());
 
-    public UserNotFoundException() {
-        super();
-    }
+
 
     public UserNotFoundException(String message) {
         super(message);

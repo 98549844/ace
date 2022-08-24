@@ -112,17 +112,18 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
             if (message.contains("Token已被踢下线")) {
                 modelAndView.addObject(Css.css, Css.red);
                 modelAndView.addObject("msg", "Account kicked out");
-            }else if(message.contains("Token无效")){
+            } else if (message.contains("Token无效")) {
                 modelAndView.addObject(Css.css, Css.red);
                 modelAndView.addObject("msg", "Session timeout");
-            }else if (message.contains("Token已被顶下线")){
+            } else if (message.contains("Token已被顶下线")) {
                 modelAndView.addObject(Css.css, Css.red);
-                modelAndView.addObject("msg", "Account was offline");
+                modelAndView.addObject("msg", "Account log in other device");
+            } else if (message.contains("未能读取到有效Token")) {
+                modelAndView.addObject(Css.css, Css.red);
+                modelAndView.addObject("msg", "Session illegal");
             }
             return modelAndView;
         } else {
-
-
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw, true));
             String stackTrace = sw.toString();
@@ -207,10 +208,6 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
         }
         return modelAndView;
     }*/
-
-
-
-
 
 
 }

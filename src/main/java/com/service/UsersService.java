@@ -110,6 +110,15 @@ public class UsersService {
         return usersDao.findUserRolePermissionDetail();
     }
 
+
+    public List<Map> findUserRolePermissionByMybatis(Long userId) {
+        return usersMapper.findUserRolePermissionByMybatis(userId);
+    }
+
+    public List<Map> findAllUserRolePermissionByMybatis() {
+        return usersMapper.findAllUserRolePermissionByMybatis();
+    }
+
     /**
      * accountRegistration
      *
