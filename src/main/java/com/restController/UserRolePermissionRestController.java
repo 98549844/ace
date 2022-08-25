@@ -88,7 +88,7 @@ public class UserRolePermissionRestController extends CommonController {
             admin.setEmail("admin@ace.com");
             admin.setMobile("0000 0000");
             admin.setGender(null);
-            admin.setBirthday(LocalDateTime.now());
+            admin.setDateOfBirth(LocalDateTime.now());
             admin.setLoginDateTime(LocalDateTime.now());
             admin.setStatus(Constant.ACTIVE);
             admin.setDomain("ace.com");
@@ -113,7 +113,7 @@ public class UserRolePermissionRestController extends CommonController {
             garlam.setEmail("garlam@ace.com");
             garlam.setMobile("9518 6540");
             garlam.setGender("M");
-            garlam.setBirthday(LocalDateTime.now());
+            garlam.setDateOfBirth(LocalDateTime.now());
             garlam.setLoginDateTime(LocalDateTime.now());
             garlam.setStatus(Constant.ACTIVE);
             garlam.setDomain("ace.com");

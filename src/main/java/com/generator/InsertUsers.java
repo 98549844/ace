@@ -20,13 +20,13 @@ public class InsertUsers {
         Users u7 = new Users();
         Users u8 = new Users();
 
-        u1.setBirthday(LocalDateTime.now());
-        u2.setBirthday(LocalDateTime.now());
-        u3.setBirthday(LocalDateTime.now());
-        u4.setBirthday(LocalDateTime.now());
-        u5.setBirthday(LocalDateTime.now());
-        u6.setBirthday(LocalDateTime.now());
-        u7.setBirthday(LocalDateTime.now());
+        u1.setDateOfBirth(LocalDateTime.now());
+        u2.setDateOfBirth(LocalDateTime.now());
+        u3.setDateOfBirth(LocalDateTime.now());
+        u4.setDateOfBirth(LocalDateTime.now());
+        u5.setDateOfBirth(LocalDateTime.now());
+        u6.setDateOfBirth(LocalDateTime.now());
+        u7.setDateOfBirth(LocalDateTime.now());
 
         u1.setExpireDate(LocalDateTime.now().plusYears(3));
         u2.setExpireDate(LocalDateTime.now().plusYears(3));

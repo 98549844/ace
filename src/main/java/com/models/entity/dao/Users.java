@@ -39,7 +39,7 @@ public class Users extends baseEntity implements Serializable {
     @Column
     private String gender;
     @Column
-    private LocalDateTime birthday;
+    private LocalDateTime dateOfBirth;
     private long age = 0l;
     @Column
     private LocalDateTime loginDateTime;
@@ -126,12 +126,13 @@ public class Users extends baseEntity implements Serializable {
         this.gender = gender;
     }
 
-    public LocalDateTime getBirthday() {
-        return birthday;
+
+    public LocalDateTime getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setBirthday(LocalDateTime birthday) {
-        this.birthday = birthday;
+    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getDomain() {

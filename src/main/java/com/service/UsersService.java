@@ -243,10 +243,10 @@ public class UsersService {
     public void calcAge(List<Users> userList) {
         if (NullUtil.isNotNull(userList)) {
             for (Users users : userList) {
-                if (NullUtil.isNotNull(users.getBirthday())) {
+                if (NullUtil.isNotNull(users.getDateOfBirth())) {
                     LocalDateTime now = LocalDateTime.now();
-                    LocalDateTime birthDate = users.getBirthday();
-                    long age = DateTimeUtil.differenceYearsByLocalDateTime(birthDate, now);
+                    LocalDateTime dateOfBirth = users.getDateOfBirth();
+                    long age = DateTimeUtil.differenceYearsByLocalDateTime(dateOfBirth, now);
                     users.setAge(age);
                 }
             }
@@ -256,13 +256,13 @@ public class UsersService {
     }
 
     public void calcAge(Users user) {
-        if (NullUtil.isNotNull(user) && NullUtil.isNotNull(user.getBirthday())) {
+        if (NullUtil.isNotNull(user) && NullUtil.isNotNull(user.getDateOfBirth())) {
             LocalDateTime now = LocalDateTime.now();
-            LocalDateTime birthDate = user.getBirthday();
+            LocalDateTime birthDate = user.getDateOfBirth();
             long age = DateTimeUtil.differenceYearsByLocalDateTime(birthDate, now);
             user.setAge(age);
         } else {
-            log.warn("User is null");
+            log.warn("User not exist !");
         }
     }
 

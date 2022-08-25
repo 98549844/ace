@@ -9,7 +9,7 @@
         <result column="lastUpdatedBy" jdbcType="BIGINT" property="lastUpdatedBy"/>
         <result column="version" jdbcType="INTEGER" property="version"/>
         <result column="age" jdbcType="BIGINT" property="age"/>
-        <result column="birthday" jdbcType="TIMESTAMP" property="birthday"/>
+        <result column="dateOfBirth" jdbcType="TIMESTAMP" property="dateOfBirth"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="domain" jdbcType="VARCHAR" property="domain"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
@@ -28,7 +28,7 @@
     </resultMap>
     <sql id="Base_Column_List">
         userId
-        , createdBy, createdDate, lastUpdateDate, lastUpdatedBy, version, age, birthday,
+        , createdBy, createdDate, lastUpdateDate, lastUpdatedBy, version, age, dateOfBirth,
     description, `domain`, email, enabled, expireDate, gender, hostName, ip, loginDateTime, 
     mobile, `password`, remark, `status`, userAccount, username
     </sql>
@@ -46,41 +46,39 @@
 
 
     <select id="findUserRolePermissionByMybatis" parameterType="java.lang.Long" resultType="java.util.Map">
-        select
-        u.userId,
-        r.roleId,
-        p.permissionsId,
-        p.permissionCode,
-        u.username,
-        p.action,
-        r.roleCode,
-        u.description,
-        u.userAccount
+        select u.userId,
+               r.roleId,
+               p.permissionsId,
+               p.permissionCode,
+               u.username,
+               p.action,
+               r.roleCode,
+               u.description,
+               u.userAccount
         from role_permissions rp,
-        permissions p,
-        roles r,
-        user_roles ur,
-        users u
+             permissions p,
+             roles r,
+             user_roles ur,
+             users u
         where 1 = 1
-        and rp.permissionsId = p.permissionsId
-        and rp.roleId = r.roleId
-        and ur.roleId = r.roleId
-        and ur.userId = u.userId
-         and u.userId = #{userId,jdbcType=BIGINT}
+          and rp.permissionsId = p.permissionsId
+          and rp.roleId = r.roleId
+          and ur.roleId = r.roleId
+          and ur.userId = u.userId
+          and u.userId = #{userId,jdbcType=BIGINT}
         order by userId
     </select>
 
-    <select id="findAllUserRolePermissionByMybatis"  resultType="java.util.Map">
-        select
-            u.userId,
-            r.roleId,
-            p.permissionsId,
-            p.permissionCode,
-            u.username,
-            p.action,
-            r.roleCode,
-            u.description,
-            u.userAccount
+    <select id="findAllUserRolePermissionByMybatis" resultType="java.util.Map">
+        select u.userId,
+               r.roleId,
+               p.permissionsId,
+               p.permissionCode,
+               u.username,
+               p.action,
+               r.roleCode,
+               u.description,
+               u.userAccount
         from role_permissions rp,
              permissions p,
              roles r,
@@ -105,7 +103,7 @@
         <selectKey keyProperty="users.userId" order="AFTER" resultType="java.lang.Long"></selectKey>
         insert into users (createdBy, createdDate, lastUpdateDate,
         lastUpdatedBy, version, age,
-        birthday, description, `domain`,
+        dateOfBirth, description, `domain`,
         email, enabled, expireDate,
         gender, hostName, ip,
         loginDateTime, mobile, `password`,
@@ -113,7 +111,7 @@
         username)
         values (#{createdby,jdbcType=BIGINT}, #{createddate,jdbcType=TIMESTAMP}, #{lastupdatedate,jdbcType=TIMESTAMP},
         #{lastupdatedby,jdbcType=BIGINT}, #{version,jdbcType=INTEGER}, #{age,jdbcType=BIGINT},
-        #{birthday,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR},
+        #{dateOfBirth}, #{description,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR},
         #{email,jdbcType=VARCHAR}, #{enabled,jdbcType=BIT}, #{expiredate,jdbcType=TIMESTAMP},
         #{gender,jdbcType=VARCHAR}, #{hostname,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR},
         #{logindatetime,jdbcType=TIMESTAMP}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
@@ -142,8 +140,8 @@
             <if test="age != null">
                 age,
             </if>
-            <if test="birthday != null">
-                birthday,
+            <if test="dateOfBirth != null">
+                dateOfBirth,
             </if>
             <if test="description != null">
                 description,
@@ -210,8 +208,8 @@
             <if test="age != null">
                 #{age,jdbcType=BIGINT},
             </if>
-            <if test="birthday != null">
-                #{birthday,jdbcType=TIMESTAMP},
+            <if test="dateOfBirth != null">
+                #{dateOfBirth,jdbcType=TIMESTAMP},
             </if>
             <if test="description != null">
                 #{description,jdbcType=VARCHAR},
@@ -281,8 +279,8 @@
             <if test="age != null">
                 age = #{age,jdbcType=BIGINT},
             </if>
-            <if test="birthday != null">
-                birthday = #{birthday,jdbcType=TIMESTAMP},
+            <if test="dateOfBirth != null">
+                dateOfBirth = #{dateOfBirth,jdbcType=TIMESTAMP},
             </if>
             <if test="description != null">
                 description = #{description,jdbcType=VARCHAR},
@@ -340,7 +338,7 @@
             lastUpdatedBy  = #{lastupdatedby,jdbcType=BIGINT},
             version        = #{version,jdbcType=INTEGER},
             age            = #{age,jdbcType=BIGINT},
-            birthday       = #{birthday,jdbcType=TIMESTAMP},
+            dateOfBirth    = #{dateOfBirth,jdbcType=TIMESTAMP},
             description    = #{description,jdbcType=VARCHAR},
             `domain`       = #{domain,jdbcType=VARCHAR},
             email          = #{email,jdbcType=VARCHAR},
