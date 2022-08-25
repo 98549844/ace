@@ -3,3 +3,11 @@ https://www.jetbrains.com/help/idea/run-debug-configuration-websphere-server.htm
 
 Support for WebSphere Server is not bundled with IntelliJ IDEA.
 You can install the WebSphere Server plugin from the JetBrains repository as described in Install plugins.
+
+websphere server log location on windows
+C:\Program Files\IBM\WebSphere\AppServer\profiles\AppSrv01\logs\server1
+日志文件说明
+　SystemErr.log: 系统出错日志
+　SystemOut.log: 系统中所有活动的日志
+　trace.log: 系统中所有跟踪的事件的日志
+　startServer.log: 启动服务器事件的日志
