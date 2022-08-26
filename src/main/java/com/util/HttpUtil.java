@@ -4,10 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
  * @Classname: HttpUtil
@@ -62,16 +59,26 @@ public class HttpUtil {
         return request.getRemoteAddr();
     }
 
-    public static void requestInfo(HttpServletRequest request) {
+    public static List<String> requestInfo(HttpServletRequest request) {
+        List<String> requestInfo = new ArrayList<>();
+
         String agent = request.getHeader("user-agent");
+        requestInfo.add("Http header: " + agent);
+
         System.out.println(agent);
         StringTokenizer st = new StringTokenizer(agent, ";");
         st.nextToken();
-        String userOs = st.nextToken();
-        System.out.println(userOs);
+        String clientOs = st.nextToken();
+        System.out.println(clientOs);
+        requestInfo.add("Client OS: " + clientOs);
+
         System.out.println(System.getProperty("os.name")); //win2003竟然是win xp？
         System.out.println(System.getProperty("os.version"));
         System.out.println(System.getProperty("os.arch"));
+        requestInfo.add("os.name : " + System.getProperty("os.name"));
+        requestInfo.add("os.version : " + System.getProperty("os.version"));
+        requestInfo.add("os.arch : " + System.getProperty("os.arch"));
+
         System.out.println(request.getHeader("user-agent")); //返回客户端浏览器的版本号、类型
         System.out.println(request.getMethod()); //：获得客户端向服务器端传送数据的方法有get、post、put等类型
         System.out.println(request.getRequestURI()); //：获得发出请求字符串的客户端地址
@@ -82,6 +89,18 @@ public class HttpUtil {
         System.out.println(request.getRemoteHost()); //：获得客户端电脑的名字，若失败，则返回客户端电脑的ip地址
         System.out.println(request.getProtocol()); //：
         System.out.println(request.getHeaderNames()); //：返回所有request header的名字，结果集是一个enumeration（枚举）类的实例
+
+        requestInfo.add("Header: " + request.getHeader("user-agent"));
+        requestInfo.add("Method: " + request.getMethod());
+        requestInfo.add("RequestURI: " + request.getRequestURI());
+        requestInfo.add("ServletPath: " + request.getServletPath());
+        requestInfo.add("ServerName: " + request.getServerName());
+        requestInfo.add("ServerPort: " + request.getServerPort());
+        requestInfo.add("RemoteAddr: " + request.getRemoteAddr());
+        requestInfo.add("RemoteHost: " + request.getRemoteHost());
+        requestInfo.add("Protocol: " + request.getProtocol());
+        requestInfo.add("HeaderNames: " + request.getHeaderNames());
+
         System.out.println("Protocol: " + request.getProtocol());
         System.out.println("Scheme: " + request.getScheme());
         System.out.println("Server Name: " + request.getServerName());
@@ -109,6 +128,36 @@ public class HttpUtil {
         System.out.println("User-Agent : " + request.getHeader("User-Agent"));
         System.out.println("Connection : " + request.getHeader("Connection"));
         System.out.println("Cookie : " + request.getHeader("Cookie"));
+
+        requestInfo.add("Protocol: " + request.getProtocol());
+        requestInfo.add("Scheme: " + request.getScheme());
+        requestInfo.add("Server Name: " + request.getServerName());
+        requestInfo.add("Server Port: " + request.getServerPort());
+        requestInfo.add("Protocol: " + request.getProtocol());
+        requestInfo.add("Remote Address: " + request.getRemoteAddr());
+        requestInfo.add("Remote Host: " + request.getRemoteHost());
+        requestInfo.add("Character Encoding: " + request.getCharacterEncoding());
+        requestInfo.add("Content Length: " + request.getContentLength());
+        requestInfo.add("Content Type: " + request.getContentType());
+        requestInfo.add("Auth Type: " + request.getAuthType());
+        requestInfo.add("HTTP Method: " + request.getMethod());
+        requestInfo.add("Path Info: " + request.getPathInfo());
+        requestInfo.add("Path Trans: " + request.getPathTranslated());
+        requestInfo.add("Query String: " + request.getQueryString());
+        requestInfo.add("Remote User: " + request.getRemoteUser());
+        requestInfo.add("Session Id: " + request.getRequestedSessionId());
+        requestInfo.add("Request URI: " + request.getRequestURI());
+        requestInfo.add("Servlet Path: " + request.getServletPath());
+        requestInfo.add("Accept: " + request.getHeader("Accept"));
+        requestInfo.add("Host: " + request.getHeader("Host"));
+        requestInfo.add("Referer : " + request.getHeader("Referer"));
+        requestInfo.add("Accept-Language : " + request.getHeader("Accept-Language"));
+        requestInfo.add("Accept-Encoding : " + request.getHeader("Accept-Encoding"));
+        requestInfo.add("User-Agent : " + request.getHeader("User-Agent"));
+        requestInfo.add("Connection : " + request.getHeader("Connection"));
+        requestInfo.add("Cookie : " + request.getHeader("Cookie"));
+
+        return requestInfo;
     }
 
 }

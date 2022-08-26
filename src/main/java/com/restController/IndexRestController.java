@@ -17,8 +17,6 @@ public class IndexRestController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String getIndex() {
-
-
         String get = "Welcome Index ! GET";
         return get;
     }

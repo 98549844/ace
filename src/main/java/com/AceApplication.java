@@ -3,11 +3,10 @@ package com;
 import cn.dev33.satoken.SaManager;
 import com.config.AceConfig;
 import com.config.BrowserConfig;
+import com.controller.common.CommonController;
 import com.generator.MapperNameGenerator;
 import com.restController.UserRolePermissionRestController;
-import com.util.BeanUtil;
-import com.util.IpUtil;
-import com.util.MapUtil;
+import com.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mybatis.spring.annotation.MapperScan;
@@ -54,12 +53,10 @@ public class AceApplication {
         applicationContext = SpringApplication.run(AceApplication.class, args);
 
         //print all loaded BeanName and properties value
-        /*
         Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
         BeanUtil.printBeanName(applicationContext);
         PropertiesUtil.printLoadedProperties();
         Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
-        */
 
         //iterate bean value by name
         //print server side information
@@ -83,12 +80,10 @@ public class AceApplication {
         UserRolePermissionRestController userRolePermissionRestController = (UserRolePermissionRestController) beanUtil.getBeanByName("userRolePermissionRestController");
         userRolePermissionRestController.defaultUser();
 
+      //  HttpUtil httpUtil = (HttpUtil) beanUtil.getBeanByName("httpUtil");
+      //  HttpUtil.requestInfo(httpUtil.getRequest());
 
 
-//        List<String> ls = BeanUtil.getBeanNameList(applicationContext);
-//        for (String s : ls) {
-//            BeanNameGenerator beanNameGenerator = new MapperNameGenerator(s);
-//        }
     }
 
 }

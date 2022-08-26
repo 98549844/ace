@@ -21,7 +21,7 @@ import java.util.List;
 
 
 @Component
-@Order(99)
+@Order(999)
 public class BeanUtil implements ApplicationContextAware {
     private static final Logger log = LogManager.getLogger(BeanUtil.class.getName());
 
