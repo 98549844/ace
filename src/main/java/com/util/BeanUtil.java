@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Component
@@ -27,15 +28,14 @@ public class BeanUtil implements ApplicationContextAware {
 
     public static ApplicationContext applicationContext = null;
 
-    //@Autowired
-    // private RequestMappingHandlerMapping requestMappingHandlerMapping;
-
     public BeanUtil() {
         if (applicationContext == null) {
             log.info("ApplicationContext loaded from ACE !");
             applicationContext = AceApplication.applicationContext;
         }
     }
+
+
 
 
     /**
@@ -46,7 +46,7 @@ public class BeanUtil implements ApplicationContextAware {
     public static void printBeanName(ApplicationContext applicationContext) {
         String[] beanNames = applicationContext.getBeanDefinitionNames();
         log.info("total bean: {}", applicationContext.getBeanDefinitionCount());
-        // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加该注解的bean
+        // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加RequestMapping注解的bean
         int i = 0;
         for (String s : beanNames) {
             log.info("{},beanName: {}", ++i, s);
@@ -56,7 +56,7 @@ public class BeanUtil implements ApplicationContextAware {
     public static List<String> getBeanNameList(ApplicationContext applicationContext) {
         String[] beanNames = applicationContext.getBeanDefinitionNames();
         log.info("total bean: {}", applicationContext.getBeanDefinitionCount());
-        // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加该注解的bean
+        // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加RequestMapping注解的bean
         List<String> ls = new ArrayList<>();
         for (String s : beanNames) {
             ls.add(s);
@@ -73,7 +73,7 @@ public class BeanUtil implements ApplicationContextAware {
         }
         String[] beanNames = BeanUtil.applicationContext.getBeanDefinitionNames();
         log.info("total bean: {}", applicationContext.getBeanDefinitionCount());
-        // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加该注解的bean
+        // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加RequestMapping注解的bean
         for (String s : beanNames) {
             ls.add(s);
         }
@@ -91,7 +91,7 @@ public class BeanUtil implements ApplicationContextAware {
             return;
         }
         log.info("total bean: {}", applicationContext.getBeanDefinitionCount());
-        // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加该注解的bean
+        // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加RequestMapping注解的bean
         int i = 0;
         for (String s : beanNames) {
             log.info("{},beanName: {}", ++i, s);
