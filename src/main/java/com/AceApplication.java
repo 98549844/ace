@@ -73,11 +73,6 @@ public class AceApplication {
 
         UserRolePermissionRestController userRolePermissionRestController = (UserRolePermissionRestController) beanUtil.getBeanByName("userRolePermissionRestController");
         userRolePermissionRestController.defaultUser();
-
-      //  HttpUtil httpUtil = (HttpUtil) beanUtil.getBeanByName("httpUtil");
-      //  HttpUtil.requestInfo(httpUtil.getRequest());
-
-
     }
 
 }
