@@ -18,7 +18,7 @@
     <name>ace</name>
     <description>project for Spring Boot</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>1.8</java.version>
         <spring.version>2.7.2</spring.version>
     </properties>
 
@@ -101,7 +101,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>-->
-
 
 
         <dependency>
@@ -310,24 +309,6 @@
 
 
     <build>
-        <!--
-                <resource>
-                    <directory>src/main/java</directory>
-                    <includes>
-                        <include>**/*.properties</include>
-                        <include>**/*.xml</include>
-                    </includes>
-                    <filtering>false</filtering>
-                </resource>
-                <resource>
-                    <directory>src/main/resources</directory>
-                    <includes>
-                        <include>**/*.properties</include>
-                        <include>**/*.xml</include>
-                    </includes>
-                    <filtering>false</filtering>
-                </resource>
-        -->
         <resources>
             <resource>
                 <!-- xml放在java目录下-->
@@ -336,6 +317,7 @@
                     <include>**/*.xml</include>
                     <include>**/*.properties</include>
                 </includes>
+                <filtering>false</filtering>
             </resource>
             <!--指定资源的位置（xml放在resources下，可以不用指定）-->
             <resource>
@@ -345,6 +327,7 @@
                     <include>**/*.properties</include>
                     <include>**/*.yml</include>
                 </includes>-->
+                <filtering>false</filtering>
             </resource>
         </resources>
 
@@ -365,16 +348,6 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-
-            <!--            <plugin>&lt;!&ndash;编译跳过测试文件检查的生命周期&ndash;&gt;
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-surefire-plugin</artifactId>
-                            <configuration>
-                                <skip>true</skip>
-                            </configuration>
-                        </plugin>-->
-
-
             <!--
             <plugin>
                 &lt;!&ndash;解决@profiles.active@ 启动报错&ndash;&gt;
@@ -424,9 +397,21 @@
             </releases>
         </pluginRepository>
     </pluginRepositories>
-
     <!--配置环境映射-->
     <profiles>
+        <!--设置default java compiler 版本-->
+        <profile>
+            <id>jdk-${java.version}</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <jdk>${java.version}</jdk>
+            </activation>
+            <properties>
+                <maven.compiler.source>${java.version}</maven.compiler.source>
+                <maven.compiler.target>${java.version}</maven.compiler.target>
+                <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
+            </properties>
+        </profile>
         <profile>
             <!-- 生产环境 -->
             <id>prod</id>
