@@ -87,8 +87,9 @@ public class LoginController extends CommonController {
                     return modelAndView;
                 }
                 user.setLoginDateTime(LocalDateTime.now());
-                user.setIp(HttpUtil.getClientIP(getRequest()));
-                usersService.saveAndFlush(user);
+                user.setIp(getRequest().getRemoteAddr());
+                user.setHostName(getRequest().getRemoteHost());
+                user = usersService.saveAndFlush(user);
             } catch (UserNotFoundException | PasswordNotMatchException e) {
                 e.printStackTrace();
                 msg = "Account/Password incorrect";
