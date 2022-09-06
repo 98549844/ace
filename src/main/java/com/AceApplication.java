@@ -54,8 +54,7 @@ public class AceApplication {
 
         //iterate bean value by name
         //print server side information
-        //print host info
-        BeanUtil beanUtil = new BeanUtil();
+        BeanUtil beanUtil = (BeanUtil) applicationContext.getBean("beanUtil");
         IpUtil ip = (IpUtil) beanUtil.getBeanByName("ipUtil");
         Map m = ip.getHostInfo();
         MapUtil.iterateMapKeyset(m);
