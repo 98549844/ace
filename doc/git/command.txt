@@ -20,4 +20,31 @@ git commit -m "comment"
 
 
 
+放弃本地修改强制更新
+git fetch --all
+git reset --hard origin/develop
 
+更新子模块
+git submodule update --remote
+
+更新代码
+git pull origin develop
+
+提交代码
+git status
+git add .
+git commit -m "xxx"
+git pull origin develop
+git push origin develop
+
+
+回滚到指定commit
+git reset --hard commit_id
+
+
+跳过代码自动检查(慎用)
+git push origin develop --no-verify
+
+
+强制推送(慎用)
+git push origin develop -u -f
