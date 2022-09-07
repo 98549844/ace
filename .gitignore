@@ -29,15 +29,7 @@ target/
 #src/main/resources/application-dev.yml
 
 
-C:\ideaPorject\ace\doc\_ear
 
-#eclipse
-*.class
-
-.classpath
-.settings
-.project
-.factorypath
 
 
 ### NetBeans ###
