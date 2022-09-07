@@ -102,6 +102,12 @@ public class BeanUtil implements ApplicationContextAware {
      *
      * @param name
      */
+    public <T> T getBeanByName(String name, Class<T> type) {
+        T t =  applicationContext.getBean(name, type);
+        return t;
+    }
+
+
     public Object getBeanByName(String name) {
         Object object = applicationContext.getBean(name);
         return object;

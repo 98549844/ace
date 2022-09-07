@@ -16,15 +16,6 @@ public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
 
-    public static void main(String[] args) {
-        Ace ace = new Ace();
-        ace.add();
-    }
-
-
-    public int add() {
-        return 1 + 1;
-    }
 
 }
 

@@ -54,12 +54,12 @@ public class AceApplication {
 
         //iterate bean value by name
         //print server side information
-        BeanUtil beanUtil = (BeanUtil) applicationContext.getBean("beanUtil");
+        BeanUtil beanUtil = applicationContext.getBean("beanUtil", BeanUtil.class);
         IpUtil ip = (IpUtil) beanUtil.getBeanByName("ipUtil");
         Map m = ip.getHostInfo();
         MapUtil.iterateMapKeyset(m);
 
-        AceConfig aceConfig = (AceConfig) beanUtil.getBeanByName("aceConfig");
+        AceConfig aceConfig = beanUtil.getBeanByName("aceConfig", AceConfig.class);
 
         //决定项目启动时, 是否主动打开swagger/docHtml
         BrowserConfig browserConfig = new BrowserConfig();
