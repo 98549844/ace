@@ -55,12 +55,11 @@ public class AceApplication {
         //iterate bean value by name
         //print server side information
         BeanUtil beanUtil = applicationContext.getBean("beanUtil", BeanUtil.class);
-        IpUtil ip = (IpUtil) beanUtil.getBeanByName("ipUtil");
+        IpUtil ip = beanUtil.getBeanByName("ipUtil", IpUtil.class);
         Map m = ip.getHostInfo();
         MapUtil.iterateMapKeyset(m);
 
         AceConfig aceConfig = beanUtil.getBeanByName("aceConfig", AceConfig.class);
-
         //决定项目启动时, 是否主动打开swagger/docHtml
         BrowserConfig browserConfig = new BrowserConfig();
         browserConfig.openAceIndexAndSwagger(aceConfig.isIndexEnable(), aceConfig.isSwaggerEnable(), aceConfig.isDocHtmlEnabled());
@@ -70,7 +69,7 @@ public class AceApplication {
 
         log.info("Running success：Sa-Token config：{}", SaManager.getConfig());
 
-        UserRolePermissionRestController userRolePermissionRestController = (UserRolePermissionRestController) beanUtil.getBeanByName("userRolePermissionRestController");
+        UserRolePermissionRestController userRolePermissionRestController = beanUtil.getBeanByName("userRolePermissionRestController", UserRolePermissionRestController.class);
         userRolePermissionRestController.defaultUser();
     }
 
