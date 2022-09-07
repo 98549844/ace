@@ -36,8 +36,6 @@ public class BeanUtil implements ApplicationContextAware {
     }
 
 
-
-
     /**
      * print all bean name
      *
@@ -176,5 +174,18 @@ public class BeanUtil implements ApplicationContextAware {
 
     public static ApplicationContext getApplicationContext() {
         return applicationContext;
+    }
+
+    /**
+     * print all bean name
+     */
+    public static void printBeanName() {
+        String[] beanNames = getApplicationContext().getBeanDefinitionNames();
+        log.info("total bean: {}", applicationContext.getBeanDefinitionCount());
+        // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加RequestMapping注解的bean
+        int i = 0;
+        for (String s : beanNames) {
+            log.info("{},beanName: {}", ++i, s);
+        }
     }
 }
