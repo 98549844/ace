@@ -27,10 +27,9 @@
         <result column="username" jdbcType="VARCHAR" property="username"/>
     </resultMap>
     <sql id="Base_Column_List">
-        userId
-        , createdBy, createdDate, lastUpdateDate, lastUpdatedBy, version, age, dateOfBirth,
-    description, `domain`, email, enabled, expireDate, gender, hostName, ip, loginDateTime, 
-    mobile, `password`, remark, `status`, userAccount, username
+     userId, createdBy, createdDate, lastUpdateDate, lastUpdatedBy, version, age, dateOfBirth,
+     description, `domain`, email, enabled, expireDate, gender, hostName, ip, loginDateTime,
+     mobile, `password`, remark, `status`, userAccount, username
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
