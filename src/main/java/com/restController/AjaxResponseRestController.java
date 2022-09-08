@@ -35,7 +35,8 @@ public class AjaxResponseRestController extends CommonController {
             return AjaxResponse.error(new ResponseException(ResponseExceptionType.OTHER_ERROR, "AjaxResponse OTHER_ERROR"));
         } else if (code == 400) {
             return AjaxResponse.error(new ResponseException(ResponseExceptionType.USER_INPUT_ERROR, "AjaxResponse USER_INPUT_ERROR"));
-
+        } else if (code == 404) {
+            return AjaxResponse.error(new ResponseException(ResponseExceptionType.PAGE_NOT_FOUND_ERROR, "AjaxResponse PAGE_NOT_FOUND_ERROR"));
         } else if (code == 500) {
             return AjaxResponse.error(new ResponseException(ResponseExceptionType.SYSTEM_ERROR, "AjaxResponse SYSTEM_ERROR"));
         }

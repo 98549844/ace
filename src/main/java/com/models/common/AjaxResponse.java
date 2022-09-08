@@ -33,12 +33,15 @@ public class AjaxResponse {
         AjaxResponse resultBean = new AjaxResponse();
         resultBean.setOk(false);
         resultBean.setCode(e.getCode());
+
         if (e.getCode() == ResponseExceptionType.USER_INPUT_ERROR.getCode()) {
-            resultBean.setMessage(e.getMessage());
+            resultBean.setMessage(e.getMessage() + ", 用户输入资料错误");
+        } else if (e.getCode() == ResponseExceptionType.PAGE_NOT_FOUND_ERROR.getCode()) {
+            resultBean.setMessage(e.getMessage() + ", 未找到页面，请联系管理员!");
         } else if (e.getCode() == ResponseExceptionType.SYSTEM_ERROR.getCode()) {
-            resultBean.setMessage(e.getMessage() + ",系统出现异常，请联系管理员!");
+            resultBean.setMessage(e.getMessage() + ", 系统出现未知异常，请联系管理员!");
         } else {
-            resultBean.setMessage(e.getMessage() + "系统出现未知异常，请联系管理员!");
+            resultBean.setMessage(e.getMessage());
         }
         return resultBean;
     }

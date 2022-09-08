@@ -19,7 +19,6 @@ public class ResponseException extends RuntimeException{
     //异常信息
     private String message;
 
-    private ResponseException(){}
 
     public ResponseException(ResponseExceptionType exceptionTypeEnum, String message) {
         this.code = exceptionTypeEnum.getCode();

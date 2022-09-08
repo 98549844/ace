@@ -15,7 +15,13 @@ import com.util.VersionUtil;
 public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
-
+    public static void main(String[] args) {
+        int k = 0;
+        for (int i = 0, j = 0; i < 10; i++, j = j + 2) {
+            k = j;
+        }
+        System.out.println("k = " + k);
+    }
 
 }
 
