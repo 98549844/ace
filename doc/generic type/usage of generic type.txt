@@ -1,9 +1,84 @@
 1. 泛型有三种使用方式, 分别为: 泛型类, 泛型接口, 泛型方法
 
 2. 泛型中K T V E ? object等的含义
-E – Element(在集合中使用，因为集合中存放的是元素)
+E – Element(在集合中使用, 因为集合中存放的是元素)
 T – Type(Java 类)
 K – Key(键)
 V – Value(值)
 N – Number(数值类型)
 ? – 表示不确定的java类型(无限制通配符类型)
+
+
+Java中泛型Class<T>. T与Class<?>.  Object类和Class类.  object.getClass()和Object.class
+
+单独的T 代表一个类型(表现形式是一个类名而已) , 而 Class<T>代表这个类型所对应的类(又可以称做类实例. 类类型. 字节码文件),  Class<？>表示类型不确定的类
+Class<T>表示T类型的字节码文件, 意思是:
+Class<T> 相当于Class<T> c=T.class, T  t  new T() ;
+或者Class<T> c= t.getClass();
+通过以上可以获取类名为c.getName();
+
+
+
+解释: Class<T> ct = T.class, T t  new T(); 与Class c=T.class, T  t  new T() ;
+ct泛型指的是ct只能是T的字节码, 而c可以是任何类的字节码. 所以用ct用法更好
+ E - Element (在集合中使用, 因为集合中存放的是元素)
+ T - Type(Java 类)
+ K - Key(键)
+ V - Value(值)
+ N - Number(数值类型)
+ ? -  表示不确定的java类型
+举例说明:
+Set<T>  表示  集合里是 T类的实例
+List<E> 表示  集合里是 E类的实例
+List<?> 表示  集合里的对象类型不确定, 未指定
+List 同 List<?> 是一样的. 
+
+泛型的作用:  1. 用泛型:
+Java代码
+List<T> list=new ArrayList<T>();
+T t=list.get(0);  2. 不用泛型:
+Java代码  收藏代码
+List  list=new ArrayList();
+T t=(T)list.get(0);
+二. 如何创建一个Class<T>类型的实例？
+    就像使用非泛型代码一样, 有两种方式: 调用方法 Class.forName() 或者使用类常量X.class. Class.forName() 被定义为返回 Class<?>. 
+    另一方面, 类常量 X.class 被定义为具有类型 Class<X>, 所以 String.class 是Class<String> 类型的. 
+
+三. 方法中为什么需要<T> T修饰呢
+泛型的声明, 必须在方法的修饰符(public,static,final,abstract等)之后, 返回值声明之前. 
+
+public static <T> T request2Bean(HttpServletRequest request,Class<T> clazz){}
+其中第一个<T>是与传入的参数Class<T>相对应的, 相当于返回值的一个泛型, 后面的T是返回值类型, 代表方法必须返回T类型的(由传入的Class<T>决定)
+
+四. Object类和Class类
+
+Object类和Class类没有直接的关系. 
+Object类是一切java类的父类, 对于普通的java类, 即便不声明, 也是默认继承了Object类. 典型的, 可以使用Object类中的toString()方法. 
+
+Class类是用于java反射机制的, 一切java类, 都有一个对应的Class对象, 他是一个final类.
+Class 类的实例表示, 正在运行的 Java 应用程序中的类和接口.
+平时看代码时, 总是碰到这些即熟悉又陌生的名次, 每天都与他们相见,
+但见面后又似曾没有任何的交集, 所以今天我就来认识下这两个江湖侠客的背景:
+
+    CLASS
+    在Java中, 每个class都有一个相应的Class对象. 也就是说, 当我们编写一个类, 编译完成后, 在生成的.class文件中, 就会产生一个Class对象, 用于表示这个类的类型信息
+    获取Class实例的三种方式:
+    (1)利用对象调用getClass()方法获取该对象的Class实例；
+    (2)使用Class类的静态方法forName(), 用类的名字获取一个Class实例(staticClass forName(String className) Returns the Classobject associated with the class or interface with the given stringname. )；
+    (3)运用.class的方式来获取Class实例, 对于基本数据类型的封装类, 还可以采用.TYPE来获取相对应的基本数据类型的Class实例
+    在newInstance()调用类中缺省的构造方法 ObjectnewInstance()(可在不知该类的名字的时候, 常见这个类的实例) Creates a new instance of the class represented by this Classobject.
+    在运行期间, 如果我们要产生某个类的对象, Java虚拟机(JVM)会检查该类型的Class对象是否已被加载. 如果没有被加载, JVM会根据类的名称找到.class文件并加载它. 一旦某个类型的Class对象已被加载到内存, 就可以用它来产生该类型的所有对象
+
+    Class对象的生成方式如下:
+    1.Class.forName("类名字符串") (注意: 类名字符串必须是全称, 包名+类名)；
+    2.类名.class；
+    3.实例对象.getClass()；
+
+五. object.getClass()和Object.class的区别
+
+两者的区别如下:  
+类名.class叫做“类字面量”, 因class是关键字, 所以类名.class编译时确定. 而getclass()是某个具体的方法来调用,
+是运行时根据实际实例确定, getClass()是动态而且是final的.
+
+例如:
+String.class 是能对类名的引用取得在内存中该类型class对象的引用, 而new String().getClass() 是通过实例对象取得在内存中该实际类型class对象的引用.  
