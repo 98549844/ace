@@ -1,6 +1,7 @@
 package com.restController;
 
 import com.config.AceConfig;
+import com.models.common.AjaxResponse;
 import com.report.config.ReportConfig;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
@@ -34,14 +35,14 @@ public class AceRestController {
 
 
     @Autowired
-    public AceRestController(AceConfig aceConfig, ReportConfig reportConfig) {
+    public AceRestController( AceConfig aceConfig, ReportConfig reportConfig) {
         this.aceConfig = aceConfig;
         this.reportConfig = reportConfig;
 
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/get")
-    public List getAceProperties() {
+    public AjaxResponse getAceProperties() {
         log.info("aceConfig.getName(): " + aceConfig.getName());
         log.info("aceConfig.getVersion():" + aceConfig.getVersion());
         log.info("aceConfig.profile " + aceConfig.getProfile());
@@ -57,9 +58,8 @@ public class AceRestController {
         aceList.add(reportConfig.getUserName());
         aceList.add(reportConfig.getPassword());
 
-        return aceList;
+        return AjaxResponse.success(aceList);
     }
-
 
 
 }

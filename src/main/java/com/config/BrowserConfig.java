@@ -24,12 +24,11 @@ public class BrowserConfig {
 	static String url = "http://localhost:8088/";
 	static String swaggerUrl = "http://localhost:8088/swagger-ui.html";
 	static String docUrl = "http://localhost:8088/doc.html";
-	static String windowsBrowser = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe ";
+	static String windowsBrowser = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 
 
 	public static void main(String[] args) throws IOException {
 	//	BrowserConfig browserConfig = new BrowserConfig();
-
 		ProcessBuilder proc = new ProcessBuilder(windowsBrowser, "www.baidu.com");
 		proc.start();
 	}

@@ -24,7 +24,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/rest/accesslog")
 @Api(tags = "accesslog")
-@EnableConfigurationProperties
 public class AccessRestController {
     private static Logger log = LogManager.getLogger(AccessRestController.class.getName());
 

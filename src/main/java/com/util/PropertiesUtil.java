@@ -36,9 +36,8 @@ public class PropertiesUtil {
             if (propertySource instanceof EnumerablePropertySource) {
                 for (String name : ((EnumerablePropertySource<?>) propertySource).getPropertyNames()) {
                     i = i + 1;
-                    log.info("Key: [***]");
-                    log.info("Value: [***]");
-                    log.info("{}={}", name, env.getProperty(name));
+                    log.info("Key: {}", name);
+                    log.info("Value: {}", env.getProperty(name));
                 }
             }
         }

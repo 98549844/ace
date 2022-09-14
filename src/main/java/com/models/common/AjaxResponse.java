@@ -22,10 +22,7 @@ public class AjaxResponse {
     private String message;
     private Object data;
 
-    private AjaxResponse() {
 
-
-    }
 
     //请求出现异常时的响应数据封装
     public static AjaxResponse error(ResponseException e) {
