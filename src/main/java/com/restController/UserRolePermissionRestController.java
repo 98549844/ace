@@ -345,7 +345,7 @@ public class UserRolePermissionRestController extends CommonController {
         MapUtil mapUtil = new MapUtil();
         for (Map map : list) {
             System.out.println("--------------");
-            mapUtil.iterateMapKeyset(map);
+            mapUtil.iterateMapKeySet(map);
         }
         return AjaxResponse.success(list);
     }
@@ -357,7 +357,7 @@ public class UserRolePermissionRestController extends CommonController {
         MapUtil mapUtil = new MapUtil();
         for (Map map : list) {
             System.out.println("--------------");
-            mapUtil.iterateMapKeyset(map);
+            mapUtil.iterateMapKeySet(map);
         }
         return AjaxResponse.success(list);
     }

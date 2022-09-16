@@ -6,6 +6,7 @@ import com.exception.PasswordNotMatchException;
 import com.exception.UserNotFoundException;
 import com.mapper.UsersMapper;
 import com.models.entity.dao.*;
+import com.util.SqlUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,13 @@ public class UsersService {
 
     public List<Users> findAllByMybatis() {
         List<Users> usersList = usersMapper.findAll();
+        calcAge(usersList);
+        return usersList;
+    }
+
+    public List<Users> findUsersLikeNameByMybatis(String userName) {
+        List<Users> usersList = usersMapper.findUsersLikeNameByMybatis(SqlUtil.like(userName));
+
         calcAge(usersList);
         return usersList;
     }

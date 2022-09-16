@@ -6,7 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Configuration;
 import com.util.Console;
-import com.util.DataTypeUtil;
+import com.util.TypeUtil;
 import com.util.IpUtil;
 
 import java.io.IOException;
@@ -61,7 +61,7 @@ public class BrowserConfig {
 		if (!swaggerEnable) {
 			return;
 		}
-		String macSwaggerUrl = swaggerUrl.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
+		String macSwaggerUrl = swaggerUrl.replace("8088", TypeUtil.integerToString((Integer) m.get("port")));
 		String Command = "open " + macSwaggerUrl;
 		log.info("Swagger2:\t\t" + swaggerUrl);
 		Process Child = Runtime.getRuntime().exec(Command);
@@ -76,7 +76,7 @@ public class BrowserConfig {
 		if (!isDocHtmlEnable) {
 			return;
 		}
-		String macSwaggerUrl = docUrl.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
+		String macSwaggerUrl = docUrl.replace("8088", TypeUtil.integerToString((Integer) m.get("port")));
 		String Command = "open " + macSwaggerUrl;
 		log.info("doc.html:\t\t" + docUrl);
 		Process Child = Runtime.getRuntime().exec(Command);
@@ -87,7 +87,7 @@ public class BrowserConfig {
 		BeanUtil app = new BeanUtil();
 		IpUtil ip = (IpUtil) app.getBeanByName("ipUtil");
 		Map m = ip.getHostInfo();
-		String macUrl = url.replace("8088", DataTypeUtil.integerToString((Integer) m.get("port")));
+		String macUrl = url.replace("8088", TypeUtil.integerToString((Integer) m.get("port")));
 		log.info("ACE INDEX:\t\t" + macUrl);
 		if (indexEnable) {
 			String Command = "open " + macUrl;

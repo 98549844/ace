@@ -58,7 +58,7 @@ public class AceApplication {
         BeanUtil beanUtil = applicationContext.getBean("beanUtil", BeanUtil.class);
         IpUtil ip = beanUtil.getBeanByName("ipUtil", IpUtil.class);
         Map m = ip.getHostInfo();
-        MapUtil.iterateMapKeyset(m);
+        MapUtil.iterateMapKeySet(m);
 
         AceConfig aceConfig = beanUtil.getBeanByName("aceConfig", AceConfig.class);
         //决定项目启动时, 是否主动打开swagger/docHtml

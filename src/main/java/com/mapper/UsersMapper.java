@@ -24,6 +24,8 @@ public interface UsersMapper {
 
     List<Users> findAll();
 
+    List<Users> findUsersLikeNameByMybatis(String userName);
+
     int updateByPrimaryKeySelective(Users record);
 
     int updateByPrimaryKey(Users record);
