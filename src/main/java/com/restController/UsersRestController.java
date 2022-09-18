@@ -59,9 +59,9 @@ public class UsersRestController {
         return AjaxResponse.success(result);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/getUsersLikeNameByMybatis")
-    public AjaxResponse getUsersLikeNameByMybatis() {
-        List<Users> ls = usersService.findUsersLikeNameByMybatis("a");
+    @RequestMapping(method = RequestMethod.GET, value = "/getUsersLikeNameByMybatis/{username}")
+    public AjaxResponse getUsersLikeNameByMybatis(@PathVariable String username) {
+        List<Users> ls = usersService.findUsersLikeNameByMybatis(username);
         List<String> result = new ArrayList<>();
         for (Users user : ls) {
             String u = user.getUsername() + "   [" + user.getPassword() + "]";

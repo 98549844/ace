@@ -56,29 +56,45 @@ public class MySaTokenListener implements SaTokenListener {
      */
     @Override
     public void doReplaced(String loginType, Object loginId, String tokenValue) {
-        log.info("loginType: {}");
+        log.info("loginType: {}", loginType);
         log.info("loginId: {}", loginId);
         log.info("tokenValue: {}", tokenValue);
     }
 
     /**
      * 每次被封禁时触发
+     *
+     * @param loginType   账号类别
+     * @param loginId     账号id
+     * @param service     指定服务
+     * @param level       封禁等级
+     * @param disableTime 封禁时长，单位: 秒
      */
     @Override
-    public void doDisable(String loginType, Object loginId, long disableTime) {
-        log.info("loginType: {}");
+    public void doDisable(String loginType, Object loginId, String service, int level, long disableTime) {
+        log.info("loginType: {}", loginType);
         log.info("loginId: {}", loginId);
+        log.info("service: {}", service);
+        log.info("level: {}", level);
         log.info("disableTime: {}", disableTime);
+
     }
 
     /**
      * 每次被解封时触发
+     *
+     * @param loginType 账号类别
+     * @param loginId   账号id
+     * @param service   指定服务
      */
     @Override
-    public void doUntieDisable(String loginType, Object loginId) {
-        log.info("loginType: {}");
+    public void doUntieDisable(String loginType, Object loginId, String service) {
+        log.info("loginType: {}", loginType);
         log.info("loginId: {}", loginId);
+        log.info("service: {}", service);
+
     }
+
 
     /**
      * 每次创建Session时触发
@@ -94,6 +110,18 @@ public class MySaTokenListener implements SaTokenListener {
     @Override
     public void doLogoutSession(String id) {
         log.info("Logged out session id: {}", id);
+
+    }
+
+    /**
+     * 每次Token续期时触发
+     *
+     * @param tokenValue token 值
+     * @param loginId    账号id
+     * @param timeout    续期时间
+     */
+    @Override
+    public void doRenewTimeout(String tokenValue, Object loginId, long timeout) {
 
     }
 

@@ -28,20 +28,23 @@ public class PropertiesUtil {
     public static void printLoadedProperties() {
 
         Environment env = AceEnvironment.environment;
-        int i = 0;
+        //  int i = 0;
 
         log.info("Start print loaded properties");
         //遍历每个配置来源中的配置项
+        int m = 0;
         for (PropertySource<?> propertySource : ((AbstractEnvironment) env).getPropertySources()) {
             if (propertySource instanceof EnumerablePropertySource) {
+                m = m + 1;
+                int n = 0;
                 for (String name : ((EnumerablePropertySource<?>) propertySource).getPropertyNames()) {
-                    i = i + 1;
-                    log.info("Key: {}", name);
+                    n = n + 1;
+                    log.info("{}.{}=> Key: {}", m, n, name);
                     log.info("Value: {}", env.getProperty(name));
                 }
             }
         }
-        log.info("Compete !!!");
+        log.info("Complete !!!");
 
 
     }
