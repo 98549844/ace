@@ -1,12 +1,18 @@
 package com.controller;
 
 import com.controller.common.CommonController;
+import com.service.GalleryService;
+import com.util.FileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * @Classname: GalleryController
@@ -20,13 +26,23 @@ import org.springframework.web.servlet.ModelAndView;
 public class GalleryController extends CommonController {
     private static Logger log = LogManager.getLogger(GalleryController.class.getName());
 
-    @RequestMapping(value = "/gallery.html", method = RequestMethod.GET)
-    public ModelAndView index() {
-        ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-        return modelAndView;
+    private GalleryService galleryService;
+
+    @Autowired
+    public GalleryController(GalleryService galleryService) {
+        this.galleryService = galleryService;
     }
 
+    @RequestMapping(value = "/gallery.html", method = RequestMethod.GET)
+    public ModelAndView gallery() throws IOException {
+        ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
 
+        String src = "C:\\ideaPorject\\ace\\src\\main\\resources\\static\\files\\img\\";
+        String output = "C:\\ideaPorject\\ace\\src\\main\\resources\\static\\files\\img\\temp\\";
+        galleryService.compressImages(src, output);
+
+        return modelAndView;
+    }
 
 
 }
