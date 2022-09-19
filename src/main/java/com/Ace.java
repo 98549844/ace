@@ -1,8 +1,12 @@
 package com;
 
+import com.util.FileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.util.VersionUtil;
+
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * @Classname: Ace
@@ -15,29 +19,12 @@ import com.util.VersionUtil;
 public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
-    public static void main(String[] args) {
-        Integer i = 4;
-        int j = 5;
-        String s = "hello";
-        boolean b = true;
-        System.out.println(getType(b));//java.lang.Boolean
-        System.out.println(s.getClass().getName());//java.lang.String
-        System.out.println(i.getClass().getName());//java.lang.Integer
-        System.out.println(getType(j));//java.lang.Integer
-
-        System.out.println(getSimpleType(b));//java.lang.Boolean
-        System.out.println(s.getClass().getSimpleName());//java.lang.String
-        System.out.println(i.getClass().getSimpleName());//java.lang.Integer
-        System.out.println(getSimpleType(j));//java.lang.Integer
+    public static void main(String[] args) throws IOException {
+        Map m =  FileUtil.read("C:\\ideaPorject\\ace\\doc\\mybatis\\mybatis cache.txt");
+        m.get(FileUtil.ORIGINAL);
+        System.out.println(m.get(FileUtil.ORIGINAL));
     }
 
-    public static String getType(Object o) {
-        return o.getClass().getName();
-    }
-
-    public static String getSimpleType(Object o) {
-        return o.getClass().getSimpleName();
-    }
 
 }
 

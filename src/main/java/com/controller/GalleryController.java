@@ -37,9 +37,8 @@ public class GalleryController extends CommonController {
     public ModelAndView gallery() throws IOException {
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
 
-        String src = "C:\\ideaPorject\\ace\\src\\main\\resources\\static\\files\\img\\";
-        String output = "C:\\ideaPorject\\ace\\src\\main\\resources\\static\\files\\img\\temp\\";
-        galleryService.compressImages(src, output);
+        String src = "C:\\ideaPorject\\ace\\src\\main\\resources\\static\\files\\images\\";
+        galleryService.squareImages(src);
 
         return modelAndView;
     }

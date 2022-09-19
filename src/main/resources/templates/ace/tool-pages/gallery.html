@@ -109,11 +109,11 @@
                                 <!-- </li>-->
 
                                 <li>
-                                    <img th:src="@{/static/files/img/img.png}"
+                                    <img th:src="@{/static/files/images/img.png}"
                                          width="150" height="150" alt="150x150"/>
                                 </li>
                                 <li>
-                                    <img th:src="@{/static/files/img/img.png}"
+                                    <img th:src="@{/static/files/images/img.png}"
                                          width="150" height="150" alt="150x150"/>
                                 </li>
 
@@ -179,6 +179,8 @@
 <!-- ace scripts -->
 <script th:src="@{/assets/js/ace-elements.min.js}"></script>
 <script th:src="@{/assets/js/ace.min.js}"></script>
+<div th:include="templates/ace/pb-pages/common-script :: common-script"></div>
+
 
 <!-- inline scripts related to this page -->
 </body>
