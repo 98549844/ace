@@ -3,6 +3,7 @@ package com.controller;
 import com.controller.common.CommonController;
 import com.service.GalleryService;
 import com.util.FileUtil;
+import com.util.ListUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,12 @@ public class GalleryController extends CommonController {
     public ModelAndView gallery() throws IOException {
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
 
-        String src = "C:\\ideaPorject\\ace\\src\\main\\resources\\static\\files\\images\\";
+        String src = "src/main/resources/static/files/images/";
+        String temp = "src/main/resources/static/files/images/temp/";
+
+        List<String> ls = FileUtil.getFileNames(src);
+        List<String> tempLs = FileUtil.getFileNames(temp);
+
         galleryService.squareImages(src);
 
         return modelAndView;

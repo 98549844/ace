@@ -2,12 +2,14 @@ package com.service;
 
 import com.util.FileUtil;
 import com.util.ImageUtil;
+import com.util.ListUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname: GalleryService
@@ -32,7 +34,14 @@ public class GalleryService {
 
 
     public static void main(String[] args) throws IOException {
-        ImageUtil.square("C:\\ideaPorject\\ace\\src\\main\\resources\\static\\files\\images\\微信图片_202209182155335.jpg");
+        String src = "src/main/resources/static/files/images/";
+        String temp = "src/main/resources/static/files/images/temp/";
+        Map m = ListUtil.getDeduplicateElements(FileUtil.getFileNames(src),FileUtil.getFileNames(temp));
+
+
+
+
+
     }
 }
 

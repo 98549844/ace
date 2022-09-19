@@ -21,5 +21,20 @@ public class MsicUtil {
         FileUtil.rewrite(file, FileUtil.ToDBC(FileUtil.getText(file)));
     }
 
+
+    public static void main(String[] args) {
+        String a = "！@#￥%（）。，";
+        String x = a.replace("！", "!").replace("（", "(").replace("）", ")").replace("。", ".").replace("，", ",");
+ /*       x = a.replace("（", "(");
+        x = a.replace("）", ")");
+        x = a.replace("。", ".");
+        x = a.replace("，", ",");*/
+        System.out.println(x);
+
+        String b = "abc";
+        String c = b.replace("b", "F");
+        System.out.println(c);
+    }
+
 }
 
