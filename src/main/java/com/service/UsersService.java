@@ -73,6 +73,12 @@ public class UsersService {
         return usersList;
     }
 
+    public Users findUserByMybatis(String acc) {
+        Users users = usersMapper.selectByAccount(acc);
+        calcAge(users);
+        return users;
+    }
+
     public List<Users> findUsersLikeNameByMybatis(String userName) {
         List<Users> usersList = usersMapper.findUsersLikeNameByMybatis(SqlUtil.like(userName));
 
@@ -222,6 +228,18 @@ public class UsersService {
         }
         return true;
     }
+
+    public boolean updateByMybatis(Users users) {
+        try {
+            int i = usersMapper.updateByAccount(users);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
 
     public boolean delete(Users users) {
         try {

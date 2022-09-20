@@ -37,7 +37,7 @@ logging:
 # mybatis 配置
 mybatis:
   mapper-locations: classpath:com/mapper/xml/*.xml
-  type-aliases-package: com/entity/dao/mybatis
+  #type-aliases-package: com/entity/dao/mybatis
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 

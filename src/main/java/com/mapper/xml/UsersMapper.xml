@@ -37,6 +37,16 @@
         from users
         where userId = #{userId,jdbcType=BIGINT}
     </select>
+
+
+    <select id="selectByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from users
+        where userAccount = #{userAccount,jdbcType=VARCHAR}
+    </select>
+
+
     <select id="findAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -116,13 +126,13 @@
         loginDateTime, mobile, `password`,
         remark, `status`, userAccount,
         username)
-        values (#{createdby,jdbcType=BIGINT}, #{createddate,jdbcType=TIMESTAMP}, #{lastupdatedate,jdbcType=TIMESTAMP},
-        #{lastupdatedby,jdbcType=BIGINT}, #{version,jdbcType=INTEGER}, #{age,jdbcType=BIGINT},
+        values (#{createdBy,jdbcType=BIGINT}, #{createdDate,jdbcType=TIMESTAMP}, #{lastUpdateDate,jdbcType=TIMESTAMP},
+        #{lastUpdatedBy,jdbcType=BIGINT}, #{version,jdbcType=INTEGER}, #{age,jdbcType=BIGINT},
         #{dateOfBirth}, #{description,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR},
-        #{email,jdbcType=VARCHAR}, #{enabled,jdbcType=BIT}, #{expiredate,jdbcType=TIMESTAMP},
-        #{gender,jdbcType=VARCHAR}, #{hostname,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR},
-        #{logindatetime,jdbcType=TIMESTAMP}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-        #{remark,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{useraccount,jdbcType=VARCHAR},
+        #{email,jdbcType=VARCHAR}, #{enabled,jdbcType=BIT}, #{expireDate,jdbcType=TIMESTAMP},
+        #{gender,jdbcType=VARCHAR}, #{hostName,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR},
+        #{loginDateTime,jdbcType=TIMESTAMP}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+        #{remark,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{userAccount,jdbcType=VARCHAR},
         #{username,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" keyColumn="userId" keyProperty="userId" parameterType="com.models.entity.dao.Users"
@@ -198,16 +208,16 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="createdby != null">
-                #{createdby,jdbcType=BIGINT},
+                #{createdBy,jdbcType=BIGINT},
             </if>
             <if test="createddate != null">
-                #{createddate,jdbcType=TIMESTAMP},
+                #{createdDate,jdbcType=TIMESTAMP},
             </if>
             <if test="lastupdatedate != null">
-                #{lastupdatedate,jdbcType=TIMESTAMP},
+                #{lastUpdateDate,jdbcType=TIMESTAMP},
             </if>
             <if test="lastupdatedby != null">
-                #{lastupdatedby,jdbcType=BIGINT},
+                #{lastUpdatedBy,jdbcType=BIGINT},
             </if>
             <if test="version != null">
                 #{version,jdbcType=INTEGER},
@@ -231,19 +241,19 @@
                 #{enabled,jdbcType=BIT},
             </if>
             <if test="expiredate != null">
-                #{expiredate,jdbcType=TIMESTAMP},
+                #{expireDate,jdbcType=TIMESTAMP},
             </if>
             <if test="gender != null">
                 #{gender,jdbcType=VARCHAR},
             </if>
             <if test="hostname != null">
-                #{hostname,jdbcType=VARCHAR},
+                #{hostName,jdbcType=VARCHAR},
             </if>
             <if test="ip != null">
                 #{ip,jdbcType=VARCHAR},
             </if>
             <if test="logindatetime != null">
-                #{logindatetime,jdbcType=TIMESTAMP},
+                #{loginDateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="mobile != null">
                 #{mobile,jdbcType=VARCHAR},
@@ -258,7 +268,7 @@
                 #{status,jdbcType=VARCHAR},
             </if>
             <if test="useraccount != null">
-                #{useraccount,jdbcType=VARCHAR},
+                #{userAccount,jdbcType=VARCHAR},
             </if>
             <if test="username != null">
                 #{username,jdbcType=VARCHAR},
@@ -269,16 +279,16 @@
         update users
         <set>
             <if test="createdby != null">
-                createdBy = #{createdby,jdbcType=BIGINT},
+                createdBy = #{createdBy,jdbcType=BIGINT},
             </if>
             <if test="createddate != null">
-                createdDate = #{createddate,jdbcType=TIMESTAMP},
+                createdDate = #{createdDate,jdbcType=TIMESTAMP},
             </if>
             <if test="lastupdatedate != null">
-                lastUpdateDate = #{lastupdatedate,jdbcType=TIMESTAMP},
+                lastUpdateDate = #{lastUpdateDate,jdbcType=TIMESTAMP},
             </if>
             <if test="lastupdatedby != null">
-                lastUpdatedBy = #{lastupdatedby,jdbcType=BIGINT},
+                lastUpdatedBy = #{lastUpdatedBy,jdbcType=BIGINT},
             </if>
             <if test="version != null">
                 version = #{version,jdbcType=INTEGER},
@@ -302,19 +312,19 @@
                 enabled = #{enabled,jdbcType=BIT},
             </if>
             <if test="expiredate != null">
-                expireDate = #{expiredate,jdbcType=TIMESTAMP},
+                expireDate = #{expireDate,jdbcType=TIMESTAMP},
             </if>
             <if test="gender != null">
                 gender = #{gender,jdbcType=VARCHAR},
             </if>
             <if test="hostname != null">
-                hostName = #{hostname,jdbcType=VARCHAR},
+                hostName = #{hostName,jdbcType=VARCHAR},
             </if>
             <if test="ip != null">
                 ip = #{ip,jdbcType=VARCHAR},
             </if>
             <if test="logindatetime != null">
-                loginDateTime = #{logindatetime,jdbcType=TIMESTAMP},
+                loginDateTime = #{loginDateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="mobile != null">
                 mobile = #{mobile,jdbcType=VARCHAR},
@@ -329,7 +339,7 @@
                 `status` = #{status,jdbcType=VARCHAR},
             </if>
             <if test="useraccount != null">
-                userAccount = #{useraccount,jdbcType=VARCHAR},
+                userAccount = #{userAccount,jdbcType=VARCHAR},
             </if>
             <if test="username != null">
                 username = #{username,jdbcType=VARCHAR},
@@ -339,10 +349,10 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.models.entity.dao.Users">
         update users
-        set createdBy      = #{createdby,jdbcType=BIGINT},
-            createdDate    = #{createddate,jdbcType=TIMESTAMP},
-            lastUpdateDate = #{lastupdatedate,jdbcType=TIMESTAMP},
-            lastUpdatedBy  = #{lastupdatedby,jdbcType=BIGINT},
+        set createdBy      = #{createdBy,jdbcType=BIGINT},
+            createdDate    = #{createdDate,jdbcType=TIMESTAMP},
+            lastUpdateDate = #{lastUpdateDate,jdbcType=TIMESTAMP},
+            lastUpdatedBy  = #{lastUpdatedBy,jdbcType=BIGINT},
             version        = #{version,jdbcType=INTEGER},
             age            = #{age,jdbcType=BIGINT},
             dateOfBirth    = #{dateOfBirth,jdbcType=TIMESTAMP},
@@ -350,17 +360,25 @@
             `domain`       = #{domain,jdbcType=VARCHAR},
             email          = #{email,jdbcType=VARCHAR},
             enabled        = #{enabled,jdbcType=BIT},
-            expireDate     = #{expiredate,jdbcType=TIMESTAMP},
+            expireDate     = #{expireDate,jdbcType=TIMESTAMP},
             gender         = #{gender,jdbcType=VARCHAR},
-            hostName       = #{hostname,jdbcType=VARCHAR},
+            hostName       = #{hostName,jdbcType=VARCHAR},
             ip             = #{ip,jdbcType=VARCHAR},
-            loginDateTime  = #{logindatetime,jdbcType=TIMESTAMP},
+            loginDateTime  = #{loginDateTime,jdbcType=TIMESTAMP},
             mobile         = #{mobile,jdbcType=VARCHAR},
             `password`     = #{password,jdbcType=VARCHAR},
             remark         = #{remark,jdbcType=VARCHAR},
             `status`       = #{status,jdbcType=VARCHAR},
-            userAccount    = #{useraccount,jdbcType=VARCHAR},
+            userAccount    = #{userAccount,jdbcType=VARCHAR},
             username       = #{username,jdbcType=VARCHAR}
         where userId = #{userId,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByAccount" parameterType="com.models.entity.dao.Users">
+        update users
+        set mobile         = #{mobile,jdbcType=VARCHAR},
+            hostName       = #{hostName,jdbcType=VARCHAR},
+            ip             = #{ip,jdbcType=VARCHAR}
+        where userAccount  = #{userAccount,jdbcType=VARCHAR}
     </update>
 </mapper>

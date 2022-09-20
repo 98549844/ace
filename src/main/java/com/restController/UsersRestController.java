@@ -1,9 +1,12 @@
 package com.restController;
 
+import com.controller.common.CommonController;
 import com.models.common.AjaxResponse;
 import com.models.entity.dao.Users;
 import com.generator.InsertUsers;
 import com.service.UsersService;
+import com.util.RandomUtil;
+import com.util.TypeUtil;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,7 +27,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/rest/users")
 @Api(tags = "users")
-public class UsersRestController {
+public class UsersRestController extends CommonController {
     private static Logger log = LogManager.getLogger(UsersRestController.class.getName());
 
     private UsersService usersService;
@@ -71,6 +74,26 @@ public class UsersRestController {
     }
 
 
+    /**
+     * select statement 需要用jpa夹住mybatis update, 共用col才会update
+     * @param acc
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/updateUserByMybatis/{acc}")
+    public AjaxResponse updateUserByMybatis(@PathVariable String acc) {
+        Users users = usersService.findByUserAccount(acc);
+        log.info("before version: " + users.getVersion());
+
+        users.setIp(getRequest().getRemoteAddr());
+        users.setHostName(getRequest().getRemoteHost());
+        users.setMobile(TypeUtil.integerToString(RandomUtil.getRangeInt(0, 99999999)));
+        usersService.updateByMybatis(users);
+
+        users = usersService.findByUserAccount(acc);
+        log.info("after version: " + users.getVersion());
+
+        return AjaxResponse.success(users);
+    }
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/deleteAllUser")
@@ -97,7 +120,6 @@ public class UsersRestController {
         }
         return AjaxResponse.success(result);
     }
-
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/reEncodePassword")

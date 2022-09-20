@@ -18,6 +18,8 @@ public interface UsersMapper {
 
     Users selectByPrimaryKey(Long userid);
 
+    Users selectByAccount(String account);
+
     List<Map> findUserRolePermissionByMybatis(Long userid);
 
     List<Map> findAllUserRolePermissionByMybatis();
@@ -30,5 +32,6 @@ public interface UsersMapper {
 
     int updateByPrimaryKey(Users record);
 
+    int updateByAccount(Users record);
 
 }
