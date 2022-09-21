@@ -61,7 +61,7 @@ function showLoading() {
     d.show();
     setTimeout(function () {
         d.close().remove();
-    }, 6000);
+    }, 120000);
 }
 
 /**
