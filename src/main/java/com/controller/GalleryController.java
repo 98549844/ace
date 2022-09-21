@@ -41,6 +41,9 @@ public class GalleryController extends CommonController {
         String src = "src/main/resources/static/files/images/";
         String temp = "src/main/resources/static/files/images/temp/";
 
+        FileUtil.mkDirs(src);
+        FileUtil.mkDirs(temp);
+
         List<String> ls = FileUtil.getFileNames(src);
         List<String> tempLs = FileUtil.getFileNames(temp);
 
