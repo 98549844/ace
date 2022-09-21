@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -76,12 +77,15 @@ public class UsersRestController extends CommonController {
 
     /**
      * select statement 需要用jpa夹住mybatis update, 共用col才会update
+     *
      * @param acc
      * @return
      */
     @RequestMapping(method = RequestMethod.GET, value = "/updateUserByMybatis/{acc}")
     public AjaxResponse updateUserByMybatis(@PathVariable String acc) {
-        Users users = usersService.findByUserAccount(acc);
+
+        //Users users = usersService.findByUserAccount(acc);
+        Users users = usersService.findUserByMybatis(acc);
         log.info("before version: " + users.getVersion());
 
         users.setIp(getRequest().getRemoteAddr());
@@ -89,8 +93,11 @@ public class UsersRestController extends CommonController {
         users.setMobile(TypeUtil.integerToString(RandomUtil.getRangeInt(0, 99999999)));
         usersService.updateByMybatis(users);
 
-        users = usersService.findByUserAccount(acc);
+        //users = usersService.findByUserAccount(acc);
+        users = usersService.findUserByMybatis(acc);
+
         log.info("after version: " + users.getVersion());
+        log.info("COMPLETE !!!");
 
         return AjaxResponse.success(users);
     }
