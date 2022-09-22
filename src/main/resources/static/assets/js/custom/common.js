@@ -6,7 +6,7 @@ jQuery(function ($) {
 
     //2layer menu
     $('ul.main-menu li a').each(function () {
-        if (String(window.location).indexOf($(this)[0].href) != -1) {
+        if (String(window.location).indexOf($(this)[0].href) !== -1) {
             $(this).parent().parent().parent().addClass('active open');
             if ($("#sidebar").find('active open')) {
                 $("#sidebar").removeClass('active open');
@@ -27,7 +27,7 @@ jQuery(function ($) {
     });
     //3layer menu
     $('ul.main-menu ul.submenu li a').each(function () {
-        if (String(window.location).indexOf($($(this))[0].href) != -1) {
+        if (String(window.location).indexOf($($(this))[0].href) !== -1) {
             $(this).parent().parent().parent().parent().parent().addClass('active open');
             $(this).parent().parent().parent().addClass('active open');
             $(this).parent().addClass('active');
