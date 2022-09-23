@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,24 +25,30 @@ public class GalleryService {
     private static final Logger log = LogManager.getLogger(GalleryService.class.getName());
 
 
-    public void squareImages(String src) throws IOException {
-        List<String> imagesList = FileUtil.getFileNames(src);
+    public List getImages() throws IOException {
+        log.info("default image locationL: resources/static/files/images/");
 
-        for (String name : imagesList) {
-            ImageUtil.square(src + name);
-        }
-    }
-
-
-    public static void main(String[] args) throws IOException {
         String src = "src/main/resources/static/files/images/";
         String temp = "src/main/resources/static/files/images/temp/";
-        Map m = ListUtil.getDeduplicateElements(FileUtil.getFileNames(src),FileUtil.getFileNames(temp));
+        FileUtil.mkDirs(src);
+        FileUtil.mkDirs(temp);
 
+        List<String> tempLs = FileUtil.getFileNames(temp);
+        List<String> ls = FileUtil.getFileNames(src);
 
+        if (tempLs.size() == 0) {
+            log.info("temp images expired, compressing image ...");
+            for (String name : ls) {
+                ImageUtil.square(src + name);
+            }
+            log.info("compressing image complete !!!");
+        } else {
+            log.info(ls != tempLs ? "src and temp images are NOT EQUAL" : "src and temp images are EQUAL");
+        }
 
-
-
+        return tempLs;
     }
+
+
 }
 
