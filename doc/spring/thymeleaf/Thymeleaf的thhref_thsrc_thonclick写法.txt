@@ -1,0 +1,24 @@
+Thymeleaf 中 th:href、th:src、th:onclick需要拼接动态数据时（后端传递的动态数据）, 需要遵守相关的语法规定. 
+一般来说, 上面的三种表达式都需要用到@{xxx}, 如<a th:href="@{/user/1}"></a>  ==>解析完也就是 <a th:href="/user/1"></a>
+但是当需要进行动态拼接时, 则不是简单的<a th:href="@{/user/${id}}"></a>, 相关的写法如下
+
+
+
+th:href
+<a th:href="@{'/user/query'+${id}}">bb</a>
+<a th:href="@{|/user/query${id}|}">bb</a>
+<a th:href="@{/user/query}${id}">bb</a>
+
+
+
+th:src
+th:src和th:href差不多, 可以用同样的方式拼接
+th:src="@{/static/files/images/temp/{img}(img=${image})}"
+
+
+th:onclick
+在ssm项目中我使用
+
+<a href="#" th:οnclick="'deleteCart('+${cart.id}+')'">删除</a>
+没有发现问题, 但是在Springboot中报错, 一番百度后, 找到一种好的写法, 使用[[${xx.xx}]].
+<a href="#" th:οnclick="deleteCart([[${cart.id}]])">删除</a>
