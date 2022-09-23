@@ -18,7 +18,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
  */
 
 @Configuration
-public class ThymeleafConfig implements WebMvcConfigurer{
+public class ThymeleafConfig implements WebMvcConfigurer {
     private static Logger log = LogManager.getLogger(ThymeleafConfig.class.getName());
 
     /**
@@ -32,10 +32,10 @@ public class ThymeleafConfig implements WebMvcConfigurer{
         //registry.addViewController("/").setViewName("forward:/ace.html");
         // registry.addViewController("/").setViewName("ace.html");
 
-      //  registry.addViewController("/").setViewName("/templates/ace/login.html");
+        //registry.addViewController("/").setViewName("/templates/ace/login.html");
 
-        // call controller url
-      //  registry.addViewController("/").setViewName("ace/login.html");
+        //call controller url
+        //registry.addViewController("/").setViewName("ace/login.html");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 
@@ -68,7 +68,7 @@ public class ThymeleafConfig implements WebMvcConfigurer{
         //  registry.addResourceHandler("/templates/**.css").addResourceLocations("classpath:/templates/");
         // 其他静态资源
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
-       // registry.addResourceHandler("/files/**").addResourceLocations("classpath:/static/files/");
+        // registry.addResourceHandler("/files/**").addResourceLocations("classpath:/static/files/");
         // swagger增加url映射
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");

@@ -82,6 +82,10 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
 
+  #    redirect to resource/templates/xxx/xxx.html
+  #    Controller
+  #    return "/xxx/xxx"
+
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 
@@ -94,20 +98,20 @@ spring:
   datasource:
     #driver-class-name: org.mariadb.jdbc.Driver
     #url: jdbc:mariadb://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
-#    url: jdbc:log4jdbc:mysql://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
+    #    url: jdbc:log4jdbc:mysql://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
     url: jdbc:mysql://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.jdbc.Driver
-#    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    #    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     username: root
     password: root
 
-#    remote:
-#      #spring.datasource.url 数据库的 JDBC URL。
-#      #spring.datasource.jdbc-url 用来重写自定义连接池
-#      jdbc-url: jdbc:log4jdbc:mariadb://localhost:3306/ace_remote?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
-#      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-#      username: root
-#      password: garlamau
+    #    remote:
+    #      #spring.datasource.url 数据库的 JDBC URL。
+    #      #spring.datasource.jdbc-url 用来重写自定义连接池
+    #      jdbc-url: jdbc:log4jdbc:mariadb://localhost:3306/ace_remote?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
+    #      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    #      username: root
+    #      password: garlamau
 
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
@@ -164,20 +168,20 @@ spring:
     password: garlamau
     virtual-host:
 
-#自定义springboot banner
-#  main:
-#    banner-mode: log
-#  banner:
-#    charset: utf-8
-#    image:
-#      location: banner.png
-#      bitdepth: 4
-#      height: 70
-#      width: 100
-#      invert: false
-#      margin: 2
-#      pixelmode: text
-#    location: banner.txt
+    #自定义springboot banner
+    #  main:
+    #    banner-mode: log
+    #  banner:
+    #    charset: utf-8
+    #    image:
+    #      location: banner.png
+    #      bitdepth: 4
+    #      height: 70
+    #      width: 100
+    #      invert: false
+    #      margin: 2
+    #      pixelmode: text
+    #    location: banner.txt
 
     #receiver
     #rabbitmq:
