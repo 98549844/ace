@@ -98,12 +98,20 @@
                     </h1>
                 </div><!-- /.page-header -->
 
+          <!--      <div class="page-header">
+                    <input name="file" id="file1" type="hidden">
+                    &lt;!&ndash;修改时候需要添加th:value，value获取之前已存在的图片属性&ndash;&gt;
+                    <input type="file" id="file">
+                    <p id="url"><img width="90" height="80"></p>
+                    <input type="button" id="button" value="上传">
+                    <input type="button" id="t_button" value="取消上传">
+                </div>-->
+
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <div>
                             <ul class="ace-thumbnails clearfix">
-
                                 <li th:each="image:${images}">
                                     <img th:src="@{/static/files/images/temp/{img}(img=${image})}"
                                          width="150" height="150" alt="150x150"/>
