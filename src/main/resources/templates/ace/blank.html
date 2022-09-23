@@ -15,21 +15,47 @@
         }
     </script>
 
-    <div id="sidebar" class="sidebar responsive ace-save-state" th:include="ace/pb-pages/sidebar :: sidebar">
+    <div id="sidebar" class="sidebar responsive ace-save-state"
+         th:include="ace/pb-pages/sidebar :: sidebar">
     </div>
 
     <div class="main-content">
         <div class="main-content-inner">
             <div class="breadcrumbs" th:include="ace/pb-pages/breadcrumbs :: breadcrumbs"></div>
-
             <div class="page-content">
                 <div class="ace-settings-container" id="ace-settings-container"
                      th:include="ace/pb-pages/ace-settings-container :: ace-settings-container">
                 </div><!-- /.ace-settings-container -->
 
+                <div class="page-header">
+                    <h1>
+                        Blank Page
+                        <small>
+                            <i class="ace-icon fa fa-angle-double-right"></i>
+                            ~~~~~~~~~~~~~~~~~~
+                        </small>
+                    </h1>
+                </div><!-- /.page-header -->
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                         <!-- PAGE CONTENT ENDS -->
@@ -47,7 +73,6 @@
 </div><!-- /.main-container -->
 
 <!-- basic scripts -->
-
 <!--[if !IE]> -->
 <script th:src="@{/assets/js/jquery-2.1.4.min.js}"></script>
 <!-- <![endif]-->
