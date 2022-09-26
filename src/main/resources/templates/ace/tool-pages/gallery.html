@@ -88,9 +88,9 @@
                         <div class="panel-collapse collapse in" id="collapseOne">
                             <div class="panel-body">
                                 <div>
-                                    <form class="dropzone well" id="dropzone"
-                                          style="border-radius: 10px; width: 50%" type="" enctype="multipart/form-data"
-                                          method="POST">
+                                    <form action="rest/gallery/uploads" method="post" class="dropzone well"
+                                          id="dropzone"
+                                          style="border-radius: 10px; width: 50%">
                                         <div class="fallback">
                                             <input name="file" type="file" multiple=""/>
                                         </div>
@@ -174,13 +174,13 @@
 
 <div th:include="templates/ace/pb-pages/common-script :: common-script"></div>
 <!-- page specific plugin scripts -->
-<script th:src="@{/assets/js/dropzone.min.js}"></script>
-<!--<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<!--<script th:src="@{/assets/js/dropzone.min.js}"></script>-->
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 <link
         rel="stylesheet"
         href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css"
         type="text/css"
-/>-->
+/>
 
 <script type="text/javascript">
     jQuery(function ($) {
@@ -188,21 +188,49 @@
             Dropzone.autoDiscover = false;
 
             const myDropzone = new Dropzone('#dropzone', {
+                method: "post",  // 也可用put
                 previewTemplate: $('#preview-template').html(),
 
+                paramName: "files", // 提交的参数,默认为file
                 thumbnailHeight: 120,
                 thumbnailWidth: 120,
                 maxFilesize: 5,
                 //addRemoveLinks : true,
                 //dictRemoveFile: 'Remove',
+                //acceptedFiles: ".jpg,.gif,.png,.jpeg", // 上传的类型
                 parallelUploads: 3,
-              //  url: "/ace/upload.html",
+                dictCancelUpload: "取消",
 
-                dictDefaultMessage:
-                    '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
+                dictDefaultMessage: '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
                     <span class="smaller-80 grey">(or click)</span><br/> \
                     <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>',
+                init: function () {
+                    this.on("addedfile", function (file) {
+                        //上传文件时触发的事件
+                    });
+                    this.on("success", function (file, data) {
+                        //上传成功触发的事件
+                        console.log('ok');
+                    });
+                    this.on("error", function (file, data) {
+                        //上传失败触发的事件
+                        console.log('fail');
+                        var message = '';
+                        //lavarel框架有一个表单验证，
+                        //对于ajax请求，JSON 响应会发送一个 422 HTTP 状态码，
+                        //对应file.accepted的值是false，在这里捕捉表单验证的错误提示
+                        if (file.accepted) {
+                            $.each(data, function (key, val) {
+                                message = message + val[0] + ';';
+                            })
+                            //控制器层面的错误提示，file.accepted = true的时候；
+                            alert(message);
+                        }
+                    });
+                    this.on("removedfile", function (file) {
 
+                    });
+                },
                 thumbnail: function (file, dataUrl) {
                     if (file.previewElement) {
                         $(file.previewElement).removeClass("dz-file-preview");
@@ -220,10 +248,7 @@
             });
 
             //simulating upload progress
-            const minSteps = 6,
-                maxSteps = 60,
-                timeBetweenSteps = 100,
-                bytesPerStep = 100000;
+            const minSteps = 6, maxSteps = 60, timeBetweenSteps = 100, bytesPerStep = 100000;
 
             myDropzone.uploadFiles = function (files) {
                 const self = this;

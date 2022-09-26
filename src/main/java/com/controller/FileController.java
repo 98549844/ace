@@ -22,7 +22,7 @@ import java.io.IOException;
 public class FileController extends CommonController {
     private static final Logger log = LogManager.getLogger(FileController.class.getName());
 
-    @RequestMapping(value = "/upload.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/upload.html", method = RequestMethod.POST)
     public ModelAndView upload() throws IOException {
         System.out.println("DROPZONE .........................");
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");

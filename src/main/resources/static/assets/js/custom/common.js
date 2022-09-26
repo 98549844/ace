@@ -58,7 +58,7 @@ function showLoading() {
     d = dialog({
         content: $("#loading_img").html(),
     });
-    d.show();
+    d.showModal();
     setTimeout(function () {
         d.close().remove();
     }, 120000);
@@ -122,8 +122,20 @@ function docReady() {
     //链接点击绑定弹出加载框
     $("a[href*='.html']").off();
     $("a[href*='.html']").on("click", function () {
+        const link = $(this).attr("href");
+        $.cookies.setAttr("currentURL", link);
         if ($(this).attr("target") != "_blank") {
             showLoading();
+        }
+    });
+
+    const currentURL = $.cookies.getAttr("currentURL");
+
+    $.each($("a[href*='.html']"), function () {
+        const link = $(this).attr("href");
+        alert('link: ' + link);
+        if (link === currentURL) {
+            $(this).addClass("active");
         }
     });
 }

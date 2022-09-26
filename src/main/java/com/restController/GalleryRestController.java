@@ -1,6 +1,7 @@
 package com.restController;
 
 //import com.heeexy.example.util.CommonUtil;
+import com.util.PathUtil;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,7 +38,8 @@ public class GalleryRestController {
         tmp.put("UNKNOWN", "msg.unknown_error");
     }
 
-    static String filePath = "/Users/garlam/IdeaProjects/ace/src/main/resources/static/files/";
+//    static String filePath = "src/main/resources/static/files/temp/";
+    static String filePath = PathUtil.getSystemPath()+"\\src\\main\\resources\\static\\files\\temp\\";
 
     @GetMapping("/download")
     public String downloadFile(HttpServletRequest request, HttpServletResponse response) {
@@ -115,7 +117,8 @@ public class GalleryRestController {
     }
 
 
-    @RequestMapping(value = "/uploads", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
+//    @RequestMapping(value = "/uploads", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
+    @RequestMapping(value = "/uploads", method = RequestMethod.POST)
     public List uploads(@RequestParam(value = "files") MultipartFile[] files) {
         // 存储上传成功的文件名，响应给客户端
         List<String> list = new ArrayList<>();
@@ -145,7 +148,7 @@ public class GalleryRestController {
                 multipartFile.transferTo(targetFile);
                 list.add(originalFilename);
             } catch (IOException e) {
-                log.info("文件上传异常={}", e);
+                log.info("文件上传异常: "+ e);
             }
         }
         return list;
