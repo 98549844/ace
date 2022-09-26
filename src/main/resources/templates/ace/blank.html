@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:include="ace/pb-pages/header :: header">
+    <!-- inline styles related to this page -->
 </head>
 
 <body class="no-skin">
@@ -72,22 +73,6 @@
     </a>
 </div><!-- /.main-container -->
 
-<!-- basic scripts -->
-<!--[if !IE]> -->
-<script th:src="@{/assets/js/jquery-2.1.4.min.js}"></script>
-<!-- <![endif]-->
-<!--[if IE]>
-<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
-<![endif]-->
-<script type="text/javascript">
-    if ('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
-</script>
-<script th:src="@{/assets/js/bootstrap.min.js}"></script>
-<!-- page specific plugin scripts -->
-<!-- ace scripts -->
-<script th:src="@{/assets/js/ace-elements.min.js}"></script>
-<script th:src="@{/assets/js/ace.min.js}"></script>
 <div th:include="ace/pb-pages/common-script :: common-script"></div>
-<!-- inline scripts related to this page -->
 </body>
 </html>
