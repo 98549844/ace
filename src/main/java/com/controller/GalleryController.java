@@ -34,7 +34,6 @@ public class GalleryController extends CommonController {
     @RequestMapping(value = "/gallery.html", method = RequestMethod.GET)
     public ModelAndView gallery() throws IOException {
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-       // List<String> images = galleryService.getImages();
         modelAndView.addObject("images", galleryService.getImages());
         return modelAndView;
     }
