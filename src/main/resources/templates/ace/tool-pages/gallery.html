@@ -147,13 +147,7 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <div>
-                            <ul class="ace-thumbnails clearfix">
-                                <li th:each="image:${images}">
-                                    <img th:src="@{/static/files/images/temp/{img}(img=${image})}"
-                                         width="150" height="150" alt="150x150"/>
-                                </li>
-
-                            </ul>
+                            <ul class="ace-thumbnails clearfix" id="imageDiv"></ul>
                         </div><!-- PAGE CONTENT ENDS -->
 
                         <!-- PAGE CONTENT ENDS -->
@@ -171,6 +165,7 @@
     </a>
 </div><!-- /.main-container -->
 
+
 <div th:include="templates/ace/pb-pages/common-script :: common-script"></div>
 <!-- page specific plugin scripts -->
 <!--<script th:src="@{/assets/js/dropzone.min.js}"></script>-->
@@ -183,7 +178,6 @@
 
 <script type="text/javascript">
 
-  //  $("a.accordion-toggle")
 
     jQuery(function ($) {
         Dropzone.options.dropZone = {
@@ -258,7 +252,34 @@
             },
 
         }
+
+        loadingImage();
     });
+
+    $("a.accordion-toggle").bind("click", function () {
+        loadingImage();
+    });
+
+    function loadingImage() {
+        $.ajax({
+            type: "get", // 以get方式发起请求
+            url: "getImages.html",
+            dataType: "json",
+            // 将你的请求参数以问号拼接到url中进行参数传递
+            success(data) {
+                var html = "";
+                for (var i = 0; i < data.length; i++) {
+                    html = html + "<li><img src=\"/static/files/images/temp/" + data[i] + "\" width=\"150\" height=\"150\" alt=\"150x150\"/></li>";
+                }
+
+                $("#imageDiv").html(html);
+                // data为返回值
+                // 成功后的回调方法
+                // alert(data.length);
+                //
+            }
+        })
+    }
 </script>
 
 </body>

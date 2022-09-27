@@ -111,8 +111,8 @@ function pageCss() {
     });
 }
 
-/*
-处理菜单节点css问题, 未完成
+
+//处理菜单节点css问题, 未完成
 
 function docReady() {
     //提交表单验证
@@ -126,38 +126,37 @@ function docReady() {
     $("a[href*='.html']").off();
     $("a[href*='.html']").on("click", function () {
         const link = $(this).attr("href");
-        $.cookies.setAttr("currentURL", link);
+        $.cookie('currentURL', link);
         if ($(this).attr("target") != "_blank") {
             showLoading();
         }
     });
 
-    const currentURL = $.cookies.getAttr("currentURL");
-
+    const currentURL = $.cookie('currentURL');;//$.cookies.getAttr("currentURL");
     $.each($("a[href*='.html']"), function () {
         const link = $(this).attr("href");
-        alert('link: ' + link);
         if (link === currentURL) {
-            $(this).addClass("active");
-        }
-    });
-}*/
-
-function docReady() {
-    //提交表单验证
-    $("#current_form").off("submit");
-    $("#current_form").on("submit", function () {
-        showLoading();
-        return true;
-    });
-
-    //链接点击绑定弹出加载框
-    $("a[href*='.html']").off();
-    $("a[href*='.html']").on("click", function () {
-        if ($(this).attr("target") != "_blank") {
-            showLoading();
+            $(this).parent().parent().parent().addClass("active").addClass("open");
+            $(this).parent().addClass("active");
         }
     });
 }
+
+/*function docReady() {
+    //提交表单验证
+    $("#current_form").off("submit");
+    $("#current_form").on("submit", function () {
+        showLoading();
+        return true;
+    });
+
+    //链接点击绑定弹出加载框
+    $("a[href*='.html']").off();
+    $("a[href*='.html']").on("click", function () {
+        if ($(this).attr("target") != "_blank") {
+            showLoading();
+        }
+    });
+}*/
 
 
