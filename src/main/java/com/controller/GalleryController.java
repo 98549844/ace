@@ -3,6 +3,8 @@ package com.controller;
 import com.controller.common.CommonController;
 import com.service.FileService;
 import com.service.GalleryService;
+import com.util.FileUtil;
+import com.util.JsonUtil;
 import com.util.PathUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,8 +44,18 @@ public class GalleryController extends CommonController {
 
     @RequestMapping(value = "/gallery.html", method = RequestMethod.GET)
     public ModelAndView gallery() throws IOException {
+        log.info("gallery.html");
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
         modelAndView.addObject("images", galleryService.getImages());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/getImages.html", method = RequestMethod.GET)
+    public ModelAndView getImages() throws IOException {
+        ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
+        String result = JsonUtil.ObjectToFormattedJson(galleryService.getImages());
+
+        modelAndView.addObject("ajaxResult", result);
         return modelAndView;
     }
 

@@ -33,20 +33,21 @@ public class GalleryService {
         FileUtil.mkDirs(src);
         FileUtil.mkDirs(temp);
 
-        List<String> tempLs = FileUtil.getFileNames(temp);
         List<String> ls = FileUtil.getFileNames(src);
-        if (tempLs.size() == 0) {
+        List<String> tempLs = FileUtil.getFileNames(temp);
+
+        if (ls.size() != tempLs.size()) {
+            Map mp = ListUtil.getDeduplicateElements(ls, tempLs);
+            tempLs = (List<String>) mp.get(ListUtil.LIST_1);
             log.info("temp images expired, compressing image ...");
-            for (String name : ls) {
+            for (String name : tempLs) {
                 ImageUtil.square(src + name);
                 ImageUtil.compress(temp + name);
             }
-            tempLs = FileUtil.getFileNames(temp);
             log.info("compressing image complete !!!");
-        } else {
-            log.info(ls != tempLs ? "src and temp images are NOT EQUAL" : "src and temp images are EQUAL");
         }
-        return tempLs;
+
+        return FileUtil.getFileNames(temp);
     }
 
 

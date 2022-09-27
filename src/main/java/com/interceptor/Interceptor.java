@@ -8,10 +8,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.controller.common.CommonController;
+
+import java.io.IOException;
 
 /**
  * @Classname: Interceptor
@@ -26,10 +29,17 @@ public class Interceptor extends CommonController implements HandlerInterceptor 
 
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException, IOException {
         String status = Integer.toString(response.getStatus());
         String RequestURI = request.getRequestURI();
-        log.info("status: {}; request uri: {}", status, RequestURI);
+        boolean isLogin = isLogin();
+        if (!isLogin) {
+            // response.sendRedirect("/ace/login.html");
+            log.info("status: {}; request uri: {}", status, RequestURI);
+            log.info("isLogin: " + false);
+        } else {
+            log.info("status: {}; request uri: {}", status, RequestURI);
+        }
         return true;
     }
 
@@ -41,10 +51,6 @@ public class Interceptor extends CommonController implements HandlerInterceptor 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         //preHandle返回true后, afterCompletion方法会执行
-       // log.info("isLogin: " + isLogin());
-      //  ApplicationContext applicationContext = BeanUtil.getApplicationContext();
-      //  LoginController loginController = applicationContext.getBean("loginController", LoginController.class);
-      //  loginController.login();
 
     }
 
