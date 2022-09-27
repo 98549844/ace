@@ -30,7 +30,7 @@ public class LogoutController extends CommonController {
 
     @RequestMapping(value = "/logout.html", method = RequestMethod.GET)
     public ModelAndView logout(HttpServletRequest request) {
-        ModelAndView modelAndView = super.page("ace/login.html");
+        ModelAndView modelAndView = super.page("ace/login");
         String msg = "Logout success";
         modelAndView.addObject("msg", msg);
         modelAndView.addObject(Css.css, Css.green);

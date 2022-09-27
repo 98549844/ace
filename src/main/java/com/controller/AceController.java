@@ -53,15 +53,26 @@ public class AceController extends CommonController {
         return modelAndView;
     }
 
-
-
-
     @RequestMapping(value = "/grid.html", method = RequestMethod.GET)
     public ModelAndView grid() {
         log.info("access ace/grid.html");
         ModelAndView modelAndView = super.page("ace/tool-pages/grid");
         return modelAndView;
     }
+
+    @RequestMapping(value = "/faq.html", method = RequestMethod.GET)
+    public ModelAndView faq() {
+        log.info("access ace/faq.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/faq");
+        return modelAndView;
+    }
+
+//    @RequestMapping(value = "/logout.html", method = RequestMethod.GET)
+//    public ModelAndView faq() {
+//        log.info("access ace/faq.html");
+//        ModelAndView modelAndView = super.page("ace/tool-pages/faq");
+//        return modelAndView;
+//    }
 
 }
 

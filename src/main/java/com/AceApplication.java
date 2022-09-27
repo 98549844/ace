@@ -48,10 +48,10 @@ public class AceApplication {
         applicationContext = SpringApplication.run(AceApplication.class, args);
 
         //print all loaded BeanName and properties value
-        Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
+     /*   Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
         BeanUtil.printBeanName(applicationContext);
         PropertiesUtil.printLoadedProperties();
-        Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
+        Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);*/
 
         //iterate bean value by name
         //print server side information
