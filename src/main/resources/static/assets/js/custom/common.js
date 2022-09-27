@@ -31,13 +31,13 @@ jQuery(function ($) {
             $(this).parent().parent().parent().parent().parent().addClass('active open');
             $(this).parent().parent().parent().addClass('active open');
             $(this).parent().addClass('active');
-            var fatherHTML = $("#main-menu").find('.active, .open').find('a span.menu-text').text()
+            let fatherHTML = $("#main-menu").find('.active, .open').find('a span.menu-text').text();
             $("#breadcrumb-lv2").html(fatherHTML);
             //获取父类html
-            var fatherHTML = $("#main-menu").find('.active, .open').find('a span.menu-text').text()
+            fatherHTML = $("#main-menu").find('.active, .open').find('a span.menu-text').text();
             $("#breadcrumb-lv2").html(fatherHTML);
             //获取自已html
-            var selfHTML = $(this).text();
+            const selfHTML = $(this).text();
             $("#breadcrumb-lv3").html(selfHTML);
         }
     });
@@ -111,6 +111,9 @@ function pageCss() {
     });
 }
 
+/*
+处理菜单节点css问题, 未完成
+
 function docReady() {
     //提交表单验证
     $("#current_form").off("submit");
@@ -136,6 +139,23 @@ function docReady() {
         alert('link: ' + link);
         if (link === currentURL) {
             $(this).addClass("active");
+        }
+    });
+}*/
+
+function docReady() {
+    //提交表单验证
+    $("#current_form").off("submit");
+    $("#current_form").on("submit", function () {
+        showLoading();
+        return true;
+    });
+
+    //链接点击绑定弹出加载框
+    $("a[href*='.html']").off();
+    $("a[href*='.html']").on("click", function () {
+        if ($(this).attr("target") != "_blank") {
+            showLoading();
         }
     });
 }

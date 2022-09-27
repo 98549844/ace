@@ -26,7 +26,7 @@ public class GalleryService {
 
 
     public List getImages() throws IOException {
-        log.info("default image locationL: resources/static/files/images/");
+        log.info("default image location: resources/static/files/images/");
 
         String src = "src/main/resources/static/files/images/";
         String temp = "src/main/resources/static/files/images/temp/";
@@ -35,7 +35,6 @@ public class GalleryService {
 
         List<String> tempLs = FileUtil.getFileNames(temp);
         List<String> ls = FileUtil.getFileNames(src);
-
         if (tempLs.size() == 0) {
             log.info("temp images expired, compressing image ...");
             for (String name : ls) {
@@ -47,9 +46,9 @@ public class GalleryService {
         } else {
             log.info(ls != tempLs ? "src and temp images are NOT EQUAL" : "src and temp images are EQUAL");
         }
-
         return tempLs;
     }
+
 
 
 }

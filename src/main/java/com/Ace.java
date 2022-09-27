@@ -20,15 +20,11 @@ public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
     public static void main(String[] args) throws IOException {
-        List f = FileUtil.getFileNames("src/main/resources/static/files/images");
-
-        for (int i = 0; i < f.size(); i++) {
-
-            ImageUtil.square("src/main/resources/static/files/images/" + f.get(i));
-            ImageUtil.compress("src/main/resources/static/files/images/temp/" + f.get(i));
-        }
+        String a = "aaaa.bbb";
+        System.out.println(a.lastIndexOf("."));
+        System.out.println(a.substring(a.lastIndexOf(".")));
     }
-
-
 }
+
+
 

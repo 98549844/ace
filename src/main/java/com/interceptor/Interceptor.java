@@ -1,12 +1,17 @@
 package com.interceptor;
 
+import com.controller.LoginController;
+import com.util.BeanUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.controller.common.CommonController;
 
 /**
  * @Classname: Interceptor
@@ -16,8 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 
-public class Interceptor implements HandlerInterceptor {
+public class Interceptor extends CommonController implements HandlerInterceptor {
     private static Logger log = LogManager.getLogger(Interceptor.class.getName());
+
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -34,7 +40,12 @@ public class Interceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        // log.info("afterCompletion :【在整个请求结束之后被调用,也就是在DispatcherServlet渲染了对应的视图之后执行(主要用于资源清理工作)】");
+        //preHandle返回true后, afterCompletion方法会执行
+       // log.info("isLogin: " + isLogin());
+      //  ApplicationContext applicationContext = BeanUtil.getApplicationContext();
+      //  LoginController loginController = applicationContext.getBean("loginController", LoginController.class);
+      //  loginController.login();
+
     }
 
 

@@ -35,6 +35,8 @@ public class Files extends baseEntity {
     @Column
     private String fileName;
     @Column
+    private String OriginationName; //原文件名
+    @Column
     private String owner;
     @Column
     private String remark;
@@ -101,6 +103,14 @@ public class Files extends baseEntity {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public String getOriginationName() {
+        return OriginationName;
+    }
+
+    public void setOriginationName(String originationName) {
+        OriginationName = originationName;
     }
 }
 

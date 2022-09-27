@@ -1,14 +1,23 @@
 package com.controller;
 
 import com.controller.common.CommonController;
+import com.service.FileService;
+import com.util.PathUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * @Classname: FileController
@@ -22,10 +31,39 @@ import java.io.IOException;
 public class FileController extends CommonController {
     private static final Logger log = LogManager.getLogger(FileController.class.getName());
 
-    @RequestMapping(value = "/upload.html", method = RequestMethod.POST)
-    public ModelAndView upload() throws IOException {
-        System.out.println("DROPZONE .........................");
+    static String filePath = PathUtil.getSystemPath() + "\\src\\main\\resources\\static\\files\\temp\\";
+
+
+    private FileService fileService;
+
+    @Autowired
+    public FileController(FileService fileService) {
+        this.fileService = fileService;
+    }
+
+
+    @RequestMapping(value = "/files/upload", method = RequestMethod.POST)
+    public ModelAndView upload(@RequestParam("file") MultipartFile file) {
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
+        String result = fileService.upload(filePath, file);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/files/uploads", method = RequestMethod.POST)
+    public ModelAndView uploads(@RequestParam(value = "files") MultipartFile[] files) {
+        ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
+        List<String> list = fileService.uploads(filePath, files);
+        return modelAndView;
+    }
+
+
+
+    @RequestMapping(value = "/files/delete", method = RequestMethod.GET)
+    public ModelAndView delete() {
+        ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
+
+        log.error("success call delete file method");
+
         return modelAndView;
     }
 

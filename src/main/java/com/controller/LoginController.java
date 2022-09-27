@@ -43,7 +43,7 @@ public class LoginController extends CommonController {
 
 
     @RequestMapping(value = {"/ace/login.html", "/"}, method = RequestMethod.GET)
-    public ModelAndView login(HttpServletRequest request) {
+    public ModelAndView login() {
         if (isLogin()) {
             return super.page("ace/index.html");
         } else {
