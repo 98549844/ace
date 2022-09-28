@@ -267,16 +267,13 @@
             dataType: "json",
             // 将你的请求参数以问号拼接到url中进行参数传递
             success(data) {
-                var html = "";
-                for (var i = 0; i < data.length; i++) {
+                let html = "";
+                for (let i = 0; i < data.length; i++) {
                     html = html + "<li><img src=\"/static/files/images/temp/" + data[i] + "\" width=\"150\" height=\"150\" alt=\"150x150\"/></li>";
                 }
-
                 $("#imageDiv").html(html);
                 // data为返回值
                 // 成功后的回调方法
-                // alert(data.length);
-                //
             }
         })
     }

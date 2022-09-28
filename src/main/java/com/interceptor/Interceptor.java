@@ -34,11 +34,16 @@ public class Interceptor extends CommonController implements HandlerInterceptor 
         String status = Integer.toString(response.getStatus());
         String RequestURI = request.getRequestURI();
         boolean isLogin = isLogin();
-        if (!isLogin) {
-            log.info("status: {}; request uri: {}", status, RequestURI);
+        log.info("status: {}; request uri: {}", status, RequestURI);
+
+        String root = "/";
+        String index = "/ace/login.html";
+        String logging = "/ace/logging.html";
+        if (!isLogin && !index.equals(RequestURI) && !root.equals(RequestURI) && !logging.equals(RequestURI)) {
             log.info("isLogin: " + false);
-        } else {
+            response.sendRedirect("/ace/login.html");
             log.info("status: {}; request uri: {}", status, RequestURI);
+            return false;
         }
         return true;
     }
