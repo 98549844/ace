@@ -67,6 +67,57 @@ public class AceController extends CommonController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/profile.html", method = RequestMethod.GET)
+    public ModelAndView profile() {
+        log.info("access ace/profile.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/profile");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/inbox.html", method = RequestMethod.GET)
+    public ModelAndView inbox() {
+        log.info("access ace/inbox.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/inbox");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/pricing.html", method = RequestMethod.GET)
+    public ModelAndView pricing() {
+        log.info("access ace/pricing.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/pricing");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/invoice.html", method = RequestMethod.GET)
+    public ModelAndView invoice() {
+        log.info("access ace/invoice.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/invoice");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/timeline.html", method = RequestMethod.GET)
+    public ModelAndView timeline() {
+        log.info("access ace/timeline.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/timeline");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/search.html", method = RequestMethod.GET)
+    public ModelAndView search() {
+        log.info("access ace/search.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/search");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/email.html", method = RequestMethod.GET)
+    public ModelAndView email() {
+        log.info("access ace/email.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/email");
+        return modelAndView;
+    }
+
+
+
 //    @RequestMapping(value = "/logout.html", method = RequestMethod.GET)
 //    public ModelAndView faq() {
 //        log.info("access ace/faq.html");

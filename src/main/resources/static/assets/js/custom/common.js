@@ -17,6 +17,8 @@ function docReady() {
         const link = $(this).attr("href");
         $.cookie('currentURL', link);
         if ($(this).attr("target") != "_blank") {
+            setTimeout(() => {
+            }, 1000);
             showLoading();
         }
     });
@@ -35,6 +37,7 @@ function docReady() {
  * 弹出一个加载弹出框
  */
 let d;
+
 function showLoading() {
     d = dialog({
         content: $("#loading_img").html(),

@@ -128,13 +128,16 @@ public class SaTakenRestController extends CommonController {
         boolean sortType = true;
 
         // 查询所有token
-        List<String> searchTokenValue = StpUtil.searchTokenValue(keyword, start, size, sortType);
+        //List<String> searchTokenValue = StpUtil.searchTokenValue(keyword, start, size, sortType);
+        List<String> searchTokenValue = StpUtil.searchTokenValue(keyword, start, size);
 
         // 查询所有账号Session会话
-        List<String> searchSessionId = StpUtil.searchSessionId(keyword, start, size, sortType);
+        //List<String> searchSessionId = StpUtil.searchSessionId(keyword, start, size, sortType);
+        List<String> searchSessionId = StpUtil.searchSessionId(keyword, start, size);
 
         // 查询所有令牌Session会话
-        List<String> searchTokenSessionId = StpUtil.searchTokenSessionId(keyword, start, size, sortType);
+        //List<String> searchTokenSessionId = StpUtil.searchTokenSessionId(keyword, start, size, sortType);
+        List<String> searchTokenSessionId = StpUtil.searchTokenSessionId(keyword, start, size);
 
         List<Object> list = new ArrayList<>();
         list.add(searchTokenValue);
@@ -188,23 +191,22 @@ public class SaTakenRestController extends CommonController {
         SaTokenConfig saTokenConfig = SaManager.getConfig();                // 获取全局配置对象
         SaTokenDao saTokenDao = SaManager.getSaTokenDao();                  // 获取数据持久化对象
         StpInterface stpInterface = SaManager.getStpInterface();            // 获取权限认证对象
-      //  SaTokenAction saTokenAction = SaManager.getSaTokenAction();       // 获取框架行为对象
+        //  SaTokenAction saTokenAction = SaManager.getSaTokenAction();       // 获取框架行为对象
         SaTokenContext saTokenContext = SaManager.getSaTokenContext();      // 获取上下文处理对象
-      //  SaTokenListener saTokenListener = SaManager.getSaTokenListener(); // 获取侦听器对象
+        //  SaTokenListener saTokenListener = SaManager.getSaTokenListener(); // 获取侦听器对象
         SaTempInterface saTempInterface = SaManager.getSaTemp();            // 获取临时令牌认证模块对象
-     //   StpLogic stpLogic = SaManager.getStpLogic("type");                // 获取指定账号类型的StpLogic对象
-
+        //   StpLogic stpLogic = SaManager.getStpLogic("type");                // 获取指定账号类型的StpLogic对象
 
 
         List<Object> ls = new ArrayList<>();
         ls.add(saTokenConfig);
         ls.add(saTokenDao);
         ls.add(stpInterface);
-       // ls.add(saTokenAction);
+        // ls.add(saTokenAction);
         ls.add(saTokenContext);
-      //  ls.add(saTokenListener);
+        //  ls.add(saTokenListener);
         ls.add(saTempInterface);
-      //  ls.add(stpLogic);
+        //  ls.add(stpLogic);
 
         return AjaxResponse.success("OK");
     }

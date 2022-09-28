@@ -66,18 +66,13 @@ public class MySaTokenListener implements SaTokenListener {
      *
      * @param loginType   账号类别
      * @param loginId     账号id
-     * @param service     指定服务
-     * @param level       封禁等级
      * @param disableTime 封禁时长，单位: 秒
      */
     @Override
-    public void doDisable(String loginType, Object loginId, String service, int level, long disableTime) {
+    public void doDisable(String loginType, Object loginId, long disableTime) {
         log.info("loginType: {}", loginType);
         log.info("loginId: {}", loginId);
-        log.info("service: {}", service);
-        log.info("level: {}", level);
         log.info("disableTime: {}", disableTime);
-
     }
 
     /**
@@ -85,15 +80,46 @@ public class MySaTokenListener implements SaTokenListener {
      *
      * @param loginType 账号类别
      * @param loginId   账号id
-     * @param service   指定服务
      */
     @Override
+    public void doUntieDisable(String loginType, Object loginId) {
+        log.info("loginType: {}", loginType);
+        log.info("loginId: {}", loginId);
+    }
+
+    /** 1.31
+     * 每次被封禁时触发
+     *
+     * @param loginType   账号类别
+     * @param loginId     账号id
+     * @param service     指定服务
+     * @param level       封禁等级
+     * @param disableTime 封禁时长，单位: 秒
+     */
+ /*   @Override
+    public void doDisable(String loginType, Object loginId, String service, int level, long disableTime) {
+        log.info("loginType: {}", loginType);
+        log.info("loginId: {}", loginId);
+        log.info("service: {}", service);
+        log.info("level: {}", level);
+        log.info("disableTime: {}", disableTime);
+
+    }*/
+
+    /** 1.31
+     * 每次被解封时触发
+     *
+     * @param loginType 账号类别
+     * @param loginId   账号id
+     * @param service   指定服务
+     */
+   /* @Override
     public void doUntieDisable(String loginType, Object loginId, String service) {
         log.info("loginType: {}", loginType);
         log.info("loginId: {}", loginId);
         log.info("service: {}", service);
 
-    }
+    }*/
 
 
     /**
@@ -113,17 +139,19 @@ public class MySaTokenListener implements SaTokenListener {
 
     }
 
-    /**
+    /** 1.31
      * 每次Token续期时触发
      *
      * @param tokenValue token 值
      * @param loginId    账号id
      * @param timeout    续期时间
      */
-    @Override
+   /* @Override
     public void doRenewTimeout(String tokenValue, Object loginId, long timeout) {
-
-    }
+        log.info("tokenValue: {}", tokenValue);
+        log.info("loginId: {}", loginId);
+        log.info("timeout: {}", timeout);
+    }*/
 
 
 }

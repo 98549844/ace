@@ -40,16 +40,20 @@ public class GalleryService {
             Map mp = ListUtil.getDeduplicateElements(ls, tempLs);
             tempLs = (List<String>) mp.get(ListUtil.LIST_1);
             log.info("temp images expired, compressing image ...");
-            for (String name : tempLs) {
-                ImageUtil.square(src + name);
-                ImageUtil.compress(temp + name);
+            try {
+                for (String name : tempLs) {
+                    ImageUtil.square(src + name);
+                    ImageUtil.compress(temp + name);
+                }
+            } catch (Exception e) {
+                log.error("Include non image files !!!");
+                e.printStackTrace();
             }
             log.info("compressing image complete !!!");
         }
 
         return FileUtil.getFileNames(temp);
     }
-
 
 
 }

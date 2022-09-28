@@ -33,18 +33,20 @@ public class Interceptor extends CommonController implements HandlerInterceptor 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException, IOException {
         String status = Integer.toString(response.getStatus());
         String RequestURI = request.getRequestURI();
-        boolean isLogin = isLogin();
         log.info("status: {}; request uri: {}", status, RequestURI);
 
+        //boolean isLogin = isLogin();
+        /*
         String root = "/";
         String index = "/ace/login.html";
         String logging = "/ace/logging.html";
         if (!isLogin && !index.equals(RequestURI) && !root.equals(RequestURI) && !logging.equals(RequestURI)) {
             log.info("isLogin: " + false);
+            log.info("preHandler allow [/]; [/ace/login.html]; [/ace/logging.html]");
             response.sendRedirect("/ace/login.html");
-            log.info("status: {}; request uri: {}", status, RequestURI);
             return false;
         }
+        */
         return true;
     }
 
