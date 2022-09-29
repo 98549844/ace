@@ -215,5 +215,47 @@ public class AceController extends CommonController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/top-menu.html", method = RequestMethod.GET)
+    public ModelAndView topMenu() {
+        log.info("access ace/top-menu.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/top-menu");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/two-menu-1.html", method = RequestMethod.GET)
+    public ModelAndView twoMenu1() {
+        log.info("access ace/two-menu-1.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/two-menu-1");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/two-menu-2.html", method = RequestMethod.GET)
+    public ModelAndView twoMenu2() {
+        log.info("access ace/two-menu-2.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/two-menu-2");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/mobile-menu-1.html", method = RequestMethod.GET)
+    public ModelAndView mobileMenu1() {
+        log.info("access ace/mobile-menu-1.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/mobile-menu-1");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/mobile-menu-2.html", method = RequestMethod.GET)
+    public ModelAndView mobileMenu2() {
+        log.info("access ace/mobile-menu-2.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/mobile-menu-2");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/mobile-menu-3.html", method = RequestMethod.GET)
+    public ModelAndView mobileMenu3() {
+        log.info("access ace/mobile-menu-3.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/mobile-menu-3");
+        return modelAndView;
+    }
+
 }
 
