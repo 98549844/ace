@@ -64,8 +64,6 @@ public class GalleryService {
     }
 
 
-    public static void main(String[] args) throws IOException {
-        FileUtil.deletes("C:\\ACE\\images\\temp\\");
-    }
+
 }
 
