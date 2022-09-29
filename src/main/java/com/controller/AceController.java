@@ -151,15 +151,69 @@ public class AceController extends CommonController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/widgets.html", method = RequestMethod.GET)
+    public ModelAndView widgets() {
+        log.info("access ace/widgets.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/widgets");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/calendar.html", method = RequestMethod.GET)
+    public ModelAndView calendar() {
+        log.info("access ace/calendar.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/calendar");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/form-elements.html", method = RequestMethod.GET)
+    public ModelAndView formElements() {
+        log.info("access ace/form-elements.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/form-elements");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/form-elements-2.html", method = RequestMethod.GET)
+    public ModelAndView formElements2() {
+        log.info("access ace/form-elements-2.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/form-elements-2");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/form-wizard.html", method = RequestMethod.GET)
+    public ModelAndView formWizard() {
+        log.info("access ace/form-wizard.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/form-wizard");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/wysiwyg.html", method = RequestMethod.GET)
+    public ModelAndView wysiwyg() {
+        log.info("access ace/wysiwyg.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/wysiwyg");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/dropzone.html", method = RequestMethod.GET)
+    public ModelAndView dropzone() {
+        log.info("access ace/dropzone.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/dropzone");
+        return modelAndView;
+    }
 
 
+    @RequestMapping(value = "/tables.html", method = RequestMethod.GET)
+    public ModelAndView tables() {
+        log.info("access ace/tables.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/tables");
+        return modelAndView;
+    }
 
-//    @RequestMapping(value = "/logout.html", method = RequestMethod.GET)
-//    public ModelAndView faq() {
-//        log.info("access ace/faq.html");
-//        ModelAndView modelAndView = super.page("ace/tool-pages/faq");
-//        return modelAndView;
-//    }
+    @RequestMapping(value = "/jqgrid.html", method = RequestMethod.GET)
+    public ModelAndView jqgrid() {
+        log.info("access ace/jqgrid.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/jqgrid");
+        return modelAndView;
+    }
 
 }
 
