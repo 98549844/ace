@@ -143,7 +143,7 @@ public class UsersService {
     public Users accountRegistration(Users users) {
         users.setPassword(passwordEncoder.encode(users.getPassword()));
         users.setDescription(Constant.Viewer);
-        users.setUsername(users.getUserAccount() + "_ace" + RandomUtil.getRangeInt(1, 500));
+        users.setUsername("ace_" + RandomUtil.getRangeInt(1, 500) + "_" + users.getUserAccount());
         users.setExpireDate(LocalDateTime.now().plusYears(3));
         Users u = usersDao.saveAndFlush(users);
 
@@ -183,7 +183,7 @@ public class UsersService {
     public boolean validate(Users users) {
         boolean validate = true;
         if (NullUtil.isNotNull(users)) {
-            if (NullUtil.isNull(users.getEmail()) || NullUtil.isNull(users.getUserAccount().trim()) || NullUtil.isNull(users.getPassword())) {
+            if (NullUtil.isNull(users.getEmail().trim()) || NullUtil.isNull(users.getUserAccount().trim()) || NullUtil.isNull(users.getPassword())) {
                 validate = false;
             }
         }
@@ -238,7 +238,6 @@ public class UsersService {
         }
         return true;
     }
-
 
 
     public boolean delete(Users users) {

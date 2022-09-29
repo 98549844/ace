@@ -357,33 +357,33 @@
 
         //检查注册是否为空并提交
         $("#register-btn").bind("click", function () {
-            var email = $("#email").val();
-            var userAccount = $("#user_Account").val();
-            var password = $("#pass_word").val();
-            var confirm_pw = $("#confirm-password").val();
+            const email = $("#email").val();
+            const userAccount = $("#user_Account").val();
+            const password = $("#pass_word").val();
+            const confirm_pw = $("#confirm-password").val();
 
-            if (email == null || email == "") {
+            if (email == null || email === "") {
                 alert("email不能为空");
                 return;
             }
             //@不存在
-            if (email.indexOf("@") == -1) {
+            if (email.indexOf("@") === -1) {
                 alert("email格式不对");
                 return;
             }
-            if (userAccount == null || userAccount == "") {
+            if (userAccount == null || userAccount === "") {
                 alert("userAccount不能为空");
                 return;
             }
-            if (password == null || password == "") {
+            if (password == null || password === "") {
                 alert("password不能为空");
                 return;
             }
-            if (confirm_pw == null || confirm_pw == "") {
+            if (confirm_pw == null || confirm_pw === "") {
                 alert("confirm_pw不能为空");
                 return;
             }
-            if (!password == confirm_pw) {
+            if ($.trim(password) !== $.trim(confirm_pw)) {
                 alert("密码不匹配");
                 return;
             }
