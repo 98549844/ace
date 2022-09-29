@@ -51,6 +51,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
                         "/**/*.ttf",
                         "/**/*.svg",
                         "/**/*.eot",
+                        "/**/*.map",
                         "/images/**")
                 //swagger
                 .excludePathPatterns("/doc.html").excludePathPatterns("/swagger-ui.html", "/csrf", "/webjars/**", "/swagger-resources/**", "/v2/**");
