@@ -143,7 +143,7 @@ public class UsersService {
     public Users accountRegistration(Users users) {
         users.setPassword(passwordEncoder.encode(users.getPassword()));
         users.setDescription(Constant.Viewer);
-        users.setUsername("ace_" + RandomUtil.getRangeInt(1, 999) + "_" + users.getUserAccount());
+        users.setUsername("ace" + RandomUtil.getRangeInt(1, 999) + "_" + users.getUserAccount());
         users.setExpireDate(LocalDateTime.now().plusYears(3));
         Users u = usersDao.saveAndFlush(users);
 
