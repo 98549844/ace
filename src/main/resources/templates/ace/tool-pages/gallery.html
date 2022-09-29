@@ -269,7 +269,7 @@
             success(data) {
                 let html = "";
                 for (let i = 0; i < data.length; i++) {
-                    html = html + "<li><img src=\"/static/files/images/temp/" + data[i] + "\" width=\"150\" height=\"150\" alt=\"150x150\"/></li>";
+                    html = html + "<li><img src=\"showImage/" + data[i] + "\" width=\"150\" height=\"150\" alt=\"150x150\"/></li>";
                 }
                 $("#imageDiv").html(html);
                 // data为返回值

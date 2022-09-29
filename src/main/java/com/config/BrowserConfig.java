@@ -28,7 +28,6 @@ public class BrowserConfig {
 
 
 	public static void main(String[] args) throws IOException {
-	//	BrowserConfig browserConfig = new BrowserConfig();
 		ProcessBuilder proc = new ProcessBuilder(windowsBrowser, "www.baidu.com");
 		proc.start();
 	}

@@ -1,5 +1,6 @@
 package com.service;
 
+import com.constant.AceEnvironment;
 import com.util.FileUtil;
 import com.util.ImageUtil;
 import com.util.ListUtil;
@@ -24,37 +25,47 @@ import java.util.Map;
 public class GalleryService {
     private static final Logger log = LogManager.getLogger(GalleryService.class.getName());
 
-
     public List getImages() throws IOException {
         log.info("default image location: resources/static/files/images/");
 
-        String src = "src/main/resources/static/files/images/";
-        String temp = "src/main/resources/static/files/images/temp/";
-        FileUtil.mkDirs(src);
-        FileUtil.mkDirs(temp);
+        String src = AceEnvironment.getImagesPath();
+        String temp = AceEnvironment.getImagesTemp();
 
         List<String> ls = FileUtil.getFileNames(src);
         List<String> tempLs = FileUtil.getFileNames(temp);
 
-        if (ls.size() != tempLs.size()) {
+        if (ls.size() > tempLs.size()) {
             Map mp = ListUtil.getDeduplicateElements(ls, tempLs);
             tempLs = (List<String>) mp.get(ListUtil.LIST_1);
-            log.info("temp images expired, compressing image ...");
-            try {
-                for (String name : tempLs) {
-                    ImageUtil.square(src + name);
-                    ImageUtil.compress(temp + name);
-                }
-            } catch (Exception e) {
-                log.error("Include non image files !!!");
-                e.printStackTrace();
-            }
-            log.info("compressing image complete !!!");
+            compressImages(tempLs);
+        } else if (ls.size() < tempLs.size()) {
+            FileUtil.deletes(temp);
+            compressImages(ls);
         }
-
         return FileUtil.getFileNames(temp);
     }
 
+    private void compressImages(List<String> ls) {
+        log.info("temp images expired, compressing image ...");
 
+        String src = AceEnvironment.getImagesPath();
+        String temp = AceEnvironment.getImagesTemp();
+
+        try {
+            for (String name : ls) {
+                ImageUtil.square(src + name);
+                ImageUtil.compress(temp + name);
+            }
+        } catch (Exception e) {
+            log.error("Include non image files !!!");
+            e.printStackTrace();
+        }
+        log.info("compressing image complete !!!");
+    }
+
+
+    public static void main(String[] args) throws IOException {
+        FileUtil.deletes("C:\\ACE\\images\\temp\\");
+    }
 }
 
