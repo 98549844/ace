@@ -282,10 +282,11 @@
 
                 <li class="light-blue dropdown-modal">
                     <a data-toggle="dropdown" th:href="@{/#}" class="dropdown-toggle">
-                        <img class="nav-user-photo" th:src="@{/assets/images/avatars/user.jpg}" th:alt="${user.userAccount}"/>
+                        <img class="nav-user-photo" th:src="@{/assets/images/avatars/user.jpg}"
+                             th:alt="${user.userAccount}"/>
                         <span class="user-info">
 									<small>Welcome,</small>
-                                    <!--[[${user.username}]]-->
+                            <!--[[${user.username}]]-->
                                     [(${user.username})]
 								</span>
 
@@ -310,7 +311,7 @@
                         <li class="divider"></li>
 
                         <li>
-                            <a th:href="@{/ace/logout.html}">
+                            <a class="logout">
                                 <i class="ace-icon fa fa-power-off"></i>
                                 Logout
                             </a>

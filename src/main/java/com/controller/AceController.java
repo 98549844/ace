@@ -116,6 +116,42 @@ public class AceController extends CommonController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/typography.html", method = RequestMethod.GET)
+    public ModelAndView typography() {
+        log.info("access ace/email.typography");
+        ModelAndView modelAndView = super.page("ace/tool-pages/typography");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/content-slider.html", method = RequestMethod.GET)
+    public ModelAndView contentSlider() {
+        log.info("access ace/content-slider.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/content-slider");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/treeview.html", method = RequestMethod.GET)
+    public ModelAndView treeView() {
+        log.info("access ace/email.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/treeview");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/jquery-ui.html", method = RequestMethod.GET)
+    public ModelAndView jqueryUi() {
+        log.info("access ace/email.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/jquery-ui");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/nestable-list.html", method = RequestMethod.GET)
+    public ModelAndView nestableList() {
+        log.info("access ace/nestable-list.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/nestable-list");
+        return modelAndView;
+    }
+
+
 
 
 //    @RequestMapping(value = "/logout.html", method = RequestMethod.GET)

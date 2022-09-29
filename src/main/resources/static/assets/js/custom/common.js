@@ -1,7 +1,7 @@
 //$(document).ready(function () {
 jQuery(function ($) {
     docReady();
-    $("a[href*='/ace/logout.html']").on("click", function () {
+    $("a.logout").on("click", function () {
         logout();
     });
 });
@@ -47,7 +47,11 @@ function logout() {
         okValue: 'Confirm',
         ok: function () {
             this.title('Logging out …');
-            //需要写ajax提交
+            $.ajax({
+                type: "get", // 以get方式发起请求
+                url: "logout.html",
+            })
+            location.href = '/';
             return false;
         },
         cancelValue: 'Cancel',
@@ -56,7 +60,6 @@ function logout() {
     });
     d.showModal();
 }
-
 
 
 /**
