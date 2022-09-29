@@ -219,9 +219,9 @@ public class UsersService {
         return true;
     }
 
-    public boolean update(Users users) {
+    public boolean updateUsers(Users users) {
         try {
-            usersDao.update(users);
+            usersDao.updateUsers(users);
         } catch (Exception e) {
             e.printStackTrace();
             return false;

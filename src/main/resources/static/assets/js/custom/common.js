@@ -1,6 +1,9 @@
 //$(document).ready(function () {
 jQuery(function ($) {
     docReady();
+    $("a[href*='/ace/logout.html']").on("click", function () {
+        logout();
+    });
 });
 
 function docReady() {
@@ -13,7 +16,7 @@ function docReady() {
 
     //链接点击绑定弹出加载框
     $("a[href*='.html']").off();
-    $("a[href*='.html']").off().on("click", function () {
+    $("a[href*='.html']").on("click", function () {
         const link = $(this).attr("href");
         $.cookie('currentURL', link);
         if ($(this).attr("target") != "_blank") {
@@ -32,6 +35,29 @@ function docReady() {
         }
     });
 }
+
+
+function logout() {
+    //clear cookies
+    $.cookie('currentURL', '');
+    //  /ace/logout.html
+    d = dialog({
+        title: 'Logout',
+        content: 'Are you confirm log out !!!',
+        okValue: 'Confirm',
+        ok: function () {
+            this.title('Logging out …');
+            //需要写ajax提交
+            return false;
+        },
+        cancelValue: 'Cancel',
+        cancel: function () {
+        }
+    });
+    d.showModal();
+}
+
+
 
 /**
  * 弹出一个加载弹出框
@@ -54,6 +80,10 @@ function showLoading() {
 function closeLoading() {
     d.close().remove();
 }
+
+
+
+
 
 
 
