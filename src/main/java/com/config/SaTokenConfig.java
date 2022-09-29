@@ -2,7 +2,9 @@ package com.config;
 
 import cn.dev33.satoken.interceptor.SaAnnotationInterceptor;
 //import cn.dev33.satoken.interceptor.SaInterceptor;
+import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.interceptor.SaRouteInterceptor;
+import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.thymeleaf.dialect.SaTokenDialect;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,7 +32,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 注册Sa-Token的路由拦截器
-        registry.addInterceptor(new SaRouteInterceptor())
+        registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin()))
                 .addPathPatterns("/**")
                 //开放登陆,注册 url
                 .excludePathPatterns("/ace/logging.html", "/ace/login.html","/ace/registration.html", "/")

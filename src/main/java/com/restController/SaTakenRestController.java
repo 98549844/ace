@@ -128,16 +128,16 @@ public class SaTakenRestController extends CommonController {
         boolean sortType = true;
 
         // 查询所有token
-        //List<String> searchTokenValue = StpUtil.searchTokenValue(keyword, start, size, sortType);
-        List<String> searchTokenValue = StpUtil.searchTokenValue(keyword, start, size);
+        List<String> searchTokenValue = StpUtil.searchTokenValue(keyword, start, size, sortType);
+        //List<String> searchTokenValue = StpUtil.searchTokenValue(keyword, start, size);
 
         // 查询所有账号Session会话
-        //List<String> searchSessionId = StpUtil.searchSessionId(keyword, start, size, sortType);
-        List<String> searchSessionId = StpUtil.searchSessionId(keyword, start, size);
+        List<String> searchSessionId = StpUtil.searchSessionId(keyword, start, size, sortType);
+        //List<String> searchSessionId = StpUtil.searchSessionId(keyword, start, size);
 
         // 查询所有令牌Session会话
-        //List<String> searchTokenSessionId = StpUtil.searchTokenSessionId(keyword, start, size, sortType);
-        List<String> searchTokenSessionId = StpUtil.searchTokenSessionId(keyword, start, size);
+        List<String> searchTokenSessionId = StpUtil.searchTokenSessionId(keyword, start, size, sortType);
+        //List<String> searchTokenSessionId = StpUtil.searchTokenSessionId(keyword, start, size);
 
         List<Object> list = new ArrayList<>();
         list.add(searchTokenValue);
