@@ -2,7 +2,7 @@ package com.restController;
 
 //import com.heeexy.example.util.CommonUtil;
 
-import com.service.FileService;
+import com.service.FilesService;
 import com.util.PathUtil;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
@@ -43,12 +43,12 @@ public class GalleryRestController {
 
     static final String filePath = PathUtil.getSystemPath() + "\\src\\main\\resources\\static\\files\\temp\\";
 
-    private FileService fileService;
+    private FilesService filesService;
 
 
     @Autowired
-    public GalleryRestController(FileService fileService) {
-        this.fileService = fileService;
+    public GalleryRestController(FilesService filesService) {
+        this.filesService = filesService;
     }
 
     @GetMapping("/download")
@@ -99,14 +99,14 @@ public class GalleryRestController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String upload(@RequestParam("file") MultipartFile file) {    //注意参数
-        String result = fileService.upload(filePath, file);
+        String result = filesService.upload(filePath, file);
         return result;
     }
 
 
     @RequestMapping(value = "/uploads", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
     public List uploads(@RequestParam(value = "files") MultipartFile[] files) {
-        List list = fileService.uploads(filePath, files);
+        List list = filesService.uploads(files);
         return list;
     }
 

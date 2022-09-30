@@ -89,7 +89,15 @@ public class LoginController extends CommonController {
                 user.setLoginDateTime(LocalDateTime.now());
                 user.setIp(getRequest().getRemoteAddr());
                 user.setHostName(getRequest().getRemoteHost());
-                user = usersService.saveAndFlush(user);
+                if (NullUtil.isNotNull(rememberMe)) {
+                    //rememberMe = on 记住我
+                    login(user.getUserId(), true);
+                } else {
+                    login(user.getUserId(), false);
+                }
+                log.info("UserId: {}", user.getUserId());
+                setSession(user);
+                usersService.save(user);
             } catch (UserNotFoundException | PasswordNotMatchException e) {
                 e.printStackTrace();
                 msg = "Account/Password incorrect";
@@ -99,14 +107,7 @@ public class LoginController extends CommonController {
             }
         }
 
-        if (NullUtil.isNotNull(rememberMe)) {
-            //rememberMe = on 记住我
-            login(user.getUserId(), true);
-        } else {
-            login(user.getUserId(), false);
-        }
-        log.info("UserId: {}", user.getUserId());
-        setSession(user);
+
         //  modelAndView = super.page("ace/index.html");
         modelAndView = super.redirect("ace/index.html");
         return modelAndView;

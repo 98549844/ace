@@ -1,7 +1,7 @@
 package com.controller;
 
 import com.controller.common.CommonController;
-import com.service.FileService;
+import com.service.FilesService;
 import com.util.PathUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,11 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @Classname: FileController
@@ -34,28 +30,27 @@ public class FileController extends CommonController {
     static String filePath = PathUtil.getSystemPath() + "\\src\\main\\resources\\static\\files\\temp\\";
 
 
-    private FileService fileService;
+    private FilesService filesService;
 
     @Autowired
-    public FileController(FileService fileService) {
-        this.fileService = fileService;
+    public FileController(FilesService filesService) {
+        this.filesService = filesService;
     }
 
 
     @RequestMapping(value = "/files/upload", method = RequestMethod.POST)
     public ModelAndView upload(@RequestParam("file") MultipartFile file) {
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-        String result = fileService.upload(filePath, file);
+        String result = filesService.upload(filePath, file);
         return modelAndView;
     }
 
     @RequestMapping(value = "/files/uploads", method = RequestMethod.POST)
     public ModelAndView uploads(@RequestParam(value = "files") MultipartFile[] files) {
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-        List<String> list = fileService.uploads(filePath, files);
+        List<String> list = filesService.uploads(files);
         return modelAndView;
     }
-
 
 
     @RequestMapping(value = "/files/delete", method = RequestMethod.GET)

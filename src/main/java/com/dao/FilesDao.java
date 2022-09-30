@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @Classname: FilesDao
  * @Date: 2022/9/27 下午 12:34
@@ -17,4 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface FilesDao extends JpaRepository<Files, Long>, JpaSpecificationExecutor<Files> {
+    List<Files> findFilesByFileNameNotIn(List<String> filesName);
+
 }

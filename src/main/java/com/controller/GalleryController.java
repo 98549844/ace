@@ -2,11 +2,9 @@ package com.controller;
 
 import com.constant.AceEnvironment;
 import com.controller.common.CommonController;
-import com.service.FileService;
+import com.service.FilesService;
 import com.service.GalleryService;
-import com.util.FileUtil;
 import com.util.JsonUtil;
-import com.util.PathUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +33,12 @@ public class GalleryController extends CommonController {
     private static Logger log = LogManager.getLogger(GalleryController.class.getName());
 
     private GalleryService galleryService;
-    private FileService fileService;
+    private FilesService filesService;
 
     @Autowired
-    public GalleryController(GalleryService galleryService, FileService fileService) {
+    public GalleryController(GalleryService galleryService, FilesService filesService) {
         this.galleryService = galleryService;
-        this.fileService = fileService;
+        this.filesService = filesService;
     }
 
 
@@ -70,7 +68,7 @@ public class GalleryController extends CommonController {
     @RequestMapping("/image/get/{fileName}")
     public void responseImage(@PathVariable("fileName") String fileName, HttpServletResponse response) {
         log.info("output image: ace/showImage/{}", fileName);
-        fileService.get(AceEnvironment.getImagesTemp() + fileName, response);
+        filesService.get(AceEnvironment.getImagesTemp() + fileName, response);
     }
 
 
@@ -78,8 +76,7 @@ public class GalleryController extends CommonController {
     public ModelAndView uploads(@RequestParam(value = "files") MultipartFile[] files) {
         log.info("access ace/uploads.html");
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-        String imagesPath = AceEnvironment.getImagesPath();
-        List<String> list = fileService.uploads(imagesPath, files);
+        List<String> list = filesService.uploads(files);
         return modelAndView;
     }
 
@@ -88,7 +85,7 @@ public class GalleryController extends CommonController {
     public ModelAndView delete(@PathVariable String fileName) {
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
         log.info("access ace/delete => delete {}", fileName);
-        modelAndView.addObject("delete", fileService.delete(fileName));
+        modelAndView.addObject("delete", filesService.delete(fileName));
         return modelAndView;
     }
 
