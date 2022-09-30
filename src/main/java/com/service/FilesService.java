@@ -177,8 +177,7 @@ public class FilesService {
             // 文件格式
             String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
             // 新文件名，避免文件名重复，造成文件替换问题
-            String newFileName = UUID.randomUUID().toString();
-            String fileName = newFileName + suffix;
+            String fileName = UUID.randomUUID() + suffix;
             // 文件存储全路径
             String path = AceEnvironment.getImagesPath();
             File targetFile = new File(path + fileName);
@@ -198,7 +197,7 @@ public class FilesService {
             Files f = new Files();
             f.setOriginationName(originalFilename);
             f.setExt(suffix);
-            f.setFileName(newFileName);
+            f.setFileName(fileName);
             f.setLocation(path + fileName);
             f.setOwner(users.getUserId().toString());
             f.setSize((multipartFile.getSize() / 1024));
@@ -209,7 +208,18 @@ public class FilesService {
     }
 
     public boolean delete(String fileName) {
-        return FileUtil.delete(AceEnvironment.getImagesPath() + fileName);
+        List<Files> fs = filesDao.findFilesByOriginationName(fileName);
+        filesDao.deleteAll(fs);
+        boolean del = false;
+        for (int i = 0; i < fs.size(); i++) {
+            String fName = AceEnvironment.getImagesPath() + fs.get(i).getFileName();
+            FileUtil.delete(fName);
+            if (!del) {
+                log.error("delete file fail => {}", fName);
+                break;
+            }
+        }
+        return del;
     }
 
 

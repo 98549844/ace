@@ -51,17 +51,14 @@ public class GalleryService {
             compressImages(ls);
         }
 
-        //去除ext
-        List<String> lsNoExt = new ArrayList<>();
-        for (int i = 0; i < ls.size(); i++) {
-            lsNoExt.add(FileUtil.getFileName(ls.get(i)));
-        }
-        List<Files> filesList = filesService.findFilesByFileNameNotIn(lsNoExt);
+        //根据folder实际文件控制数据库
+        List<Files> filesList = filesService.findFilesByFileNameNotIn(ls);
         filesService.deleteAll(filesList);
         return FileUtil.getFileNames(temp);
     }
 
     private void compressImages(List<String> ls) {
+        // remove 时会出现重名情况
         log.info("temp images expired, compressing image ...");
         String src = AceEnvironment.getImagesPath();
         String temp = AceEnvironment.getImagesTemp();

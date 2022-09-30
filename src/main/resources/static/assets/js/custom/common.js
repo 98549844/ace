@@ -51,7 +51,10 @@ function logout() {
                 type: "get", // 以get方式发起请求
                 url: "logout.html",
             })
-            location.href = '/';
+            setTimeout(() => {
+            }, 3000);
+            window.location.href = '/ace/logout.html';
+            //   location.href = '/ace/login.html';
             return false;
         },
         cancelValue: 'Cancel',

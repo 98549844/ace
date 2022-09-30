@@ -193,6 +193,7 @@
             dictCancelUpload: "Cancel",
             acceptedFiles: ".jpg,.gif,.png,.jpeg", // 上传的类型
             parallelUploads: 3,
+          //  clickable: true, //若果设置 true, locatdropzone 元素本身将可以点击
             dictDefaultMessage: //框内文本内容
                 '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
                 <span class="smaller-80 grey">(or click)</span><br/> \
@@ -203,6 +204,7 @@
                     //上传文件时触发的事件
                 });
                 this.on("success", function (file, data) {
+                    alert("file:"+ file.uuid)
                     //上传成功触发的事件
                     console.log('ok');
                 });
@@ -222,6 +224,7 @@
                     }
                 });
                 this.on("removedfile", function (file) {
+                    alert("file: "+file.file_id);
                     $.ajax({
                         type: "get", // 以get方式发起请求
                         url: "gallery/delete/" + file.name,
