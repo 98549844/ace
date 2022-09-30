@@ -50,10 +50,14 @@ function logout() {
             $.ajax({
                 type: "get", // 以get方式发起请求
                 url: "logout.html",
+                success(data) {
+                    window.location.href = '/ace/logout.html';
+
+                }
             })
-            setTimeout(() => {
-            }, 3000);
-            window.location.href = '/ace/logout.html';
+
+            /*  setTimeout(() => {
+              }, 3000);*/
             //   location.href = '/ace/login.html';
             return false;
         },

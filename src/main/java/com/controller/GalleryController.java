@@ -5,6 +5,8 @@ import com.controller.common.CommonController;
 import com.service.FilesService;
 import com.service.GalleryService;
 import com.util.JsonUtil;
+import com.util.MapUtil;
+import com.util.TypeUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
@@ -73,19 +76,22 @@ public class GalleryController extends CommonController {
 
 
     @RequestMapping(value = "/gallery/uploads.html", method = RequestMethod.POST)
-    public ModelAndView uploads(@RequestParam(value = "files") MultipartFile[] files) {
-        log.info("access ace/uploads.html");
-        ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-        List<String> list = filesService.uploads(files);
+    public ModelAndView uploads(@RequestParam(value = "files") MultipartFile[] files, MultipartHttpServletRequest request) {
+        String uuid = request.getParameter("uuid");
+        log.info("access ace/uploads.html => dropzone uuid: {}", uuid);
+        ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
+        List<String> list = filesService.uploads(files, uuid);
+        String result = JsonUtil.ObjectToFormattedJson(list);
+        modelAndView.addObject("ajaxResult", result);
         return modelAndView;
     }
 
 
-    @RequestMapping(value = "/gallery/delete/{fileName}", method = RequestMethod.GET)
-    public ModelAndView delete(@PathVariable String fileName) {
+    @RequestMapping(value = "/gallery/delete/{uuid}", method = RequestMethod.GET)
+    public ModelAndView delete(@PathVariable String uuid) {
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-        log.info("access ace/delete => delete {}", fileName);
-        modelAndView.addObject("delete", filesService.delete(fileName));
+        log.info("access ace/delete => delete {}", uuid);
+        modelAndView.addObject("delete", filesService.delete(uuid));
         return modelAndView;
     }
 

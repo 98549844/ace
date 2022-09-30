@@ -20,8 +20,8 @@ import java.util.List;
 @Transactional
 public interface FilesDao extends JpaRepository<Files, Long>, JpaSpecificationExecutor<Files> {
 
-    //  void deleteByFileName(String fileName);
     List<Files> findFilesByOriginationName(String fileName);
+    Files findFilesByFileName(String fileName);
 
     List<Files> findFilesByFileNameNotIn(List<String> filesName);
 

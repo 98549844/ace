@@ -48,7 +48,7 @@ public class FileController extends CommonController {
     @RequestMapping(value = "/files/uploads", method = RequestMethod.POST)
     public ModelAndView uploads(@RequestParam(value = "files") MultipartFile[] files) {
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-        List<String> list = filesService.uploads(files);
+        List<String> list = filesService.uploads(files, null);
         return modelAndView;
     }
 

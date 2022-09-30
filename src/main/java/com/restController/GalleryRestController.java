@@ -106,7 +106,7 @@ public class GalleryRestController {
 
     @RequestMapping(value = "/uploads", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
     public List uploads(@RequestParam(value = "files") MultipartFile[] files) {
-        List list = filesService.uploads(files);
+        List list = filesService.uploads(files, null);
         return list;
     }
 

@@ -42,10 +42,15 @@ public class FilesService {
         return filesDao.saveAll(files);
     }
 
-    public List<Files> findFilesByFileNameNotIn(List<String> filesName) {
+    public List<Files> findFilesByFileNameNotIn(List<String> fileList) {
+        if (fileList.size() == 0) {
+            //避免list == 0时query null data 情况
+            log.info("folder is empty");
+            fileList.add("");
+        }
         List<Files> fs = new ArrayList<>();
         try {
-            fs = filesDao.findFilesByFileNameNotIn(filesName);
+            fs = filesDao.findFilesByFileNameNotIn(fileList);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -161,7 +166,7 @@ public class FilesService {
         return "upload fail";
     }
 
-    public List uploads(MultipartFile[] files) {
+    public List uploads(MultipartFile[] files, String uuid) {
         // 存储上传成功的文件名，响应给客户端
         List<String> list = new ArrayList<>();
         // 判断文件数组长度
@@ -177,7 +182,11 @@ public class FilesService {
             // 文件格式
             String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
             // 新文件名，避免文件名重复，造成文件替换问题
-            String fileName = UUID.randomUUID() + suffix;
+            if (NullUtil.isNull(uuid)) {
+                log.warn("uuid provide empty, generate by UUID.randomUUID()!!!");
+                uuid = UUID.randomUUID().toString();
+            }
+            String fileName = uuid + suffix;
             // 文件存储全路径
             String path = AceEnvironment.getImagesPath();
             File targetFile = new File(path + fileName);
@@ -189,9 +198,9 @@ public class FilesService {
             try {
                 // 将图片保存
                 multipartFile.transferTo(targetFile);
-                list.add(originalFilename);
+                list.add(fileName);
             } catch (IOException e) {
-                log.info("文件上传异常: " + e);
+                log.error("文件上传异常: " + e);
             }
 
             Files f = new Files();
@@ -208,20 +217,16 @@ public class FilesService {
     }
 
     public boolean delete(String fileName) {
-        List<Files> fs = filesDao.findFilesByOriginationName(fileName);
-        filesDao.deleteAll(fs);
-        boolean del = false;
-        for (int i = 0; i < fs.size(); i++) {
-            String fName = AceEnvironment.getImagesPath() + fs.get(i).getFileName();
-            FileUtil.delete(fName);
-            if (!del) {
-                log.error("delete file fail => {}", fName);
-                break;
-            }
+        Files fs = filesDao.findFilesByFileName(fileName);
+        filesDao.delete(fs);
+        String fName = AceEnvironment.getImagesPath() + fs.getFileName();
+        if (!FileUtil.delete(fName)) {
+            log.error("delete file fail => {}", fName);
+            return false;
         }
-        return del;
+        return true;
     }
-
-
 }
+
+
 

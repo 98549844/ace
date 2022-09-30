@@ -58,7 +58,6 @@ public class GalleryService {
     }
 
     private void compressImages(List<String> ls) {
-        // remove 时会出现重名情况
         log.info("temp images expired, compressing image ...");
         String src = AceEnvironment.getImagesPath();
         String temp = AceEnvironment.getImagesTemp();
