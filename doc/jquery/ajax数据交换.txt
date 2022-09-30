@@ -53,8 +53,6 @@ function testAjax(yourData) {
 
 
 // 后台接值方法
-
-
     @RequestMapping("/yourUrl/{yourDataName}")
     @ResponseBody
  // 同样@PathVariable("yourDataName")必不可少，因为他指定链接中某个位置代表着名为yourDataName的变量

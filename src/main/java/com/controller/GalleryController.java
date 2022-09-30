@@ -56,7 +56,6 @@ public class GalleryController extends CommonController {
         log.info("access ace/getImages.html");
         ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
         String result = JsonUtil.ObjectToFormattedJson(galleryService.getImages());
-
         modelAndView.addObject("ajaxResult", result);
         return modelAndView;
     }
@@ -68,21 +67,10 @@ public class GalleryController extends CommonController {
      *
      * @param fileName
      */
-    @RequestMapping("/showImage/{fileName}")
-    public void showPicture(@PathVariable("fileName") String fileName, HttpServletResponse response) {
-        log.info("output image: ace/showImage/{}",fileName);
-        File imgFile = new File(AceEnvironment.getImagesTemp() + fileName);
-        try {
-            InputStream is = new FileInputStream(imgFile);
-            OutputStream os = response.getOutputStream();
-            byte[] buffer = new byte[1024]; // 图片文件流缓存池
-            while (is.read(buffer) != -1) {
-                os.write(buffer);
-            }
-            os.flush();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
+    @RequestMapping("/image/get/{fileName}")
+    public void responseImage(@PathVariable("fileName") String fileName, HttpServletResponse response) {
+        log.info("output image: ace/showImage/{}", fileName);
+        fileService.get(AceEnvironment.getImagesTemp() + fileName, response);
     }
 
 
@@ -96,13 +84,11 @@ public class GalleryController extends CommonController {
     }
 
 
-    @RequestMapping(value = "/gallery/delete.html", method = RequestMethod.GET)
-    public ModelAndView delete() {
+    @RequestMapping(value = "/gallery/delete/{fileName}", method = RequestMethod.GET)
+    public ModelAndView delete(@PathVariable String fileName) {
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-        log.info("access ace/delete.html");
-
-
-
+        log.info("access ace/delete => delete {}", fileName);
+        modelAndView.addObject("delete", fileService.delete(fileName));
         return modelAndView;
     }
 

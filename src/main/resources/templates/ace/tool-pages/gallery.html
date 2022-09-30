@@ -222,14 +222,20 @@
                     }
                 });
                 this.on("removedfile", function (file) {
-                    console.log("File " + file.name + "  removed");
                     $.ajax({
                         type: "get", // 以get方式发起请求
-                        url: "gallery/delete.html",
+                        url: "gallery/delete/" + file.name,
+                        dataType: "json",
                         // 将你的请求参数以问号拼接到url中进行参数传递
                         success(data) {
+                            alert('success');
+                            alert(data)
                             // data为返回值
                             // 成功后的回调方法
+                        },
+                        error(data) {
+                            alert('error');
+                            alert(data)
                         }
                     })
 
@@ -269,7 +275,7 @@
             success(data) {
                 let html = "";
                 for (let i = 0; i < data.length; i++) {
-                    html = html + "<li><img src=\"showImage/" + data[i] + "\" width=\"150\" height=\"150\" alt=\"150x150\"/></li>";
+                    html = html + "<li><img src=\"image/get/" + data[i] + "\" width=\"150\" height=\"150\" alt=\"150x150\"/></li>";
                 }
                 $("#imageDiv").html(html);
                 // data为返回值

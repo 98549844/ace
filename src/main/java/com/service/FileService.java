@@ -1,5 +1,8 @@
 package com.service;
 
+import com.constant.AceEnvironment;
+import com.util.FileUtil;
+import com.util.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -27,44 +30,50 @@ import java.util.UUID;
 public class FileService {
     private static final Logger log = LogManager.getLogger(FileService.class.getName());
 
-    public String downloadFile(HttpServletResponse response) {
-        String fileName = "png.png";// 文件名
-        if (fileName != null) {
-            //设置文件路径
-            File file = new File("./FILE/KING/png.png");
-            //File file = new File(realPath , fileName);
-            if (file.exists()) {
-                response.setContentType("application/force-download");// 设置强制下载不打开
-                response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);// 设置文件名
-                byte[] buffer = new byte[1024];
-                FileInputStream fis = null;
-                BufferedInputStream bis = null;
-                try {
-                    fis = new FileInputStream(file);
-                    bis = new BufferedInputStream(fis);
-                    OutputStream os = response.getOutputStream();
-                    int i = bis.read(buffer);
-                    while (i != -1) {
-                        os.write(buffer, 0, i);
-                        i = bis.read(buffer);
+    /**
+     * 处理图片显示请求
+     * 响应输出图片文件
+     *
+     * @param fileName
+     * @param response
+     * @return
+     */
+    public String getFile(String fileName, HttpServletResponse response) {
+        //设置文件路径
+        File file = new File(AceEnvironment.getFilePath() + fileName);
+        if (!NullUtil.isNull(file) && file.exists()) {
+            // 设置强制下载不打开
+            response.setContentType("application/force-download");
+            // 设置文件名
+            response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);
+            byte[] buffer = new byte[1024];
+            FileInputStream fis = null;
+            BufferedInputStream bis = null;
+            try {
+                fis = new FileInputStream(file);
+                bis = new BufferedInputStream(fis);
+                OutputStream os = response.getOutputStream();
+                int i = bis.read(buffer);
+                while (i != -1) {
+                    os.write(buffer, 0, i);
+                    i = bis.read(buffer);
+                }
+                return "下载成功";
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally { // 做关闭操作
+                if (bis != null) {
+                    try {
+                        bis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                    return "下载成功";
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally { // 做关闭操作
-                    if (bis != null) {
-                        try {
-                            bis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    if (fis != null) {
-                        try {
-                            fis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                }
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -72,6 +81,27 @@ public class FileService {
         return "下载失败";
     }
 
+    /**
+     * 处理图片显示请求
+     * 响应输出图片文件
+     *
+     * @param fileName
+     * @param response
+     */
+    public void get(String fileName, HttpServletResponse response) {
+        File imgFile = new File(fileName);
+        try {
+            InputStream is = new FileInputStream(imgFile);
+            OutputStream os = response.getOutputStream();
+            byte[] buffer = new byte[1024]; // 图片文件流缓存池
+            while (is.read(buffer) != -1) {
+                os.write(buffer);
+            }
+            os.flush();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
 
     public String upload(String storageLocation, MultipartFile file) {    //注意参数
         try {
@@ -100,7 +130,6 @@ public class FileService {
         }
         return "upload fail";
     }
-
 
     public List uploads(String storageLocation, MultipartFile[] files) {
         // 存储上传成功的文件名，响应给客户端
@@ -133,6 +162,10 @@ public class FileService {
             }
         }
         return list;
+    }
+
+    public boolean delete(String fileName) {
+        return FileUtil.delete(AceEnvironment.getImagesPath() + fileName);
     }
 
 }
