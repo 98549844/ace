@@ -177,8 +177,6 @@
 />
 
 <script type="text/javascript">
-
-
     jQuery(function ($) {
         Dropzone.options.dropZone = {
             url: "gallery/uploads.html",
@@ -268,6 +266,7 @@
     });
 
     function loadingImage() {
+        showLoading();
         $.ajax({
             type: "get", // 以get方式发起请求
             url: "getImages.html",
@@ -279,6 +278,7 @@
                     html = html + "<li><img src=\"image/get/" + data[i] + "\" width=\"150\" height=\"150\" alt=\"150x150\"/></li>";
                 }
                 $("#imageDiv").html(html);
+                closeLoading()
                 // data为返回值
                 // 成功后的回调方法
             }

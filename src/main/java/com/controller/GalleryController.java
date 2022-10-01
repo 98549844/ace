@@ -70,7 +70,7 @@ public class GalleryController extends CommonController {
      */
     @RequestMapping("/image/get/{fileName}")
     public void responseImage(@PathVariable("fileName") String fileName, HttpServletResponse response) {
-        log.info("output image: ace/showImage/{}", fileName);
+        log.info("image: /image/get/{}", fileName);
         filesService.get(AceEnvironment.getImagesTemp() + fileName, response);
     }
 

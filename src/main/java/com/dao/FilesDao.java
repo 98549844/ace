@@ -23,6 +23,6 @@ public interface FilesDao extends JpaRepository<Files, Long>, JpaSpecificationEx
     List<Files> findFilesByOriginationName(String fileName);
     Files findFilesByFileName(String fileName);
 
-    List<Files> findFilesByFileNameNotIn(List<String> filesName);
+    List<Files> findFilesByFileNameNotInOrderByLastUpdateDateDesc(List<String> filesName);
 
 }

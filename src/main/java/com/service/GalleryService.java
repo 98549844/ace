@@ -51,10 +51,10 @@ public class GalleryService {
             compressImages(ls);
         }
 
-        //根据folder实际文件控制数据库
-        List<Files> filesList = filesService.findFilesByFileNameNotIn(ls);
+        //根据folder实际文件控制数据库, 删除folder不存文件数据
+        List<Files> filesList = filesService.findFilesByFileNameNotInOrderByLastUpdateDateDesc(ls);
         filesService.deleteAll(filesList);
-        return FileUtil.getFileNames(temp);
+        return FileUtil.getNamesOrderByLastModifiedDate(temp, true);
     }
 
     private void compressImages(List<String> ls) {

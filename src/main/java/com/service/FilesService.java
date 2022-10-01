@@ -42,7 +42,7 @@ public class FilesService {
         return filesDao.saveAll(files);
     }
 
-    public List<Files> findFilesByFileNameNotIn(List<String> fileList) {
+    public List<Files> findFilesByFileNameNotInOrderByLastUpdateDateDesc(List<String> fileList) {
         if (fileList.size() == 0) {
             //避免list == 0时query null data 情况
             log.info("folder is empty");
@@ -50,7 +50,7 @@ public class FilesService {
         }
         List<Files> fs = new ArrayList<>();
         try {
-            fs = filesDao.findFilesByFileNameNotIn(fileList);
+            fs = filesDao.findFilesByFileNameNotInOrderByLastUpdateDateDesc(fileList);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,10 +84,11 @@ public class FilesService {
             byte[] buffer = new byte[1024];
             FileInputStream fis = null;
             BufferedInputStream bis = null;
+            OutputStream os = null;
             try {
                 fis = new FileInputStream(file);
                 bis = new BufferedInputStream(fis);
-                OutputStream os = response.getOutputStream();
+                os = response.getOutputStream();
                 int i = bis.read(buffer);
                 while (i != -1) {
                     os.write(buffer, 0, i);
@@ -97,6 +98,13 @@ public class FilesService {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally { // 做关闭操作
+                if (os != null) {
+                    try {
+                        os.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 if (bis != null) {
                     try {
                         bis.close();
@@ -133,6 +141,8 @@ public class FilesService {
                 os.write(buffer);
             }
             os.flush();
+            os.close();
+            is.close();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
