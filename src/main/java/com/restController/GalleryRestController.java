@@ -2,7 +2,9 @@ package com.restController;
 
 //import com.heeexy.example.util.CommonUtil;
 
+import com.constant.AceEnvironment;
 import com.service.FilesService;
+import com.util.NullUtil;
 import com.util.PathUtil;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
@@ -41,26 +43,27 @@ public class GalleryRestController {
         tmp.put("UNKNOWN", "msg.unknown_error");
     }
 
-    static final String filePath = PathUtil.getSystemPath() + "\\src\\main\\resources\\static\\files\\temp\\";
+//    static final String filePath = PathUtil.getSystemPath() + "\\src\\main\\resources\\static\\files\\temp\\";
 
     private FilesService filesService;
-
+    private String fileLocation;
 
     @Autowired
     public GalleryRestController(FilesService filesService) {
         this.filesService = filesService;
+        this.fileLocation = AceEnvironment.getFilePath();
     }
 
+
     @GetMapping("/download")
-    public String downloadFile(HttpServletRequest request, HttpServletResponse response) {
-        String fileName = "png.png";// 文件名
-        if (fileName != null) {
+    public String downloadFile(String filePath, HttpServletRequest request, HttpServletResponse response) {
+        if (NullUtil.isNotNull(filePath)) {
             //设置文件路径
-            File file = new File("./FILE/KING/png.png");
+            File file = new File(filePath);
             //File file = new File(realPath , fileName);
             if (file.exists()) {
                 response.setContentType("application/force-download");// 设置强制下载不打开
-                response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);// 设置文件名
+                response.addHeader("Content-Disposition", "attachment;fileName=" + filePath);// 设置文件名
                 byte[] buffer = new byte[1024];
                 FileInputStream fis = null;
                 BufferedInputStream bis = null;
@@ -99,7 +102,7 @@ public class GalleryRestController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String upload(@RequestParam("file") MultipartFile file) {    //注意参数
-        String result = filesService.upload(filePath, file);
+        String result = filesService.upload(fileLocation, file);
         return result;
     }
 

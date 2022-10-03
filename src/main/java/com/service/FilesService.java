@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.ArrayList;
@@ -32,8 +33,8 @@ public class FilesService {
     private static final Logger log = LogManager.getLogger(FilesService.class.getName());
 
     private final FilesDao filesDao;
-    private final String imagePath ;
-    private final String imagePathTemp ;
+    private final String imagePath;
+    private final String imagePathTemp;
 
     @Autowired
     public FilesService(FilesDao filesDao) {
@@ -41,7 +42,6 @@ public class FilesService {
         this.imagePath = AceEnvironment.getImagesPath();
         this.imagePathTemp = AceEnvironment.getImagesTemp();
     }
-
 
 
     public List<Files> saveAll(List<Files> files) {
@@ -79,7 +79,35 @@ public class FilesService {
      * @param response
      * @return
      */
-    public String getFile(String fileName, HttpServletResponse response) {
+    public boolean download(String fileName, HttpServletResponse response) {
+        File imgFile = new File(imagePath + fileName);
+        if (!NullUtil.isNull(fileName) && imgFile.exists()) {
+            try {
+                // 设置强制下载不打开
+                response.setContentType("application/force-download");
+                // 设置文件名
+                response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);
+                InputStream is = new FileInputStream(imgFile);
+                OutputStream os = response.getOutputStream();
+                byte[] buffer = new byte[1024]; // 图片文件流缓存池
+                while (is.read(buffer) != -1) {
+                    os.write(buffer);
+                }
+                os.flush();
+                os.close();
+                is.close();
+                return true;
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+   /* public String download(String fileName, HttpServletResponse response) {
+        //下载成功但browser无反应
         //设置文件路径
         File file = new File(AceEnvironment.getFilePath() + fileName);
         if (!NullUtil.isNull(file) && file.exists()) {
@@ -100,6 +128,7 @@ public class FilesService {
                     os.write(buffer, 0, i);
                     i = bis.read(buffer);
                 }
+                os.flush();
                 return "下载成功";
             } catch (Exception e) {
                 e.printStackTrace();
@@ -128,7 +157,8 @@ public class FilesService {
             }
         }
         return "下载失败";
-    }
+    }*/
+
 
     /**
      * 处理图片显示请求
@@ -233,7 +263,7 @@ public class FilesService {
     }
 
     public boolean delete(String fileName) {
-   //     有问题,数据查不出
+        //     有问题,数据查不出
         Files fs = filesDao.findFilesByFileName(fileName);
         filesDao.delete(fs);
         String fName = imagePath + fs.getFileName();

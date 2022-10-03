@@ -9,6 +9,7 @@ import com.util.MapUtil;
 import com.util.TypeUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.loader.custom.ResultRowProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -91,6 +92,15 @@ public class GalleryController extends CommonController {
     }
 
 
+    @RequestMapping(value = "/image/remove/{uuid}", method = RequestMethod.GET)
+    public ModelAndView remove(@PathVariable String uuid) {
+        // 有问题,数据查不出
+        ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
+        log.info("access ace/delete => delete {}", uuid);
+        modelAndView.addObject("delete", filesService.delete(uuid));
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/image/delete/{uuid}", method = RequestMethod.GET)
     public ModelAndView delete(@PathVariable String uuid) {
         // 有问题,数据查不出
@@ -100,6 +110,17 @@ public class GalleryController extends CommonController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/image/download/{uuid}", method = RequestMethod.GET)
+    public void download(@PathVariable String uuid, HttpServletResponse response) {
+        // 有问题,数据查不出
+        log.info("access ace/download => download {}", uuid);
+        boolean result = filesService.download(uuid, response);
+        if (result) {
+            log.info("download {} {}", uuid, "success");
+        } else {
+            log.error("download {} {}", uuid, "fail");
+        }
+    }
 
 }
 

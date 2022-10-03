@@ -18,6 +18,10 @@ $(":button")                选取所有 type="button" 的 <input> 元素 和 <b
 $("tr:even")                选取偶数位置的 <tr> 元素	
 $("tr:odd")                 选取奇数位置的 <tr> 元素
 
+$(".class1 .class2") 选择class1元素下class2的元素（中间有空格）
+$(".class1.class2") 选择同时含有class1和class2的元素（中间没有空格）
+$(".class1,.class2") 选择class1或者class2的元素（中间有逗号）
+
 
 <div id='div1'>
     <div id='div2'><p></p></div>
@@ -39,10 +43,10 @@ parent(exp)用法:取得一个包含着所有匹配元素的唯一父元素的�
 
 jQuery 事件
 鼠标事件	    键盘事件	    表单事件	    文档/窗口事件
-click	    keypress	submit	    load
-dblclick	keydown	    change	    resize
-mouseenter	keyup	    focus	    scroll
-mouseleave              blur	    unload
+click	        keypress	    submit	        load
+dblclick	    keydown	        change	        resize
+mouseenter	    keyup	        focus	        scroll
+mouseleave      blur	        unload
 hover
 
 jQuery 效果- 隐藏和显示
