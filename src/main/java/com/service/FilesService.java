@@ -31,12 +31,18 @@ import java.util.UUID;
 public class FilesService {
     private static final Logger log = LogManager.getLogger(FilesService.class.getName());
 
-    private FilesDao filesDao;
+    private final FilesDao filesDao;
+    private final String imagePath ;
+    private final String imagePathTemp ;
 
     @Autowired
     public FilesService(FilesDao filesDao) {
         this.filesDao = filesDao;
+        this.imagePath = AceEnvironment.getImagesPath();
+        this.imagePathTemp = AceEnvironment.getImagesTemp();
     }
+
+
 
     public List<Files> saveAll(List<Files> files) {
         return filesDao.saveAll(files);
@@ -198,7 +204,7 @@ public class FilesService {
             }
             String fileName = uuid + suffix;
             // 文件存储全路径
-            String path = AceEnvironment.getImagesPath();
+            String path = imagePath;
             File targetFile = new File(path + fileName);
 
             // 判断文件存储目录是否存在，不存在则新建目录
@@ -227,9 +233,10 @@ public class FilesService {
     }
 
     public boolean delete(String fileName) {
+   //     有问题,数据查不出
         Files fs = filesDao.findFilesByFileName(fileName);
         filesDao.delete(fs);
-        String fName = AceEnvironment.getImagesPath() + fs.getFileName();
+        String fName = imagePath + fs.getFileName();
         if (!FileUtil.delete(fName)) {
             log.error("delete file fail => {}", fName);
             return false;

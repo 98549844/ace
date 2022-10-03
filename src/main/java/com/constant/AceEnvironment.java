@@ -7,6 +7,8 @@ import com.util.OsUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
+@Order(1)
 public class AceEnvironment {
     private static Logger log = LogManager.getLogger(AceEnvironment.class.getName());
 
@@ -32,7 +35,10 @@ public class AceEnvironment {
     @Autowired
     public AceEnvironment(Environment environment) {
         AceEnvironment.environment = environment;
+        setUp();
+
     }
+
 
     public static void setUp() {
         folderSetUp();

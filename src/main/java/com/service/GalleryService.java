@@ -28,14 +28,18 @@ public class GalleryService {
     private static final Logger log = LogManager.getLogger(GalleryService.class.getName());
 
     private FilesService filesService;
+    private final String imagePath ;
+    private final String imagePathTemp ;
 
     public GalleryService(FilesService filesService) {
         this.filesService = filesService;
+        this.imagePath = AceEnvironment.getImagesPath();
+        this.imagePathTemp = AceEnvironment.getImagesTemp();
     }
 
     public List getImages() throws IOException {
-        String src = AceEnvironment.getImagesPath();
-        String temp = AceEnvironment.getImagesTemp();
+        String src = imagePath;
+        String temp = imagePathTemp;
 
         log.info("image location: {}", src);
 
@@ -59,8 +63,8 @@ public class GalleryService {
 
     private void compressImages(List<String> ls) {
         log.info("temp images expired, compressing image ...");
-        String src = AceEnvironment.getImagesPath();
-        String temp = AceEnvironment.getImagesTemp();
+        String src = imagePath;
+        String temp = imagePathTemp;
 
         try {
             for (String name : ls) {

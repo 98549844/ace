@@ -37,11 +37,15 @@ public class GalleryController extends CommonController {
 
     private GalleryService galleryService;
     private FilesService filesService;
+    private final String imagePath;
+    private final String imagePathTemp;
 
     @Autowired
     public GalleryController(GalleryService galleryService, FilesService filesService) {
         this.galleryService = galleryService;
         this.filesService = filesService;
+        this.imagePath = AceEnvironment.getImagesPath();
+        this.imagePathTemp = AceEnvironment.getImagesTemp();
     }
 
 
@@ -71,11 +75,11 @@ public class GalleryController extends CommonController {
     @RequestMapping("/image/get/{fileName}")
     public void responseImage(@PathVariable("fileName") String fileName, HttpServletResponse response) {
         log.info("image: /image/get/{}", fileName);
-        filesService.get(AceEnvironment.getImagesTemp() + fileName, response);
+        filesService.get(imagePathTemp + fileName, response);
     }
 
 
-    @RequestMapping(value = "/gallery/uploads.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/image/uploads.html", method = RequestMethod.POST)
     public ModelAndView uploads(@RequestParam(value = "files") MultipartFile[] files, MultipartHttpServletRequest request) {
         String uuid = request.getParameter("uuid");
         log.info("access ace/uploads.html => dropzone uuid: {}", uuid);
@@ -87,8 +91,9 @@ public class GalleryController extends CommonController {
     }
 
 
-    @RequestMapping(value = "/gallery/delete/{uuid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/image/delete/{uuid}", method = RequestMethod.GET)
     public ModelAndView delete(@PathVariable String uuid) {
+        // 有问题,数据查不出
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
         log.info("access ace/delete => delete {}", uuid);
         modelAndView.addObject("delete", filesService.delete(uuid));
