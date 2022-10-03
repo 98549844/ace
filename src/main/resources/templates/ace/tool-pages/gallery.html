@@ -319,7 +319,7 @@
                 let html = "";
                 for (let i = 0; i < data.length; i++) {
                     //   html = html + "<li><img src=\"image/get/" + data[i] + "\" width=\"150\" height=\"150\" alt=\"150x150\"/></li>";
-                    html = html + "<li>\n" +
+                    html = html + "<li id=\"li-" + data[i] + "\">\n" +
                         "    <a href=\"image/get/" + data[i] + "\" data-rel=\"colorbox\">\n" +
                         "        <img width=\"150\" height=\"150\" alt=\"150x150\"\n" +
                         "             src=\"image/get/" + data[i] + "\"/>\n" +
@@ -350,27 +350,31 @@
     }
 
 
-    $(".imageDelete").bind("click", function () {
-        const imageId = $('.imageDelete').attr('id')/*.split('-')[1]*/;
-        alert("jq deleteImage: " + imageId);
+    //download问题
+    $(".imageDelete,.tools-bottom", this).bind("click", function () {
+        let index = $(this).index()
+        alert(index)
     });
 
-    function deleteImage() {
-        const imageId = $('.imageDelete').attr('id')/*.split('-')[1]*/;
-        alert("deleteImage: " + imageId);
+    /*    function deleteImage() {
+            const ht = $(this).find(".imageDelete,.tools-bottom").html();
+            alert("html: "+ht);
+           // const imageId = $('.imageDelete').parent().parent().attr('id');//.attr('id')/!*.split('-')[1]*!/;
+            const imageId = $('.imageDelete').attr('id')/!*.split('-')[1]*!/;
+            alert("deleteImage: " + imageId);
 
-        $("#imageId").hide(1000);
-        /*       $.ajax({
-                   type: "get", // 以get方式发起请求
-                   url: "image/delete/" + file.upload.uuid + "." + ext,
-                   dataType: "json",
-                   // 将你的请求参数以问号拼接到url中进行参数传递
-                   success(data) {
-                   },
-                   error(data) {
-                   }
-               })*/
-    }
+            $("#imageId").hide(1000);
+            /!*       $.ajax({
+                       type: "get", // 以get方式发起请求
+                       url: "image/delete/" + file.upload.uuid + "." + ext,
+                       dataType: "json",
+                       // 将你的请求参数以问号拼接到url中进行参数传递
+                       success(data) {
+                       },
+                       error(data) {
+                       }
+                   })*!/
+        }*/
 
 </script>
 

@@ -115,13 +115,16 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
                 modelAndView.addObject("msg", "Account kicked out");
             } else if (message.contains("Token无效")) {
                 modelAndView.addObject(Css.css, Css.red);
-                modelAndView.addObject("msg", "Session timeout");
+                modelAndView.addObject("msg", "Session invalid");
             } else if (message.contains("Token已被顶下线")) {
                 modelAndView.addObject(Css.css, Css.red);
                 modelAndView.addObject("msg", "Account log in other device");
             } else if (message.contains("未能读取到有效Token")) {
                 modelAndView.addObject(Css.css, Css.red);
                 modelAndView.addObject("msg", "Session illegal");
+            }else if (message.contains("Token已过期")) {
+                modelAndView.addObject(Css.css, Css.red);
+                modelAndView.addObject("msg", "Session timeout");
             }
             return modelAndView;
         } else {
