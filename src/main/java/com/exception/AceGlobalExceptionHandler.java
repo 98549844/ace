@@ -118,7 +118,7 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
                 modelAndView.addObject("msg", "Session invalid");
             } else if (message.contains("Token已被顶下线")) {
                 modelAndView.addObject(Css.css, Css.red);
-                modelAndView.addObject("msg", "Account log in other device");
+                modelAndView.addObject("msg", "Account forced to logout");
             } else if (message.contains("未能读取到有效Token")) {
                 modelAndView.addObject(Css.css, Css.red);
                 modelAndView.addObject("msg", "Session illegal");

@@ -197,11 +197,26 @@
                 '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
                 <span class="smaller-80 grey">(or click)</span><br/> \
                 <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>',
+            //autoProcessQueue: true,
+            /*renameFile: function (file) {
+                const dt = new Date();
+                const time = dt.getTime();
+                return time + file.name;
+            },*/
 
             init: function () {
+                /*const submitButton = document.querySelector("#act-on-upload");
+                const myDropzone = this; // closure
+                //为上传按钮添加点击事件
+                submitButton.addEventListener("click", function () {
+                    //配合autoProcessQueue: false
+                    $('#subModel').modal('hide');
+                    //手动上传
+                    myDropzone.processQueue();
+                });*/
+
                 this.on("addedfile", function (file) {
-                    //alert("addedfile file.name:  " + file.name)
-                    //alert("addedfile file.load.uuid:  " + file.upload.uuid)
+                    //alert("addedfile fileName:  " + file.name + "uuid:  " + file.upload.uuid)
                     //上传文件时触发的事件
                 });
                 this.on("sending", function (file, xhr, formData) {
