@@ -263,7 +263,6 @@ public class FilesService {
     }
 
     public boolean delete(String fileName) {
-        //     有问题,数据查不出
         Files fs = filesDao.findFilesByFileName(fileName);
         filesDao.delete(fs);
         String fName = imagePath + fs.getFileName();

@@ -94,7 +94,6 @@ public class GalleryController extends CommonController {
 
     @RequestMapping(value = "/image/remove/{uuid}", method = RequestMethod.GET)
     public ModelAndView remove(@PathVariable String uuid) {
-        // 有问题,数据查不出
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
         log.info("access ace/delete => delete {}", uuid);
         modelAndView.addObject("delete", filesService.delete(uuid));
@@ -102,17 +101,15 @@ public class GalleryController extends CommonController {
     }
 
     @RequestMapping(value = "/image/delete/{uuid}", method = RequestMethod.GET)
-    public ModelAndView delete(@PathVariable String uuid) {
+    public void delete(@PathVariable String uuid) {
         // 有问题,数据查不出
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
         log.info("access ace/delete => delete {}", uuid);
-        modelAndView.addObject("delete", filesService.delete(uuid));
-        return modelAndView;
+    //    filesService.delete(uuid);
     }
 
     @RequestMapping(value = "/image/download/{uuid}", method = RequestMethod.GET)
     public void download(@PathVariable String uuid, HttpServletResponse response) {
-        // 有问题,数据查不出
         log.info("access ace/download => download {}", uuid);
         boolean result = filesService.download(uuid, response);
         if (result) {

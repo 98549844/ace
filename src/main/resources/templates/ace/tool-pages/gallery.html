@@ -238,7 +238,6 @@
                         error(data) {
                         }
                     })
-
                 });
             },
 
@@ -260,9 +259,6 @@
         }
         loadingImage();
         viewImage();
-        $(".imageDelete,.ace-icon.fa.fa-times.red").bind("click", function () {
-            alert("this.imageDelete")
-        });
     });
 
     //collapse触发
@@ -335,7 +331,10 @@
                         "        <a href=\"image/delete/" + data[i] + "\" id=\"delete-" + data[i] + "\" class=\"imageDelete\">\n" +
                         "            <i class=\"ace-icon fa fa-times red\"></i>\n" +
                         "        </a>\n" +
-                        "        <a href=\"\" class=\"imageDelete\">\n" +
+                        "        <a href=\"javascript:deleteImage()\" id=\"delete-" + data[i] + "\"  class=\"imageDelete\">\n" +
+                        "            <i class=\"ace-icon fa fa-times red\"></i>\n" +
+                        "        </a>\n" +
+                        "        <a href=\"\" id=\"delete-" + data[i] + "\"  class=\"imageDelete\">\n" +
                         "            <i class=\"ace-icon fa fa-times red\"></i>\n" +
                         "        </a>\n" +
                         "    </div>\n" +
@@ -350,9 +349,28 @@
         })
     }
 
-    $(".imageDelete,.ace-icon.fa.fa-times.red").bind("click", function () {
-        alert("this.imageDelete")
+
+    $(".imageDelete").bind("click", function () {
+        const imageId = $('.imageDelete').attr('id')/*.split('-')[1]*/;
+        alert("jq deleteImage: " + imageId);
     });
+
+    function deleteImage() {
+        const imageId = $('.imageDelete').attr('id')/*.split('-')[1]*/;
+        alert("deleteImage: " + imageId);
+
+        $("#imageId").hide(1000);
+        /*       $.ajax({
+                   type: "get", // 以get方式发起请求
+                   url: "image/delete/" + file.upload.uuid + "." + ext,
+                   dataType: "json",
+                   // 将你的请求参数以问号拼接到url中进行参数传递
+                   success(data) {
+                   },
+                   error(data) {
+                   }
+               })*/
+    }
 
 </script>
 
