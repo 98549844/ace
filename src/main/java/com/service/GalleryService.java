@@ -28,8 +28,8 @@ public class GalleryService {
     private static final Logger log = LogManager.getLogger(GalleryService.class.getName());
 
     private FilesService filesService;
-    private final String imagePath ;
-    private final String imagePathTemp ;
+    private final String imagePath;
+    private final String imagePathTemp;
 
     public GalleryService(FilesService filesService) {
         this.filesService = filesService;
@@ -67,8 +67,9 @@ public class GalleryService {
         String temp = imagePathTemp;
 
         try {
+            ImageUtil imageUtil = new ImageUtil();
             for (String name : ls) {
-                ImageUtil.square(src + name);
+                imageUtil.square(src + name);
                 ImageUtil.compress(temp + name);
             }
         } catch (Exception e) {
