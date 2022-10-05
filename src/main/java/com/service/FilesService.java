@@ -13,12 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
+import com.util.UUID;
 
 /**
  * @Classname: FileService
@@ -48,10 +48,15 @@ public class FilesService {
         return filesDao.saveAll(files);
     }
 
+    public Files save(Files file) {
+        return filesDao.save(file);
+    }
+
     public List<Files> findFilesByFileNameNotInOrderByLastUpdateDateDesc(List<String> fileList) {
-        if (fileList.size() == 0) {
+        if (NullUtil.isNull(fileList)) {
             //避免list == 0时query null data 情况
-            log.info("folder is empty");
+            log.warn("folder is empty !!!");
+            fileList = new ArrayList<>();
             fileList.add("");
         }
         List<Files> fs = new ArrayList<>();
@@ -70,6 +75,7 @@ public class FilesService {
     public void delete(Files fs) {
         filesDao.delete(fs);
     }
+
 
     /**
      * 处理图片显示请求
@@ -106,60 +112,6 @@ public class FilesService {
         }
     }
 
-   /* public String download(String fileName, HttpServletResponse response) {
-        //下载成功但browser无反应
-        //设置文件路径
-        File file = new File(AceEnvironment.getFilePath() + fileName);
-        if (!NullUtil.isNull(file) && file.exists()) {
-            // 设置强制下载不打开
-            response.setContentType("application/force-download");
-            // 设置文件名
-            response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);
-            byte[] buffer = new byte[1024];
-            FileInputStream fis = null;
-            BufferedInputStream bis = null;
-            OutputStream os = null;
-            try {
-                fis = new FileInputStream(file);
-                bis = new BufferedInputStream(fis);
-                os = response.getOutputStream();
-                int i = bis.read(buffer);
-                while (i != -1) {
-                    os.write(buffer, 0, i);
-                    i = bis.read(buffer);
-                }
-                os.flush();
-                return "下载成功";
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally { // 做关闭操作
-                if (os != null) {
-                    try {
-                        os.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (bis != null) {
-                    try {
-                        bis.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (fis != null) {
-                    try {
-                        fis.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-        return "下载失败";
-    }*/
-
-
     /**
      * 处理图片显示请求
      * 响应输出图片文件
@@ -168,7 +120,8 @@ public class FilesService {
      * @param response
      */
     public void get(String fileName, HttpServletResponse response) {
-        File imgFile = new File(fileName);
+        Files f = findFilesByFileName(fileName);
+        File imgFile = new File(imagePathTemp + fileName + f.getExt());
         try {
             InputStream is = new FileInputStream(imgFile);
             OutputStream os = response.getOutputStream();
@@ -223,6 +176,7 @@ public class FilesService {
         Users users = (Users) StpUtil.getSession().get("user");
         List<Files> fs = new ArrayList<>();
         for (MultipartFile multipartFile : files) {
+            Files f = new Files();
             // 源文件名
             String originalFilename = multipartFile.getOriginalFilename();
             // 文件格式
@@ -230,13 +184,16 @@ public class FilesService {
             // 新文件名，避免文件名重复，造成文件替换问题
             if (NullUtil.isNull(uuid)) {
                 log.warn("uuid provide empty, generate by UUID.randomUUID()!!!");
-                uuid = UUID.randomUUID().toString();
+                uuid = UUID.get();
+                f.setRemark("ACE Application UUID: " + uuid);
+            } else {
+                f.setRemark("DropZone UUID: " + uuid);
             }
-            String fileName = uuid + suffix;
+
+            String fileName = uuid;
             // 文件存储全路径
             String path = imagePath;
-            File targetFile = new File(path + fileName);
-
+            File targetFile = new File(path + fileName + suffix);
             // 判断文件存储目录是否存在，不存在则新建目录
             if (!targetFile.getParentFile().exists()) {
                 targetFile.getParentFile().mkdir();
@@ -249,11 +206,10 @@ public class FilesService {
                 log.error("文件上传异常: " + e);
             }
 
-            Files f = new Files();
             f.setOriginationName(originalFilename);
             f.setExt(suffix);
             f.setFileName(fileName);
-            f.setLocation(path + fileName);
+            f.setLocation(path + fileName + suffix);
             f.setOwner(users.getUserId().toString());
             f.setSize((multipartFile.getSize() / 1024));
             fs.add(f);
@@ -264,13 +220,16 @@ public class FilesService {
 
     public boolean delete(String fileName) {
         Files fs = filesDao.findFilesByFileName(fileName);
-        filesDao.delete(fs);
-        String fName = imagePath + fs.getFileName();
-        if (!FileUtil.delete(fName)) {
-            log.error("delete file fail => {}", fName);
+        if (!FileUtil.delete(fs.getLocation())) {
+            log.error("delete file fail => {}", fs.getLocation());
             return false;
         }
+        delete(fs);
         return true;
+    }
+
+    public Files findFilesByFileName(String fileName) {
+        return filesDao.findFilesByFileName(fileName);
     }
 }
 

@@ -4,6 +4,7 @@
     <!--    <link rel="stylesheet" th:href="@{/assets/css/dropzone.min.css}" />-->
 </head>
 
+
 <body class="no-skin">
 <div id="navbar" class="navbar navbar-default ace-save-state"
      th:include="templates/ace/pb-pages/navbar :: navbar"></div>
@@ -333,23 +334,23 @@
             success(data) {
                 let html = "";
                 for (let i = 0; i < data.length; i++) {
-                    //   html = html + "<li><img src=\"image/get/" + data[i] + "\" width=\"150\" height=\"150\" alt=\"150x150\"/></li>";
-                    html = html + "<li id=\"li-" + data[i] + "\">\n" +
-                        "    <a href=\"image/get/" + data[i] + "\" data-rel=\"colorbox\">\n" +
+                    //   html = html + "<li><img src=\"image/get/" + data[i].fileName + "\" width=\"150\" height=\"150\" alt=\"150x150\"/></li>";
+                    html = html + "<li id=\"li-" + data[i].fileName + "\">\n" +
+                        "    <a href=\"image/get/" + data[i].fileName + "\" data-rel=\"colorbox\">\n" +
                         "        <img width=\"150\" height=\"150\" alt=\"150x150\"\n" +
-                        "             src=\"image/get/" + data[i] + "\"/>\n" +
+                        "             src=\"image/get/" + data[i].fileName + "\" class=\"\" id=\"img-" + data[i].fileName + "\"/>\n" +
                         "    </a>\n" +
                         "    <div class=\"tools tools-bottom\">\n" +
-                        "        <a href=\"image/download/" + data[i] + "\" id=\"download-" + data[i] + "\" class=\"imageDownload\">\n" +
+                        "        <a href=\"javascript:void(0);\" id=\"rotate-l-" + data[i].fileName + "\"  class=\"rotate\">\n" +
+                        "            <i class=\"ace-icon fa fa-undo\"></i>\n" +
+                        "        </a>\n" +
+                        "        <a href=\"javascript:void(0);\" id=\"rotate-r-" + data[i].fileName + "\"  class=\"rotate\">\n" +
+                        "            <i class=\"ace-icon fa fa-repeat\"></i>\n" +
+                        "        </a>\n" +
+                        "        <a href=\"image/download/" + data[i].fileName + "\" id=\"download-" + data[i].fileName + "\" class=\"imageDownload\">\n" +
                         "            <i class=\"ace-icon fa fa-download green\"></i>\n" +
                         "        </a>\n" +
-                        "        <a href=\"image/delete/" + data[i] + "\" id=\"delete-" + data[i] + "\" class=\"imageDelete\">\n" +
-                        "            <i class=\"ace-icon fa fa-times red\"></i>\n" +
-                        "        </a>\n" +
-                        "        <a href=\"javascript:deleteImage()\" id=\"delete-" + data[i] + "\"  class=\"imageDelete\">\n" +
-                        "            <i class=\"ace-icon fa fa-times red\"></i>\n" +
-                        "        </a>\n" +
-                        "        <a href=\"\" id=\"delete-" + data[i] + "\"  class=\"imageDelete\">\n" +
+                        "        <a href=\"javascript:void(0);\" id=\"delete-" + data[i].fileName + "\"  class=\"imageDelete\">\n" +
                         "            <i class=\"ace-icon fa fa-times red\"></i>\n" +
                         "        </a>\n" +
                         "    </div>\n" +
@@ -360,36 +361,98 @@
                 loadingDialog.close().remove();
                 // data为返回值
                 // 成功后的回调方法
+            },
+            error(data) {
+                window.location.href = '500.html';
             }
         })
     }
 
+    let $body = $('body');
 
-    //download问题
-    $(".imageDelete,.tools-bottom", this).bind("click", function () {
-        let index = $(this).index()
-        alert(index)
+
+    /* $(document).on('click', '.imageDelete', function(){
+         alert(this.id)
+         // 事件处理函数
+     });*/
+
+
+    $body.on('click', '.rotate', function () {
+        const idl = $(this).attr('id').split("rotate-l-")[1];
+        const idr = $(this).attr('id').split("rotate-r-")[1];
+
+        let rotate;
+        let imgId;
+        let rotateURL;
+        if (typeof (idl) == "undefined") {
+            rotateURL = "image/rotate/right/" + idr;
+            imgId = idr;
+            rotate = "right";
+        } else {
+            rotateURL = "image/rotate/left/" + idl;
+            imgId = idl;
+            rotate = "left";
+        }
+
+        $.ajax({
+            type: "get", // 以get方式发起请求
+            url: rotateURL,
+            dataType: "json",
+            // 将你的请求参数以问号拼接到url中进行参数传递
+            success(data) {
+                $("#li-" + imgId + "").remove();
+                let html = "";
+                alert("data=> " + data);
+                html = html + "<li id=\"li-" + data + "\">\n" +
+                    "    <a href=\"image/get/" + data + "\" data-rel=\"colorbox\">\n" +
+                    "        <img width=\"150\" height=\"150\" alt=\"150x150\"\n" +
+                    "             src=\"image/get/" + data + "\" class=\"\" id=\"img-" + data + "\"/>\n" +
+                    "    </a>\n" +
+                    "    <div class=\"tools tools-bottom\">\n" +
+                    "        <a href=\"javascript:void(0);\" id=\"rotate-l-" + data + "\"  class=\"rotate\">\n" +
+                    "            <i class=\"ace-icon fa fa-undo\"></i>\n" +
+                    "        </a>\n" +
+                    "        <a href=\"javascript:void(0);\" id=\"rotate-r-" + data + "\"  class=\"rotate\">\n" +
+                    "            <i class=\"ace-icon fa fa-repeat\"></i>\n" +
+                    "        </a>\n" +
+                    "        <a href=\"image/download/" + data + "\" id=\"download-" + data + "\" class=\"imageDownload\">\n" +
+                    "            <i class=\"ace-icon fa fa-download green\"></i>\n" +
+                    "        </a>\n" +
+                    "        <a href=\"javascript:void(0);\" id=\"delete-" + data + "\"  class=\"imageDelete\">\n" +
+                    "            <i class=\"ace-icon fa fa-times red\"></i>\n" +
+                    "        </a>\n" +
+                    "    </div>\n" +
+                    "</li>";
+                $("#li-" + imgId + "").html(html);
+                viewImage();
+
+            },
+            error(data) {
+                window.location.href = '500.html';
+            },
+        })
+
     });
 
-    /*    function deleteImage() {
-            const ht = $(this).find(".imageDelete,.tools-bottom").html();
-            alert("html: "+ht);
-           // const imageId = $('.imageDelete').parent().parent().attr('id');//.attr('id')/!*.split('-')[1]*!/;
-            const imageId = $('.imageDelete').attr('id')/!*.split('-')[1]*!/;
-            alert("deleteImage: " + imageId);
+    $body.on('click', '.imageDelete', function () {
+        let id = $(this).attr('id');
+        let imageId = id.split("delete-")[1];
+        $.ajax({
+            type: "get", // 以get方式发起请求
+            url: "image/delete/" + imageId,
+            dataType: "json",
+            // 将你的请求参数以问号拼接到url中进行参数传递
+            success(data) {
+                //const rs = 'image/get/' + data;
+                $("#li-" + imageId + "").css('display', 'none');
+                //  $(this).parent().parent().hide();
+            },
+            error(data) {
+                window.location.href = '500.html';
+            },
+        })
+    });
 
-            $("#imageId").hide(1000);
-            /!*       $.ajax({
-                       type: "get", // 以get方式发起请求
-                       url: "image/delete/" + file.upload.uuid + "." + ext,
-                       dataType: "json",
-                       // 将你的请求参数以问号拼接到url中进行参数传递
-                       success(data) {
-                       },
-                       error(data) {
-                       }
-                   })*!/
-        }*/
 
 </script>
 

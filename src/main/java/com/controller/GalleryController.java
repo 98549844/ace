@@ -2,6 +2,9 @@ package com.controller;
 
 import com.constant.AceEnvironment;
 import com.controller.common.CommonController;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.models.entity.dao.Files;
 import com.service.FilesService;
 import com.service.GalleryService;
 import com.util.JsonUtil;
@@ -74,9 +77,9 @@ public class GalleryController extends CommonController {
      * @param fileName
      */
     @RequestMapping("/image/get/{fileName}")
-    public void responseImage(@PathVariable("fileName") String fileName, HttpServletResponse response) {
+    public void get(@PathVariable("fileName") String fileName, HttpServletResponse response) {
         log.info("image: /image/get/{}", fileName);
-        filesService.get(imagePathTemp + fileName, response);
+        filesService.get(fileName, response);
     }
 
 
@@ -95,17 +98,21 @@ public class GalleryController extends CommonController {
     @RequestMapping(value = "/image/remove/{uuid}", method = RequestMethod.GET)
     public ModelAndView remove(@PathVariable String uuid) {
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-        log.info("access ace/delete => delete {}", uuid);
+        log.info("access ace/remove => delete {}", uuid);
         modelAndView.addObject("delete", filesService.delete(uuid));
         return modelAndView;
     }
 
     @RequestMapping(value = "/image/delete/{uuid}", method = RequestMethod.GET)
-    public void delete(@PathVariable String uuid) {
+    public ModelAndView delete(@PathVariable String uuid) {
         // 有问题,数据查不出
-        ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
+        ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
         log.info("access ace/delete => delete {}", uuid);
-    //    filesService.delete(uuid);
+        boolean rs = filesService.delete(uuid);
+        String result = JsonUtil.ObjectToJson(rs);
+        modelAndView.addObject("ajaxResult", result);
+        return modelAndView;
+
     }
 
     @RequestMapping(value = "/image/download/{uuid}", method = RequestMethod.GET)
@@ -119,5 +126,14 @@ public class GalleryController extends CommonController {
         }
     }
 
+    @RequestMapping(value = "/image/rotate/{direction}/{uuid}", method = RequestMethod.GET)
+    public ModelAndView rotate(@PathVariable String direction, @PathVariable String uuid) throws IOException {
+        log.info("access ace/rotate => rotate {} {}", direction, uuid);
+        galleryService.rotate(direction, uuid);
+        ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
+        String result = JsonUtil.ObjectToJson(uuid);
+        modelAndView.addObject("ajaxResult", result);
+        return modelAndView;
+    }
 }
 
