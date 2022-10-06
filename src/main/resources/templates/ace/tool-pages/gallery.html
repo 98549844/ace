@@ -20,26 +20,7 @@
 
     <div class="main-content">
         <div class="main-content-inner">
-            <div class="breadcrumbs ace-save-state" id="breadcrumbs">
-                <ul class="breadcrumb">
-                    <li>
-                        <i class="ace-icon fa fa-home home-icon"></i>
-                        <a href="#">Home</a>
-                    </li>
-                    <li class="active">Gallery</li>
-                </ul><!-- /.breadcrumb -->
-
-                <div class="nav-search" id="nav-search">
-                    <form class="form-search">
-								<span class="input-icon">
-									<input type="text" placeholder="Search ..." class="nav-search-input"
-                                           id="nav-search-input" autocomplete="off"/>
-									<i class="ace-icon fa fa-search nav-search-icon"></i>
-								</span>
-                    </form>
-                </div><!-- /.nav-search -->
-            </div>
-
+            <div class="breadcrumbs" th:include="ace/pb-pages/breadcrumbs :: breadcrumbs"></div>
             <div class="page-content">
                 <div class="ace-settings-container" id="ace-settings-container"
                      th:include="templates/ace/pb-pages/ace-settings-container :: ace-settings-container">
@@ -175,8 +156,8 @@
             thumbnailWidth: 120,
             maxFilesize: 10,
             addRemoveLinks: true,
-            dictRemoveFile: 'Remove',
-            dictCancelUpload: "Cancel",
+            dictRemoveFile: '<i class="ace-icon glyphicon glyphicon-trash"></i>',
+            dictCancelUpload: '<i class="ace-icon fa fa-ban"></i>',
             acceptedFiles: ".jpg,.gif,.png,.jpeg", // 上传的类型
             parallelUploads: 3,
             //  clickable: true, //若果设置 true, locatdropzone 元素本身将可以点击

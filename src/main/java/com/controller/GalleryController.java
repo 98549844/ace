@@ -90,15 +90,6 @@ public class GalleryController extends CommonController {
     }
 
 
-
-  /*  @RequestMapping("/image/getHref/{fileName}")
-    public void getHref(@PathVariable("fileName") String fileName, HttpServletResponse response) {
-        log.info("image: /image/get/{}", fileName);
-        Files f = filesService.findFilesByFileName(fileName);
-        filesService.get(fileName + f.getExt(), response);
-    }*/
-
-
     @RequestMapping(value = "/image/uploads.html", method = RequestMethod.POST)
     public ModelAndView uploads(@RequestParam(value = "files") MultipartFile[] files, MultipartHttpServletRequest request) {
         String uuid = request.getParameter("uuid");
