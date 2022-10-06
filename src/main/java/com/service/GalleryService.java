@@ -5,6 +5,7 @@ import com.models.entity.dao.Files;
 import com.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -28,6 +29,7 @@ public class GalleryService {
     private final String imagePath;
     private final String imagePathTemp;
 
+    @Autowired
     public GalleryService(FilesService filesService) {
         this.filesService = filesService;
         this.imagePath = AceEnvironment.getImagesPath();

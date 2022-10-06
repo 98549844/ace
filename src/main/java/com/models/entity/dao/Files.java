@@ -1,5 +1,6 @@
 package com.models.entity.dao;
 
+import com.constant.AceEnvironment;
 import com.models.entity.dao.base.baseEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +32,7 @@ public class Files extends baseEntity {
     @Column
     private String location;
     @Column
-    private String path;
+    private String path = AceEnvironment.getFilePath();
     @Column
     private Long size;
     @Column
@@ -41,7 +42,7 @@ public class Files extends baseEntity {
     @Column
     private String owner;
     @Column
-    private String remark;
+    private String remark = "default path:" + AceEnvironment.getFilePath();
 
     public static Logger getLog() {
         return log;
