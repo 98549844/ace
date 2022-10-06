@@ -1,0 +1,23 @@
+.replaceWith()
+
+<div class="container">
+  <div class="inner first">Hello</div>
+  <div class="inner second">And</div>
+  <div class="inner third">Goodbye</div>
+</div>
+
+
+$( "div.second" ).replaceWith( "<h2>New heading</h2>" );
+<div class="container">
+  <div class="inner first">Hello</div>
+  <h2>New heading</h2>
+  <div class="inner third">Goodbye</div>
+</div>
+
+
+$( "div.inner" ).replaceWith( "<h2>New heading</h2>" );
+<div class="container">
+  <h2>New heading</h2>
+  <h2>New heading</h2>
+  <h2>New heading</h2>
+</div>

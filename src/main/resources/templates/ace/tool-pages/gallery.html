@@ -256,7 +256,6 @@
                     })
                 });
             },
-
             //文件信息预览
             thumbnail: function (file, dataUrl) {
                 if (file.previewElement) {
@@ -271,7 +270,6 @@
                     }, 1);
                 }
             },
-
         }
         loadingImage();
         viewImage();
@@ -307,11 +305,8 @@
                 $.colorbox.resize();
             }
         };
-
         $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
         $("#cboxLoadingGraphic").html("<i class='ace-icon fa fa-spinner orange fa-spin'></i>");//let's add a custom loading icon
-
-
         $(document).one('ajaxloadstart.page', function (e) {
             $('#colorbox, #cboxOverlay').remove();
         });
@@ -400,9 +395,8 @@
             dataType: "json",
             // 将你的请求参数以问号拼接到url中进行参数传递
             success(data) {
-                $("#li-" + imgId + "").remove();
                 let html = "";
-                alert("data=> " + data);
+               // alert("data=> " + data);
                 html = html + "<li id=\"li-" + data + "\">\n" +
                     "    <a href=\"image/get/" + data + "\" data-rel=\"colorbox\">\n" +
                     "        <img width=\"150\" height=\"150\" alt=\"150x150\"\n" +
@@ -423,8 +417,9 @@
                     "        </a>\n" +
                     "    </div>\n" +
                     "</li>";
-                $("#li-" + imgId + "").html(html);
-                viewImage();
+                $("#li-" + imgId + "").replaceWith(html);
+            //    $("#li-" + imgId + "").load("image/get/" + data);
+              //  viewImage();
 
             },
             error(data) {
