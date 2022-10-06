@@ -31,6 +31,8 @@ public class Files extends baseEntity {
     @Column
     private String location;
     @Column
+    private String path;
+    @Column
     private Long size;
     @Column
     private String fileName;
@@ -75,6 +77,14 @@ public class Files extends baseEntity {
 
     public Long getSize() {
         return size;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public void setSize(Long size) {

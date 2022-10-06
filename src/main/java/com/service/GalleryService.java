@@ -2,19 +2,15 @@ package com.service;
 
 import com.constant.AceEnvironment;
 import com.models.entity.dao.Files;
-import com.util.FileUtil;
-import com.util.ImageUtil;
-import com.util.ListUtil;
-import com.util.NullUtil;
+import com.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
-import com.util.UUID;
 
 /**
  * @Classname: GalleryService
@@ -79,23 +75,43 @@ public class GalleryService {
         log.info("compressing image complete !!!");
     }
 
-    public void rotate(String direction, String src) throws IOException {
+    public Files rotate(String direction, String uuid) throws Exception {
         int rotate;
         if ("left".equals(direction)) {
             rotate = -90;
         } else {
             rotate = 90;
         }
-        Files f = filesService.findFilesByFileName(src);
-        //  String newUUID = UUID.get();
-        String desc = imagePathTemp + f.getFileName() + f.getExt();
-        ImageUtil.rotation(desc, desc, rotate);
-        // f.setFileName(newUUID);
-        // filesService.save(f);
+        String newUuid = UUID.get();
+        Files f = filesService.findFilesByFileName(uuid);
+        rename(f.getLocation(), imagePath + newUuid + f.getExt());
 
+        String temp = imagePathTemp + f.getFileName() + f.getExt();
+        String newTemp = imagePathTemp + newUuid + f.getExt();
+
+        f.setFileName(newUuid);
+        f.setRemark("Ace Application UUID: " + newUuid);
+        ImageUtil.rotation(temp, newTemp, rotate);
+
+        filesService.delFile(temp);
+        return filesService.saveAndFlush(f);
 
     }
 
-
+    private static void rename(String src, String desc) throws Exception {
+        log.info("Start rename file");
+        // 旧的文件或目录
+        File oldName = new File(src);
+        // 新的文件或目录1
+        File newName = new File(desc);
+        if (newName.exists()) {  //  确保新的文件名不存在
+            throw new java.io.IOException("target file exists !!!");
+        }
+        if (oldName.renameTo(newName)) {
+            log.info("File renamed success => {}" , desc);
+        } else {
+            log.error("File rename fail !!!");
+        }
+    }
 }
 

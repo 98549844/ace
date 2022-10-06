@@ -133,12 +133,12 @@ public class GalleryController extends CommonController {
     }
 
     @RequestMapping(value = "/image/rotate/{direction}/{uuid}", method = RequestMethod.GET)
-    public ModelAndView rotate(@PathVariable String direction, @PathVariable String uuid) throws IOException {
+    public ModelAndView rotate(@PathVariable String direction, @PathVariable String uuid) throws Exception {
         log.info("access ace/rotate => rotate {} {}", direction, uuid);
         ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
-        galleryService.rotate(direction, uuid);
-        Files f = filesService.findFilesByFileName(uuid);
-        String result = JsonUtil.ObjectToJson(f.getExt());
+        // Files f = filesService.findFilesByFileName(uuid);
+        Files f = galleryService.rotate(direction, uuid);
+        String result = JsonUtil.ObjectToJson(f);
         modelAndView.addObject("ajaxResult", result);
         return modelAndView;
     }

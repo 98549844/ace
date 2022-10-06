@@ -7,8 +7,13 @@ jQuery(function ($) {
 function setTitle() {
     const pName = window.location.pathname;
     const t = pName.split("/ace/")[1].split(".html")[0];
+    let m = t.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase());
+    if ("Index" === m) {
+        m = "Dashboard";
+    }
     //首字母大写
-    $("title").html("Ace " + t.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase()))
+    $("title").html("Ace " + m);
+    $("#breadcrumb2").text(m);
 }
 
 

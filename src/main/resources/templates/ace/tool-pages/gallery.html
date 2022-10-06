@@ -157,7 +157,7 @@
             maxFilesize: 10,
             addRemoveLinks: true,
             dictRemoveFile: '<i class="ace-icon glyphicon glyphicon-trash"></i>',
-            dictCancelUpload: '<i class="ace-icon fa fa-ban"></i>',
+            dictCancelUpload: 'cancel',
             acceptedFiles: ".jpg,.gif,.png,.jpeg", // 上传的类型
             parallelUploads: 3,
             //  clickable: true, //若果设置 true, locatdropzone 元素本身将可以点击
@@ -341,17 +341,14 @@
         const idl = $(this).attr('id').split("rotate-l-")[1];
         const idr = $(this).attr('id').split("rotate-r-")[1];
 
-        let rotate;
         let imgId;
         let rotateURL;
         if (typeof (idl) == "undefined") {
             rotateURL = "image/rotate/right/" + idr;
             imgId = idr;
-            rotate = "right";
         } else {
             rotateURL = "image/rotate/left/" + idl;
             imgId = idl;
-            rotate = "left";
         }
 
         $.ajax({
@@ -362,22 +359,22 @@
             success(data) {
                 let html = "";
                 // alert("data=> " + data);
-                html = html + "<li id=\"li-" + imgId + "\">\n" +
-                    "    <a href=\"image/get/" + imgId + data + "\" data-rel=\"colorbox\">\n" +
+                html = html + "<li id=\"li-" + data.fileName + "\">\n" +
+                    "    <a href=\"image/get/" + data.fileName + data.ext + "\" data-rel=\"colorbox\">\n" +
                     "        <img width=\"150\" height=\"150\" alt=\"150x150\"\n" +
-                    "             src=\"image/get/" + imgId + "\" id=\"img-" + imgId + "\"/>\n" +
+                    "             src=\"image/get/" + data.fileName + "\" id=\"img-" + imgId + "\"/>\n" +
                     "    </a>\n" +
                     "    <div class=\"tools tools-bottom\">\n" +
-                    "        <a href=\"javascript:void(0);\" id=\"rotate-l-" + imgId + "\"  class=\"rotate\">\n" +
+                    "        <a href=\"javascript:void(0);\" id=\"rotate-l-" + data.fileName + "\"  class=\"rotate\">\n" +
                     "            <i class=\"ace-icon fa fa-undo\"></i>\n" +
                     "        </a>\n" +
-                    "        <a href=\"javascript:void(0);\" id=\"rotate-r-" + imgId + "\"  class=\"rotate\">\n" +
+                    "        <a href=\"javascript:void(0);\" id=\"rotate-r-" + data.fileName + "\"  class=\"rotate\">\n" +
                     "            <i class=\"ace-icon fa fa-repeat\"></i>\n" +
                     "        </a>\n" +
-                    "        <a href=\"image/download/" + imgId + "\" id=\"download-" + imgId + "\" class=\"imageDownload\">\n" +
+                    "        <a href=\"image/download/" + data.fileName + "\" id=\"download-" + data.fileName + "\" class=\"imageDownload\">\n" +
                     "            <i class=\"ace-icon fa fa-download green\"></i>\n" +
                     "        </a>\n" +
-                    "        <a href=\"javascript:void(0);\" id=\"delete-" + imgId + "\"  class=\"imageDelete\">\n" +
+                    "        <a href=\"javascript:void(0);\" id=\"delete-" + data.fileName + "\"  class=\"imageDelete\">\n" +
                     "            <i class=\"ace-icon fa fa-times red\"></i>\n" +
                     "        </a>\n" +
                     "    </div>\n" +

@@ -45,11 +45,27 @@ public class FilesService {
 
 
     public List<Files> saveAll(List<Files> files) {
+        int size = files.size();
+        for (int i = 0; i < size; i++) {
+            if (NullUtil.isNotNull(files.get(i).getId())) {
+                files.get(i).setLocation(files.get(i).getPath() + files.get(i).getFileName() + files.get(i).getExt());
+            }
+        }
         return filesDao.saveAll(files);
     }
 
     public Files save(Files file) {
+        if (NullUtil.isNotNull(file.getId())) {
+            file.setLocation(file.getPath() + file.getFileName() + file.getExt());
+        }
         return filesDao.save(file);
+    }
+
+    public Files saveAndFlush(Files file) {
+        if (NullUtil.isNotNull(file.getId())) {
+            file.setLocation(file.getPath() + file.getFileName() + file.getExt());
+        }
+        return filesDao.saveAndFlush(file);
     }
 
     public List<Files> findFilesByFileNameNotInOrderByLastUpdateDateDesc(List<String> fileList) {
@@ -193,8 +209,7 @@ public class FilesService {
 
             String fileName = uuid;
             // 文件存储全路径
-            String path = imagePath;
-            File targetFile = new File(path + fileName + suffix);
+            File targetFile = new File(imagePath + fileName + suffix);
             // 判断文件存储目录是否存在，不存在则新建目录
             if (!targetFile.getParentFile().exists()) {
                 targetFile.getParentFile().mkdir();
@@ -210,7 +225,8 @@ public class FilesService {
             f.setOriginationName(originalFilename);
             f.setExt(suffix);
             f.setFileName(fileName);
-            f.setLocation(path + fileName + suffix);
+            f.setLocation(imagePath + fileName + suffix);
+            f.setPath(imagePath);
             f.setOwner(users.getUserId().toString());
             f.setSize((multipartFile.getSize() / 1024));
             fs.add(f);
@@ -219,13 +235,19 @@ public class FilesService {
         return list;
     }
 
+
     public boolean delete(String fileName) {
-        Files fs = filesDao.findFilesByFileName(fileName);
-        if (!FileUtil.delete(fs.getLocation())) {
-            log.error("delete file fail => {}", fs.getLocation());
+        Files fs = findFilesByFileName(fileName);
+        delFile(fs.getLocation());
+        delete(fs);
+        return true;
+    }
+
+    public boolean delFile(String location) {
+        if (!FileUtil.delete(location)) {
+            log.error("delete file fail => {}", location);
             return false;
         }
-        delete(fs);
         return true;
     }
 
