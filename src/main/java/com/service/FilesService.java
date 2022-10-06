@@ -86,13 +86,14 @@ public class FilesService {
      * @return
      */
     public boolean download(String fileName, HttpServletResponse response) {
-        File imgFile = new File(imagePath + fileName);
+        Files f = findFilesByFileName(fileName);
+        File imgFile = new File(f.getLocation());
         if (!NullUtil.isNull(fileName) && imgFile.exists()) {
             try {
                 // 设置强制下载不打开
                 response.setContentType("application/force-download");
                 // 设置文件名
-                response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);
+                response.addHeader("Content-Disposition", "attachment;fileName=" + f.getOriginationName());
                 InputStream is = new FileInputStream(imgFile);
                 OutputStream os = response.getOutputStream();
                 byte[] buffer = new byte[1024]; // 图片文件流缓存池

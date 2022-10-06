@@ -79,8 +79,24 @@ public class GalleryController extends CommonController {
     @RequestMapping("/image/get/{fileName}")
     public void get(@PathVariable("fileName") String fileName, HttpServletResponse response) {
         log.info("image: /image/get/{}", fileName);
-        filesService.get(fileName, response);
+        String name;
+        if (fileName.contains(".")) {
+            String[] names = fileName.split("\\.");
+            name = names[0];
+        } else {
+            name = fileName;
+        }
+        filesService.get(name, response);
     }
+
+
+
+  /*  @RequestMapping("/image/getHref/{fileName}")
+    public void getHref(@PathVariable("fileName") String fileName, HttpServletResponse response) {
+        log.info("image: /image/get/{}", fileName);
+        Files f = filesService.findFilesByFileName(fileName);
+        filesService.get(fileName + f.getExt(), response);
+    }*/
 
 
     @RequestMapping(value = "/image/uploads.html", method = RequestMethod.POST)
@@ -129,9 +145,10 @@ public class GalleryController extends CommonController {
     @RequestMapping(value = "/image/rotate/{direction}/{uuid}", method = RequestMethod.GET)
     public ModelAndView rotate(@PathVariable String direction, @PathVariable String uuid) throws IOException {
         log.info("access ace/rotate => rotate {} {}", direction, uuid);
-        galleryService.rotate(direction, uuid);
         ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
-        String result = JsonUtil.ObjectToJson(uuid);
+        galleryService.rotate(direction, uuid);
+        Files f = filesService.findFilesByFileName(uuid);
+        String result = JsonUtil.ObjectToJson(f.getExt());
         modelAndView.addObject("ajaxResult", result);
         return modelAndView;
     }
