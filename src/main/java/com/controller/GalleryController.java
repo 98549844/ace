@@ -112,7 +112,6 @@ public class GalleryController extends CommonController {
 
     @RequestMapping(value = "/image/delete/{uuid}", method = RequestMethod.GET)
     public ModelAndView delete(@PathVariable String uuid) {
-        // 有问题,数据查不出
         ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
         log.info("access ace/delete => delete {}", uuid);
         boolean rs = filesService.delete(uuid);

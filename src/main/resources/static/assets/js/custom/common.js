@@ -1,10 +1,16 @@
 //$(document).ready(function () {
 jQuery(function ($) {
     docReady();
-    $("a.logout").on("click", function () {
-        logout();
-    });
+    setTitle();
 });
+
+function setTitle() {
+    const pName = window.location.pathname;
+    const t = pName.split("/ace/")[1].split(".html")[0];
+    //首字母大写
+    $("title").html("Ace " + t.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase()))
+}
+
 
 function docReady() {
     //提交表单验证
@@ -36,6 +42,9 @@ function docReady() {
     });
 }
 
+$("a.logout").on("click", function () {
+    logout();
+});
 
 function logout() {
     //clear cookies
