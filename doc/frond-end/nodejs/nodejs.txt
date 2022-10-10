@@ -1,0 +1,67 @@
+git checkout后需要清缓存
+Cannot read properties of null (reading 'pickAlgorithm')
+在终端输入： npm cache clear --force
+
+
+使用 npm 命令安装模块
+下载相关的component for react
+npm install <Module Name>
+
+运行react
+npm run dev
+
+安装好之后，express 包就放在了工程目录下的 node_modules 目录中，
+因此在代码中只需要通过 require('express') 的方式就好，无需指定第三方包路径。
+var express = require('express');
+
+全局安装与本地安装
+npm install express      # 本地安装
+npm install express -g   # 全局安装
+
+列出已安装模组
+npm ls
+
+更新模组
+npm update <Module Name>
+
+搜索模块
+npm search <Module Name>
+
+创建模块
+package.json 文件是必不可少的。
+我们可以使用 NPM 生成 package.json 文件，
+生成的文件包含了基本的结果。
+npm init
+
+
+
+匿名函数
+function execute(someFunction, value) {
+  someFunction(value);
+}
+
+execute(function(word){ console.log(word) }, "Hello");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

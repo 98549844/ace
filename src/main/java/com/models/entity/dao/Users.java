@@ -44,7 +44,7 @@ public class Users extends baseEntity implements Serializable {
     @Column
     private LocalDateTime loginDateTime;
     @Column
-    private String status = "ACTIVE"; // ACTIVE || INACTIVE
+    private String status = "ACTIVE"; // ACTIVE || INACTIVE //决定模组功能是否开启
 
 
     @Column
@@ -60,7 +60,7 @@ public class Users extends baseEntity implements Serializable {
     private LocalDateTime expireDate;
 
     @Column
-    private boolean enabled = true; // user control
+    private boolean enabled = true; // user account
 
     public Long getUserId() {
         return userId;

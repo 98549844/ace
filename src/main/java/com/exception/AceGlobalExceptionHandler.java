@@ -90,7 +90,7 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
             modelAndView = exceptionModelAndView("ace/error", Css.faRandom, status, warningMsg);
             modelAndView.addObject("exceptionMsg", "server internal error");
         } else {
-            log.info("{} error: {}" ,requestUTL, status);
+            log.info("{} error: {}", requestUTL, status);
             String warningMsg = "Occur Unknown exception";
             modelAndView = exceptionModelAndView("ace/error", Css.faGear, status, warningMsg);
             modelAndView.addObject("exceptionMsg", "UNKNOWN EXCEPTION");
@@ -122,7 +122,7 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
             } else if (message.contains("未能读取到有效Token")) {
                 modelAndView.addObject(Css.css, Css.red);
                 modelAndView.addObject("msg", "Session illegal");
-            }else if (message.contains("Token已过期")) {
+            } else if (message.contains("Token已过期")) {
                 modelAndView.addObject(Css.css, Css.red);
                 modelAndView.addObject("msg", "Session timeout");
             }
@@ -133,10 +133,11 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
             String stackTrace = sw.toString();
             exceptionLog(e.getMessage(), stackTrace);
 
-            int status = super.getResponse().getStatus();
-            String warningMsg = "OCCUR EXCEPTION";
-            ModelAndView modelAndView = exceptionModelAndView("ace/error", Css.faGear, status, warningMsg);
-            modelAndView.addObject("exceptionMsg", e.getMessage() + "<br><br>" + stackTrace);
+            //   int status = super.getResponse().getStatus();
+            String warningMsg = "<strong> OCCUR EXCEPTION </strong>";
+            ModelAndView modelAndView = exceptionModelAndView("ace/error", Css.faGear, 999, warningMsg);
+            String exceptionMsg = "<strong style=\"color: red\">" + e.getMessage() + "</strong>" + "<br><br>" + stackTrace;
+            modelAndView.addObject("exceptionMsg", exceptionMsg);
             return modelAndView;
         }
     }

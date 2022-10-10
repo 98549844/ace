@@ -65,8 +65,7 @@ function logout() {
                 type: "get", // 以get方式发起请求
                 url: "logout.html",
                 success(data) {
-                    window.location.href = '/ace/logout.html';
-
+                    window.location.href = '/ace/login.html';
                 }
             })
 

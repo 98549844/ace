@@ -30,6 +30,8 @@ public class AceEnvironment {
     private static String imagesPath;
     private static String filesTemp;
     private static String imagesTemp;
+    private static String videoTemp;
+    private static String videoPath;
 
 
     @Autowired
@@ -48,30 +50,19 @@ public class AceEnvironment {
         if (OsUtil.getOsName().contains(OsUtil.WINDOWS)) {
             String fsPath = "C:\\ACE\\files\\";
             String imgPath = "C:\\ACE\\images\\";
+            String vPath = "C:\\ACE\\videos\\";
             String temp = "temp\\";
-
-            setFilePath(fsPath);
-            setFilesTemp(fsPath + temp);
-            setImagesPath(imgPath);
-            setImagesTemp(imgPath + temp);
-
-            FileUtil.mkDirs(fsPath + temp);
-            FileUtil.mkDirs(imgPath + temp);
+            setFolders(temp, fsPath, imgPath, vPath);
 
             String msg = "ACE environment folder setup complete on Windows !!!";
             Console.println(msg, Console.BLUE, Console.BOLD);
         } else if (OsUtil.getOsName().contains(OsUtil.MAC)) {
             String fsPath = "TODO";
             String imgPath = "TODO";
-            String temp = "TODO";
+            String vPath = "TODO";
+            String temp = "temp/";
 
-            setFilePath(fsPath);
-            setFilesTemp(fsPath + temp);
-            setImagesPath(imgPath);
-            setImagesTemp(imgPath + temp);
-
-            FileUtil.mkDirs(fsPath);
-            FileUtil.mkDirs(imgPath);
+            setFolders(temp, fsPath, imgPath, vPath);
 
             String msg = "ACE environment folder setup complete on MAC !!!";
             Console.println(msg, Console.BLUE, Console.BOLD);
@@ -79,6 +70,19 @@ public class AceEnvironment {
             String msg = "WARNING => UNKNOWN OS, ACE Environment setup incomplete !!!";
             Console.println(msg, Console.RED, Console.BOLD);
         }
+    }
+
+    private static void setFolders(String temp, String folder, String images, String video) {
+        FileUtil.mkDirs(folder + temp);
+        FileUtil.mkDirs(images + temp);
+        FileUtil.mkDirs(video + temp);
+
+        setFilePath(folder);
+        setFilesTemp(folder + temp);
+        setImagesPath(images);
+        setImagesTemp(images + temp);
+        setVideoPath(video);
+        setVideoTemp(video + temp);
     }
 
     public static String getFilePath() {
@@ -111,6 +115,22 @@ public class AceEnvironment {
 
     public static void setImagesTemp(String imagesTemp) {
         AceEnvironment.imagesTemp = imagesTemp;
+    }
+
+    public static String getVideoTemp() {
+        return videoTemp;
+    }
+
+    public static void setVideoTemp(String videoTemp) {
+        AceEnvironment.videoTemp = videoTemp;
+    }
+
+    public static String getVideoPath() {
+        return videoPath;
+    }
+
+    public static void setVideoPath(String videoPath) {
+        AceEnvironment.videoPath = videoPath;
     }
 }
 

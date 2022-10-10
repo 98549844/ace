@@ -12,6 +12,7 @@ commit;
 
 
 CREATE USER 'dog'@'localhost' IDENTIFIED BY '123456';
+CREATE USER 'kalam_au'@'localhost' IDENTIFIED BY 'root';
 CREATE USER 'pig'@'192.168.1.101_' IDENTIFIED BY '123456';
 CREATE USER 'pig'@'%' IDENTIFIED BY '123456';
 CREATE USER 'pig'@'%' IDENTIFIED BY '';

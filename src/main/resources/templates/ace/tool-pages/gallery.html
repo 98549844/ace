@@ -36,72 +36,72 @@
                     </h1>
                 </div><!-- /.page-header -->
 
-                <div id="accordion" class="page-header accordion-style1 panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"
-                                   href="#collapseOne">
-                                    <i class="ace-icon fa fa-angle-down bigger-110"
-                                       data-icon-hide="ace-icon fa fa-angle-down"
-                                       data-icon-show="ace-icon fa fa-angle-right"></i>
-                                    &nbsp;Dropzone:
-                                    <small>
-                                        <i class="ace-icon fa"></i>
-                                        Drag & drop file upload with image preview
-                                    </small>
-                                </a>
-                            </h4>
-                        </div>
+                <div class="col-sm-7">
+                    <div id="accordion" class="page-header accordion-style1 panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"
+                                       href="#collapseOne">
+                                        <i class="ace-icon fa fa-angle-down bigger-110"
+                                           data-icon-hide="ace-icon fa fa-angle-down"
+                                           data-icon-show="ace-icon fa fa-angle-right"></i>
+                                        &nbsp;Dropzone:
+                                        <small>
+                                            <i class="ace-icon fa"></i>
+                                            Drag & drop file upload with image preview
+                                        </small>
+                                    </a>
+                                </h4>
+                            </div>
 
-                        <div class="panel-collapse collapse in" id="collapseOne">
-                            <div class="panel-body">
-                                <div>
+                            <div class="panel-collapse collapse in" id="collapseOne">
+                                <div class="panel-body">
                                     <form class="dropzone well"
                                           id="drop-zone" enctype="multipart/form-data"
-                                          style="border-radius: 10px; width: 50%">
+                                          style="border-radius: 10px;">
                                         <div class="fallback">
                                             <input name="file" type="file" multiple=""/>
                                         </div>
                                     </form>
-                                </div>
 
-                                <div id="preview-template" class="hide">
-                                    <div class="dz-preview dz-file-preview">
-                                        <div class="dz-image">
-                                            <img data-dz-thumbnail=""/>
-                                        </div>
-                                        <div class="dz-details">
-                                            <div class="dz-size">
-                                                <span data-dz-size=""></span>
+                                    <div id="preview-template" class="hide">
+                                        <div class="dz-preview dz-file-preview">
+                                            <div class="dz-image">
+                                                <img data-dz-thumbnail=""/>
+                                            </div>
+                                            <div class="dz-details">
+                                                <div class="dz-size">
+                                                    <span data-dz-size=""></span>
+                                                </div>
+
+                                                <div class="dz-filename">
+                                                    <span data-dz-name=""></span>
+                                                </div>
                                             </div>
 
-                                            <div class="dz-filename">
-                                                <span data-dz-name=""></span>
+                                            <div class="dz-progress">
+                                                <span class="dz-upload" data-dz-uploadprogress=""></span>
                                             </div>
-                                        </div>
 
-                                        <div class="dz-progress">
-                                            <span class="dz-upload" data-dz-uploadprogress=""></span>
-                                        </div>
+                                            <div class="dz-error-message">
+                                                <span data-dz-errormessage=""></span>
+                                            </div>
 
-                                        <div class="dz-error-message">
-                                            <span data-dz-errormessage=""></span>
-                                        </div>
-
-                                        <div class="dz-success-mark">
+                                            <div class="dz-success-mark">
 											<span class="fa-stack fa-lg bigger-150">
 												<i class="fa fa-circle fa-stack-2x white"></i>
 
 												<i class="fa fa-check fa-stack-1x fa-inverse green"></i>
 											</span>
-                                        </div>
+                                            </div>
 
-                                        <div class="dz-error-mark">
+                                            <div class="dz-error-mark">
 											<span class="fa-stack fa-lg bigger-150">
 												<i class="fa fa-circle fa-stack-2x white"></i>
 												<i class="fa fa-remove fa-stack-1x fa-inverse red"></i>
 											</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +109,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <div class="row">
                     <div class="col-xs-12">
