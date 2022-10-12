@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.constant.AceEnvironment;
 import com.controller.common.CommonController;
 import com.service.FilesService;
 import com.util.PathUtil;
@@ -31,10 +32,12 @@ public class FileController extends CommonController {
 
 
     private FilesService filesService;
+    private final String filesPath;
 
     @Autowired
     public FileController(FilesService filesService) {
         this.filesService = filesService;
+        this.filesPath = AceEnvironment.getFilePath();
     }
 
 
@@ -48,7 +51,7 @@ public class FileController extends CommonController {
     @RequestMapping(value = "/files/uploads", method = RequestMethod.POST)
     public ModelAndView uploads(@RequestParam(value = "files") MultipartFile[] files) {
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-        List<String> list = filesService.uploads(files, null);
+        List<String> list = filesService.uploads(files, null, filesPath);
         return modelAndView;
     }
 

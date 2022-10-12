@@ -17,7 +17,7 @@ import javax.persistence.*;
  */
 
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "files", uniqueConstraints = {@UniqueConstraint(name = "constraint_fileName", columnNames = "fileName")})
+@Table(name = "files", uniqueConstraints = {@UniqueConstraint(name = "constraint_fileName", columnNames = {"fileName","path"})})
 @Entity
 public class Files extends baseEntity {
     private static Logger log = LogManager.getLogger(Files.class.getName());

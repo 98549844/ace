@@ -5,7 +5,6 @@ package com.restController;
 import com.constant.AceEnvironment;
 import com.service.FilesService;
 import com.util.NullUtil;
-import com.util.PathUtil;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,12 +45,12 @@ public class GalleryRestController {
 //    static final String filePath = PathUtil.getSystemPath() + "\\src\\main\\resources\\static\\files\\temp\\";
 
     private FilesService filesService;
-    private String fileLocation;
+    private String imagesPath;
 
     @Autowired
     public GalleryRestController(FilesService filesService) {
         this.filesService = filesService;
-        this.fileLocation = AceEnvironment.getFilePath();
+        this.imagesPath = AceEnvironment.getImagesPath();
     }
 
 
@@ -102,14 +101,14 @@ public class GalleryRestController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String upload(@RequestParam("file") MultipartFile file) {    //注意参数
-        String result = filesService.upload(fileLocation, file);
+        String result = filesService.upload(imagesPath, file);
         return result;
     }
 
 
     @RequestMapping(value = "/uploads", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
     public List uploads(@RequestParam(value = "files") MultipartFile[] files) {
-        List list = filesService.uploads(files, null);
+        List list = filesService.uploads(files, null, imagesPath);
         return list;
     }
 

@@ -54,7 +54,7 @@ public class GalleryService {
         }
         //根据folder实际文件控制数据库, 删除folder不存文件数据
         List<String> fName = FileUtil.getNames(ls);
-        List<Files> filesList = filesService.findFilesByFileNameNotInOrderByLastUpdateDateDesc(fName);
+        List<Files> filesList = filesService.findFilesByPathAndFileNameNotIn(imagePath , fName );
         filesService.deleteAll(filesList);
         return FileUtil.getNamesOrderByLastModifiedDate(temp, true);
     }

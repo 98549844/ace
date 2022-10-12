@@ -92,7 +92,7 @@ public class GalleryController extends CommonController {
         } else {
             name = fileName;
         }
-        filesService.get(name, response);
+        filesService.get( imagePathTemp , name, response);
     }
 
 
@@ -109,7 +109,7 @@ public class GalleryController extends CommonController {
         String uuid = request.getParameter("uuid");
         log.info("access ace/uploads.html => dropzone uuid: {}", uuid);
         //  ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
-        List<String> list = filesService.uploads(files, uuid);
+        List<String> list = filesService.uploads(files, uuid, imagePath);
         // String result = JsonUtil.ObjectToFormattedJson(list);
         // modelAndView.addObject("ajaxResult", result);
         return list;

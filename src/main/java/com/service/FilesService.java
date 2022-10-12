@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.util.UUID;
@@ -49,6 +50,9 @@ public class FilesService {
         for (int i = 0; i < size; i++) {
             if (NullUtil.isNotNull(files.get(i).getId())) {
                 files.get(i).setLocation(files.get(i).getPath() + files.get(i).getFileName() + files.get(i).getExt());
+            } else {
+                Users users = (Users) StpUtil.getSession().get("user");
+                files.get(i).setOwner(users.getUserId().toString());
             }
         }
         return filesDao.saveAll(files);
@@ -57,6 +61,9 @@ public class FilesService {
     public Files save(Files file) {
         if (NullUtil.isNotNull(file.getId())) {
             file.setLocation(file.getPath() + file.getFileName() + file.getExt());
+        } else {
+            Users users = (Users) StpUtil.getSession().get("user");
+            file.setOwner(users.getUserId().toString());
         }
         return filesDao.save(file);
     }
@@ -64,6 +71,9 @@ public class FilesService {
     public Files saveAndFlush(Files file) {
         if (NullUtil.isNotNull(file.getId())) {
             file.setLocation(file.getPath() + file.getFileName() + file.getExt());
+        } else {
+            Users users = (Users) StpUtil.getSession().get("user");
+            file.setOwner(users.getUserId().toString());
         }
         return filesDao.saveAndFlush(file);
     }
@@ -78,6 +88,22 @@ public class FilesService {
         List<Files> fs = new ArrayList<>();
         try {
             fs = filesDao.findFilesByFileNameNotInOrderByLastUpdateDateDesc(fileList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return fs;
+    }
+
+    public List<Files> findFilesByPathAndFileNameNotIn(String path, List<String> fileNames) {
+        if (NullUtil.isNull(fileNames)) {
+            //避免list == 0时query null data 情况
+            log.warn("folder is empty !!!");
+            fileNames = new ArrayList<>();
+            fileNames.add("");
+        }
+        List<Files> fs = new ArrayList<>();
+        try {
+            fs = filesDao.findFilesByPathAndFileNameNotIn(path, fileNames);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,14 +129,14 @@ public class FilesService {
      */
     public boolean download(String fileName, HttpServletResponse response) {
         Files f = findFilesByFileName(fileName);
-        File imgFile = new File(f.getLocation());
-        if (!NullUtil.isNull(fileName) && imgFile.exists()) {
+        File file = new File(f.getLocation());
+        if (!NullUtil.isNull(fileName) && file.exists()) {
             try {
                 // 设置强制下载不打开
                 response.setContentType("application/force-download");
                 // 设置文件名
                 response.addHeader("Content-Disposition", "attachment;fileName=" + f.getOriginationName());
-                InputStream is = new FileInputStream(imgFile);
+                InputStream is = new FileInputStream(file);
                 OutputStream os = response.getOutputStream();
                 byte[] buffer = new byte[1024]; // 图片文件流缓存池
                 while (is.read(buffer) != -1) {
@@ -130,19 +156,26 @@ public class FilesService {
     }
 
     /**
-     * 处理图片显示请求
-     * 响应输出图片文件
+     * 处理文件显示请求
+     * 响应输出文件
      *
      * @param fileName
      * @param response
      */
-    public void get(String fileName, HttpServletResponse response) {
+    public void get(String path, String fileName, HttpServletResponse response) {
         Files f = findFilesByFileName(fileName);
-        File imgFile = new File(imagePathTemp + fileName + f.getExt());
+
+        //如果直接传location, filename需要set null
+        File file;
+        if (NullUtil.isNull(f)) {
+            file = new File(path);
+        } else {
+            file = new File(f.getLocation());
+        }
         try {
-            InputStream is = new FileInputStream(imgFile);
+            InputStream is = new FileInputStream(file);
             OutputStream os = response.getOutputStream();
-            byte[] buffer = new byte[1024]; // 图片文件流缓存池
+            byte[] buffer = new byte[1024]; // 文件流缓存池
             while (is.read(buffer) != -1) {
                 os.write(buffer);
             }
@@ -182,7 +215,7 @@ public class FilesService {
         return "upload fail";
     }
 
-    public List uploads(MultipartFile[] files, String uuid) {
+    public List uploads(MultipartFile[] files, String uuid, String path) {
         // 存储上传成功的文件名，响应给客户端
         List<String> list = new ArrayList<>();
         // 判断文件数组长度
@@ -190,7 +223,6 @@ public class FilesService {
             list.add("请选择文件");
             return list;
         }
-        Users users = (Users) StpUtil.getSession().get("user");
         List<Files> fs = new ArrayList<>();
         for (MultipartFile multipartFile : files) {
             Files f = new Files();
@@ -209,13 +241,13 @@ public class FilesService {
 
             String fileName = uuid;
             // 文件存储全路径
-            File targetFile = new File(imagePath + fileName + suffix);
+            File targetFile = new File(path + fileName + suffix);
             // 判断文件存储目录是否存在，不存在则新建目录
             if (!targetFile.getParentFile().exists()) {
                 targetFile.getParentFile().mkdir();
             }
             try {
-                // 将图片保存
+                // 将文件保存
                 multipartFile.transferTo(targetFile);
                 list.add(fileName);
             } catch (IOException e) {
@@ -225,9 +257,8 @@ public class FilesService {
             f.setOriginationName(originalFilename);
             f.setExt(suffix);
             f.setFileName(fileName);
-            f.setLocation(imagePath + fileName + suffix);
-            f.setPath(imagePath);
-            f.setOwner(users.getUserId().toString());
+            f.setLocation(path + fileName + suffix);
+            f.setPath(path);
             f.setSize((multipartFile.getSize() / 1024));
             fs.add(f);
         }

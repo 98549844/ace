@@ -30,7 +30,7 @@ public class AceEnvironment {
     private static String imagesPath;
     private static String filesTemp;
     private static String imagesTemp;
-    private static String videoTemp;
+    private static String videoM3u8;
     private static String videoPath;
 
 
@@ -52,7 +52,8 @@ public class AceEnvironment {
             String imgPath = "C:\\ACE\\images\\";
             String vPath = "C:\\ACE\\videos\\";
             String temp = "temp\\";
-            setFolders(temp, fsPath, imgPath, vPath);
+            String m3u8 = "m3u8\\";
+            setFolders(temp, fsPath, imgPath, vPath, m3u8);
 
             String msg = "ACE environment folder setup complete on Windows !!!";
             Console.println(msg, Console.BLUE, Console.BOLD);
@@ -61,8 +62,10 @@ public class AceEnvironment {
             String imgPath = "TODO";
             String vPath = "TODO";
             String temp = "temp/";
+            String m3u8 = "m3u8/";
 
-            setFolders(temp, fsPath, imgPath, vPath);
+
+            setFolders(temp, fsPath, imgPath, vPath, m3u8);
 
             String msg = "ACE environment folder setup complete on MAC !!!";
             Console.println(msg, Console.BLUE, Console.BOLD);
@@ -72,17 +75,19 @@ public class AceEnvironment {
         }
     }
 
-    private static void setFolders(String temp, String folder, String images, String video) {
-        FileUtil.mkDirs(folder + temp);
+    private static void setFolders(String temp, String folder, String images, String video, String m3u8) {
+        //create folder
+        FileUtil.mkDirs(folder);
         FileUtil.mkDirs(images + temp);
-        FileUtil.mkDirs(video + temp);
+        FileUtil.mkDirs(video + m3u8);
 
+        //set value for system use
         setFilePath(folder);
         setFilesTemp(folder + temp);
         setImagesPath(images);
         setImagesTemp(images + temp);
         setVideoPath(video);
-        setVideoTemp(video + temp);
+        setVideoM3u8(video + m3u8);
     }
 
     public static String getFilePath() {
@@ -117,12 +122,13 @@ public class AceEnvironment {
         AceEnvironment.imagesTemp = imagesTemp;
     }
 
-    public static String getVideoTemp() {
-        return videoTemp;
+
+    public static String getVideoM3u8() {
+        return videoM3u8;
     }
 
-    public static void setVideoTemp(String videoTemp) {
-        AceEnvironment.videoTemp = videoTemp;
+    public static void setVideoM3u8(String videoM3u8) {
+        AceEnvironment.videoM3u8 = videoM3u8;
     }
 
     public static String getVideoPath() {
