@@ -38,6 +38,7 @@ public class MediaService {
     private String videoM3u8;
     private String videoPath;
     private FilesService filesService;
+    private final Path tempDir = Paths.get(System.getProperty("java.io.tmpdir"));
 
     @Autowired
     public MediaService(FilesService filesService) {
@@ -45,11 +46,6 @@ public class MediaService {
         this.videoM3u8 = AceEnvironment.getVideoM3u8();
         this.videoPath = AceEnvironment.getVideoPath();
     }
-
-
-    //  @Value("${app.video-folder}")
-    //  private String videoFolder;
-    private final Path tempDir = Paths.get(System.getProperty("java.io.tmpdir"));
 
     public Object uploads(MultipartFile video, TranscodeConfig transcodeConfig) throws IOException {
         Long size = video.getSize();

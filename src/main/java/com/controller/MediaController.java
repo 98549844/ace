@@ -48,9 +48,9 @@ public class MediaController extends CommonController {
     }
 
 
-
-
-    /** 开始加载媒体准备播放
+    /**
+     * 开始加载媒体准备播放
+     *
      * @param uuid
      * @param response
      * @param request
@@ -64,7 +64,9 @@ public class MediaController extends CommonController {
         filesService.get(location, null, response);
     }
 
-    /** access m3u8
+    /**
+     * access m3u8
+     *
      * @param uuid
      * @param response
      */
@@ -72,15 +74,14 @@ public class MediaController extends CommonController {
     @ResponseBody
     public void getM3U8(@PathVariable String uuid, HttpServletResponse response) {
         log.info("access media/play/ts/index.m3u8/{}", uuid);
-        //String uuid = request.getParameter("uuid");
-        //log.error("uuid:  " + uuid);
-        // String location = "C:\\ACE\\videos\\m3u8\\0011\\ts\\index.m3u8";
         String location = videoM3u8 + uuid + FileUtil.separator + tsIndexM3U8;
         log.info("Location: {}", location);
         filesService.get(location, null, response);
     }
 
-    /** access TS key
+    /**
+     * access TS key
+     *
      * @param uuid
      * @param response
      */
@@ -88,13 +89,14 @@ public class MediaController extends CommonController {
     @ResponseBody
     public void getKey(@PathVariable String uuid, HttpServletResponse response) {
         log.info("access media/play/ts/index.m3u8/key/{}", uuid);
-        // String location = "C:\\ACE\\videos\\m3u8\\0011\\ts\\key";
         String location = videoM3u8 + uuid + FileUtil.separator + tsKey;
         log.info("Location: {}", location);
         filesService.get(location, null, response);
     }
 
-    /** 加载TS切片
+    /**
+     * 加载TS切片
+     *
      * @param response
      * @param ts
      * @param uuid
@@ -103,7 +105,6 @@ public class MediaController extends CommonController {
     @ResponseBody
     public void getTs(HttpServletResponse response, @PathVariable String ts, @PathVariable String uuid) {
         log.info("access media/play/ts//index.m3u8/{}/{}", ts, uuid);
-        // String location = "C:\\ACE\\videos\\m3u8\\0011\\ts\\000000.ts";
         String location = videoM3u8 + uuid + FileUtil.separator + "ts" + FileUtil.separator + ts;
         log.info("Location: {}", location);
         filesService.get(location, null, response);
@@ -122,6 +123,8 @@ public class MediaController extends CommonController {
     public Object uploads(@RequestPart(name = "file", required = true) MultipartFile video, @RequestPart(name = "config", required = true) TranscodeConfig transcodeConfig) throws IOException {
         return mediaService.uploads(video, transcodeConfig);
     }
+
+
 
 
 }
