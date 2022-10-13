@@ -260,16 +260,5 @@ public class AceController extends CommonController {
     }
 
 
-    /**
-     * access to media
-     *
-     * @return
-     */
-    @RequestMapping(value = "/media.html", method = RequestMethod.GET)
-    public ModelAndView media() {
-        log.info("access ace/media.html");
-        ModelAndView modelAndView = super.page("ace/tool-pages/media");
-        return modelAndView;
-    }
 }
 
