@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Classname: AceController
  * @Date: 1/7/2021 4:33 上午
@@ -257,5 +259,17 @@ public class AceController extends CommonController {
         return modelAndView;
     }
 
+
+    /**
+     * access to media
+     *
+     * @return
+     */
+    @RequestMapping(value = "/media.html", method = RequestMethod.GET)
+    public ModelAndView media() {
+        log.info("access ace/media.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/media");
+        return modelAndView;
+    }
 }
 

@@ -47,16 +47,7 @@ public class MediaController extends CommonController {
         this.videoM3u8 = AceEnvironment.getVideoM3u8();
     }
 
-    /** access to media
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "/media.html", method = RequestMethod.GET)
-    public ModelAndView media(HttpServletRequest request) {
-        log.info("access ace/media.html");
-        ModelAndView modelAndView = super.page("ace/tool-pages/media");
-        return modelAndView;
-    }
+
 
 
     /** 开始加载媒体准备播放

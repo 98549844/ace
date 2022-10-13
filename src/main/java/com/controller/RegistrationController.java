@@ -59,7 +59,6 @@ public class RegistrationController extends CommonController {
             modelAndView.addObject("msg", msg);
             modelAndView.addObject(Css.css, Css.green);
         } else {
-          //  modelAndView = super.redirect("ace/login.html?msg=exist");
             modelAndView = super.page("ace/login.html");
             String msg = "User exist";
             String msgCss = Css.red;
