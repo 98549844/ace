@@ -27,11 +27,11 @@ public class AceEnvironment {
     //container of application.yml value
     public static Environment environment;
     private static String filePath;
+    //  private static String filesTemp;
     private static String imagesPath;
-    private static String filesTemp;
-    private static String imagesTemp;
-    private static String videoM3u8;
+    private static String imagesThumbnail;
     private static String videoPath;
+    private static String videoM3u8;
 
 
     @Autowired
@@ -48,24 +48,31 @@ public class AceEnvironment {
 
     private static void folderSetUp() {
         if (OsUtil.getOsName().contains(OsUtil.WINDOWS)) {
-            String fsPath = "C:\\ACE\\files\\";
-            String imgPath = "C:\\ACE\\images\\";
-            String vPath = "C:\\ACE\\videos\\";
-            String temp = "temp\\";
+            String c = "C:\\";
+            String ace = "ACE\\";
+            String filePath = c + ace + "files\\";
+            String imgPath = c + ace + "images\\";
+            String thumbnail = "thumbnail\\";
+            String video = c + ace + "videos\\";
             String m3u8 = "m3u8\\";
-            setFolders(temp, fsPath, imgPath, vPath, m3u8);
+
+            //create folder
+            FileUtil.mkDirs(filePath);
+            FileUtil.mkDirs(imgPath + thumbnail);
+            FileUtil.mkDirs(video + m3u8);
+
+            //set value for system use
+            setFilePath(filePath);
+            setImagesPath(imgPath);
+            setImagesThumbnail(imgPath + thumbnail);
+            setVideoPath(video);
+            setVideoM3u8(video + m3u8);
 
             String msg = "ACE environment folder setup complete on Windows !!!";
             Console.println(msg, Console.BLUE, Console.BOLD);
         } else if (OsUtil.getOsName().contains(OsUtil.MAC)) {
-            String fsPath = "TODO";
-            String imgPath = "TODO";
-            String vPath = "TODO";
-            String temp = "temp/";
-            String m3u8 = "m3u8/";
 
 
-            setFolders(temp, fsPath, imgPath, vPath, m3u8);
 
             String msg = "ACE environment folder setup complete on MAC !!!";
             Console.println(msg, Console.BLUE, Console.BOLD);
@@ -75,20 +82,7 @@ public class AceEnvironment {
         }
     }
 
-    private static void setFolders(String temp, String folder, String images, String video, String m3u8) {
-        //create folder
-        FileUtil.mkDirs(folder);
-        FileUtil.mkDirs(images + temp);
-        FileUtil.mkDirs(video + m3u8);
 
-        //set value for system use
-        setFilePath(folder);
-        setFilesTemp(folder + temp);
-        setImagesPath(images);
-        setImagesTemp(images + temp);
-        setVideoPath(video);
-        setVideoM3u8(video + m3u8);
-    }
 
     public static String getFilePath() {
         return filePath;
@@ -106,22 +100,13 @@ public class AceEnvironment {
         AceEnvironment.imagesPath = imagesPath;
     }
 
-    public static String getFilesTemp() {
-        return filesTemp;
+    public static String getImagesThumbnail() {
+        return imagesThumbnail;
     }
 
-    public static void setFilesTemp(String filesTemp) {
-        AceEnvironment.filesTemp = filesTemp;
+    public static void setImagesThumbnail(String imagesThumbnail) {
+        AceEnvironment.imagesThumbnail = imagesThumbnail;
     }
-
-    public static String getImagesTemp() {
-        return imagesTemp;
-    }
-
-    public static void setImagesTemp(String imagesTemp) {
-        AceEnvironment.imagesTemp = imagesTemp;
-    }
-
 
     public static String getVideoM3u8() {
         return videoM3u8;

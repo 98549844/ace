@@ -12,11 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Classname: MediaController
@@ -48,7 +52,9 @@ public class MediaController extends CommonController {
     }
 
 
-    /** access to media
+    /**
+     * access to media
+     *
      * @param request
      * @return
      */
@@ -72,7 +78,7 @@ public class MediaController extends CommonController {
         log.info("access ace/play.html uuid: {}", uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + indexM3U8;
         log.info("Location: {}", location);
-        filesService.get(location, null, response);
+        filesService.get(location, response);
     }
 
     /**
@@ -87,7 +93,7 @@ public class MediaController extends CommonController {
         log.info("access media/play/ts/index.m3u8/{}", uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + tsIndexM3U8;
         log.info("Location: {}", location);
-        filesService.get(location, null, response);
+        filesService.get(location, response);
     }
 
     /**
@@ -102,7 +108,7 @@ public class MediaController extends CommonController {
         log.info("access media/play/ts/index.m3u8/key/{}", uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + tsKey;
         log.info("Location: {}", location);
-        filesService.get(location, null, response);
+        filesService.get(location, response);
     }
 
     /**
@@ -118,25 +124,38 @@ public class MediaController extends CommonController {
         log.info("access media/play/ts//index.m3u8/{}/{}", ts, uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + "ts" + FileUtil.separator + ts;
         log.info("Location: {}", location);
-        filesService.get(location, null, response);
+        filesService.get(location, response);
     }
 
     /**
      * 上传视频进行切片处理，返回访问路径
      *
-     * @param video
-     * @param transcodeConfig
+     * @param media
      * @return
      * @throws IOException
      */
-    @PostMapping(value = "/media/upload.html")
+    @PostMapping(value = "/media/uploads.html")
     @ResponseBody
-    public Object uploads(@RequestPart(name = "file", required = true) MultipartFile video, @RequestPart(name = "config", required = true) TranscodeConfig transcodeConfig) throws IOException {
-        return mediaService.uploads(video, transcodeConfig);
+    //  public Object uploads(@RequestPart(name = "media") MultipartFile media, @RequestPart(name = "config") TranscodeConfig transcodeConfig) throws IOException {
+    public List<String> uploads(@RequestPart(name = "media") MultipartFile[] media, MultipartHttpServletRequest request) throws IOException {
+        String uuid = request.getParameter("uuid");
+        log.info("access media/uploads.html uuid: {}", uuid);
+        List<String> list = filesService.uploads(media, uuid, videoPath);
+
+
+        return list;
     }
 
 
-
+    @RequestMapping(value = "/media/m3u8StreamProcess.html", method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> m3u8StreamProcess() throws IOException {
+        log.info("access media/m3u8StreamProcess.html");
+        log.info("FFmpeg start processing ...");
+        List list = mediaService.getM3U8();
+        log.info("FFmpeg process complete !!!");
+        return list;
+    }
 
 }
 

@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:include="ace/pb-pages/header :: header">
-    <!-- inline styles related to this page -->
 </head>
 
 <body class="no-skin">
 <div id="navbar" class="navbar navbar-default ace-save-state"
-     th:include="ace/pb-pages/navbar :: navbar"></div>
+     th:include="templates/ace/pb-pages/navbar :: navbar"></div>
 
 <div class="main-container ace-save-state" id="main-container">
     <script type="text/javascript">
@@ -16,8 +15,7 @@
         }
     </script>
 
-    <div id="sidebar" class="sidebar responsive ace-save-state"
-         th:include="ace/pb-pages/sidebar :: sidebar">
+    <div id="sidebar" class="sidebar responsive ace-save-state" th:include="templates/ace/pb-pages/sidebar :: sidebar">
     </div>
 
     <div class="main-content">
@@ -25,25 +23,105 @@
             <div class="breadcrumbs" th:include="ace/pb-pages/breadcrumbs :: breadcrumbs"></div>
             <div class="page-content">
                 <div class="ace-settings-container" id="ace-settings-container"
-                     th:include="ace/pb-pages/ace-settings-container :: ace-settings-container">
+                     th:include="templates/ace/pb-pages/ace-settings-container :: ace-settings-container">
                 </div><!-- /.ace-settings-container -->
 
                 <div class="page-header">
                     <h1>
-                        Media Player
+                        Media
                         <small>
                             <i class="ace-icon fa fa-angle-double-right"></i>
-                            Streaming
+                            Upload && List Ace media playground
                         </small>
                     </h1>
                 </div><!-- /.page-header -->
-                <div class="row col-sm-7">
+
+                <div class="col-sm-7">
+                    <div id="accordion" class="page-header accordion-style1 panel-group">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                       data-parent="#accordion" href="#mediaUpload">
+                                        <i class="ace-icon fa fa-angle-right bigger-110"
+                                           data-icon-hide="ace-icon fa fa-angle-down"
+                                           data-icon-show="ace-icon fa fa-angle-right"></i>
+                                        &nbsp;<strong>Media dropzone:</strong>
+                                        <small>
+                                            <i class="ace-icon fa"></i>
+                                            Drag & drop media upload with screenshot preview
+                                        </small>
+                                    </a>
+                                </h4>
+                            </div>
+
+                            <div class="panel-collapse collapse" id="mediaUpload">
+                                <div class="panel-body">
+                                    <form class="dropzone well"
+                                          id="drop-zone" enctype="multipart/form-data"
+                                          style="border-radius: 10px;">
+                                        <div class="fallback">
+                                            <input name="file" type="file" multiple=""/>
+                                        </div>
+                                    </form>
+                                    <div id="preview-template" class="hide">
+                                        <div class="dz-preview dz-file-preview">
+                                            <div class="dz-image">
+                                                <img data-dz-thumbnail=""/>
+                                            </div>
+                                            <div class="dz-details">
+                                                <div class="dz-size">
+                                                    <span data-dz-size=""></span>
+                                                </div>
+
+                                                <div class="dz-filename">
+                                                    <span data-dz-name=""></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="dz-progress">
+                                                <span class="dz-upload" data-dz-uploadprogress=""></span>
+                                            </div>
+
+                                            <div class="dz-error-message">
+                                                <span data-dz-errormessage=""></span>
+                                            </div>
+
+                                            <div class="dz-success-mark">
+											<span class="fa-stack fa-lg bigger-150">
+												<i class="fa fa-circle fa-stack-2x white"></i>
+
+												<i class="fa fa-check fa-stack-1x fa-inverse green"></i>
+											</span>
+                                            </div>
+
+                                            <div class="dz-error-mark">
+											<span class="fa-stack fa-lg bigger-150">
+												<i class="fa fa-circle fa-stack-2x white"></i>
+												<i class="fa fa-remove fa-stack-1x fa-inverse red"></i>
+											</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        选择转码文件: <input name="file" type="file" accept="video/*" onchange="upload(event)">
-                        <hr/>
-                        <!--                        <video id="video" width="500" height="400" controls="controls"></video>-->
-                        <div id="dplayer"></div>
+                        <div>
+                            <ul class="ace-thumbnails clearfix" id="imageDiv">
+
+
+                            </ul>
+                        </div><!-- PAGE CONTENT ENDS -->
+
                         <!-- PAGE CONTENT ENDS -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -51,234 +129,288 @@
         </div>
     </div><!-- /.main-content -->
 
-    <div class="footer" th:include="ace/pb-pages/footer :: footer">
+    <div class="footer" th:include="templates/ace/pb-pages/footer :: footer">
     </div>
+
     <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse"
-       th:include="ace/pb-pages/btn-scroll-up :: btn-scroll-up">
+       th:include="templates/ace/pb-pages/btn-scroll-up :: btn-scroll-up">
     </a>
 </div><!-- /.main-container -->
 
-<div th:include="ace/pb-pages/common-script :: common-script"></div>
+
+<div th:include="templates/ace/pb-pages/common-script :: common-script"></div>
 <!-- page specific plugin scripts -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dplayer@1.25.0/dist/DPlayer.min.css" type="text/css"/>
-<script src="https://cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
-<script src="https://cdn.bootcss.com/flv.js/1.5.0/flv.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<!--<script src="https://cdn.jsdelivr.net/hls.js/latest/hls.min.js"></script>-->
-<script src="https://cdn.jsdelivr.net/npm/dplayer@1.27.0/dist/DPlayer.min.js"></script>
+<!--<script th:src="@{/assets/js/dropzone.min.js}"></script>-->
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css"/>
+<script th:src="@{/assets/js/jquery.colorbox.min.js}"></script>
 
 
-<script>
+<script type="text/javascript">
+    jQuery(function ($) {
+        Dropzone.options.dropZone = {
+            url: "media/uploads.html",
 
-    const video = document.getElementById('video');
+            previewTemplate: $('#preview-template').html(),
+            paramName: "media", // 提交的参数,默认为file
+            thumbnailHeight: 120,
+            thumbnailWidth: 120,
+            maxFilesize: 10240,
+            maxFiles: 1, //限制每次上传文件量
+            addRemoveLinks: true,
+            dictRemoveFile: '<i class="ace-icon glyphicon glyphicon-trash"></i>',
+            dictCancelUpload: 'cancel',
+            acceptedFiles: ".wmv,.asf,.asx,.rm,.rmvb,.mpg,.mpeg,.mpe,.3gp,.mov,.mp4,.m4v,.avi,.dat,.mkv,.flv,.vob", // 上传的类型
+            parallelUploads: 3,
+            //  clickable: true, //若果设置 true, locatdropzone 元素本身将可以点击
+            dictDefaultMessage: //框内文本内容
+                '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop media</span> to upload \
+                 <span class="smaller-80 grey">(or click)</span><br/> \
+                 <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>',
+            //autoProcessQueue: true,
+            /*renameFile: function (file) {
+                const dt = new Date();
+                const time = dt.getTime();
+                return time + file.name;
+            },*/
 
-    function upload(e) {
-        let files = e.target.files
-        if (!files) {
-            return
-        }
+            init: function () {
+                /*const submitButton = document.querySelector("#act-on-upload");
+                const myDropzone = this; // closure
+                //为上传按钮添加点击事件
+                submitButton.addEventListener("click", function () {
+                    //配合autoProcessQueue: false
+                    $('#subModel').modal('hide');
+                    //手动上传
+                    myDropzone.processQueue();
+                });*/
 
-        // TODO 转码配置这里固定死了
-        const transCodeConfig = {
-            poster: "00:00:00.001", // 截取第1毫秒作为封面
-            tsSeconds: 15,
-            cutStart: "",
-            cutEnd: ""
-        };
-
-        // 执行上传
-        let formData = new FormData();
-        formData.append("file", files[0])
-        formData.append("config", new Blob([JSON.stringify(transCodeConfig)], {type: "application/json; charset=utf-8"}))
-
-        fetch('/ace/media/upload.html', {
-            method: 'POST',
-            body: formData
-        })
-            .then(resp => resp.json())
-            .then(message => {
-                if (message.success) {
-                    // 设置封面
-                    video.poster = message.data.poster;
-
-                    // 渲染到播放器
-                    const hls = new Hls();
-                    hls.loadSource(message.data.m3u8);
-                    hls.attachMedia(video);
-                } else {
-                    alert("转码异常，详情查看控制台");
-                    console.log(message.message);
+                this.on("addedfile", function (file) {
+                    //alert("addedfile fileName:  " + file.name + "uuid:  " + file.upload.uuid)
+                    //上传文件时触发的事件
+                });
+                this.on("sending", function (file, xhr, formData) {
+                    formData.append("uuid", file.upload.uuid);
+                });
+                this.on("success", function (file, data) {
+                    //上传成功触发的事件
+                    console.log('ok');
+                });
+                this.on("error", function (file, data) {
+                    //上传失败触发的事件
+                    console.log('fail');
+                    let message = '';
+                    //lavarel框架有一个表单验证，
+                    //对于ajax请求，JSON 响应会发送一个 422 HTTP 状态码，
+                    //对应file.accepted的值是false，在这里捕捉表单验证的错误提示
+                    if (file.accepted) {
+                        $.each(data, function (key, val) {
+                            message = message + val[0] + ';';
+                        })
+                        //控制器层面的错误提示，file.accepted = true的时候；
+                        alert(message);
+                    }
+                });
+                this.on("removedfile", function (file) {
+                    const ext = file.name.split('.')[1];
+                    $.ajax({
+                        type: "get", // 以get方式发起请求
+                        url: "image/remove/" + file.upload.uuid,
+                        dataType: "json",
+                        // 将你的请求参数以问号拼接到url中进行参数传递
+                        success(data) {
+                        },
+                        error(data) {
+                        }
+                    })
+                });
+            },
+            //文件信息预览
+            thumbnail: function (file, dataUrl) {
+                if (file.previewElement) {
+                    $(file.previewElement).removeClass("dz-file-preview");
+                    const images = $(file.previewElement).find("[data-dz-thumbnail]").each(function () {
+                        const thumbnailElement = this;
+                        thumbnailElement.alt = file.name;
+                        thumbnailElement.src = dataUrl;
+                    });
+                    setTimeout(function () {
+                        $(file.previewElement).addClass("dz-image-preview");
+                    }, 1);
                 }
-            })
-            .catch(err => {
-                alert("转码异常，详情查看控制台");
-                alert("err: " + err);
-                throw err
-            })
+            },
+        }
+        loadingImage();
+        viewImage();
+    });
+
+    //collapse触发
+    $("a.accordion-toggle").bind("click", function () {
+        loadingImage();
+    });
+
+    //colorbox jq
+    function viewImage() {
+        let $overflow = '';
+        const colorbox_params = {
+            rel: 'colorbox',
+            reposition: true,
+            scalePhotos: true,
+            scrolling: false,
+            previous: '<i class="ace-icon fa fa-arrow-left"></i>',
+            next: '<i class="ace-icon fa fa-arrow-right"></i>',
+            close: '&times;',
+            current: '{current} of {total}',
+            maxWidth: '100%',
+            maxHeight: '100%',
+            onOpen: function () {
+                $overflow = document.body.style.overflow;
+                document.body.style.overflow = 'hidden';
+            },
+            onClosed: function () {
+                document.body.style.overflow = $overflow;
+            },
+            onComplete: function () {
+                $.colorbox.resize();
+            }
+        };
+        $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
+        $("#cboxLoadingGraphic").html("<i class='ace-icon fa fa-spinner orange fa-spin'></i>");//let's add a custom loading icon
+        $(document).one('ajaxloadstart.page', function (e) {
+            $('#colorbox, #cboxOverlay').remove();
+        });
     }
 
+    //加载视频截图
+    function loadingImage() {
+        const loadingDialog = dialog({
+            title: 'Media Streaming processing ...',
+            content: $("#loading_img").html(),
+            cancel: false,
+        });
+        loadingDialog.showModal();
 
-    const url = 'media/play.html';
-    const vid = md5(url);
-    const dp = new DPlayer({
-        container: document.getElementById('dplayer'),
-        autoplay: true, // 自动播放
-        theme: '#FADFA3', // 主题
-        loop: true, // 循环播放
-        lang: 'zh-cn', // 语言
-        screenshot: true, // 截图
-        hotkey: true, // 热键
-        airplay: true,
-        Chromecast: true,
-        playbackSpeed: [0.5, 0.75, 1, 1.25, 1.5, 2],
-        preload: 'auto', // 预加载
-        // logo: '/assets/octocat.png', // 左上角logo
-        volume: 0.7, // 音量
-        mutex: true, // 阻止多个播放器同时播放
-        // 常规方式
-        /*video: {
-            url: url,
-            type: 'normal',
-            pic: '/assets/demo.png', // 封面
-            thumbnails: '/assets/thumbnail.jpg', // 缩略图
-        },*/
-        // m3u8
-        video: {
-            url: 'media/play/' + 'd74f75c6-d575-4bd0-934e-b4e739ec5866',
-            type: 'hls',
-            defaultQuality: 0
-        },
-        pluginOptions: {
-            hls: {
-                autoStartLoad: true,
-                startPosition: -1,
-                // hls config
-                xhrSetup: function (xhr, url) {
-                    if (url.indexOf('.ts') !== -1 || url.indexOf('key') !== -1) {
-                        url = url + '/' + 'd74f75c6-d575-4bd0-934e-b4e739ec5866';
-                    } else if (url.indexOf('\u0000') !== -1) {
-                        url = 'media/play/ts/index.m3u8/' + 'd74f75c6-d575-4bd0-934e-b4e739ec5866';
-                    }
-                    xhr.open('GET', url, true);
+        $.ajax({
+            type: "get", // 以get方式发起请求
+            url: "media/m3u8StreamProcess.html",
+            dataType: "json",
+            // 将你的请求参数以问号拼接到url中进行参数传递
+            success(data) {
+                let html = "";
+                for (let i = 0; i < data.length; i++) {
+                    html = html + "<li id=\"li-" + data[i].fileName + "\">\n" +
+                        "    <a href=\"image/get/" + data[i].fileName + "." + data[i].ext + "\" data-rel=\"colorbox\">\n" +
+                        "        <img width=\"150\" height=\"150\" alt=\"150x150\"\n" +
+                        "             src=\"image/get/" + data[i].fileName + "\" id=\"img-" + data[i].fileName + "\"/>\n" +
+                        "    </a>\n" +
+                        "    <div class=\"tools tools-bottom\">\n" +
+                        "        <a href=\"javascript:void(0);\" id=\"rotate-l-" + data[i].fileName + "\"  class=\"rotate\">\n" +
+                        "            <i class=\"ace-icon fa fa-undo\"></i>\n" +
+                        "        </a>\n" +
+                        "        <a href=\"javascript:void(0);\" id=\"rotate-r-" + data[i].fileName + "\"  class=\"rotate\">\n" +
+                        "            <i class=\"ace-icon fa fa-repeat\"></i>\n" +
+                        "        </a>\n" +
+                        "        <a href=\"image/download/" + data[i].fileName + "\" id=\"download-" + data[i].fileName + "\" class=\"imageDownload\">\n" +
+                        "            <i class=\"ace-icon fa fa-download green\"></i>\n" +
+                        "        </a>\n" +
+                        "        <a href=\"javascript:void(0);\" id=\"delete-" + data[i].fileName + "\"  class=\"imageDelete\">\n" +
+                        "            <i class=\"ace-icon fa fa-times red\"></i>\n" +
+                        "        </a>\n" +
+                        "    </div>\n" +
+                        "</li>";
                 }
+                $("#imageDiv").html(html);
+                viewImage();
+                loadingDialog.close().remove();
+                // data为返回值
+                // 成功后的回调方法
             },
-            flv: {
-                enableWorker: false,
-                enableStashBuffer: true,
-                stashInitialSize: undefined,
-
-                isLive: false,
-
-                lazyLoad: true,
-                lazyLoadMaxDuration: 3 * 60,
-                lazyLoadRecoverDuration: 30,
-                deferLoadAfterSourceOpen: true,
-
-                // autoCleanupSourceBuffer: default as false, leave unspecified
-                autoCleanupMaxBackwardDuration: 3 * 60,
-                autoCleanupMinBackwardDuration: 2 * 60,
-
-                statisticsInfoReportInterval: 600,
-
-                fixAudioTimestampGap: true,
-
-                accurateSeek: false,
-                seekType: 'range',  // [range, param, custom]
-                seekParamStart: 'bstart',
-                seekParamEnd: 'bend',
-                rangeLoadZeroStart: false,
-                customSeekHandler: undefined,
-                reuseRedirectedURL: false,
-                // referrerPolicy: leave as unspecified
-
-                headers: undefined,
-                customLoader: undefined
+            error(data) {
+                window.location.href = '500.html';
             }
-        },
+        })
+    }
 
-        // 切换视频质量
-        //video: {
-        //    quality: [
-        //        {
-        //            name: 'HD',
-        //            url: 'demo.m3u8',
-        //            type: 'hls',
-        //        },
-        //        {
-        //            name: 'SD',
-        //            url: 'demo.mp4',
-        //            type: 'normal',
-        //        },
-        //    ],
-        //    defaultQuality: 0,
-        //    pic: 'demo.png',
-        //    thumbnails: 'thumbnails.jpg',
-        //},
-        // 视频字幕
-        /*subtitle: {
-            type: 'webvtt',
-            url: 'webvtt.vtt',
-            fontSize: '25px',
-            bottom: '10%',
-            color: '#b7daff'
-        },*/
-        // 弹幕
-        /*danmaku: {
-            id: vid,
-            api: 'http://192.168.1.172:1207/',
-            addition: ['http://192.168.1.172:1207/v3/bilibili?aid=80266688&cid=137358410']
-        },*/
-        // 视频右键菜单
-        /*contextmenu: [
-            {
-                text: 'falltakeman',
-                link: 'https://cnblogs.com/falltakeman',
+    let $body = $('body');
+
+    /* $(document).on('click', '.imageDelete', function(){
+         alert(this.id)
+         // 事件处理函数
+     });*/
+
+    $body.on('click', '.rotate', function () {
+        const idl = $(this).attr('id').split("rotate-l-")[1];
+        const idr = $(this).attr('id').split("rotate-r-")[1];
+
+        let imgId;
+        let rotateURL;
+        if (typeof (idl) == "undefined") {
+            rotateURL = "image/rotate/right/" + idr;
+            imgId = idr;
+        } else {
+            rotateURL = "image/rotate/left/" + idl;
+            imgId = idl;
+        }
+
+        $.ajax({
+            type: "get", // 以get方式发起请求
+            url: rotateURL,
+            dataType: "json",
+            // 将你的请求参数以问号拼接到url中进行参数传递
+            success(data) {
+                let html = "";
+                // alert("data=> " + data);
+                html = html + "<li id=\"li-" + data.fileName + "\">\n" +
+                    "    <a href=\"image/get/" + data.fileName + data.ext + "\" data-rel=\"colorbox\">\n" +
+                    "        <img width=\"150\" height=\"150\" alt=\"150x150\"\n" +
+                    "             src=\"image/get/" + data.fileName + "\" id=\"img-" + imgId + "\"/>\n" +
+                    "    </a>\n" +
+                    "    <div class=\"tools tools-bottom\">\n" +
+                    "        <a href=\"javascript:void(0);\" id=\"rotate-l-" + data.fileName + "\"  class=\"rotate\">\n" +
+                    "            <i class=\"ace-icon fa fa-undo\"></i>\n" +
+                    "        </a>\n" +
+                    "        <a href=\"javascript:void(0);\" id=\"rotate-r-" + data.fileName + "\"  class=\"rotate\">\n" +
+                    "            <i class=\"ace-icon fa fa-repeat\"></i>\n" +
+                    "        </a>\n" +
+                    "        <a href=\"image/download/" + data.fileName + "\" id=\"download-" + data.fileName + "\" class=\"imageDownload\">\n" +
+                    "            <i class=\"ace-icon fa fa-download green\"></i>\n" +
+                    "        </a>\n" +
+                    "        <a href=\"javascript:void(0);\" id=\"delete-" + data.fileName + "\"  class=\"imageDelete\">\n" +
+                    "            <i class=\"ace-icon fa fa-times red\"></i>\n" +
+                    "        </a>\n" +
+                    "    </div>\n" +
+                    "</li>";
+                $("#li-" + imgId + "").replaceWith(html);
+                viewImage();
             },
-            {
-                text: 'dplayer',
-                click: (player) => {
-                    console.log(player);
-                },
+            error(data) {
+                window.location.href = '500.html';
             },
-        ],*/
-        // 高能预告
-        /* highlight: [
-             {
-                 text: '敌军还有10秒到达战场',
-                 time: 10,
-             },
-             {
-                 text: '2mins 空降',
-                 time: 120,
-             },
-         ],*/
+        })
+
     });
 
-    dp.on('play', function () {
-    });
-
-    dp.on('pause', function () {
-    });
-
-    dp.on('canplay', function () {
-    });
-
-    dp.on('playing', function () {
-    });
-
-    dp.on('ended', function () {
-    });
-
-    dp.on('error', function () {
+    $body.on('click', '.imageDelete', function () {
+        let id = $(this).attr('id');
+        let imageId = id.split("delete-")[1];
+        $.ajax({
+            type: "get", // 以get方式发起请求
+            url: "image/delete/" + imageId,
+            dataType: "json",
+            // 将你的请求参数以问号拼接到url中进行参数传递
+            success(data) {
+                //const rs = 'image/get/' + data;
+                $("#li-" + imageId + "").css('display', 'none');
+                //  $(this).parent().parent().hide();
+            },
+            error(data) {
+                window.location.href = '500.html';
+            },
+        })
     });
 
 
-    /*new DPlayer({
-        container: document.getElementById('dplayer'),
-        video: {
-            url: 'media/play.html',
-        },
-    });*/
 </script>
+
 </body>
 </html>

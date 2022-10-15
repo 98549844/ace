@@ -19,6 +19,15 @@ public class TranscodeConfig {
     private String cutStart;            // 视频裁剪，开始时间		HH:mm:ss.[SSS]
     private String cutEnd;                // 视频裁剪，结束时间		HH:mm:ss.[SSS]
 
+
+    public TranscodeConfig() {
+        this.poster = "00:00:00.001";
+        this.tsSeconds = "15";
+        this.cutStart = "";
+        this.cutEnd = "";
+    }
+
+
     @Override
     public String toString() {
         String tsConfig = "TranscodeConfig [poster= " + poster + ", tsSeconds= " + tsSeconds + ", cutStart= " + cutStart + ", cutEnd= " + cutEnd + "]";

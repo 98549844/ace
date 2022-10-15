@@ -5,11 +5,13 @@ import com.models.entity.dao.Files;
 import com.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.tools.ant.types.resources.Last;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,48 +29,52 @@ public class GalleryService {
 
     private FilesService filesService;
     private final String imagePath;
-    private final String imagePathTemp;
+    private final String imagesThumbnail;
 
     @Autowired
     public GalleryService(FilesService filesService) {
         this.filesService = filesService;
         this.imagePath = AceEnvironment.getImagesPath();
-        this.imagePathTemp = AceEnvironment.getImagesTemp();
+        this.imagesThumbnail = AceEnvironment.getImagesThumbnail();
     }
 
     public List getImages() throws IOException {
-        String src = imagePath;
-        String temp = imagePathTemp;
-        log.info("image location: {}", src);
+        log.info("image location: {}", imagePath);
 
-        List<String> ls = FileUtil.getFileNames(src);
-        List<String> tempLs = FileUtil.getFileNames(temp);
+        List<String> ls = FileUtil.getFileNames(imagePath);
+        List<String> tempLs = FileUtil.getFileNames(imagesThumbnail);
 
-        Map mp = ListUtil.getDeduplicateElements(ls, tempLs);
-        compressImages((List<String>) mp.get(ListUtil.LIST_1));
-        tempLs = (List<String>) mp.get(ListUtil.LIST_2);
-        if (NullUtil.isNotNull(tempLs) && tempLs.size() > 0) {
-            for (String s : tempLs) {
-                FileUtil.delete(imagePathTemp + s);
+        try {
+            Map mp = ListUtil.getDeduplicateElements(ls, tempLs);
+            compressImages((List<String>) mp.get(ListUtil.LIST_1));
+            tempLs = (List<String>) mp.get(ListUtil.LIST_2);
+            if (NullUtil.isNotNull(tempLs)) {
+                for (String s : tempLs) {
+                    FileUtil.delete(imagesThumbnail + s);
+                }
             }
+        } catch (Exception e) {
+            log.warn("Image still compressing, not ready to display ....");
+            e.printStackTrace();
+        } finally {
+            //根据folder实际文件控制数据库, 删除folder不存文件数据
+            List<String> fName = FileUtil.getNames(ls);
+            List<Files> filesList = filesService.findFilesByPathAndFileNameNotIn(imagePath, fName);
+            filesService.deleteAll(filesList);
+            return FileUtil.getNamesOrderByLastModifiedDate(imagesThumbnail, true);
         }
-        //根据folder实际文件控制数据库, 删除folder不存文件数据
-        List<String> fName = FileUtil.getNames(ls);
-        List<Files> filesList = filesService.findFilesByPathAndFileNameNotIn(imagePath , fName );
-        filesService.deleteAll(filesList);
-        return FileUtil.getNamesOrderByLastModifiedDate(temp, true);
     }
 
     private void compressImages(List<String> ls) {
         log.info("temp images expired, compressing image ...");
-        if (NullUtil.isNull(ls) || ls.size() == 0) {
+        if (NullUtil.isNull(ls)) {
             return;
         }
         try {
             ImageUtil imageUtil = new ImageUtil();
             for (String name : ls) {
                 imageUtil.square(imagePath + name);
-                ImageUtil.compress(imagePathTemp + name);
+                ImageUtil.compress(imagesThumbnail + name);
             }
         } catch (Exception e) {
             log.error("Include non image files !!!");
@@ -88,8 +94,8 @@ public class GalleryService {
         Files f = filesService.findFilesByFileName(uuid);
         rename(f.getLocation(), imagePath + newUuid + f.getExt());
 
-        String temp = imagePathTemp + f.getFileName() + f.getExt();
-        String newTemp = imagePathTemp + newUuid + f.getExt();
+        String temp = imagesThumbnail + f.getFileName() + f.getExt();
+        String newTemp = imagesThumbnail + newUuid + f.getExt();
 
         f.setFileName(newUuid);
         f.setRemark("Ace Application UUID: " + newUuid);
@@ -110,7 +116,7 @@ public class GalleryService {
             throw new java.io.IOException("target file exists !!!");
         }
         if (oldName.renameTo(newName)) {
-            log.info("File renamed success => {}" , desc);
+            log.info("File renamed success => {}", desc);
         } else {
             log.error("File rename fail !!!");
         }
