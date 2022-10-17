@@ -144,7 +144,7 @@
         },*/
         // m3u8
         video: {
-            url: 'media/play/' + 'd74f75c6-d575-4bd0-934e-b4e739ec5866',
+            url: 'media/play/' + '77514355-cc8a-4c59-bfdb-b428ed99ee04',
             type: 'hls',
             defaultQuality: 0
         },
@@ -155,9 +155,9 @@
                 // hls config
                 xhrSetup: function (xhr, url) {
                     if (url.indexOf('.ts') !== -1 || url.indexOf('key') !== -1) {
-                        url = url + '/' + 'd74f75c6-d575-4bd0-934e-b4e739ec5866';
+                        url = url + '/' + '77514355-cc8a-4c59-bfdb-b428ed99ee04';
                     } else if (url.indexOf('\u0000') !== -1) {
-                        url = 'media/play/ts/index.m3u8/' + 'd74f75c6-d575-4bd0-934e-b4e739ec5866';
+                        url = 'media/play/ts/index.m3u8/' + '77514355-cc8a-4c59-bfdb-b428ed99ee04';
                     }
                     xhr.open('GET', url, true);
                 }

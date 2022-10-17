@@ -232,37 +232,6 @@
         loadingVideo();
     });
 
-    //colorbox jq
-    function viewImage() {
-        let $overflow = '';
-        const colorbox_params = {
-            rel: 'colorbox',
-            reposition: true,
-            scalePhotos: true,
-            scrolling: false,
-            previous: '<i class="ace-icon fa fa-arrow-left"></i>',
-            next: '<i class="ace-icon fa fa-arrow-right"></i>',
-            close: '&times;',
-            current: '{current} of {total}',
-            maxWidth: '100%',
-            maxHeight: '100%',
-            onOpen: function () {
-                $overflow = document.body.style.overflow;
-                document.body.style.overflow = 'hidden';
-            },
-            onClosed: function () {
-                document.body.style.overflow = $overflow;
-            },
-            onComplete: function () {
-                $.colorbox.resize();
-            }
-        };
-        $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
-        $("#cboxLoadingGraphic").html("<i class='ace-icon fa fa-spinner orange fa-spin'></i>");//let's add a custom loading icon
-        $(document).one('ajaxloadstart.page', function (e) {
-            $('#colorbox, #cboxOverlay').remove();
-        });
-    }
 
     //加载视频
     function loadingVideo() {
@@ -282,7 +251,7 @@
                 let html = "";
                 for (let i = 0; i < data.length; i++) {
                     html = html + "<li id=\"li-" + data[i].fileName + "\">\n" +
-                        "    <a href=\"media/get/" + data[i].fileName + "." + data[i].ext + "\" data-rel=\"colorbox\">\n" +
+                        "    <a href=\"media/get/" + data[i].fileName + "." + data[i].ext + "\" >\n" +
                         "        <img width=\"150\" height=\"150\" alt=\"150x150\"\n" +
                         "             src=\"media/get/" + data[i].fileName + "\" id=\"img-" + data[i].fileName + "\"/>\n" +
                         "    </a>\n" +
@@ -297,10 +266,7 @@
                         "</li>";
                 }
                 $("#imageDiv").html(html);
-                viewImage();
                 loadingDialog.close().remove();
-                // data为返回值
-                // 成功后的回调方法
             },
             error(data) {
                 window.location.href = '500.html';
@@ -310,52 +276,6 @@
 
     let $body = $('body');
 
-/*    $body.on('click', '.rotate', function () {
-        const idl = $(this).attr('id').split("rotate-l-")[1];
-        const idr = $(this).attr('id').split("rotate-r-")[1];
-
-        let imgId;
-        let rotateURL;
-        if (typeof (idl) == "undefined") {
-            rotateURL = "image/rotate/right/" + idr;
-            imgId = idr;
-        } else {
-            rotateURL = "image/rotate/left/" + idl;
-            imgId = idl;
-        }
-
-        $.ajax({
-            type: "get", // 以get方式发起请求
-            url: rotateURL,
-            dataType: "json",
-            // 将你的请求参数以问号拼接到url中进行参数传递
-            success(data) {
-                let html = "";
-                // alert("data=> " + data);
-                html = html + "" +
-                    "<li id=\"li-" + data.fileName + "\">\n" +
-                    "    <a href=\"image/get/" + data.fileName + data.ext + "\" data-rel=\"colorbox\">\n" +
-                    "        <img width=\"150\" height=\"150\" alt=\"150x150\"\n" +
-                    "             src=\"image/get/" + data.fileName + "\" id=\"img-" + imgId + "\"/>\n" +
-                    "    </a>\n" +
-                    "    <div class=\"tools tools-bottom\">\n" +
-                    "        <a href=\"javascript:void(0);\" id=\"rotate-l-" + data.fileName + "\"  class=\"rotate\">\n" +
-                    "            <i class=\"ace-icon fa fa-undo\"></i>\n" +
-                    "        </a>\n" +
-                    "        <a href=\"javascript:void(0);\" id=\"rotate-r-" + data.fileName + "\"  class=\"rotate\">\n" +
-                    "            <i class=\"ace-icon fa fa-repeat\"></i>\n" +
-                    "        </a>\n" +
-                    "    </div>\n" +
-                    "</li>";
-                $("#li-" + imgId + "").replaceWith(html);
-                viewImage();
-            },
-            error(data) {
-                window.location.href = '500.html';
-            },
-        })
-
-    });*/
 
 </script>
 

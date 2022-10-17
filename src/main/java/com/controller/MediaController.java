@@ -152,9 +152,9 @@ public class MediaController extends CommonController {
         log.info("FFmpeg start processing ...");
         List list = mediaService.getM3U8();
         log.info("FFmpeg process complete !!!");
-     //   String result = JsonUtil.ObjectToFormattedJson(list);
-     //   ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
-      //  modelAndView.addObject("ajaxResult", result);
+        //   String result = JsonUtil.ObjectToFormattedJson(list);
+        //   ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
+        //  modelAndView.addObject("ajaxResult", result);
         return list;
     }
 
@@ -164,7 +164,7 @@ public class MediaController extends CommonController {
      *
      * @param uuid
      */
-    @RequestMapping("/media/get/{uuid}")
+    @RequestMapping(value = "/media/get/{uuid}", method = RequestMethod.GET)
     public void get(@PathVariable("uuid") String uuid, HttpServletResponse response) {
         log.info("access media/get/{}", uuid);
         String name;
@@ -175,6 +175,14 @@ public class MediaController extends CommonController {
         }
         String location = videoM3u8 + name + FileUtil.separator + thumbnail;
         filesService.get(location, response);
+    }
+
+    // thumbnail: function => 好似只有是图片才会调用呢个js
+    @RequestMapping(value = "/media/get/videoIcon.png", method = RequestMethod.GET)
+    public void getVideoIcon(HttpServletResponse response) {
+        log.info("access media/getVideoIcon");
+        String videoIcon = "src/main/resources/static/assets/images/video/video1.png";
+        filesService.get(videoIcon, response);
     }
 }
 

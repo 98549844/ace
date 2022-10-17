@@ -82,7 +82,7 @@ public class GalleryController extends CommonController {
      *
      * @param fileName
      */
-    @RequestMapping("/image/thumbnail/get/{fileName}")
+    @RequestMapping(value = "/image/thumbnail/get/{fileName}", method = RequestMethod.GET)
     public void getThumbnail(@PathVariable("fileName") String fileName, HttpServletResponse response) {
         log.info("access image/get/{}", fileName);
         String thumbnail = imagesThumbnail + fileName + filesService.findFilesByFileName(fileName).getExt();
@@ -95,7 +95,7 @@ public class GalleryController extends CommonController {
      *
      * @param fileName
      */
-    @RequestMapping("/image/get/{fileName}")
+    @RequestMapping(value = "/image/get/{fileName}", method = RequestMethod.GET)
     public void get(@PathVariable("fileName") String fileName, HttpServletResponse response) {
         log.info("access image/get/{}", fileName);
         String name;
