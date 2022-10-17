@@ -167,24 +167,8 @@
                 '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop media</span> to upload \
                  <span class="smaller-80 grey">(or click)</span><br/> \
                  <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>',
-            //autoProcessQueue: true,
-            /*renameFile: function (file) {
-                const dt = new Date();
-                const time = dt.getTime();
-                return time + file.name;
-            },*/
 
             init: function () {
-                /*const submitButton = document.querySelector("#act-on-upload");
-                const myDropzone = this; // closure
-                //为上传按钮添加点击事件
-                submitButton.addEventListener("click", function () {
-                    //配合autoProcessQueue: false
-                    $('#subModel').modal('hide');
-                    //手动上传
-                    myDropzone.processQueue();
-                });*/
-
                 this.on("addedfile", function (file) {
                     //alert("addedfile fileName:  " + file.name + "uuid:  " + file.upload.uuid)
                     //上传文件时触发的事件
@@ -207,7 +191,6 @@
                         $.each(data, function (key, val) {
                             message = message + val[0] + ';';
                         })
-                        //控制器层面的错误提示，file.accepted = true的时候；
                         alert(message);
                     }
                 });
@@ -327,11 +310,6 @@
 
     let $body = $('body');
 
-    /* $(document).on('click', '.imageDelete', function(){
-         alert(this.id)
-         // 事件处理函数
-     });*/
-
     $body.on('click', '.rotate', function () {
         const idl = $(this).attr('id').split("rotate-l-")[1];
         const idr = $(this).attr('id').split("rotate-r-")[1];
@@ -354,7 +332,8 @@
             success(data) {
                 let html = "";
                 // alert("data=> " + data);
-                html = html + "<li id=\"li-" + data.fileName + "\">\n" +
+                html = html + "" +
+                    "<li id=\"li-" + data.fileName + "\">\n" +
                     "    <a href=\"image/get/" + data.fileName + data.ext + "\" data-rel=\"colorbox\">\n" +
                     "        <img width=\"150\" height=\"150\" alt=\"150x150\"\n" +
                     "             src=\"image/get/" + data.fileName + "\" id=\"img-" + imgId + "\"/>\n" +
@@ -365,12 +344,6 @@
                     "        </a>\n" +
                     "        <a href=\"javascript:void(0);\" id=\"rotate-r-" + data.fileName + "\"  class=\"rotate\">\n" +
                     "            <i class=\"ace-icon fa fa-repeat\"></i>\n" +
-                    "        </a>\n" +
-                    "        <a href=\"image/download/" + data.fileName + "\" id=\"download-" + data.fileName + "\" class=\"imageDownload\">\n" +
-                    "            <i class=\"ace-icon fa fa-download green\"></i>\n" +
-                    "        </a>\n" +
-                    "        <a href=\"javascript:void(0);\" id=\"delete-" + data.fileName + "\"  class=\"imageDelete\">\n" +
-                    "            <i class=\"ace-icon fa fa-times red\"></i>\n" +
                     "        </a>\n" +
                     "    </div>\n" +
                     "</li>";
@@ -383,26 +356,6 @@
         })
 
     });
-
-    $body.on('click', '.imageDelete', function () {
-        let id = $(this).attr('id');
-        let imageId = id.split("delete-")[1];
-        $.ajax({
-            type: "get", // 以get方式发起请求
-            url: "image/delete/" + imageId,
-            dataType: "json",
-            // 将你的请求参数以问号拼接到url中进行参数传递
-            success(data) {
-                //const rs = 'image/get/' + data;
-                $("#li-" + imageId + "").css('display', 'none');
-                //  $(this).parent().parent().hide();
-            },
-            error(data) {
-                window.location.href = '500.html';
-            },
-        })
-    });
-
 
 </script>
 

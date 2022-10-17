@@ -230,6 +230,9 @@
                         const thumbnailElement = this;
                         thumbnailElement.alt = file.name;
                         thumbnailElement.src = dataUrl;
+                        //set default thumbnail for non image file
+                        //thumbnailElement.src = `image/get/aaa.jpg`;
+
                     });
                     setTimeout(function () {
                         $(file.previewElement).addClass("dz-image-preview");
