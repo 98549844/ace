@@ -240,13 +240,13 @@
                 }
             },
         }
-        loadingImage();
-        viewImage();
+        loadingVideo();
+        //  viewImage();
     });
 
     //collapse触发
     $("a.accordion-toggle").bind("click", function () {
-        loadingImage();
+        loadingVideo();
     });
 
     //colorbox jq
@@ -281,8 +281,8 @@
         });
     }
 
-    //加载视频截图
-    function loadingImage() {
+    //加载视频
+    function loadingVideo() {
         const loadingDialog = dialog({
             title: 'Media Streaming processing ...',
             content: $("#loading_img").html(),
@@ -299,9 +299,9 @@
                 let html = "";
                 for (let i = 0; i < data.length; i++) {
                     html = html + "<li id=\"li-" + data[i].fileName + "\">\n" +
-                        "    <a href=\"image/get/" + data[i].fileName + "." + data[i].ext + "\" data-rel=\"colorbox\">\n" +
+                        "    <a href=\"media/get/" + data[i].fileName + "." + data[i].ext + "\" data-rel=\"colorbox\">\n" +
                         "        <img width=\"150\" height=\"150\" alt=\"150x150\"\n" +
-                        "             src=\"image/get/" + data[i].fileName + "\" id=\"img-" + data[i].fileName + "\"/>\n" +
+                        "             src=\"media/get/" + data[i].fileName + "\" id=\"img-" + data[i].fileName + "\"/>\n" +
                         "    </a>\n" +
                         "    <div class=\"tools tools-bottom\">\n" +
                         "        <a href=\"javascript:void(0);\" id=\"rotate-l-" + data[i].fileName + "\"  class=\"rotate\">\n" +
@@ -309,12 +309,6 @@
                         "        </a>\n" +
                         "        <a href=\"javascript:void(0);\" id=\"rotate-r-" + data[i].fileName + "\"  class=\"rotate\">\n" +
                         "            <i class=\"ace-icon fa fa-repeat\"></i>\n" +
-                        "        </a>\n" +
-                        "        <a href=\"image/download/" + data[i].fileName + "\" id=\"download-" + data[i].fileName + "\" class=\"imageDownload\">\n" +
-                        "            <i class=\"ace-icon fa fa-download green\"></i>\n" +
-                        "        </a>\n" +
-                        "        <a href=\"javascript:void(0);\" id=\"delete-" + data[i].fileName + "\"  class=\"imageDelete\">\n" +
-                        "            <i class=\"ace-icon fa fa-times red\"></i>\n" +
                         "        </a>\n" +
                         "    </div>\n" +
                         "</li>";

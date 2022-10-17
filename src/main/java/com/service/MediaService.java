@@ -34,6 +34,7 @@ public class MediaService {
 
     private String videoM3u8;
     private String videoPath;
+    private final String poster = "poster.jpg";
     private FilesService filesService;
     private final Path tempDir = Paths.get(System.getProperty("java.io.tmpdir"));
 
@@ -72,18 +73,30 @@ public class MediaService {
         List<String> fName = FileUtil.getNames(t1);
         List<com.models.entity.dao.Files> filesList = filesService.findFilesByPathAndFileNameNotIn(videoPath, fName);
         filesService.deleteAll(filesList);
-        return FileUtil.getNamesOrderByLastModifiedDate(videoM3u8, true);
 
+        List folderList = (List) FileUtil.getCurrentFolderList(videoM3u8).get(FileUtil.FOLDERNAME);
+        List<Map> mapList = new ArrayList<>();
+        for (Object o : folderList) {
+            Map m = new HashMap();
+            m.put(FileUtil.FILENAME, o.toString());
+            m.put(FileUtil.EXT, "jpg");
+            mapList.add(m);
+        }
+        return mapList;
     }
 
     private void getMultipartFileList(String path) throws IOException {
         File f = new File(path);
         File[] fs = f.listFiles();
-        for (File file : fs) {
-            MultipartFile m = FileUtil.fileToMultipartFile(file);
+        if (NullUtil.isNull(fs)) {
+            MultipartFile m = FileUtil.fileToMultipartFile(f);
             cutToM3U8(m);
+        } else {
+            for (File file : fs) {
+                MultipartFile m = FileUtil.fileToMultipartFile(file);
+                cutToM3U8(m);
+            }
         }
-
     }
 
     private Object cutToM3U8(MultipartFile video) throws IOException {
@@ -94,19 +107,20 @@ public class MediaService {
 
         // 原始文件名称，也就是视频的标题
         String title = video.getOriginalFilename();
-        String suffix = title.substring(title.lastIndexOf("."));
+        String fileName = StringUtil.split(title, ".")[0];
+        // String suffix = title.substring(title.lastIndexOf("."));
 
         // io到临时文件
         Path tempFile = tempDir.resolve(title);
         log.info("io到临时文件: {}", tempFile.toString());
         try {
             log.info("Generate by UUID.randomUUID()!!!");
-            String uuid = UUID.get();
+            //  String titleName = UUID.get();
             video.transferTo(tempFile);
             // 删除后缀
             //title = title.substring(0, title.lastIndexOf("."));
             // 创建视频目录
-            Path targetFolder = Files.createDirectories(Paths.get(videoM3u8, uuid));
+            Path targetFolder = Files.createDirectories(Paths.get(videoM3u8, fileName));
             log.info("创建文件夹目录：{}", targetFolder);
             Files.createDirectories(targetFolder);
             // 执行转码操作
@@ -122,30 +136,31 @@ public class MediaService {
             }
             // 封装结果
             Map<String, Object> videoInfo = new HashMap<>();
-            videoInfo.put("title", uuid);
-            videoInfo.put("m3u8", String.join("/", "", uuid, "index.m3u8"));
-            videoInfo.put("poster", String.join("/", "", uuid, "poster.jpg"));
+            videoInfo.put("title", fileName);
+            videoInfo.put("m3u8", String.join("/", "", fileName, "index.m3u8"));
+            videoInfo.put("poster", String.join("/", "", fileName, "poster.jpg"));
 
             // 文件存储全路径
-            File targetFile = new File(videoPath + uuid + suffix);
+            File targetFile = new File(videoPath + title);
             video.transferTo(targetFile);
+            String posterLocation = targetFolder + FileUtil.separator + "poster.jpg";
+            String thumbnailLocation = targetFolder + FileUtil.separator + "thumbnail.jpg";
+
+            ImageUtil imageUtil = new ImageUtil();
+            FileUtil.copy(posterLocation, thumbnailLocation);
+            imageUtil.square(thumbnailLocation, false);
+            ImageUtil.compress(thumbnailLocation);
 
 
-            com.models.entity.dao.Files f = new com.models.entity.dao.Files();
-            f.setPath(videoPath);
-            f.setOriginationName(title);
-            f.setExt(suffix);
-            f.setLocation(videoPath + uuid + suffix);
-            f.setRemark("ACE Application UUID: " + uuid);
-            f.setSize(size / 1024);
-            f.setFileName(uuid);
+            com.models.entity.dao.Files f = filesService.findFilesByFileName(fileName);
+            f.setRemark("FFmpeg m3u8 processing complete !!!");
 
             Map<String, Object> result = new HashMap<>();
             result.put("success", true);
             result.put("data", videoInfo);
             filesService.save(f);
 
-            return uuid;
+            return fileName;
         } finally {
             // 始终删除临时文件
             Files.delete(tempFile);

@@ -73,7 +73,7 @@ public class GalleryService {
         try {
             ImageUtil imageUtil = new ImageUtil();
             for (String name : ls) {
-                imageUtil.square(imagePath + name);
+                imageUtil.square(imagePath + name, true);
                 ImageUtil.compress(imagesThumbnail + name);
             }
         } catch (Exception e) {

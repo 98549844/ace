@@ -1,11 +1,12 @@
 package com.controller;
 
-import com.config.TranscodeConfig;
 import com.constant.AceEnvironment;
 import com.controller.common.CommonController;
 import com.service.FilesService;
 import com.service.MediaService;
 import com.util.FileUtil;
+import com.util.JsonUtil;
+import com.util.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,6 +37,7 @@ public class MediaController extends CommonController {
     private MediaService mediaService;
     private String videoPath;
     private String videoM3u8;
+    private final String thumbnail = "thumbnail.jpg";
     private final static String indexM3U8 = "index.m3u8";
     private final static String tsIndexM3U8 = "ts" + FileUtil.separator + "index.m3u8";
     private final static String tsKey = "ts" + FileUtil.separator + "key";
@@ -141,21 +141,40 @@ public class MediaController extends CommonController {
         String uuid = request.getParameter("uuid");
         log.info("access media/uploads.html uuid: {}", uuid);
         List<String> list = filesService.uploads(media, uuid, videoPath);
-
-
         return list;
     }
 
 
     @RequestMapping(value = "/media/m3u8StreamProcess.html", method = RequestMethod.GET)
     @ResponseBody
-    public List<String> m3u8StreamProcess() throws IOException {
+    public List m3u8StreamProcess() throws IOException {
         log.info("access media/m3u8StreamProcess.html");
         log.info("FFmpeg start processing ...");
         List list = mediaService.getM3U8();
         log.info("FFmpeg process complete !!!");
+     //   String result = JsonUtil.ObjectToFormattedJson(list);
+     //   ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
+      //  modelAndView.addObject("ajaxResult", result);
         return list;
     }
 
+    /**
+     * 缩略图显示请求
+     * 响应输出图片文件
+     *
+     * @param uuid
+     */
+    @RequestMapping("/media/get/{uuid}")
+    public void get(@PathVariable("uuid") String uuid, HttpServletResponse response) {
+        log.info("access media/get/{}", uuid);
+        String name;
+        if (uuid.contains(".")) {
+            name = StringUtil.split(uuid, ".")[0];
+        } else {
+            name = uuid;
+        }
+        String location = videoM3u8 + name + FileUtil.separator + thumbnail;
+        filesService.get(location, response);
+    }
 }
 
