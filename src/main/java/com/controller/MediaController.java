@@ -74,11 +74,13 @@ public class MediaController extends CommonController {
      */
     @RequestMapping(value = "/media/play/{uuid}", method = RequestMethod.GET)
     @ResponseBody
-    public void play(@PathVariable String uuid, HttpServletResponse response, HttpServletRequest request) {
+    public ModelAndView play(@PathVariable String uuid, HttpServletResponse response, HttpServletRequest request) {
         log.info("access ace/play.html uuid: {}", uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + indexM3U8;
         log.info("Location: {}", location);
         filesService.get(location, response);
+        ModelAndView modelAndView = super.page("ace/tool-pages/play");
+        return modelAndView;
     }
 
     /**

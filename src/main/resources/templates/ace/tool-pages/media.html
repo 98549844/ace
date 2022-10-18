@@ -250,7 +250,8 @@
             success(data) {
                 let html = "";
                 for (let i = 0; i < data.length; i++) {
-                    html = html + "<li id=\"li-" + data[i].fileName + "\">\n" +
+                    html = html +
+                        "<li id=\"li-" + data[i].fileName + "\"  class=\"play\">\n" +
                         "    <a href=\"media/get/" + data[i].fileName + "." + data[i].ext + "\" >\n" +
                         "        <img width=\"150\" height=\"150\" alt=\"150x150\"\n" +
                         "             src=\"media/get/" + data[i].fileName + "\" id=\"img-" + data[i].fileName + "\"/>\n" +
@@ -276,6 +277,30 @@
 
     let $body = $('body');
 
+    $body.on('click', '.play', function () {
+        let id = $(this).attr('id');
+        let playId = id.split("li-")[1];
+
+        // alert("play id: " + playId);
+        // window.location.href = `media/play/${playId}`;
+
+        $.ajax({
+            type: "get", // 以get方式发起请求
+            url: `media/play/${playId}`,
+            dataType: "json",
+            // 将你的请求参数以问号拼接到url中进行参数传递
+            success(data) {
+                let html = "OK";
+                alert(html);
+                window.location.href = `media/play/${playId}`;
+            },
+            error(data) {
+                window.location.href = '500.html';
+            },
+        })
+
+        return false;
+    });
 
 </script>
 
