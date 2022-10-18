@@ -165,9 +165,6 @@ public class MediaController extends CommonController {
         log.info("FFmpeg start processing ...");
         List list = mediaService.getM3U8();
         log.info("FFmpeg process complete !!!");
-        //   String result = JsonUtil.ObjectToFormattedJson(list);
-        //   ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
-        //  modelAndView.addObject("ajaxResult", result);
         return list;
     }
 
