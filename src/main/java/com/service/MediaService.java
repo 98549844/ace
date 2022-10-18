@@ -1,7 +1,7 @@
 package com.service;
 
-import com.config.TranscodeConfig;
 import com.constant.AceEnvironment;
+import com.models.common.TranscodeConfig;
 import com.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

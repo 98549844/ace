@@ -1,4 +1,4 @@
-package com.models.entity;
+package com.models.common;
 
 import com.google.gson.annotations.SerializedName;
 import org.apache.logging.log4j.LogManager;

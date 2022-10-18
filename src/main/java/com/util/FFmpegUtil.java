@@ -1,8 +1,8 @@
 package com.util;
 
-import com.config.TranscodeConfig;
 import com.google.gson.Gson;
-import com.models.entity.MediaInfo;
+import com.models.common.MediaInfo;
+import com.models.common.TranscodeConfig;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

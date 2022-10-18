@@ -144,7 +144,7 @@
         },*/
         // m3u8
         video: {
-            url: 'media/play/[[${playId}]]',
+            url: 'media/play/' + '943e0547-893b-4745-963a-ef4aecfd2cde',
             type: 'hls',
             defaultQuality: 0
         },
@@ -155,9 +155,9 @@
                 // hls config
                 xhrSetup: function (xhr, url) {
                     if (url.indexOf('.ts') !== -1 || url.indexOf('key') !== -1) {
-                        url = url + '/[[${playId}]]';
+                        url = url + '/' + '943e0547-893b-4745-963a-ef4aecfd2cde';
                     } else if (url.indexOf('\u0000') !== -1) {
-                        url = 'media/play/ts/index.m3u8/[[${playId}]]';
+                        url = 'media/play/ts/index.m3u8/' + '943e0547-893b-4745-963a-ef4aecfd2cde';
                     }
                     xhr.open('GET', url, true);
                 }

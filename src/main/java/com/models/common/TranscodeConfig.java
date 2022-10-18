@@ -1,4 +1,4 @@
-package com.config;
+package com.models.common;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,7 +22,7 @@ public class TranscodeConfig {
 
     public TranscodeConfig() {
         this.poster = "00:00:00.001";
-        this.tsSeconds = "15";
+        this.tsSeconds = "10";
         this.cutStart = "";
         this.cutEnd = "";
     }

@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -152,21 +153,14 @@ public class FilesService {
     }
 
     /**
-     * 处理文件显示请求
+     * 处理文件流请求
      * 响应输出文件
      *
      * @param response
      */
     public void get(String path, HttpServletResponse response) {
-//        Files f = findFilesByFileName(fileName);
-        //如果直接传location, filename需要set null
         File file = new File(path);
-  /*      if (NullUtil.isNull(f)) {
-            file = new File(path);
-        } else {
-            file = new File(f.getLocation());
-        }
-  */      try {
+      try {
             InputStream is = new FileInputStream(file);
             OutputStream os = response.getOutputStream();
             byte[] buffer = new byte[1024]; // 文件流缓存池
@@ -176,8 +170,8 @@ public class FilesService {
             os.flush();
             os.close();
             is.close();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
