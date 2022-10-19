@@ -151,52 +151,48 @@ public class FFmpegUtil {
             commands.add("-to");
             commands.add(config.getCutEnd());        // 结束时间
         }
-        commands.add("index.m3u8");                                                        // 生成m3u8文件
+        commands.add("index.m3u8");  // 生成m3u8文件
 
         // 构建进程
         Process process = new ProcessBuilder().command(commands).directory(workDir.toFile()).start();
         // 读取进程标准输出
         new Thread(() -> {
             try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                String line = null;
+                String line;
                 while ((line = bufferedReader.readLine()) != null) {
                     log.info(line);
                 }
             } catch (IOException e) {
+                e.printStackTrace();
             }
         }).start();
 
         // 读取进程异常输出
         new Thread(() -> {
             try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
-                String line = null;
+                String line;
                 while ((line = bufferedReader.readLine()) != null) {
                     log.info(line);
                 }
             } catch (IOException e) {
+                e.printStackTrace();
             }
         }).start();
-
-
         // 阻塞直到任务结束
         if (process.waitFor() != 0) {
             throw new RuntimeException("视频切片异常");
         }
-
         // 切出封面
         if (!screenShots(source, String.join(File.separator, destFolder, "poster.jpg"), config.getPoster())) {
             throw new RuntimeException("封面截取异常");
         }
-
         // 获取视频信息
         MediaInfo mediaInfo = getMediaInfo(source);
         if (mediaInfo == null) {
             throw new RuntimeException("获取媒体信息异常");
         }
-
         // 生成index.m3u8文件
         genIndex(String.join(File.separator, destFolder, "index.m3u8"), "ts/index.m3u8", mediaInfo.getFormat().getBitRate());
-
         // 删除keyInfo文件
         Files.delete(keyInfo);
     }
@@ -220,19 +216,15 @@ public class FFmpegUtil {
         commands.add("json");
 
         Process process = new ProcessBuilder(commands).start();
-
         MediaInfo mediaInfo = null;
-
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
             mediaInfo = new Gson().fromJson(bufferedReader, MediaInfo.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         if (process.waitFor() != 0) {
             return null;
         }
-
         return mediaInfo;
     }
 
@@ -268,22 +260,24 @@ public class FFmpegUtil {
         // 读取进程标准输出
         new Thread(() -> {
             try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                String line = null;
+                String line;
                 while ((line = bufferedReader.readLine()) != null) {
                     log.info(line);
                 }
             } catch (IOException e) {
+                e.printStackTrace();
             }
         }).start();
 
         // 读取进程异常输出
         new Thread(() -> {
             try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
-                String line = null;
+                String line;
                 while ((line = bufferedReader.readLine()) != null) {
                     log.error(line);
                 }
             } catch (IOException e) {
+                e.printStackTrace();
             }
         }).start();
 
