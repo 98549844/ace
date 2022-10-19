@@ -102,6 +102,14 @@ public class FFmpegUtil {
         Files.write(Paths.get(file), stringBuilder.toString().getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        String src = "C:\\aa\\002.mp4";
+        String desc ="C:\\aa\\m3u8\\";
+
+        transcodeToM3u8(src, desc, new TranscodeConfig());
+    }
+
     /**
      * 转码视频为m3u8
      *
@@ -112,19 +120,15 @@ public class FFmpegUtil {
      * @throws InterruptedException
      */
     public static void transcodeToM3u8(String source, String destFolder, TranscodeConfig config) throws IOException, InterruptedException {
-
         // 判断源视频是否存在
         if (!Files.exists(Paths.get(source))) {
             throw new IllegalArgumentException("文件不存在：" + source);
         }
-
         // 创建工作目录
         Path workDir = Paths.get(destFolder, "ts");
         Files.createDirectories(workDir);
-
         // 在工作目录生成KeyInfo文件
         Path keyInfo = genKeyInfo(workDir.toString());
-
         // 构建命令
         List<String> commands = new ArrayList<>();
         commands.add("ffmpeg");

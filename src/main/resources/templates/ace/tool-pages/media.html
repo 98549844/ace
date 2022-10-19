@@ -156,9 +156,9 @@
             thumbnailHeight: 120,
             thumbnailWidth: 120,
             maxFilesize: 10240,
-            maxFiles: 1, //限制每次上传文件量
-            // addRemoveLinks: true,
-            // dictRemoveFile: '<i class="ace-icon glyphicon glyphicon-trash"></i>',
+            // maxFiles: 1, //限制每次上传文件量
+            addRemoveLinks: true,
+            dictRemoveFile: '<i class="ace-icon glyphicon glyphicon-trash"></i>',
             dictCancelUpload: 'cancel',
             acceptedFiles: ".wmv,.asf,.asx,.rm,.rmvb,.mpg,.mpeg,.mpe,.3gp,.mov,.mp4,.m4v,.avi,.dat,.mkv,.flv,.vob", // 上传的类型
             parallelUploads: 3,
@@ -283,7 +283,7 @@
 
         $.ajax({
             type: "get", // 以get方式发起请求
-            url: "media/m3u8StreamProcess.html",
+            url: "media/getThumbnail.html",
             dataType: "json",
             // 将你的请求参数以问号拼接到url中进行参数传递
             success(data) {

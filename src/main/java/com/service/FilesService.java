@@ -160,7 +160,7 @@ public class FilesService {
      */
     public void get(String path, HttpServletResponse response) {
         File file = new File(path);
-      try {
+        try {
             InputStream is = new FileInputStream(file);
             OutputStream os = response.getOutputStream();
             byte[] buffer = new byte[1024]; // 文件流缓存池
@@ -277,8 +277,13 @@ public class FilesService {
     public Files findFilesByFileName(String fileName) {
         return filesDao.findFilesByFileName(fileName);
     }
+
     public List<Files> findFilesInFileName(List<String> fileNames) {
         return filesDao.findFilesByFileNameIn(fileNames);
+    }
+
+    public List<Files> findFilesByFileNameInAndVersionGreaterThan(List<String> fileNames) {
+        return filesDao.findFilesByFileNameInAndVersionGreaterThan(fileNames, 1);
     }
 }
 

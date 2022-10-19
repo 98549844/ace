@@ -45,6 +45,18 @@ public class MediaService {
         this.videoPath = AceEnvironment.getVideoPath();
     }
 
+    public List getThumbnail() throws IOException {
+        List<String> videoList = FileUtil.getFileNames(videoPath);
+        List<String> t1 = FileUtil.getNames(videoList);
+        //根据folder实际文件控制数据库, 删除folder不存文件数据
+        List<String> fName = FileUtil.getNames(t1);
+        List<com.models.entity.dao.Files> filesList = filesService.findFilesByPathAndFileNameNotIn(videoPath, fName);
+        filesService.deleteAll(filesList);
+
+        List folderList = (List) FileUtil.getCurrentFolderList(videoM3u8).get(FileUtil.FOLDERNAME);
+        List result = filesService.findFilesByFileNameInAndVersionGreaterThan(folderList);
+        return result;
+    }
 
     public List getM3U8() throws IOException {
         List<String> videoList = FileUtil.getFileNames(videoPath);

@@ -168,6 +168,14 @@ public class MediaController extends CommonController {
         return list;
     }
 
+    @RequestMapping(value = "/media/getThumbnail.html", method = RequestMethod.GET)
+    @ResponseBody
+    public List getThumbnail() throws IOException {
+        log.info("access media/getThumbnail.html");
+        List list = mediaService.getThumbnail();
+        return list;
+    }
+
     /**
      * 缩略图显示请求
      * 响应输出图片文件

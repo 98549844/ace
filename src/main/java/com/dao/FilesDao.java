@@ -27,9 +27,11 @@ public interface FilesDao extends JpaRepository<Files, Long>, JpaSpecificationEx
 
     List<Files> findFilesByFileNameIn(List<String> fileName);
 
+    List<Files> findFilesByFileNameInAndVersionGreaterThan(List<String> fileName, int version);
+
     List<Files> findFilesByFileNameNotInOrderByLastUpdateDateDesc(List<String> filesName);
 
-    //  List<Files> findFilesByFileNameNotInAndPathNotIn(Collection<String> fileName, Collection<String> path);
+    List<Files> findFilesByFileNameNotInAndPathNotIn(Collection<String> fileName, Collection<String> path);
 
     List<Files> findFilesByPathAndFileNameNotIn(String path, Collection<String> fileName);
 
