@@ -183,26 +183,31 @@
                         dataType: "json",
                         // 将你的请求参数以问号拼接到url中进行参数传递
                         success(data) {
+
                             let html = "";
                             for (let i = 0; i < data.length; i++) {
+                                const fileName = data[i].fileName;
+                                const ext = data[i].ext;
                                 html = html +
-                                    "<li id=\"li-" + data[i].fileName + "\"  class=\"play\">\n" +
-                                    "    <a href=\"media/get/" + data[i].fileName + "." + data[i].ext + "\" >\n" +
-                                    "        <img width=\"150\" height=\"150\" alt=\"150x150\"\n" +
-                                    "             src=\"media/get/" + data[i].fileName + "\" id=\"img-" + data[i].fileName + "\"/>\n" +
-                                    "    </a>\n" +
-                                    "    <div class=\"tools tools-bottom\">\n" +
-                                    "        <a href=\"javascript:void(0);\" id=\"rotate-l-" + data[i].fileName + "\"  class=\"rotate\">\n" +
-                                    "            <i class=\"ace-icon fa fa-undo\"></i>\n" +
-                                    "        </a>\n" +
-                                    "        <a href=\"javascript:void(0);\" id=\"rotate-r-" + data[i].fileName + "\"  class=\"rotate\">\n" +
-                                    "            <i class=\"ace-icon fa fa-repeat\"></i>\n" +
-                                    "        </a>\n" +
-                                    "    </div>\n" +
-                                    "</li>";
+                                    `<li id="li-${fileName}">
+                                        <a href="media/get/${fileName}${ext}" id="play-${fileName}" class="play">
+                                        <img width="150" height="150" alt="150x150" src="media/get/${fileName}"
+                                             id="img-${fileName}">
+                                        </a>
+                                        <div class="tools tools-bottom">
+                                            <a href="javascript:void(0);" id="rotate-l-${fileName}" class="rotate">
+                                                <i class="ace-icon fa fa-undo"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" id="rotate-r-${fileName}" class="rotate">
+                                                <i class="ace-icon fa fa-repeat"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" id="delete-${fileName}" class="videoDelete">
+                                                <i class="ace-icon fa fa-times red"></i>
+                                            </a>
+                                        </div>
+                                    </li>`;
                             }
                             $("#imageDiv").html(html);
-                          //  Dropzone.destroy();
                         },
                         error(data) {
                             window.location.href = '500.html';
@@ -259,12 +264,12 @@
     });
 
     //collapse触发
-    $("a.accordion-toggle").bind("click", function (e) {
-        try {
-            myDropzone.destroy();
-        } catch (e) {
-        }
-    });
+    /*   $("a.accordion-toggle").bind("click", function (e) {
+           try {
+               myDropzone.destroy();
+           } catch (e) {
+           }
+       });*/
 
 
     //加载视频
@@ -284,21 +289,26 @@
             success(data) {
                 let html = "";
                 for (let i = 0; i < data.length; i++) {
+                    const fileName = data[i].fileName;
+                    const ext = data[i].ext;
                     html = html +
-                        "<li id=\"li-" + data[i].fileName + "\"  class=\"play\">\n" +
-                        "    <a href=\"media/get/" + data[i].fileName + "." + data[i].ext + "\" >\n" +
-                        "        <img width=\"150\" height=\"150\" alt=\"150x150\"\n" +
-                        "             src=\"media/get/" + data[i].fileName + "\" id=\"img-" + data[i].fileName + "\"/>\n" +
-                        "    </a>\n" +
-                        "    <div class=\"tools tools-bottom\">\n" +
-                        "        <a href=\"javascript:void(0);\" id=\"rotate-l-" + data[i].fileName + "\"  class=\"rotate\">\n" +
-                        "            <i class=\"ace-icon fa fa-undo\"></i>\n" +
-                        "        </a>\n" +
-                        "        <a href=\"javascript:void(0);\" id=\"rotate-r-" + data[i].fileName + "\"  class=\"rotate\">\n" +
-                        "            <i class=\"ace-icon fa fa-repeat\"></i>\n" +
-                        "        </a>\n" +
-                        "    </div>\n" +
-                        "</li>";
+                        `<li id="li-${fileName}">
+                                        <a href="media/get/${fileName}${ext}" id="play-${fileName}" class="play">
+                                        <img width="150" height="150" alt="150x150" src="media/get/${fileName}"
+                                             id="img-${fileName}">
+                                        </a>
+                                        <div class="tools tools-bottom">
+                                            <a href="javascript:void(0);" id="rotate-l-${fileName}" class="rotate">
+                                                <i class="ace-icon fa fa-undo"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" id="rotate-r-${fileName}" class="rotate">
+                                                <i class="ace-icon fa fa-repeat"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" id="delete-${fileName}" class="videoDelete">
+                                                <i class="ace-icon fa fa-times red"></i>
+                                            </a>
+                                        </div>
+                                    </li>`;
                 }
                 $("#imageDiv").html(html);
                 loadingDialog.close().remove();
@@ -310,12 +320,29 @@
     }
 
     let $body = $('body');
-
     $body.on('click', '.play', function () {
         let id = $(this).attr('id');
-        let playId = id.split("li-")[1];
+        let playId = id.split("play-")[1];
         window.location.href = `play.html?playId=${playId}`;
         return false;
+    });
+
+    $body.on('click', '.videoDelete', function () {
+        let id = $(this).attr('id');
+        let playId = id.split("delete-")[1];
+        $.ajax({
+            type: "get", // 以get方式发起请求
+            url: "media/delete/" + playId,
+            dataType: "json",
+            // 将你的请求参数以问号拼接到url中进行参数传递
+            success(data) {
+                $("#li-" + playId + "").css('display', 'none');
+            },
+            error(data) {
+                window.location.href = '500.html';
+            },
+
+        })
     });
 
 </script>

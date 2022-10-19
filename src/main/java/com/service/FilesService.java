@@ -277,6 +277,9 @@ public class FilesService {
     public Files findFilesByFileName(String fileName) {
         return filesDao.findFilesByFileName(fileName);
     }
+    public List<Files> findFilesInFileName(List<String> fileNames) {
+        return filesDao.findFilesByFileNameIn(fileNames);
+    }
 }
 
 

@@ -75,14 +75,8 @@ public class MediaService {
         filesService.deleteAll(filesList);
 
         List folderList = (List) FileUtil.getCurrentFolderList(videoM3u8).get(FileUtil.FOLDERNAME);
-        List<Map> mapList = new ArrayList<>();
-        for (Object o : folderList) {
-            Map m = new HashMap();
-            m.put(FileUtil.FILENAME, o.toString());
-            m.put(FileUtil.EXT, "jpg");
-            mapList.add(m);
-        }
-        return mapList;
+        List result = filesService.findFilesInFileName(folderList);
+        return result;
     }
 
     private void getMultipartFileList(String path) throws IOException {

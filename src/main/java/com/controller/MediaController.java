@@ -194,5 +194,19 @@ public class MediaController extends CommonController {
         String videoIcon = "src/main/resources/static/assets/images/video/video1.png";
         filesService.get(videoIcon, response);
     }
+
+    /**
+     * 影片删除
+     *
+     * @param uuid
+     * @return
+     */
+    @RequestMapping(value = "/media/delete/{uuid}", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean delete(@PathVariable String uuid) {
+        log.info("access media/delete => delete {}", uuid);
+        boolean rs = filesService.delete(uuid);
+        return rs;
+    }
 }
 
