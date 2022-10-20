@@ -17,10 +17,13 @@ import javax.persistence.*;
  */
 
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "files", uniqueConstraints = {@UniqueConstraint(name = "constraint_fileName", columnNames = {"fileName","path"})})
+@Table(name = "files", uniqueConstraints = {@UniqueConstraint(name = "constraint_fileName", columnNames = {"fileName", "path"})})
 @Entity
 public class Files extends baseEntity {
     private static Logger log = LogManager.getLogger(Files.class.getName());
+
+    public static final String UPLOADED = "uploaded";
+    public static final String FRAGMENT = "fragment";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,6 +40,10 @@ public class Files extends baseEntity {
     private Long size;
     @Column
     private String fileName;
+    @Column
+    private int count = 0;
+    @Column
+    private String status; //uploaded: 已上载 fragment:已切片
     @Column
     private String originationName; //原文件名
     @Column
@@ -122,6 +129,22 @@ public class Files extends baseEntity {
 
     public void setOriginationName(String originationName) {
         this.originationName = originationName;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
 

@@ -243,7 +243,8 @@ public class FilesService {
             f.setFileName(fileName);
             f.setLocation(path + fileName + suffix);
             f.setPath(path);
-            f.setSize((multipartFile.getSize() / 1024));
+            f.setSize((multipartFile.getSize()));
+            f.setStatus(Files.UPLOADED);
             fs.add(f);
         }
         saveAll(fs);
@@ -278,8 +279,12 @@ public class FilesService {
         return filesDao.findFilesByFileNameIn(fileNames);
     }
 
-    public List<Files> findFilesByFileNameInAndVersionGreaterThan(List<String> fileNames) {
-        return filesDao.findFilesByFileNameInAndVersionGreaterThan(fileNames, 1);
+    public List<Files> findFilesByFileNameInAndVersionGreaterThan(List<String> fileNames, int version) {
+        return filesDao.findFilesByFileNameInAndVersionGreaterThan(fileNames, version);
+    }
+
+    public List<Files> findFilesByFileNameInAndStatus(List<String> fileNames, String status) {
+        return filesDao.findFilesByFileNameInAndStatus(fileNames, status);
     }
 }
 

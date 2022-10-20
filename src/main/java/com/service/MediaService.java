@@ -48,14 +48,7 @@ public class MediaService {
     public List getThumbnail() throws IOException {
         List<String> videoList = FileUtil.getFileNames(videoPath);
         List<String> t1 = FileUtil.getNames(videoList);
-        //根据folder实际文件控制数据库, 删除folder不存文件数据
-        List<String> fName = FileUtil.getNames(t1);
-        List<com.models.entity.dao.Files> filesList = filesService.findFilesByPathAndFileNameNotIn(videoPath, fName);
-        filesService.deleteAll(filesList);
-
-        List folderList = (List) FileUtil.getCurrentFolderList(videoM3u8).get(FileUtil.FOLDERNAME);
-        List result = filesService.findFilesByFileNameInAndVersionGreaterThan(folderList);
-        return getExistFileList(result);
+        return getActualList(t1);
     }
 
     public List getM3U8() throws IOException {
@@ -80,30 +73,20 @@ public class MediaService {
                 log.info("{} => delete m3u8 folder: {}", isOk, folderName);
             }
         }
+        return getActualList(t1);
+    }
 
+    private List getActualList(List<String> t1) {
         //根据folder实际文件控制数据库, 删除folder不存文件数据
         List<String> fName = FileUtil.getNames(t1);
         List<com.models.entity.dao.Files> filesList = filesService.findFilesByPathAndFileNameNotIn(videoPath, fName);
         filesService.deleteAll(filesList);
 
         List folderList = (List) FileUtil.getCurrentFolderList(videoM3u8).get(FileUtil.FOLDERNAME);
-        List result = filesService.findFilesInFileName(folderList);
-        return getExistFileList(result);
+        List result = filesService.findFilesByFileNameInAndStatus(folderList, com.models.entity.dao.Files.FRAGMENT);
+        return result;
     }
 
-    @NotNull
-    private List getExistFileList(List result) {
-        List rs = new ArrayList();
-        for (Object obj : result) {
-            com.models.entity.dao.Files f = (com.models.entity.dao.Files) obj;
-            String path = videoM3u8 + f.getFileName() + FileUtil.separator + "thumbnail.jpg";
-            if (FileUtil.exist(path)) {
-                //检查文件是否存在
-                rs.add(f);
-            }
-        }
-        return rs;
-    }
 
     private void getMultipartFileList(String path) throws IOException {
         File f = new File(path);
@@ -174,6 +157,7 @@ public class MediaService {
 
 
             com.models.entity.dao.Files f = filesService.findFilesByFileName(fileName);
+            f.setStatus(com.models.entity.dao.Files.FRAGMENT);
             f.setRemark("FFmpeg m3u8 processing complete !!!");
 
             Map<String, Object> result = new HashMap<>();

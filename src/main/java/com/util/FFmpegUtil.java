@@ -99,7 +99,7 @@ public class FFmpegUtil {
         stringBuilder.append("#EXTM3U").append(separator);
         stringBuilder.append("#EXT-X-STREAM-INF:BANDWIDTH=" + bandWidth).append(separator);  // 码率
         stringBuilder.append(indexPath);
-        Files.write(Paths.get(file), stringBuilder.toString().getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.writeString(Paths.get(file), stringBuilder.toString(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
 
@@ -148,7 +148,6 @@ public class FFmpegUtil {
         commands.add("-hls_segment_filename");
         commands.add("%06d.ts");                // ts切片文件名称
 
-
         if (StringUtils.hasText(config.getCutStart())) {
             commands.add("-ss");
             commands.add(config.getCutStart());    // 开始时间
@@ -163,16 +162,7 @@ public class FFmpegUtil {
         // 构建进程
         Process process = new ProcessBuilder().command(commands).directory(workDir.toFile()).start();
         // 读取进程标准输出
-        new Thread(() -> {
-            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    log.info(line);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
+        threadRunning(process);
 
         // 读取进程异常输出
         new Thread(() -> {
@@ -264,9 +254,26 @@ public class FFmpegUtil {
         log.info("screenShots commands: " + commands);
 
         Process process = new ProcessBuilder(commands).start();
-        avutil.av_log_set_level(avutil.AV_LOG_INFO);
 
         // 读取进程标准输出
+        threadRunning(process);
+
+        // 读取进程异常输出
+        new Thread(() -> {
+            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    log.warn(line);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+        return process.waitFor() == 0;
+    }
+
+    private void threadRunning(Process process) {
         new Thread(() -> {
             try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
                 String line;
@@ -277,20 +284,6 @@ public class FFmpegUtil {
                 e.printStackTrace();
             }
         }).start();
-
-        // 读取进程异常输出
-        new Thread(() -> {
-            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    log.error(line);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
-
-        return process.waitFor() == 0;
     }
 
 }
