@@ -105,9 +105,10 @@ public class FFmpegUtil {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         String src = "C:\\aa\\002.mp4";
-        String desc ="C:\\aa\\m3u8\\";
+        String desc = "C:\\aa\\m3u8\\";
 
-        transcodeToM3u8(src, desc, new TranscodeConfig());
+        FFmpegUtil fFmpegUtil = new FFmpegUtil();
+        fFmpegUtil.transcodeToM3u8(src, desc, new TranscodeConfig());
     }
 
     /**
@@ -119,7 +120,7 @@ public class FFmpegUtil {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static void transcodeToM3u8(String source, String destFolder, TranscodeConfig config) throws IOException, InterruptedException {
+    public void transcodeToM3u8(String source, String destFolder, TranscodeConfig config) throws IOException, InterruptedException {
         // 判断源视频是否存在
         if (!Files.exists(Paths.get(source))) {
             throw new IllegalArgumentException("文件不存在：" + source);
@@ -147,6 +148,7 @@ public class FFmpegUtil {
         commands.add("-hls_segment_filename");
         commands.add("%06d.ts");                // ts切片文件名称
 
+
         if (StringUtils.hasText(config.getCutStart())) {
             commands.add("-ss");
             commands.add(config.getCutStart());    // 开始时间
@@ -157,6 +159,7 @@ public class FFmpegUtil {
         }
         commands.add("index.m3u8");  // 生成m3u8文件
 
+        log.info("transcodeToM3u8 commands: " + commands);
         // 构建进程
         Process process = new ProcessBuilder().command(commands).directory(workDir.toFile()).start();
         // 读取进程标准输出
@@ -219,6 +222,7 @@ public class FFmpegUtil {
         commands.add("-print_format");
         commands.add("json");
 
+        log.info("getMediaInfo commands: " + commands);
         Process process = new ProcessBuilder(commands).start();
         MediaInfo mediaInfo = null;
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
@@ -241,7 +245,7 @@ public class FFmpegUtil {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static boolean screenShots(String source, String file, String time) throws IOException, InterruptedException {
+    public boolean screenShots(String source, String file, String time) throws IOException, InterruptedException {
 
         List<String> commands = new ArrayList<>();
         commands.add("ffmpeg");
@@ -257,6 +261,7 @@ public class FFmpegUtil {
         commands.add("-f");
         commands.add("image2");
         commands.add(file);
+        log.info("screenShots commands: " + commands);
 
         Process process = new ProcessBuilder(commands).start();
         avutil.av_log_set_level(avutil.AV_LOG_INFO);

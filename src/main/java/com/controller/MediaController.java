@@ -134,7 +134,7 @@ public class MediaController extends CommonController {
     @RequestMapping(value = "/media/play/ts/index.m3u8/{ts}/{uuid}", method = RequestMethod.GET)
     @ResponseBody
     public void getTs(HttpServletResponse response, @PathVariable String ts, @PathVariable String uuid) {
-        log.info("access media/play/ts//index.m3u8/{}/{}", ts, uuid);
+        log.info("access media/play/ts/index.m3u8/{}/{}", ts, uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + "ts" + FileUtil.separator + ts;
         log.info("Location: {}", location);
         filesService.get(location, response);

@@ -75,9 +75,9 @@ public class MediaService {
 
         List<String> videoM3u8List = (List<String>) mp.get(ListUtil.LIST_2);
         if (NullUtil.isNotNull(videoM3u8List)) {
-            for (String s : videoM3u8List) {
-                boolean isOk = FileUtil.deleteFileOrDirectory(videoM3u8 + s);
-                log.info("{} => delete m3u8 folder: {}", isOk, s);
+            for (String folderName : videoM3u8List) {
+                boolean isOk = FileUtil.deleteFileOrDirectory(videoM3u8 + folderName);
+                log.info("{} => delete m3u8 folder: {}", isOk, folderName);
             }
         }
 
@@ -132,7 +132,8 @@ public class MediaService {
             // 执行转码操作
             log.info("开始转码");
             try {
-                FFmpegUtil.transcodeToM3u8(tempFile.toString(), targetFolder.toString(), transcodeConfig);
+                FFmpegUtil fFmpegUtil = new FFmpegUtil();
+                fFmpegUtil.transcodeToM3u8(tempFile.toString(), targetFolder.toString(), transcodeConfig);
             } catch (Exception e) {
                 log.error("转码异常：{}", e.getMessage());
                 Map<String, Object> result = new HashMap<>();

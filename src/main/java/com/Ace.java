@@ -4,6 +4,8 @@ import com.util.SleepUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -19,37 +21,21 @@ public class Ace {
 
 
     public static void main(String[] args) {
-        Thread t1 = new Thread(() -> {
-            int a = 1;
-            while (a == 2) {
-                System.out.println("t1 start");
-            }
-        });
-        t1.start();
+        List<String> commands = new ArrayList<>();
+        commands.add("ffmpeg");
+        commands.add("-i");
+        commands.add("-c:v");
+        commands.add("libx264");                // 视频编码为H264
+        commands.add("-c:a");
+        commands.add("copy");                    // 音频直接copy
+        commands.add("-hls_key_info_file");
+        commands.add("-hls_time");
+        commands.add("-hls_playlist_type");
+        commands.add("vod");                    // 点播模式
+        commands.add("-hls_segment_filename");
+        commands.add("%06d.ts");
 
-        Thread t2 = new Thread(() -> {
-            System.out.println("Thread.State.RUNNABLE:  " + Thread.State.RUNNABLE);
-            if (!t1.getState().equals(Thread.State.RUNNABLE)) {
-                System.out.println("跳过");
-            } else {
-                System.out.println("t2 start");
-            }
-        });
-        t2.start();
-
-/*        Ace ace = new Ace();
-        System.out.println(ace.isRunning(ace));
-
-        for (int i = 0; i < 5; i++) {
-            System.out.println("i = " + i);
-            if (!ace.isRunning(ace)) {
-                System.out.println("skip");
-            } else {
-                ace.test();
-                System.out.println("running");
-                SleepUtil.sleep(2);
-            }
-        }*/
+        System.out.println(commands);
 
     }
 

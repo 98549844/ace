@@ -1,0 +1,14 @@
+截图
+ffmpeg -i C:\ACE\videos\afa23046-31b8-4e32-8e66-dd5a676fadf6.mp4 -ss 00:00:00.001 -y -q:v 1 -frames:v 1 -f image2 C:\ACE\videos\poster.jpg
+-y: 覆盖输出文件，即如果 output.wmv 文件已经存在的话，不经提示就覆盖掉
+-q:v: 表示存储jpeg的图像质量，一般2是高质量
+-frames:v: 把xxx.mp4视频的第00:00:00.001秒的一帧图像截取出来
+-f image2: 将输入文件转成指定格式
+
+
+影片切片
+ffmpeg -i C:\ACE\videos\afa23046-31b8-4e32-8e66-dd5a676fadf6.mp4 -c:v libx264 -c:a copy -hls_key_info_file
+C:\ACE\videos\m3u8\afa23046-31b8-4e32-8e66-dd5a676fadf6\ts\key_info -hls_time 10 -hls_playlist_type vod -hls_segment_filename %06d.ts index.m3u8
+-i: 指定输入文件
+-c:v: 视频格式
+-c:a: 音频格式
