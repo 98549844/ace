@@ -5,6 +5,7 @@ import com.models.common.TranscodeConfig;
 import com.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,6 @@ public class MediaService {
 
     private String videoM3u8;
     private String videoPath;
-    private final String poster = "poster.jpg";
     private FilesService filesService;
     private final Path tempDir = Paths.get(System.getProperty("java.io.tmpdir"));
 
@@ -55,7 +55,7 @@ public class MediaService {
 
         List folderList = (List) FileUtil.getCurrentFolderList(videoM3u8).get(FileUtil.FOLDERNAME);
         List result = filesService.findFilesByFileNameInAndVersionGreaterThan(folderList);
-        return result;
+        return getExistFileList(result);
     }
 
     public List getM3U8() throws IOException {
@@ -88,7 +88,21 @@ public class MediaService {
 
         List folderList = (List) FileUtil.getCurrentFolderList(videoM3u8).get(FileUtil.FOLDERNAME);
         List result = filesService.findFilesInFileName(folderList);
-        return result;
+        return getExistFileList(result);
+    }
+
+    @NotNull
+    private List getExistFileList(List result) {
+        List rs = new ArrayList();
+        for (Object obj : result) {
+            com.models.entity.dao.Files f = (com.models.entity.dao.Files) obj;
+            String path = videoM3u8 + f.getFileName() + FileUtil.separator + "thumbnail.jpg";
+            if (FileUtil.exist(path)) {
+                //检查文件是否存在
+                rs.add(f);
+            }
+        }
+        return rs;
     }
 
     private void getMultipartFileList(String path) throws IOException {

@@ -52,7 +52,7 @@ public class GalleryController extends CommonController {
      */
     @RequestMapping(value = "/gallery.html", method = RequestMethod.GET)
     public ModelAndView gallery() throws IOException {
-        log.info("access ace/gallery.html");
+        log.info("access gallery.html");
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
         return modelAndView;
     }
@@ -66,7 +66,7 @@ public class GalleryController extends CommonController {
     @RequestMapping(value = "/getImages.html", method = RequestMethod.GET)
     @ResponseBody
     public List getImages() throws IOException {
-        log.info("access ace/getImages.html");
+        log.info("access getImages.html");
         //  ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
         //  String result = JsonUtil.ObjectToFormattedJson(galleryService.getImages());
         //  modelAndView.addObject("ajaxResult", galleryService.getImages());
@@ -84,7 +84,7 @@ public class GalleryController extends CommonController {
      */
     @RequestMapping(value = "/image/thumbnail/get/{fileName}", method = RequestMethod.GET)
     public void getThumbnail(@PathVariable("fileName") String fileName, HttpServletResponse response) {
-        log.info("access image/get/{}", fileName);
+        log.info("access image/thumbnail/get/{}", fileName);
         String thumbnail = imagesThumbnail + fileName + filesService.findFilesByFileName(fileName).getExt();
         filesService.get(thumbnail, response);
     }
@@ -120,7 +120,7 @@ public class GalleryController extends CommonController {
     @ResponseBody
     public List<String> uploads(@RequestParam(value = "files") MultipartFile[] files, MultipartHttpServletRequest request) {
         String uuid = request.getParameter("uuid");
-        log.info("access ace/uploads.html => dropzone uuid: {}", uuid);
+        log.info("access image/uploads.html => dropzone uuid: {}", uuid);
         List<String> list = filesService.uploads(files, uuid, imagePath);
         return list;
     }
@@ -135,7 +135,7 @@ public class GalleryController extends CommonController {
     @RequestMapping(value = "/image/remove/{uuid}", method = RequestMethod.GET)
     public ModelAndView remove(@PathVariable String uuid) {
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-        log.info("access ace/remove => delete {}", uuid);
+        log.info("access image/remove => delete {}", uuid);
         modelAndView.addObject("delete", filesService.delete(uuid));
         return modelAndView;
     }
@@ -150,7 +150,7 @@ public class GalleryController extends CommonController {
     @ResponseBody
     public boolean delete(@PathVariable String uuid) {
         //  ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
-        log.info("access ace/delete => delete {}", uuid);
+        log.info("access image/delete => delete {}", uuid);
         boolean rs = filesService.delete(uuid);
         // String result = JsonUtil.ObjectToJson(rs);
         //  modelAndView.addObject("ajaxResult", result);
@@ -166,7 +166,7 @@ public class GalleryController extends CommonController {
      */
     @RequestMapping(value = "/image/download/{uuid}", method = RequestMethod.GET)
     public void download(@PathVariable String uuid, HttpServletResponse response) {
-        log.info("access ace/download => download {}", uuid);
+        log.info("access image/download => download {}", uuid);
         boolean result = filesService.download(uuid, response);
         if (result) {
             log.info("download {} {}", uuid, "success");
@@ -186,7 +186,7 @@ public class GalleryController extends CommonController {
     @RequestMapping(value = "/image/rotate/{direction}/{uuid}", method = RequestMethod.GET)
     @ResponseBody
     public Files rotate(@PathVariable String direction, @PathVariable String uuid) throws Exception {
-        log.info("access ace/rotate => rotate {} {}", direction, uuid);
+        log.info("access image/rotate => rotate {} {}", direction, uuid);
         //  ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
         Files f = galleryService.rotate(direction, uuid);
         //  String result = JsonUtil.ObjectToJson(f);

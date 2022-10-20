@@ -133,15 +133,7 @@ public class FilesService {
                 response.setContentType("application/force-download");
                 // 设置文件名
                 response.addHeader("Content-Disposition", "attachment;fileName=" + f.getOriginationName());
-                InputStream is = new FileInputStream(file);
-                OutputStream os = response.getOutputStream();
-                byte[] buffer = new byte[1024]; // 图片文件流缓存池
-                while (is.read(buffer) != -1) {
-                    os.write(buffer);
-                }
-                os.flush();
-                os.close();
-                is.close();
+                outputStream(response, file);
                 return true;
             } catch (IOException ioe) {
                 ioe.printStackTrace();
@@ -161,21 +153,25 @@ public class FilesService {
     public void get(String path, HttpServletResponse response) {
         File file = new File(path);
         try {
-            InputStream is = new FileInputStream(file);
-            OutputStream os = response.getOutputStream();
-            byte[] buffer = new byte[1024]; // 文件流缓存池
-            while (is.read(buffer) != -1) {
-                os.write(buffer);
-            }
-            os.flush();
-            os.close();
-            is.close();
+            outputStream(response, file);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public String upload(String storageLocation, MultipartFile file) {    //注意参数
+    private void outputStream(HttpServletResponse response, File file) throws IOException {
+        InputStream is = new FileInputStream(file);
+        OutputStream os = response.getOutputStream();
+        byte[] buffer = new byte[1024]; // 图片文件流缓存池
+        while (is.read(buffer) != -1) {
+            os.write(buffer);
+        }
+        os.flush();
+        os.close();
+        is.close();
+    }
+
+    public String upload(String storageLocation, MultipartFile file) { //注意参数
         try {
             if (file.isEmpty()) {
                 return "file is empty";
