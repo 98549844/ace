@@ -328,19 +328,34 @@
     $body.on('click', '.videoDelete', function () {
         let id = $(this).attr('id');
         let playId = id.split("delete-")[1];
-        $.ajax({
-            type: "get", // 以get方式发起请求
-            url: "media/delete/" + playId,
-            dataType: "json",
-            // 将你的请求参数以问号拼接到url中进行参数传递
-            success(data) {
-                $("#li-" + playId + "").css('display', 'none');
-            },
-            error(data) {
-                window.location.href = '500.html';
-            },
 
-        })
+        const d = dialog({
+            title: 'Delete video.',
+            content: 'Are you sure delete this video ?',
+            okValue: 'OK',
+            ok: function () {
+                this.title('Submit…');
+                $.ajax({
+                    type: "get", // 以get方式发起请求
+                    url: "media/delete/" + playId,
+                    dataType: "json",
+                    // 将你的请求参数以问号拼接到url中进行参数传递
+                    success(data) {
+                        $("#li-" + playId + "").css('display', 'none');
+                    },
+                    error(data) {
+                        window.location.href = '500.html';
+                    },
+
+                })
+                return true;
+                // return false; dialog 不会消失
+            },
+            cancelValue: 'Cancel',
+            cancel: function () {
+            }
+        });
+        d.showModal();
     });
 
 </script>
