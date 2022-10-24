@@ -100,7 +100,8 @@ public class GalleryController extends CommonController {
         log.info("access image/get/{}", fileName);
         String name;
         if (!fileName.contains(".")) {
-            String ext = filesService.findFilesByFileName(fileName).getExt();
+            Files f = filesService.findFilesByFileName(fileName);
+            String ext = f.getExt();
             name = fileName + ext;
         } else {
             name = fileName;
