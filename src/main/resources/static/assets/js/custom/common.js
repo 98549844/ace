@@ -18,19 +18,21 @@ function setTitle() {
 
 
 function docReady() {
+    const aHref = "a[href*='.html']";
+    const currentForm = "#current_form";
     //提交表单验证
-    $("#current_form").off("submit");
-    $("#current_form").on("submit", function () {
+    $(currentForm).off("submit");
+    $(currentForm).on("submit", function () {
         showLoading();
         return true;
     });
 
     //链接点击绑定弹出加载框
-    $("a[href*='.html']").off();
-    $("a[href*='.html']").on("click", function () {
+    $(aHref).off();
+    $(aHref).on("click", function () {
         const link = $(this).attr("href");
         $.cookie('currentURL', link);
-        if ($(this).attr("target") != "_blank") {
+        if ($(this).attr("target") !== "_blank") {
             setTimeout(() => {
             }, 1000);
             showLoading();
@@ -38,7 +40,7 @@ function docReady() {
     });
 
     const currentURL = $.cookie('currentURL');
-    $.each($("a[href*='.html']"), function () {
+    $.each($(aHref), function () {
         const link = $(this).attr("href");
         if (link === currentURL) {
             $(this).parent().parent().parent().addClass("active").addClass("open");

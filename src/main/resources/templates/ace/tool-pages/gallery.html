@@ -298,27 +298,28 @@
             success(data) {
                 let html = "";
                 for (let i = 0; i < data.length; i++) {
+                    const fileName = data[i].fileName;
+                    const ext = data[i].ext;
                     //   html = html + "<li><img src=\"image/get/" + data[i].fileName + "\" width=\"150\" height=\"150\" alt=\"150x150\"/></li>";
-                    html = html + "<li id=\"li-" + data[i].fileName + "\">\n" +
-                        "    <a href=\"image/get/" + data[i].fileName + "." + data[i].ext + "\" data-rel=\"colorbox\">\n" +
-                        "        <img width=\"150\" height=\"150\" alt=\"150x150\"\n" +
-                        "             src=\"image/get/" + data[i].fileName + "\" id=\"img-" + data[i].fileName + "\"/>\n" +
-                        "    </a>\n" +
-                        "    <div class=\"tools tools-bottom\">\n" +
-                        "        <a href=\"javascript:void(0);\" id=\"rotate-l-" + data[i].fileName + "\"  class=\"rotate\">\n" +
-                        "            <i class=\"ace-icon fa fa-undo\"></i>\n" +
-                        "        </a>\n" +
-                        "        <a href=\"javascript:void(0);\" id=\"rotate-r-" + data[i].fileName + "\"  class=\"rotate\">\n" +
-                        "            <i class=\"ace-icon fa fa-repeat\"></i>\n" +
-                        "        </a>\n" +
-                        "        <a href=\"image/download/" + data[i].fileName + "\" id=\"download-" + data[i].fileName + "\" class=\"imageDownload\">\n" +
-                        "            <i class=\"ace-icon fa fa-download green\"></i>\n" +
-                        "        </a>\n" +
-                        "        <a href=\"javascript:void(0);\" id=\"delete-" + data[i].fileName + "\"  class=\"imageDelete\">\n" +
-                        "            <i class=\"ace-icon fa fa-times red\"></i>\n" +
-                        "        </a>\n" +
-                        "    </div>\n" +
-                        "</li>";
+                    html = html + `<li id="li-${fileName}" class="lazy">
+                                        <a href="image/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
+                                            <img width="150" height="150" alt="150x150" src="image/get/${fileName}" id="img-${fileName}">
+                                        </a>
+                                        <div class="tools tools-bottom">
+                                            <a href="javascript:void(0);" id="rotate-l-${fileName}" class="rotate">
+                                                <i class="ace-icon fa fa-undo"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" id="rotate-r-${fileName}" class="rotate">
+                                                <i class="ace-icon fa fa-repeat"></i>
+                                            </a>
+                                            <a href="image/download/${fileName}" id="download-${fileName}" class="imageDownload">
+                                                <i class="ace-icon fa fa-download green"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" id="delete-${fileName}" class="imageDelete">
+                                                <i class="ace-icon fa fa-times red"></i>
+                                            </a>
+                                        </div>
+                                    </li>`;
                 }
                 $("#imageDiv").html(html);
                 viewImage();
@@ -360,27 +361,26 @@
             // 将你的请求参数以问号拼接到url中进行参数传递
             success(data) {
                 let html = "";
-                // alert("data=> " + data);
-                html = html + "<li id=\"li-" + data.fileName + "\">\n" +
-                    "    <a href=\"image/get/" + data.fileName + data.ext + "\" data-rel=\"colorbox\">\n" +
-                    "        <img width=\"150\" height=\"150\" alt=\"150x150\"\n" +
-                    "             src=\"image/get/" + data.fileName + "\" id=\"img-" + imgId + "\"/>\n" +
-                    "    </a>\n" +
-                    "    <div class=\"tools tools-bottom\">\n" +
-                    "        <a href=\"javascript:void(0);\" id=\"rotate-l-" + data.fileName + "\"  class=\"rotate\">\n" +
-                    "            <i class=\"ace-icon fa fa-undo\"></i>\n" +
-                    "        </a>\n" +
-                    "        <a href=\"javascript:void(0);\" id=\"rotate-r-" + data.fileName + "\"  class=\"rotate\">\n" +
-                    "            <i class=\"ace-icon fa fa-repeat\"></i>\n" +
-                    "        </a>\n" +
-                    "        <a href=\"image/download/" + data.fileName + "\" id=\"download-" + data.fileName + "\" class=\"imageDownload\">\n" +
-                    "            <i class=\"ace-icon fa fa-download green\"></i>\n" +
-                    "        </a>\n" +
-                    "        <a href=\"javascript:void(0);\" id=\"delete-" + data.fileName + "\"  class=\"imageDelete\">\n" +
-                    "            <i class=\"ace-icon fa fa-times red\"></i>\n" +
-                    "        </a>\n" +
-                    "    </div>\n" +
-                    "</li>";
+                html = html + `<li id="li-${data.fileName}" class="lazy">
+                                    <a href="image/get/${data.fileName}${data.ext}" data-rel="colorbox" class="cboxElement">
+                                        <img width="150" height="150" alt="150x150" src="image/get/${data.fileName}" id="img-${data.fileName}">
+                                    </a>
+                                    <div class="tools tools-bottom">
+                                        <a href="javascript:void(0);" id="rotate-l-${data.fileName}" class="rotate">
+                                            <i class="ace-icon fa fa-undo"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" id="rotate-r-${data.fileName}" class="rotate">
+                                            <i class="ace-icon fa fa-repeat"></i>
+                                        </a>
+                                        <a href="image/download/${data.fileName}" id="download-${data.fileName}" class="imageDownload">
+                                            <i class="ace-icon fa fa-download green"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" id="delete-${data.fileName}" class="imageDelete">
+                                            <i class="ace-icon fa fa-times red"></i>
+                                        </a>
+                                    </div>
+                                </li>`;
+
                 $("#li-" + imgId + "").replaceWith(html);
                 viewImage();
             },
@@ -409,6 +409,9 @@
         })
     });
 
+    const lazyLoad = new LazyLoad({
+        elements_selector: ".lazy",
+    });
 
 </script>
 
