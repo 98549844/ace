@@ -81,7 +81,6 @@ public class UsersService {
 
     public List<Users> findUsersLikeNameByMybatis(String userName) {
         List<Users> usersList = usersMapper.findUsersLikeNameByMybatis(SqlUtil.like(userName));
-
         calcAge(usersList);
         return usersList;
     }
@@ -118,6 +117,10 @@ public class UsersService {
 
     public List<Map> findUserRolePermission() {
         return usersDao.findUserRolePermission();
+    }
+
+    public Users findUsersByEmail(String email) {
+        return usersDao.findUsersByEmail(email);
     }
 
     public List<Map> findUserRolePermissionDetail() {

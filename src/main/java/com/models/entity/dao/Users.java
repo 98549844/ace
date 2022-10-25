@@ -1,6 +1,5 @@
 package com.models.entity.dao;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.models.entity.dao.base.baseEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -10,7 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "users", uniqueConstraints = {@UniqueConstraint(name = "constraint_userAccount", columnNames = "userAccount")})
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(name = "constraint_userAccount", columnNames = {"userAccount"}), @UniqueConstraint(name = "constraint_email", columnNames = {"email"})})
 @Entity
 public class Users extends baseEntity implements Serializable {
 

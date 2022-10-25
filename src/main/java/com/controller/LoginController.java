@@ -106,11 +106,11 @@ public class LoginController extends CommonController {
                 return modelAndView;
             }
         }
-
-
         //  modelAndView = super.page("ace/index.html");
         modelAndView = super.redirect("ace/index.html");
         return modelAndView;
     }
+
+
 }
 

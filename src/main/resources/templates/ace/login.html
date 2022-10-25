@@ -95,7 +95,8 @@
                                             <div class="space"></div>
                                             <div class="clearfix">
                                                 <label class="inline">
-                                                    <input type="checkbox" name="rememberMe" class="ace" th:checked="checked"/>
+                                                    <input type="checkbox" name="rememberMe" class="ace"
+                                                           th:checked="checked"/>
                                                     <span class="lbl"> Remember Me </span>
                                                 </label>
 
@@ -162,18 +163,19 @@
                                         Enter your email and to receive instructions
                                     </p>
 
-                                    <form>
+                                    <form action="/ace/password/reset.html" method="post">
                                         <fieldset>
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
 															<input type="email" class="form-control"
-                                                                   placeholder="Email"/>
+                                                                   name="email" placeholder="Email"
+                                                                   th:value="${email}"/>
 															<i class="ace-icon fa fa-envelope"></i>
 														</span>
                                             </label>
 
                                             <div class="clearfix">
-                                                <button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+                                                <button type="submit" class="width-35 pull-right btn btn-sm btn-danger">
                                                     <i class="ace-icon fa fa-lightbulb-o"></i>
                                                     <span class="bigger-110">Send Me!</span>
                                                 </button>
@@ -311,7 +313,7 @@
     jQuery(function ($) {
         $(document).on('click', '.toolbar a[data-target]', function (e) {
             e.preventDefault();
-            var target = $(this).data('target');
+            const target = $(this).data('target');
             $('.widget-box.visible').removeClass('visible');//hide others
             $(target).addClass('visible');//show target
         });

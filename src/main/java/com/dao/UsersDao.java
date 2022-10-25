@@ -44,6 +44,8 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
 
     Integer countByUserAccountOrEmail(String userAccount, String email);
 
+    Users findUsersByEmail(String email);
+
     void deleteAll();
 
     @Query(nativeQuery = true, value = "select u.userId, r.roleId, p.permissionsId, p.permissionCode, u.username, p.action, r.roleCode, u.description, u.userAccount from role_permissions rp, permissions p, roles r, user_roles ur, users u where 1 = 1 and rp.permissionsId = p.permissionsId and rp.roleId = r.roleId and ur.roleId = r.roleId and ur.userId = u.userId order by userId")
