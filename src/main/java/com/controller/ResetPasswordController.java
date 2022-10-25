@@ -6,6 +6,7 @@ import com.models.entity.dao.Email;
 import com.models.entity.dao.Users;
 import com.service.UsersService;
 import com.util.NullUtil;
+import com.util.UUID;
 import org.apache.kerby.kerberos.kerb.type.pa.PaAuthenticationSet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 
 /**
  * @Classname: ResetPasswordController
@@ -57,7 +59,6 @@ public class ResetPasswordController extends CommonController {
             modelAndView = super.page("ace/login.html");
             modelAndView.addObject("msg", msg);
             modelAndView.addObject(Css.css, Css.red);
-            return modelAndView;
         } else {
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper emailHelper = new MimeMessageHelper(message, true);
@@ -65,11 +66,39 @@ public class ResetPasswordController extends CommonController {
             emailHelper.setTo(email);
             emailHelper.setSubject("Reset Password - Ace Application"); // 标题
             emailHelper.setText("Click here to reset Ace Application login password"); // 内容
-            javaMailSender.send(message);
+            //  javaMailSender.send(message);
+
+            String uuid = UUID.get();
+            System.out.println(uuid);
+            setSession(uuid);
+            String getUuid = getSession(uuid);
+            System.out.println(getUuid);
+            removeSession(uuid);
 
             modelAndView = super.page("500.html");
-            return modelAndView;
         }
+        return modelAndView;
+    }
+
+    protected void setSession(String uuid) {
+        HttpSession session = getRequest().getSession();
+        String mySessionId = session.getId();
+        log.info("setSession ID: {}", mySessionId);
+        session.setAttribute(uuid, uuid);
+    }
+
+    protected String getSession(String uuid) {
+        HttpSession session = getRequest().getSession();
+        String mySessionId = session.getId();
+        log.info("getSession ID: {}", mySessionId);
+        String getUuid = (String) session.getAttribute(uuid);
+        session.removeAttribute(uuid);
+        return getUuid;
+    }
+
+    protected void removeSession(String uuid) {
+        HttpSession session = getRequest().getSession();
+        session.removeAttribute(uuid);
     }
 }
 

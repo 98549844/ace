@@ -1,4 +1,4 @@
-//package com.config;
+//package com.util;
 //
 //import org.apache.logging.log4j.LogManager;
 //import org.apache.logging.log4j.Logger;
@@ -26,7 +26,6 @@
 //     */
 //    public static void convertMediaToM3u8(InputStream inputStream, String m3u8Url, String infoUrl) throws IOException {
 //
-
 //        avutil.av_log_set_level(avutil.AV_LOG_INFO);
 //        FFmpegLogCallback.set();
 //

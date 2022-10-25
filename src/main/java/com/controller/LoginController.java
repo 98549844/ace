@@ -96,7 +96,7 @@ public class LoginController extends CommonController {
                     login(user.getUserId(), false);
                 }
                 log.info("UserId: {}", user.getUserId());
-                setSession(user);
+                setUsersSession(user);
                 usersService.save(user);
             } catch (UserNotFoundException | PasswordNotMatchException e) {
                 e.printStackTrace();

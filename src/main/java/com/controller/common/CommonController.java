@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class CommonController {
     private Log log = LogFactory.getLog(this.getClass());
@@ -32,6 +33,36 @@ public class CommonController {
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         response = servletRequestAttributes.getResponse();
         return response;
+    }
+
+    /** 特点: 不需要saToken登入
+     * @param key
+     * @param obj
+     */
+    protected void setHttpSession(String key, Object obj) {
+        HttpSession session = getRequest().getSession();
+        String sessionId = session.getId();
+        log.info("setSession ID: " + sessionId);
+        session.setAttribute(key, obj);
+    }
+
+    /** 特点: 不需要saToken登入
+     * @param key
+     * @return
+     */
+    protected Object getHttpSession(String key) {
+        HttpSession session = getRequest().getSession();
+        String sessionId = session.getId();
+        log.info("getSession ID: " + sessionId);
+        return session.getAttribute(key);
+    }
+
+    /** 特点: 不需要saToken登入
+     * @param key
+     */
+    protected void removeHttpSession(String key) {
+        HttpSession session = getRequest().getSession();
+        session.removeAttribute(key);
     }
 
     /**
@@ -102,22 +133,30 @@ public class CommonController {
         return modelAndView;
     }
 
-    protected void setSession(Users users) {
+    protected void setUsersSession(Users users) {
         StpUtil.getSession().set("user", users);
     }
 
-    protected Users getCurrentUser() {
-        Users user = (Users) StpUtil.getSession().get("user");
-        return user;
-    }
-
-    protected String getTokenValue() {
-        String takeValue = (String) StpUtil.getTokenValue();
-        return takeValue;
+    protected void setSession(String key, Object object) {
+        StpUtil.getSession().set(key, object);
     }
 
     protected SaSession getSession() {
         return StpUtil.getSession();
+    }
+
+    protected String getTokenValue() {
+        return StpUtil.getTokenValue();
+    }
+
+    protected Users getCurrentUser() {
+        return (Users) StpUtil.getSession().get("user");
+    }
+
+    protected void clearSession() {
+        // 注销此Session会话 (从持久库删除此Session)
+        SaSession session = getSession();
+        session.logout();
     }
 
     protected SaSession getSessionByLoginId(Long id) {
@@ -141,12 +180,6 @@ public class CommonController {
      */
     protected void login(long userId, boolean rememberMe) {
         StpUtil.login(userId, rememberMe);
-    }
-
-    protected void clearSession() {
-        // 注销此Session会话 (从持久库删除此Session)
-        SaSession session = getSession();
-        session.logout();
     }
 
     protected boolean isLogin() {
