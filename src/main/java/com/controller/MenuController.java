@@ -34,36 +34,28 @@ public class MenuController extends CommonController {
 
     @RequestMapping(value = "/menu.html", method = RequestMethod.GET)
     public ModelAndView getMenuList() {
-
         List<Menu> menuList = menuService.getMenuList();
-
         ModelAndView modelAndView = super.page("ace/modules/menus/menu");
         return modelAndView;
     }
 
     @RequestMapping(value = "/menu/delete.html", method = RequestMethod.DELETE)
     public ModelAndView deleteMenu() {
-
         List<Menu> menuList = menuService.getMenuList();
-
         ModelAndView modelAndView = super.page("ace/modules/menus/menu");
         return modelAndView;
     }
 
     @RequestMapping(value = "/menu/add.html", method = RequestMethod.GET)
     public ModelAndView addMenu() {
-
         List<Menu> menuList = menuService.getMenuList();
-
         ModelAndView modelAndView = super.page("ace/modules/menus/menu");
         return modelAndView;
     }
 
     @RequestMapping(value = "/menu/edit.html", method = RequestMethod.GET)
     public ModelAndView editMenu() {
-
         List<Menu> menuList = menuService.getMenuList();
-
         ModelAndView modelAndView = super.page("ace/modules/menus/menu");
         return modelAndView;
     }

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,7 +47,7 @@ public class ResetPasswordController extends CommonController {
     }
 
     @RequestMapping(value = {"/ace/password/reset.html"}, method = RequestMethod.POST)
-    public ModelAndView login(String email) throws MessagingException {
+    public ModelAndView reset(String email) throws MessagingException {
         email = email.trim();
         log.info("access ace/password/reset.html");
         log.info("reset password email: " + email);
@@ -66,28 +67,44 @@ public class ResetPasswordController extends CommonController {
             emailHelper.setTo(email);
             emailHelper.setSubject("Reset Password - Ace Application"); // 标题
             emailHelper.setText("Click here to reset Ace Application login password"); // 内容
-            //  javaMailSender.send(message);
-
             String uuid = UUID.get();
-            System.out.println(uuid);
             setSession(uuid);
-            String getUuid = getSession(uuid);
-            System.out.println(getUuid);
-            removeSession(uuid);
-
-            modelAndView = super.page("500.html");
+            //javaMailSender.send(message);
+            modelAndView = super.page("reset password 页面没有做好");
         }
         return modelAndView;
     }
 
-    protected void setSession(String uuid) {
+    @RequestMapping(value = {"/ace/password/set/{password}/{uuid}"}, method = RequestMethod.POST)
+    public ModelAndView set(@PathVariable String uuid, @PathVariable String password) throws MessagingException {
+        log.info("access ace/password/set/{} ", uuid);
+        ModelAndView modelAndView;
+        String result = getSession(uuid);
+        if (uuid.equals(result)) {
+            modelAndView = super.page("ace/login.html");
+            String msg = "Reset password success";
+            modelAndView.addObject("msg", msg);
+            modelAndView.addObject(Css.css, Css.green);
+            removeSession(uuid);
+            log.info("reset password success !!!");
+        } else {
+            modelAndView = super.page("reset password 页面没有做好");
+            String msg = "Reset password fail";
+            modelAndView.addObject("msg", msg);
+            modelAndView.addObject(Css.css, Css.red);
+            log.warn("reset password fail !!!");
+        }
+        return modelAndView;
+    }
+
+    private void setSession(String uuid) {
         HttpSession session = getRequest().getSession();
         String mySessionId = session.getId();
         log.info("setSession ID: {}", mySessionId);
         session.setAttribute(uuid, uuid);
     }
 
-    protected String getSession(String uuid) {
+    private String getSession(String uuid) {
         HttpSession session = getRequest().getSession();
         String mySessionId = session.getId();
         log.info("getSession ID: {}", mySessionId);
@@ -96,7 +113,7 @@ public class ResetPasswordController extends CommonController {
         return getUuid;
     }
 
-    protected void removeSession(String uuid) {
+    private void removeSession(String uuid) {
         HttpSession session = getRequest().getSession();
         session.removeAttribute(uuid);
     }

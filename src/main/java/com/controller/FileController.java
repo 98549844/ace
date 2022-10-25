@@ -59,9 +59,7 @@ public class FileController extends CommonController {
     @RequestMapping(value = "/files/delete", method = RequestMethod.GET)
     public ModelAndView delete() {
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-
         log.error("success call delete file method");
-
         return modelAndView;
     }
 
