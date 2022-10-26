@@ -77,7 +77,7 @@ public class FFmpegUtil {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("key").append(separator);                  // m3u8加载key文件网络路径
         stringBuilder.append(keyFile.toString()).append(separator);    // FFmpeg加载key_info文件路径
-        stringBuilder.append(iv);                                            // ASE 向量
+        stringBuilder.append(iv);                                       // ASE 向量
 
         Path keyInfo = Paths.get(folder, "key_info");
 
@@ -202,7 +202,7 @@ public class FFmpegUtil {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static MediaInfo getMediaInfo(String source) throws IOException, InterruptedException {
+    private static MediaInfo getMediaInfo(String source) throws IOException, InterruptedException {
         List<String> commands = new ArrayList<>();
         commands.add("ffprobe");
         commands.add("-i");
@@ -235,7 +235,7 @@ public class FFmpegUtil {
      * @throws IOException
      * @throws InterruptedException
      */
-    public boolean screenShots(String source, String file, String time) throws IOException, InterruptedException {
+    private boolean screenShots(String source, String file, String time) throws IOException, InterruptedException {
 
         List<String> commands = new ArrayList<>();
         commands.add("ffmpeg");
