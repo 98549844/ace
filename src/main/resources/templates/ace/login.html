@@ -202,7 +202,7 @@
                                     </h4>
                                     <div class="space-6"></div>
                                     <p> Enter your details to begin: </p>
-                                    <!--                                    <form th:action="@{/ace/registration}" th:object="${user}" th:method="post" id="registration">-->
+                                    <!-- <form th:action="@{/ace/registration}" th:object="${user}" th:method="post" id="registration">-->
                                     <form action="/ace/registration.html" method="post" id="registration">
                                         <fieldset>
                                             <label class="block clearfix">
@@ -365,24 +365,24 @@
             const confirm_pw = $("#confirm-password").val();
 
             if (email == null || email === "") {
-                alert("email不能为空");
+                alert("请输入Email");
                 return;
             }
             //@不存在
             if (email.indexOf("@") === -1) {
-                alert("email格式不对");
+                alert("Email格式不正确");
                 return;
             }
             if (userAccount == null || userAccount === "") {
-                alert("userAccount不能为空");
+                alert("请输入User Account");
                 return;
             }
             if (password == null || password === "") {
-                alert("password不能为空");
+                alert("请输入password");
                 return;
             }
             if (confirm_pw == null || confirm_pw === "") {
-                alert("confirm_pw不能为空");
+                alert("请重输入confirm_pw");
                 return;
             }
             if ($.trim(password) !== $.trim(confirm_pw)) {
