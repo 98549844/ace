@@ -4,13 +4,9 @@ import com.constant.AceEnvironment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.core.env.AbstractEnvironment;
-
-import java.util.Iterator;
-
 import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertySource;
-import com.util.Console;
 
 
 /**
@@ -24,12 +20,8 @@ import com.util.Console;
 public class PropertiesUtil {
     private static final Logger log = LogManager.getLogger(PropertiesUtil.class.getName());
 
-
     public static void printLoadedProperties() {
-
         Environment env = AceEnvironment.environment;
-        //  int i = 0;
-
         log.info("Start print loaded properties");
         //遍历每个配置来源中的配置项
         int m = 0;
@@ -45,14 +37,9 @@ public class PropertiesUtil {
             }
         }
         log.info("Complete !!!");
-
-
     }
 
 
-    public static void main(String[] args) {
-        Console.printConsoleColor();
-    }
 
 }
 
