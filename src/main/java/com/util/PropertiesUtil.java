@@ -1,12 +1,14 @@
 package com.util;
 
-import com.constant.AceEnvironment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.env.AbstractEnvironment;
 import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertySource;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -16,12 +18,20 @@ import org.springframework.core.env.PropertySource;
  * @Description:
  */
 
-
+@Component
+@Order(1)
 public class PropertiesUtil {
     private static final Logger log = LogManager.getLogger(PropertiesUtil.class.getName());
 
+    public static Environment environment;
+
+    @Autowired
+    public PropertiesUtil(Environment environment) {
+        PropertiesUtil.environment = environment;
+    }
+
     public static void printLoadedProperties() {
-        Environment env = AceEnvironment.environment;
+        Environment env = PropertiesUtil.environment;
         log.info("Start print loaded properties");
         //遍历每个配置来源中的配置项
         int m = 0;
