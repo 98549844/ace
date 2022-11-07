@@ -286,6 +286,10 @@ public class FilesService {
     public List<Files> findFilesByFileNameInAndStatus(List<String> fileNames, String status) {
         return filesDao.findFilesByFileNameInAndStatus(fileNames, status);
     }
+
+    public List<Files> findFilesByFileNameInAndStatusOrderByCreatedDateDesc(List<String> fileNames, String status) {
+        return filesDao.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fileNames, status);
+    }
 }
 
 

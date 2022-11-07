@@ -83,7 +83,7 @@ public class MediaService {
         filesService.deleteAll(filesList);
 
         List folderList = (List) FileUtil.getCurrentFolderList(videoM3u8).get(FileUtil.FOLDERNAME);
-        List result = filesService.findFilesByFileNameInAndStatus(folderList, com.models.entity.dao.Files.FRAGMENT);
+        List result = filesService.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(folderList, com.models.entity.dao.Files.FRAGMENT);
         return result;
     }
 
