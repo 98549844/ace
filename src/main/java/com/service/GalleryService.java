@@ -61,7 +61,12 @@ public class GalleryService {
             List<String> fName = FileUtil.getNames(ls);
             List<Files> filesList = filesService.findFilesByPathAndFileNameNotIn(imagePath, fName);
             filesService.deleteAll(filesList);
-            return FileUtil.getNamesOrderByLastModifiedDate(imagesThumbnail, true);
+
+            //根据数据库排序
+            return filesService.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fName, Files.COMPRESSED);
+
+            //根据文件排序
+            // return FileUtil.getNamesOrderByLastModifiedDate(imagesThumbnail, true);
         }
     }
 
@@ -75,6 +80,9 @@ public class GalleryService {
             for (String name : ls) {
                 imageUtil.square(imagePath + name, true);
                 ImageUtil.compress(imagesThumbnail + name);
+                Files f = filesService.findFilesByFileName(FileUtil.getName(name));
+                f.setStatus(Files.COMPRESSED);
+                filesService.save(f);
             }
         } catch (Exception e) {
             log.error("Include non image files !!!");
