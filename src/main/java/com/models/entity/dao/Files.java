@@ -24,6 +24,7 @@ public class Files extends baseEntity {
 
     public static final String UPLOADED = "uploaded";
     public static final String FRAGMENT = "fragment";
+    public static final String COMPRESSED = "compressed";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,7 +44,7 @@ public class Files extends baseEntity {
     @Column
     private int count = 0;
     @Column
-    private String status; //uploaded: 已上载 fragment:已切片
+    private String status; //uploaded: 已上载 fragment:已切片 compressed:已压缩
     @Column
     private String originationName; //原文件名
     @Column
