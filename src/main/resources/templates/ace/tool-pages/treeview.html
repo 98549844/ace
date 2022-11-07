@@ -153,7 +153,7 @@
 
 
         function initiateDemoData() {
-            var tree_data = {
+            const tree_data = {
                 'for-sale': {text: 'For Sale', type: 'folder'},
                 'vehicles': {text: 'Vehicles', type: 'folder'},
                 'rentals': {text: 'Rentals', type: 'folder'},
@@ -162,7 +162,7 @@
                 'tickets': {text: 'Tickets', type: 'item'},
                 'services': {text: 'Services', type: 'item'},
                 'personals': {text: 'Personals', type: 'item'}
-            }
+            };
             tree_data['for-sale']['additionalParameters'] = {
                 'children': {
                     'appliances': {text: 'Appliances', type: 'item'},
@@ -217,13 +217,13 @@
                 }
             }
 
-            var dataSource1 = function (options, callback) {
-                var $data = null
+            const dataSource1 = function (options, callback) {
+                let $data = null;
                 if (!("text" in options) && !("type" in options)) {
                     $data = tree_data;//the root tree
                     callback({data: $data});
                     return;
-                } else if ("type" in options && options.type == "folder") {
+                } else if ("type" in options && options.type === "folder") {
                     if ("additionalParameters" in options && "children" in options.additionalParameters)
                         $data = options.additionalParameters.children || {};
                     else $data = {}//no data
@@ -237,10 +237,10 @@
                 //we have used static data here
                 //but you can retrieve your data dynamically from a server using ajax call
                 //checkout examples/treeview.html and examples/treeview.js for more info
-            }
+            };
 
 
-            var tree_data_2 = {
+            const tree_data_2 = {
                 'pictures': {text: 'Pictures', type: 'folder', 'icon-class': 'red'},
                 'music': {text: 'Music', type: 'folder', 'icon-class': 'orange'},
                 'video': {text: 'Video', type: 'folder', 'icon-class': 'blue'},
@@ -248,7 +248,7 @@
                 'backup': {text: 'Backup', type: 'folder'},
                 'readme': {text: '<i class="ace-icon fa fa-file-text grey"></i> ReadMe.txt', type: 'item'},
                 'manual': {text: '<i class="ace-icon fa fa-book blue"></i> Manual.html', type: 'item'}
-            }
+            };
             tree_data_2['music']['additionalParameters'] = {
                 'children': [
                     {text: '<i class="ace-icon fa fa-music blue"></i> song1.ogg', type: 'item'},
@@ -311,13 +311,13 @@
                     {text: '<i class="ace-icon fa fa-archive brown"></i> backup4.zip', type: 'item'}
                 ]
             }
-            var dataSource2 = function (options, callback) {
-                var $data = null
+            const dataSource2 = function (options, callback) {
+                let $data = null;
                 if (!("text" in options) && !("type" in options)) {
                     $data = tree_data_2;//the root tree
                     callback({data: $data});
                     return;
-                } else if ("type" in options && options.type == "folder") {
+                } else if ("type" in options && options.type === "folder") {
                     if ("additionalParameters" in options && "children" in options.additionalParameters)
                         $data = options.additionalParameters.children || {};
                     else $data = {}//no data
@@ -331,7 +331,7 @@
                 //we have used static data here
                 //but you can retrieve your data dynamically from a server using ajax call
                 //checkout examples/treeview.html and examples/treeview.js for more info
-            }
+            };
 
 
             return {'dataSource1': dataSource1, 'dataSource2': dataSource2}

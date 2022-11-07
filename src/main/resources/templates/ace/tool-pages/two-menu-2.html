@@ -1213,7 +1213,7 @@
 
 
         $(document).on('settings.ace.two_menu', function (e, event_name, event_val) {
-            if (event_name == 'sidebar_fixed') {
+            if (event_name === 'sidebar_fixed') {
                 if ($('#sidebar').hasClass('sidebar-fixed')) $('#sidebar2').addClass('sidebar-fixed')
                 else $('#sidebar2').removeClass('sidebar-fixed')
             }

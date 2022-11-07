@@ -8,6 +8,7 @@ import com.restController.UserRolePermissionRestController;
 import com.util.BeanUtil;
 import com.util.IpUtil;
 import com.util.MapUtil;
+import com.util.PropertiesUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mybatis.spring.annotation.MapperScan;
@@ -52,7 +53,7 @@ public class AceApplication {
         //print all loaded BeanName and properties value
 //        Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
 //        BeanUtil.printBeanName(applicationContext);
-//        PropertiesUtil.printLoadedProperties();
+        PropertiesUtil.printLoadedProperties();
 //        Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
 
         //iterate bean value by name

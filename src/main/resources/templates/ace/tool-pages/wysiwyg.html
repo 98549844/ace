@@ -172,7 +172,7 @@
     jQuery(function ($) {
 
         $('textarea[data-provide="markdown"]').each(function () {
-            var $this = $(this);
+            const $this = $(this);
 
             if ($this.data('markdown')) {
                 $this.data('markdown').showEditor();
@@ -183,7 +183,7 @@
 
 
         function showErrorAlert(reason, detail) {
-            var msg = '';
+            let msg = '';
             if (reason === 'unsupported-file-type') {
                 msg = "Unsupported format " + detail;
             } else {
@@ -300,10 +300,10 @@
                 lastResizableImg = null;
             }
 
-            var enableImageResize = function () {
+            const enableImageResize = function () {
                 $('.wysiwyg-editor')
                     .on('mousedown', function (e) {
-                        var target = $(e.target);
+                        const target = $(e.target);
                         if (e.target instanceof HTMLImageElement) {
                             if (!target.data('resizable')) {
                                 target.resizable({
@@ -328,7 +328,7 @@
                     .on('keydown', function () {
                         destroyResizable();
                     });
-            }
+            };
 
             enableImageResize();
 
