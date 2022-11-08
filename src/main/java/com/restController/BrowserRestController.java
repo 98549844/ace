@@ -31,7 +31,7 @@ public class BrowserRestController {
     private static final Logger log = LogManager.getLogger(BrowserRestController.class.getName());
 
     private final static String chromeDriver = "webdriver.chrome.driver";
-    private final static String chromedriver = "src/main/resources/components/chrome/windows/chromedriver_105.exe";
+    private final static String chromedriver = "src/main/resources/components/chrome/windows/chromedriver_107.exe";
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/get")

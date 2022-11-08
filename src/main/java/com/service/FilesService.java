@@ -239,7 +239,7 @@ public class FilesService {
             }
 
             f.setOriginationName(originalFilename);
-            f.setExt(suffix);
+            f.setExt(suffix.toLowerCase());
             f.setFileName(fileName);
             f.setLocation(path + fileName + suffix);
             f.setPath(path);
