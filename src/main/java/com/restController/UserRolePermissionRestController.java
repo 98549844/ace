@@ -362,13 +362,29 @@ public class UserRolePermissionRestController extends CommonController {
         return AjaxResponse.success(list);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/findUserRolePermissionByMybatis")
-    public AjaxResponse findUserRolePermissionDetailByMybatis() {
+    @RequestMapping(method = RequestMethod.GET, value = "/getUserRolePermissionById")
+    public AjaxResponse getUserRolePermissionById() {
         log.info("List detail by UserRolePermission Mybatis");
-        List<Map> m1 = usersService.findUserRolePermissionByMybatis(6l);
-        List<Map> m2 = usersService.findAllUserRolePermissionByMybatis();
+        List<Map> m0 = usersService.findAllUserRolePermissionByMybatis();
+        List<Map> getUsersByMybatis = usersService.getUserRolePermissionById(533l);
+        List<Map> getUsersByHibernate = usersService.findUserRolePermissionDetailById(533l);
 
-        return AjaxResponse.success(m2);
+        Long userId = (Long) getUsersByMybatis.get(0).get("userId");
+        String userAccount = (String) getUsersByMybatis.get(0).get("userAccount");
+        String roleName = (String) getUsersByMybatis.get(0).get("roleName");
+        String permissionCode = (String) getUsersByMybatis.get(0).get("permissionCode");
+        Long permissionsId = (Long) getUsersByMybatis.get(0).get("permissionsId");
+        log.info("userId: {}", userId);
+        log.info("userAccount: {}", userAccount);
+        log.info("roleName: {}", roleName);
+        log.info("permissionCode: {}", permissionCode);
+        log.info("permissionsId: {}", permissionsId);
+
+        List<List<Map>> result = new ArrayList<>();
+        result.add(getUsersByMybatis);
+        result.add(getUsersByHibernate);
+
+        return AjaxResponse.success(result);
     }
 
 }

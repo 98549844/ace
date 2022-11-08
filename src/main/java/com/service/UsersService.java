@@ -128,8 +128,20 @@ public class UsersService {
     }
 
 
-    public List<Map> findUserRolePermissionByMybatis(Long userId) {
-        return usersMapper.findUserRolePermissionByMybatis(userId);
+    /** using mybatis
+     * @param userId
+     * @return
+     */
+    public List<Map> getUserRolePermissionById(Long userId) {
+        return usersMapper.getUserRolePermissionById(userId);
+    }
+
+    /** using Hibernate
+     * @param userId
+     * @return
+     */
+    public List<Map> findUserRolePermissionDetailById(Long userId) {
+        return usersDao.findUserRolePermissionDetailById(userId);
     }
 
     public List<Map> findAllUserRolePermissionByMybatis() {

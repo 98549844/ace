@@ -20,7 +20,7 @@ public interface UsersMapper {
 
     Users selectByAccount(String account);
 
-    List<Map> findUserRolePermissionByMybatis(Long userid);
+    List<Map> getUserRolePermissionById(Long userid);
 
     List<Map> findAllUserRolePermissionByMybatis();
 
