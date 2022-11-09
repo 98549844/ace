@@ -2,7 +2,6 @@ package com.config;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.models.entity.dao.Users;
-import com.util.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.AuditorAware;
@@ -17,6 +16,7 @@ import java.util.Optional;
  * @Description:
  */
 
+
 @Component
 public class JpaAuditorAwareConfig implements AuditorAware<Long> {
     private static final Logger log = LogManager.getLogger(JpaAuditorAwareConfig.class.getName());
@@ -28,11 +28,13 @@ public class JpaAuditorAwareConfig implements AuditorAware<Long> {
      */
     @Override
     public Optional<Long> getCurrentAuditor() {
-        // String userId = null;//SecurityUtils.getCurrentUserId();
-        Users user = (Users) StpUtil.getSession().get("user");
-        if (NullUtil.isNotNull(user) && NullUtil.isNotNull(user.getUserId())) {
+        try {
+            Users user = (Users) StpUtil.getSession().get("user");
+            log.info("last modify by: {}", user.getUserId());
             return Optional.of(user.getUserId());
-        } else {
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+            log.warn("UserId not found, set default value 0 !!!");
             return Optional.of(0l);
         }
     }

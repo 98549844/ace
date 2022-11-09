@@ -80,7 +80,8 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
         log.error("error code: {}", super.getResponse().getStatus());
         log.error("Exception message：{}", message);
         if (stackTrace.contains(NotLoginException)) {
-            log.error("Exception stackTrace：{}, {}", NotLoginException, "User didn't login Ace Application");
+            log.error("Exception stackTrace：{}", NotLoginException);
+            log.error("User HASN'T login Ace Application");
         } else {
             log.error("Exception stackTrace：{}", stackTrace);
         }
