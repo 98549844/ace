@@ -10,12 +10,6 @@ public class Constant {
 	public static final String user = "user"; // read update
 	public static final String Viewer = "viewer"; // read only
 
-	//roles_rolesCode
-	public static final String ROLECODE_ADMIN = "ADMIN";
-	public static final String ROLECODE_DISABLE = "DISABLE";
-	public static final String ROLECODE_USER = "USER";
-	public static final String ROLECODE_VIEWER = "VIEWER";
-
 
 	//permission_permissionCode
 	public static final String ALL = "0";

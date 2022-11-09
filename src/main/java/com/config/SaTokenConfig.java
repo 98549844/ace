@@ -1,14 +1,10 @@
 package com.config;
 
-import cn.dev33.satoken.interceptor.SaAnnotationInterceptor;
-//import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.interceptor.SaInterceptor;
-import cn.dev33.satoken.interceptor.SaRouteInterceptor;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.thymeleaf.dialect.SaTokenDialect;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.controller.common.CommonController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,7 +28,9 @@ public class SaTokenConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 注册Sa-Token的路由拦截器
-        registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin()))
+       // registry.addInterceptor(new SaRouteInterceptor()) //1.30
+       // registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin())) //after 1.31
+        registry.addInterceptor(new SaInterceptor(handler -> StpUtil.checkLogin())) //after 1.31
                 .addPathPatterns("/**")
                 //开放登陆,注册 url
                 .excludePathPatterns("/ace/logging.html", "/ace/login.html","/ace/registration.html","/ace/password/reset.html","/")
@@ -63,11 +61,11 @@ public class SaTokenConfig implements WebMvcConfigurer {
 //        registry.addInterceptor(new SaAnnotationInterceptor()).addPathPatterns("/**");
 //    }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(11);
-        return passwordEncoder;
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(11);
+//        return passwordEncoder;
+//    }
 
     // Sa-Token 标签方言 (Thymeleaf版)
     @Bean

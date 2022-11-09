@@ -290,6 +290,10 @@ public class FilesService {
     public List<Files> findFilesByFileNameInAndStatusOrderByCreatedDateDesc(List<String> fileNames, String status) {
         return filesDao.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fileNames, status);
     }
+
+    public List<Files> findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(List<String> fileNames, String status, String ownerId) {
+        return filesDao.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(fileNames, status, ownerId);
+    }
 }
 
 

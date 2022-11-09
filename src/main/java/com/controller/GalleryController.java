@@ -3,6 +3,8 @@ package com.controller;
 import com.constant.AceEnvironment;
 import com.controller.common.CommonController;
 import com.models.entity.dao.Files;
+import com.models.entity.dao.Roles;
+import com.models.entity.dao.Users;
 import com.service.FilesService;
 import com.service.GalleryService;
 import org.apache.logging.log4j.LogManager;
@@ -71,7 +73,8 @@ public class GalleryController extends CommonController {
         //  String result = JsonUtil.ObjectToFormattedJson(galleryService.getImages());
         //  modelAndView.addObject("ajaxResult", galleryService.getImages());
         //  return modelAndView;
-        return galleryService.getImages();
+        return galleryService.getImages(getCurrentUser());
+
     }
 
 

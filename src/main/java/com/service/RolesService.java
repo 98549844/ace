@@ -19,7 +19,6 @@ public class RolesService {
         this.rolesDao = rolesDao;
     }
 
-
     public List<Roles> findAll() {
         return rolesDao.findAll();
     }
@@ -38,6 +37,10 @@ public class RolesService {
 
     public Roles findRolesByRoleId (Long rolesId){
         return rolesDao.findRolesByRoleId(rolesId);
+    }
+
+    public  List<Roles> findRolesByRoleIdIn (List<Long> rolesList){
+        return rolesDao.findRolesByRoleIdIn(rolesList);
     }
 
     public void saveAllAndFlush(List<Roles> roles) {

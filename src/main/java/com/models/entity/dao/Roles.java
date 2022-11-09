@@ -12,6 +12,11 @@ import java.io.Serializable;
 @Table(name = "roles", uniqueConstraints = {@UniqueConstraint(name = "constraint_roleCode", columnNames = "roleCode")})
 @Entity
 public class Roles extends baseEntity implements Serializable {
+    //constant
+    public static final String ADMIN = "ADMIN";
+    public static final String DISABLE = "DISABLE";
+    public static final String USER = "USER";
+    public static final String VIEWER = "VIEWER";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

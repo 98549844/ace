@@ -73,7 +73,7 @@ public class UserRolePermissionRestController extends CommonController {
         }
 
         //related default user into roles
-        Roles adminRoles = rolesService.findByRoleCode(Constant.ROLECODE_ADMIN);
+        Roles adminRoles = rolesService.findByRoleCode(Roles.ADMIN);
 
         //create default user
         Users admin = usersService.findByUserAccount("admin");
@@ -164,10 +164,10 @@ public class UserRolePermissionRestController extends CommonController {
         }
 
         //insert default roles
-        Roles roleAdmin = rolesService.findByRoleCode(Constant.ROLECODE_ADMIN);
-        Roles roleUser = rolesService.findByRoleCode(Constant.ROLECODE_USER);
-        Roles RoleDisable = rolesService.findByRoleCode(Constant.ROLECODE_DISABLE);
-        Roles roleViewer = rolesService.findByRoleCode(Constant.ROLECODE_VIEWER);
+        Roles roleAdmin = rolesService.findByRoleCode(Roles.ADMIN);
+        Roles roleUser = rolesService.findByRoleCode(Roles.USER);
+        Roles RoleDisable = rolesService.findByRoleCode(Roles.DISABLE);
+        Roles roleViewer = rolesService.findByRoleCode(Roles.VIEWER);
 
         RolePermissions all;
         RolePermissions insert;
@@ -180,7 +180,7 @@ public class UserRolePermissionRestController extends CommonController {
         for (Roles roles : rolesService.findAll()) {
             if (Constant.ACTIVE.equals(roles.getStatus())) {
                 switch (roles.getRoleCode()) {
-                    case Constant.ROLECODE_ADMIN:
+                    case Roles.ADMIN:
                         all = new RolePermissions();
                         permission = permissionsService.findPermissionsByPermissionCode(Constant.ALL);
                         all.setPermissionsId(permission.getPermissionsId());
@@ -188,14 +188,14 @@ public class UserRolePermissionRestController extends CommonController {
 
                         rolePermissionsService.save(all);
                         break;
-                    case Constant.ROLECODE_DISABLE:
+                    case Roles.DISABLE:
                         deny = new RolePermissions();
                         permission = permissionsService.findPermissionsByPermissionCode(Constant.DENY);
                         deny.setPermissionsId(permission.getPermissionsId());
                         deny.setRoleId(RoleDisable.getRoleId());
                         rolePermissionsService.save(deny);
                         break;
-                    case Constant.ROLECODE_USER:
+                    case Roles.USER:
                         select = new RolePermissions();
                         permission = permissionsService.findPermissionsByPermissionCode(Constant.SELECT);
                         select.setPermissionsId(permission.getPermissionsId());
@@ -215,7 +215,7 @@ public class UserRolePermissionRestController extends CommonController {
                         rolePermissionsService.save(update);
                         rolePermissionsService.save(insert);
                         break;
-                    case Constant.ROLECODE_VIEWER:
+                    case Roles.VIEWER:
                         select = new RolePermissions();
                         permission = permissionsService.findPermissionsByPermissionCode(Constant.SELECT);
                         select.setPermissionsId(permission.getPermissionsId());
@@ -241,10 +241,10 @@ public class UserRolePermissionRestController extends CommonController {
         userRolesService.deleteAll(); // delete all user roles relation
         List<Users> users = usersService.findAll();
 
-        Roles roleAdmin = rolesService.findByRoleCode(Constant.ROLECODE_ADMIN);
-        Roles roleUser = rolesService.findByRoleCode(Constant.ROLECODE_USER);
-        Roles RoleDisable = rolesService.findByRoleCode(Constant.ROLECODE_DISABLE);
-        Roles roleViewer = rolesService.findByRoleCode(Constant.ROLECODE_VIEWER);
+        Roles roleAdmin = rolesService.findByRoleCode(Roles.ADMIN);
+        Roles roleUser = rolesService.findByRoleCode(Roles.USER);
+        Roles RoleDisable = rolesService.findByRoleCode(Roles.DISABLE);
+        Roles roleViewer = rolesService.findByRoleCode(Roles.VIEWER);
 
 
         List<UserRoles> userRolesList = new ArrayList<>();
@@ -294,21 +294,21 @@ public class UserRolePermissionRestController extends CommonController {
             RolePermissions deny;
 
             switch (rolesList.get(i).getRoleCode()) {
-                case Constant.ROLECODE_ADMIN:
+                case Roles.ADMIN:
                     all = new RolePermissions();
                     all.setRoleId(rolesList.get(i).getRoleId());
                     all.setPermissionsId(p0.getPermissionsId());
 
                     rolePermissionsService.save(all);
                     break;
-                case Constant.ROLECODE_DISABLE:
+                case Roles.DISABLE:
                     deny = new RolePermissions();
                     deny.setRoleId(rolesList.get(i).getRoleId());
                     deny.setPermissionsId(p10.getPermissionsId());
 
                     rolePermissionsService.save(deny);
                     break;
-                case Constant.ROLECODE_USER:
+                case Roles.USER:
                     insert = new RolePermissions();
                     insert.setRoleId(rolesList.get(i).getRoleId());
                     insert.setPermissionsId(p1.getPermissionsId());
@@ -325,7 +325,7 @@ public class UserRolePermissionRestController extends CommonController {
                     rolePermissionsService.save(update);
                     rolePermissionsService.save(select);
                     break;
-                case Constant.ROLECODE_VIEWER:
+                case Roles.VIEWER:
                     select = new RolePermissions();
                     select.setRoleId(rolesList.get(i).getRoleId());
                     select.setPermissionsId(p4.getPermissionsId());

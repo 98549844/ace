@@ -72,6 +72,21 @@ import java.io.StringWriter;
 public class AceGlobalExceptionHandler extends CommonController implements ErrorController {
     private static final Logger log = LogManager.getLogger(AceGlobalExceptionHandler.class.getName());
 
+    private static final String NotLoginException = "cn.dev33.satoken.exception.NotLoginException";
+
+    private void exceptionLog(String message, String stackTrace) {
+        log.error("URL: " + super.getRequest().getRequestURL().toString());
+        log.error("HTTP_METHOD: " + super.getRequest().getMethod());
+        log.error("error code: {}", super.getResponse().getStatus());
+        log.error("Exception message：{}", message);
+        if (stackTrace.contains(NotLoginException)) {
+            log.error("Exception stackTrace：{}, {}", NotLoginException, "User didn't login Ace Application");
+        } else {
+            log.error("Exception stackTrace：{}", stackTrace);
+        }
+    }
+
+
     @RequestMapping(value = {"/error"})
     @ResponseBody
     public ModelAndView error() {
@@ -111,21 +126,17 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
 
             ModelAndView modelAndView = new ModelAndView("ace/login");
             if (message.contains("Token已被踢下线")) {
-                modelAndView.addObject(Css.css, Css.red);
                 modelAndView.addObject("msg", "Account kicked out");
             } else if (message.contains("Token无效")) {
-                modelAndView.addObject(Css.css, Css.red);
                 modelAndView.addObject("msg", "Session invalid");
             } else if (message.contains("Token已被顶下线")) {
-                modelAndView.addObject(Css.css, Css.red);
                 modelAndView.addObject("msg", "Account forced to logout");
             } else if (message.contains("未能读取到有效Token")) {
-                modelAndView.addObject(Css.css, Css.red);
                 modelAndView.addObject("msg", "Session illegal");
             } else if (message.contains("Token已过期")) {
-                modelAndView.addObject(Css.css, Css.red);
                 modelAndView.addObject("msg", "Session timeout");
             }
+            modelAndView.addObject(Css.css, Css.red);
             return modelAndView;
         } else {
             StringWriter sw = new StringWriter();
@@ -142,13 +153,6 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
         }
     }
 
-    private void exceptionLog(String message, String stackTrace) {
-        log.error("URL: " + super.getRequest().getRequestURL().toString());
-        log.error("HTTP_METHOD: " + super.getRequest().getMethod());
-        log.error("error code: {}", super.getResponse().getStatus());
-        log.error("Exception message：{}", message);
-        log.error("Exception stackTrace：{}", stackTrace);
-    }
 
     private ModelAndView exceptionModelAndView(String url, String faCss, int status, String warningMsg) {
         ModelAndView modelAndView = new ModelAndView(url);

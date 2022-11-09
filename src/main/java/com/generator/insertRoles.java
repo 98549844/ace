@@ -69,10 +69,10 @@ public class insertRoles {
         r3.setLastUpdateDate(LocalDateTime.now());
         r4.setLastUpdateDate(LocalDateTime.now());
 
-        r1.setRoleCode(Constant.ROLECODE_ADMIN);
-        r2.setRoleCode(Constant.ROLECODE_DISABLE);
-        r3.setRoleCode(Constant.ROLECODE_USER);
-        r4.setRoleCode(Constant.ROLECODE_VIEWER);
+        r1.setRoleCode(Roles.ADMIN);
+        r2.setRoleCode(Roles.DISABLE);
+        r3.setRoleCode(Roles.USER);
+        r4.setRoleCode(Roles.VIEWER);
 
         r1.setRoleName(Constant.administrator);
         r2.setRoleName(Constant.disable);

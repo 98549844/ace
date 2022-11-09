@@ -24,7 +24,6 @@ public class JpaAuditorAwareConfig implements AuditorAware<Long> {
 
     /**
      * Returns the current auditor of the application.
-     *
      * @return the current auditor.
      */
     @Override

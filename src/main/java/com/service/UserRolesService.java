@@ -25,7 +25,6 @@ public class UserRolesService {
 
     public UserRoles save(UserRoles userRoles) {
         return userRolesDao.save(userRoles);
-
     }
 
     public List<UserRoles> saveAll(List<UserRoles> userRolesList) {
@@ -42,9 +41,7 @@ public class UserRolesService {
 
     public List<UserRoles> findAllByUserId(Long userId) {
         return userRolesDao.findAllByUserId(userId);
-
     }
 
-    ;
 
 }

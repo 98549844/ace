@@ -2,6 +2,9 @@ package com.service;
 
 import com.constant.AceEnvironment;
 import com.models.entity.dao.Files;
+import com.models.entity.dao.Roles;
+import com.models.entity.dao.UserRoles;
+import com.models.entity.dao.Users;
 import com.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,17 +31,35 @@ public class GalleryService {
     private static final Logger log = LogManager.getLogger(GalleryService.class.getName());
 
     private FilesService filesService;
+    private UserRolesService userRolesService;
+    private RolesService rolesService;
     private final String imagePath;
     private final String imagesThumbnail;
 
+
     @Autowired
-    public GalleryService(FilesService filesService) {
+    public GalleryService(FilesService filesService, UserRolesService userRolesService, RolesService rolesService) {
         this.filesService = filesService;
+        this.userRolesService = userRolesService;
+        this.rolesService = rolesService;
         this.imagePath = AceEnvironment.getImagesPath();
         this.imagesThumbnail = AceEnvironment.getImagesThumbnail();
     }
 
-    public List getImages() throws IOException {
+    public List<Roles> validateUser(Users users) {
+        List<UserRoles> userRolesList = userRolesService.findAllByUserId(users.getUserId());
+
+        List<Long> roleIdList = new ArrayList<>();
+        for (UserRoles userRoles : userRolesList) {
+            roleIdList.add(userRoles.getRoleId());
+        }
+        List<Roles> rolesList = rolesService.findRolesByRoleIdIn(roleIdList);
+
+        return rolesList;
+    }
+
+
+    public List getImages(Users users) throws IOException {
         log.info("image location: {}", imagePath);
 
         List<String> ls = FileUtil.getFileNames(imagePath);
@@ -62,9 +83,16 @@ public class GalleryService {
             List<Files> filesList = filesService.findFilesByPathAndFileNameNotIn(imagePath, fName);
             filesService.deleteAll(filesList);
 
-            //根据数据库排序
-            return filesService.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fName, Files.COMPRESSED);
+            List<Roles> rolesList = validateUser(users);
 
+            //只处理单角色,多角色及后再新增处理
+            if (Roles.ADMIN.equals(rolesList.get(0).getRoleCode())) {
+                //根据数据库排序
+                return filesService.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fName, Files.COMPRESSED);
+            } else {
+                //根据数据库排序
+                return filesService.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(fName, Files.COMPRESSED, users.getUserId().toString());
+            }
             //根据文件排序
             // return FileUtil.getNamesOrderByLastModifiedDate(imagesThumbnail, true);
         }

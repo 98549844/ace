@@ -1,5 +1,6 @@
 package com.service;
 
+import cn.dev33.satoken.annotation.SaIgnore;
 import com.constant.Constant;
 import com.dao.UsersDao;
 import com.exception.PasswordNotMatchException;
@@ -163,7 +164,7 @@ public class UsersService {
         Users u = usersDao.saveAndFlush(users);
 
         //default role is viewer
-        Roles role = rolesService.findByRoleCode(Constant.ROLECODE_VIEWER);
+        Roles role = rolesService.findByRoleCode(Roles.VIEWER);
 
         UserRoles userRoles = new UserRoles();
         userRoles.setUserId(u.getUserId());
