@@ -1,7 +1,10 @@
 package com.service;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.constant.AceEnvironment;
 import com.models.common.TranscodeConfig;
+import com.models.entity.dao.Roles;
+import com.models.entity.dao.Users;
 import com.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,11 +39,13 @@ public class MediaService {
     private String videoM3u8;
     private String videoPath;
     private FilesService filesService;
+    private RolesService rolesService;
     private final Path tempDir = Paths.get(System.getProperty("java.io.tmpdir"));
 
     @Autowired
-    public MediaService(FilesService filesService) {
+    public MediaService(FilesService filesService, RolesService rolesService) {
         this.filesService = filesService;
+        this.rolesService = rolesService;
         this.videoM3u8 = AceEnvironment.getVideoM3u8();
         this.videoPath = AceEnvironment.getVideoPath();
     }
@@ -49,6 +54,27 @@ public class MediaService {
         List<String> videoList = FileUtil.getFileNames(videoPath);
         List<String> t1 = FileUtil.getNames(videoList);
         return getActualList(t1);
+    }
+
+    private List getActualList(List<String> t1) {
+        //根据folder实际文件控制数据库, 删除folder不存文件数据
+        List<String> fName = FileUtil.getNames(t1);
+        List<com.models.entity.dao.Files> filesList = filesService.findFilesByPathAndFileNameNotIn(videoPath, fName);
+        filesService.deleteAll(filesList);
+        List folderList = (List) FileUtil.getCurrentFolderList(videoM3u8).get(FileUtil.FOLDERNAME);
+
+        Users users = (Users) StpUtil.getSession().get("user");
+        List<Roles> rolesList = rolesService.getRolesByUser(users);
+
+        //只处理单角色,多角色及后再新增处理
+        if (Roles.ADMIN.equals(rolesList.get(0).getRoleCode())) {
+            //根据数据库排序
+            return filesService.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(folderList, com.models.entity.dao.Files.FRAGMENT);
+
+        } else {
+            //根据数据库排序
+            return filesService.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(folderList, com.models.entity.dao.Files.FRAGMENT, users.getUserId().toString());
+        }
     }
 
     public List getM3U8() throws IOException {
@@ -74,17 +100,6 @@ public class MediaService {
             }
         }
         return getActualList(t1);
-    }
-
-    private List getActualList(List<String> t1) {
-        //根据folder实际文件控制数据库, 删除folder不存文件数据
-        List<String> fName = FileUtil.getNames(t1);
-        List<com.models.entity.dao.Files> filesList = filesService.findFilesByPathAndFileNameNotIn(videoPath, fName);
-        filesService.deleteAll(filesList);
-
-        List folderList = (List) FileUtil.getCurrentFolderList(videoM3u8).get(FileUtil.FOLDERNAME);
-        List result = filesService.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(folderList, com.models.entity.dao.Files.FRAGMENT);
-        return result;
     }
 
 

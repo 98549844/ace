@@ -46,19 +46,6 @@ public class GalleryService {
         this.imagesThumbnail = AceEnvironment.getImagesThumbnail();
     }
 
-    public List<Roles> validateUser(Users users) {
-        List<UserRoles> userRolesList = userRolesService.findAllByUserId(users.getUserId());
-
-        List<Long> roleIdList = new ArrayList<>();
-        for (UserRoles userRoles : userRolesList) {
-            roleIdList.add(userRoles.getRoleId());
-        }
-        List<Roles> rolesList = rolesService.findRolesByRoleIdIn(roleIdList);
-
-        return rolesList;
-    }
-
-
     public List getImages(Users users) throws IOException {
         log.info("image location: {}", imagePath);
 
@@ -83,7 +70,7 @@ public class GalleryService {
             List<Files> filesList = filesService.findFilesByPathAndFileNameNotIn(imagePath, fName);
             filesService.deleteAll(filesList);
 
-            List<Roles> rolesList = validateUser(users);
+            List<Roles> rolesList = rolesService.getRolesByUser(users);
 
             //只处理单角色,多角色及后再新增处理
             if (Roles.ADMIN.equals(rolesList.get(0).getRoleCode())) {

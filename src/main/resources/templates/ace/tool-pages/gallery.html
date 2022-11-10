@@ -301,10 +301,9 @@
                 for (let i = 0; i < data.length; i++) {
                     const fileName = data[i].fileName;
                     const ext = data[i].ext;
-                    //   html = html + "<li><img src=\"image/get/" + data[i].fileName + "\" width=\"150\" height=\"150\" alt=\"150x150\"/></li>";
                     html = html + `<li id="li-${fileName}" class="lazy">
                                         <a href="image/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
-                                            <img width="150" height="150" alt="150x150" src="image/get/${fileName}" id="img-${fileName}">
+                                            <img width="250" height="250" alt="150x150" src="image/get/${fileName}" id="img-${fileName}">
                                         </a>
                                         <div class="tools tools-bottom">
                                             <a href="javascript:void(0);" id="rotate-l-${fileName}" class="rotate">
@@ -364,7 +363,7 @@
                 let html = "";
                 html = html + `<li id="li-${data.fileName}" class="lazy">
                                     <a href="image/get/${data.fileName}${data.ext}" data-rel="colorbox" class="cboxElement">
-                                        <img width="150" height="150" alt="150x150" src="image/get/${data.fileName}" id="img-${data.fileName}">
+                                        <img width="250" height="250" alt="150x150" src="image/get/${data.fileName}" id="img-${data.fileName}">
                                     </a>
                                     <div class="tools tools-bottom">
                                         <a href="javascript:void(0);" id="rotate-l-${data.fileName}" class="rotate">
