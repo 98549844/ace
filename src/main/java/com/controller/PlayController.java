@@ -29,6 +29,9 @@ public class PlayController extends CommonController {
     private FilesService filesService;
     private String videoM3u8;
     private final static String indexM3U8 = "index.m3u8";
+    private final static String tsKey = "ts" + FileUtil.separator + "key";
+    private final static String tsIndexM3U8 = "ts" + FileUtil.separator + "index.m3u8";
+
 
 
     @Autowired
@@ -39,10 +42,10 @@ public class PlayController extends CommonController {
     }
 
     @RequestMapping(value = "/play.html", method = RequestMethod.GET)
-    public ModelAndView accessMedia(@RequestParam(value = "playId") String playId, HttpServletRequest request) {
+    public ModelAndView accessPlay(@RequestParam(value = "playId") String playId, HttpServletRequest request) {
         log.info("access ace/play.html");
-        String requestPlayId = (String) request.getAttribute("playId");
-        log.info("requestPlayId: {}", requestPlayId);
+       // String requestPlayId = (String) request.getAttribute("playId");
+       // log.info("requestPlayId: {}", requestPlayId);
         ModelAndView modelAndView = super.page("ace/tool-pages/play");
         modelAndView.addObject("playId", playId);
         return modelAndView;
@@ -66,5 +69,51 @@ public class PlayController extends CommonController {
         //return modelAndView;
     }
 
+
+    /**
+     * access m3u8
+     *
+     * @param uuid
+     * @param response
+     */
+    @RequestMapping(value = "/media/play/ts/index.m3u8/{uuid}", method = RequestMethod.GET)
+    @ResponseBody
+    public void getM3U8(@PathVariable String uuid, HttpServletResponse response) {
+        log.info("access media/play/ts/index.m3u8/{}", uuid);
+        String location = videoM3u8 + uuid + FileUtil.separator + tsIndexM3U8;
+        log.info("Location: {}", location);
+        filesService.get(location, response);
+    }
+
+    /**
+     * access TS key
+     *
+     * @param uuid
+     * @param response
+     */
+    @RequestMapping(value = "/media/play/ts/index.m3u8/key/{uuid}", method = RequestMethod.GET)
+    @ResponseBody
+    public void getKey(@PathVariable String uuid, HttpServletResponse response) {
+        log.info("access media/play/ts/index.m3u8/key/{}", uuid);
+        String location = videoM3u8 + uuid + FileUtil.separator + tsKey;
+        log.info("Location: {}", location);
+        filesService.get(location, response);
+    }
+
+    /**
+     * 加载TS切片
+     *
+     * @param response
+     * @param ts
+     * @param uuid
+     */
+    @RequestMapping(value = "/media/play/ts/index.m3u8/{ts}/{uuid}", method = RequestMethod.GET)
+    @ResponseBody
+    public void getTs(HttpServletResponse response, @PathVariable String ts, @PathVariable String uuid) {
+        log.info("access media/play/ts/index.m3u8/{}/{}", ts, uuid);
+        String location = videoM3u8 + uuid + FileUtil.separator + "ts" + FileUtil.separator + ts;
+        log.info("Location: {}", location);
+        filesService.get(location, response);
+    }
 }
 

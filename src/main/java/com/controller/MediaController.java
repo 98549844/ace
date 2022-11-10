@@ -38,10 +38,33 @@ public class MediaController extends CommonController {
     private String videoPath;
     private String videoM3u8;
     private final String thumbnail = "thumbnail.jpg";
-    //private final static String indexM3U8 = "index.m3u8";
-    private final static String tsIndexM3U8 = "ts" + FileUtil.separator + "index.m3u8";
-    private final static String tsKey = "ts" + FileUtil.separator + "key";
 
+
+
+/*    @RequestMapping(value = "/play.html", method = RequestMethod.GET)
+    public ModelAndView accessMedia(@RequestParam(value = "playId") String playId, HttpServletRequest request) {
+        log.info("access ace/play.html");
+        String requestPlayId = (String) request.getAttribute("playId");
+        log.info("requestPlayId: {}", requestPlayId);
+        ModelAndView modelAndView = super.page("ace/tool-pages/play");
+        modelAndView.addObject("playId", playId);
+        return modelAndView;
+    }*/
+
+    /**
+     * 开始加载媒体准备播放
+     *
+     */
+/*    @RequestMapping(value = "/media/play/{uuid}", method = RequestMethod.GET)
+    @ResponseBody
+    public void play(@PathVariable String uuid, HttpServletResponse response) {
+        log.info("access ace/play.html uuid: {}", uuid);
+        String location = videoM3u8 + uuid + FileUtil.separator + indexM3U8;
+        log.info("Location: {}", location);
+        //ModelAndView modelAndView = super.page("ace/tool-pages/play");
+        filesService.get(location, response);
+        //return modelAndView;
+    }*/
 
     @Autowired
     public MediaController(MediaService mediaService, FilesService filesService) {
@@ -50,7 +73,6 @@ public class MediaController extends CommonController {
         this.videoPath = AceEnvironment.getVideoPath();
         this.videoM3u8 = AceEnvironment.getVideoM3u8();
     }
-
 
     /**
      * access to media
@@ -63,53 +85,6 @@ public class MediaController extends CommonController {
         log.info("access ace/media.html");
         ModelAndView modelAndView = super.page("ace/tool-pages/media");
         return modelAndView;
-    }
-
-
-    /**
-     * access m3u8
-     *
-     * @param uuid
-     * @param response
-     */
-    @RequestMapping(value = "/media/play/ts/index.m3u8/{uuid}", method = RequestMethod.GET)
-    @ResponseBody
-    public void getM3U8(@PathVariable String uuid, HttpServletResponse response) {
-        log.info("access media/play/ts/index.m3u8/{}", uuid);
-        String location = videoM3u8 + uuid + FileUtil.separator + tsIndexM3U8;
-        log.info("Location: {}", location);
-        filesService.get(location, response);
-    }
-
-    /**
-     * access TS key
-     *
-     * @param uuid
-     * @param response
-     */
-    @RequestMapping(value = "/media/play/ts/index.m3u8/key/{uuid}", method = RequestMethod.GET)
-    @ResponseBody
-    public void getKey(@PathVariable String uuid, HttpServletResponse response) {
-        log.info("access media/play/ts/index.m3u8/key/{}", uuid);
-        String location = videoM3u8 + uuid + FileUtil.separator + tsKey;
-        log.info("Location: {}", location);
-        filesService.get(location, response);
-    }
-
-    /**
-     * 加载TS切片
-     *
-     * @param response
-     * @param ts
-     * @param uuid
-     */
-    @RequestMapping(value = "/media/play/ts/index.m3u8/{ts}/{uuid}", method = RequestMethod.GET)
-    @ResponseBody
-    public void getTs(HttpServletResponse response, @PathVariable String ts, @PathVariable String uuid) {
-        log.info("access media/play/ts/index.m3u8/{}/{}", ts, uuid);
-        String location = videoM3u8 + uuid + FileUtil.separator + "ts" + FileUtil.separator + ts;
-        log.info("Location: {}", location);
-        filesService.get(location, response);
     }
 
     /**
@@ -128,7 +103,6 @@ public class MediaController extends CommonController {
         List<String> list = filesService.uploads(media, uuid, videoPath);
         return list;
     }
-
 
     @RequestMapping(value = "/media/m3u8StreamProcess.html", method = RequestMethod.GET)
     @ResponseBody
