@@ -24,17 +24,19 @@ public class JpaAuditorAwareConfig implements AuditorAware<Long> {
 
     /**
      * Returns the current auditor of the application.
+     *
      * @return the current auditor.
      */
     @Override
     public Optional<Long> getCurrentAuditor() {
-        try {
+        boolean isLogin = StpUtil.isLogin();
+        log.info("isLogin: {}", isLogin);
+        if (isLogin) {
             Users user = (Users) StpUtil.getSession().get("user");
-            log.info("last modify by: {}", user.getUserId());
+            log.info("Login user: {} ; last modify by: {}", user.getUserAccount(), user.getUserId());
             return Optional.of(user.getUserId());
-        } catch (Exception e) {
-            log.warn(e.getMessage());
-            log.warn("UserId not found, set default value 0 !!!");
+        } else {
+            log.info("UserId not found, set default value 0 !!!");
             return Optional.of(0l);
         }
     }
