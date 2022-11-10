@@ -478,7 +478,7 @@
         },*/
         // m3u8
         video: {
-            url: 'media/play/[[${playId}]]',
+            url: 'play/[[${playId}]]',
             type: 'hls',
             defaultQuality: 0
         },
@@ -488,10 +488,12 @@
                 startPosition: -1,
                 // hls config
                 xhrSetup: function (xhr, url) {
+                    const playId = '/[[${playId}]]';
                     if (url.indexOf('.ts') !== -1 || url.indexOf('key') !== -1) {
-                        url = url + '/[[${playId}]]';
+                        url = url + playId;
                     } else if (url.indexOf('\u0000') !== -1) {
-                        url = 'media/play/ts/index.m3u8/[[${playId}]]';
+                        url = 'play/ts/index.m3u8/' + playId;
+                        // url = 'media/play/ts/index.m3u8?uuid=[[${playId}]]'; for requestParam
                     }
                     xhr.open('GET', url, true);
                 }

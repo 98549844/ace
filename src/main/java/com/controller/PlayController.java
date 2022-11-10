@@ -58,7 +58,7 @@ public class PlayController extends CommonController {
      * @param response
      * @param
      */
-    @RequestMapping(value = "/media/play/{uuid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/play/{uuid}", method = RequestMethod.GET)
     @ResponseBody
     public void play(@PathVariable String uuid, HttpServletResponse response) {
         log.info("access ace/play.html uuid: {}", uuid);
@@ -76,10 +76,10 @@ public class PlayController extends CommonController {
      * @param uuid
      * @param response
      */
-    @RequestMapping(value = "/media/play/ts/index.m3u8/{uuid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/play/ts/index.m3u8/{uuid}", method = RequestMethod.GET)
     @ResponseBody
     public void getM3U8(@PathVariable String uuid, HttpServletResponse response) {
-        log.info("access media/play/ts/index.m3u8/{}", uuid);
+        log.info("access play/ts/index.m3u8/{}", uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + tsIndexM3U8;
         log.info("Location: {}", location);
         filesService.get(location, response);
@@ -91,10 +91,10 @@ public class PlayController extends CommonController {
      * @param uuid
      * @param response
      */
-    @RequestMapping(value = "/media/play/ts/index.m3u8/key/{uuid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/play/ts/index.m3u8/key/{uuid}", method = RequestMethod.GET)
     @ResponseBody
     public void getKey(@PathVariable String uuid, HttpServletResponse response) {
-        log.info("access media/play/ts/index.m3u8/key/{}", uuid);
+        log.info("access play/ts/index.m3u8/key/{}", uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + tsKey;
         log.info("Location: {}", location);
         filesService.get(location, response);
@@ -107,10 +107,10 @@ public class PlayController extends CommonController {
      * @param ts
      * @param uuid
      */
-    @RequestMapping(value = "/media/play/ts/index.m3u8/{ts}/{uuid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/play/ts/index.m3u8/{ts}/{uuid}", method = RequestMethod.GET)
     @ResponseBody
     public void getTs(HttpServletResponse response, @PathVariable String ts, @PathVariable String uuid) {
-        log.info("access media/play/ts/index.m3u8/{}/{}", ts, uuid);
+        log.info("access play/ts/index.m3u8/{}/{}", ts, uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + "ts" + FileUtil.separator + ts;
         log.info("Location: {}", location);
         filesService.get(location, response);
