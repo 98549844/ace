@@ -1,6 +1,5 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <ul th:fragment="nav-list">
-
     <!--左菜单列--> <!--active: selected menu-->
     <li class="active">
         <a class="menu" th:href="@{/ace/index.html}">
@@ -317,7 +316,7 @@
 
         <ul class="submenu">
             <li class="">
-                <a th:href="@{'/ace/users/profile.html/'+${user.userId}}">
+                <a th:href="@{'/ace/users/profile.html/'+${currentUser.userId}}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     User Profile
                 </a>

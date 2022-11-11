@@ -35,7 +35,9 @@ public class CommonController {
         return response;
     }
 
-    /** 特点: 不需要saToken登入
+    /**
+     * 特点: 不需要saToken登入
+     *
      * @param key
      * @param obj
      */
@@ -46,7 +48,9 @@ public class CommonController {
         session.setAttribute(key, obj);
     }
 
-    /** 特点: 不需要saToken登入
+    /**
+     * 特点: 不需要saToken登入
+     *
      * @param key
      * @return
      */
@@ -57,7 +61,9 @@ public class CommonController {
         return session.getAttribute(key);
     }
 
-    /** 特点: 不需要saToken登入
+    /**
+     * 特点: 不需要saToken登入
+     *
      * @param key
      */
     protected void removeHttpSession(String key) {
@@ -73,13 +79,11 @@ public class CommonController {
      */
     protected ModelAndView page(String page) {
         if (!isLogin()) {
-            ModelAndView modelAndView = new ModelAndView("ace/login.html");
-            modelAndView.addObject("user", new Users());
-            return modelAndView;
+            return new ModelAndView("ace/login.html");
         }
         ModelAndView modelAndView = new ModelAndView(page);
         Users user = getCurrentUser();
-        modelAndView.addObject("user", user);
+        modelAndView.addObject("currentUser", user);
         return modelAndView;
     }
 

@@ -283,11 +283,11 @@
                 <li class="light-blue dropdown-modal">
                     <a data-toggle="dropdown" th:href="@{/#}" class="dropdown-toggle">
                         <img class="nav-user-photo" th:src="@{/assets/images/avatars/user.jpg}"
-                             th:alt="${user.userAccount}"/>
+                             th:alt="${currentUser.userAccount}"/>
                         <span class="user-info">
 									<small>Welcome,</small>
-                            <!--[[${user.username}]]-->
-                                    [(${user.username})]
+                            <!--[[${currentUser.username}]]-->
+                                    [(${currentUser.username})]
 								</span>
 
                         <i class="ace-icon fa fa-caret-down"></i>
@@ -302,7 +302,7 @@
                         </li>
 
                         <li>
-                            <a th:href="@{'/ace/users/profile.html/'+${user.userId}}">
+                            <a th:href="@{'/ace/users/profile.html/'+${currentUser.userId}}">
                                 <i class="ace-icon fa fa-user"></i>
                                 Profile
                             </a>
