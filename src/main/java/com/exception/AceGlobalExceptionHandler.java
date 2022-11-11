@@ -156,12 +156,7 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
 
 
     private ModelAndView exceptionModelAndView(String url, String faCss, int status, String warningMsg) {
-        ModelAndView modelAndView = new ModelAndView(url);
-        if (isLogin()) {
-            modelAndView.addObject("user", getCurrentUser());
-        } else {
-            modelAndView.addObject("user", new Users());
-        }
+        ModelAndView modelAndView = page(url);
         modelAndView.addObject("faCss", faCss);
         modelAndView.addObject("httpStatus", status);
         modelAndView.addObject("warningMsg", warningMsg);

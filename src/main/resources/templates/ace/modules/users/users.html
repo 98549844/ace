@@ -341,20 +341,12 @@
                         console.log(text);
                     }
                     $("#userId-" + userId).text(text);
-
                 },
                 error(data) {
                     window.location.href = '500.html';
                 },
             });
         });
-
-        $("input:hidden").each(function () {
-            const userId = $(this).attr('id');
-            console.log(userId);
-        });
-
-
     })
 </script>
 

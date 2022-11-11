@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.security.Key;
 
 public class CommonController {
     private Log log = LogFactory.getLog(this.getClass());
@@ -79,7 +80,9 @@ public class CommonController {
      */
     protected ModelAndView page(String page) {
         if (!isLogin()) {
-            return new ModelAndView("ace/login.html");
+            ModelAndView modelAndView = new ModelAndView("ace/login.html");
+            modelAndView.addObject("currentUser", new Users());
+            return modelAndView;
         }
         ModelAndView modelAndView = new ModelAndView(page);
         Users user = getCurrentUser();
@@ -140,10 +143,12 @@ public class CommonController {
 
     protected void setUsersSession(Users users) {
         StpUtil.getSession().set("user", users);
+        setHttpSession("user", users);
     }
 
     protected void setSession(String key, Object object) {
         StpUtil.getSession().set(key, object);
+        setHttpSession(key, object);
     }
 
     protected SaSession getSession() {
@@ -161,6 +166,14 @@ public class CommonController {
     protected void clearSession() {
         // 注销此Session会话 (从持久库删除此Session)
         SaSession session = getSession();
+        removeHttpSession("user");
+        session.logout();
+    }
+
+    protected void clearSession(String Key) {
+        // 注销此Session会话 (从持久库删除此Session)
+        SaSession session = getSession();
+        removeHttpSession(Key);
         session.logout();
     }
 
