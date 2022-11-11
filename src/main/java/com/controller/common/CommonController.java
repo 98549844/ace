@@ -95,7 +95,9 @@ public class CommonController {
             modelAndView = new ModelAndView("redirect:/" + url);
             if (isLogin()) {
                 Users user = getCurrentUser();
-                modelAndView.addObject("user", user);
+                modelAndView.addObject("currentUser", user);
+            } else {
+                modelAndView.addObject("currentUser", new Users());
             }
         } catch (Exception e) {
             e.printStackTrace();
