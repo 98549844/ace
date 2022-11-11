@@ -84,13 +84,13 @@ public class UserRolePermissionRestController extends CommonController {
             admin.setPassword("$2a$11$gNnG0zfbKr8c7M3YX9Frn.HaKPS1hFsmgKPt4F6LXnEmmE0FAhV8C");//password 909394
             admin.setUserAccount("admin");
             admin.setUsername("administrator");
-            admin.setDescription(Constant.administrator);
+            admin.setDescription(Users.ADMINISTRATOR);
             admin.setEmail("admin@ace.com");
             admin.setMobile("0000 0000");
             admin.setGender(null);
             admin.setDateOfBirth(LocalDateTime.now());
             admin.setLoginDateTime(LocalDateTime.now());
-            admin.setStatus(Constant.ACTIVE);
+            admin.setStatus(Users.ACTIVE);
             admin.setDomain("ace.com");
             admin.setIp("127.0.0.1");
             admin.setDomain("ace.com");
@@ -109,13 +109,13 @@ public class UserRolePermissionRestController extends CommonController {
             garlam.setPassword("$2a$11$gNnG0zfbKr8c7M3YX9Frn.HaKPS1hFsmgKPt4F6LXnEmmE0FAhV8C");
             garlam.setUserAccount("garlam");
             garlam.setUsername("garlam");
-            garlam.setDescription(Constant.administrator);
+            garlam.setDescription(Users.ADMINISTRATOR);
             garlam.setEmail("garlam@ace.com");
             garlam.setMobile("9518 6540");
             garlam.setGender("M");
             garlam.setDateOfBirth(LocalDateTime.now());
             garlam.setLoginDateTime(LocalDateTime.now());
-            garlam.setStatus(Constant.ACTIVE);
+            garlam.setStatus(Users.ACTIVE);
             garlam.setDomain("ace.com");
             garlam.setIp("127.0.0.1");
             garlam.setDomain("ace.com");
@@ -178,11 +178,11 @@ public class UserRolePermissionRestController extends CommonController {
 
         Permissions permission;
         for (Roles roles : rolesService.findAll()) {
-            if (Constant.ACTIVE.equals(roles.getStatus())) {
+            if (Users.ACTIVE.equals(roles.getStatus())) {
                 switch (roles.getRoleCode()) {
                     case Roles.ADMIN:
                         all = new RolePermissions();
-                        permission = permissionsService.findPermissionsByPermissionCode(Constant.ALL);
+                        permission = permissionsService.findPermissionsByPermissionCode(Permissions.ALL);
                         all.setPermissionsId(permission.getPermissionsId());
                         all.setRoleId(roleAdmin.getRoleId());
 
@@ -190,24 +190,24 @@ public class UserRolePermissionRestController extends CommonController {
                         break;
                     case Roles.DISABLE:
                         deny = new RolePermissions();
-                        permission = permissionsService.findPermissionsByPermissionCode(Constant.DENY);
+                        permission = permissionsService.findPermissionsByPermissionCode(Permissions.DENY);
                         deny.setPermissionsId(permission.getPermissionsId());
                         deny.setRoleId(RoleDisable.getRoleId());
                         rolePermissionsService.save(deny);
                         break;
                     case Roles.USER:
                         select = new RolePermissions();
-                        permission = permissionsService.findPermissionsByPermissionCode(Constant.SELECT);
+                        permission = permissionsService.findPermissionsByPermissionCode(Permissions.SELECT);
                         select.setPermissionsId(permission.getPermissionsId());
                         select.setRoleId(roleUser.getRoleId());
 
                         update = new RolePermissions();
-                        permission = permissionsService.findPermissionsByPermissionCode(Constant.UPDATE);
+                        permission = permissionsService.findPermissionsByPermissionCode(Permissions.UPDATE);
                         update.setPermissionsId(permission.getPermissionsId());
                         update.setRoleId(roleUser.getRoleId());
 
                         insert = new RolePermissions();
-                        permission = permissionsService.findPermissionsByPermissionCode(Constant.INSERT);
+                        permission = permissionsService.findPermissionsByPermissionCode(Permissions.INSERT);
                         insert.setPermissionsId(permission.getPermissionsId());
                         insert.setRoleId(roleUser.getRoleId());
 
@@ -217,7 +217,7 @@ public class UserRolePermissionRestController extends CommonController {
                         break;
                     case Roles.VIEWER:
                         select = new RolePermissions();
-                        permission = permissionsService.findPermissionsByPermissionCode(Constant.SELECT);
+                        permission = permissionsService.findPermissionsByPermissionCode(Permissions.SELECT);
                         select.setPermissionsId(permission.getPermissionsId());
                         select.setRoleId(roleViewer.getRoleId());
 
@@ -253,19 +253,19 @@ public class UserRolePermissionRestController extends CommonController {
         for (int i = 0; i < userSize; i++) {
             UserRoles userRoles = new UserRoles();
             switch (users.get(i).getDescription()) {
-                case Constant.administrator:
+                case Users.ADMINISTRATOR:
                     userRoles.setUserId(users.get(i).getUserId());
                     userRoles.setRoleId(roleAdmin.getRoleId());
                     break;
-                case Constant.disable:
+                case Users.DISABLE:
                     userRoles.setUserId(users.get(i).getUserId());
                     userRoles.setRoleId(RoleDisable.getRoleId());
                     break;
-                case Constant.user:
+                case Users.USER:
                     userRoles.setUserId(users.get(i).getUserId());
                     userRoles.setRoleId(roleUser.getRoleId());
                     break;
-                case Constant.Viewer:
+                case Users.VIEWER:
                     userRoles.setUserId(users.get(i).getUserId());
                     userRoles.setRoleId(roleViewer.getRoleId());
                     break;
@@ -278,12 +278,12 @@ public class UserRolePermissionRestController extends CommonController {
 
         List<Roles> rolesList = rolesService.findAll();
         int rolesSize = rolesList.size();
-        Permissions p0 = permissionsService.findPermissionsByPermissionCode(Constant.ALL);
-        Permissions p1 = permissionsService.findPermissionsByPermissionCode(Constant.INSERT);
-        Permissions p2 = permissionsService.findPermissionsByPermissionCode(Constant.UPDATE);
-        Permissions p3 = permissionsService.findPermissionsByPermissionCode(Constant.DELETE);
-        Permissions p4 = permissionsService.findPermissionsByPermissionCode(Constant.SELECT);
-        Permissions p10 = permissionsService.findPermissionsByPermissionCode(Constant.DENY);
+        Permissions p0 = permissionsService.findPermissionsByPermissionCode(Permissions.ALL);
+        Permissions p1 = permissionsService.findPermissionsByPermissionCode(Permissions.INSERT);
+        Permissions p2 = permissionsService.findPermissionsByPermissionCode(Permissions.UPDATE);
+        Permissions p3 = permissionsService.findPermissionsByPermissionCode(Permissions.DELETE);
+        Permissions p4 = permissionsService.findPermissionsByPermissionCode(Permissions.SELECT);
+        Permissions p10 = permissionsService.findPermissionsByPermissionCode(Permissions.DENY);
 
         for (int i = 0; i < rolesSize; i++) {
             RolePermissions all;

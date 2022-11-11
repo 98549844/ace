@@ -54,14 +54,14 @@ public class InsertUsers {
         u7.setCreatedBy(7001l);
         u8.setCreatedBy(0l);
 
-        u1.setDescription(Constant.administrator);
-        u2.setDescription(Constant.user);
-        u3.setDescription(Constant.Viewer);
-        u4.setDescription(Constant.disable);
-        u5.setDescription(Constant.Viewer);
-        u6.setDescription(Constant.user);
-        u7.setDescription(Constant.disable);
-        u8.setDescription(Constant.administrator);
+        u1.setDescription(Users.ADMINISTRATOR);
+        u2.setDescription(Users.USER);
+        u3.setDescription(Users.VIEWER);
+        u4.setDescription(Users.DISABLE);
+        u5.setDescription(Users.VIEWER);
+        u6.setDescription(Users.USER);
+        u7.setDescription(Users.DISABLE);
+        u8.setDescription(Users.ADMINISTRATOR);
 
 
         u1.setEmail("garlam_au@qq.com");

@@ -157,7 +157,7 @@ public class UsersService {
     @Transactional
     public Users accountRegistration(Users users) {
         users.setPassword(passwordEncoder.encode(users.getPassword()));
-        users.setDescription(Constant.Viewer);
+        users.setDescription(Users.VIEWER);
         users.setUsername("ace" + RandomUtil.getRangeInt(1, 999) + "_" + users.getUserAccount());
         users.setExpireDate(LocalDateTime.now().plusYears(3));
         Users u = usersDao.saveAndFlush(users);
@@ -171,7 +171,7 @@ public class UsersService {
         userRolesService.save(userRoles);
 
         //default permission is select
-        Permissions permissions = permissionsService.findPermissionsByPermissionCode(Constant.SELECT);
+        Permissions permissions = permissionsService.findPermissionsByPermissionCode(Permissions.SELECT);
 
         RolePermissions rolePermissions = new RolePermissions();
         rolePermissions.setPermissionsId(permissions.getPermissionsId());

@@ -96,13 +96,13 @@ public class insertPermissions {
         // p6.setLastUpdateDate(LocalDateTime.now());
         p7.setLastUpdateDate(LocalDateTime.now());
 
-        p1.setPermissionCode(Constant.ALL);
-        p2.setPermissionCode(Constant.INSERT);
-        p3.setPermissionCode(Constant.UPDATE);
-        p4.setPermissionCode(Constant.DELETE);
-        p5.setPermissionCode(Constant.SELECT);
+        p1.setPermissionCode(Permissions.ALL);
+        p2.setPermissionCode(Permissions.INSERT);
+        p3.setPermissionCode(Permissions.UPDATE);
+        p4.setPermissionCode(Permissions.DELETE);
+        p5.setPermissionCode(Permissions.SELECT);
         // p6.setPermissionCode(Constant.SELECT_UPDATE_INSERT);
-        p7.setPermissionCode(Constant.DENY);
+        p7.setPermissionCode(Permissions.DENY);
 
         p1.setAction("ALL");
         p2.setAction("INSERT");

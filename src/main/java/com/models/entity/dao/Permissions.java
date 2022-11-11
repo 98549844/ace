@@ -12,6 +12,16 @@ import java.io.Serializable;
 @Entity
 public class Permissions extends baseEntity implements Serializable {
 
+    //permissionCode
+    public static final String ALL = "0";
+    public static final String INSERT = "1";
+    public static final String UPDATE = "2";
+    public static final String DELETE = "3";
+    public static final String SELECT = "4";
+    public static final String SELECT_UPDATE_INSERT = "8";
+    public static final String DENY = "10";
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(strategy = "identity", name = "id")

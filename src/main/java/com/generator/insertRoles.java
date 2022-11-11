@@ -74,10 +74,10 @@ public class insertRoles {
         r3.setRoleCode(Roles.USER);
         r4.setRoleCode(Roles.VIEWER);
 
-        r1.setRoleName(Constant.administrator);
-        r2.setRoleName(Constant.disable);
-        r3.setRoleName(Constant.user);
-        r4.setRoleName(Constant.Viewer);
+        r1.setRoleName(Users.ADMINISTRATOR);
+        r2.setRoleName(Users.DISABLE);
+        r3.setRoleName(Users.USER);
+        r4.setRoleName(Users.VIEWER);
 
         ls.add(r1);
         ls.add(r2);

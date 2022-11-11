@@ -13,6 +13,17 @@ import java.time.LocalDateTime;
 @Entity
 public class Users extends baseEntity implements Serializable {
 
+    //users_description
+    public static final String ADMINISTRATOR = "administrator";
+    // public static final String Editor = "Editor"; // part of read update insert
+    public static final String DISABLE = "disable";
+    public static final String USER = "user"; // read update
+    public static final String VIEWER = "viewer"; // read only
+
+    public static final String ACTIVE = "ACTIVE";
+    public static final String INACTIVE = "INACTIVE";
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(strategy = "identity", name = "id")
@@ -60,6 +71,9 @@ public class Users extends baseEntity implements Serializable {
 
     @Column
     private boolean enabled = true; // user account
+
+
+
 
     public Long getUserId() {
         return userId;
