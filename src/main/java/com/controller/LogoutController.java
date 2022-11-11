@@ -25,7 +25,7 @@ public class LogoutController extends CommonController {
     private static final Logger log = LogManager.getLogger(LogoutController.class.getName());
 
 
-    @RequestMapping(value = {"/logout.html", "/ace/logout.html"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/logout.html", "/ace/logout.html", "/ace/**/logout.html"}, method = RequestMethod.GET)
     public ModelAndView logout(HttpServletRequest request) {
         ModelAndView modelAndView = super.page("ace/login");
         String msg = "Logout success";
