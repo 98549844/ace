@@ -51,7 +51,7 @@ public class RolesService {
         rolesDao.saveAllAndFlush(roles);
     }
 
-    public List<Roles> getRolesByUser(Long userId) {
+    public List<Roles> getRolesByUserId(Long userId) {
         List<UserRoles> userRolesList = userRolesService.findAllByUserId(userId);
         List<Long> roleIdList = new ArrayList<>();
         for (UserRoles userRoles : userRolesList) {

@@ -3,6 +3,7 @@ package com.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.controller.common.CommonController;
+import com.models.entity.Roles;
 import com.models.entity.Users;
 import com.service.RolesService;
 import com.service.UsersService;
@@ -11,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,9 +70,14 @@ public class UserController extends CommonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/profile.html", method = RequestMethod.GET)
-    public ModelAndView getProfile() {
+    @RequestMapping(value = "/profile.html/{userId}", method = RequestMethod.GET)
+    public ModelAndView getProfile(@PathVariable Long userId) {
+        log.info("access profile.html/{}", userId);
+        Users user = usersService.findUsersById(userId);
+        List<Roles> rolesList = rolesService.getRolesByUserId(userId);
         ModelAndView modelAndView = super.page("ace/modules/users/profile");
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("roles", rolesList);
         return modelAndView;
     }
 
