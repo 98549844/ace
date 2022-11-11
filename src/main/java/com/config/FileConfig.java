@@ -21,7 +21,6 @@ import javax.servlet.MultipartConfigElement;
 public class FileConfig implements WebMvcConfigurer {
     private static Logger log = LogManager.getLogger(FileConfig.class.getName());
 
-    //Spring Boot默认上传的单个文件大小1MB, 一次上传的总文件大小为10MB
     @Bean
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
