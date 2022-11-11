@@ -103,7 +103,7 @@
                                                     <strong class="green">Enable</strong></span>
                                                 <input th:id="'check-'+${rowUser.userId}" checked=""
                                                        th:checked="${rowUser.enabled}"
-                                                       th:if="${rowUser.userId} ne ${user.userId}"
+                                                       th:if="${rowUser.userId} ne ${currentUser.userId}"
                                                        type="checkbox"
                                                        class="ace ace-switch ace-switch-5 "/>
                                                 <span class="lbl middle"></span>
@@ -114,7 +114,7 @@
                                                     <strong class="red">Disable</strong></span>
                                                 <input th:id="'check-'+${rowUser.userId}" checked=""
                                                        th:checked="${rowUser.enabled}"
-                                                       th:if="${rowUser.userId} ne ${user.userId}"
+                                                       th:if="${rowUser.userId} ne ${currentUser.userId}"
                                                        type="checkbox"
                                                        class="ace ace-switch ace-switch-5 "/>
                                                 <span class="lbl middle"></span>
@@ -349,10 +349,10 @@
             });
         });
 
-        /*    $("input:hidden").each(function () {
-                const userId = $(this).attr('id');
-                alert(userId);
-            });*/
+        $("input:hidden").each(function () {
+            const userId = $(this).attr('id');
+            console.log(userId);
+        });
 
 
     })
