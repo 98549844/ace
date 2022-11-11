@@ -96,8 +96,6 @@ public class CommonController {
             if (isLogin()) {
                 Users user = getCurrentUser();
                 modelAndView.addObject("user", user);
-            } else {
-                modelAndView.addObject("user", new Users());
             }
         } catch (Exception e) {
             e.printStackTrace();
