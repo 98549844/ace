@@ -184,7 +184,6 @@
         <a th:href="@{/#}" class="menu dropdown-toggle">
             <i class="menu-icon fa fa-list"></i>
             <span class="menu-text"> Tables </span>
-
             <b class="arrow fa fa-angle-down"></b>
         </a>
 
@@ -318,7 +317,7 @@
 
         <ul class="submenu">
             <li class="">
-                <a class="menu" th:href="@{/ace/profile.html}">
+                <a th:href="@{'/ace/users/profile.html/'+${user.userId}}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     User Profile
                 </a>

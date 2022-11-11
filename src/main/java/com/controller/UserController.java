@@ -75,9 +75,12 @@ public class UserController extends CommonController {
         log.info("access profile.html/{}", userId);
         Users user = usersService.findUsersById(userId);
         List<Roles> rolesList = rolesService.getRolesByUserId(userId);
+        List<Roles> allRoles = rolesService.findAll();
+
         ModelAndView modelAndView = super.page("ace/modules/users/profile");
         modelAndView.addObject("user", user);
         modelAndView.addObject("roles", rolesList);
+        modelAndView.addObject("allRoles", allRoles);
         return modelAndView;
     }
 

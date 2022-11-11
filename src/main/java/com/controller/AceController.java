@@ -63,12 +63,12 @@ public class AceController extends CommonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/profile.html", method = RequestMethod.GET)
+/*    @RequestMapping(value = "/profile.html", method = RequestMethod.GET)
     public ModelAndView profile() {
         log.info("access ace/profile.html");
         ModelAndView modelAndView = super.page("ace/tool-pages/profile");
         return modelAndView;
-    }
+    }*/
 
     @RequestMapping(value = "/inbox.html", method = RequestMethod.GET)
     public ModelAndView inbox() {

@@ -96,35 +96,33 @@
                                             <div class="inline position-relative">
                                                 <a href="#" class="user-title-label dropdown-toggle"
                                                    data-toggle="dropdown">
-                                                    <i class="ace-icon fa fa-circle light-green"></i>
+                                                    <i th:if="${user.enabled}" class="ace-icon fa fa-circle light-green"></i>
+                                                    <i th:if="${not user.enabled}" class="ace-icon fa fa-circle light-red"></i>
                                                     &nbsp;
                                                     <span class="white" th:text="${user.username}"></span>
                                                 </a>
 
                                                 <ul class="align-left dropdown-menu dropdown-caret dropdown-lighter">
-                                                    <li class="dropdown-header"> Change Status</li>
+                                                    <li class="dropdown-header">Account control</li>
 
                                                     <li>
                                                         <a href="#">
                                                             <i class="ace-icon fa fa-circle green"></i>
-                                                            &nbsp;
-                                                            <span class="green">Available</span>
+                                                            <span class="green">Enable</span>
                                                         </a>
                                                     </li>
 
                                                     <li>
                                                         <a href="#">
                                                             <i class="ace-icon fa fa-circle red"></i>
-                                                            &nbsp;
-                                                            <span class="red">Busy</span>
+                                                            <span class="red">Disable</span>
                                                         </a>
                                                     </li>
 
                                                     <li>
                                                         <a href="#">
                                                             <i class="ace-icon fa fa-circle grey"></i>
-                                                            &nbsp;
-                                                            <span class="grey">Invisible</span>
+                                                            <span class="grey">Hidden</span>
                                                         </a>
                                                     </li>
                                                 </ul>
