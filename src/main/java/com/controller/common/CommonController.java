@@ -83,6 +83,7 @@ public class CommonController {
         }
         ModelAndView modelAndView = new ModelAndView(page);
         Users user = getCurrentUser();
+        log.info("Current User: " + user.getUserAccount());
         modelAndView.addObject("currentUser", user);
         return modelAndView;
     }
