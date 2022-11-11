@@ -1,8 +1,8 @@
 package com.controller;
 
-import com.models.entity.dao.Roles;
-import com.models.entity.dao.UserRoles;
-import com.models.entity.dao.Users;
+import com.models.entity.Roles;
+import com.models.entity.UserRoles;
+import com.models.entity.Users;
 import com.service.UserRolesService;
 import com.service.UsersService;
 import org.apache.logging.log4j.LogManager;
@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 import com.controller.common.CommonController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;

@@ -1,12 +1,9 @@
 package com.config;
 
 import cn.dev33.satoken.stp.StpInterface;
-import com.models.entity.dao.Users;
-import com.service.UsersService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.controller.common.CommonController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

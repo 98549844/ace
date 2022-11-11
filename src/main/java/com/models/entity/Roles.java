@@ -1,7 +1,7 @@
-package com.models.entity.dao;
+package com.models.entity;
 
 
-import com.models.entity.dao.base.baseEntity;
+import com.models.entity.base.BaseEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -11,7 +11,7 @@ import java.io.Serializable;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "roles", uniqueConstraints = {@UniqueConstraint(name = "constraint_roleCode", columnNames = "roleCode")})
 @Entity
-public class Roles extends baseEntity implements Serializable {
+public class Roles extends BaseEntity implements Serializable {
     //constant
     public static final String ADMIN = "ADMIN";
     public static final String DISABLE = "DISABLE";

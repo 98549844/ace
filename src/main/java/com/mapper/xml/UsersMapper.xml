@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.UsersMapper">
-    <resultMap id="BaseResultMap" type="com.models.entity.dao.Users">
+    <resultMap id="BaseResultMap" type="com.models.entity.Users">
         <id column="userId" jdbcType="BIGINT" property="userId"/>
         <result column="createdBy" jdbcType="BIGINT" property="createdBy"/>
         <result column="createdDate" jdbcType="TIMESTAMP" property="createdDate"/>
@@ -191,7 +191,7 @@
         from users
         where userId = #{userId,jdbcType=BIGINT}
     </delete>
-    <insert id="insert" keyColumn="userId" keyProperty="userId" parameterType="com.models.entity.dao.Users"
+    <insert id="insert" keyColumn="userId" keyProperty="userId" parameterType="com.models.entity.Users"
             useGeneratedKeys="true">
         <selectKey keyProperty="users.userId" order="AFTER" resultType="java.lang.Long"></selectKey>
         insert into users (createdBy, createdDate, lastUpdateDate,
@@ -211,7 +211,7 @@
         #{remark,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{userAccount,jdbcType=VARCHAR},
         #{username,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" keyColumn="userId" keyProperty="userId" parameterType="com.models.entity.dao.Users"
+    <insert id="insertSelective" keyColumn="userId" keyProperty="userId" parameterType="com.models.entity.Users"
             useGeneratedKeys="true">
         insert into users
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -351,7 +351,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.models.entity.dao.Users">
+    <update id="updateByPrimaryKeySelective" parameterType="com.models.entity.Users">
         update users
         <set>
             <if test="createdby != null">
@@ -423,7 +423,7 @@
         </set>
         where userId = #{userId,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.models.entity.dao.Users">
+    <update id="updateByPrimaryKey" parameterType="com.models.entity.Users">
         update users
         set createdBy      = #{createdBy,jdbcType=BIGINT},
             createdDate    = #{createdDate,jdbcType=TIMESTAMP},
@@ -450,7 +450,7 @@
         where userId = #{userId,jdbcType=BIGINT}
     </update>
 
-    <update id="updateByAccount" parameterType="com.models.entity.dao.Users">
+    <update id="updateByAccount" parameterType="com.models.entity.Users">
         update users
         set mobile   = #{mobile,jdbcType=VARCHAR},
             hostName = #{hostName,jdbcType=VARCHAR},

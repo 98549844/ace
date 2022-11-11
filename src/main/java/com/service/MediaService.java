@@ -3,12 +3,11 @@ package com.service;
 import cn.dev33.satoken.stp.StpUtil;
 import com.constant.AceEnvironment;
 import com.models.common.TranscodeConfig;
-import com.models.entity.dao.Roles;
-import com.models.entity.dao.Users;
+import com.models.entity.Roles;
+import com.models.entity.Users;
 import com.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +57,7 @@ public class MediaService {
     private List getActualList(List<String> t1) {
         //根据folder实际文件控制数据库, 删除folder不存文件数据
         List<String> fName = FileUtil.getNames(t1);
-        List<com.models.entity.dao.Files> filesList = filesService.findFilesByPathAndFileNameNotIn(videoPath, fName);
+        List<com.models.entity.Files> filesList = filesService.findFilesByPathAndFileNameNotIn(videoPath, fName);
         filesService.deleteAll(filesList);
         List folderList = (List) FileUtil.getCurrentFolderList(videoM3u8).get(FileUtil.FOLDERNAME);
 
@@ -69,11 +67,11 @@ public class MediaService {
         //只处理单角色,多角色及后再新增处理
         if (Roles.ADMIN.equals(rolesList.get(0).getRoleCode())) {
             //根据数据库排序
-            return filesService.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(folderList, com.models.entity.dao.Files.FRAGMENT);
+            return filesService.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(folderList, com.models.entity.Files.FRAGMENT);
 
         } else {
             //根据数据库排序
-            return filesService.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(folderList, com.models.entity.dao.Files.FRAGMENT, users.getUserId().toString());
+            return filesService.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(folderList, com.models.entity.Files.FRAGMENT, users.getUserId().toString());
         }
     }
 
@@ -87,7 +85,7 @@ public class MediaService {
 
         if (NullUtil.isNotNull(videoList)) {
             for (String s : videoList) {
-                com.models.entity.dao.Files f = filesService.findFilesByFileName(s);
+                com.models.entity.Files f = filesService.findFilesByFileName(s);
                 getMultipartFileList(f.getLocation());
             }
         }
@@ -171,8 +169,8 @@ public class MediaService {
             ImageUtil.compress(thumbnailLocation);
 
 
-            com.models.entity.dao.Files f = filesService.findFilesByFileName(fileName);
-            f.setStatus(com.models.entity.dao.Files.FRAGMENT);
+            com.models.entity.Files f = filesService.findFilesByFileName(fileName);
+            f.setStatus(com.models.entity.Files.FRAGMENT);
             f.setRemark("FFmpeg m3u8 processing complete !!!");
 
             Map<String, Object> result = new HashMap<>();

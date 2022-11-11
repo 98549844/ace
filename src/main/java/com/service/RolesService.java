@@ -2,12 +2,11 @@ package com.service;
 
 
 import com.dao.RolesDao;
-import com.models.entity.dao.Roles;
-import com.models.entity.dao.UserRoles;
-import com.models.entity.dao.Users;
+import com.models.entity.Roles;
+import com.models.entity.UserRoles;
+import com.models.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,9 @@
 package com.controller;
 
 import com.controller.common.CommonController;
-import com.models.entity.dao.Permissions;
-import com.models.entity.dao.RolePermissions;
-import com.models.entity.dao.Roles;
+import com.models.entity.Permissions;
+import com.models.entity.RolePermissions;
+import com.models.entity.Roles;
 import com.service.RolePermissionsService;
 import com.service.RolesService;
 import org.apache.logging.log4j.LogManager;

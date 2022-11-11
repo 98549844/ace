@@ -1,6 +1,6 @@
 package com.dao;
 
-import com.models.entity.dao.Permissions;
+import com.models.entity.Permissions;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

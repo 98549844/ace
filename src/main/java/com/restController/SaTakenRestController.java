@@ -6,14 +6,12 @@ import cn.dev33.satoken.SaManager;
 import cn.dev33.satoken.config.SaTokenConfig;
 import cn.dev33.satoken.context.SaTokenContext;
 import cn.dev33.satoken.dao.SaTokenDao;
-import cn.dev33.satoken.listener.SaTokenListener;
 import cn.dev33.satoken.stp.StpInterface;
-import cn.dev33.satoken.stp.StpLogic;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.temp.SaTempInterface;
 import com.controller.common.CommonController;
 import com.models.common.AjaxResponse;
-import com.models.entity.dao.Users;
+import com.models.entity.Users;
 import com.service.UsersService;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
@@ -30,7 +28,6 @@ import com.util.NullUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * @Classname: SaTakenRestController

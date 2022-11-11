@@ -1,7 +1,7 @@
 package com.controller;
 
 import com.controller.common.CommonController;
-import com.models.entity.dao.Menu;
+import com.models.entity.Menu;
 import com.service.MenuService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

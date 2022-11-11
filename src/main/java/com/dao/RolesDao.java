@@ -1,7 +1,6 @@
 package com.dao;
 
-import com.models.entity.dao.Files;
-import com.models.entity.dao.Roles;
+import com.models.entity.Roles;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

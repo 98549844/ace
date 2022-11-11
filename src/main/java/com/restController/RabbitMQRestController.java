@@ -2,7 +2,7 @@
 package com.restController;
 
 import com.config.RabbitMQConfig;
-import com.models.entity.dao.Users;
+import com.models.entity.Users;
 import com.service.UsersService;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;

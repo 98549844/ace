@@ -2,8 +2,8 @@ package com.restController;
 
 import com.generator.insertPermissions;
 import com.models.common.AjaxResponse;
-import com.models.entity.dao.Permissions;
-import com.models.entity.dao.Users;
+import com.models.entity.Permissions;
+import com.models.entity.Users;
 import com.service.PermissionsService;
 import com.service.RolesService;
 import com.service.UsersService;

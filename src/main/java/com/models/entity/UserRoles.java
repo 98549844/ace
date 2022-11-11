@@ -1,7 +1,7 @@
-package com.models.entity.dao;
+package com.models.entity;
 
 
-import com.models.entity.dao.base.baseEntity;
+import com.models.entity.base.BaseEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -11,7 +11,7 @@ import java.io.Serializable;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "user_roles")
 @Entity
-public class UserRoles extends baseEntity implements Serializable {
+public class UserRoles extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(strategy = "identity", name = "id")

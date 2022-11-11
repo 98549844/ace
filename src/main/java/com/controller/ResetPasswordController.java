@@ -2,12 +2,10 @@ package com.controller;
 
 import com.constant.Css;
 import com.controller.common.CommonController;
-import com.models.entity.dao.Email;
-import com.models.entity.dao.Users;
+import com.models.entity.Users;
 import com.service.UsersService;
 import com.util.NullUtil;
 import com.util.UUID;
-import org.apache.kerby.kerberos.kerb.type.pa.PaAuthenticationSet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;

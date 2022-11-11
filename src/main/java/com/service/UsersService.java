@@ -1,11 +1,10 @@
 package com.service;
 
-import com.constant.Constant;
 import com.dao.UsersDao;
 import com.exception.PasswordNotMatchException;
 import com.exception.UserNotFoundException;
 import com.mapper.UsersMapper;
-import com.models.entity.dao.*;
+import com.models.entity.*;
 import com.util.DateTimeUtil;
 import com.util.NullUtil;
 import com.util.RandomUtil;

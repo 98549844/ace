@@ -1,6 +1,6 @@
 package com.restController;
 
-import com.models.entity.dao.Email;
+import com.models.common.Email;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import io.swagger.annotations.Api;

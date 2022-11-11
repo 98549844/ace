@@ -1,12 +1,10 @@
 package com.service;
 
 import com.dao.PermissionsDao;
-import com.models.entity.dao.Permissions;
-import org.hibernate.service.spi.InjectService;
+import com.models.entity.Permissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.*;
 import java.util.List;
 
 

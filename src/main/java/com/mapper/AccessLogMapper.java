@@ -1,6 +1,6 @@
 package com.mapper;
 
-import com.models.entity.dao.AccessLog;
+import com.models.entity.AccessLog;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

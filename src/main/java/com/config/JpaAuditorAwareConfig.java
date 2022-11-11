@@ -1,7 +1,7 @@
 package com.config;
 
 import cn.dev33.satoken.stp.StpUtil;
-import com.models.entity.dao.Users;
+import com.models.entity.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.AuditorAware;

@@ -1,7 +1,6 @@
 package com.generator;
 
-import com.constant.Constant;
-import com.models.entity.dao.Users;
+import com.models.entity.Users;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

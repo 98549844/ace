@@ -1,4 +1,4 @@
-package com.models.entity.dao.base;
+package com.models.entity.base;
 
 import com.util.NullUtil;
 import org.springframework.data.annotation.CreatedBy;
@@ -6,14 +6,13 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import java.time.LocalDateTime;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 
 /**
@@ -26,7 +25,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class baseEntity {
+public class BaseEntity {
 
     @CreatedDate
     @Column(updatable = false)

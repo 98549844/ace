@@ -3,7 +3,7 @@ package com.controller.common;
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
 import com.constant.Css;
-import com.models.entity.dao.Users;
+import com.models.entity.Users;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.context.request.RequestContextHolder;

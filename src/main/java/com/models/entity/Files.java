@@ -1,7 +1,7 @@
-package com.models.entity.dao;
+package com.models.entity;
 
 import com.constant.AceEnvironment;
-import com.models.entity.dao.base.baseEntity;
+import com.models.entity.base.BaseEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.GenericGenerator;
@@ -19,7 +19,7 @@ import javax.persistence.*;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "files", uniqueConstraints = {@UniqueConstraint(name = "constraint_fileName", columnNames = {"fileName", "path"})})
 @Entity
-public class Files extends baseEntity {
+public class Files extends BaseEntity {
     private static Logger log = LogManager.getLogger(Files.class.getName());
 
     public static final String UPLOADED = "uploaded";

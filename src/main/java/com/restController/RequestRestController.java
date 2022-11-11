@@ -1,7 +1,6 @@
 package com.restController;
 
 import com.models.common.AjaxResponse;
-import com.models.entity.dao.AccessLog;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,9 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @Classname: RequestRestController

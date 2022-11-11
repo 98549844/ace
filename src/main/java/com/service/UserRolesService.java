@@ -2,7 +2,7 @@ package com.service;
 
 
 import com.dao.UserRolesDao;
-import com.models.entity.dao.UserRoles;
+import com.models.entity.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

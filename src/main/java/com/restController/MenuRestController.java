@@ -1,6 +1,6 @@
 package com.restController;
 
-import com.models.entity.dao.Menu;
+import com.models.entity.Menu;
 import com.service.MenuService;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;

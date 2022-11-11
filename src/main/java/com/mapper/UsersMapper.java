@@ -1,7 +1,7 @@
 package com.mapper;
 
 
-import com.models.entity.dao.Users;
+import com.models.entity.Users;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

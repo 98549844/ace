@@ -3,7 +3,7 @@ package com.restController;
 
 import com.google.gson.Gson;
 import com.models.common.AjaxResponse;
-import com.models.entity.dao.Users;
+import com.models.entity.Users;
 import com.service.RedisService;
 import com.service.UsersService;
 import io.swagger.annotations.Api;

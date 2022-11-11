@@ -2,7 +2,7 @@ package com.service;
 
 import com.dao.MenuDao;
 import com.google.gson.Gson;
-import com.models.entity.dao.Menu;
+import com.models.entity.Menu;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

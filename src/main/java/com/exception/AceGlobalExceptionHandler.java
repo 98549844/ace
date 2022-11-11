@@ -3,7 +3,7 @@ package com.exception;
 import cn.dev33.satoken.exception.NotLoginException;
 import com.constant.Css;
 import com.controller.common.CommonController;
-import com.models.entity.dao.Users;
+import com.models.entity.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.web.servlet.error.ErrorController;

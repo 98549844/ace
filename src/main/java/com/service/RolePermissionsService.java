@@ -1,7 +1,7 @@
 package com.service;
 
 import com.dao.RolePermissionsDao;
-import com.models.entity.dao.RolePermissions;
+import com.models.entity.RolePermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

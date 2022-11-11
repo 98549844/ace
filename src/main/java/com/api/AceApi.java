@@ -1,6 +1,6 @@
 package com.api;
 
-import com.models.entity.dao.Users;
+import com.models.entity.Users;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

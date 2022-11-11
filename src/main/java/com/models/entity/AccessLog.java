@@ -1,6 +1,6 @@
-package com.models.entity.dao;
+package com.models.entity;
 
-import com.models.entity.dao.base.baseEntity;
+import com.models.entity.base.BaseEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "access_log")
 @Entity
-public class AccessLog extends baseEntity implements Serializable {
+public class AccessLog extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GenericGenerator(strategy = "identity", name = "id")

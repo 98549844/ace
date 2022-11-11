@@ -1,8 +1,7 @@
 package com.restController;
 
-import com.constant.Constant;
 import com.models.common.AjaxResponse;
-import com.models.entity.dao.*;
+import com.models.entity.*;
 import com.service.*;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;

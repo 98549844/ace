@@ -1,13 +1,10 @@
 package com.dao;
 
-import com.models.entity.dao.UserRoles;
-import com.models.entity.dao.Users;
+import com.models.entity.UserRoles;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-import java.util.Map;
 
 public interface UserRolesDao extends JpaRepository<UserRoles, Long>, JpaSpecificationExecutor<UserRoles> {
 

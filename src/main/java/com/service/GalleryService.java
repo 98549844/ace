@@ -1,20 +1,17 @@
 package com.service;
 
 import com.constant.AceEnvironment;
-import com.models.entity.dao.Files;
-import com.models.entity.dao.Roles;
-import com.models.entity.dao.UserRoles;
-import com.models.entity.dao.Users;
+import com.models.entity.Files;
+import com.models.entity.Roles;
+import com.models.entity.Users;
 import com.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.tools.ant.types.resources.Last;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

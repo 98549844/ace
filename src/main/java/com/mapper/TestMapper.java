@@ -1,6 +1,6 @@
 package com.mapper;
 
-import com.models.entity.dao.Test;
+import com.models.entity.Test;
 import org.springframework.stereotype.Component;
 
 @Component
