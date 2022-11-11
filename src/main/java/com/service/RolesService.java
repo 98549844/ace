@@ -43,16 +43,32 @@ public class RolesService {
         return rolesDao.findRolesByRoleId(rolesId);
     }
 
-    public List<Roles> findRolesByRoleIdIn(List<Long> rolesList) {
-        return rolesDao.findRolesByRoleIdIn(rolesList);
+    public List<Roles> findRolesByRoleIdIn(List<Long> rolesId) {
+        return rolesDao.findRolesByRoleIdIn(rolesId);
     }
 
     public void saveAllAndFlush(List<Roles> roles) {
         rolesDao.saveAllAndFlush(roles);
     }
 
-    public List<Roles> getRolesByUser(Users users) {
-        List<UserRoles> userRolesList = userRolesService.findAllByUserId(users.getUserId());
+    public List<Roles> getRolesByUser(Long userId) {
+        List<UserRoles> userRolesList = userRolesService.findAllByUserId(userId);
+        List<Long> roleIdList = new ArrayList<>();
+        for (UserRoles userRoles : userRolesList) {
+            roleIdList.add(userRoles.getRoleId());
+        }
+        List<Roles> rolesList = findRolesByRoleIdIn(roleIdList);
+        return rolesList;
+    }
+
+
+    public List<Roles> getRolesByUsers(List<Users> users) {
+        List<Long> usersId = new ArrayList<>();
+        for (Users user : users) {
+            usersId.add(user.getUserId());
+        }
+
+        List<UserRoles> userRolesList = userRolesService.findAllByUserIdIn(usersId);
         List<Long> roleIdList = new ArrayList<>();
         for (UserRoles userRoles : userRolesList) {
             roleIdList.add(userRoles.getRoleId());

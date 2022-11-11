@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Table(name = "roles", uniqueConstraints = {@UniqueConstraint(name = "constraint_roleCode", columnNames = "roleCode")})
 @Entity
 public class Roles extends BaseEntity implements Serializable {
-    //constant
+    //roleCode
     public static final String ADMIN = "ADMIN";
     public static final String DISABLE = "DISABLE";
     public static final String USER = "USER";

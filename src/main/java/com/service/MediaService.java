@@ -62,7 +62,7 @@ public class MediaService {
         List folderList = (List) FileUtil.getCurrentFolderList(videoM3u8).get(FileUtil.FOLDERNAME);
 
         Users users = (Users) StpUtil.getSession().get("user");
-        List<Roles> rolesList = rolesService.getRolesByUser(users);
+        List<Roles> rolesList = rolesService.getRolesByUser(users.getUserId());
 
         //只处理单角色,多角色及后再新增处理
         if (Roles.ADMIN.equals(rolesList.get(0).getRoleCode())) {

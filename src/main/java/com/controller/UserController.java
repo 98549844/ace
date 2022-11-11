@@ -4,7 +4,9 @@ package com.controller;
 import cn.dev33.satoken.stp.StpUtil;
 import com.controller.common.CommonController;
 import com.models.entity.Users;
+import com.service.RolesService;
 import com.service.UsersService;
+import com.util.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import com.util.NullUtil;
 
 import java.util.List;
 
@@ -30,16 +31,17 @@ public class UserController extends CommonController {
     private static Logger log = LogManager.getLogger(UserController.class.getName());
 
     private UsersService usersService;
+    private RolesService rolesService;
 
     @Autowired
-    public UserController(UsersService usersService) {
+    public UserController(UsersService usersService, RolesService rolesService) {
         this.usersService = usersService;
+        this.rolesService = rolesService;
     }
 
     @RequestMapping(value = "/user.html", method = RequestMethod.GET)
     public ModelAndView getUserList() {
         List<Users> userList = usersService.findUsersOrderByLoginDateTime(15);
-
         ModelAndView modelAndView = super.page("ace/modules/users/users");
         modelAndView.addObject("users", userList);
         return modelAndView;

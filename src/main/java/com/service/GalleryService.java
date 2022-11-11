@@ -67,7 +67,7 @@ public class GalleryService {
             List<Files> filesList = filesService.findFilesByPathAndFileNameNotIn(imagePath, fName);
             filesService.deleteAll(filesList);
 
-            List<Roles> rolesList = rolesService.getRolesByUser(users);
+            List<Roles> rolesList = rolesService.getRolesByUser(users.getUserId());
 
             //只处理单角色,多角色及后再新增处理
             if (Roles.ADMIN.equals(rolesList.get(0).getRoleCode())) {

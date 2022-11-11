@@ -86,7 +86,7 @@ public class UsersService {
 
 
     public List<Users> findUsersOrderByLoginDateTime(Integer limit) {
-        List<Users> usersList = usersDao.findUsersOrderByLoginDateTime(limit == null ? 0 : limit);
+        List<Users> usersList = usersDao.findUsersOrderByLoginDateTime(limit == null ? 1000 : limit);
         calcAge(usersList);
         return usersList;
     }

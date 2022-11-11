@@ -43,5 +43,8 @@ public class UserRolesService {
         return userRolesDao.findAllByUserId(userId);
     }
 
+    public List<UserRoles> findAllByUserIdIn(List<Long> userId) {
+        return userRolesDao.findAllByUserIdIn(userId);
+    }
 
 }

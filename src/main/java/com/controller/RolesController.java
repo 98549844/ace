@@ -9,8 +9,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.util.NullUtil;
 
@@ -35,6 +37,14 @@ public class RolesController extends CommonController {
     public RolesController(RolesService rolesService) {
         this.rolesService = rolesService;
     }
+
+    @RequestMapping(value = "/roles/getByUserId/{userId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Roles> getRolesByUserId(@PathVariable Long userId) {
+        log.info("access roles/getByUserId/{}", userId);
+        return rolesService.getRolesByUser(userId);
+    }
+
 
     @RequestMapping(value = "/roles.html", method = RequestMethod.GET)
     public ModelAndView getRoleList() {
@@ -61,29 +71,29 @@ public class RolesController extends CommonController {
     }
 
     @RequestMapping(value = "/roles/check.html", method = RequestMethod.GET)
-    public ModelAndView checkRole( String roleCode) {
+    public ModelAndView checkRole(String roleCode) {
         log.info("roleCode: {}", roleCode);
         Roles roles = rolesService.findByRoleCode(roleCode);
         ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
         if (NullUtil.isNotNull(roles)) {
             log.info("exist");
-            modelAndView.addObject("ajaxResult","exist");
+            modelAndView.addObject("ajaxResult", "exist");
         } else {
             log.info("not exist");
-            modelAndView.addObject("ajaxResult","not exist");
+            modelAndView.addObject("ajaxResult", "not exist");
         }
         return modelAndView;
     }
 
     @RequestMapping(value = "/roles/edit.html", method = RequestMethod.GET)
-    public ModelAndView editRole( Long roleId) {
-       log.info("roleId: {}", roleId );
-       Roles roles = rolesService.findRolesByRoleId(roleId);
+    public ModelAndView editRole(Long roleId) {
+        log.info("roleId: {}", roleId);
+        Roles roles = rolesService.findRolesByRoleId(roleId);
 
-       ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
-       modelAndView.addObject("ajaxResult", new Gson().toJson(roles));
+        ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
+        modelAndView.addObject("ajaxResult", new Gson().toJson(roles));
 
-       return modelAndView;
+        return modelAndView;
     }
 
 }
