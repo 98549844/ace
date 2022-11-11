@@ -91,7 +91,6 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
     @RequestMapping(value = {"/error"})
     @ResponseBody
     public ModelAndView error() {
-        //log.info(super.getRequest().getRequestURL());
         String requestUTL = super.getRequest().getRequestURL().toString();
         ModelAndView modelAndView;
         int status = super.getResponse().getStatus();
@@ -110,7 +109,6 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
             String warningMsg = "Occur Unknown exception";
             modelAndView = exceptionModelAndView("ace/error", Css.faGear, status, warningMsg);
             modelAndView.addObject("exceptionMsg", "UNKNOWN EXCEPTION");
-
         }
         return modelAndView;
     }
@@ -145,7 +143,6 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
             String stackTrace = sw.toString();
             exceptionLog(e.getMessage(), stackTrace);
 
-            //   int status = super.getResponse().getStatus();
             String warningMsg = "<strong> OCCUR EXCEPTION </strong>";
             ModelAndView modelAndView = exceptionModelAndView("ace/error", Css.faGear, 999, warningMsg);
             String exceptionMsg = "<strong style=\"color: red\">" + e.getMessage() + "</strong>" + "<br><br>" + stackTrace;
