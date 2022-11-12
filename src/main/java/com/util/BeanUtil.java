@@ -43,7 +43,7 @@ public class BeanUtil implements ApplicationContextAware {
      * @param source 来源 要复制的对象
      * @param target 目标 复制到此对象
      */
-    public static void copyProperties(Object source, Object target) {
+    public void copyProperties(Object source, Object target) {
         BeanUtils.copyProperties(source, target);
     }
 
@@ -55,7 +55,7 @@ public class BeanUtil implements ApplicationContextAware {
      * @param <T>
      * @return
      */
-    public static <T> T copy(Object source, Class<T> target) {
+    public <T> T copy(Object source, Class<T> target) {
         try {
             T newInstance = target.newInstance();
             BeanUtils.copyProperties(source, newInstance);
@@ -74,8 +74,7 @@ public class BeanUtil implements ApplicationContextAware {
      * @param <K>
      * @return
      */
-    public static <T, K> List<K> copyList(List<T> source, Class<K> target) {
-
+    public <T, K> List<K> copyList(List<T> source, Class<K> target) {
         if (null == source || source.isEmpty()) {
             return Collections.emptyList();
         }

@@ -30,6 +30,8 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
 
     Users findById(long id);
 
+    List<Users> findByUserIdIn(List<Long> userId);
+
     List<Users> findUsersByUsername(String username);
 
     List<Users> findUsersByUsernameLikeIgnoreCaseOrderByLoginDateTime(String username);

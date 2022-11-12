@@ -5,10 +5,8 @@ import com.exception.PasswordNotMatchException;
 import com.exception.UserNotFoundException;
 import com.mapper.UsersMapper;
 import com.models.entity.*;
-import com.util.DateTimeUtil;
-import com.util.NullUtil;
-import com.util.RandomUtil;
-import com.util.SqlUtil;
+import com.models.info.UsersInfo;
+import com.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +52,7 @@ public class UsersService {
 
 
     public List<Users> findUsersByUsernameLikeIgnoreCaseOrderByLoginDateTime(String username) {
-        List<Users> usersList = usersDao.findUsersByUsernameLikeIgnoreCaseOrderByLoginDateTime("%" + username + "%");
+        List<Users> usersList = usersDao.findUsersByUsernameLikeIgnoreCaseOrderByLoginDateTime(SqlUtil.like(username));
         calcAge(usersList);
         return usersList;
     }
@@ -127,7 +125,9 @@ public class UsersService {
     }
 
 
-    /** using mybatis
+    /**
+     * using mybatis
+     *
      * @param userId
      * @return
      */
@@ -135,7 +135,9 @@ public class UsersService {
         return usersMapper.getUserRolePermissionById(userId);
     }
 
-    /** using Hibernate
+    /**
+     * using Hibernate
+     *
      * @param userId
      * @return
      */
@@ -215,6 +217,37 @@ public class UsersService {
         calcAge(user);
         return user;
     }
+
+    /**
+     * @param id
+     * @return
+     */
+    public UsersInfo findUsersInfoById(long id) {
+        Users user = usersDao.findById(id);
+        calcAge(user);
+        BeanUtil beanUtil = new BeanUtil();
+        UsersInfo usersInfo = beanUtil.copy(user, UsersInfo.class);
+        usersInfo.setRoles(rolesService.getRolesByUserId(id));
+        return usersInfo;
+    }
+
+    /**
+     * @param ids
+     * @return
+     */
+    public List<UsersInfo> findUsersInfoById(List<Long> ids) {
+        List<Users> users = usersDao.findByUserIdIn(ids);
+        BeanUtil beanUtil = new BeanUtil();
+        List<UsersInfo> usersInfoList = beanUtil.copyList(users, UsersInfo.class);
+        calcAge(users);
+
+        for (UsersInfo usersInfo : usersInfoList) {
+            long userId = usersInfo.getUserId();
+            usersInfo.setRoles(rolesService.getRolesByUserId(userId));
+        }
+        return usersInfoList;
+    }
+
 
     @Transactional
     public boolean saveAll(List<Users> usersIterable) {
