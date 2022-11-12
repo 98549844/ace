@@ -7,6 +7,7 @@ import com.util.FileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/ace")
+@Scope("prototype")
 public class PlayController extends CommonController {
     private static final Logger log = LogManager.getLogger(PlayController.class.getName());
 
