@@ -102,15 +102,6 @@ public class FFmpegUtil {
         Files.writeString(Paths.get(file), stringBuilder.toString(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
-
-    public static void main(String[] args) throws IOException, InterruptedException {
-        String src = "C:\\aa\\002.mp4";
-        String desc = "C:\\aa\\m3u8\\";
-
-        FFmpegUtil fFmpegUtil = new FFmpegUtil();
-        fFmpegUtil.transcodeToM3u8(src, desc, new TranscodeConfig());
-    }
-
     /**
      * 转码视频为m3u8
      *
