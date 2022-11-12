@@ -3,6 +3,7 @@ package com.util;
 import com.AceApplication;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -17,8 +18,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -33,6 +35,51 @@ public class BeanUtil implements ApplicationContextAware {
             log.info("ApplicationContext loaded from ACE !");
             applicationContext = AceApplication.applicationContext;
         }
+    }
+
+    /**
+     * 复制bean的属性
+     *
+     * @param source 来源 要复制的对象
+     * @param target 目标 复制到此对象
+     */
+    public static void copyProperties(Object source, Object target) {
+        BeanUtils.copyProperties(source, target);
+    }
+
+    /**
+     * 复制对象
+     *
+     * @param source 来源 要复制的对象
+     * @param target 目标 复制到此对象
+     * @param <T>
+     * @return
+     */
+    public static <T> T copy(Object source, Class<T> target) {
+        try {
+            T newInstance = target.newInstance();
+            BeanUtils.copyProperties(source, newInstance);
+            return newInstance;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 复制list
+     *
+     * @param source
+     * @param target
+     * @param <T>
+     * @param <K>
+     * @return
+     */
+    public static <T, K> List<K> copyList(List<T> source, Class<K> target) {
+
+        if (null == source || source.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return source.stream().map(e -> copy(e, target)).collect(Collectors.toList());
     }
 
 
@@ -51,17 +98,6 @@ public class BeanUtil implements ApplicationContextAware {
         }
     }
 
-    public static List<String> getBeanNameList(ApplicationContext applicationContext) {
-        String[] beanNames = applicationContext.getBeanDefinitionNames();
-        log.info("total bean: {}", applicationContext.getBeanDefinitionCount());
-        // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加RequestMapping注解的bean
-        List<String> ls = new ArrayList<>();
-        for (String s : beanNames) {
-            ls.add(s);
-        }
-        return ls;
-    }
-
     public static List<String> getBeanNameList() {
         BeanUtil.applicationContext = ContextLoader.getCurrentWebApplicationContext();
         List<String> ls = new ArrayList<>();
@@ -77,6 +113,19 @@ public class BeanUtil implements ApplicationContextAware {
         }
         return ls;
     }
+
+
+    public static List<String> getBeanNameList(ApplicationContext applicationContext) {
+        String[] beanNames = applicationContext.getBeanDefinitionNames();
+        log.info("total bean: {}", applicationContext.getBeanDefinitionCount());
+        // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加RequestMapping注解的bean
+        List<String> ls = new ArrayList<>();
+        for (String s : beanNames) {
+            ls.add(s);
+        }
+        return ls;
+    }
+
 
     /**
      * 从spring容器中获取bean和servletContext
@@ -103,7 +152,7 @@ public class BeanUtil implements ApplicationContextAware {
      * @param name
      */
     public <T> T getBeanByName(String name, Class<T> type) {
-        T t =  applicationContext.getBean(name, type);
+        T t = applicationContext.getBean(name, type);
         return t;
     }
 
