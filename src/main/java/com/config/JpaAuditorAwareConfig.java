@@ -30,10 +30,8 @@ public class JpaAuditorAwareConfig implements AuditorAware<Long> {
     @Override
     public Optional<Long> getCurrentAuditor() {
         boolean isLogin = StpUtil.isLogin();
-        log.info("isLogin: {}", isLogin);
         if (isLogin) {
             Users user = (Users) StpUtil.getSession().get("user");
-            log.info("Login userAccount: {} ; last modify by userId: {}", user.getUserAccount(), user.getUserId());
             return Optional.of(user.getUserId());
         } else {
             log.info("UserId not found, set default value 0 !!!");
