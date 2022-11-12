@@ -478,7 +478,8 @@
         },*/
         // m3u8
         video: {
-            url: 'play/[[${playId}]]',
+          //  url: 'play/[[${playId}]]',
+            url: 'mobile/play/[[${playId}]]',
             type: 'hls',
             defaultQuality: 0
         },
@@ -488,6 +489,7 @@
                 startPosition: -1,
                 // hls config
                 xhrSetup: function (xhr, url) {
+                    //用手机播放, xhr不生效
                     const playId = '/[[${playId}]]';
                     if (url.indexOf('.ts') !== -1 || url.indexOf('key') !== -1) {
                         url = url + playId;

@@ -44,8 +44,6 @@ public class PlayController extends CommonController {
     @RequestMapping(value = "/play.html", method = RequestMethod.GET)
     public ModelAndView accessPlay(@RequestParam(value = "playId") String playId, HttpServletRequest request) {
         log.info("access ace/play.html");
-       // String requestPlayId = (String) request.getAttribute("playId");
-       // log.info("requestPlayId: {}", requestPlayId);
         ModelAndView modelAndView = super.page("ace/tool-pages/play");
         modelAndView.addObject("playId", playId);
         return modelAndView;
@@ -61,7 +59,7 @@ public class PlayController extends CommonController {
     @RequestMapping(value = "/play/{uuid}", method = RequestMethod.GET)
     @ResponseBody
     public void play(@PathVariable String uuid, HttpServletResponse response) {
-        log.info("access ace/play.html uuid: {}", uuid);
+        log.info("access ace/play uuid: {}", uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + indexM3U8;
         log.info("Location: {}", location);
         //ModelAndView modelAndView = super.page("ace/tool-pages/play");
