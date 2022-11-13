@@ -185,7 +185,7 @@ public class CommonController {
      *
      * @param userId
      */
-    public void login(long userId) {
+    protected void login(long userId) {
         StpUtil.login(userId);
     }
 
@@ -196,6 +196,15 @@ public class CommonController {
      * @param rememberMe
      */
     protected void login(long userId, boolean rememberMe) {
+        StpUtil.login(userId, rememberMe);
+    }
+
+    protected void login(long userId, String device) {
+        StpUtil.login(userId, device);
+    }
+
+    protected void login(long userId, String device, boolean rememberMe) {
+        StpUtil.login(userId, device);
         StpUtil.login(userId, rememberMe);
     }
 

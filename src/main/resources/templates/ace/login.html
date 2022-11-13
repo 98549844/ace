@@ -74,6 +74,7 @@
                                     <!--<form action="/ace/logging.html" method="post">-->
                                     <form action="/ace/logging.html" method="post">
                                         <fieldset>
+                                            <input type="hidden" name="deviceType" id="deviceType"/>
                                             <label class="block clearfix">
                                                 <span class="block input-icon input-icon-right">
                                                     <input type="text" class="form-control"
@@ -356,6 +357,7 @@
         //     }
         // });
 
+        $("#deviceType").val(getDevice());
 
         //检查注册是否为空并提交
         $("#register-btn").bind("click", function () {
@@ -397,6 +399,21 @@
             $("#registration").submit();
         })
     });
+
+    function getDevice() {
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+            //alert(navigator.userAgent);
+            //苹果端
+            return 'ios'
+        } else if (/(Android)/i.test(navigator.userAgent)) {
+            //alert(navigator.userAgent);
+            //安卓端
+            return 'android'
+        } else {
+            //pc端
+            return 'pc'
+        }
+    }
 </script>
 </body>
 </html>

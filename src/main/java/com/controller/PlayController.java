@@ -28,8 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 public class PlayController extends CommonController {
     private static final Logger log = LogManager.getLogger(PlayController.class.getName());
 
-    private FilesService filesService;
-    private String videoM3u8;
+    private final FilesService filesService;
+    private final String videoM3u8;
     private final static String indexM3U8 = "index.m3u8";
     private final static String tsKey = "ts" + FileUtil.separator + "key";
     private final static String tsIndexM3U8 = "ts" + FileUtil.separator + "index.m3u8";
