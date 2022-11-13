@@ -99,7 +99,7 @@
                                             <td th:text="${rowUser.Username}"></td>
 
                                             <td th:if="${rowUser.enabled}">
-                                                <span th:id="'enanle-'+${rowUser.userId}">
+                                                <span th:id="'enable-'+${rowUser.userId}">
                                                     <strong class="green">Enable</strong></span>
                                                 <input th:id="'check-'+${rowUser.userId}" checked=""
                                                        th:checked="${rowUser.enabled}"
@@ -110,7 +110,7 @@
                                             </td>
 
                                             <td th:if="${not rowUser.enabled}">
-                                                <span th:id="'enanle-'+${rowUser.userId}">
+                                                <span th:id="'enable-'+${rowUser.userId}">
                                                     <strong class="red">Disable</strong></span>
                                                 <input th:id="'check-'+${rowUser.userId}" checked=""
                                                        th:checked="${rowUser.enabled}"
@@ -317,7 +317,7 @@
                     data: {userId: userId[1]},
                     cache: false,
                     success: function (ajaxResult) {
-                        $("#enanle-" + userId[1]).html(ajaxResult);
+                        $("#enable-" + userId[1]).html(ajaxResult);
                     },
                     error: function () {
                         alert("AJAX FAILURE");

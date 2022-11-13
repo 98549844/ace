@@ -91,21 +91,21 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
     @RequestMapping(value = {"/error"})
     @ResponseBody
     public ModelAndView error() {
-        String requestUTL = super.getRequest().getRequestURL().toString();
+        String requestURL = super.getRequest().getRequestURL().toString();
         ModelAndView modelAndView;
         int status = super.getResponse().getStatus();
         if (status == 404) {
-            log.info("{} => error: {} [page not found]", requestUTL, status);
+            log.info("{} => error: {} [page not found]", requestURL, status);
             String warningMsg = "Page Not Found";
             modelAndView = exceptionModelAndView("ace/error", Css.faSitemap, status, warningMsg);
             modelAndView.addObject("exceptionMsg", "page not found");
         } else if (status == 500) {
-            log.info("{} error: {} [internal server error]", requestUTL, status);
+            log.info("{} error: {} [internal server error]", requestURL, status);
             String warningMsg = "Something Went Wrong";
             modelAndView = exceptionModelAndView("ace/error", Css.faRandom, status, warningMsg);
             modelAndView.addObject("exceptionMsg", "server internal error");
         } else {
-            log.info("{} error: {}", requestUTL, status);
+            log.info("{} error: {}", requestURL, status);
             String warningMsg = "Occur Unknown exception";
             modelAndView = exceptionModelAndView("ace/error", Css.faGear, status, warningMsg);
             modelAndView.addObject("exceptionMsg", "UNKNOWN EXCEPTION");
