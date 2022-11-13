@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.controller.common.CommonController;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,9 +40,10 @@ public class UserRolePermissionRestController extends CommonController {
     private final RolePermissionsService rolePermissionsService;
     private final RolesRestController rolesRestController;
     private final PermissionRestController permissionRestController;
+    private final PasswordEncoder passwordEncoder;
 
 
-    public UserRolePermissionRestController(RolePermissionsService rolePermissionsService, UserRolesService userRolesService, UsersService usersService, RolesService rolesService, PermissionsService permissionsService, RolesRestController rolesRestController, PermissionRestController permissionRestController) {
+    public UserRolePermissionRestController(PasswordEncoder passwordEncoder,RolePermissionsService rolePermissionsService, UserRolesService userRolesService, UsersService usersService, RolesService rolesService, PermissionsService permissionsService, RolesRestController rolesRestController, PermissionRestController permissionRestController) {
         this.usersService = usersService;
         this.rolesService = rolesService;
         this.permissionsService = permissionsService;
@@ -49,6 +51,7 @@ public class UserRolePermissionRestController extends CommonController {
         this.rolePermissionsService = rolePermissionsService;
         this.rolesRestController = rolesRestController;
         this.permissionRestController = permissionRestController;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void defaultUser() {
@@ -80,7 +83,7 @@ public class UserRolePermissionRestController extends CommonController {
 
         if (NullUtil.isNull(admin)) {
             admin = new Users();
-            admin.setPassword("$2a$11$gNnG0zfbKr8c7M3YX9Frn.HaKPS1hFsmgKPt4F6LXnEmmE0FAhV8C");//password 909394
+            admin.setPassword(passwordEncoder.encode("909394"));//password 909394
             admin.setUserAccount("admin");
             admin.setUsername("administrator");
             admin.setDescription(Users.ADMINISTRATOR);
@@ -105,7 +108,8 @@ public class UserRolePermissionRestController extends CommonController {
 
         if (NullUtil.isNull(garlam)) {
             garlam = new Users();
-            garlam.setPassword("$2a$11$gNnG0zfbKr8c7M3YX9Frn.HaKPS1hFsmgKPt4F6LXnEmmE0FAhV8C");
+            //garlam.setPassword("$2a$11$gNnG0zfbKr8c7M3YX9Frn.HaKPS1hFsmgKPt4F6LXnEmmE0FAhV8C");
+            garlam.setPassword(passwordEncoder.encode("909394"));//password 909394
             garlam.setUserAccount("garlam");
             garlam.setUsername("garlam");
             garlam.setDescription(Users.ADMINISTRATOR);
@@ -128,7 +132,7 @@ public class UserRolePermissionRestController extends CommonController {
             userRolesService.save(garlamUsersRoles);
 
         }
-        return AjaxResponse.success("User: administrator and garlam has been created and added into roles");
+        return AjaxResponse.success("User: administrator and garlam has been generated into roles");
     }
 
 

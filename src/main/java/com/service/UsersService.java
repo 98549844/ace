@@ -32,12 +32,12 @@ import java.util.Map;
 public class UsersService {
     private static final Logger log = LogManager.getLogger(UsersService.class.getName());
 
-    private UsersDao usersDao;
-    private UsersMapper usersMapper;
-    private PasswordEncoder passwordEncoder;
-    private UserRolesService userRolesService;
-    private RolesService rolesService;
-    private PermissionsService permissionsService;
+    private final UsersDao usersDao;
+    private final UsersMapper usersMapper;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRolesService userRolesService;
+    private final RolesService rolesService;
+    private final PermissionsService permissionsService;
 
 
     @Autowired

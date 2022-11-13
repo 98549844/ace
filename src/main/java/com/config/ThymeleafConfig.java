@@ -22,7 +22,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 @Configuration
 public class ThymeleafConfig implements WebMvcConfigurer {
-    private static Logger log = LogManager.getLogger(ThymeleafConfig.class.getName());
+    private static final Logger log = LogManager.getLogger(ThymeleafConfig.class.getName());
 
     /**
      * 修改主页

@@ -2,6 +2,7 @@ package com.controller;
 
 import com.constant.AceEnvironment;
 import com.controller.common.CommonController;
+import com.models.common.DeviceType;
 import com.service.FilesService;
 import com.util.FileUtil;
 import org.apache.logging.log4j.LogManager;
@@ -35,7 +36,6 @@ public class PlayController extends CommonController {
     private final static String tsIndexM3U8 = "ts" + FileUtil.separator + "index.m3u8";
 
 
-
     @Autowired
     public PlayController(FilesService filesService) {
         this.filesService = filesService;
@@ -46,7 +46,15 @@ public class PlayController extends CommonController {
     @RequestMapping(value = "/play.html", method = RequestMethod.GET)
     public ModelAndView accessPlay(@RequestParam(value = "playId") String playId, HttpServletRequest request) {
         log.info("access ace/play.html");
-        ModelAndView modelAndView = super.page("ace/tool-pages/play");
+        ModelAndView modelAndView;
+        String device = getDevice();
+        log.info("device type: {}", device);
+        if (DeviceType.PC.equals(device)) {
+            modelAndView = super.page("ace/tool-pages/play");
+        } else {
+            //这HTML不太适用,需要重写
+            modelAndView = super.page("ace/tool-pages/mobile-play");
+        }
         modelAndView.addObject("playId", playId);
         return modelAndView;
     }

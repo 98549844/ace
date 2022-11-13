@@ -71,9 +71,6 @@ public class AceApplication {
         // browserConfig.getCss();
         // browserConfig.getIndex();
         log.info("Running success：Sa-Token config：{}", SaManager.getConfig());
-
-        UserRolePermissionRestController userRolePermissionRestController = beanUtil.getBeanByName("userRolePermissionRestController", UserRolePermissionRestController.class);
-        userRolePermissionRestController.defaultUser();
         AceEnvironment.setUp();
     }
 

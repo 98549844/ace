@@ -28,10 +28,10 @@ import java.util.List;
 @RequestMapping("/rest/users")
 @Api(tags = "users")
 public class UsersRestController extends CommonController {
-    private static Logger log = LogManager.getLogger(UsersRestController.class.getName());
+    private static final Logger log = LogManager.getLogger(UsersRestController.class.getName());
 
-    private UsersService usersService;
-    private PasswordEncoder passwordEncoder;
+    private final UsersService usersService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UsersRestController(UsersService usersService, PasswordEncoder passwordEncoder) {

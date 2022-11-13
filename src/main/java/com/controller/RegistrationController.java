@@ -23,9 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/ace")
 public class RegistrationController extends CommonController {
-    private static Logger log = LogManager.getLogger(RegistrationController.class.getName());
+    private static final Logger log = LogManager.getLogger(RegistrationController.class.getName());
 
-    private UsersService usersService;
+    private final UsersService usersService;
 
     @Autowired
     public RegistrationController(UsersService usersService) {
