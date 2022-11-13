@@ -128,11 +128,20 @@ public class InsertUsers {
         u1.setEnabled(true);
         u2.setEnabled(true);
         u3.setEnabled(true);
-        u4.setEnabled(true);
+        u4.setEnabled(false);
         u5.setEnabled(true);
         u6.setEnabled(true);
         u7.setEnabled(true);
         u8.setEnabled(true);
+
+        u1.setStatus(Users.ACTIVE);
+        u2.setStatus(Users.ACTIVE);
+        u3.setStatus(Users.ACTIVE);
+        u4.setStatus(Users.INACTIVE);
+        u5.setStatus(Users.ACTIVE);
+        u6.setStatus(Users.ACTIVE);
+        u7.setStatus(Users.ACTIVE);
+        u8.setStatus(Users.ACTIVE);
 
 
         u1.setUserAccount("timothy");

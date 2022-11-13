@@ -59,5 +59,8 @@ public class UserRolesService {
         return userRolesDao.findAllByUserRolesIdNotIn(userRoles);
     }
 
+    public void deleteUserRolesByUserId(Long userId) {
+        userRolesDao.deleteUserRolesByUserId(userId);
+    }
 
 }

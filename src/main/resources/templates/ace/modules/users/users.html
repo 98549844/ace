@@ -137,7 +137,7 @@
                                                         </a>
                                                     </button>
 
-                                                    <button class="btn btn-xs btn-danger"
+                                                    <button class="btn btn-xs btn-danger delete-user"
                                                             th:id="'btnDanger-'+${rowUser.userId}">
                                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                     </button>
@@ -300,9 +300,33 @@
         $("button.btn-danger").on('click', function (e) {
             const btnDangerId = $(this).attr("id");
             const userId = btnDangerId.split("-");
-
-            $("#trBase-" + userId[1]).remove();
-            $("#trDetail-" + userId[1]).remove();
+            const d = dialog({
+                title: 'Delete User',
+                content: 'Are you sure delete this user ?',
+                okValue: 'OK',
+                ok: function () {
+                    this.title('Submit…');
+                    $.ajax({
+                        type: "get", // 以get方式发起请求
+                        url: `delete.html/${userId[1]}`,
+                        dataType: "json",
+                        // 将你的请求参数以问号拼接到url中进行参数传递
+                        success(data) {
+                            $("#trBase-" + userId[1]).remove();
+                            $("#trDetail-" + userId[1]).remove();
+                        },
+                        error(data) {
+                            window.location.href = '500.html';
+                        }
+                    })
+                    return true;
+                    // return false; dialog 不会消失
+                },
+                cancelValue: 'Cancel',
+                cancel: function () {
+                }
+            });
+            d.showModal();
         });
 
         /***************/
@@ -328,7 +352,7 @@
         /***************/
         $.each($("input.input-hidden"), function () {
             const userId = $(this).attr('id');
-          //  console.log($(this).attr("type"));
+            //  console.log($(this).attr("type"));
             $.ajax({
                 type: "get", // 以get方式发起请求
                 // url: "/ace/roles/getByUserId/",
@@ -349,6 +373,9 @@
             });
         });
     })
+
+
+
 </script>
 
 </body>

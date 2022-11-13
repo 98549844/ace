@@ -6,18 +6,17 @@ import com.controller.common.CommonController;
 import com.models.entity.Roles;
 import com.models.entity.Users;
 import com.service.RolesService;
+import com.service.UserRolesService;
 import com.service.UsersService;
 import com.util.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -33,12 +32,14 @@ public class UserController extends CommonController {
     private static Logger log = LogManager.getLogger(UserController.class.getName());
 
     private UsersService usersService;
+    private UserRolesService userRolesService;
     private RolesService rolesService;
 
     @Autowired
-    public UserController(UsersService usersService, RolesService rolesService) {
+    public UserController(UserRolesService userRolesService, UsersService usersService, RolesService rolesService) {
         this.usersService = usersService;
         this.rolesService = rolesService;
+        this.userRolesService = userRolesService;
     }
 
     @RequestMapping(value = "/user.html", method = RequestMethod.GET)
@@ -98,10 +99,14 @@ public class UserController extends CommonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/delete.html", method = RequestMethod.GET)
-    public ModelAndView deleteUser() {
-        ModelAndView modelAndView = super.page("ace/modules/users/profile");
-        return modelAndView;
+    @RequestMapping(value = "/delete.html/{userId}", method = RequestMethod.GET)
+    @ResponseBody
+    @Transactional
+    public boolean deleteUser(@PathVariable Long userId) {
+        log.info("access users/delete.html/{}", userId);
+        usersService.delete(userId);
+        userRolesService.deleteUserRolesByUserId(userId);
+        return true;
     }
 
     private void getPermission() {
