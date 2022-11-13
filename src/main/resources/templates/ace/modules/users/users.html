@@ -328,6 +328,7 @@
         /***************/
         $.each($("input.input-hidden"), function () {
             const userId = $(this).attr('id');
+          //  console.log($(this).attr("type"));
             $.ajax({
                 type: "get", // 以get方式发起请求
                 // url: "/ace/roles/getByUserId/",
