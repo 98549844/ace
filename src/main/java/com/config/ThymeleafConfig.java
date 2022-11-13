@@ -1,6 +1,5 @@
 package com.config;
 
-import cn.dev33.satoken.thymeleaf.dialect.SaTokenDialect;
 import com.interceptor.Interceptor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -43,14 +43,13 @@ public class AceApplicationRestController {
 
         List<Users> users = usersService.findAll();
         List<String> result = new ArrayList<>();
-
         for (Users user : users) {
             result.add(user.getUserAccount());
             result.add(user.getStatus());
         }
-
         return AjaxResponse.success(result);
     }
+
 
 }
 

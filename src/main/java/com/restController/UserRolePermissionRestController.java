@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.controller.common.CommonController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import com.util.NullUtil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +45,8 @@ public class UserRolePermissionRestController extends CommonController {
     private final PasswordEncoder passwordEncoder;
 
 
-    public UserRolePermissionRestController(PasswordEncoder passwordEncoder,RolePermissionsService rolePermissionsService, UserRolesService userRolesService, UsersService usersService, RolesService rolesService, PermissionsService permissionsService, RolesRestController rolesRestController, PermissionRestController permissionRestController) {
+    @Autowired
+    public UserRolePermissionRestController(PasswordEncoder passwordEncoder, RolePermissionsService rolePermissionsService, UserRolesService userRolesService, UsersService usersService, RolesService rolesService, PermissionsService permissionsService, RolesRestController rolesRestController, PermissionRestController permissionRestController) {
         this.usersService = usersService;
         this.rolesService = rolesService;
         this.permissionsService = permissionsService;
@@ -241,14 +244,32 @@ public class UserRolePermissionRestController extends CommonController {
      */
     @RequestMapping(method = RequestMethod.GET, value = "/remapUsersRolesPermissionRelation")
     public AjaxResponse remapUsersRolesPermissionRelation() {
-        userRolesService.deleteAll(); // delete all user roles relation
-        List<Users> users = usersService.findAll();
+        //find default users
+        List<String> account = new ArrayList<>();
+        account.add("admin");
+        account.add("garlam");
+        List<Users> users = usersService.findByUserAccountNotIn(account);
+
+        //find default user roles
+        Users admin = usersService.findByUserAccount("admin");
+        Users garlam = usersService.findByUserAccount("garlam");
+        List<UserRoles> adminRoles = userRolesService.findAllByUserId(admin.getUserId());
+        List<UserRoles> garlamRoles = userRolesService.findAllByUserId(garlam.getUserId());
+
+        List<Long> defaultUserRolesIds = new ArrayList<>();
+        defaultUserRolesIds.add(adminRoles.get(0).getUserRolesId());
+        defaultUserRolesIds.add(garlamRoles.get(0).getUserRolesId());
+
+        //find user roles list without default users
+        List<UserRoles> userRolesWithoutDefaultUsers = userRolesService.findAllByUserRolesIdNotIn(defaultUserRolesIds);
+
+        // delete user roles relation without default users
+        userRolesService.deletes(userRolesWithoutDefaultUsers);
 
         Roles roleAdmin = rolesService.findByRoleCode(Roles.ADMIN);
         Roles roleUser = rolesService.findByRoleCode(Roles.USER);
         Roles RoleDisable = rolesService.findByRoleCode(Roles.DISABLE);
         Roles roleViewer = rolesService.findByRoleCode(Roles.VIEWER);
-
 
         List<UserRoles> userRolesList = new ArrayList<>();
         int userSize = users.size();

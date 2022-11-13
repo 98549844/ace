@@ -1,6 +1,7 @@
 package com.generator;
 
 import com.models.entity.Users;
+import com.util.NullUtil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,6 +10,9 @@ import java.util.List;
 public class InsertUsers {
 
     public static List<Users> insertUsers() {
+
+        String password = "909394";
+
         List<Users> usersList = new ArrayList<>();
         Users u1 = new Users();
         Users u2 = new Users();
@@ -63,7 +67,7 @@ public class InsertUsers {
         u8.setDescription(Users.ADMINISTRATOR);
 
 
-        u1.setEmail("garlam_au@qq.com");
+        u1.setEmail("timothy_au@qq.com");
         u2.setEmail("peter_wong@qq.com");
         u3.setEmail("mary_leeg@qq.com");
         u4.setEmail("kalam@qq.com");
@@ -111,14 +115,14 @@ public class InsertUsers {
         u7.setMobile("55550000");
 
 
-        u1.setPassword("909394");
-        u2.setPassword("909394");
-        u3.setPassword("909394");
-        u4.setPassword("909394");
-        u5.setPassword("909394");
-        u6.setPassword("909394");
-        u7.setPassword("909394");
-        u8.setPassword("909394");
+        u1.setPassword(password);
+        u2.setPassword(password);
+        u3.setPassword(password);
+        u4.setPassword(password);
+        u5.setPassword(password);
+        u6.setPassword(password);
+        u7.setPassword(password);
+        u8.setPassword(password);
 
 
         u1.setEnabled(true);
@@ -131,7 +135,7 @@ public class InsertUsers {
         u8.setEnabled(true);
 
 
-        u1.setUserAccount("garlam");
+        u1.setUserAccount("timothy");
         u2.setUserAccount("peter");
         u3.setUserAccount("mary");
         u4.setUserAccount("kalam");
@@ -140,7 +144,7 @@ public class InsertUsers {
         u7.setUserAccount("eric");
         u8.setUserAccount("root");
 
-        u1.setUsername("Garlam Au");
+        u1.setUsername("Timothy Au");
         u2.setUsername("Peter Wong");
         u3.setUsername("Mary Lee");
         u4.setUsername("Ka Lam");

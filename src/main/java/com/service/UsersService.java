@@ -111,6 +111,12 @@ public class UsersService {
         return user;
     }
 
+    public List<Users> findByUserAccountNotIn(List<String> userAccounts) {
+        List<Users> user = usersDao.findByUserAccountNotIn(userAccounts);
+        calcAge(user);
+        return user;
+    }
+
 
     public List<Map> findUserRolePermission() {
         return usersDao.findUserRolePermission();
@@ -286,6 +292,16 @@ public class UsersService {
         return true;
     }
 
+    public boolean deleteAll(List<Users> users) {
+        try {
+            usersDao.deleteAll(users);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     public boolean delete(Users users) {
         try {
@@ -353,10 +369,6 @@ public class UsersService {
                 Predicate predicate = criteriaBuilder.like(root.get("userName"), "%" + users.getUsername().toLowerCase() + "%");
                 predicatesList.add(predicate);
             }
-//			if (users.getStatus() != null) {
-//				Predicate predicate = criteriaBuilder.equal(root.get("status"), users.getStatus());
-//				predicatesList.add(predicate);
-//			}
             if (users.getEmail() != null) {
                 Predicate predicate = criteriaBuilder.like(root.get("email"), "%" + users.getEmail().toLowerCase() + "%");
                 predicatesList.add(predicate);

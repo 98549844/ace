@@ -35,6 +35,14 @@ public class UserRolesService {
         userRolesDao.deleteAll();
     }
 
+    public void deleteAll(List<UserRoles> userRoles) {
+        userRolesDao.deleteAll(userRoles);
+    }
+
+    public void deletes(List userRoles) {
+        userRolesDao.deleteAll(userRoles);
+    }
+
     public void delete(UserRoles userRoles) {
         userRolesDao.delete(userRoles);
     }
@@ -46,5 +54,10 @@ public class UserRolesService {
     public List<UserRoles> findAllByUserIdIn(List<Long> userId) {
         return userRolesDao.findAllByUserIdIn(userId);
     }
+
+    public List<UserRoles> findAllByUserRolesIdNotIn(List<Long> userRoles) {
+        return userRolesDao.findAllByUserRolesIdNotIn(userRoles);
+    }
+
 
 }
