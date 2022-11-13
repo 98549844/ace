@@ -1,5 +1,6 @@
 package com.controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.controller.common.CommonController;
 import com.exception.PasswordNotMatchException;
 import com.exception.UserNotFoundException;
@@ -74,12 +75,12 @@ public class LoginController extends CommonController {
             try {
                 //get user information
                 user = usersService.findByUserAccount(user);
-                Long expired = DateTimeUtil.differenceMinutesByLocalDateTime(LocalDateTime.now(), user.getExpireDate());
+                long expired = DateTimeUtil.differenceMinutesByLocalDateTime(LocalDateTime.now(), user.getExpireDate());
                 if (!user.isEnabled()) {
                     msg = "Account disabled";
                     modelAndView = loginService.loginError(msg);
                     return modelAndView;
-                } else if (expired < 0l) {
+                } else if (expired < 0L) {
                     msg = "Account expired";
                     modelAndView = loginService.loginError(msg);
                     return modelAndView;
@@ -87,15 +88,14 @@ public class LoginController extends CommonController {
                 user.setLoginDateTime(LocalDateTime.now());
                 user.setIp(getRequest().getRemoteAddr());
                 user.setHostName(getRequest().getRemoteHost());
-                if (NullUtil.isNotNull(rememberMe)) {
-                    //rememberMe = on 记住我
-                    login(user.getUserId(), true);
-                } else {
-                    login(user.getUserId(), false);
-                }
+
+                //rememberMe = on 记住我
+                login(user.getUserId(), NullUtil.isNotNull(rememberMe));
+
                 log.info("UserId: {}", user.getUserId());
                 setUsersSession(user);
                 usersService.save(user);
+                log.info("login device: {}", StpUtil.getLoginDevice());
             } catch (UserNotFoundException | PasswordNotMatchException e) {
                 e.printStackTrace();
                 msg = "Account/Password incorrect";
