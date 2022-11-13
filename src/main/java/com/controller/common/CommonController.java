@@ -1,6 +1,7 @@
 package com.controller.common;
 
 import cn.dev33.satoken.session.SaSession;
+import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
 import com.constant.Css;
 import com.models.entity.Users;
@@ -131,7 +132,7 @@ public class CommonController {
      * @param msg
      * @return
      */
-    protected ModelAndView logOut(String msg) {
+    protected ModelAndView logout(String msg) {
         ModelAndView modelAndView = page("ace/login.html");
         String msgCss = Css.red;
         modelAndView.addObject("msg", msg);
@@ -204,8 +205,22 @@ public class CommonController {
     }
 
     protected void login(long userId, String device, boolean rememberMe) {
-        StpUtil.login(userId, device);
-        StpUtil.login(userId, rememberMe);
+        SaLoginModel saLoginModel = new SaLoginModel();
+        saLoginModel.setDevice(device);
+        saLoginModel.setIsLastingCookie(rememberMe);
+        StpUtil.login(userId, saLoginModel);
+    }
+
+    protected void logout() {
+        StpUtil.logout();
+    }
+
+    protected void logout(long userId, String device) {
+        StpUtil.logout(userId, device);
+    }
+
+    protected String getDevice() {
+        return StpUtil.getLoginDevice();
     }
 
     protected boolean isLogin() {

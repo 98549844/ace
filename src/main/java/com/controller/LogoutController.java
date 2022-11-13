@@ -2,6 +2,7 @@ package com.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.constant.Css;
+import com.models.entity.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.controller.common.CommonController;
@@ -31,10 +32,11 @@ public class LogoutController extends CommonController {
         String msg = "Logout success";
         modelAndView.addObject("msg", msg);
         modelAndView.addObject(Css.css, Css.green);
+        Users user = getCurrentUser();
 
+        // logout();
+        logout(user.getUserId(), getDevice());
         clearSession();
-        StpUtil.logout();
-
         return modelAndView;
     }
 

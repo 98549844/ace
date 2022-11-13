@@ -51,7 +51,7 @@ public class LoginController extends CommonController {
     }
 
     @RequestMapping(value = "/ace/logging.html", method = RequestMethod.POST)
-    public ModelAndView logging(String userAccount, String password, String rememberMe) {
+    public ModelAndView logging(String userAccount, String password, String rememberMe, String deviceType) {
         log.info("userAccount: " + userAccount);
         log.info("password: " + password);
         log.info("rememberMe: {}", rememberMe);
@@ -75,6 +75,7 @@ public class LoginController extends CommonController {
             try {
                 //get user information
                 user = usersService.findByUserAccount(user);
+                long userId = user.getUserId();
                 long expired = DateTimeUtil.differenceMinutesByLocalDateTime(LocalDateTime.now(), user.getExpireDate());
                 if (!user.isEnabled()) {
                     msg = "Account disabled";
@@ -90,9 +91,9 @@ public class LoginController extends CommonController {
                 user.setHostName(getRequest().getRemoteHost());
 
                 //rememberMe = on 记住我
-                login(user.getUserId(), NullUtil.isNotNull(rememberMe));
+                login(userId, deviceType, NullUtil.isNotNull(rememberMe));
 
-                log.info("UserId: {}", user.getUserId());
+                log.info("UserId: {}", userId);
                 setUsersSession(user);
                 usersService.save(user);
                 log.info("login device: {}", StpUtil.getLoginDevice());
