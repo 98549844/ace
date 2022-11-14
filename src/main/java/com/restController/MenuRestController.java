@@ -18,7 +18,7 @@ import java.util.List;
 public class MenuRestController {
 	private final static Logger log = LogManager.getLogger(MenuRestController.class.getName());
 
-	private MenuService menuService;
+	private final MenuService menuService;
 
 	@Autowired
 	public MenuRestController(MenuService menuService) {

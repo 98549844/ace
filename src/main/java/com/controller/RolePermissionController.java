@@ -28,8 +28,8 @@ import java.util.List;
 public class RolePermissionController extends CommonController {
     private static final Logger log = LogManager.getLogger(RolePermissionController.class.getName());
 
-    private RolesService rolesService;
-    private RolePermissionsService rolePermissionsService;
+    private final RolesService rolesService;
+    private final RolePermissionsService rolePermissionsService;
 
     public RolePermissionController(RolesService rolesService, RolePermissionsService rolePermissionsService) {
         this.rolesService = rolesService;

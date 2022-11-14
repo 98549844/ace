@@ -32,11 +32,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/ace/users")
 public class UserController extends CommonController {
-    private static Logger log = LogManager.getLogger(UserController.class.getName());
+    private static final Logger log = LogManager.getLogger(UserController.class.getName());
 
-    private UsersService usersService;
-    private UserRolesService userRolesService;
-    private RolesService rolesService;
+    private final UsersService usersService;
+    private final UserRolesService userRolesService;
+    private final RolesService rolesService;
 
     @Autowired
     public UserController(UserRolesService userRolesService, UsersService usersService, RolesService rolesService) {

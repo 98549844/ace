@@ -24,8 +24,6 @@ public class RequestRestController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/post")
     public AjaxResponse getRequest(MultipartHttpServletRequest request) {
-
-
         return AjaxResponse.success(request);
     }
 

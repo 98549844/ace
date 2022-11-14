@@ -24,9 +24,9 @@ import java.util.List;
 @RequestMapping("/rest/accesslog")
 @Api(tags = "accesslog")
 public class AccessRestController {
-    private static Logger log = LogManager.getLogger(AccessRestController.class.getName());
+    private static final Logger log = LogManager.getLogger(AccessRestController.class.getName());
 
-    private AccessLogMapper accessLogMapper;
+    private final AccessLogMapper accessLogMapper;
 
     @Autowired
     public AccessRestController(AccessLogMapper accessLogMapper) {

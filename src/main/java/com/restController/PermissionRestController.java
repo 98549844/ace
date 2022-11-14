@@ -33,9 +33,9 @@ import java.util.List;
 public class PermissionRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(PermissionRestController.class.getName());
 
-    private RolesService rolesService;
-    private PermissionsService permissionsService;
-    private UsersService usersService;
+    private final RolesService rolesService;
+    private final PermissionsService permissionsService;
+    private final UsersService usersService;
 
     @Autowired
     public PermissionRestController(UsersService usersService, RolesService rolesService, PermissionsService permissionsService) {

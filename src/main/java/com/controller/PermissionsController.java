@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/ace")
 public class PermissionsController extends CommonController {
-	private static Logger log = LogManager.getLogger(PermissionsController.class.getName());
+	private static final Logger log = LogManager.getLogger(PermissionsController.class.getName());
 
 	@RequestMapping(value = "/permissions.html", method = RequestMethod.GET)
 	public ModelAndView permissions() {

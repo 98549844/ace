@@ -32,7 +32,7 @@ import java.util.List;
 public class MariaDBRestController {
     private final static Logger log = LogManager.getLogger(MariaDBRestController.class.getName());
 
-    private UsersService usersService;
+    private final UsersService usersService;
 
     @Autowired
     public MariaDBRestController(UsersService usersService, DataBaseService dataBaseService) {

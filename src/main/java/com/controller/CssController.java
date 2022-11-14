@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 public class CssController extends CommonController {
-    private static Logger log = LogManager.getLogger(CssController.class.getName());
+    private static final Logger log = LogManager.getLogger(CssController.class.getName());
 
     @RequestMapping(value = "/active.html", method = RequestMethod.GET)
     public ModelAndView active() {

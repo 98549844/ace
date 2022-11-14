@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 public class DataBaseService {
-    private static Logger log = LogManager.getLogger(DataBaseService.class.getName());
+    private static final Logger log = LogManager.getLogger(DataBaseService.class.getName());
 
     private DataBaseMapper dataBaseMapper;
 

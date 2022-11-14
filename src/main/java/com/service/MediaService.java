@@ -34,10 +34,10 @@ import java.util.Map;
 public class MediaService {
     private static final Logger log = LogManager.getLogger(MediaService.class.getName());
 
-    private String videoM3u8;
-    private String videoPath;
-    private FilesService filesService;
-    private RolesService rolesService;
+    private final String videoM3u8;
+    private final String videoPath;
+    private final FilesService filesService;
+    private final RolesService rolesService;
     private final Path tempDir = Paths.get(System.getProperty("java.io.tmpdir"));
 
     @Autowired

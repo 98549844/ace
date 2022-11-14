@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.*;
 public class IndexRestController {
     private final static Logger log = LogManager.getLogger(IndexRestController.class.getName());
 
-
-
-
-
     @RequestMapping(method = RequestMethod.GET)
     public String getIndex() {
         String get = "Welcome Index ! GET";

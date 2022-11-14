@@ -31,7 +31,7 @@ import java.util.List;
 public class RolesController extends CommonController {
     private static Logger log = LogManager.getLogger(RolesController.class.getName());
 
-    private RolesService rolesService;
+    private final RolesService rolesService;
 
     @Autowired
     public RolesController(RolesService rolesService) {

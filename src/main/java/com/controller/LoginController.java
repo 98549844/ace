@@ -29,10 +29,10 @@ import java.time.LocalDateTime;
 @Controller
 //@RequestMapping("/ace")
 public class LoginController extends CommonController {
-    private static Logger log = LogManager.getLogger(LoginController.class.getName());
+    private static final Logger log = LogManager.getLogger(LoginController.class.getName());
 
-    private UsersService usersService;
-    private LoginService loginService;
+    private final UsersService usersService;
+    private final LoginService loginService;
 
     @Autowired
     public LoginController(LoginService loginService, UsersService usersService) {

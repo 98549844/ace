@@ -33,10 +33,10 @@ import java.util.List;
 public class MediaController extends CommonController {
     private static final Logger log = LogManager.getLogger(MediaController.class.getName());
 
-    private FilesService filesService;
-    private MediaService mediaService;
-    private String videoPath;
-    private String videoM3u8;
+    private final FilesService filesService;
+    private final MediaService mediaService;
+    private final String videoPath;
+    private final String videoM3u8;
     private final String thumbnail = "thumbnail.jpg";
 
 

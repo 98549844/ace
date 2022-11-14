@@ -29,7 +29,7 @@ import java.util.List;
 @RequestMapping("/rest/easyExcel")
 @Api(tags = "easyExcel")
 public class ExcelRestController {
-    private static Logger log = LogManager.getLogger(ExcelRestController.class.getName());
+    private static final Logger log = LogManager.getLogger(ExcelRestController.class.getName());
 
     final static String path = "/Users/garlam/IdeaProjects/ace/src/main/resources/files/output/";
     final static String fileName = path + "excel.xls";

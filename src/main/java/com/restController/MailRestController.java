@@ -28,9 +28,9 @@ import java.io.File;
 @RequestMapping("/rest")
 @Api(tags = {"mail"})
 public class MailRestController {
-    private static Logger log = LogManager.getLogger(MailRestController.class.getName());
+    private static final Logger log = LogManager.getLogger(MailRestController.class.getName());
 
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
     private String from;

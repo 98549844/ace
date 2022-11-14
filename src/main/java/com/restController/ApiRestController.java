@@ -22,10 +22,6 @@ import java.util.Map;
 public class ApiRestController {
     private static Logger log = LogManager.getLogger(ApiRestController.class.getName());
 
-
-
-
-
     /**
      * feign get 请求<单个参数请求>
      *

@@ -20,7 +20,7 @@ import java.util.List;
 
 @Service
 public class MenuService {
-	private static Logger log = LogManager.getLogger(MenuService.class.getName());
+	private static final Logger log = LogManager.getLogger(MenuService.class.getName());
 
 	private MenuDao menuDao;
 	private List<Menu> menuList = new ArrayList<Menu>();

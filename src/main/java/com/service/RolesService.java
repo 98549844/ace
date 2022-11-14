@@ -5,6 +5,8 @@ import com.dao.RolesDao;
 import com.models.entity.Roles;
 import com.models.entity.UserRoles;
 import com.models.entity.Users;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,10 @@ import java.util.List;
 
 @Service
 public class RolesService {
+    private static final Logger log = LogManager.getLogger(RolesService.class.getName());
 
-    private RolesDao rolesDao;
-    private UserRolesService userRolesService;
+    private final RolesDao rolesDao;
+    private final UserRolesService userRolesService;
 
     @Autowired
     public RolesService(RolesDao rolesDao, UserRolesService userRolesService) {

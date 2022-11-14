@@ -2,6 +2,8 @@ package com.service;
 
 import com.dao.RolePermissionsDao;
 import com.models.entity.RolePermissions;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +11,9 @@ import java.util.List;
 
 @Service
 public class RolePermissionsService {
+    private static final Logger log = LogManager.getLogger(RolePermissionsService.class.getName());
 
-    private RolePermissionsDao rolePermissionsDao;
+    private final RolePermissionsDao rolePermissionsDao;
 
     @Autowired
     public RolePermissionsService(RolePermissionsDao rolePermissionsDao) {

@@ -41,7 +41,7 @@ import java.util.Map;
 @Api(tags = "saToken")
 public class SaTakenRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(SaTakenRestController.class.getName());
-    private UsersService usersService;
+    private final UsersService usersService;
 
     @Autowired
     public SaTakenRestController(UsersService usersService) {

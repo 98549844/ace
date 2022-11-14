@@ -30,8 +30,8 @@ public class AceRestController {
     private final static Logger log = LogManager.getLogger(AceRestController.class.getName());
 
 
-    private AceConfig aceConfig;
-    private ReportConfig reportConfig;
+    private final AceConfig aceConfig;
+    private final ReportConfig reportConfig;
 
 
     @Autowired

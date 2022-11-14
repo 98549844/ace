@@ -29,8 +29,8 @@ import java.util.List;
 public class UserRolesController extends CommonController {
     private static final Logger log = LogManager.getLogger(UserRolesController.class.getName());
 
-    private UsersService usersService;
-    private UserRolesService userRolesService;
+    private final UsersService usersService;
+    private final UserRolesService userRolesService;
 
     @Autowired
     public UserRolesController(UsersService usersService, UserRolesService userRolesService) {

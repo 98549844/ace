@@ -23,9 +23,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/ace")
 public class MenuController extends CommonController {
-    private static Logger log = LogManager.getLogger(MenuController.class.getName());
+    private static final Logger log = LogManager.getLogger(MenuController.class.getName());
 
-    private MenuService menuService;
+    private final MenuService menuService;
 
     @Autowired
     public MenuController(MenuService menuService) {

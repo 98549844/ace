@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/ace")
 public class AceController extends CommonController {
-    private static Logger log = LogManager.getLogger(AceController.class.getName());
+    private static final Logger log = LogManager.getLogger(AceController.class.getName());
 
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
     public ModelAndView index() {

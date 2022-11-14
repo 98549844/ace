@@ -15,7 +15,7 @@ import java.util.*;
 
 
 public class HttpUtil {
-    private static Logger log = LogManager.getLogger(HttpUtil.class.getName());
+    private static final Logger log = LogManager.getLogger(HttpUtil.class.getName());
 
     public static Map getHttpServletRequest(HttpServletRequest request) {
         Map map = new HashMap();

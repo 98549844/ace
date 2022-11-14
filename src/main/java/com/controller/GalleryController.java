@@ -28,10 +28,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/ace")
 public class GalleryController extends CommonController {
-    private static Logger log = LogManager.getLogger(GalleryController.class.getName());
+    private static final Logger log = LogManager.getLogger(GalleryController.class.getName());
 
-    private GalleryService galleryService;
-    private FilesService filesService;
+    private final GalleryService galleryService;
+    private final FilesService filesService;
     private final String imagePath;
     private final String imagesThumbnail;
 

@@ -27,9 +27,9 @@ import java.util.Map;
 public class GalleryService {
     private static final Logger log = LogManager.getLogger(GalleryService.class.getName());
 
-    private FilesService filesService;
-    private UserRolesService userRolesService;
-    private RolesService rolesService;
+    private final FilesService filesService;
+    private final UserRolesService userRolesService;
+    private final RolesService rolesService;
     private final String imagePath;
     private final String imagesThumbnail;
 

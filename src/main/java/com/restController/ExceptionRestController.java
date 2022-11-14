@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExceptionRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(ExceptionRestController.class.getName());
 
-
     @RequestMapping(method = RequestMethod.GET, value = "/nullPointerException")
     public AjaxResponse nullPointerException() {
         Users users = null;
