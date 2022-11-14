@@ -55,7 +55,7 @@ public class PlayController extends CommonController {
           //  modelAndView = super.page("ace/tool-pages/mobile-play");
         } else {
             //这HTML不太适用,需要重写
-            modelAndView = super.page("ace/tool-pages/mobile-play");
+            modelAndView = super.page("ace/tool-pages/play");
             String src = "ace/play/" + playId;
             modelAndView.addObject("src", src);
         }

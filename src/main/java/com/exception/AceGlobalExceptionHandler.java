@@ -74,14 +74,14 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
 
     private static final String NotLoginException = "cn.dev33.satoken.exception.NotLoginException";
 
-    private void exceptionLog(String message, String stackTrace) {
+    private void logException(String message, String stackTrace) {
         log.error("URL: " + super.getRequest().getRequestURL().toString());
         log.error("HTTP_METHOD: " + super.getRequest().getMethod());
         log.error("error code: {}", super.getResponse().getStatus());
         log.error("Exception message：{}", message);
         if (stackTrace.contains(NotLoginException)) {
-            log.error("Exception stackTrace：{}", NotLoginException);
-            log.error("User HASN'T login Ace Application");
+            log.warn("Exception stackTrace：{}", NotLoginException);
+            log.warn("User HASN'T login Ace Application");
         } else {
             log.error("Exception stackTrace：{}", stackTrace);
         }
@@ -121,7 +121,7 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
             e.printStackTrace(new PrintWriter(sw, true));
             String stackTrace = sw.toString();
             String message = e.getMessage();
-            exceptionLog(message, stackTrace);
+            logException(message, stackTrace);
 
             ModelAndView modelAndView = new ModelAndView("ace/login");
             if (message.contains("Token已被踢下线")) {
@@ -141,7 +141,7 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw, true));
             String stackTrace = sw.toString();
-            exceptionLog(e.getMessage(), stackTrace);
+            logException(e.getMessage(), stackTrace);
 
             String warningMsg = "<strong> OCCUR EXCEPTION </strong>";
             ModelAndView modelAndView = exceptionModelAndView("ace/error", Css.faGear, 999, warningMsg);
