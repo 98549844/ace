@@ -9,7 +9,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "user_roles")
+@Table(name = "user_roles", uniqueConstraints = {@UniqueConstraint(name = "constraint_userRole", columnNames = {"userId", "roleId"})})
+//一个用户在一个组别不能同出现两次
 @Entity
 public class UserRoles extends BaseEntity implements Serializable {
     @Id
