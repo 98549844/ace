@@ -481,6 +481,14 @@
             url: 'play/[[${playId}]]',
             type: 'hls',
             defaultQuality: 0
+            /*type: 'customHls',
+            customType: {
+                customHls: function (video, player) {
+                    const hls = new Hls();
+                    hls.loadSource(video.src);
+                    hls.attachMedia(video);
+                },
+            },*/
         },
         pluginOptions: {
             hls: {

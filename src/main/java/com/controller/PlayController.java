@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/ace")
-@Scope("prototype")
+//@Scope("prototype")
 public class PlayController extends CommonController {
     private static final Logger log = LogManager.getLogger(PlayController.class.getName());
 
@@ -43,6 +43,7 @@ public class PlayController extends CommonController {
 
     }
 
+    //method call => accessPlay() => play() => getM3U8() => getKey() => getTs()
     @RequestMapping(value = "/play.html", method = RequestMethod.GET)
     public ModelAndView accessPlay(@RequestParam(value = "playId") String playId, HttpServletRequest request) {
         log.info("access ace/play.html");
@@ -50,13 +51,13 @@ public class PlayController extends CommonController {
         String device = getDevice();
         log.info("device type: {}", device);
         if (DeviceType.PC.equals(device)) {
-//            modelAndView = super.page("ace/tool-pages/play");
-            modelAndView = super.page("ace/tool-pages/mobile-play");
-            String src = "ace/play/" + playId;
-            modelAndView.addObject("src", src);
+            modelAndView = super.page("ace/tool-pages/play");
+          //  modelAndView = super.page("ace/tool-pages/mobile-play");
         } else {
             //这HTML不太适用,需要重写
             modelAndView = super.page("ace/tool-pages/mobile-play");
+            String src = "ace/play/" + playId;
+            modelAndView.addObject("src", src);
         }
         modelAndView.addObject("playId", playId);
         return modelAndView;
