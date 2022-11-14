@@ -3,11 +3,14 @@ package com.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.controller.common.CommonController;
+import com.jcraft.jsch.UserInfo;
 import com.models.entity.Roles;
 import com.models.entity.Users;
+import com.models.info.UsersInfo;
 import com.service.RolesService;
 import com.service.UserRolesService;
 import com.service.UsersService;
+import com.util.BeanUtil;
 import com.util.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -67,7 +70,7 @@ public class UserController extends CommonController {
             modelAndView.addObject("ajaxResult", "<strong class=\"green\">Enable</strong>");
         }
         usersService.save(user);
-        kickOut(user.getUserId());
+        kickout(user.getUserId());
         return modelAndView;
     }
 

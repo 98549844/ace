@@ -108,7 +108,7 @@ public class CommonController {
         return modelAndView;
     }
 
-    protected void kickOut(Long userId) {
+    protected void kickout(Long userId) {
         StpUtil.kickout(userId);
     }
 
@@ -117,7 +117,7 @@ public class CommonController {
      *
      * @return
      */
-    protected ModelAndView logOut() {
+    protected ModelAndView logout() {
         ModelAndView modelAndView = page("ace/login.html");
         String msg = "Logged out";
         modelAndView.addObject("msg", msg);
@@ -211,9 +211,7 @@ public class CommonController {
         StpUtil.login(userId, saLoginModel);
     }
 
-    protected void logout() {
-        StpUtil.logout();
-    }
+
 
     protected void logout(long userId, String device) {
         StpUtil.logout(userId, device);

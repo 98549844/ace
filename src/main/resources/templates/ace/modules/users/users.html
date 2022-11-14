@@ -120,7 +120,7 @@
                                                 <span class="lbl middle"></span>
                                             </td>
 
-                                            <td text="CCC'" th:id="'userId-'+${rowUser.userId}"></td>
+                                            <td th:id="'userId-'+${rowUser.userId}" class="userRoles"></td>
 
                                             <td th:text="${#temporals.format(rowUser.loginDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                             <td th:text="${#temporals.format(rowUser.expireDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
@@ -137,7 +137,8 @@
                                                         </a>
                                                     </button>
 
-                                                    <button class="btn btn-xs btn-danger delete-user"
+                                                    <button th:if="${rowUser.userAccount} ne ${currentUser.userAccount}"
+                                                            class="btn btn-xs btn-danger delete-user"
                                                             th:id="'btnDanger-'+${rowUser.userId}">
                                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                     </button>
@@ -302,7 +303,7 @@
             const userId = btnDangerId.split("-");
             const d = dialog({
                 title: 'Delete User',
-                content: 'Are you sure delete this user ?',
+                content: 'Are you sure to delete this user ?',
                 okValue: 'OK',
                 ok: function () {
                     this.title('Submit…');
@@ -363,7 +364,10 @@
                     let text = "";
                     for (let i = 0; i < data.length; i++) {
                         text = data[i].roleCode + " ";
-                        console.log(text);
+                        //如果user已经在disable组, hidden enable button
+                        /*if ('DISABLE' === data[i].roleCode) {
+                            $("#check-"+userId).remove();
+                        }*/
                     }
                     $("#userId-" + userId).text(text);
                 },
@@ -372,9 +376,7 @@
                 },
             });
         });
-    })
-
-
+    });
 
 </script>
 

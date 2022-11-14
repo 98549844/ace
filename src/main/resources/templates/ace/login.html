@@ -279,7 +279,7 @@
                         <!--                        </form>-->
                     </div><!-- /.position-relative -->
 
-                    <div class="navbar-fixed-top align-right">
+                    <div class="navbar-fixed-top align-right" id="loginTheme">
                         <br/>
                         &nbsp;
                         <a id="btn-login-dark" href="#">Dark</a>
@@ -357,7 +357,9 @@
         //     }
         // });
 
+
         $("#deviceType").val(getDevice());
+        setLoginTheme();
 
         //检查注册是否为空并提交
         $("#register-btn").bind("click", function () {
@@ -412,6 +414,13 @@
         } else {
             //pc端
             return 'pc'
+        }
+    }
+
+    function setLoginTheme() {
+        const device = getDevice();
+        if (device !== "pc") {
+            $("#loginTheme").remove();
         }
     }
 </script>
