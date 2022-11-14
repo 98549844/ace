@@ -50,7 +50,10 @@ public class PlayController extends CommonController {
         String device = getDevice();
         log.info("device type: {}", device);
         if (DeviceType.PC.equals(device)) {
-            modelAndView = super.page("ace/tool-pages/play");
+//            modelAndView = super.page("ace/tool-pages/play");
+            modelAndView = super.page("ace/tool-pages/mobile-play");
+            String src = "ace/play/" + playId;
+            modelAndView.addObject("src", src);
         } else {
             //这HTML不太适用,需要重写
             modelAndView = super.page("ace/tool-pages/mobile-play");
