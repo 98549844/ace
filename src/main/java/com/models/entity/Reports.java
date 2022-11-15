@@ -2,24 +2,13 @@ package com.models.entity;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.models.entity.base.BaseEntity;
-import com.models.info.ReportsInfo;
-import com.sun.jdi.Value;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.ElementCollection;
-
-
 import javax.persistence.*;
-import java.security.Key;
-import java.sql.JDBCType;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @Classname: Reports
@@ -38,9 +27,10 @@ public class Reports extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(strategy = "identity", name = "id")
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long reportId;
+    @Column
+    private Long superReportId;
     @Column
     private String title;
     @Lob
@@ -72,6 +62,14 @@ public class Reports extends BaseEntity {
 
     public void setReportId(Long reportId) {
         this.reportId = reportId;
+    }
+
+    public Long getSuperReportId() {
+        return superReportId;
+    }
+
+    public void setSuperReportId(Long superReportId) {
+        this.superReportId = superReportId;
     }
 
     public String getTitle() {
@@ -126,9 +124,8 @@ public class Reports extends BaseEntity {
         return reporter;
     }
 
-    public void setReporter() {
-        Users users = (Users) StpUtil.getSession().get("user");
-        this.reporter = users.getUserId();
+    public void setReporter(Long reporter) {
+        this.reporter = reporter;
     }
 }
 

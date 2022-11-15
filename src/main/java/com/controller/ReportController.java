@@ -41,7 +41,7 @@ public class ReportController extends CommonController {
         log.info("access report/list");
         ModelAndView modelAndView = super.page("ace/modules/report/report-list");
 
-        ReportsInfo reportsInfo = reportsService.getReportById(9000L);
+        ReportsInfo reportsInfo = reportsService.getReportInfoById(9000L);
         modelAndView.addObject("report", reportsInfo);
 
         return modelAndView;
