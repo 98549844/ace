@@ -26,10 +26,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SaTokenConfig implements WebMvcConfigurer {
     private static final Logger log = LogManager.getLogger(SaTokenConfig.class.getName());
 
-    // 注册拦截器
    // @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//       https://gitee.com/dromara/sa-token/issues/I60SL7
+    /* public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new SaInterceptor(handle -> {
+            try {
+                System.out.println("-------- 前端访问path：" + SaHolder.getRequest().getRequestPath());
+                StpUtil.checkLogin();
+                System.out.println("-------- 此 path 校验成功：" + SaHolder.getRequest().getRequestPath());
+            } catch (Exception e) {
+                System.out.println("-------- 此 path 校验失败：" + SaHolder.getRequest().getRequestPath());
+            }
+        })).addPathPatterns("/**");
+    }*/
+
+    // 注册拦截器
+    // @Override
+//    public void addInterceptors11(InterceptorRegistry registry) {
+
 //        // 注册Sa-Token的路由拦截器写法
 //       // registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin())) //after 1.31
 //        registry.addInterceptor(new SaInterceptor(handler -> SaRouter.match("/**")
@@ -72,7 +85,6 @@ public class SaTokenConfig implements WebMvcConfigurer {
         // registry.addInterceptor(new SaRouteInterceptor()) //1.30
         // registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin())) //after 1.31
         registry.addInterceptor(new SaInterceptor(handler -> StpUtil.checkLogin())) //after 1.31
-                .addPathPatterns("/**")
                 //开放登陆,注册 url
                 .excludePathPatterns("/ace/logging.html", "/ace/login.html","/ace/registration.html","/ace/password/reset.html","/")
                 //开放restController
@@ -99,7 +111,8 @@ public class SaTokenConfig implements WebMvcConfigurer {
                         "/csrf",
                         "/webjars/**",
                         "/swagger-resources/**",
-                        "/v2/**");
+                        "/v2/**")
+                .addPathPatterns("/**");
     }
 
     // Sa-Token 标签方言 (Thymeleaf版)
