@@ -37,24 +37,25 @@ public class ReportsService {
 
     public ReportsInfo getReportById(Long reportId) {
         Reports report = reportsDao.findAllByReportId(reportId);
-
         BeanUtil beanUtil = new BeanUtil();
         ReportsInfo reportsInfo = beanUtil.copy(report, ReportsInfo.class);
-
-        List<ReportLinks> reportLinks = reportLinksDao.findAllByReportIdOrderByCreatedDateDesc(report.getReportId());
-        List<Reports> subReports = new ArrayList<>();
-        if (reportLinks.size() != 0) {
-            for (ReportLinks reportLink : reportLinks) {
-                Reports r = reportsDao.findAllByReportId(reportLink.getSubReportId());
-                if (NullUtil.isNull(r)) {
-                    subReports.add(reportsDao.findAllByReportId(reportLink.getReportId()));
-                } else {
-                    getReportById(r.getReportId());
-                }
-            }
-            reportsInfo.setSubReports(subReports);
-        }
+        reportsInfo.setSubReports(getSubReports(reportsInfo));
         return reportsInfo;
     }
+
+
+    public List<ReportsInfo> getSubReports(ReportsInfo reportsInfo) {
+        BeanUtil beanUtil = new BeanUtil();
+        List<ReportLinks> reportLinks = reportLinksDao.findAllByReportIdOrderByCreatedDateDesc(reportsInfo.getReportId());
+        List<ReportsInfo> subReports = new ArrayList<>();
+        for (ReportLinks reportLink : reportLinks) {
+            Reports r = reportsDao.findAllByReportId(reportLink.getSubReportId());
+            ReportsInfo reportsInfo2 = beanUtil.copy(r, ReportsInfo.class);
+            reportsInfo2.setSubReports(getSubReports(reportsInfo2));
+            subReports.add(reportsInfo2);
+        }
+        return subReports;
+    }
+
 }
 

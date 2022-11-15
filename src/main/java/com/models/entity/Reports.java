@@ -1,11 +1,14 @@
 package com.models.entity;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.models.entity.base.BaseEntity;
+import com.models.info.ReportsInfo;
 import com.sun.jdi.Value;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.ElementCollection;
 
 
@@ -38,7 +41,6 @@ public class Reports extends BaseEntity {
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long reportId;
-
     @Column
     private String title;
     @Lob
@@ -60,7 +62,8 @@ public class Reports extends BaseEntity {
     private String attachment;
     @Column
     private LocalDateTime reportDate;
-
+    @Column
+    private Long reporter;
 
 
     public Long getReportId() {
@@ -117,6 +120,15 @@ public class Reports extends BaseEntity {
 
     public void setReportDate(LocalDateTime reportDate) {
         this.reportDate = reportDate;
+    }
+
+    public Long getReporter() {
+        return reporter;
+    }
+
+    public void setReporter() {
+        Users users = (Users) StpUtil.getSession().get("user");
+        this.reporter = users.getUserId();
     }
 }
 

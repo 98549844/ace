@@ -21,5 +21,6 @@ public interface ReportsDao extends JpaRepository<Reports, Long>, JpaSpecificati
 
     Reports findAllByReportId(Long reportId);
 
-    List<Reports> findAllByReportIdInOrderByCreatedDateDesc(List<Long> reportIds);
+   // List<Reports> findAllByReportIdInOrderByCreatedDateDesc(List<Long> reportIds);
+   // List<Reports> findAllBySuperReportIdOrderByCreatedDateDesc(Long superReportId);
 }

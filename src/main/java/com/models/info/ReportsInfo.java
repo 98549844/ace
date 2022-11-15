@@ -17,14 +17,14 @@ import java.util.List;
 public class ReportsInfo extends Reports {
     private static final Logger log = LogManager.getLogger(ReportsInfo.class.getName());
 
-    private List<Reports> subReports;
+    private List<ReportsInfo> subReports;
 
 
-    public List<Reports> getSubReports() {
+    public List<ReportsInfo> getSubReports() {
         return subReports;
     }
 
-    public void setSubReports(List<Reports> subReports) {
+    public void setSubReports(List<ReportsInfo> subReports) {
         this.subReports = subReports;
     }
 }
