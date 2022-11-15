@@ -28,7 +28,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
 
     // 注册拦截器
    // @Override
-//    public void addInterceptors11(InterceptorRegistry registry) {
+//    public void addInterceptors(InterceptorRegistry registry) {
 //       https://gitee.com/dromara/sa-token/issues/I60SL7
 //        // 注册Sa-Token的路由拦截器写法
 //       // registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin())) //after 1.31

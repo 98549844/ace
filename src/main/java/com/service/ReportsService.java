@@ -42,19 +42,18 @@ public class ReportsService {
         ReportsInfo reportsInfo = beanUtil.copy(report, ReportsInfo.class);
 
         List<ReportLinks> reportLinks = reportLinksDao.findAllByReportIdOrderByCreatedDateDesc(report.getReportId());
-        List<Reports> reports = new ArrayList<>();
+        List<Reports> subReports = new ArrayList<>();
         if (reportLinks.size() != 0) {
             for (ReportLinks reportLink : reportLinks) {
                 Reports r = reportsDao.findAllByReportId(reportLink.getSubReportId());
                 if (NullUtil.isNull(r)) {
-                    reports.add(reportsDao.findAllByReportId(reportLink.getReportId()));
+                    subReports.add(reportsDao.findAllByReportId(reportLink.getReportId()));
+                } else {
+                    getReportById(r.getReportId());
                 }
             }
-            reportsInfo.setSubReports(reports);
+            reportsInfo.setSubReports(subReports);
         }
-
-
-        log.info(reportsInfo.getReportId());
         return reportsInfo;
     }
 }
