@@ -39,11 +39,13 @@ function docReady() {
     $(aHref).on("click", function () {
         const link = $(this).attr("href");
         $.cookie('currentURL', link);
-        if ($(this).attr("target") !== "_blank") {
+
+        //左菜单 loading bar
+        /*  if ($(this).attr("target") !== "_blank") {
             setTimeout(() => {
             }, 1000);
             showLoading();
-        }
+        }*/
     });
 
     const currentURL = $.cookie('currentURL');
