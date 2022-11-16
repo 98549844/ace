@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,14 +41,18 @@ public class ReportController extends CommonController {
     public ModelAndView getReports() {
         log.info("access report/list");
         ModelAndView modelAndView = super.page("ace/modules/report/report-list");
-
-        ReportsInfo reportsInfo = reportsService.getReportInfoById(9000L);
-        modelAndView.addObject("report", reportsInfo);
-
+        modelAndView.addObject("reports", reportsService.getReportList());
         return modelAndView;
     }
 
-
+    @RequestMapping(value = "/report/list.html/{reportId}", method = RequestMethod.GET)
+    public ModelAndView getReportInfoById(@PathVariable Long reportId) {
+        log.info("access report/list {}", reportId);
+        ModelAndView modelAndView = super.page("ace/modules/report/report-list");
+        ReportsInfo reportsInfo = reportsService.getReportInfoById(reportId);
+        modelAndView.addObject("report", reportsInfo);
+        return modelAndView;
+    }
 
 
 }

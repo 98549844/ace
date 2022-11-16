@@ -40,23 +40,41 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
+                        <div class="col-xs-12">
+                            <table id="simple-table" class="table  table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <!--  <th class="center">
+                                        <label class="pos-rel">
+                                            <input type="checkbox" class="ace"/>
+                                            <span class="lbl"></span>
+                                        </label>
+                                    </th>-->
+                                    <th class="detail-col">Level</th>
+                                    <th class="hidden-480">Subject</th>
+                                    <th class="hidden-480">Status</th>
+                                    <th><i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>Last Date</th>
+                                    <th>Reporter</th>
+                                    <th><i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>Report Date</th>
+                                </tr>
+                                </thead>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                <tbody>
+                                <div th:each="rowReport:${reports}">
+                                    <input type="hidden" th:value="${rowReport.reportId}" th:id="${rowReport.reportId}"
+                                           class="input-hidden"/>
+                                    <tr>
+                                        <td th:text="${rowReport.level}"></td>
+                                        <td th:text="${rowReport.title}"></td>
+                                        <td th:text="${rowReport.status}"></td>
+                                        <td th:text="${#temporals.format(rowReport.lastUpdateDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                        <td th:text="${rowReport.reporter}"></td>
+                                        <td th:text="${#temporals.format(rowReport.reportDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+                        </div><!-- /.span -->
 
 
                         <!-- PAGE CONTENT ENDS -->

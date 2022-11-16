@@ -30,6 +30,11 @@ public class ReportsService {
         this.reportsDao = reportsDao;
     }
 
+    public List<Reports> getReportList() {
+        return reportsDao.findAllBySubReportIdOrderByCreatedDateDesc(0L);
+    }
+
+
     public ReportsInfo getReportInfoById(Long reportId) {
         Reports report = reportsDao.findAllByReportId(reportId);
         BeanUtil beanUtil = new BeanUtil();
@@ -37,7 +42,6 @@ public class ReportsService {
         reportsInfo.setSubReports(getSubReports(reportsInfo));
         return reportsInfo;
     }
-
 
     private List<ReportsInfo> getSubReports(ReportsInfo reportsInfo) {
         BeanUtil beanUtil = new BeanUtil();
