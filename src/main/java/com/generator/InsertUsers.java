@@ -30,6 +30,7 @@ public class InsertUsers {
         u5.setDateOfBirth(LocalDateTime.now());
         u6.setDateOfBirth(LocalDateTime.now());
         u7.setDateOfBirth(LocalDateTime.now());
+        u8.setDateOfBirth(LocalDateTime.now());
 
         u1.setExpireDate(LocalDateTime.now().plusYears(3));
         u2.setExpireDate(LocalDateTime.now().plusYears(3));
@@ -38,6 +39,7 @@ public class InsertUsers {
         u5.setExpireDate(LocalDateTime.now().plusYears(3));
         u6.setExpireDate(LocalDateTime.now().plusYears(3));
         u7.setExpireDate(LocalDateTime.now().plusYears(3));
+        u8.setExpireDate(LocalDateTime.now().plusYears(3));
 
         u1.setCreatedDate(LocalDateTime.now());
         u2.setCreatedDate(LocalDateTime.now());

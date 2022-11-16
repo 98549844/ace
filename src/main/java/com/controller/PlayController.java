@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/ace")
-//@Scope("prototype")
 public class PlayController extends CommonController {
     private static final Logger log = LogManager.getLogger(PlayController.class.getName());
 

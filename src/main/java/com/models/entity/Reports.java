@@ -30,7 +30,7 @@ public class Reports extends BaseEntity {
     @Column
     private Long reportId;
     @Column
-    private Long superReportId;
+    private Long subReportId = 0L;
     @Column
     private String title;
     @Lob
@@ -64,12 +64,12 @@ public class Reports extends BaseEntity {
         this.reportId = reportId;
     }
 
-    public Long getSuperReportId() {
-        return superReportId;
+    public Long getSubReportId() {
+        return subReportId;
     }
 
-    public void setSuperReportId(Long superReportId) {
-        this.superReportId = superReportId;
+    public void setSubReportId(Long subReportId) {
+        this.subReportId = subReportId;
     }
 
     public String getTitle() {

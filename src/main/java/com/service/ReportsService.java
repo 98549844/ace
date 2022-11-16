@@ -41,7 +41,7 @@ public class ReportsService {
 
     private List<ReportsInfo> getSubReports(ReportsInfo reportsInfo) {
         BeanUtil beanUtil = new BeanUtil();
-        List<Reports> reports = reportsDao.findAllBySuperReportIdOrderByCreatedDateDesc(reportsInfo.getReportId());
+        List<Reports> reports = reportsDao.findAllBySubReportIdOrderByCreatedDateDesc(reportsInfo.getReportId());
         List<ReportsInfo> subReports = new ArrayList<>();
         for (Reports report : reports) {
             Reports r = reportsDao.findAllByReportId(report.getReportId());
