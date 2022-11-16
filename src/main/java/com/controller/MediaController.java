@@ -39,33 +39,6 @@ public class MediaController extends CommonController {
     private final String videoM3u8;
     private final String thumbnail = "thumbnail.jpg";
 
-
-
-/*    @RequestMapping(value = "/play.html", method = RequestMethod.GET)
-    public ModelAndView accessMedia(@RequestParam(value = "playId") String playId, HttpServletRequest request) {
-        log.info("access ace/play.html");
-        String requestPlayId = (String) request.getAttribute("playId");
-        log.info("requestPlayId: {}", requestPlayId);
-        ModelAndView modelAndView = super.page("ace/tool-pages/play");
-        modelAndView.addObject("playId", playId);
-        return modelAndView;
-    }*/
-
-    /**
-     * 开始加载媒体准备播放
-     *
-     */
-/*    @RequestMapping(value = "/media/play/{uuid}", method = RequestMethod.GET)
-    @ResponseBody
-    public void play(@PathVariable String uuid, HttpServletResponse response) {
-        log.info("access ace/play.html uuid: {}", uuid);
-        String location = videoM3u8 + uuid + FileUtil.separator + indexM3U8;
-        log.info("Location: {}", location);
-        //ModelAndView modelAndView = super.page("ace/tool-pages/play");
-        filesService.get(location, response);
-        //return modelAndView;
-    }*/
-
     @Autowired
     public MediaController(MediaService mediaService, FilesService filesService) {
         this.filesService = filesService;
