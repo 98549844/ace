@@ -142,6 +142,8 @@
 <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css"/>
 <script th:src="@{/assets/js/jquery.colorbox.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js" charset="UTF-8"></script>
+
 
 
 <script type="text/javascript">
@@ -363,7 +365,7 @@
                 let html = "";
                 html = html + `<li id="li-${data.fileName}" class="lazy">
                                     <a href="image/get/${data.fileName}${data.ext}" data-rel="colorbox" class="cboxElement">
-                                        <img width="250" height="250" alt="150x150" src="image/get/${data.fileName}" id="img-${data.fileName}">
+                                        <img width="250" height="250" alt="150x150"  src="image/get/${data.fileName}" id="img-${data.fileName}">
                                     </a>
                                     <div class="tools tools-bottom">
                                         <a href="javascript:void(0);" id="rotate-l-${data.fileName}" class="rotate">
@@ -407,10 +409,6 @@
                 window.location.href = '500.html';
             },
         })
-    });
-
-    const lazyLoad = new LazyLoad({
-        elements_selector: ".lazy",
     });
 
 </script>
