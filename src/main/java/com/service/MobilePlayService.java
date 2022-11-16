@@ -29,14 +29,14 @@ public class MobilePlayService {
 
     public static final String VIDEO = "/video";
 
-    public static final String CONTENT_TYPE = "Content-Type";
-    public static final String CONTENT_LENGTH = "Content-Length";
-    public static final String VIDEO_CONTENT = "video/";
-    public static final String CONTENT_RANGE = "Content-Range";
-    public static final String ACCEPT_RANGES = "Accept-Ranges";
-    public static final String BYTES = "bytes";
-    public static final int CHUNK_SIZE = 314700;
-    public static final int BYTE_RANGE = 1024;
+    private static final String CONTENT_TYPE = "Content-Type";
+    private static final String CONTENT_LENGTH = "Content-Length";
+    private static final String VIDEO_CONTENT = "video/";
+    private static final String CONTENT_RANGE = "Content-Range";
+    private static final String ACCEPT_RANGES = "Accept-Ranges";
+    private static final String BYTES = "bytes";
+    private static final int CHUNK_SIZE = 314700;
+    private static final int BYTE_RANGE = 1024;
 
     /**
      * Prepare the content.

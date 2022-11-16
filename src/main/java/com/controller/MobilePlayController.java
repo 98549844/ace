@@ -2,22 +2,14 @@ package com.controller;
 
 import com.constant.AceEnvironment;
 import com.controller.common.CommonController;
-import com.models.common.DeviceType;
-import com.service.FilesService;
 import com.service.MobilePlayService;
-import com.util.FileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import reactor.core.publisher.Mono;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Classname: DplayerController
@@ -32,10 +24,12 @@ public class MobilePlayController extends CommonController {
     private static final Logger log = LogManager.getLogger(MobilePlayController.class.getName());
 
     private final MobilePlayService mobilePlayService;
+    private final String videoPath;
 
     @Autowired
     public MobilePlayController(MobilePlayService mobilePlayService) {
         this.mobilePlayService = mobilePlayService;
+        this.videoPath = AceEnvironment.getVideoPath();
     }
 
 
@@ -50,6 +44,7 @@ public class MobilePlayController extends CommonController {
 
         String fileName = "bbb";
         String fileType = "mp4";
+        String videoFile = videoPath+fileName;
 
         return Mono.just(mobilePlayService.prepareContent(fileName, fileType, httpRangeList));
 
