@@ -124,8 +124,9 @@ public class Reports extends BaseEntity {
         return reporter;
     }
 
-    public void setReporter(Long reporter) {
-        this.reporter = reporter;
+    public void setReporter() {
+        Users user = (Users) StpUtil.getSession().get("user");
+        this.reporter = user.getUserId();
     }
 }
 
