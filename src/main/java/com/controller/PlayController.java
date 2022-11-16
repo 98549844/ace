@@ -47,13 +47,8 @@ public class PlayController extends CommonController {
     public ModelAndView accessPlay(@RequestParam(value = "playId") String playId, HttpServletRequest request) {
         log.info("access ace/play.html");
         ModelAndView modelAndView;
-        String device = getDevice();
-        log.info("device type: {}", device);
-        if (DeviceType.PC.equals(device)) {
-            modelAndView = super.page("ace/tool-pages/play");
-        } else {
-            modelAndView = super.page("ace/tool-pages/mobile-play");
-        }
+        log.info("device type: {}", getDevice());
+        modelAndView = super.page("ace/tool-pages/play");
         modelAndView.addObject("playId", playId);
         return modelAndView;
     }

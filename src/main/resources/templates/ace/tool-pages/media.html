@@ -308,9 +308,19 @@
     $body.on('click', '.play', function () {
         let id = $(this).attr('id');
         let playId = id.split("play-")[1];
-        window.location.href = `play.html?playId=${playId}`;
+        if (isMobile()) {
+            window.location.href = `stream/play.html?playId=${playId}`;
+           // window.location.href = `play.html?playId=${playId}`;
+        } else {
+            window.location.href = `play.html?playId=${playId}`;
+        }
         return false;
     });
+
+
+    function isMobile() {
+        return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    }
 
     $body.on('click', '.videoDelete', function () {
         let id = $(this).attr('id');

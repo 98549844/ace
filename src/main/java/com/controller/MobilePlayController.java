@@ -41,9 +41,9 @@ public class MobilePlayController extends CommonController {
 
     //http://localhost:8088/ace/stream/mp4/bbb
 
-    @RequestMapping(value = "/stream/play.html/{playId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/stream/play.html", method = RequestMethod.GET)
     @ResponseBody
-    public Mono<ResponseEntity<byte[]>> mobilePlay(@PathVariable String playId, @RequestHeader(value = "Range", required = false) String httpRangeList) {
+    public Mono<ResponseEntity<byte[]>> mobilePlay(@RequestParam(value = "playId") String playId, @RequestHeader(value = "Range", required = false) String httpRangeList) {
         log.info("access stream/play.html/{}", playId);
         String device = getDevice();
         log.info("device type: {}", device);
