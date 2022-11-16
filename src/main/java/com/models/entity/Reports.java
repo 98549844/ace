@@ -43,11 +43,13 @@ public class Reports extends BaseEntity {
     public static final String CLOSE = "CLOSE";
     @Column
     private String level; //info, warning, error, critical,fatal
-    public static final String INFO = "INFO";
-    public static final String WARNING = "WARNING";
-    public static final String ERROR = "ERROR";
-    public static final String CRITICAL = "CRITICAL";
-    public static final String FATAL = "FATAL";
+    public static final String SUGGESTION = "SUGGESTION";
+    public static final String INFO = "INFO"; //资料性质
+    public static final String BUG = "BUG"; // 错误
+    public static final String WARNING = "WARNING"; //警告但不应响使用
+    public static final String ERROR = "ERROR"; // 警告并不能使用
+    public static final String CRITICAL = "CRITICAL"; //模组崩溃
+    public static final String FATAL = "FATAL"; //系统崩溃
     @Column
     private String attachment;
     @Column
