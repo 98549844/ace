@@ -67,7 +67,6 @@ public class MobilePlayController extends CommonController {
             @PathVariable("playId") String playId, @PathVariable("ext") String ext,
             @RequestHeader(value = "Range", required = false) String rangeHeader) throws IOException {
         log.info("access stream/play.html {} ; {}", ext, playId);
-        // String mediaName = "C:\\ACE\\videos\\bbb.mp4";
         String mediaName = videoPath + playId + "." + ext;
         return mobilePlayService.getResponseStream (mediaName, rangeHeader);
 
