@@ -41,9 +41,9 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
                                        href="#collapseOne">
-                                        <i class="ace-icon fa fa-angle-down bigger-110"
+                                        <i class="ace-icon fa fa-angle-right bigger-110"
                                            data-icon-hide="ace-icon fa fa-angle-down"
                                            data-icon-show="ace-icon fa fa-angle-right"></i>
                                         &nbsp;Dropzone:
@@ -55,7 +55,7 @@
                                 </h4>
                             </div>
 
-                            <div class="panel-collapse collapse in" id="collapseOne">
+                            <div class="panel-collapse collapse" id="collapseOne">
                                 <div class="panel-body">
                                     <form class="dropzone well"
                                           id="drop-zone" enctype="multipart/form-data"
@@ -384,7 +384,6 @@
                                         </a>
                                     </div>
                                 </li>`;
-
                 $("#li-" + imgId + "").replaceWith(html);
                 initColorbox();
             },
