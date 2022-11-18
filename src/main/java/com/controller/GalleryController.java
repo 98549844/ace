@@ -53,8 +53,7 @@ public class GalleryController extends CommonController {
     @RequestMapping(value = "/gallery.html", method = RequestMethod.GET)
     public ModelAndView gallery() throws IOException {
         log.info("access gallery.html");
-        ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-        return modelAndView;
+        return super.page("ace/tool-pages/gallery");
     }
 
     /**
@@ -67,10 +66,6 @@ public class GalleryController extends CommonController {
     @ResponseBody
     public List getImages() throws IOException {
         log.info("access getImages.html");
-        //  ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
-        //  String result = JsonUtil.ObjectToFormattedJson(galleryService.getImages());
-        //  modelAndView.addObject("ajaxResult", galleryService.getImages());
-        //  return modelAndView;
         return galleryService.getImages(getCurrentUser());
 
     }

@@ -60,6 +60,7 @@ public class MobilePlayController extends CommonController {
 
     // ClientAbort Exception and IO Exception
     @RequestMapping(value = "/stream/play.html/{ext}/{playId}", method = RequestMethod.GET)
+    @ResponseBody
     public ResponseEntity<StreamingResponseBody> mobilePlay(
             @PathVariable("playId") String playId, @PathVariable("ext") String ext, @RequestHeader(value = "Range", required = false) String rangeHeader) throws IOException {
         log.info("access stream/play.html {} ; {}", ext, playId);
