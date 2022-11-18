@@ -310,9 +310,9 @@
         let ext = $(this).attr('ext').split(".");
         let playId = id.split("play-")[1];
         if (isMobile()) {
-                window.location.href = `stream/play.html/${playId}`;
+                window.location.href = `stream/play.html/${ext}/${playId}`; //会thrown getOutPutStreamexception
             //  window.location.href = `stream/play.html/${ext}/${playId}`;
-          //  window.location.href = `mobile/play.html/${ext[1]}/${playId}`;
+          //  window.location.href = `mobile/play.html/${ext[1]}/${playId}`; //thrown IO exception
         } else {
             window.location.href = `play.html?playId=${playId}`;
         }

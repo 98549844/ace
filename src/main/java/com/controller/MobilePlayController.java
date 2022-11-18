@@ -45,15 +45,14 @@ public class MobilePlayController extends CommonController {
     }
 
 
-
     @RequestMapping(value = "/mobile/play.html/{ext}/{playId}", method = RequestMethod.GET)
-    public ModelAndView mobilePlay(@PathVariable(value = "playId") String playId,@PathVariable(value = "ext") String ext) {
-        log.info("access mobile/play.html/{}/{}",ext, playId);
+    public ModelAndView mobilePlay(@PathVariable(value = "playId") String playId, @PathVariable(value = "ext") String ext) {
+        log.info("access mobile/play.html/{}/{}", ext, playId);
         String device = getDevice();
         log.info("device type: {}", device);
         ModelAndView modelAndView = page("ace/tool-pages/mobile-play");
-        modelAndView.addObject("playId",playId);
-        modelAndView.addObject("ext",ext);
+        modelAndView.addObject("playId", playId);
+        modelAndView.addObject("ext", ext);
 
         return modelAndView;
     }
@@ -62,13 +61,13 @@ public class MobilePlayController extends CommonController {
     // getOutInputStream Exception
     @RequestMapping(value = "/stream/play.html/{playId}", method = RequestMethod.GET)
     @ResponseBody
-    public Mono<ResponseEntity<byte[]>> mobileMonoPlay(@PathVariable(value = "playId") String playId, @RequestHeader(value = "Range", required = false) String httpRangeList) throws IOException {
-        log.info("access stream/play.html/{}", playId);
+    public Mono<ResponseEntity<byte[]>> mobileMonoPlay(@PathVariable(value = "playId") String playId, @PathVariable(value = "ext") String ext, @RequestHeader(value = "Range", required = false) String httpRangeList) throws IOException {
+        log.info("access stream/play.html/{}/{}", ext, playId);
         String device = getDevice();
         log.info("device type: {}", device);
 
-        String fileName = "bbb";
-        String fileType = "mp4";
+        String fileName = playId;
+        String fileType = ext;
 
         Mono<ResponseEntity<byte[]>> result = Mono.just(mobilePlayService.prepareContent(fileName, fileType, httpRangeList));
         return result;
@@ -76,8 +75,7 @@ public class MobilePlayController extends CommonController {
 
     // ClientAbort Exception and IO Exception
     @GetMapping(value = "/stream/play.html/{ext}/{playId}")
-    public ResponseEntity<StreamingResponseBody> streamPlay(
-            @PathVariable("playId") String playId, @PathVariable("ext") String ext, @RequestHeader(value = "Range", required = false) String rangeHeader) throws IOException {
+    public ResponseEntity<StreamingResponseBody> streamPlay(@PathVariable("playId") String playId, @PathVariable("ext") String ext, @RequestHeader(value = "Range", required = false) String rangeHeader) throws IOException {
         log.info("access stream/play.html {} ; {}", ext, playId);
         String mediaName = "C:\\ACE\\videos\\bbb.mp4";
         try {
