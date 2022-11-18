@@ -42,8 +42,8 @@
                     <!-- PAGE CONTENT BEGINS -->
                     <div id="dplayer" style=" height: 540px; left: 0; top: 4px;" class="col-sm-9">
                         <video controls autoplay="autoplay">
-                            <!--    <source th:src="@{/stream/play.html/{e}/{pId} (pId=${playId}, e=${ext})}" type="video/mp4">-->
-                            <source th:src="@{/ace/stream/play.html/aaa/bbb}" type="video/mp4">
+                            <source th:src="@{/ace/stream/play.html/{e}/{pId} (pId=${playId}, e=${ext})}" type="video/mp4">
+                            <!-- <source th:src="@{/ace/stream/play.html/aaa/bbb}" type="video/mp4">-->
                             <!-- <source src="" type="video/mp4" id="streamPlayer">-->
                         </video>
                     </div>

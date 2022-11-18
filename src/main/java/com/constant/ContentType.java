@@ -18,7 +18,7 @@ import java.util.Map;
 public class ContentType {
     private static final Logger log = LogManager.getLogger(ContentType.class.getName());
 
-//    private static final Map type = new HashMap() {{
+    private static final Map type = new HashMap() {{
         put("load", "text/html");
         put("123", "application/vnd.lotus-1-2-3");
         put("3ds", "image/x-3ds");
@@ -705,8 +705,11 @@ public class ContentType {
         put("z", "application/x-compress");
         put("zabw", "application/x-abiword");
         put("zip", "application/zip");
- //   }};
+    }};
 
+
+    public static final String MP4 = "mp4";
+    public static final String M4V = "m4v";
 
     public static String get(String key) {
         String value = (String) type.get(key.toLowerCase());
