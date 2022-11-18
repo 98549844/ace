@@ -59,6 +59,9 @@ function docReady() {
 }
 
 $("a.logout").on("click", function () {
+    //mobile logout and hidden menu
+  //  $(".navbar-toggle.menu-toggler.pull-left.display").removeClass(".display");
+  //  $("#sidebar").removeClass(".display");
     logout();
 });
 

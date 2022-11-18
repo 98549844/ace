@@ -187,7 +187,7 @@
                                 const ext = data[i].ext;
                                 html = html +
                                     `<li id="li-${fileName}">
-                                        <a href="media/get/${fileName}${ext}" id="play-${fileName}" class="play">
+                                        <a href="media/get/${fileName}${ext}" ext="${ext}" id="play-${fileName}" class="play">
                                         <img width="300" height="300" alt="300x300" src="media/get/${fileName}"
                                              id="img-${fileName}">
                                         </a>
@@ -284,7 +284,7 @@
                     const ext = data[i].ext;
                     html = html +
                         `<li id="li-${fileName}">
-                            <a href="media/get/${fileName}${ext}" id="play-${fileName}" class="play">
+                            <a href="media/get/${fileName}${ext}" ext="${ext}" id="play-${fileName}" class="play">
                             <img width="300" height="300" alt="300x300" src="media/get/${fileName}"
                                  id="img-${fileName}">
                             </a>
@@ -307,10 +307,11 @@
     let $body = $('body');
     $body.on('click', '.play', function () {
         let id = $(this).attr('id');
+        let ext = $(this).attr('ext').split(".");
         let playId = id.split("play-")[1];
         if (isMobile()) {
-            window.location.href = `stream/play.html?playId=${playId}`;
-           // window.location.href = `play.html?playId=${playId}`;
+              window.location.href = `stream/play.html/${playId}`;
+           // window.location.href = `stream/play.html/${ext}/${playId}`;
         } else {
             window.location.href = `play.html?playId=${playId}`;
         }

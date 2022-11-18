@@ -1,20 +1,18 @@
 package com.service;
 
+import com.constant.AceEnvironment;
+import com.util.FileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 
 /**
  * @Classname: MobilePlayService
@@ -27,7 +25,7 @@ import java.util.Optional;
 public class MobilePlayService {
     private static final Logger log = LogManager.getLogger(MobilePlayService.class.getName());
 
-    public static final String VIDEO = "/video";
+    //  public static final String VIDEO = "/video";
 
     private static final String CONTENT_TYPE = "Content-Type";
     private static final String CONTENT_LENGTH = "Content-Length";
@@ -36,7 +34,14 @@ public class MobilePlayService {
     private static final String ACCEPT_RANGES = "Accept-Ranges";
     private static final String BYTES = "bytes";
     private static final int CHUNK_SIZE = 314700;
-    private static final int BYTE_RANGE = 1024;
+    //  private static final int BYTE_RANGE = 1024;
+
+
+    private final String videoPath;
+
+    public MobilePlayService() {
+        this.videoPath = AceEnvironment.getVideoPath();
+    }
 
     /**
      * Prepare the content.
@@ -46,21 +51,26 @@ public class MobilePlayService {
      * @param range    String.
      * @return ResponseEntity.
      */
-    public ResponseEntity<byte[]> prepareContent(final String fileName, final String fileType, final String range) {
 
+    public ResponseEntity<byte[]> prepareContent(final String fileName, final String fileType, final String range) throws IOException {
+        HttpStatus httpStatus = HttpStatus.PARTIAL_CONTENT;
         try {
-            final String fileKey = fileName + "." + fileType;
             long rangeStart = 0;
             long rangeEnd = CHUNK_SIZE;
-            final Long fileSize = getFileSize(fileKey);
+            String fileKey = fileName + "." + fileType;
+            String videoFile = videoPath + fileKey;
+            log.info("Location: {}", videoFile);
+            final Long fileSize = FileUtil.getFileSize(videoFile);
+            final byte[] videoByte = readByteRangeNew(videoFile, rangeStart, rangeEnd);
             if (range == null) {
-                return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
+                return ResponseEntity
+                        .status(httpStatus)
                         .header(CONTENT_TYPE, VIDEO_CONTENT + fileType)
                         .header(ACCEPT_RANGES, BYTES)
                         .header(CONTENT_LENGTH, String.valueOf(rangeEnd))
                         .header(CONTENT_RANGE, BYTES + " " + rangeStart + "-" + rangeEnd + "/" + fileSize)
                         .header(CONTENT_LENGTH, String.valueOf(fileSize))
-                        .body(readByteRangeNew(fileKey, rangeStart, rangeEnd)); // Read the object and convert it as bytes
+                        .body(videoByte); // Read the object and convert it as bytes
             }
             String[] ranges = range.split("-");
             rangeStart = Long.parseLong(ranges[0].substring(6));
@@ -71,98 +81,60 @@ public class MobilePlayService {
             }
 
             rangeEnd = Math.min(rangeEnd, fileSize - 1);
-            final byte[] data = readByteRangeNew(fileKey, rangeStart, rangeEnd);
+            final byte[] data = readByteRangeNew(videoFile, rangeStart, rangeEnd);
             final String contentLength = String.valueOf((rangeEnd - rangeStart) + 1);
-            HttpStatus httpStatus = HttpStatus.PARTIAL_CONTENT;
             if (rangeEnd >= fileSize) {
                 httpStatus = HttpStatus.OK;
             }
-            return ResponseEntity.status(httpStatus)
+            ResponseEntity responseEntity = ResponseEntity
+                    .status(httpStatus)
                     .header(CONTENT_TYPE, VIDEO_CONTENT + fileType)
-                    .header(ACCEPT_RANGES, BYTES)
-                    .header(CONTENT_LENGTH, contentLength)
+                    .header(ACCEPT_RANGES, BYTES).header(CONTENT_LENGTH, contentLength)
                     .header(CONTENT_RANGE, BYTES + " " + rangeStart + "-" + rangeEnd + "/" + fileSize)
                     .body(data);
+            return responseEntity;
         } catch (IOException e) {
             log.error("Exception while reading the file {}", e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
-
     }
 
     /**
      * ready file byte by byte.
      *
-     * @param filename String.
-     * @param start    long.
-     * @param end      long.
+     * @param videoFile String.
+     * @param start     long.
+     * @param end       long.
      * @return byte array.
      * @throws IOException exception.
      */
-    public byte[] readByteRangeNew(String filename, long start, long end) throws IOException {
-        Path path = Paths.get(getFilePath(), filename);
-        byte[] data = Files.readAllBytes(path);
+    public byte[] readByteRangeNew(String videoFile, long start, long end) throws IOException {
+
+        InputStream input = null;
+        byte[] data = null;
+        try {
+            File file = new File(videoFile);
+            input = new FileInputStream(file);
+
+            data = new byte[input.available()];
+
+            input.read(data);
+        } catch (FileNotFoundException e) {
+            log.info("file not find!");
+            e.printStackTrace();
+        } catch (IOException e) {
+            log.info("IOException :" + e);
+            e.printStackTrace();
+        } finally {
+            assert input != null;
+            input.close();
+        }
         byte[] result = new byte[(int) (end - start) + 1];
         System.arraycopy(data, (int) start, result, 0, (int) (end - start) + 1);
         return result;
     }
 
-
-    public byte[] readByteRange(String filename, long start, long end) throws IOException {
-        Path path = Paths.get(getFilePath(), filename);
-        try (InputStream inputStream = (Files.newInputStream(path));
-             ByteArrayOutputStream bufferedOutputStream = new ByteArrayOutputStream()) {
-            byte[] data = new byte[BYTE_RANGE];
-            int nRead;
-            while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
-                bufferedOutputStream.write(data, 0, nRead);
-            }
-            bufferedOutputStream.flush();
-            byte[] result = new byte[(int) (end - start) + 1];
-            System.arraycopy(bufferedOutputStream.toByteArray(), (int) start, result, 0, result.length);
-            return result;
-        }
-    }
-
-    /**
-     * Get the filePath.
-     *
-     * @return String.
-     */
-    private String getFilePath() {
-        URL url = this.getClass().getResource(VIDEO);
-        assert url != null;
-        return new File(url.getFile()).getAbsolutePath();
-    }
-
-    /**
-     * Content length.
-     *
-     * @param fileName String.
-     * @return Long.
-     */
-    public Long getFileSize(String fileName) {
-        return Optional.ofNullable(fileName)
-                .map(file -> Paths.get(getFilePath(), file))
-                .map(this::sizeFromFile)
-                .orElse(0L);
-    }
-
-    /**
-     * Getting the size from the path.
-     *
-     * @param path Path.
-     * @return Long.
-     */
-    private Long sizeFromFile(Path path) {
-        try {
-            return Files.size(path);
-        } catch (IOException ioException) {
-            log.error("Error while getting the file size", ioException);
-        }
-        return 0L;
-    }
 
 }
 

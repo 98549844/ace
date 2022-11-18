@@ -4,6 +4,7 @@ import cn.dev33.satoken.exception.NotLoginException;
 import com.constant.Css;
 import com.controller.common.CommonController;
 import com.models.entity.Users;
+import org.apache.catalina.connector.ClientAbortException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -137,13 +138,16 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
             }
             modelAndView.addObject(Css.css, Css.red);
             return modelAndView;
-        } else {
+        } /*else if(e instanceof ClientAbortException){
+            return null;}*/
+        else {
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw, true));
             String stackTrace = sw.toString();
             logException(e.getMessage(), stackTrace);
 
             String warningMsg = "<strong> OCCUR EXCEPTION </strong>";
+            //返回错误页面
             ModelAndView modelAndView = exceptionModelAndView("ace/error", Css.faGear, 999, warningMsg);
             String exceptionMsg = "<strong style=\"color: red\">" + e.getMessage() + "</strong>" + "<br><br>" + stackTrace;
             modelAndView.addObject("exceptionMsg", exceptionMsg);

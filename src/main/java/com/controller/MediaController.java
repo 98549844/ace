@@ -56,8 +56,7 @@ public class MediaController extends CommonController {
     @RequestMapping(value = "/media.html", method = RequestMethod.GET)
     public ModelAndView media(HttpServletRequest request) {
         log.info("access ace/media.html");
-        ModelAndView modelAndView = super.page("ace/tool-pages/media");
-        return modelAndView;
+        return super.page("ace/tool-pages/media");
     }
 
     /**
