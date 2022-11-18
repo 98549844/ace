@@ -310,8 +310,8 @@
         let ext = $(this).attr('ext').split(".");
         let playId = id.split("play-")[1];
         if (isMobile()) {
-                window.location.href = `stream/mono/play.html/${ext[1]}/${playId}`; //会thrown getOutPutStreamException
-           // window.location.href = `mobile/play.html/${ext[1]}/${playId}`; //thrown IO exception
+            //    window.location.href = `stream/mono/play.html/${ext[1]}/${playId}`; //会thrown getOutPutStreamException
+            window.location.href = `mobile/play.html/${ext[1]}/${playId}`; //thrown IO exception
         } else {
             window.location.href = `play.html?playId=${playId}`;
         }
