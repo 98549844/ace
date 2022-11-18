@@ -40,10 +40,13 @@
                 <div class="row col-xs-12">
                     <!-- <div class="col-xs-12">-->
                     <!-- PAGE CONTENT BEGINS -->
-                    <div id="player-container" style=" height: 540px; left: 0; top: 4px;">
+                    <div id="dplayer" style=" height: 540px; left: 0; top: 4px;" class="col-sm-9">
+                        <video controls autoplay="autoplay">
+                            <!--    <source th:src="@{/stream/play.html/{e}/{pId} (pId=${playId}, e=${ext})}" type="video/mp4">-->
+                            <source th:src="@{/ace/stream/play.html/aaa/bbb}" type="video/mp4">
+                            <!-- <source src="" type="video/mp4" id="streamPlayer">-->
+                        </video>
                     </div>
-
-
                     <div class="col-sm-3">
                         <div class="widget-box">
                             <div class="widget-header">
@@ -445,14 +448,16 @@
 <script src="https://cdn.bootcss.com/flv.js/1.5.0/flv.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/dplayer@1.27.0/dist/DPlayer.min.js"></script>
-<script th:src="@{/assets/js/mousetrap.min.js}"></script>
 
 
 <script>
     jQuery(function ($) {
         const playId = "[[${playId}]]";
-        alert(isMobile());
-        alert(playId);
+        const ext = "[[${ext}]]";
+        // alert(playId + "   " + ext);
+        const url = `stream/play.html/${ext}/${playId}`;
+        // $("#streamPlayer").attr("src",url)
+        // window.location.href = `stream/play.html/${ext}/${playId}`;
 
     });
 

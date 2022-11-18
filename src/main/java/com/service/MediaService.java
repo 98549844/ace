@@ -93,7 +93,7 @@ public class MediaService {
         List<String> videoM3u8List = (List<String>) mp.get(ListUtil.LIST_2);
         if (NullUtil.isNotNull(videoM3u8List)) {
             for (String folderName : videoM3u8List) {
-                boolean isOk = FileUtil.deleteFileOrDirectory(videoM3u8 + folderName);
+                boolean isOk = FileUtil.deleteDirectories(videoM3u8 + folderName);
                 log.info("{} => delete m3u8 folder: {}", isOk, folderName);
             }
         }

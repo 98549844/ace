@@ -132,7 +132,8 @@ public class MediaController extends CommonController {
     public boolean delete(@PathVariable String uuid) {
         log.info("access media/delete => delete {}", uuid);
         boolean rs = filesService.delete(uuid);
-        return rs;
+        boolean deleteDir = filesService.deleteDirectories(videoM3u8 + uuid);
+        return rs && deleteDir;
     }
 }
 

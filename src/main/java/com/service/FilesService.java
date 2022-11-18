@@ -252,6 +252,7 @@ public class FilesService {
     public boolean delete(String fileName) {
         Files fs = findFilesByFileName(fileName);
         if (NullUtil.isNull(fs) || NullUtil.isNull(fs.getLocation())) {
+            log.info("file record not found, location is: {}",fileName);
             delFile(fileName);
         } else {
             delFile(fs.getLocation());
@@ -266,6 +267,10 @@ public class FilesService {
             return false;
         }
         return true;
+    }
+
+    public boolean deleteDirectories(String directory){
+        return FileUtil.deleteDirectories(directory);
     }
 
     public Files findFilesByFileName(String fileName) {
