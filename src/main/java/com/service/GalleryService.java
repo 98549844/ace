@@ -28,16 +28,14 @@ public class GalleryService {
     private static final Logger log = LogManager.getLogger(GalleryService.class.getName());
 
     private final FilesService filesService;
-    private final UserRolesService userRolesService;
     private final RolesService rolesService;
     private final String imagePath;
     private final String imagesThumbnail;
 
 
     @Autowired
-    public GalleryService(FilesService filesService, UserRolesService userRolesService, RolesService rolesService) {
+    public GalleryService(FilesService filesService, RolesService rolesService) {
         this.filesService = filesService;
-        this.userRolesService = userRolesService;
         this.rolesService = rolesService;
         this.imagePath = AceEnvironment.getImagesPath();
         this.imagesThumbnail = AceEnvironment.getImagesThumbnail();
@@ -50,14 +48,7 @@ public class GalleryService {
         List<String> tempLs = FileUtil.getFileNames(imagesThumbnail);
 
         try {
-            Map mp = ListUtil.getDeduplicateElements(ls, tempLs);
-            compressImages((List<String>) mp.get(ListUtil.LIST_1));
-            tempLs = (List<String>) mp.get(ListUtil.LIST_2);
-            if (NullUtil.isNotNull(tempLs)) {
-                for (String s : tempLs) {
-                    FileUtil.delete(imagesThumbnail + s);
-                }
-            }
+            deleteThumbnail(ls, tempLs);
         } catch (Exception e) {
             log.warn("Image still compressing, not ready to display ....");
             e.printStackTrace();
@@ -90,14 +81,7 @@ public class GalleryService {
         List<String> tempLs = FileUtil.getFileNames(imagesThumbnail);
 
         try {
-            Map mp = ListUtil.getDeduplicateElements(ls, tempLs);
-            compressImages((List<String>) mp.get(ListUtil.LIST_1));
-            tempLs = (List<String>) mp.get(ListUtil.LIST_2);
-            if (NullUtil.isNotNull(tempLs)) {
-                for (String s : tempLs) {
-                    FileUtil.delete(imagesThumbnail + s);
-                }
-            }
+            deleteThumbnail(ls, tempLs);
         } catch (Exception e) {
             log.warn("Image still compressing, not ready to display ....");
             e.printStackTrace();
@@ -116,6 +100,18 @@ public class GalleryService {
             } else {
                 //根据数据库排序
                 return filesService.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(fName, Files.COMPRESSED, users.getUserId().toString(), paging);
+            }
+        }
+    }
+
+    private void deleteThumbnail(List<String> ls, List<String> tempLs) {
+        Map mp = ListUtil.getDeduplicateElements(ls, tempLs);
+        compressImages((List<String>) mp.get(ListUtil.LIST_1));
+        tempLs = (List<String>) mp.get(ListUtil.LIST_2);
+        if (NullUtil.isNotNull(tempLs)) {
+            //如果原图已删, 删除掉缩略图
+            for (String s : tempLs) {
+                FileUtil.delete(imagesThumbnail + s);
             }
         }
     }
