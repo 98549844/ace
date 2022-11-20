@@ -34,10 +34,12 @@ public class FilesService {
     private static final Logger log = LogManager.getLogger(FilesService.class.getName());
 
     private final FilesDao filesDao;
+    private final int pageSize;
 
     @Autowired
     public FilesService(FilesDao filesDao) {
         this.filesDao = filesDao;
+        this.pageSize = 30;
     }
 
 
@@ -254,7 +256,7 @@ public class FilesService {
     public boolean delete(String fileName) {
         Files fs = findFilesByFileName(fileName);
         if (NullUtil.isNull(fs) || NullUtil.isNull(fs.getLocation())) {
-            log.info("file record not found, location is: {}",fileName);
+            log.info("file record not found, location is: {}", fileName);
             delFile(fileName);
         } else {
             delFile(fs.getLocation());
@@ -271,7 +273,7 @@ public class FilesService {
         return true;
     }
 
-    public boolean deleteDirectories(String directory){
+    public boolean deleteDirectories(String directory) {
         return FileUtil.deleteDirectories(directory);
     }
 
@@ -296,7 +298,7 @@ public class FilesService {
     }
 
     public List<Files> findFilesByFileNameInAndStatusOrderByCreatedDateDesc(List<String> fileNames, String status, int pageNum) {
-        Pageable pageable = PageRequest.of(pageNum, 30);
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
         return filesDao.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fileNames, status, pageable);
     }
 
@@ -305,7 +307,7 @@ public class FilesService {
     }
 
     public List<Files> findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(List<String> fileNames, String status, String ownerId, int pageNum) {
-        Pageable pageable = PageRequest.of(pageNum, 30);
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
         return filesDao.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(fileNames, status, ownerId);
     }
 }
