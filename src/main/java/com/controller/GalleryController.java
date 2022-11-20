@@ -66,8 +66,22 @@ public class GalleryController extends CommonController {
     @ResponseBody
     public List getImages() throws IOException {
         log.info("access getImages.html");
-        return galleryService.getImages(getCurrentUser());
+        List ls = galleryService.getImages(getCurrentUser());
+        return ls;
+    }
 
+    /**
+     * get images limitation
+     *
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/getImagesByLimit.html", method = RequestMethod.GET)
+    @ResponseBody
+    public List getImagesByLimit() throws IOException {
+        log.info("access getImagesByLimit.html");
+        List ls = galleryService.getImagesByLimit(getCurrentUser());
+        return ls;
     }
 
 

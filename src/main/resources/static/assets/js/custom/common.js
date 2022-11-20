@@ -65,6 +65,10 @@ $("a.logout").on("click", function () {
     logout();
 });
 
+/*function isMobile() {
+    return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+}*/
+
 function logout() {
     //clear cookies
     $.cookie('currentURL', '');

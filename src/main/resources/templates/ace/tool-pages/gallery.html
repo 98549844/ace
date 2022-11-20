@@ -21,7 +21,7 @@
     <div class="main-content">
         <div class="main-content-inner">
             <div class="breadcrumbs" th:include="ace/pb-pages/breadcrumbs :: breadcrumbs"></div>
-            <div class="page-content">
+            <div class="page-content" id="page-content">
                 <div class="ace-settings-container" id="ace-settings-container"
                      th:include="templates/ace/pb-pages/ace-settings-container :: ace-settings-container">
                 </div><!-- /.ace-settings-container -->
@@ -41,7 +41,8 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                       data-parent="#accordion"
                                        href="#collapseOne">
                                         <i class="ace-icon fa fa-angle-right bigger-110"
                                            data-icon-hide="ace-icon fa fa-angle-down"
@@ -144,7 +145,6 @@
 <script th:src="@{/assets/js/jquery.colorbox.min.js}"></script>
 
 <!--lozyload-->
-<script th:src="@{/assets/js/jquery-lazyload-any.min.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js" charset="UTF-8"></script>
 
 
@@ -249,6 +249,68 @@
         initColorbox();
     });
 
+
+    function isMobile() {
+        return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    }
+
+    //----------------------------------------------------------------------------------------------------------------------
+    //scroll到底加载
+    //获取页面顶部被卷起来的高度
+    function scrollTop() {
+        return Math.max(
+            //chrome
+            document.body.scrollTop,
+            //firefox/IE
+            document.documentElement.scrollTop);
+    }
+
+    //获取页面文档的总高度
+    function documentHeight() {
+        //现代浏览器（IE9+和其他浏览器）和IE8的document.body.scrollHeight和document.documentElement.scrollHeight都可以
+        return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    }
+
+    //获取页面浏览器视口的高度
+    function windowHeight() {
+        //document.compatMode有两个取值。BackCompat：标准兼容模式关闭。CSS1Compat：标准兼容模式开启。
+        return (document.compatMode === "CSS1Compat") ?
+            document.documentElement.clientHeight :
+            document.body.clientHeight;
+    }
+
+    //图片查询中正对浏览器主页面滚动事件处理(瀑布流)。只能使用window方式绑定，使用document方式不起作用
+    $(window).on('scroll', function () {
+        if (scrollTop() + windowHeight() >= (documentHeight() - 50/*滚动响应区域高度取50px*/)) {
+            appendImageLi();
+        }
+    });
+
+    let position = $(window).scrollTop();
+    function scrollDown() {
+        let down = false;
+        const scroll = $(window).scrollTop();
+        if (scroll > position) {
+            console.log("向下滚动");
+            down = true;
+        } else {
+            console.log("向上滚动");
+            down = false;
+        }
+        position = scroll;
+        return down;
+    }
+
+    function appendImageLi() {
+        if (scrollDown()) {
+            alert("到底, append图片没有完成")
+            loadingImage();
+            initColorbox();
+        }
+    }
+    //----------------------------------------------------------------------------------------------------------------------
+
+
     //collapse触发
     $("a.accordion-toggle").bind("click", function () {
         loadingImage();
@@ -297,7 +359,7 @@
 
         $.ajax({
             type: "get", // 以get方式发起请求
-            url: "getImages.html",
+            url: "getImagesByLimit.html",
             dataType: "json",
             // 将你的请求参数以问号拼接到url中进行参数传递
             success(data) {
@@ -305,11 +367,16 @@
                 for (let i = 0; i < data.length; i++) {
                     const fileName = data[i].fileName;
                     const ext = data[i].ext;
+                    let toolsClass = "tools tools-bottom";
+                    if (isMobile()) {
+                        toolsClass = "tools tools-bottom in";
+                    }
+
                     html = html + `<li id="li-${fileName}" class="lazy">
                                         <a href="image/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
                                             <img width="250" height="250" alt="150x150" src="image/get/${fileName}" id="img-${fileName}">
                                         </a>
-                                        <div class="tools tools-bottom">
+                                        <div class="${toolsClass}">
                                             <a href="javascript:void(0);" id="rotate-l-${fileName}" class="rotate">
                                                 <i class="ace-icon fa fa-undo"></i>
                                             </a>
@@ -395,21 +462,34 @@
     });
 
     $body.on('click', '.imageDelete', function () {
+
+        const high = document.getElementById('imageDiv').offsetHeight;
+        alert("high:   " + high);//元素实际高度
+
+        const div = document.getElementById("imageDiv");
+        const vHigh = div.clientHeight;
+        alert("vHigh:   " + vHigh);
+
+        alert($(window).height());//windows可视高度
+        alert(document.documentElement.clientHeight);
+
+        alert('滚动条高度' + $('#imageDiv')[0].scrollHeight);
+
         let id = $(this).attr('id');
         let imageId = id.split("delete-")[1];
-        $.ajax({
-            type: "get", // 以get方式发起请求
-            url: "image/delete/" + imageId,
-            dataType: "json",
-            // 将你的请求参数以问号拼接到url中进行参数传递
-            success(data) {
-                $("#li-" + imageId + "").css('display', 'none');
-                //  $(this).parent().parent().hide();
-            },
-            error(data) {
-                window.location.href = '500.html';
-            },
-        })
+        /*        $.ajax({
+                    type: "get", // 以get方式发起请求
+                    url: "image/delete/" + imageId,
+                    dataType: "json",
+                    // 将你的请求参数以问号拼接到url中进行参数传递
+                    success(data) {
+                        $("#li-" + imageId + "").css('display', 'none');
+                        //  $(this).parent().parent().hide();
+                    },
+                    error(data) {
+                        window.location.href = '500.html';
+                    },
+                })*/
     });
 
 </script>

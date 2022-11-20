@@ -82,6 +82,45 @@ public class GalleryService {
         }
     }
 
+
+    public List getImagesByLimit(Users users) throws IOException {
+        log.info("image location: {}", imagePath);
+
+        List<String> ls = FileUtil.getFileNames(imagePath);
+        List<String> tempLs = FileUtil.getFileNames(imagesThumbnail);
+
+        try {
+            Map mp = ListUtil.getDeduplicateElements(ls, tempLs);
+            compressImages((List<String>) mp.get(ListUtil.LIST_1));
+            tempLs = (List<String>) mp.get(ListUtil.LIST_2);
+            if (NullUtil.isNotNull(tempLs)) {
+                for (String s : tempLs) {
+                    FileUtil.delete(imagesThumbnail + s);
+                }
+            }
+        } catch (Exception e) {
+            log.warn("Image still compressing, not ready to display ....");
+            e.printStackTrace();
+        } finally {
+            //根据folder实际文件控制数据库, 删除folder不存文件数据
+            List<String> fName = FileUtil.getNames(ls);
+            List<Files> filesList = filesService.findFilesByPathAndFileNameNotIn(imagePath, fName);
+            filesService.deleteAll(filesList);
+
+            List<Roles> rolesList = rolesService.getRolesByUserId(users.getUserId());
+
+            //只处理单角色,多角色及后再新增处理
+            if (Roles.ADMIN.equals(rolesList.get(0).getRoleCode())) {
+                //根据数据库排序
+                return filesService.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fName, Files.COMPRESSED, 0);
+            } else {
+                //根据数据库排序
+                return filesService.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(fName, Files.COMPRESSED, users.getUserId().toString(), 0);
+            }
+        }
+    }
+
+
     private void compressImages(List<String> ls) {
         log.info("temp images expired, compressing image ...");
         if (NullUtil.isNull(ls)) {

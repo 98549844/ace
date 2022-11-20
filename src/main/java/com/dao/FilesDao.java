@@ -1,6 +1,8 @@
 package com.dao;
 
 import com.models.entity.Files;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
@@ -30,6 +32,8 @@ public interface FilesDao extends JpaRepository<Files, Long>, JpaSpecificationEx
     List<Files> findFilesByFileNameInAndVersionGreaterThan(List<String> fileName, int version);
 
     List<Files> findFilesByFileNameInAndStatus(List<String> fileName, String status);
+
+    List<Files> findFilesByFileNameInAndStatusOrderByCreatedDateDesc(List<String> fileName, String status, Pageable pageable);
 
     List<Files> findFilesByFileNameInAndStatusOrderByCreatedDateDesc(List<String> fileName, String status);
 

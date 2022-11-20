@@ -57,6 +57,14 @@ public class FFmpegUtil {
     }
 
 
+    public static void main(String[] args) throws IOException, InterruptedException {
+        String src = "C:\\ACE\\videos\\82e71ea8-4df7-4ba4-8a68-1a3b96fc1c50.mp4";
+        String desc = "C:\\ACE\\videos\\";
+
+        FFmpegUtil fFmpegUtil = new FFmpegUtil();
+        fFmpegUtil.transcodeToM3u8(src, desc, new TranscodeConfig());
+    }
+
     /**
      * 在指定的目录下生成key_info, key文件，返回key_info文件
      *

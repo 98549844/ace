@@ -42,10 +42,8 @@ public class GalleryRestController {
         tmp.put("UNKNOWN", "msg.unknown_error");
     }
 
-//    static final String filePath = PathUtil.getSystemPath() + "\\src\\main\\resources\\static\\files\\temp\\";
-
-    private FilesService filesService;
-    private String imagesPath;
+    private final FilesService filesService;
+    private final String imagesPath;
 
     @Autowired
     public GalleryRestController(FilesService filesService) {

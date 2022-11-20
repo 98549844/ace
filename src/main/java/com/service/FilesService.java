@@ -9,6 +9,8 @@ import com.util.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -293,7 +295,17 @@ public class FilesService {
         return filesDao.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fileNames, status);
     }
 
+    public List<Files> findFilesByFileNameInAndStatusOrderByCreatedDateDesc(List<String> fileNames, String status, int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum, 30);
+        return filesDao.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fileNames, status, pageable);
+    }
+
     public List<Files> findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(List<String> fileNames, String status, String ownerId) {
+        return filesDao.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(fileNames, status, ownerId);
+    }
+
+    public List<Files> findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(List<String> fileNames, String status, String ownerId, int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum, 30);
         return filesDao.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(fileNames, status, ownerId);
     }
 }
