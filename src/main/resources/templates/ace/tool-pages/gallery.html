@@ -267,6 +267,7 @@
     }
 
     let paging = 0;
+
     function appendImages() {
         paging = paging + 1;
         $.ajax({
@@ -280,13 +281,15 @@
                     const fileName = data[i].fileName;
                     const ext = data[i].ext;
                     let toolsClass = "tools tools-bottom";
+                    let side = 250;
                     if (isMobile()) {
                         toolsClass = "tools tools-bottom in";
+                        side = 100;
                     }
 
                     html = html + `<li id="li-${fileName}" class="lazy">
                                         <a href="image/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
-                                            <img width="250" height="250" alt="150x150" src="image/get/${fileName}" id="img-${fileName}">
+                                            <img width="${side}" height="${side}" alt="150x150" src="image/get/${fileName}" id="img-${fileName}">
                                         </a>
                                         <div class="${toolsClass}">
                                             <a href="javascript:void(0);" id="rotate-l-${fileName}" class="rotate">
@@ -314,6 +317,7 @@
             }
         })
     }
+
     //----------------------------------------------------------------------------------------------------------------------
 
 
@@ -374,13 +378,15 @@
                     const fileName = data[i].fileName;
                     const ext = data[i].ext;
                     let toolsClass = "tools tools-bottom";
+                    let side = 250;
                     if (isMobile()) {
                         toolsClass = "tools tools-bottom in";
+                        side = 100;
                     }
 
                     html = html + `<li id="li-${fileName}" class="lazy">
                                         <a href="image/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
-                                            <img width="250" height="250" alt="150x150" src="image/get/${fileName}" id="img-${fileName}">
+                                            <img width="${side}" height="${side}" alt="150x150" src="image/get/${fileName}" id="img-${fileName}">
                                         </a>
                                         <div class="${toolsClass}">
                                             <a href="javascript:void(0);" id="rotate-l-${fileName}" class="rotate">
@@ -440,14 +446,16 @@
                 const fileName = data[i].fileName;
                 const ext = data[i].ext;
                 let toolsClass = "tools tools-bottom";
+                let side = 250;
                 if (isMobile()) {
                     toolsClass = "tools tools-bottom in";
+                    side = 100;
                 }
 
                 let html = "";
                 html = html + `<li id="li-${fileName}" class="lazy">
                                     <a href="image/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
-                                        <img width="250" height="250" alt="150x150"  src="image/get/${fileName}" id="img-${fileName}">
+                                        <img width="${side}" height="${side}" alt="150x150"  src="image/get/${fileName}" id="img-${fileName}">
                                     </a>
                                     <div class="${toolsClass}">
                                         <a href="javascript:void(0);" id="rotate-l-${fileName}" class="rotate">
@@ -475,34 +483,21 @@
     });
 
     $body.on('click', '.imageDelete', function () {
-
-        const high = document.getElementById('imageDiv').offsetHeight;
-        alert("high:   " + high);//元素实际高度
-
-        const div = document.getElementById("imageDiv");
-        const vHigh = div.clientHeight;
-        alert("vHigh:   " + vHigh);
-
-        alert($(window).height());//windows可视高度
-        alert(document.documentElement.clientHeight);
-
-        alert('滚动条高度' + $('#imageDiv')[0].scrollHeight);
-
         let id = $(this).attr('id');
         let imageId = id.split("delete-")[1];
-        /*        $.ajax({
-                    type: "get", // 以get方式发起请求
-                    url: "image/delete/" + imageId,
-                    dataType: "json",
-                    // 将你的请求参数以问号拼接到url中进行参数传递
-                    success(data) {
-                        $("#li-" + imageId + "").css('display', 'none');
-                        //  $(this).parent().parent().hide();
-                    },
-                    error(data) {
-                        window.location.href = '500.html';
-                    },
-                })*/
+        $.ajax({
+            type: "get", // 以get方式发起请求
+            url: "image/delete/" + imageId,
+            dataType: "json",
+            // 将你的请求参数以问号拼接到url中进行参数传递
+            success(data) {
+                $("#li-" + imageId + "").css('display', 'none');
+                //  $(this).parent().parent().hide();
+            },
+            error(data) {
+                window.location.href = '500.html';
+            },
+        })
     });
 
 </script>
