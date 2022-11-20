@@ -76,11 +76,12 @@ public class GalleryController extends CommonController {
      * @return
      * @throws IOException
      */
-    @RequestMapping(value = "/getImagesByLimit.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/getImagesByLimit.html/{paging}", method = RequestMethod.GET)
     @ResponseBody
-    public List getImagesByLimit() throws IOException {
-        log.info("access getImagesByLimit.html");
-        List ls = galleryService.getImagesByLimit(getCurrentUser());
+    public List getImagesByLimit(@PathVariable(value = "paging") int paging) throws IOException {
+        log.info("access getImagesByLimit.html paging: {}",paging);
+
+        List ls = galleryService.getImagesByLimit(getCurrentUser(), paging);
         return ls;
     }
 

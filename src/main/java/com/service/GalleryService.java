@@ -83,7 +83,7 @@ public class GalleryService {
     }
 
 
-    public List getImagesByLimit(Users users) throws IOException {
+    public List getImagesByLimit(Users users, int paging) throws IOException {
         log.info("image location: {}", imagePath);
 
         List<String> ls = FileUtil.getFileNames(imagePath);
@@ -112,10 +112,10 @@ public class GalleryService {
             //只处理单角色,多角色及后再新增处理
             if (Roles.ADMIN.equals(rolesList.get(0).getRoleCode())) {
                 //根据数据库排序
-                return filesService.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fName, Files.COMPRESSED, 0);
+                return filesService.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fName, Files.COMPRESSED, paging);
             } else {
                 //根据数据库排序
-                return filesService.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(fName, Files.COMPRESSED, users.getUserId().toString(), 0);
+                return filesService.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(fName, Files.COMPRESSED, users.getUserId().toString(), paging);
             }
         }
     }

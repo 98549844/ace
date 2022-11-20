@@ -250,9 +250,9 @@
     });
 
 
-    function isMobile() {
-        return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
-    }
+    /*    function isMobile() {
+            return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+        }*/
 
     //----------------------------------------------------------------------------------------------------------------------
     //scroll到底加载
@@ -287,8 +287,9 @@
     });
 
     let position = $(window).scrollTop();
+
     function scrollDown() {
-        let down = false;
+        let down;
         const scroll = $(window).scrollTop();
         if (scroll > position) {
             console.log("向下滚动");
@@ -303,11 +304,62 @@
 
     function appendImageLi() {
         if (scrollDown()) {
-            alert("到底, append图片没有完成")
-            loadingImage();
+            appendImages();
             initColorbox();
         }
     }
+
+
+    let paging = 0;
+
+    function appendImages() {
+        paging = paging + 1;
+        $.ajax({
+            type: "get", // 以get方式发起请求
+            url: "getImagesByLimit.html/" + paging,
+            dataType: "json",
+            // 将你的请求参数以问号拼接到url中进行参数传递
+            success(data) {
+                let html = "";
+                for (let i = 0; i < data.length; i++) {
+                    const fileName = data[i].fileName;
+                    const ext = data[i].ext;
+                    let toolsClass = "tools tools-bottom";
+                    if (isMobile()) {
+                        toolsClass = "tools tools-bottom in";
+                    }
+
+                    html = html + `<li id="li-${fileName}" class="lazy">
+                                        <a href="image/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
+                                            <img width="250" height="250" alt="150x150" src="image/get/${fileName}" id="img-${fileName}">
+                                        </a>
+                                        <div class="${toolsClass}">
+                                            <a href="javascript:void(0);" id="rotate-l-${fileName}" class="rotate">
+                                                <i class="ace-icon fa fa-undo"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" id="rotate-r-${fileName}" class="rotate">
+                                                <i class="ace-icon fa fa-repeat"></i>
+                                            </a>
+                                            <a href="image/download/${fileName}" id="download-${fileName}" class="imageDownload">
+                                                <i class="ace-icon fa fa-download green"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" id="delete-${fileName}" class="imageDelete">
+                                                <i class="ace-icon fa fa-times red"></i>
+                                            </a>
+                                        </div>
+                                    </li>`;
+                }
+                $("#imageDiv").append(html);
+                initColorbox();
+                // data为返回值
+                // 成功后的回调方法
+            },
+            error(data) {
+                window.location.href = '500.html';
+            }
+        })
+    }
+
     //----------------------------------------------------------------------------------------------------------------------
 
 
@@ -359,7 +411,7 @@
 
         $.ajax({
             type: "get", // 以get方式发起请求
-            url: "getImagesByLimit.html",
+            url: "getImagesByLimit.html/" + paging,
             dataType: "json",
             // 将你的请求参数以问号拼接到url中进行参数传递
             success(data) {
