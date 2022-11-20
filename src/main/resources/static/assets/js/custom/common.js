@@ -122,6 +122,7 @@ function closeLoading() {
     d.close().remove();
 }
 
+//-------------------------------------------------------------------------------------------------------------
 //获取页面顶部被卷起来的高度
 function scrollTop() {
     return Math.max(
@@ -143,6 +144,24 @@ function windowHeight() {
     return (document.compatMode === "CSS1Compat") ?
         document.documentElement.clientHeight :
         document.body.clientHeight;
+}
+//-------------------------------------------------------------------------------------------------------------
+
+
+//check scrolling up or down
+let position = $(window).scrollTop();
+function scrollDown() {
+    let down;
+    const scroll = $(window).scrollTop();
+    if (scroll > position) {
+        console.log("向下滚动");
+        down = true;
+    } else {
+        console.log("向上滚动");
+        down = false;
+    }
+    position = scroll;
+    return down;
 }
 
 
