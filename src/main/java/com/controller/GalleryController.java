@@ -115,18 +115,19 @@ public class GalleryController extends CommonController {
         log.info("access image/get/{}", fileName);
 
         String name;
-        String ext = "";
+        String ext ;
         if (!fileName.contains(".")) {
             Files f = filesService.findFilesByFileName(fileName);
-            ext = f.getExt();
-            name = fileName + ext;
+            ext = f.getExt().split("\\.")[1];
+            name = fileName + f.getExt();
         } else {
             name = fileName;
+            ext = fileName.split("\\.")[1];
         }
         ImageUtil imageUtil = new ImageUtil();
       //  imageUtil.write(imagesThumbnail + name, ext.split("\\.")[1], (HttpServletResponse) response.getOutputStream());
         //filesService.get(imagesThumbnail + name, response);
-        ImageIO.write(ImageIO.read(new File(imagesThumbnail + name)), ext.split("\\.")[1], response.getOutputStream());
+        ImageIO.write(ImageIO.read(new File(imagesThumbnail + name)), ext, response.getOutputStream());
     }
 
 
