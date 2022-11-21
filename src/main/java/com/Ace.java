@@ -20,7 +20,7 @@ public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
     public static void main(String[] args) {
-        String inputPath = "C:\\ACE\\temp\\"+"aaa.MOV";
+        String inputPath = "C:\\ACE\\temp\\" + "aaa.MOV";
         String outputPath = "C:\\ACE\\temp\\";
         String newFileName = "bbb";
         Ace ace = new Ace();

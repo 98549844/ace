@@ -9,7 +9,7 @@ import com.util.PathUtil;
 import java.io.File;
 
 public class ClearLog {
-    private static Logger log = LogManager.getLogger(ClearLog.class.getName());
+    private static final Logger log = LogManager.getLogger(ClearLog.class.getName());
     private static final String path = PathUtil.getSystemPath();
     private static final String windowsErrorPath = path + "\\src\\main\\resources\\log4j\\error\\";
     private static final String windowsInfoPath = path + "\\src\\main\\resources\\log4j\\info\\";

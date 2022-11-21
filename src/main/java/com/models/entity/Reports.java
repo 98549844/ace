@@ -31,17 +31,17 @@ public class Reports extends BaseEntity {
     private Long reportId;
     @Column
     private Long subReportId = 0L;
-    @Column
+    @Column(nullable = false)
     private String title;
     @Lob
-    @Column
+    @Column(nullable = false)
     private String content;
     @Column
-    private String status; //NEW, FOLLOWING, CLOSE
+    private String status = NEW; //NEW, FOLLOWING, CLOSE
     public static final String NEW = "NEW";
     public static final String FOLLOWING = "FOLLOWING";
     public static final String CLOSE = "CLOSE";
-    @Column
+    @Column(nullable = false)
     private String level; //info, warning, error, critical,fatal
     public static final String SUGGESTION = "SUGGESTION";
     public static final String INFO = "INFO"; //资料性质
@@ -53,7 +53,7 @@ public class Reports extends BaseEntity {
     @Column
     private String attachment;
     @Column
-    private LocalDateTime reportDate;
+    private LocalDateTime reportDate = LocalDateTime.now();
     @Column
     private Long reporter;
 

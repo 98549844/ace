@@ -56,5 +56,13 @@ public class ReportsService {
         return subReports;
     }
 
+    public ReportsInfo saveAndFlush(ReportsInfo reportsInfo) {
+        return reportsDao.saveAndFlush(reportsInfo);
+    }
+
+    public Reports saveAndFlush(Reports reports) {
+        return reportsDao.saveAndFlush(reports);
+    }
+
 }
 

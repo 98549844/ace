@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,15 +46,35 @@ public class ReportController extends CommonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/report/list.html/{reportId}", method = RequestMethod.GET)
-    public ModelAndView getReportInfoById(@PathVariable Long reportId) {
-        log.info("access report/list {}", reportId);
-        ModelAndView modelAndView = super.page("ace/modules/report/report-list");
+    @RequestMapping(value = "/report/newIssue.html", method = RequestMethod.GET)
+    public ModelAndView newIssue(@ModelAttribute Reports reports) {
+        log.info("access report/newIssue.html => create new issue");
+        ModelAndView modelAndView = super.page("ace/modules/report/report");
+     //   reports = reportsService.saveAndFlush(reports);
+        modelAndView.addObject("report", reports);
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/report/reportId.html/{reportId}", method = RequestMethod.GET)
+    public ModelAndView getReportInfoById(@PathVariable(value = "reportId") Long reportId) {
+        log.info("access report/list {} => update issue", reportId );
+        ModelAndView modelAndView = super.page("ace/modules/report/report");
         ReportsInfo reportsInfo = reportsService.getReportInfoById(reportId);
         modelAndView.addObject("report", reportsInfo);
         return modelAndView;
     }
 
+
+    @RequestMapping(value = "/report/submit.html", method = RequestMethod.POST)
+    public ModelAndView submit(@ModelAttribute ReportsInfo reportsInfo) {
+        log.info("access report/submit.html");
+        ModelAndView modelAndView = super.page("ace/modules/report/report");
+        reportsInfo = reportsService.saveAndFlush(reportsInfo);
+
+        modelAndView.addObject("report", reportsInfo);
+        return modelAndView;
+    }
 
 }
 
