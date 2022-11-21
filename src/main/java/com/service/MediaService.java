@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,31 +51,36 @@ public class MediaService {
 
     public List getThumbnail() throws IOException {
         List<String> videoList = FileUtil.getFileNames(videoPath);
-        List<String> t1 = FileUtil.getNames(videoList);
-        return getActualList(t1);
+        List<String> names = FileUtil.getNames(videoList);
+        return getActualList(names);
     }
 
-    private List getActualList(List<String> t1) {
-        //根据folder实际文件控制数据库, 删除folder不存文件数据
+    private List getActualList(List<String> t1) throws IOException {
+        //根据folder实际文件控制数据库, 删除不存文件数据
         List<String> fName = FileUtil.getNames(t1);
         List<com.models.entity.Files> filesList = filesService.findFilesByPathAndFileNameNotIn(videoPath, fName);
         filesService.deleteAll(filesList);
-        List folderList = (List) FileUtil.getCurrentFolderList(videoM3u8).get(FileUtil.FOLDERNAME);
-
-        Users users = (Users) StpUtil.getSession().get("user");
-        List<Roles> rolesList = rolesService.getRolesByUserId(users.getUserId());
-
-        //只处理单角色,多角色及后再新增处理
-        if (Roles.ADMIN.equals(rolesList.get(0).getRoleCode())) {
-            //根据数据库排序
-            return filesService.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(folderList, com.models.entity.Files.FRAGMENT);
-
-        } else {
-            //根据数据库排序
-            return filesService.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(folderList, com.models.entity.Files.FRAGMENT, users.getUserId().toString());
-        }
+        return getVideoPathList();
     }
 
+    /** 根据playId切片
+     * @param playId
+     * @return
+     * @throws IOException
+     */
+    public List getM3U8ByPlayId(String playId) throws IOException {
+        List<String> videoList = FileUtil.getFileNames(videoPath);
+        List<String> names = FileUtil.getNames(videoList);
+        com.models.entity.Files f = filesService.findFilesByFileName(playId);
+        getMultipartFileList(f.getLocation());
+        return getActualList(names);
+    }
+
+
+    /** 文件夹里没有切片的video都切
+     * @return
+     * @throws IOException
+     */
     public List getM3U8() throws IOException {
         List<String> videoList = FileUtil.getFileNames(videoPath);
         List<String> t1 = FileUtil.getNames(videoList);
@@ -89,7 +95,6 @@ public class MediaService {
                 getMultipartFileList(f.getLocation());
             }
         }
-
         List<String> videoM3u8List = (List<String>) mp.get(ListUtil.LIST_2);
         if (NullUtil.isNotNull(videoM3u8List)) {
             for (String folderName : videoM3u8List) {
@@ -100,6 +105,30 @@ public class MediaService {
         return getActualList(t1);
     }
 
+    /** VideoPath 文件夹内video名字
+     * @return
+     * @throws IOException
+     */
+    private List getVideoPathList() throws IOException {
+        List list = FileUtil.getFileNames(videoPath);
+        List filesList = FileUtil.getNames(list);
+
+        Users users = (Users) StpUtil.getSession().get("user");
+        List<Roles> rolesList = rolesService.getRolesByUserId(users.getUserId());
+        String fragment = com.models.entity.Files.FRAGMENT;
+        String uploaded = com.models.entity.Files.UPLOADED;
+        List<String> status = new ArrayList<>();
+        status.add(fragment);
+        status.add(uploaded);
+        if (Roles.ADMIN.equals(rolesList.get(0).getRoleCode())) {
+            //根据数据库排序
+            return filesService.findFilesByFileNameInAndStatusInOrderByCreatedDateDesc(filesList, status);
+
+        } else {
+            //根据数据库排序
+            return filesService.findFilesByFileNameInAndStatusInAndOwnerOrderByCreatedDateDesc(filesList, status, users.getUserId().toString());
+        }
+    }
 
     private void getMultipartFileList(String path) throws IOException {
         File f = new File(path);
@@ -115,7 +144,7 @@ public class MediaService {
         }
     }
 
-    private Object cutToM3U8(MultipartFile video) throws IOException {
+    private void cutToM3U8(MultipartFile video) throws IOException {
         Long size = video.getSize();
         log.info("文件信息: title= {}, size= {}mb", video.getOriginalFilename(), size / 1048576);
         TranscodeConfig transcodeConfig = new TranscodeConfig();
@@ -149,7 +178,8 @@ public class MediaService {
                 Map<String, Object> result = new HashMap<>();
                 result.put("success", false);
                 result.put("message", e.getMessage());
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+                ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+                return;
             }
             // 封装结果
             Map<String, Object> videoInfo = new HashMap<>();
@@ -178,7 +208,6 @@ public class MediaService {
             result.put("data", videoInfo);
             filesService.save(f);
 
-            return fileName;
         } finally {
             // 始终删除临时文件
             Files.delete(tempFile);

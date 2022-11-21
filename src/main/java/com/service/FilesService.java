@@ -43,19 +43,26 @@ public class FilesService {
     }
 
 
+    /** 保存列表
+     * @param files
+     * @return
+     */
     public List<Files> saveAll(List<Files> files) {
-        int size = files.size();
-        for (int i = 0; i < size; i++) {
-            if (NullUtil.isNotNull(files.get(i).getId())) {
-                files.get(i).setLocation(files.get(i).getPath() + files.get(i).getFileName() + files.get(i).getExt());
+        for (Files file : files) {
+            if (NullUtil.isNotNull(file.getId())) {
+                file.setLocation(file.getPath() + file.getFileName() + file.getExt());
             } else {
                 Users users = (Users) StpUtil.getSession().get("user");
-                files.get(i).setOwner(users.getUserId().toString());
+                file.setOwner(users.getUserId().toString());
             }
         }
         return filesDao.saveAll(files);
     }
 
+    /** 保存
+     * @param file
+     * @return
+     */
     public Files save(Files file) {
         if (NullUtil.isNotNull(file.getId())) {
             file.setLocation(file.getPath() + file.getFileName() + file.getExt());
@@ -297,6 +304,11 @@ public class FilesService {
         return filesDao.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fileNames, status);
     }
 
+    public List<Files> findFilesByFileNameInAndStatusInOrderByCreatedDateDesc(List<String> fileNames, List<String> status) {
+        return filesDao.findFilesByFileNameInAndStatusInOrderByCreatedDateDesc(fileNames, status);
+    }
+
+
     public List<Files> findFilesByFileNameInAndStatusOrderByCreatedDateDesc(List<String> fileNames, String status, int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         return filesDao.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fileNames, status, pageable);
@@ -304,6 +316,10 @@ public class FilesService {
 
     public List<Files> findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(List<String> fileNames, String status, String ownerId) {
         return filesDao.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(fileNames, status, ownerId);
+    }
+
+    public List<Files> findFilesByFileNameInAndStatusInAndOwnerOrderByCreatedDateDesc(List<String> fileNames, List<String> status, String ownerId) {
+        return filesDao.findFilesByFileNameInAndStatusInAndOwnerOrderByCreatedDateDesc(fileNames, status, ownerId);
     }
 
     public List<Files> findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(List<String> fileNames, String status, String ownerId, int pageNum) {

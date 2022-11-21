@@ -5,7 +5,7 @@ import com.controller.common.CommonController;
 import com.service.FilesService;
 import com.service.MediaService;
 import com.util.FileUtil;
-import com.util.JsonUtil;
+import com.util.PathUtil;
 import com.util.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -76,6 +76,29 @@ public class MediaController extends CommonController {
         return list;
     }
 
+    /**
+     * 根据playId切片video
+     *
+     * @param playId
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/media/m3u8StreamProcess.html/{playId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List m3u8StreamProcess(@PathVariable String playId) throws IOException {
+        log.info("access media/m3u8StreamProcess.html playId=>{}", playId);
+        log.info("FFmpeg start processing ...");
+        List list = mediaService.getM3U8ByPlayId(playId);
+        log.info("FFmpeg process complete !!!");
+        return list;
+    }
+
+    /**
+     * 根据playId切片video
+     *
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/media/m3u8StreamProcess.html", method = RequestMethod.GET)
     @ResponseBody
     public List m3u8StreamProcess() throws IOException {
@@ -86,12 +109,34 @@ public class MediaController extends CommonController {
         return list;
     }
 
+
+    /**
+     * 读取所有缩略图资料
+     *
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/media/getThumbnail.html", method = RequestMethod.GET)
     @ResponseBody
     public List getThumbnail() throws IOException {
         log.info("access media/getThumbnail.html");
         List list = mediaService.getThumbnail();
         return list;
+    }
+
+
+    /**
+     * 默认缩略图显示请求
+     * 响应输出图片文件
+     *
+     * @param
+     */
+    @RequestMapping(value = "/media/getDefault.html", method = RequestMethod.GET)
+    public void getDefault(HttpServletResponse response) {
+        log.info("access media/getDefault");
+        PathUtil pathUtil = new PathUtil();
+        String location = pathUtil.getResourcePath("static/assets/images/default.jpg");
+        filesService.get(location, response);
     }
 
     /**
