@@ -16,8 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -146,16 +148,21 @@ public class MediaController extends CommonController {
      * @param uuid
      */
     @RequestMapping(value = "/media/get/{uuid}", method = RequestMethod.GET)
-    public void get(@PathVariable("uuid") String uuid, HttpServletResponse response) {
+    @ResponseBody
+    public void get(@PathVariable("uuid") String uuid, HttpServletResponse response) throws IOException {
         log.info("access media/get/{}", uuid);
         String name;
+        String ext = "png";
         if (uuid.contains(".")) {
             name = StringUtil.split(uuid, ".")[0];
+            ext = StringUtil.split(uuid, ".")[1];
         } else {
             name = uuid;
         }
         String location = videoM3u8 + name + FileUtil.separator + thumbnail;
         filesService.get(location, response);
+        ImageIO.write(ImageIO.read(new File(location)), ext, response.getOutputStream());
+
     }
 
     // thumbnail: function => 好似只有是图片才会调用呢个js

@@ -443,8 +443,8 @@
             dataType: "json",
             // 将你的请求参数以问号拼接到url中进行参数传递
             success(data) {
-                const fileName = data[i].fileName;
-                const ext = data[i].ext;
+                const fileName = data.fileName;
+                const ext = data.ext;
                 let toolsClass = "tools tools-bottom";
                 let side = 250;
                 if (isMobile()) {

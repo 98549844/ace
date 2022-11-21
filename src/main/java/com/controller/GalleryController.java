@@ -5,6 +5,7 @@ import com.controller.common.CommonController;
 import com.models.entity.Files;
 import com.service.FilesService;
 import com.service.GalleryService;
+import com.util.ImageUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -107,17 +110,23 @@ public class GalleryController extends CommonController {
      * @param fileName
      */
     @RequestMapping(value = "/image/get/{fileName}", method = RequestMethod.GET)
-    public void get(@PathVariable("fileName") String fileName, HttpServletResponse response) {
+    @ResponseBody
+    public void get(@PathVariable("fileName") String fileName, HttpServletResponse response) throws IOException {
         log.info("access image/get/{}", fileName);
+
         String name;
+        String ext = "";
         if (!fileName.contains(".")) {
             Files f = filesService.findFilesByFileName(fileName);
-            String ext = f.getExt();
+            ext = f.getExt();
             name = fileName + ext;
         } else {
             name = fileName;
         }
-        filesService.get(imagesThumbnail + name, response);
+        ImageUtil imageUtil = new ImageUtil();
+      //  imageUtil.write(imagesThumbnail + name, ext.split("\\.")[1], (HttpServletResponse) response.getOutputStream());
+        //filesService.get(imagesThumbnail + name, response);
+        ImageIO.write(ImageIO.read(new File(imagesThumbnail + name)), ext.split("\\.")[1], response.getOutputStream());
     }
 
 
