@@ -152,7 +152,7 @@ public class MediaController extends CommonController {
     public void get(@PathVariable("uuid") String uuid, HttpServletResponse response) throws IOException {
         log.info("access media/get/{}", uuid);
         String name;
-        String ext = "png";
+        String ext = "jpg";
         if (uuid.contains(".")) {
             name = StringUtil.split(uuid, ".")[0];
             ext = StringUtil.split(uuid, ".")[1];
