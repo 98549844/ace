@@ -1,5 +1,6 @@
 package com.scheduler.task;
 
+import com.util.FileUtil;
 import com.util.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,7 +20,11 @@ public class ClearLog {
     private static final String macWarnPath = path + "/src/main/resources/log4j/warn/";
     private static final String osName = OsUtil.getOsInfo();
 
-    public void clearLog() throws Exception {
+    public void clearLog() {
+        FileUtil.mkDirs(windowsErrorPath);
+        FileUtil.mkDirs(windowsInfoPath);
+        FileUtil.mkDirs(windowsWarnPath);
+
         if (osName.contains("MAC OS")) {
             File errorFolder = new File(macErrorPath);
             clearingLogFile(errorFolder);

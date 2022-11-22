@@ -124,9 +124,6 @@ public class GalleryController extends CommonController {
             name = fileName;
             ext = fileName.split("\\.")[1];
         }
-        ImageUtil imageUtil = new ImageUtil();
-      //  imageUtil.write(imagesThumbnail + name, ext.split("\\.")[1], (HttpServletResponse) response.getOutputStream());
-        //filesService.get(imagesThumbnail + name, response);
         ImageIO.write(ImageIO.read(new File(imagesThumbnail + name)), ext, response.getOutputStream());
     }
 
