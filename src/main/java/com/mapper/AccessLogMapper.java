@@ -17,7 +17,6 @@ public interface AccessLogMapper {
 
     List<AccessLog> selectAll();
 
-
     int updateByPrimaryKeySelective(AccessLog record);
 
     Long updateByPrimaryKey(AccessLog record);

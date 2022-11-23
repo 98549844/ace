@@ -20,6 +20,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.io.IOException;
 import java.util.Map;
@@ -40,8 +41,7 @@ import java.util.Map;
 @EnableTransactionManagement
 @EnableCaching
 @EnableFeignClients
-//for baseEntity using
-@EnableJpaAuditing
+@EnableJpaAuditing //for baseEntity using
 public class AceApplication {
     private static final Logger log = LogManager.getLogger(AceApplication.class.getName());
     public static ApplicationContext applicationContext;

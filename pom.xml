@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.6</version>
+        <version>2.7.4</version>
         <!-- m2.location: /Users/garlam/.m2/repository/org/springframework/boot/spring-boot-starter-parent-->
         <relativePath/>
         <!-- lookup parent from repository -->
@@ -19,12 +19,29 @@
     <description>project for Spring Boot</description>
     <properties>
         <java.version>17</java.version>
-        <spring.version>2.5.6</spring.version>
+        <spring.version>2.7.4</spring.version>
         <javacv.version>1.5.7</javacv.version>
         <ffmpeg.version>5.0-1.5.7</ffmpeg.version>
     </properties>
 
     <dependencies>
+
+        <!--springboot2.5.6 need spring-cloud 3.0.8-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>3.1.5</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-io</artifactId>
+                    <groupId>commons-io</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>bcprov-jdk15on</artifactId>
+                    <groupId>org.bouncycastle</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>com</groupId>
             <artifactId>utilities</artifactId>
@@ -121,7 +138,9 @@
         </dependency>
 
         <!--webflux for mobile streaming video-->
-        <dependency>
+        <!-- springboot2.7.5 + swagger2.9.2 不兼容-->
+        <!-- springboot2.7.5 + knife4j 3.0.3 不兼容-->
+        <!-- <dependency>
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-test</artifactId>
             <scope>test</scope>
@@ -133,7 +152,8 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
+        </dependency>-->
+
 
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
@@ -201,7 +221,8 @@
             <version>${ffmpeg.version}</version>
         </dependency>
 
-        <dependency>
+        <!--  swagger2 + swagger-bootstrap-ui 兼容springboot2.5-->
+        <!--  <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>2.9.2</version>
@@ -220,41 +241,40 @@
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-models</artifactId>
-            <version>1.5.21</version>
+            <version>1.6.8</version>
         </dependency>
 
-        <!-- docHTML http://localhost:8088/doc.html-->
+        &lt;!&ndash; docHTML http://localhost:8088/doc.html&ndash;&gt;
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
             <version>1.9.6</version>
+        </dependency>-->
+
+        <!--swagger 3.0.0 配合knife4j3.0.3, 有机会swagger2 报404错误, knife4j 使用正常
+        swagger2 单独驶用, 版本是2.9.2-->
+        <!--  <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>3.0.0</version>
+        </dependency>-->
+        <!-- <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            &lt;!&ndash;在引用时请在maven中央仓库搜索2.X最新版本号&ndash;&gt;
+            <version>2.0.9</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>3.0.3</version>
         </dependency>
 
-        <!-- swagger2 3.0.0 配合knife4j3.0.3, 有机会swagger2 报404错误, knife4j 使用正常
-             swagger2 单独驶用, 版本是2.9.2
-                     <dependency>
-                         <groupId>io.springfox</groupId>
-                         <artifactId>springfox-swagger2</artifactId>
-                         <version>3.0.0</version>
-                         &lt;!&ndash;            <version>2.9.2</version>&ndash;&gt;
-                     </dependency>
-                     <dependency>
-                         <groupId>io.springfox</groupId>
-                         <artifactId>springfox-swagger-ui</artifactId>
-                         <version>3.0.0</version>
-                         &lt;!&ndash;            <version>2.9.2</version>&ndash;&gt;
-                     </dependency>
-                     <dependency>
-                         <groupId>com.github.xiaoymin</groupId>
-                         <artifactId>knife4j-spring-boot-starter</artifactId>
-                         <version>3.0.3</version>
-                     </dependency>
-                     <dependency>
-                         <groupId>com.github.xiaoymin</groupId>
-                         <artifactId>knife4j-spring-boot-starter</artifactId>
-                         &lt;!&ndash;在引用时请在maven中央仓库搜索2.X最新版本号&ndash;&gt;
-                         <version>2.0.9</version>
-                     </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -277,22 +297,7 @@
             </exclusions>
         </dependency>
 
-        <!--springboot2.5.6 need spring-cloud 3.0.8-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <version>3.0.8</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-io</artifactId>
-                    <groupId>commons-io</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>bcprov-jdk15on</artifactId>
-                    <groupId>org.bouncycastle</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+
         <dependency>
             <groupId>org.bgee.log4jdbc-log4j2</groupId>
             <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
