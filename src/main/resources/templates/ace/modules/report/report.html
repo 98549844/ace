@@ -51,15 +51,14 @@
 
                         <h1>Mark Down Editor</h1>
                         <div class="mdeContainer">
-                            <h2>Edit me</h2>
                             <label for="editor"></label><textarea id="editor">
                             </textarea>
                         </div>
-                        <div class="mdeContainer">
-                            <h2>Read-only</h2>
-                            <div id="reading">
-                            </div>
-                        </div>
+                        <!--  <div class="mdeContainer">
+                              <h2>Read-only</h2>
+                              <div id="reading">
+                              </div>
+                          </div>-->
 
 
                         <!-- PAGE CONTENT ENDS -->
@@ -85,17 +84,18 @@
 
     const editMde = new SimpleMDE({
         element: document.getElementById('editor'),
-        initialValue: '## Stuff.... ',
-        hideIcons: ['guide', 'fullscreen', 'side-by-side']
+        autofocus: true,
+        toolbar: ["bold", "italic", "heading", "strikethrough", "|",
+                  "quote", "unordered-list", "ordered-list", "|",
+                  "link","image","table", "|",
+                  "horizontal-rule","fullscreen","preview"
+                 ],
+        // initialValue: '## Stuff.... ', //初始值
+        //  hideIcons: ['guide', 'fullscreen', 'side-by-side'] 隐藏icon
         // guide implmentation is open to you
         // fullscreen and sxs muss up layout
     });
-    editMde.value('# Sample Markdown\n- one\n- two\n- three');
-
-    document.getElementById('reading').innerHTML =
-        marked('# Sample Markdown\n[Don\'t use ' +
-            'Simplemde for read-only content](https://github.com/sparksuite/simplemde-markdown-editor/issues/274#issuecomment-196614437).  ' +
-            'Use [marked](https://github.com/markedjs/marked)\n- one\n- two\n- three');
+    //  editMde.value('# Sample Markdown\n- one\n- two\n- three');
 
 
 </script>
