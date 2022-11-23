@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "access_log")
+@Table(name = "accessLog")
 @Entity
 public class AccessLog extends BaseEntity implements Serializable {
     @Id

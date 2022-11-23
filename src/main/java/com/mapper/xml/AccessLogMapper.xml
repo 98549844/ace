@@ -2,26 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.AccessLogMapper">
     <resultMap id="BaseResultMap" type="com.models.entity.AccessLog">
-        <id column="log_id" jdbcType="BIGINT" property="logId"/>
-        <result column="created_by" jdbcType="VARCHAR" property="createdBy"/>
-        <result column="created_date" jdbcType="TIMESTAMP" property="createdDate"/>
-        <result column="last_update_by" jdbcType="VARCHAR" property="lastUpdatedBy"/>
-        <result column="last_update_date" jdbcType="TIMESTAMP" property="lastUpdateDate"/>
+        <id column="logId" jdbcType="BIGINT" property="logId"/>
+        <result column="createdBy" jdbcType="VARCHAR" property="createdBy"/>
+        <result column="createdDate" jdbcType="TIMESTAMP" property="createdDate"/>
+        <result column="lastUpdatedBy" jdbcType="VARCHAR" property="lastUpdatedBy"/>
+        <result column="lastUpdateDate" jdbcType="TIMESTAMP" property="lastUpdateDate"/>
         <result column="version" jdbcType="INTEGER" property="version"/>
-        <result column="access_time" jdbcType="TIMESTAMP" property="accessTime"/>
+        <result column="accessTime" jdbcType="TIMESTAMP" property="accessTime"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="operator" jdbcType="VARCHAR" property="operator"/>
     </resultMap>
     <sql id="Base_Column_List">
-        log_id
-        , created_by, created_date, last_update_by, last_update_date, version, access_time,
+        logId
+        , createdBy, createdDate, lastUpdatedBy, lastUpdateDate, version, accessTime,
     description, `operator`
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from access_log
-        where log_id = #{logId,jdbcType=BIGINT}
+        where logId = #{logId,jdbcType=BIGINT}
     </select>
 
     <select id="selectAll"  resultMap="BaseResultMap">
@@ -34,38 +34,38 @@
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete
         from access_log
-        where log_id = #{logId,jdbcType=BIGINT}
+        where logId = #{logId,jdbcType=BIGINT}
     </delete>
-    <insert id="insert" keyColumn="log_id" keyProperty="logId" parameterType="com.models.entity.AccessLog"
+    <insert id="insert" keyColumn="logId" keyProperty="logId" parameterType="com.models.entity.AccessLog"
             useGeneratedKeys="true">
-        insert into access_log (created_by, created_date, last_update_by,
-                                last_update_date, version, access_time,
+        insert into access_log (createdBy, createdDate, lastUpdatedBy,
+                                lastUpdateDate, version, accessTime,
                                 description, `operator`)
         values (#{createdBy,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP}, #{lastUpdatedBy,jdbcType=VARCHAR},
                 #{lastUpdateDate,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER}, #{accessTime,jdbcType=TIMESTAMP},
                 #{description,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" keyColumn="log_id" keyProperty="logId" parameterType="com.models.entity.AccessLog"
+    <insert id="insertSelective" keyColumn="logId" keyProperty="logId" parameterType="com.models.entity.AccessLog"
             useGeneratedKeys="true">
         insert into access_log
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="createdBy != null">
-                created_by,
+                createdBy,
             </if>
             <if test="createdDate != null">
-                created_date,
+                createdDate,
             </if>
             <if test="lastUpdatedBy != null">
-                last_update_by,
+                lastUpdatedBy,
             </if>
             <if test="lastUpdateDate != null">
-                last_update_date,
+                lastUpdateDate,
             </if>
             <if test="version != null">
                 version,
             </if>
             <if test="accessTime != null">
-                access_time,
+                accessTime,
             </if>
             <if test="description != null">
                 description,
@@ -105,22 +105,22 @@
         update access_log
         <set>
             <if test="createdBy != null">
-                created_by = #{createdBy,jdbcType=VARCHAR},
+                createdBy = #{createdBy,jdbcType=VARCHAR},
             </if>
             <if test="createdDate != null">
-                created_date = #{createdDate,jdbcType=TIMESTAMP},
+                createdDate = #{createdDate,jdbcType=TIMESTAMP},
             </if>
             <if test="lastUpdatedBy != null">
-                last_update_by = #{lastUpdatedBy,jdbcType=VARCHAR},
+                lastUpdatedBy = #{lastUpdatedBy,jdbcType=VARCHAR},
             </if>
             <if test="lastUpdateDate != null">
-                last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
+                lastUpdateDate = #{lastUpdateDate,jdbcType=TIMESTAMP},
             </if>
             <if test="version != null">
                 version = #{version,jdbcType=INTEGER},
             </if>
             <if test="accessTime != null">
-                access_time = #{accessTime,jdbcType=TIMESTAMP},
+                accessTime = #{accessTime,jdbcType=TIMESTAMP},
             </if>
             <if test="description != null">
                 description = #{description,jdbcType=VARCHAR},
@@ -129,18 +129,18 @@
                 `operator` = #{operator,jdbcType=VARCHAR},
             </if>
         </set>
-        where log_id = #{logId,jdbcType=BIGINT}
+        where logId = #{logId,jdbcType=BIGINT}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.models.entity.AccessLog">
         update access_log
-        set created_by       = #{createdBy,jdbcType=VARCHAR},
-            created_date     = #{createdDate,jdbcType=TIMESTAMP},
-            last_update_by   = #{lastUpdatedBy,jdbcType=VARCHAR},
-            last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
+        set createdBy       = #{createdBy,jdbcType=VARCHAR},
+            createdDate     = #{createdDate,jdbcType=TIMESTAMP},
+            lastUpdatedBy   = #{lastUpdatedBy,jdbcType=VARCHAR},
+            lastUpdateDate = #{lastUpdateDate,jdbcType=TIMESTAMP},
             version          = #{version,jdbcType=INTEGER},
-            access_time      = #{accessTime,jdbcType=TIMESTAMP},
+            accessTime      = #{accessTime,jdbcType=TIMESTAMP},
             description      = #{description,jdbcType=VARCHAR},
             `operator`         = #{operator,jdbcType=VARCHAR}
-        where log_id = #{logId,jdbcType=BIGINT}
+        where logId = #{logId,jdbcType=BIGINT}
     </update>
 </mapper>
