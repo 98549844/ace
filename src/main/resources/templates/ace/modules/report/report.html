@@ -38,7 +38,7 @@
 
                 <div class="page-header">
                     <h1>
-                        Report
+                        <a th:href="@{/ace/report/list.html}">Issue Report</a>
                         <small>
                             <i class="ace-icon fa fa-angle-double-right"></i>
                             New Issue
@@ -49,16 +49,20 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
 
-                        <h1>Mark Down Editor</h1>
-                        <div class="mdeContainer">
-                            <label for="editor"></label><textarea id="editor">
-                            </textarea>
-                        </div>
-                        <!--  <div class="mdeContainer">
-                              <h2>Read-only</h2>
-                              <div id="reading">
-                              </div>
-                          </div>-->
+                        <h4 class="widget-title lighter"><b>Mark Down Editor</b></h4>
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div id="fuelux-wizard-container mdeContainer">
+                                    <label for="editor"></label><textarea id="editor"> </textarea>
+                                </div>
+                                <div class="wizard-actions">
+                                    <button class="btn btn-success btn-next" id="commit">
+                                        Commit
+                                        <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                    </button>
+                                </div>
+                            </div><!-- /.widget-main -->
+                        </div><!-- /.widget-body -->
 
 
                         <!-- PAGE CONTENT ENDS -->
@@ -86,16 +90,20 @@
         element: document.getElementById('editor'),
         autofocus: true,
         toolbar: ["bold", "italic", "heading", "strikethrough", "|",
-                  "quote", "unordered-list", "ordered-list", "|",
-                  "link","image","table", "|",
-                  "horizontal-rule","fullscreen","preview"
-                 ],
+            "quote", "unordered-list", "ordered-list", "|",
+            "link", "image", "table", "code", "|",
+            "horizontal-rule", "fullscreen", "preview"
+        ],
         // initialValue: '## Stuff.... ', //初始值
         //  hideIcons: ['guide', 'fullscreen', 'side-by-side'] 隐藏icon
         // guide implmentation is open to you
         // fullscreen and sxs muss up layout
     });
     //  editMde.value('# Sample Markdown\n- one\n- two\n- three');
+
+    $("#commit").on("click", function () {
+        alert(editMde.value());
+    });
 
 
 </script>
