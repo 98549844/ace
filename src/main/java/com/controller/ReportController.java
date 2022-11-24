@@ -9,10 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -50,7 +47,7 @@ public class ReportController extends CommonController {
     public ModelAndView newIssue(@ModelAttribute Reports reports) {
         log.info("access report/newIssue.html => create new issue");
         ModelAndView modelAndView = super.page("ace/modules/report/report");
-     //   reports = reportsService.saveAndFlush(reports);
+        //   reports = reportsService.saveAndFlush(reports);
         modelAndView.addObject("report", reports);
         return modelAndView;
     }
@@ -58,7 +55,7 @@ public class ReportController extends CommonController {
 
     @RequestMapping(value = "/report/reportId.html/{reportId}", method = RequestMethod.GET)
     public ModelAndView getReportInfoById(@PathVariable(value = "reportId") Long reportId) {
-        log.info("access report/list {} => update issue", reportId );
+        log.info("access report/list {} => update issue", reportId);
         ModelAndView modelAndView = super.page("ace/modules/report/report");
         ReportsInfo reportsInfo = reportsService.getReportInfoById(reportId);
         modelAndView.addObject("report", reportsInfo);
@@ -74,6 +71,14 @@ public class ReportController extends CommonController {
 
         modelAndView.addObject("report", reportsInfo);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/report/delete.html/{reportId}", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean deleteReportById(@PathVariable Long reportId) {
+        log.info("access report/delete reportId: {}", reportId);
+        reportsService.deleteById(reportId);
+        return true;
     }
 
 }
