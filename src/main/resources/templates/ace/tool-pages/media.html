@@ -185,17 +185,26 @@
                             for (let i = 0; i < data.length; i++) {
                                 const fileName = data[i].fileName;
                                 const ext = data[i].ext;
+                                const status = data[i].status;
+
+                                let fragment = "";
+                                let aHref = `media/get/${fileName}${ext}`;
+                                let src = `media/get/${fileName}`;
+                                if ("uploaded" === status) {
+                                    aHref = `media/getDefault.html`;
+                                    src = `media/getDefault.html`;
+                                    fragment = `<a href="javascript:void(0);" id="fragment-${fileName}" class="videoFragment">
+                                                    <i class="ace-icon fa fa-refresh purple"></i>
+                                                </a>`;
+                                }
 
                                 html = html +
                                     `<li id="li-${fileName}">
-                                        <a href="media/getDefault.html" ext="${ext}" id="play-${fileName}" class="play">
-                                        <img width="300" height="300" alt="300x300" src="media/get/${fileName}"
-                                             id="img-${fileName}">
+                                        <a href="${aHref}" ext="${ext}" id="play-${fileName}" class="play">
+                                            <img width="300" height="300" alt="300x300" src="${src}" id="img-${fileName}">
                                         </a>
                                         <div class="tools tools-bottom">
-                                            <a href="javascript:void(0);" id="fragment-${fileName}" class="videoFragment">
-                                                    <i class="ace-icon fa fa-refresh purple"></i>
-                                                </a>
+                                            ${fragment}
                                             <a href="javascript:void(0);" id="delete-${fileName}" class="videoDelete">
                                                 <i class="ace-icon fa fa-times red"></i>
                                             </a>
@@ -379,8 +388,10 @@
             // 将你的请求参数以问号拼接到url中进行参数传递
             success(data) {
                 //切完片后, 没整换图
-
+                const ext = data[0].ext;
                 $("#fragment-" + playId + "").css('display', 'none');
+                $("#play-" + playId + "").attr('href', `media/get/${playId}${ext}`);
+                $("#img-" + playId + "").attr('src', `media/get/${playId}${ext}`);
             },
             error(data) {
                 window.location.href = '500.html';
