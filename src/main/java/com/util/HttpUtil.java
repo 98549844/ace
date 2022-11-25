@@ -72,7 +72,7 @@ public class HttpUtil {
         System.out.println(clientOs);
         requestInfo.add("Client OS: " + clientOs);
 
-        System.out.println(System.getProperty("os.name")); //win2003竟然是win xp？
+        System.out.println(System.getProperty("os.name"));
         System.out.println(System.getProperty("os.version"));
         System.out.println(System.getProperty("os.arch"));
         requestInfo.add("os.name : " + System.getProperty("os.name"));
@@ -87,7 +87,7 @@ public class HttpUtil {
         System.out.println(request.getServerPort()); //：获得服务器的端口号
         System.out.println(request.getRemoteAddr()); //：获得客户端的ip地址
         System.out.println(request.getRemoteHost()); //：获得客户端电脑的名字，若失败，则返回客户端电脑的ip地址
-        System.out.println(request.getProtocol()); //：
+        System.out.println(request.getProtocol());
         System.out.println(request.getHeaderNames()); //：返回所有request header的名字，结果集是一个enumeration（枚举）类的实例
 
         requestInfo.add("Header: " + request.getHeader("user-agent"));
