@@ -337,7 +337,8 @@
         let ext = $(this).attr('ext').split(".");
         let playId = id.split("play-")[1];
         if (isMobile()) {
-            alert("function developing ...")
+            window.location.href = `play.html?playId=${playId}`;
+            // alert("function developing ...")
             //  window.location.href = `mobile/play.html/${ext[1]}/${playId}`; //thrown IO exception
         } else {
             window.location.href = `play.html?playId=${playId}`;
