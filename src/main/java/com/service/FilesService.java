@@ -308,12 +308,6 @@ public class FilesService {
         return filesDao.findFilesByFileNameInAndStatusInOrderByCreatedDateDesc(fileNames, status);
     }
 
-
-    public List<Files> findFilesByFileNameInAndStatusOrderByCreatedDateDesc(List<String> fileNames, String status, int pageNum) {
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return filesDao.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fileNames, status, pageable);
-    }
-
     public List<Files> findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(List<String> fileNames, String status, String ownerId) {
         return filesDao.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(fileNames, status, ownerId);
     }
@@ -324,7 +318,12 @@ public class FilesService {
 
     public List<Files> findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(List<String> fileNames, String status, String ownerId, int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return filesDao.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(fileNames, status, ownerId);
+        return filesDao.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(fileNames, status, ownerId, pageable);
+    }
+
+    public List<Files> findFilesByFileNameInAndStatusOrderByCreatedDateDesc(List<String> fileNames, String status, int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        return filesDao.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fileNames, status, pageable);
     }
 }
 

@@ -62,32 +62,6 @@ public class MySaTokenListener implements SaTokenListener {
     }
 
     /**
-     * 每次被封禁时触发
-     *
-     * @param loginType   账号类别
-     * @param loginId     账号id
-     * @param disableTime 封禁时长，单位: 秒
-     */
-/*    @Override
-    public void doDisable(String loginType, Object loginId, long disableTime) {
-        log.info("loginType: {}", loginType);
-        log.info("loginId: {}", loginId);
-        log.info("disableTime: {}", disableTime);
-    }*/
-
-    /**
-     * 每次被解封时触发
-     *
-     * @param loginType 账号类别
-     * @param loginId   账号id
-     */
- /*   @Override
-    public void doUntieDisable(String loginType, Object loginId) {
-        log.info("loginType: {}", loginType);
-        log.info("loginId: {}", loginId);
-    }*/
-
-    /**
      * 1.31
      * 每次被封禁时触发
      *
@@ -121,6 +95,36 @@ public class MySaTokenListener implements SaTokenListener {
         log.info("loginId: {}", loginId);
         log.info("service: {}", service);
 
+    }
+
+    /**
+     * 每次打开二级认证时触发
+     *
+     * @param loginType  账号类别
+     * @param tokenValue token值
+     * @param service    指定服务
+     * @param safeTime   认证时间，单位：秒
+     */
+    @Override
+    public void doOpenSafe(String loginType, String tokenValue, String service, long safeTime) {
+        log.info("loginType: {}", loginType);
+        log.info("tokenValue: {}", tokenValue);
+        log.info("service: {}", service);
+        log.info("safeTime: {}", safeTime);
+    }
+
+    /**
+     * 每次关闭二级认证时触发
+     *
+     * @param loginType  账号类别
+     * @param tokenValue token值
+     * @param service    指定服务
+     */
+    @Override
+    public void doCloseSafe(String loginType, String tokenValue, String service) {
+        log.info("loginType: {}", loginType);
+        log.info("tokenValue: {}", tokenValue);
+        log.info("service: {}", service);
     }
 
 
