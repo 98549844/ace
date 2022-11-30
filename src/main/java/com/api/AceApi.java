@@ -1,8 +1,8 @@
 package com.api;
 
-import com.models.entity.Users;
+import com.models.common.AjaxResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * @Classname: AceApi
@@ -15,16 +15,9 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = "aceJob", url = "http://localhost:8088/")
 public interface AceApi {
 
-    @GetMapping("/api/test/get")
-    ApiResponse getTest(@RequestParam("params") String params);
 
-    @PostMapping("/api/insert")
-    ApiResponse<Users> create(@RequestBody Users users);
-
-    @PostMapping("/api/delete/{id}")
-    ApiResponse<Users> delete(@PathVariable("id") Integer id);
-
-    @PostMapping("/api/getAll")
-    ApiResponse<Integer> query(@RequestBody Users users);
+    //call target controller url
+    @GetMapping("/rest/users/getUsers")
+    AjaxResponse getAllUsers();
 
 }
