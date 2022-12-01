@@ -1,8 +1,0 @@
-check version
-$ npm -v
-2.3.0
-
-upgrade npm
-npm install npm -g
-
-
