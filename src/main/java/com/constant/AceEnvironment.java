@@ -66,13 +66,13 @@ public class AceEnvironment {
             setVideoPath(video);
             setVideoM3u8(video + m3u8);
 
-            String msg = "ACE environment folder setup complete on Windows !!!";
+            String msg = "ACE environment setup complete : Windows !!!";
             Console.println(msg, Console.BLUE, Console.BOLD);
         } else if (OsUtil.getOsName().contains(OsUtil.MAC)) {
 
 
 
-            String msg = "ACE environment folder setup complete on MAC !!!";
+            String msg = "ACE environment setup complete : MAC !!!";
             Console.println(msg, Console.BLUE, Console.BOLD);
         } else {
             String msg = "WARNING => UNKNOWN OS, ACE Environment setup incomplete !!!";
