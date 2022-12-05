@@ -24,6 +24,7 @@ docker images
 3.在指定的网络上启动mysql镜像，注意mysql镜像在启动时要指定root账号的密码，格式如下
 
 docker run -it -p 3306:3306 -e MYSQL_ROOT_PASSWORD="123456" --name mysqlserver --network mynet --network-alias mysqlserver mysql镜像id
+docker run -it -p 3306:3306 -e MYSQL_ROOT_PASSWORD="123456" --name mysqlserver --network mynet --network-alias mysqlserver a3a2968869cf080dbbd2adaac9e4075cc358b50a1451ff5e2b9ae90551a4735f
 
 上面的启动命令中mysql在mynet上的别名是mysqlserver， 这样，需要使用这个mysql上数据库的
 
@@ -39,6 +40,6 @@ url: jdbc:mysql://mysqlserver:3306/testdatabase
 
 这个springboot镜像启动时也要指定网络是mynet ，如果制作的springboot镜像是名是 myboot 则启动方式如下：
 
-docker run -it -p 8080:8080 --name myboot --network mynet --network-alias myboot springboot镜像id
+docker run -it -p 8088:8088 --name ace --network mynet --network-alias ace 3540358869e9a881c5b4bc838a0822182e0e252b3a6c9b145694fce80cab156d
 
 这样springboot就可以成功连接上面的数据库了，注意要先在启动好的mysqlserver中创建好具体的数据库。
