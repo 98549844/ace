@@ -1,0 +1,63 @@
+React中import的用法
+
+import defaultComponent form 'XXX'
+导入XXX文件中的默认组件, 命名为defaultComponent
+
+import {a} from 'XXX'
+导入XXX文件中的a组件
+
+import {a as b} from 'XXX'
+导入XXX文件中的a组件, 并将其重命名为b
+
+import * as a from 'XXX'
+导入XXX文件中的所有组件, 并将其命名为a, 调用具体组件的方式为a.b,a.c...但不包含默认组件
+
+
+
+
+es6中export和export default的区别
+1.export与export default均可用于导出常量,函数,文件,模块
+2.在一个文件或模块中,export, import可以有多个,export default仅有一个
+3.通过export方式导出,在导入时要加{ },export default则不需要
+
+export与export default可以实现同样的目的,只是用法有些区别.注意第三条,
+通过export方式导出,在导入时要加{ },export default则不需要.
+使用export default命令,为模块指定默认输出,这样就不需要知道所要加载模块的变量名
+
+React中使用export导出类可以有两种方法
+方法一:
+FileName: Com.js
+class Welcome extends React.Component{
+    render(){...}
+}
+
+function App(){
+    return (<div>...</div>);
+}
+export default App;
+-------------------------------------------------------------------------------------
+FileName: index.js
+import App from './components/Com';
+
+const element=<App/>;
+ReactDOM.render(element, document.getElementById('root'));
+
+
+方法二:
+FileName: Com.js
+class Welcome extends React.Component{
+    render(){...}
+}
+
+function App(){
+    return (<div>...</div>);
+}
+export {Welcome,App};
+-------------------------------------------------------------------------------------
+FileName: index.js
+import {App}  from './components/Com';
+
+const element=<App/>;
+ReactDOM.render(element, document.getElementById('root'));
+
+

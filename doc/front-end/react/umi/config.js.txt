@@ -1,0 +1,13 @@
+umi项目配置
+使用config配置方式需注意config文件夹所在目录为根目录, 不要配错到src目录之下
+官方文檔: https://v3.umijs.org/zh-CN/docs/config
+config/config.ts 中配置项目和插件, 支持es6. 一份常见的配置如下,
+
+export default {
+  base: '/docs/',
+  publicPath: '/static/',
+  hash: true,
+  history: {
+    type: 'hash',
+  },
+
