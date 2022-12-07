@@ -49,7 +49,7 @@ docker run --network=<network-name>
 3.指定容器的IP地址
 docker network connect --ip 10.10.36.122 mynetwork mycontainer1
 
-3.使用legacy —link选项, 可以使用--link选项将另一个容器与首选别名相链接
+3.使用legacy --link选项, 可以使用--link选项将另一个容器与首选别名相链接
 docker network connect --link container1:c1 mynetwork container2
 
 4.为容器创建一个网络别名
