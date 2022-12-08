@@ -1,0 +1,14 @@
+选择适合node,npm版本
+windows =>
+1.	install nvm, windows platform https://github.com/coreybutler/nvm-windows/releases
+1.  install nvm, MacOs Platform https://github.com/nvm-sh/nvm/blob/master/README.md
+1.  install n, MacOs platform https://github.com/tj/n
+
+2.	download nvm-setup.zip
+3.	nvm list available => check available node version
+4.	nvm install 14.21.1
+5.	nvm ls => list out installed node version
+6.	nvm use 14.21.1 => use specified version
+7.	backup node_module and package-lock.json
+8.	delete node_module and package-lock.json
+9.	npm install
