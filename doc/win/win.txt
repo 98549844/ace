@@ -2,4 +2,4 @@ host文件位置: C:\Windows\System32\drivers\etc\
 
 command
 查询端口和PID
-C:\Users\604765>netstat -ano
+netstat -ano
