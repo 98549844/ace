@@ -69,11 +69,10 @@ public class AceEnvironment {
             String msg = "ACE environment setup complete : Windows !!!";
             Console.println(msg, Console.BLUE, Console.BOLD);
         } else if (OsUtil.getOsName().contains(OsUtil.MAC)) {
-
-
-
-            String msg = "ACE environment setup complete : MAC !!!";
+            String msg = "ACE environment setup complete : MAC !!! => ACE Environment setup incomplete !!!";
             Console.println(msg, Console.BLUE, Console.BOLD);
+        } else if (OsUtil.getOsName().contains(OsUtil.LINUX)) {
+
         } else {
             String msg = "WARNING => UNKNOWN OS, ACE Environment setup incomplete !!!";
             Console.println(msg, Console.RED, Console.BOLD);

@@ -27,27 +27,26 @@ docker network connect [OPTIONS] NETWORK CONTAINER
 [OPTION]:
 --alias
 为容器添加网络范围的别名
-
 --ip
 指定IP地址
-
 --ip6
 指定IPv6地址
-
 --link
 添加链接到另一个容器
-
 --link-local-ip
 添加容器的链接本地地址
+
 
 1.将正在运行的容器连接到网络
 docker network connect mynetwork mycontainer1
 
 2.启动时将容器连接到网络
-docker run --network=<network-name>
+docker run --network=MYNETWORK
 
 3.指定容器的IP地址
 docker network connect --ip 10.10.36.122 mynetwork mycontainer1
+docker network connect --ip 172.18.0.10 mynet mysql
+docker network connect --ip 172.18.0.11 mynet AceApplication
 
 3.使用legacy --link选项, 可以使用--link选项将另一个容器与首选别名相链接
 docker network connect --link container1:c1 mynetwork container2
