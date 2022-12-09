@@ -51,10 +51,10 @@ public class AceApplication {
         applicationContext = SpringApplication.run(AceApplication.class, args);
 
         //print all loaded BeanName and properties value
-//        Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
-//        BeanUtil.printBeanName(applicationContext);
-//        PropertiesUtil.printLoadedProperties();
-//        Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
+        //  Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
+        //  BeanUtil.printBeanName(applicationContext);
+        //  PropertiesUtil.printLoadedProperties();
+        //  Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
 
         //iterate bean value by name
         //print server side information
@@ -64,10 +64,12 @@ public class AceApplication {
         MapUtil.iterateMapKeySet(m);
 
         AceConfig aceConfig = beanUtil.getBeanByName("aceConfig", AceConfig.class);
-        //决定项目启动时, 是否主动打开swagger/docHtml
-        BrowserConfig browserConfig = new BrowserConfig();
-        browserConfig.openAceIndexAndSwagger(aceConfig.isIndexEnable(), aceConfig.isSwaggerEnable(), aceConfig.isDocHtmlEnabled());
-
+        if (!AceConfig.DOCKER.equals(aceConfig.getProfile())) {
+            //Environment is docker, dont open swagger/docHtml page
+            //决定项目启动时, 是否主动打开swagger/docHtml
+            BrowserConfig browserConfig = new BrowserConfig();
+            browserConfig.openAceIndexAndSwagger(aceConfig.isIndexEnable(), aceConfig.isSwaggerEnable(), aceConfig.isDocHtmlEnabled());
+        }
         // browserConfig.getCss();
         // browserConfig.getIndex();
         log.info("Running success：Sa-Token config：{}", SaManager.getConfig());

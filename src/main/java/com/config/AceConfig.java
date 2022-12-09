@@ -32,6 +32,11 @@ public class AceConfig {
     @Value("${spring.profiles.active}")
     private String profile;
 
+    public static final String DEV="dev";
+    public static final String UAT="uat";
+    public static final String PROD="prod";
+    public static final String DOCKER="docker";
+
     public String getName() {
         return name;
     }
