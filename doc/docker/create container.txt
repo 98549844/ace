@@ -1,5 +1,6 @@
 docker run -itd -p 8088:8088 --name ace ace-img
 docker run -itd --name linux-ubuntu ubuntu
+docker run -itd -p 9000:9000 --name ace-server ubuntu
 
 --name containerName imageName
 

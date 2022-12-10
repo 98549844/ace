@@ -9,8 +9,8 @@ docker pull mysql 8.xx =>拉取mysql指定版本
 docker images
 
 2.运行容器
-=>  docker run -itd --name mysql mysql:latest -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root
 =>  docker run -itd --name mysql-8.0 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql
+=>  docker run -itd --name mysql mysql:latest -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root
 
 =>  docker run -it --name mysqlserver -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root
     --network mynet --network-alias mysqlserver a3a2968869cf080dbbd2adaac9e4075cc358b50a1451ff5e2b9ae90551a4735f
@@ -31,3 +31,4 @@ select version();
 
 5.进入mysql容器shell
 docker exec -it 容器的id /bin/bash
+docker exec -it mysql-8.0 /bin/bash
