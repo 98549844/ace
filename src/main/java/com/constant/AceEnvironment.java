@@ -36,7 +36,6 @@ public class AceEnvironment {
     public AceEnvironment(Environment environment) {
         AceEnvironment.environment = environment;
         setUp();
-
     }
 
 
@@ -45,7 +44,9 @@ public class AceEnvironment {
     }
 
     private static void folderSetUp() {
-        if (OsUtil.getOsName().contains(OsUtil.WINDOWS)) {
+        String msg;
+        String osName = OsUtil.getOsName();
+        if (osName.contains(OsUtil.WINDOWS)) {
             String c = "C:\\";
             String ace = "ACE\\";
             String filePath = c + ace + "files\\";
@@ -66,17 +67,36 @@ public class AceEnvironment {
             setVideoPath(video);
             setVideoM3u8(video + m3u8);
 
-            String msg = "ACE environment setup complete : Windows !!!";
-            Console.println(msg, Console.BLUE, Console.BOLD);
-        } else if (OsUtil.getOsName().contains(OsUtil.MAC)) {
-            String msg = "ACE environment setup complete : MAC !!! => ACE Environment setup incomplete !!!";
-            Console.println(msg, Console.BLUE, Console.BOLD);
-        } else if (OsUtil.getOsName().contains(OsUtil.LINUX)) {
+            msg = "ACE environment setup complete : Windows !!!";
+        } else if (osName.contains(OsUtil.MAC)) {
+            msg = "ACE environment setup complete : MAC !!! => ACE Environment setup incomplete !!!";
+        } else if (osName.contains(OsUtil.LINUX)) {
+            String optWorkspace="/opt/workspace/";
+            String ace="ACE/";
+            String filePath = optWorkspace + ace + "files/";
+            String imgPath = optWorkspace + ace + "images/";
+            String thumbnail = "thumbnail/";
+            String video = optWorkspace + ace + "videos/";
+            String m3u8 = "m3u8/";
 
+            //create folder
+            FileUtil.mkDirs(filePath);
+            FileUtil.mkDirs(imgPath + thumbnail);
+            FileUtil.mkDirs(video + m3u8);
+
+            //set value for system use
+            setFilePath(filePath);
+            setImagesPath(imgPath);
+            setImagesThumbnail(imgPath + thumbnail);
+            setVideoPath(video);
+            setVideoM3u8(video + m3u8);
+            msg = "ACE environment setup complete : LINUX !!!";
         } else {
-            String msg = "WARNING => UNKNOWN OS, ACE Environment setup incomplete !!!";
+            msg = "WARNING => UNKNOWN OS, ACE Environment setup incomplete !!!";
             Console.println(msg, Console.RED, Console.BOLD);
+            return;
         }
+        Console.println(msg, Console.BLUE, Console.BOLD);
     }
 
 
