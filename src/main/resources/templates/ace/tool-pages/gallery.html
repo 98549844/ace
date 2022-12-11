@@ -36,6 +36,11 @@
                     </h1>
                 </div><!-- /.page-header -->
 
+
+                <button class="btn btn-app btn-danger btn-sm" id="delete-all">
+                    <i class="ace-icon fa fa-trash-o bigger-200"></i>
+                    Delete
+                </button>
                 <div class="col-xs-11">
                     <div id="accordion" class="page-header accordion-style1 panel-group">
                         <div class="panel panel-default">
@@ -164,6 +169,8 @@
             dictCancelUpload: 'cancel',
             acceptedFiles: ".jpg,.gif,.png,.jpeg", // 上传的类型
             parallelUploads: 3,
+            dictFileTooBig: "可添加的最大文件大小为{{maxFilesize}}Mb，当前文件大小为{{filesize}}Mb ",
+            //uploadMultiple: true,
             // clickable: true, //若果设置 true, localDropzone 元素本身将可以点击
             dictDefaultMessage: //框内文本内容
                 '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
@@ -177,8 +184,8 @@
             },*/
 
             init: function () {
+                const myDropzone = this;
                 /*const submitButton = document.querySelector("#act-on-upload");
-                const myDropzone = this; // closure
                 //为上传按钮添加点击事件
                 submitButton.addEventListener("click", function () {
                     //配合autoProcessQueue: false
@@ -497,6 +504,59 @@
                 window.location.href = '500.html';
             },
         })
+    });
+
+    $("#delete-all").on('click', function () {
+/*        const loadingDialog = dialog({
+            title: 'Loading ...',
+            content: $("#loading_img").html(),
+            cancel: false,
+        });
+        loadingDialog.showModal();
+
+        $.ajax({
+            type: "get", // 以get方式发起请求
+            url: "image/delete/all",
+            dataType: "json",
+            // 将你的请求参数以问号拼接到url中进行参数传递
+            success(data) {
+                $("#imageDiv").html('');
+                loadingDialog.close().remove();
+            },
+            error(data) {
+                window.location.href = '500.html';
+            },
+        })*/
+
+        const d = dialog({
+            title: 'Delete ALL photos.',
+            content: 'Are you sure delete ALL photos ?',
+            okValue: 'OK',
+            ok: function () {
+                this.title('Submit…');
+                $.ajax({
+                    type: "get",
+                    url: "image/delete/all",
+                    dataType: "json",
+                    // 将你的请求参数以问号拼接到url中进行参数传递
+                    success(data) {
+                        $("#imageDiv").html('');
+                        d.close().remove();
+                    },
+                    error(data) {
+                        window.location.href = '500.html';
+                    },
+
+                })
+                return true;
+                // return false; dialog 不会消失
+            },
+            cancelValue: 'Cancel',
+            cancel: function () {
+            }
+        });
+        d.showModal();
+
     });
 
 </script>

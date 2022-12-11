@@ -5,6 +5,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +53,12 @@ public interface FilesDao extends JpaRepository<Files, Long>, JpaSpecificationEx
     List<Files> findFilesByFileNameNotInAndPathNotIn(Collection<String> fileName, Collection<String> path);
 
     List<Files> findFilesByPathAndFileNameNotIn(String path, Collection<String> fileName);
+
+    @Modifying
+    @Transactional
+    @Query("delete from Files fs where fs.owner = :#{#owner}")
+    void deleteFilesByOwner(@Param("owner") String owner);
+
 
 
 }

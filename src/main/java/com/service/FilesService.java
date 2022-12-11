@@ -6,12 +6,14 @@ import com.models.entity.Files;
 import com.models.entity.Users;
 import com.util.FileUtil;
 import com.util.NullUtil;
+import kotlin.sequences.FlatteningSequence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -43,7 +45,9 @@ public class FilesService {
     }
 
 
-    /** 保存列表
+    /**
+     * 保存列表
+     *
      * @param files
      * @return
      */
@@ -59,7 +63,9 @@ public class FilesService {
         return filesDao.saveAll(files);
     }
 
-    /** 保存
+    /**
+     * 保存
+     *
      * @param file
      * @return
      */
@@ -257,6 +263,17 @@ public class FilesService {
         }
         saveAll(fs);
         return list;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteByUserId(Users user) {
+        try {
+            filesDao.deleteFilesByOwner(String.valueOf(user.getUserId()));
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 

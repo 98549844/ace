@@ -354,52 +354,7 @@ public class UsersService {
         }
     }
 
-    private Specification<Users> toPredicate(Users users) {
-        return (Specification<Users>) (root, query, criteriaBuilder) -> {
-            List<Predicate> predicatesList = new ArrayList<>();
-            if (users.getUserId() != null) {
-                Predicate predicate = criteriaBuilder.equal(root.get("id"), users.getUserId());
-                predicatesList.add(predicate);
-            }
-            if (users.getPassword() != null) {
-                Predicate predicate = criteriaBuilder.equal(root.get("password"), users.getPassword());
-                predicatesList.add(predicate);
-            }
-            if (users.getUsername() != null) {
-                Predicate predicate = criteriaBuilder.like(root.get("userName"), "%" + users.getUsername().toLowerCase() + "%");
-                predicatesList.add(predicate);
-            }
-            if (users.getEmail() != null) {
-                Predicate predicate = criteriaBuilder.like(root.get("email"), "%" + users.getEmail().toLowerCase() + "%");
-                predicatesList.add(predicate);
-            }
-            if (users.getMobile() != null) {
-                Predicate predicate = criteriaBuilder.like(root.get("mobile"), "%" + users.getMobile() + "%");
-                predicatesList.add(predicate);
-            }
-            if (users.getDomain() != null) {
-                Predicate predicate = criteriaBuilder.like(root.get("domain"), "%" + users.getDomain().toLowerCase() + "%");
-                predicatesList.add(predicate);
-            }
-            if (users.getIp() != null) {
-                Predicate predicate = criteriaBuilder.like(root.get("ip"), "%" + users.getIp().toLowerCase() + "%");
-                predicatesList.add(predicate);
-            }
-            if (users.getHostName() != null) {
-                Predicate predicate = criteriaBuilder.like(root.get("hostName"), "%" + users.getHostName().toLowerCase() + "%");
-                predicatesList.add(predicate);
-            }
-            if (users.getCreatedBy() != null) {
-                Predicate predicate = criteriaBuilder.like(root.get("createdBy"), "%" + users.getCreatedBy() + "%");
-                predicatesList.add(predicate);
-            }
-            if (users.getLastUpdatedBy() != null) {
-                Predicate predicate = criteriaBuilder.like(root.get("lastUpdatedBy"), "%" + users.getLastUpdatedBy() + "%");
-                predicatesList.add(predicate);
-            }
-            return criteriaBuilder.and(predicatesList.toArray(new Predicate[predicatesList.size()]));
-        };
-    }
+
 
 
 }

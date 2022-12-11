@@ -5,7 +5,6 @@ import com.controller.common.CommonController;
 import com.models.entity.Files;
 import com.service.FilesService;
 import com.service.GalleryService;
-import com.util.ImageUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -175,6 +174,19 @@ public class GalleryController extends CommonController {
         //  modelAndView.addObject("ajaxResult", result);
         return rs;
 
+    }
+
+    /**
+     * 删除用户所有图片
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/image/delete/all", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean deleteAll() {
+        log.info("access image/delete/all ");
+        return filesService.deleteByUserId(getCurrentUser());
     }
 
     /**
