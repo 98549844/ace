@@ -72,7 +72,7 @@ public class AceEnvironment {
             msg = "ACE environment setup complete : MAC !!! => ACE Environment setup incomplete !!!";
         } else if (osName.contains(OsUtil.LINUX)) {
             String optWorkspace="/opt/workspace/";
-            String ace="ACE/";
+            String ace="ace/";
             String filePath = optWorkspace + ace + "files/";
             String imgPath = optWorkspace + ace + "images/";
             String thumbnail = "thumbnail/";

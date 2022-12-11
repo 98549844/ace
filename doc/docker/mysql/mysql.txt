@@ -4,24 +4,31 @@ docker search mysql
 1. pull mysql
 docker pull mysql =>拉取mysql最新版本
 docker pull mysql 8.xx =>拉取mysql指定版本
+docker pull mysql:5.7 =>拉取mysql 5.7
 
 查看本地镜像
 docker images
 
 2.运行容器
-=>  docker run -itd --name mysql-8.0 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql
-=>  docker run -itd --name mysql mysql:latest -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root
+docker run -itd --name mysql-8.0 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql
+docker run -itd --name mysql-5.7 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql:5.7
+docker run -itd --name mysql-xxx -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql:tag
 
-=>  docker run -it --name mysqlserver -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root
-    --network mynet --network-alias mysqlserver a3a2968869cf080dbbd2adaac9e4075cc358b50a1451ff5e2b9ae90551a4735f
-
-=>  docker run -d -p 3306:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v/home/mysql/data:/var/lib/mysql
-    -e MYSQL_ROOT_PASSWORD=root --name mysql0 mysql:5.7
+docker run -p 3306:3306 --name mysql-5.7
+-v /root/mysql/conf:/etc/mysql/conf.d
+-v /root/mysql/logs:/logs
+-v /root/mysql/data:/var/lib/mysql
+-e MYSQL_ROOT_PASSWORD=root -d mysql:5.7
 
 
 参数说明:
 -p 3306:3306: 映射容器服务的 3306 端口到宿主机的 3306 端口, 外部主机可以直接通过 宿主机ip:3306 访问到 MySQL 的服务
 MYSQL_ROOT_PASSWORD=root: 设置 MySQL 服务 root 用户的密码
+
+-d: 后台运行容器
+-p 将容器的端口映射到本机的端口
+-v 将主机目录挂载到容器的目录
+-e 设置参数
 
 3. access mysql console
 mysql -h localhost -u root -p
