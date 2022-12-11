@@ -150,8 +150,6 @@
 
 <script type="text/javascript">
     jQuery(function ($) {
-        loadingImage();
-        initColorbox();
         Dropzone.options.dropZone = {
             url: "image/uploads.html",
 
@@ -247,6 +245,8 @@
                 }
             },
         }
+        loadingImage();
+        initColorbox();
     });
 
     //----------------------------------------------------------------------------------------------------------------------
