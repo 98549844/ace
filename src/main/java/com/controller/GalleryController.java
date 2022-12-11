@@ -185,7 +185,8 @@ public class GalleryController extends CommonController {
     @RequestMapping(value = "/image/delete/all", method = RequestMethod.GET)
     @ResponseBody
     public boolean deleteAll() {
-        log.info("access image/delete/all ");
+        log.info("access image/delete/all");
+        //只delete 数据库, 没有delete文件
         return filesService.deleteByUserId(getCurrentUser());
     }
 
