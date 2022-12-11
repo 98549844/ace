@@ -36,7 +36,7 @@
                     </h1>
                 </div><!-- /.page-header -->
 
-                <div class="col-sm-7">
+                <div class="col-xs-11">
                     <div id="accordion" class="page-header accordion-style1 panel-group">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -150,7 +150,8 @@
 
 <script type="text/javascript">
     jQuery(function ($) {
-
+        loadingImage();
+        initColorbox();
         Dropzone.options.dropZone = {
             url: "image/uploads.html",
 
@@ -159,7 +160,7 @@
             thumbnailHeight: 120,
             thumbnailWidth: 120,
             maxFilesize: 10,
-            maxFiles: 150, //限制每次上传文件量
+            //maxFiles: 150, //限制每次上传文件量
             addRemoveLinks: true,
             dictRemoveFile: '<i class="ace-icon glyphicon glyphicon-trash"></i>',
             dictCancelUpload: 'cancel',
@@ -246,8 +247,6 @@
                 }
             },
         }
-        loadingImage();
-        initColorbox();
     });
 
     //----------------------------------------------------------------------------------------------------------------------
@@ -268,7 +267,6 @@
     }
 
     let paging = 0;
-
     function appendImages() {
         paging = paging + 1;
         $.ajax({
