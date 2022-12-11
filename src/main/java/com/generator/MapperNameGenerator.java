@@ -19,12 +19,13 @@ import org.springframework.util.StringUtils;
 public class MapperNameGenerator implements BeanNameGenerator {
     private static final Logger log = LogManager.getLogger(MapperNameGenerator.class.getName());
 
-    private String prefix;
+    private final String prefix;
 
     public MapperNameGenerator(String prefix) {
         this.prefix = prefix;
     }
 
+    //主要用作local, remote datasource用, 未开发完
     @Override
     public String generateBeanName(BeanDefinition definition, BeanDefinitionRegistry registry) {
         String[] nameList = definition.getBeanClassName().split("\\.");
