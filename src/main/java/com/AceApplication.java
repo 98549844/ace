@@ -73,7 +73,6 @@ public class AceApplication {
         // browserConfig.getCss();
         // browserConfig.getIndex();
         log.info("Running success：Sa-Token config：{}", SaManager.getConfig());
-       // AceEnvironment.setUp();
     }
 
 }
