@@ -50,15 +50,6 @@ public class GalleryController extends CommonController {
         this.misc = AceEnvironment.getMisc();
     }
 
-/*
-    1.依数据库为准
-    2.数据库有数据但没有该文件
-        =>数据mark 失效/invalid
-        =>掉失/losed
-        =>删除/Deleted
-    3.有文件, 但没有该数据
-        =>把文件移到misc文件夹
-*/
 
     /**
      * access to gallery page
@@ -85,6 +76,18 @@ public class GalleryController extends CommonController {
         List ls = galleryService.getImages(getCurrentUser());
         return ls;
     }
+
+/*
+    1.依数据库为准
+    2.数据库有数据但没有该文件
+        =>数据mark 失效/invalid
+        =>掉失/lost
+        =>删除/Deleted
+    3.有文件, 但没有该数据 => 不主动找, 基本上不会出现
+        =>把文件移到misc文件夹
+*/
+
+
 
     /**
      * get images limitation

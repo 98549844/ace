@@ -61,7 +61,7 @@ public class AceEnvironment {
             String video = c + ace + "videos\\";
             String m3u8 = video + "m3u8\\";
 
-            String miscellaneous = ace + "misc\\";
+            String miscellaneous = c + ace + "misc\\";
 
             //create folder
             FileUtil.mkDirs(filePath);
@@ -92,7 +92,7 @@ public class AceEnvironment {
             String video = optWorkspace + ace + "videos/";
             String m3u8 = video + "m3u8/";
 
-            String miscellaneous = ace + "misc/";
+            String miscellaneous = optWorkspace + ace + "misc/";
 
             //create folder
             FileUtil.mkDirs(filePath);
