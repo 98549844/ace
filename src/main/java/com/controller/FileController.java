@@ -31,7 +31,7 @@ public class FileController extends CommonController {
     static String filePath = PathUtil.getSystemPath() + "\\src\\main\\resources\\static\\files\\temp\\";
 
 
-    private FilesService filesService;
+    private final FilesService filesService;
     private final String filesPath;
 
     @Autowired

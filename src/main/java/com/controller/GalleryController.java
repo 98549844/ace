@@ -9,6 +9,7 @@ import com.service.GalleryService;
 import com.util.FileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.ss.formula.ptg.Deleted3DPxg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,7 @@ public class GalleryController extends CommonController {
     private final FilesService filesService;
     private final String imagePath;
     private final String imagesThumbnail;
+    private final String misc;
 
     @Autowired
     public GalleryController(GalleryService galleryService, FilesService filesService) {
@@ -45,8 +47,18 @@ public class GalleryController extends CommonController {
         this.filesService = filesService;
         this.imagePath = AceEnvironment.getImagesPath();
         this.imagesThumbnail = AceEnvironment.getImagesThumbnail();
+        this.misc = AceEnvironment.getMisc();
     }
 
+/*
+    1.依数据库为准
+    2.数据库有数据但没有该文件
+        =>数据mark 失效/invalid
+        =>掉失/losed
+        =>删除/Deleted
+    3.有文件, 但没有该数据
+        =>把文件移到misc文件夹
+*/
 
     /**
      * access to gallery page
