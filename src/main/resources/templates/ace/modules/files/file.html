@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="ace/pb-pages/header :: header">
+    <!-- inline styles related to this page -->
+</head>
+
+<body class="no-skin">
+<div id="navbar" class="navbar navbar-default ace-save-state"
+     th:include="ace/pb-pages/navbar :: navbar"></div>
+
+<div class="main-container ace-save-state" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.loadState('main-container')
+        } catch (e) {
+        }
+    </script>
+
+    <div id="sidebar" class="sidebar responsive ace-save-state"
+         th:include="ace/pb-pages/sidebar :: sidebar">
+    </div>
+
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="breadcrumbs" th:include="ace/pb-pages/breadcrumbs :: breadcrumbs"></div>
+            <div class="page-content">
+                <div class="ace-settings-container" id="ace-settings-container"
+                     th:include="ace/pb-pages/ace-settings-container :: ace-settings-container">
+                </div><!-- /.ace-settings-container -->
+
+                <div class="page-header">
+                    <h1>
+                        File Storage
+                        <small>
+                            <i class="ace-icon fa fa-angle-double-right"></i>
+                            List
+                        </small>
+                    </h1>
+                </div><!-- /.page-header -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="table table-striped files" id="previews">
+                            <div id="template" class="file-row">
+                                <!-- This is used as the file preview template -->
+                                <div>
+                                    <span class="preview"><img data-dz-thumbnail/></span>
+                                </div>
+                                <div>
+                                    <p class="name" data-dz-name></p>
+                                    <strong class="error text-danger" data-dz-errormessage></strong>
+                                </div>
+                                <div>
+                                    <p class="size" data-dz-size></p>
+                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                         aria-valuemax="100" aria-valuenow="0">
+                                        <div class="progress-bar progress-bar-success" style="width:0%;"
+                                             data-dz-uploadprogress></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary start">
+                                        <i class="glyphicon glyphicon-upload"></i>
+                                        <span>Start</span>
+                                    </button>
+                                    <button data-dz-remove class="btn btn-warning cancel">
+                                        <i class="glyphicon glyphicon-ban-circle"></i>
+                                        <span>Cancel</span>
+                                    </button>
+                                    <button data-dz-remove class="btn btn-danger delete">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                        <span>Delete</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+
+    <div class="footer" th:include="ace/pb-pages/footer :: footer">
+    </div>
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse"
+       th:include="ace/pb-pages/btn-scroll-up :: btn-scroll-up">
+    </a>
+</div><!-- /.main-container -->
+
+<div th:include="ace/pb-pages/common-script :: common-script"></div>
+<!-- page specific plugin scripts -->
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+
+<script type="text/javascript">
+    // Get the template HTML and remove it from the doument.
+    const previewNode = document.querySelector("#template");
+    previewNode.id = "";
+    const previewTemplate = previewNode.parentNode.innerHTML;
+    previewNode.parentNode.removeChild(previewNode);
+
+    const myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+        url: "files/uploads.html", // Set the url
+        paramName: "files", // 提交的参数,默认为file
+        thumbnailWidth: 80,
+        thumbnailHeight: 80,
+        parallelUploads: 20,
+        previewTemplate: previewTemplate,
+        autoQueue: false, // Make sure the files aren't queued until manually added
+        previewsContainer: "#previews", // Define the container to display the previews
+        clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+    });
+
+    myDropzone.on("addedfile", function (file) {
+        // Hookup the start button
+        file.previewElement.querySelector(".start").onclick = function () {
+            myDropzone.enqueueFile(file);
+        };
+    });
+
+    // Update the total progress bar
+    myDropzone.on("totaluploadprogress", function (progress) {
+        document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
+    });
+
+    myDropzone.on("sending", function (file, formData) {
+        formData.append("uuid", file.upload.uuid);
+        // Show the total progress bar when upload starts
+        document.querySelector("#total-progress").style.opacity = "1";
+        // And disable the start button
+        file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+    });
+
+    // Hide the total progress bar when nothing's uploading anymore
+    myDropzone.on("queuecomplete", function (progress) {
+        document.querySelector("#total-progress").style.opacity = "0";
+    });
+
+    // Setup the buttons for all transfers
+    // The "add files" button doesn't need to be setup because the config
+    // `clickable` has already been specified.
+    document.querySelector("#actions .start").onclick = function () {
+        myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
+    };
+    document.querySelector("#actions .cancel").onclick = function () {
+        myDropzone.removeAllFiles(true);
+    };
+
+
+</script>
+
+</body>
+</html>

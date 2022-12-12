@@ -8,12 +8,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -40,6 +40,18 @@ public class FileController extends CommonController {
         this.filesPath = AceEnvironment.getFilePath();
     }
 
+    /**
+     * access to gallery page
+     *
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/files.html", method = RequestMethod.GET)
+    public ModelAndView gallery() throws IOException {
+        log.info("access files.html");
+        return super.page("ace/modules/files/file");
+    }
+
 
     @RequestMapping(value = "/files/upload", method = RequestMethod.POST)
     public ModelAndView upload(@RequestParam("file") MultipartFile file) {
@@ -48,11 +60,13 @@ public class FileController extends CommonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/files/uploads", method = RequestMethod.POST)
-    public ModelAndView uploads(@RequestParam(value = "files") MultipartFile[] files) {
-        ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-        List<String> list = filesService.uploads(files, null, filesPath);
-        return modelAndView;
+    @RequestMapping(value = "/files/uploads.html", method = RequestMethod.POST)
+    @ResponseBody
+    public List uploads(@RequestParam(value = "files") MultipartFile[] files, MultipartHttpServletRequest request) {
+        String uuid = request.getParameter("uuid");
+        log.info("access files/uploads.html=> dropzone uuid: {}", uuid);
+        List<String> list = filesService.uploads(files, uuid, filesPath);
+        return list;
     }
 
 
