@@ -6,7 +6,6 @@ import com.models.entity.Files;
 import com.models.entity.Users;
 import com.util.FileUtil;
 import com.util.NullUtil;
-import kotlin.sequences.FlatteningSequence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +47,6 @@ public class FilesService {
     /**
      * 保存列表
      *
-     * @param files
      * @return
      */
     public List<Files> saveAll(List<Files> files) {
@@ -274,6 +272,16 @@ public class FilesService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public List findFilesByOwner(Users user) {
+        List<Files> ls = new ArrayList<>();
+        try {
+            ls = filesDao.findFilesByOwner(String.valueOf(user.getUserId()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ls;
     }
 
 

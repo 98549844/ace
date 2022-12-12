@@ -3,8 +3,10 @@ package com.controller;
 import com.constant.AceEnvironment;
 import com.controller.common.CommonController;
 import com.models.entity.Files;
+import com.models.entity.Users;
 import com.service.FilesService;
 import com.service.GalleryService;
+import com.util.FileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +83,7 @@ public class GalleryController extends CommonController {
     @RequestMapping(value = "/getImagesByLimit.html/{paging}", method = RequestMethod.GET)
     @ResponseBody
     public List getImagesByLimit(@PathVariable(value = "paging") int paging) throws IOException {
-        log.info("access getImagesByLimit.html paging: {}",paging);
+        log.info("access getImagesByLimit.html paging: {}", paging);
 
         List ls = galleryService.getImagesByLimit(getCurrentUser(), paging);
         return ls;
@@ -114,7 +116,7 @@ public class GalleryController extends CommonController {
         log.info("access image/get/{}", fileName);
 
         String name;
-        String ext ;
+        String ext;
         if (!fileName.contains(".")) {
             Files f = filesService.findFilesByFileName(fileName);
             ext = f.getExt().split("\\.")[1];
@@ -185,9 +187,15 @@ public class GalleryController extends CommonController {
     @RequestMapping(value = "/image/delete/all", method = RequestMethod.GET)
     @ResponseBody
     public boolean deleteAll() {
-        log.info("access image/delete/all");
+        log.info("access image/delete/all account => {}", getCurrentUser().getUserAccount());
         //只delete 数据库, 没有delete文件
-        return filesService.deleteByUserId(getCurrentUser());
+        Users user = getCurrentUser();
+        List<Files> ls = filesService.findFilesByOwner(user);
+        for (Files l : ls) {
+            FileUtil.delete(imagePath + l.getFileName());
+            FileUtil.delete(imagesThumbnail + l.getFileName());
+        }
+        return filesService.deleteByUserId(user);
     }
 
     /**

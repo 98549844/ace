@@ -54,6 +54,8 @@ public interface FilesDao extends JpaRepository<Files, Long>, JpaSpecificationEx
 
     List<Files> findFilesByPathAndFileNameNotIn(String path, Collection<String> fileName);
 
+    List<Files> findFilesByOwner(String owner);
+
     @Modifying
     @Transactional
     @Query("delete from Files fs where fs.owner = :#{#owner}")
