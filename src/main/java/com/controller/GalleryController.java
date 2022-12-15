@@ -99,7 +99,6 @@ public class GalleryController extends CommonController {
     @ResponseBody
     public List getImagesByLimit(@PathVariable(value = "paging") int paging) throws IOException {
         log.info("access getImagesByLimit.html paging: {}", paging);
-
         List ls = galleryService.getImagesByLimit(getCurrentUser(), paging);
         return ls;
     }

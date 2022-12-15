@@ -203,6 +203,7 @@
                 });
                 this.on("success", function (file, data) {
                     //上传成功触发的事件
+                    //上传完成后, 再压缩图片
                     console.log('ok');
                 });
                 this.on("error", function (file, data) {
