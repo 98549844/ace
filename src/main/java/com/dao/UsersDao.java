@@ -59,7 +59,7 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
     @Query(nativeQuery = true, value = "select u.userId userId, u.createdBy createdBy, u.createdDate createdDate, u.lastUpdateDate lastUpdateDate, u.lastUpdatedBy lastUpdatedBy, u.version version, u.age age, u.dateOfBirth dateOfBirth, u.description description, u.domain `domain`, u.email email, u.enabled enabled, u.expireDate expireDate, u.gender gender, u.hostName hostName, u.ip ip, u.loginDateTime loginDateTime, u.mobile mobile, u.password password, u.remark remark, u.status status, u.userAccount userAccount, u.username username, r.roleId roleId, r.roleCode roleCode, r.roleName roleName, p.permissionsId permissionsId, p.action `action`, p.description permissions_description, p.permissionCode permissionCode from role_permissions rp, permissions p, roles r, user_roles ur, users u where 1 = 1 and rp.permissionsId = p.permissionsId and rp.roleId = r.roleId and ur.roleId = r.roleId and ur.userId = u.userId and u.userId = :#{#userId} order by userId")
     List<Map> findUserRolePermissionDetailById(@Param("userId") long userId);
 
-    @Query(nativeQuery = true, value = "select u.* from Users u order by u.loginDateTime desc limit :#{#limit}")
+    @Query(nativeQuery = true, value = "select u.* from users u order by u.loginDateTime desc limit :#{#limit}")
     List<Users> findUsersOrderByLoginDateTime(@Param("limit") Integer limit);
 
 
