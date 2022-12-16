@@ -42,9 +42,7 @@ mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-# 存储转码视频的文件夹地址
-#app:
-#  video-folder: "C:\\ACE\\videos"
+
 
 spring:
   devtools:
@@ -102,16 +100,12 @@ spring:
       location: "${java.io.tmpdir}" #临时IO目录
       resolve-lazily: false #不延迟解析
       file-size-threshold: 1MB # 超过1Mb, 就IO到临时目录
-  #  web:
-  #    resources:
-  #      static-locations:
-  #        - "classpath:/static/"
-  #        - "file:${app.video-folder}"
+
 
   datasource:
     #driver-class-name: org.mariadb.jdbc.Driver
     #url: jdbc:mariadb://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
-    #    url: jdbc:log4jdbc:mysql://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
+    #url: jdbc:log4jdbc:mysql://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
     url: jdbc:log4jdbc:mysql://localhost:3306/ace?characterEncoding=UTF-8&useUnicode=true&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
     #driver-class-name: com.mysql.jdbc.Driver
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy

@@ -22,10 +22,6 @@ import javax.persistence.*;
 public class Files extends BaseEntity {
     private static Logger log = LogManager.getLogger(Files.class.getName());
 
-    public static final String UPLOADED = "uploaded";
-    public static final String FRAGMENT = "fragment";
-    public static final String COMPRESSED = "compressed";
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(strategy = "identity", name = "id")
@@ -33,6 +29,10 @@ public class Files extends BaseEntity {
     private Long id;
     @Column
     private String ext;
+    @Column
+    private String type = "file"; //默认文件种类
+    public static final String IMAGE = "image";
+    public static final String VIDEO = "video";
     @Column
     private String location;
     @Column
@@ -45,6 +45,10 @@ public class Files extends BaseEntity {
     private int count = 0;
     @Column
     private String status; //uploaded: 已上载 fragment:已切片 compressed:已压缩
+    public static final String UPLOADED = "uploaded";
+    public static final String FRAGMENT = "fragment";
+    public static final String COMPRESSED = "compressed";
+    public static final String LOST = "lost";
     @Column
     private String originationName; //原文件名
     @Column
@@ -146,6 +150,14 @@ public class Files extends BaseEntity {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
 

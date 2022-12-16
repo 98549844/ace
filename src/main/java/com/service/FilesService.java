@@ -350,6 +350,16 @@ public class FilesService {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         return filesDao.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fileNames, status, pageable);
     }
+
+    public List<Files> findFilesByStatusOrderByCreatedDateDesc(String status, int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        return filesDao.findFilesByStatusOrderByCreatedDateDesc(status, pageable);
+    }
+
+    public List<Files> findFilesByStatusAndOwnerOrderByCreatedDateDesc(String status, String ownerId, int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        return filesDao.findFilesByStatusAndOwnerOrderByCreatedDateDesc(status, ownerId, pageable);
+    }
 }
 
 

@@ -1,5 +1,6 @@
 package com.service;
 
+import ch.qos.logback.core.rolling.helper.FileStoreUtil;
 import com.constant.AceEnvironment;
 import com.models.entity.Files;
 import com.models.entity.Roles;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +50,7 @@ public class GalleryService {
         List<String> tempLs = FileUtil.getFileNames(imagesThumbnail);
 
         try {
-            deleteThumbnail(ls, tempLs);
+            deleteThumbnails(ls, tempLs);
         } catch (Exception e) {
             log.warn("Image still compressing, not ready to display ....");
             e.printStackTrace();
@@ -75,36 +77,34 @@ public class GalleryService {
 
 
     public List getImagesByLimit(Users users, int paging) throws IOException {
-        log.info("image location: {}", imagePath);
-
-        List<String> ls = FileUtil.getFileNames(imagePath);
-        List<String> tempLs = FileUtil.getFileNames(imagesThumbnail);
-
-        try {
-            deleteThumbnail(ls, tempLs);
-        } catch (Exception e) {
-            log.warn("Image still compressing, not ready to display ....");
-            e.printStackTrace();
-        } finally {
-            //根据folder实际文件控制数据库, 删除folder不存文件数据
-            List<String> fName = FileUtil.getNames(ls);
-            List<Files> filesList = filesService.findFilesByPathAndFileNameNotIn(imagePath, fName);
-            filesService.deleteAll(filesList);
-
-            List<Roles> rolesList = rolesService.getRolesByUserId(users.getUserId());
-
-            //只处理单角色,多角色及后再新增处理
-            if (Roles.ADMIN.equals(rolesList.get(0).getRoleCode())) {
-                //根据数据库排序
-                return filesService.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fName, Files.COMPRESSED, paging);
-            } else {
-                //根据数据库排序
-                return filesService.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(fName, Files.COMPRESSED, users.getUserId().toString(), paging);
+        List<Roles> rolesList = rolesService.getRolesByUserId(users.getUserId());
+        List<Files> filesLs;
+        if (Roles.ADMIN.equals(rolesList.get(0).getRoleCode())) {
+            //Admin roles access all images
+            filesLs = filesService.findFilesByStatusOrderByCreatedDateDesc(Files.COMPRESSED, paging);
+        } else {
+            filesLs = filesService.findFilesByStatusAndOwnerOrderByCreatedDateDesc(Files.COMPRESSED, users.getUserId().toString(), paging);
+        }
+        List<Files> result = new ArrayList<>();
+        for (Files l : filesLs) {
+            File original = new File(l.getLocation());
+            File thumbnail = new File(imagesThumbnail + l.getFileName() + l.getExt());
+            if (original.exists()) {
+                result.add(l);
+                if (!thumbnail.exists()) {
+                    compressImage(l);
+                }
+            } else if (!original.exists() && thumbnail.exists()) {
+                //原图不存在, 缩略图存在, 删除缩略图
+                thumbnail.delete();
+                l.setStatus(Files.LOST);
+                filesService.save(l);
             }
         }
+        return result;
     }
 
-    private void deleteThumbnail(List<String> ls, List<String> tempLs) {
+    private void deleteThumbnails(List<String> ls, List<String> tempLs) {
         Map mp = ListUtil.getDeduplicateElements(ls, tempLs);
         compressImages((List<String>) mp.get(ListUtil.LIST_1));
         tempLs = (List<String>) mp.get(ListUtil.LIST_2);
@@ -116,6 +116,23 @@ public class GalleryService {
         }
     }
 
+    private void compressImage(Files f) {
+        log.info("Compressing thumbnail ...");
+        if (NullUtil.isNull(f)) {
+            log.warn("Image not exist !!!");
+            return;
+        }
+        try {
+            ImageUtil imageUtil = new ImageUtil();
+            imageUtil.square(f.getLocation(), true);
+            ImageUtil.compress(imagesThumbnail + f.getFileName() + f.getExt());
+            f.setStatus(Files.COMPRESSED);
+            filesService.save(f);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        log.info("compressing thumbnail complete !!!");
+    }
 
     private void compressImages(List<String> ls) {
         log.info("temp images expired, compressing image ...");

@@ -26,7 +26,7 @@ import java.util.List;
 @Transactional
 public interface FilesDao extends JpaRepository<Files, Long>, JpaSpecificationExecutor<Files> {
 
-    List<Files> findFilesByOriginationName(String fileName);
+  //  List<Files> findFilesByOriginationName(String fileName);
 
     Files findFilesByFileName(String fileName);
 
@@ -38,6 +38,8 @@ public interface FilesDao extends JpaRepository<Files, Long>, JpaSpecificationEx
 
     List<Files> findFilesByFileNameInAndStatusOrderByCreatedDateDesc(List<String> fileName, String status, Pageable pageable);
 
+    List<Files> findFilesByStatusOrderByCreatedDateDesc(String status, Pageable pageable);
+
     List<Files> findFilesByFileNameInAndStatusOrderByCreatedDateDesc(List<String> fileName, String status);
 
     List<Files> findFilesByFileNameInAndStatusInOrderByCreatedDateDesc(List<String> fileName, List<String> status);
@@ -46,11 +48,13 @@ public interface FilesDao extends JpaRepository<Files, Long>, JpaSpecificationEx
 
     List<Files> findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(List<String> fileName, String status, String ownerId, Pageable pageable);
 
+    List<Files> findFilesByStatusAndOwnerOrderByCreatedDateDesc( String status, String ownerId, Pageable pageable);
+
     List<Files> findFilesByFileNameInAndStatusInAndOwnerOrderByCreatedDateDesc(List<String> fileName, List<String> status, String ownerId);
 
     List<Files> findFilesByFileNameNotInOrderByLastUpdateDateDesc(List<String> filesName);
 
-    List<Files> findFilesByFileNameNotInAndPathNotIn(Collection<String> fileName, Collection<String> path);
+  //  List<Files> findFilesByFileNameNotInAndPathNotIn(Collection<String> fileName, Collection<String> path);
 
     List<Files> findFilesByPathAndFileNameNotIn(String path, Collection<String> fileName);
 
