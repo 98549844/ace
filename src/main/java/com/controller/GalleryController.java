@@ -196,8 +196,8 @@ public class GalleryController extends CommonController {
         Users user = getCurrentUser();
         List<Files> ls = filesService.findFilesByOwner(user);
         for (Files l : ls) {
-            FileUtil.delete(imagePath + l.getFileName());
-            FileUtil.delete(imagesThumbnail + l.getFileName());
+            FileUtil.delete(l.getLocation());
+            FileUtil.delete(imagesThumbnail + l.getFileName()+l.getExt());
         }
         return filesService.deleteByUserId(user);
     }
