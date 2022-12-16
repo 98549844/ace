@@ -93,8 +93,8 @@
                                                 </div>
                                             </td>
 
-                                            <input type="hidden" th:value="${rowUser.userId}"
-                                                   th:id="${rowUser.userId}" class="input-hidden"/>
+                                            <input type="hidden" th:value="${rowUser.userId}" th:id="${rowUser.userId}"
+                                                   class="input-hidden"/>
                                             <td th:text="${rowUser.userAccount}"></td>
                                             <td th:text="${rowUser.Username}"></td>
 
@@ -123,8 +123,15 @@
                                             <td th:id="'userId-'+${rowUser.userId}" class="userRoles"></td>
 
                                             <td th:text="${#temporals.format(rowUser.loginDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                                            <td th:text="${#temporals.format(rowUser.expireDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                            <!-- 原文 <td th:text="${#temporals.format(rowUser.expireDate, 'yyyy-MM-dd HH:mm:ss')}"></td>-->
 
+                                            <!--<td th:id="'expireDate-'+${rowUser.userId}" th:text="${#temporals.format(rowUser.expireDate, 'yyyy-MM-dd HH:mm:ss')}"></td>-->
+                                            <td th:id="'expireDate-'+${rowUser.userId}">
+                                                <div class="profile-info-value">
+                                                    <span class="editable expireDate"
+                                                          th:id="'updateExpire-'+${rowUser.userId}" th:text="${#temporals.format(rowUser.expireDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                                </div>
+                                            </td>
                                             <td>
                                                 <div class="hidden-sm hidden-xs btn-group">
                                                     <button class="btn btn-xs btn-success">
@@ -286,6 +293,8 @@
 
 
 <!-- inline scripts related to this page -->
+
+
 <script type="text/javascript">
 
     jQuery(function ($) {
@@ -377,6 +386,22 @@
             });
         });
     });
+
+    //custom date editable
+    $('.editable.expireDate').editable({
+        type: 'adate',
+        date: {
+
+            //datepicker plugin options
+            format: 'yyyy/mm/dd',
+            viewformat: 'yyyy/mm/dd',
+            weekStart: 1
+
+            //,nativeUI: true//if true and browser support input[type=date], native browser control will be used
+            //,format: 'yyyy-mm-dd',
+            //viewformat: 'yyyy-mm-dd'
+        }
+    })
 
 </script>
 
