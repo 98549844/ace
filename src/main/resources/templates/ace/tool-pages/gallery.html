@@ -288,8 +288,8 @@
         }
     }
 
+    //在上传过程中, browser高度会变, 从而令到paging的值有误差, 可以用分页解决问题
     let paging = 0;
-
     function appendImages() {
         paging = paging + 1;
         $.ajax({
