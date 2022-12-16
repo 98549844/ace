@@ -388,13 +388,15 @@
     });
 
     //custom date editable
+    //https://getdatepicker.com/4/#bootstrap-3-datepicker-v4-docs
+    //https://blog.csdn.net/kouzuhuai2956/article/details/119379576
     $('.editable.expireDate').editable({
         type: 'adate',
         date: {
 
             //datepicker plugin options
-            format: 'yyyy/mm/dd',
-            viewformat: 'yyyy/mm/dd',
+            format: 'yyyy-mm-dd',
+            viewformat: 'yyyy-mm-dd',
             weekStart: 1
 
             //,nativeUI: true//if true and browser support input[type=date], native browser control will be used
