@@ -1362,7 +1362,7 @@
 <script type="text/javascript">
     jQuery(function($) {
         $('#id-disable-check').on('click', function() {
-            var inp = $('#form-input-readonly').get(0);
+            const inp = $('#form-input-readonly').get(0);
             if(inp.hasAttribute('disabled')) {
                 inp.setAttribute('readonly' , 'true');
                 inp.removeAttribute('disabled');
@@ -1384,7 +1384,7 @@
                 .off('resize.chosen')
                 .on('resize.chosen', function() {
                     $('.chosen-select').each(function() {
-                        var $this = $(this);
+                        const $this = $(this);
                         $this.next().css({'width': $this.parent().width()});
                     })
                 }).trigger('resize.chosen');
@@ -1392,7 +1392,7 @@
             $(document).on('settings.ace.chosen', function(e, event_name, event_val) {
                 if(event_name != 'sidebar_collapsed') return;
                 $('.chosen-select').each(function() {
-                    var $this = $(this);
+                    const $this = $(this);
                     $this.next().css({'width': $this.parent().width()});
                 })
             });
@@ -1432,8 +1432,8 @@
             max: 8,
             step: 1,
             slide: function( event, ui ) {
-                var sizing = ['', 'input-sm', 'input-lg', 'input-mini', 'input-small', 'input-medium', 'input-large', 'input-xlarge', 'input-xxlarge'];
-                var val = parseInt(ui.value);
+                const sizing = ['', 'input-sm', 'input-lg', 'input-mini', 'input-small', 'input-medium', 'input-large', 'input-xlarge', 'input-xxlarge'];
+                const val = parseInt(ui.value);
                 $('#form-field-4').attr('class', sizing[val]).attr('placeholder', '.'+sizing[val]);
             }
         });
@@ -1445,7 +1445,7 @@
             max: 12,
             step: 1,
             slide: function( event, ui ) {
-                var val = parseInt(ui.value);
+                const val = parseInt(ui.value);
                 $('#form-field-5').attr('class', 'col-xs-'+val).val('.col-xs-'+val);
             }
         });
@@ -1461,7 +1461,7 @@
             max: 100,
             values: [ 17, 67 ],
             slide: function( event, ui ) {
-                var val = ui.values[$(ui.handle).index()-1] + "";
+                const val = ui.values[$(ui.handle).index() - 1] + "";
 
                 if( !ui.handle.firstChild ) {
                     $("<div class='tooltip right in' style='display:none;left:16px;top:-6px;'><div class='tooltip-arrow'></div><div class='tooltip-inner'></div></div>")
@@ -1483,7 +1483,7 @@
 
         $( "#slider-eq > span" ).css({width:'90%', 'float':'left', margin:'15px'}).each(function() {
             // read initial values from markup and remove that
-            var value = parseInt( $( this ).text(), 10 );
+            const value = parseInt($(this).text(), 10);
             $( this ).empty().slider({
                 value: value,
                 range: "min",
@@ -1554,9 +1554,9 @@
 
         //dynamically change allowed formats by changing allowExt && allowMime function
         $('#id-file-format').removeAttr('checked').on('change', function() {
-            var whitelist_ext, whitelist_mime;
-            var btn_choose
-            var no_icon
+            let whitelist_ext, whitelist_mime;
+            let btn_choose;
+            let no_icon;
             if(this.checked) {
                 btn_choose = "Drop images here or click to choose";
                 no_icon = "ace-icon fa fa-picture-o";
@@ -1571,7 +1571,7 @@
                 whitelist_ext = null;//all extensions are acceptable
                 whitelist_mime = null;//all mimes are acceptable
             }
-            var file_input = $('#id-input-file-3');
+            const file_input = $('#id-input-file-3');
             file_input
                 .ace_file_input('update_settings',
                     {
@@ -1720,7 +1720,7 @@
         $(".knob").knob();
 
 
-        var tag_input = $('#form-field-tags');
+        const tag_input = $('#form-field-tags');
         try{
             tag_input.tag(
                 {
@@ -1740,10 +1740,10 @@
             )
 
             //programmatically add/remove a tag
-            var $tag_obj = $('#form-field-tags').data('tag');
+            const $tag_obj = $('#form-field-tags').data('tag');
             $tag_obj.add('Programmatically Added');
 
-            var index = $tag_obj.inValues('some tag');
+            const index = $tag_obj.inValues('some tag');
             $tag_obj.remove(index);
         }
         catch(e) {
