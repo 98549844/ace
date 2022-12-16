@@ -258,9 +258,9 @@ public class FilesService {
             f.setSize((multipartFile.getSize()));
             f.setStatus(Files.UPLOADED);
             if (FileUtil.isImage(f.getLocation())) {
-                f.setStatus(Files.IMAGE);
+                f.setType(Files.IMAGE);
             } else if (FileUtil.isVideo(f.getLocation())) {
-                f.setStatus(Files.VIDEO);
+                f.setType(Files.VIDEO);
             } else {
                 log.warn("File type undefine !!!");
             }
