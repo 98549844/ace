@@ -78,7 +78,6 @@ public class GalleryController extends CommonController {
     }
 
 
-
     /**
      * get images limitation
      *
@@ -197,7 +196,7 @@ public class GalleryController extends CommonController {
         List<Files> ls = filesService.findFilesByOwner(user);
         for (Files l : ls) {
             FileUtil.delete(l.getLocation());
-            FileUtil.delete(imagesThumbnail + l.getFileName()+l.getExt());
+            FileUtil.delete(imagesThumbnail + l.getFileName() + l.getExt());
         }
         return filesService.deleteByUserId(user);
     }
@@ -236,6 +235,21 @@ public class GalleryController extends CommonController {
         //  String result = JsonUtil.ObjectToJson(f);
         //  modelAndView.addObject("ajaxResult", result);
         return f;
+    }
+
+    /**
+     * 图片压缩
+     *
+     * @param uuid
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/image/compress/{uuid}", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean compress(@PathVariable String uuid) throws Exception {
+        log.info("access image/compress => uuid: {}", uuid);
+        galleryService.compressImage(filesService.findFilesByFileName(uuid));
+        return true;
     }
 }
 

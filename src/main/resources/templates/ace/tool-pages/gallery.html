@@ -53,7 +53,7 @@
                                            data-icon-hide="ace-icon fa fa-angle-down"
                                            data-icon-show="ace-icon fa fa-angle-right"></i>
                                         &nbsp;Dropzone:
-                                        <small>
+                                        <small id="preview-message">
                                             <i class="ace-icon fa"></i>
                                             Drag & drop file upload with image preview
                                         </small>
@@ -154,6 +154,7 @@
 
 
 <script type="text/javascript">
+    let count = 0;
     jQuery(function ($) {
         Dropzone.options.dropZone = {
             url: "image/uploads.html",
@@ -204,7 +205,20 @@
                 this.on("success", function (file, data) {
                     //上传成功触发的事件
                     //上传完成后, 再压缩图片
-                    console.log('ok');
+                    $.ajax({
+                        type: "get", // 以get方式发起请求
+                        url: "image/compress/" + file.upload.uuid,
+                        dataType: "json",
+                        // 将你的请求参数以问号拼接到url中进行参数传递
+                        success(data) {
+                            count = count + 1;
+                            $("#preview-message").html(`${count} completed !!!`)
+                            console.log('compress');
+                        },
+                        error(data) {
+                            window.location.href = '500.html';
+                        }
+                    })
                 });
                 this.on("error", function (file, data) {
                     //上传失败触发的事件

@@ -215,7 +215,7 @@ public class FilesService {
         // 存储上传成功的文件名，响应给客户端
         List<String> list = new ArrayList<>();
         // 判断文件数组长度
-        if (files.length <= 0) {
+        if (files.length == 0) {
             list.add("请选择文件");
             return list;
         }
@@ -257,6 +257,13 @@ public class FilesService {
             f.setPath(path);
             f.setSize((multipartFile.getSize()));
             f.setStatus(Files.UPLOADED);
+            if (FileUtil.isImage(f.getLocation())) {
+                f.setStatus(Files.IMAGE);
+            } else if (FileUtil.isVideo(f.getLocation())) {
+                f.setStatus(Files.VIDEO);
+            } else {
+                log.warn("File type undefine !!!");
+            }
             fs.add(f);
         }
         saveAll(fs);

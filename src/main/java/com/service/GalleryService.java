@@ -116,7 +116,7 @@ public class GalleryService {
         }
     }
 
-    private void compressImage(Files f) {
+    public void compressImage(Files f) {
         log.info("Compressing thumbnail ...");
         if (NullUtil.isNull(f)) {
             log.warn("Image not exist !!!");
