@@ -22,7 +22,7 @@ public class Ace {
     public static void main(String[] args) {
         String inputPath = "C:\\ACE\\temp\\" + "aaa.MOV";
         String outputPath = "C:\\ACE\\temp\\";
-        String newFileName = "bbb";
+        String newFileName = "some_name";
         Ace ace = new Ace();
         ace.davToMP4Video(inputPath, outputPath, newFileName);
     }
