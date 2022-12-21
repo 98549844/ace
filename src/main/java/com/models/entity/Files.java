@@ -33,6 +33,7 @@ public class Files extends BaseEntity {
     private String type = "File type undefine"; //默认文件种类
     public static final String IMAGE = "image";
     public static final String VIDEO = "video";
+    public static final String APPLICATION = "application";
     @Column
     private String location;
     @Column

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(1)
 public class AceEnvironment {
-    private static Logger log = LogManager.getLogger(AceEnvironment.class.getName());
+    private static final Logger log = LogManager.getLogger(AceEnvironment.class.getName());
 
     //container of application.yml value
     public static Environment environment;

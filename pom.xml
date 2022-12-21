@@ -141,7 +141,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.6.0</version>
+            <version>4.7.1</version>
         </dependency>
 
         <!--webflux for mobile streaming video-->
@@ -170,7 +170,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.49</version>
+            <version>8.0.30</version>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
