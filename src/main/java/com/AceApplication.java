@@ -75,10 +75,6 @@ public class AceApplication {
         log.info("Running success：Sa-Token config：{}", SaManager.getConfig());
     }
 
-/*        <script
-    src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"
-    integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
-    crossorigin="anonymous"
-            ></script>*/
+
 
 }

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ReportConfig {
-    private static Logger log = LogManager.getLogger(ReportConfig.class.getName());
+    private static final Logger log = LogManager.getLogger(ReportConfig.class.getName());
     private String forName;
     private String url;
     private String userName;
