@@ -3,6 +3,7 @@ package com;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.util.StringUtil;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,6 +21,10 @@ public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
     public static void main(String[] args) {
+    }
+
+
+    public static void startDavToMP4Video(String[] args) {
         String inputPath = "C:\\ACE\\temp\\" + "aaa.MOV";
         String outputPath = "C:\\ACE\\temp\\";
         String newFileName = "some_name";
