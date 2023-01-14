@@ -28,12 +28,12 @@ public class UrlMapperUtil implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-       // Map<String, Object> controllerBeans = applicationContext.getBeansWithAnnotation(Controller.class);
-        Map<String, Object> restControllerBeans = applicationContext.getBeansWithAnnotation(RestController.class);
+        Map<String, Object> controllerBeans = applicationContext.getBeansWithAnnotation(Controller.class);
+       // Map<String, Object> restControllerBeans = applicationContext.getBeansWithAnnotation(RestController.class);
 
         List<String> list = new ArrayList<>();
-       // list.addAll(getUrl(controllerBeans, applicationContext));
-        list.addAll(getUrl(restControllerBeans, applicationContext));
+        list.addAll(getUrl(controllerBeans, applicationContext));
+       // list.addAll(getUrl(restControllerBeans, applicationContext));
 
     }
 
