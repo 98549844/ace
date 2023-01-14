@@ -27,7 +27,7 @@ import java.util.List;
 public class HttpRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(HttpRestController.class.getName());
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "/get")
     public AjaxResponse httpInfo() {
         return AjaxResponse.success(HttpUtil.requestInfo(getRequest()));
     }

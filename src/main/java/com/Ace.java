@@ -1,5 +1,7 @@
 package com;
 
+import com.util.FileUtil;
+import com.util.PathUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.util.StringUtil;
@@ -21,6 +23,12 @@ public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
     public static void main(String[] args) {
+
+        System.out.println(PathUtil.getSystemPath());
+        String path = "C:\\log.txt";
+        FileUtil.delete(path);
+        FileUtil.create(path);
+        FileUtil.write("C:\\", "log.txt", "GARLAM");
     }
 
 
