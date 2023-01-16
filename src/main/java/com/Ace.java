@@ -8,6 +8,7 @@ import org.eclipse.jetty.util.StringUtil;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,13 +23,10 @@ import java.util.List;
 public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         System.out.println(PathUtil.getSystemPath());
-        String path = "C:\\log.txt";
-        FileUtil.delete(path);
-        FileUtil.create(path);
-        FileUtil.write("C:\\", "log.txt", "GARLAM");
+
     }
 
 
