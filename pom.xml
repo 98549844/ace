@@ -26,21 +26,11 @@
 
     <dependencies>
         <!--springboot2.5.6 need spring-cloud 3.0.8-->
-        <!-- <dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <version>4.0.1</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-io</artifactId>
-                    <groupId>commons-io</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>bcprov-jdk15on</artifactId>
-                    <groupId>org.bouncycastle</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>-->
+            <version>3.1.5</version>
+        </dependency>
 
         <dependency>
             <groupId>com</groupId>

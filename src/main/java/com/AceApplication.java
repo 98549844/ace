@@ -12,7 +12,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
-//import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -36,7 +36,7 @@ import java.util.Map;
 @MapperScan("com.mapper")
 @EnableTransactionManagement
 @EnableCaching
-//@EnableFeignClients
+@EnableFeignClients
 @EnableJpaAuditing //for baseEntity using
 public class AceApplication {
     private static final Logger log = LogManager.getLogger(AceApplication.class.getName());
@@ -70,7 +70,6 @@ public class AceApplication {
         // browserConfig.getIndex();
         log.info("Running success：Sa-Token config：{}", SaManager.getConfig());
     }
-
 
 
 }
