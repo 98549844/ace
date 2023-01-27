@@ -1,7 +1,7 @@
 package com.api;
 
 import com.models.common.AjaxResponse;
-import org.springframework.cloud.openfeign.FeignClient;
+//import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 
 
-@FeignClient(name = "aceJob", url = "http://localhost:8088/")
+//@FeignClient(name = "aceJob", url = "http://localhost:8088/")
 public interface AceApi {
 
 

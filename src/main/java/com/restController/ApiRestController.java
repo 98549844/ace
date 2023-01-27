@@ -24,18 +24,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiRestController {
     private static Logger log = LogManager.getLogger(ApiRestController.class.getName());
 
-    private final AceApi aceApi;
+    // private final AceApi aceApi;
 
     @Autowired
-    public ApiRestController(AceApi aceApi) {
-        this.aceApi = aceApi;
+    public ApiRestController(/*AceApi aceApi*/) {
+
+        // this.aceApi = aceApi;
     }
 
     @GetMapping("/getAllUsers")
     public Response getAllUsers() {
-        AjaxResponse ajaxResponse = aceApi.getAllUsers();
-        log.info(ajaxResponse);
-        return Response.success(ajaxResponse);
+       // AjaxResponse ajaxResponse = aceApi.getAllUsers();
+       // log.info(ajaxResponse);
+       //  return Response.success(ajaxResponse);
+        return Response.success(null);
+
     }
 
 

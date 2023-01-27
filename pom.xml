@@ -5,8 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.5</version>
-        <!-- m2.location: /Users/garlam/.m2/repository/org/springframework/boot/spring-boot-starter-parent-->
+        <version>2.7.6</version>
         <relativePath/>
         <!-- lookup parent from repository -->
     </parent>
@@ -28,10 +27,10 @@
     <dependencies>
 
         <!--springboot2.5.6 need spring-cloud 3.0.8-->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <version>3.1.5</version>
+            <version>4.0.1</version>
             <exclusions>
                 <exclusion>
                     <artifactId>commons-io</artifactId>
@@ -42,16 +41,13 @@
                     <groupId>org.bouncycastle</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency>-->
+
         <dependency>
             <groupId>com</groupId>
             <artifactId>utilities</artifactId>
-            <version>1.5</version>
+            <version>3.0</version>
             <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-log4j2</artifactId>
-                </exclusion>
                 <exclusion>
                     <artifactId>log4j</artifactId>
                     <groupId>log4j</groupId>
@@ -61,20 +57,12 @@
                     <groupId>commons-logging</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>commons-io</artifactId>
-                    <groupId>commons-io</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>slf4j-log4j12</artifactId>
                     <groupId>org.slf4j</groupId>
                 </exclusion>
                 <exclusion>
                     <artifactId>jboss-logging</artifactId>
                     <groupId>org.jboss.logging</groupId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-data-jpa</artifactId>
                 </exclusion>
                 <exclusion>
                     <artifactId>slf4j-reload4j</artifactId>
@@ -91,11 +79,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-        <!--<dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf</artifactId>
-            <version>3.1.0.RELEASE</version>
-        </dependency>-->
+
         <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
@@ -105,17 +89,17 @@
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>3.0.1</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-core</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+        </dependency>
+
         <!--rabbitmq-->
         <!--commented RabbitMQConfig.java RabbitMQRestController.java-->
         <!--<dependency>
@@ -128,59 +112,6 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>-->
 
-
-        <!--
-        本地装有谷歌浏览器和ChromeDriver
-        chromedriver地址:
-        http://npm.taobao.org/mirrors/chromedriver/
-        https://chromedriver.chromium.org/downloads
-        注意：chromedriver版本要和谷歌浏览器版本一样
-        -->
-        <!--jsoup-->
-        <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.15.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>4.7.1</version>
-        </dependency>
-
-        <!--webflux for mobile streaming video-->
-        <!-- springboot2.7.5 + swagger2.9.2 不兼容-->
-        <!-- springboot2.7.5 + knife4j 3.0.3 不兼容-->
-        <!-- <dependency>
-            <groupId>io.projectreactor</groupId>
-            <artifactId>reactor-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>-->
-
-
-        <dependency>
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.49</version>
-        </dependency>
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>5.0.1</version>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -217,6 +148,8 @@
             <artifactId>sa-token-dialect-thymeleaf</artifactId>
             <version>1.34.0</version>
         </dependency>
+
+        <!--video codec use only-->
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
@@ -225,7 +158,6 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.bytedeco</groupId>
             <artifactId>ffmpeg-platform</artifactId>
@@ -308,12 +240,6 @@
             </exclusions>
         </dependency>
 
-
-        <dependency>
-            <groupId>org.bgee.log4jdbc-log4j2</groupId>
-            <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
-            <version>1.16</version>
-        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
@@ -372,6 +298,50 @@
             <artifactId>easyexcel</artifactId>
             <version>3.1.5</version>
         </dependency>
+
+        <!--
+        本地装有谷歌浏览器和ChromeDriver
+        chromedriver地址:
+        http://npm.taobao.org/mirrors/chromedriver/
+        https://chromedriver.chromium.org/downloads
+        注意：chromedriver版本要和谷歌浏览器版本一样
+        -->
+        <!--jsoup-->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.15.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.7.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.49</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>5.0.1</version>
+        </dependency>
+
+        <!--for print sql log-->
+        <dependency>
+            <groupId>org.bgee.log4jdbc-log4j2</groupId>
+            <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+            <version>1.16</version>
+        </dependency>
+
+
     </dependencies>
 
 
@@ -403,6 +373,17 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring.version}</version>
+                <configuration>
+                    <!--配置mainClass，指定程序入口-->
+                    <mainClass>com.AceApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

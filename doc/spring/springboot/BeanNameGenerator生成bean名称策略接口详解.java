@@ -286,7 +286,7 @@ public class AnnotationBeanNameGenerator implements BeanNameGenerator {
 
     //此处的setter方法就是我们设置自定义bean name生成器的入口, 示例如下:
 
-    @SpringBootApplication
+    // @SpringBootApplication
     public class QuartzBootStrap {
         public static void main(String[] args) {
             SpringApplication application = new SpringApplication(QuartzBootStrap.class);

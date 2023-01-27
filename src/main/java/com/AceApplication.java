@@ -3,24 +3,20 @@ package com;
 import cn.dev33.satoken.SaManager;
 import com.config.AceConfig;
 import com.config.BrowserConfig;
-import com.constant.AceEnvironment;
-import com.restController.UserRolePermissionRestController;
 import com.util.BeanUtil;
 import com.util.IpUtil;
 import com.util.MapUtil;
-import com.util.PropertiesUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+//import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.io.IOException;
 import java.util.Map;
@@ -40,7 +36,7 @@ import java.util.Map;
 @MapperScan("com.mapper")
 @EnableTransactionManagement
 @EnableCaching
-@EnableFeignClients
+//@EnableFeignClients
 @EnableJpaAuditing //for baseEntity using
 public class AceApplication {
     private static final Logger log = LogManager.getLogger(AceApplication.class.getName());
