@@ -41,7 +41,9 @@ public class FTPUtil {
     private final static String ERROR_FILE = "FTP文件下载失败!";
     private final static String ERROR_CONN = "连接FTP失败!";
 
-
+    public static void main(String[] args) {
+        log.error("没进行测试");
+    }
 
     /**
      * 读取ftp文件流
