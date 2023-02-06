@@ -28,14 +28,20 @@ public class FTPUtil {
     private static final Logger log = LogManager.getLogger(FTPUtil.class.getName());
 
 
-    @Value("${ftp.host}")
+/*    @Value("${ftp.host}")
     private String host;
     @Value("${ftp.username}")
     private String username;
     @Value("${ftp.password}")
     private String password;
     @Value("${ftp.port}")
-    private int port;
+    private int port;*/
+
+    private final String host = "192.168.2.75";
+    private final String username = "garlam";
+    private final String password = "P@ssw0rd";
+    private final int port = 21;
+    private final String path = "./";
 
     private final static String ERROR_NO_FILE = "文件不存在!";
     private final static String ERROR_FILE = "FTP文件下载失败!";
