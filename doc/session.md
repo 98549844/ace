@@ -1,4 +1,4 @@
-springboot——cookie、session保存信息（前后台分离，三天的经验）
+springboot——cookie, session保存信息（前后台分离，三天的经验）
 https://blog.csdn.net/xiaozhezhe0470/article/details/104628586/
 
 springboot使用session登录与使用springsecurity实现登录（前后端分离，前端使用的是vue）
