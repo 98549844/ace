@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
+/** 扫瞄项目里已经mapped的url
+ *
  * @Classname: UrlMapperUtil
  * @Date: 2023/1/13 上午 09:48
  * @Author: kalam_au
