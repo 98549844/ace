@@ -23,7 +23,7 @@ import java.util.List;
  * @Description:
  */
 
-@Component
+//@Component
 public class FTPUtil {
     private static final Logger log = LogManager.getLogger(FTPUtil.class.getName());
 
