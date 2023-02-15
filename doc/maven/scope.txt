@@ -1,0 +1,14 @@
+<scope>test</scope>
+实际项目打包的时候没有这个jar包
+
+<scope>compile</scope>
+(默认)实际项目打包的时候有这个jar包
+
+<scope>provided</scope>
+已提供,告诉maven这个jar包未来在我的服务器中有,
+不需要它打包放在项目中,
+实际项目打包的时候,lib文件夹里面maven导入的provided包没有
+
+<scope>system</scope>
+类似provided (不会打包到项目中),
+结合<systemPath>指定jar路径

@@ -1,0 +1,57 @@
+<!--方式1：dependency 本地jar包-->
+<dependency>
+    <groupId>com.jouypub</groupId> <!--自定义-->
+    <artifactId>cloud</artifactId>  <!--自定义-->
+    <version>1.0</version> <!--自定义-->
+    <scope>system</scope> <!--system，类似provided，需要显式提供依赖的jar以后，Maven就不会在Repository中查找它-->
+    <systemPath>${basedir}/lib/cloud.jar</systemPath> <!--项目根目录下的lib文件夹下，也可以是本机其它目录的绝对路径-->
+</dependency>
+
+
+    <!--方式2：编译阶段指定外部lib-->
+<build>
+<plugins>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+            <target>1.8</target>
+            <source>1.8</source>
+            <compilerArguments>
+                <extdirs>C:\ideaPorject\framework_upgrade\AceDemoWeb\WebContent\WEB-INF\lib\icefaces-ee-ace.jar
+                </extdirs>
+                <extdirs>C:\Program Files\IBM\WebSphere\AppServer\lib</extdirs>
+                <extdirs>C:\Program Files\IBM\WebSphere\AppServer\plugins</extdirs>
+                <extdirs>lib</extdirs><!--指定外部lib-->
+            </compilerArguments>
+        </configuration>
+    </plugin>
+</plugins>
+</build>
+
+    <!--
+        方式3：将外部jar打入本地maven仓库
+        cmd 进入jar包所在路径，执行以下命令 引入依赖
+        mvn install:install-file -Dfile=cloud.jar -DgroupId=com.hope.cloud -DartifactId=cloud -Dversion=1.0 -Dpackaging=jar
+
+    mvn install:install-file \
+   -Dfile=<path-to-file> \
+   -DgroupId=<group-id> \
+   -DartifactId=<artifact-id> \
+   -Dversion=<version> \
+   -Dpackaging=<packaging> \
+   -DgeneratePom=true
+
+
+    <path-to-file>: the path to the file to load e.g → c:\kaptcha-2.3.jar
+    <group-id>: the group that the file should be registered under e.g → com.google.code
+    <artifact-id>: the artifact name for the file e.g → kaptcha
+    <version>: the version of the file e.g → 2.3
+    <packaging>: the packaging of the file e.g. → jar
+    -->
+<dependency>
+<groupId>com.hope.cloud</groupId>
+<artifactId>cloud</artifactId>
+<version>1.0</version>
+</dependency>
