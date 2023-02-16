@@ -51,7 +51,7 @@
     <packaging>: the packaging of the file e.g. → jar
     -->
 <dependency>
-<groupId>com.hope.cloud</groupId>
-<artifactId>cloud</artifactId>
-<version>1.0</version>
+    <groupId>com.hope.cloud</groupId>
+    <artifactId>cloud</artifactId>
+    <version>1.0</version>
 </dependency>

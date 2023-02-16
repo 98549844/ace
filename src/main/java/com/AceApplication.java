@@ -16,6 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.IOException;
@@ -38,6 +39,7 @@ import java.util.Map;
 @EnableCaching
 @EnableFeignClients
 @EnableJpaAuditing //for baseEntity using
+//@EnableJpaRepositories(basePackages = "com.dao")
 public class AceApplication {
     private static final Logger log = LogManager.getLogger(AceApplication.class.getName());
     public static ApplicationContext applicationContext;
