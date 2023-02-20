@@ -19,7 +19,7 @@ import java.io.IOException;
 
 
 public class Interceptor implements HandlerInterceptor {
-    private static Logger log = LogManager.getLogger(Interceptor.class.getName());
+    private static final Logger log = LogManager.getLogger(Interceptor.class.getName());
 
 
     // @Override
