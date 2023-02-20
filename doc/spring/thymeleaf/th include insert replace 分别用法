@@ -1,0 +1,19 @@
+子页面 footer.html
+<span th:fragment="copy">Footer Text</span>
+
+在页面中使用三种方式插入模板片段:
+<div th:insert="~{footer.html::copy}"></div>
+<div th:replace="~{footer.html::copy}"></div>
+<div th:include="~{footer.html::copy}"></div>
+
+
+<div><span>Footer Text</span></div>
+<span>Footer Text</span>
+<div>Footer Text</div>
+
+-------------------------------------------------------------------------------
+
+因此:
+th:insert会将选择到的span节点插入到div中;
+th:replace会将原来的div节点替换为span节点;
+th:include会将span节点的内容(包括子节点)插入到div中.
