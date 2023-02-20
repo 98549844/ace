@@ -5,19 +5,17 @@ import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
 import com.constant.Css;
 import com.models.entity.Users;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.security.Key;
-
 public class CommonController {
-    private Log log = LogFactory.getLog(this.getClass());
+    private final Log log = LogFactory.getLog(this.getClass());
 
     /**
      * Request对象(存在于用户的每个请求)
@@ -143,7 +141,7 @@ public class CommonController {
 
     protected void setUsersSession(Users users) {
         StpUtil.getSession().set("user", users);
-        setHttpSession("user", users);
+       // setHttpSession("user", users); // springboot3 set不进去, 有问题未解决
     }
 
     protected void setSession(String key, Object object) {
@@ -222,7 +220,8 @@ public class CommonController {
     }
 
     protected boolean isLogin() {
-        return StpUtil.isLogin();
+        boolean isLogin = StpUtil.isLogin();
+        return isLogin;
     }
 
 }

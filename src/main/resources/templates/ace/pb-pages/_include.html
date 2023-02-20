@@ -5,28 +5,35 @@
 
 顶部
 th:include="templates/ace/pb-pages/header :: header"
+th:insert="~{templates/ace/pb-pages/header :: header}"  =>新版
 
 头部菜单
 id="navbar"
 th:include="templates/ace/pb-pages/navbar :: navbar"
+th:insert="~{templates/ace/pb-pages/navbar :: navbar}" =>新版
 
 左菜单
 id="sidebar"
 th:include="templates/ace/pb-pages/sidebar :: sidebar"
+th:insert="~{templates/ace/pb-pages/sidebar :: sidebar}" =>新版
 
 右设置器
 id="ace-settings-container"
 th:include="templates/ace/pb-pages/ace-settings-container :: ace-settings-container"
+th:insert="~{templates/ace/pb-pages/ace-settings-container :: ace-settings-container}" =>新版
 
 注脚
 class="footer"
 th:include="templates/ace/pb-pages/footer :: footer"
+th:insert="~{templates/ace/pb-pages/footer :: footer}" =>新版
 
 回顶部键
 id="btn-scroll-up"
 th:include="templates/ace/pb-pages/btn-scroll-up :: btn-scroll-up"
+th:insert="~{templates/ace/pb-pages/btn-scroll-up :: btn-scroll-up}" =>新版
 
 通用script
 <!-- ace scripts -->
 th:include="templates/ace/pb-pages/common-script :: common-script"
+th:insert="~{templates/ace/pb-pages/common-script :: common-script}" =>新版
 

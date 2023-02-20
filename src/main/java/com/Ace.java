@@ -1,16 +1,17 @@
 package com;
 
-import com.util.FileUtil;
-import com.util.PathUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.util.StringUtil;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+//import jakarta.servlet.SessionCookieConfig;
+import javax.servlet.SessionCookieConfig;
+
 
 /**
  * @Classname: Ace
@@ -25,7 +26,6 @@ public class Ace {
 
     public static void main(String[] args) throws IOException {
 
-        System.out.println(PathUtil.getSystemPath());
 
     }
 
@@ -106,16 +106,16 @@ public class Ace {
         return true;
     }
 
-    private static boolean processMp4(String inputPath, String oldfilepath, String ffmpegPath, String outputPath, String fileName) {
+    private static boolean processMp4(String inputPath, String oldFilePath, String ffmpegPath, String outputPath, String fileName) {
 
         if (!checkfile(inputPath)) {
-            log.error(oldfilepath + " is not file");
+            log.error(oldFilePath + " is not file");
             return false;
         }
         List<String> command = new ArrayList<String>();
         command.add(ffmpegPath + "ffmpeg");
         command.add("-i");
-        command.add(oldfilepath);
+        command.add(oldFilePath);
         command.add("-c:v");
         command.add("libx264");
         command.add("-mbd");

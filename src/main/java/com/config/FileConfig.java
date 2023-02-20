@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.unit.DataSize;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.servlet.MultipartConfigElement;
+import jakarta.servlet.MultipartConfigElement;
 
 /**
  * @Classname: FileConfig

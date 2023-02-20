@@ -25,7 +25,7 @@ import java.util.*;
 @RequestMapping("/rest/gallery")
 @Api(tags = "gallery")
 public class GalleryRestController {
-    private static final Logger log = LogManager.getLogger(ApiRestController.class.getName());
+    private static final Logger log = LogManager.getLogger(GalleryRestController.class.getName());
 
     private static final HashMap<String, String> errorInfo = new HashMap<String, String>();
 

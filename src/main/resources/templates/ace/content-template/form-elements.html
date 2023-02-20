@@ -26,7 +26,7 @@
     </div>
 
     <div class="page-content">
-        <div class="ace-settings-container" id="ace-settings-container" th:include="templates/ace/pb-pages/ace-settings-container :: ace-settings-container">
+        <div class="ace-settings-container" id="ace-settings-container" th:insert="~{templates/ace/pb-pages/ace-settings-container :: ace-settings-container}">
         </div><!-- /.ace-settings-container -->
 
         <div class="page-header">
@@ -1407,30 +1407,30 @@
 
 <!--
 顶部
-th:include="templates/ace/pb-pages/header :: header"
+th:insert="~{templates/ace/pb-pages/header :: header"
 
 头部菜单
 id="navbar"
-th:include="templates/ace/pb-pages/navbar :: navbar"
+th:insert="~{templates/ace/pb-pages/navbar :: navbar"
 
 左菜单
 id="sidebar"
-th:include="templates/ace/pb-pages/sidebar :: sidebar"
+th:insert="~{templates/ace/pb-pages/sidebar :: sidebar"
 
 右设置器
 id="ace-settings-container"
-th:include="templates/ace/pb-pages/ace-settings-container :: ace-settings-container"
+th:insert="~{templates/ace/pb-pages/ace-settings-container :: ace-settings-container"
 
 注脚
 class="footer"
-th:include="templates/ace/pb-pages/footer :: footer"
+th:insert="~{templates/ace/pb-pages/footer :: footer"
 
 回顶部键
 id="btn-scroll-up"
-th:include="templates/ace/pb-pages/btn-scroll-up :: btn-scroll-up"
+th:insert="~{templates/ace/pb-pages/btn-scroll-up :: btn-scroll-up"
 
 通用script
 &lt;!&ndash; ace scripts &ndash;&gt;
-th:include="templates/ace/pb-pages/common-script :: common-script"
+th:insert="~{templates/ace/pb-pages/common-script :: common-script"
 -->
 

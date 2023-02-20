@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="ace/pb-pages/header :: header">
+<head th:insert="~{ace/pb-pages/header :: header}">
 </head>
 
 <body class="no-skin">
@@ -1063,7 +1063,7 @@
     </a>
 </div><!-- /.main-container -->
 
-<div th:include="ace/pb-pages/common-script :: common-script"></div>
+<div th:insert="~{ace/pb-pages/common-script :: common-script}"></div>
 <!-- page specific plugin scripts -->
 
 <!-- inline scripts related to this page -->

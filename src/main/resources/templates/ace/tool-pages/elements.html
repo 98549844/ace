@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="ace/pb-pages/header :: header">
+<head th:insert="~{ace/pb-pages/header :: header}">
 
 
 </head>
 
 <body class="no-skin">
 <div id="navbar" class="navbar navbar-default ace-save-state"
-     th:include="templates/ace/pb-pages/navbar :: navbar"></div>
+     th:insert="~{templates/ace/pb-pages/navbar :: navbar}"></div>
 
 <div class="main-container ace-save-state" id="main-container">
     <script type="text/javascript">
@@ -17,7 +17,7 @@
         }
     </script>
 
-    <div id="sidebar" class="sidebar responsive ace-save-state" th:include="templates/ace/pb-pages/sidebar :: sidebar">
+    <div id="sidebar" class="sidebar responsive ace-save-state" th:insert="~{templates/ace/pb-pages/sidebar :: sidebar}">
     </div>
 
     <div class="main-content">
@@ -48,7 +48,7 @@
 
             <div class="page-content">
                 <div class="ace-settings-container" id="ace-settings-container"
-                     th:include="templates/ace/pb-pages/ace-settings-container :: ace-settings-container">
+                     th:insert="~{templates/ace/pb-pages/ace-settings-container :: ace-settings-container}">
                 </div><!-- /.ace-settings-container -->
 
                 <div class="row">
@@ -961,15 +961,15 @@
         </div>
     </div><!-- /.main-content -->
 
-    <div class="footer" th:include="templates/ace/pb-pages/footer :: footer">
+    <div class="footer" th:insert="~{templates/ace/pb-pages/footer :: footer}">
     </div>
 
     <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse"
-       th:include="templates/ace/pb-pages/btn-scroll-up :: btn-scroll-up">
+       th:insert="~{templates/ace/pb-pages/btn-scroll-up :: btn-scroll-up}">
     </a>
 </div><!-- /.main-container -->
 
-<div th:include="ace/pb-pages/common-script :: common-script"></div>
+<div th:insert="~{ace/pb-pages/common-script :: common-script}"></div>
 
 <!-- inline scripts related to this page -->
 </body>

@@ -27,7 +27,6 @@ import java.time.LocalDateTime;
  */
 
 @Controller
-//@RequestMapping("/ace")
 public class LoginController extends CommonController {
     private static final Logger log = LogManager.getLogger(LoginController.class.getName());
 
