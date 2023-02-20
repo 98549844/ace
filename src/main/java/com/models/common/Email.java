@@ -17,9 +17,9 @@ public class Email {
 
     private String from;
     @NotNull
-    private String to;
+    private String to = "";
     @NotNull
-    private String subject;
+    private String subject = "";
     private StringBuffer content;
     private String cc;
     private String bcc;
@@ -32,14 +32,6 @@ public class Email {
 
     public void setAttachmentsPath(String attachmentsPath) {
         this.attachmentsPath = attachmentsPath;
-    }
-
-    public static Logger getLog() {
-        return log;
-    }
-
-    public static void setLog(Logger log) {
-        Email.log = log;
     }
 
     public String getFrom() {
