@@ -8,14 +8,15 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 
-@SuppressWarnings("JpaDataSourceORMInspection")
+//@SuppressWarnings("JpaDataSourceORMInspection")
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "product")
 @Entity
 public class Product extends BaseEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(strategy = "identity", name = "id")
     private Long id;
     @Column

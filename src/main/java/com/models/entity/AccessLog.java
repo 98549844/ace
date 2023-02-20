@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 @Entity
 public class AccessLog extends BaseEntity implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(strategy = "identity", name = "id")
     @Column(name = "logId")
     private Long logId;
