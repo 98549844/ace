@@ -1,0 +1,2 @@
+https://blog.csdn.net/zy_jun/article/details/128201860
+GraalVM + Springboot3 + IDEA 在widow10 上完成构建本地化服务
