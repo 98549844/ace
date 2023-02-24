@@ -5,7 +5,8 @@ import com.models.entity.Columns;
 import com.models.entity.Users;
 import com.service.DataBaseService;
 import com.service.UsersService;
-import io.swagger.annotations.Api;
+import com.util.EasyExcelUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.util.EasyExcelUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/easyExcel")
-@Api(tags = "easyExcel")
+//@Api(tags = "easyExcel")
+@Tag(name = "Excel")
 public class ExcelRestController {
     private static final Logger log = LogManager.getLogger(ExcelRestController.class.getName());
 

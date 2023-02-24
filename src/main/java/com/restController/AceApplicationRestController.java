@@ -3,7 +3,7 @@ package com.restController;
 import com.models.common.AjaxResponse;
 import com.models.entity.Users;
 import com.service.UsersService;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/AceApplication")
-@Api(tags = "AceApplication")
+@Tag(name = "AceApplication")
 public class AceApplicationRestController {
     private static final Logger log = LogManager.getLogger(AceApplicationRestController.class.getName());
 

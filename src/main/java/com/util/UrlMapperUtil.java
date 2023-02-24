@@ -1,7 +1,5 @@
 package com.util;
 
-import com.AceApplication;
-import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeansException;
@@ -16,7 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/** 扫瞄项目里已经mapped的url
+/**
+ * 扫瞄项目里已经mapped的url
  *
  * @Classname: UrlMapperUtil
  * @Date: 2023/1/13 上午 09:48
@@ -30,11 +29,11 @@ public class UrlMapperUtil implements ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         Map<String, Object> controllerBeans = applicationContext.getBeansWithAnnotation(Controller.class);
-       // Map<String, Object> restControllerBeans = applicationContext.getBeansWithAnnotation(RestController.class);
+        // Map<String, Object> restControllerBeans = applicationContext.getBeansWithAnnotation(RestController.class);
 
         List<String> list = new ArrayList<>();
         list.addAll(getUrl(controllerBeans, applicationContext));
-       // list.addAll(getUrl(restControllerBeans, applicationContext));
+        // list.addAll(getUrl(restControllerBeans, applicationContext));
 
     }
 
@@ -51,12 +50,12 @@ public class UrlMapperUtil implements ApplicationContextAware {
             Method[] methods = value.getClass().getMethods();
             for (Method method : methods) {
                 //每个方法必定含有下面的注解中的其中一个
-                ApiOperation apiOperation = AnnotationUtils.findAnnotation(method, ApiOperation.class);
                 String url;
+                /*ApiOperation apiOperation = AnnotationUtils.findAnnotation(method, ApiOperation.class);
                 String desc = "";
                 if (apiOperation != null) {
                     desc = apiOperation.value();
-                }
+                }*/
                 RequestMapping mapping = AnnotationUtils.findAnnotation(method, RequestMapping.class);
                 PostMapping postMapping = AnnotationUtils.findAnnotation(method, PostMapping.class);
                 GetMapping getMapping = AnnotationUtils.findAnnotation(method, GetMapping.class);

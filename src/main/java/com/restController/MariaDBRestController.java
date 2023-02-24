@@ -7,7 +7,7 @@ import com.models.entity.Columns;
 import com.models.entity.Users;
 import com.service.DataBaseService;
 import com.service.UsersService;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/mariadb")
-@Api(tags = "mariadb")
+//@Api(tags = "mariadb")
+@Tag(name = "MariaDB")
 public class MariaDBRestController {
     private final static Logger log = LogManager.getLogger(MariaDBRestController.class.getName());
 

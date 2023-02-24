@@ -116,7 +116,8 @@ public class SaTokenConfig implements WebMvcConfigurer {
                         "/csrf",
                         "/webjars/**",
                         "/swagger-resources/**",
-                        "/v2/**")
+                        "/v2/**",
+                        "/v3/**")
                 .addPathPatterns("/**");
     }
 

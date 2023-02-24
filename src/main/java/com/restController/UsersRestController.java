@@ -1,15 +1,15 @@
 package com.restController;
 
 import com.controller.common.CommonController;
+import com.generator.InsertUsers;
 import com.models.common.AjaxResponse;
 import com.models.entity.UserRoles;
 import com.models.entity.Users;
-import com.generator.InsertUsers;
 import com.service.UserRolesService;
 import com.service.UsersService;
 import com.util.RandomUtil;
 import com.util.TypeUtil;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/users")
-@Api(tags = "users")
+//@Api(tags = "users")
+@Tag(name = "Users")
 public class UsersRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(UsersRestController.class.getName());
 

@@ -2,16 +2,13 @@ package com.restController;
 
 import com.models.common.AjaxResponse;
 import com.util.OsUtil;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Classname: UtilitiesRestController
@@ -22,7 +19,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/utilities")
-@Api(tags = "utilities")
+//@Api(tags = "utilities")
+@Tag(name = "Utilities")
 @EnableConfigurationProperties
 public class UtilitiesRestController {
     private static final Logger log = LogManager.getLogger(UtilitiesRestController.class.getName());

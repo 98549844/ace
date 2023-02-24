@@ -63,6 +63,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>8.0.0.Final</version>
+        </dependency>
         <!-- springboot 内建版本-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -206,18 +211,18 @@
         </dependency>-->
 
         <!--springboot2版本-->
-        <dependency>
+        <!--<dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
             <version>3.0.3</version>
-        </dependency>
+        </dependency>-->
 
-        <!--springboot3版本-->
-        <!--<dependency>
+        <!--springboot3版本 openApi3-->
+        <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
             <version>4.0.0</version>
-        </dependency>-->
+        </dependency>
 
         <!--<dependency>
             <groupId>org.springdoc</groupId>
@@ -323,8 +328,6 @@
             <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
             <version>1.16</version>
         </dependency>
-
-
     </dependencies>
 
 
@@ -429,6 +432,20 @@
                 </configuration>
             </plugin>-->
         </plugins>
+        <!--未解决-debug -parameter warning 问题-->
+   <!-- <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.10.1</version>
+                    <configuration>
+                        <compilerArgs>
+                            <arg>-parameters</arg>
+                        </compilerArgs>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>-->
     </build>
     <repositories>
         <repository>

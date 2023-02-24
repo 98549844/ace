@@ -1,23 +1,22 @@
 package com.restController;
 
+import com.controller.common.CommonController;
 import com.models.common.AjaxResponse;
 import com.models.entity.*;
 import com.service.*;
-import io.swagger.annotations.Api;
+import com.util.MapUtil;
+import com.util.NullUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.controller.common.CommonController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.util.MapUtil;
-import com.util.NullUtil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +30,8 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/rest/userRolePermission")
-@Api(tags = "userRolePermission")
+//@Api(tags = "userRolePermission")
+@Tag(name = "UserRolePermission")
 public class UserRolePermissionRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(UserRolePermissionRestController.class.getName());
 

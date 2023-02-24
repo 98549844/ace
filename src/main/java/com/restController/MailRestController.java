@@ -1,19 +1,22 @@
 package com.restController;
 
 import com.models.common.Email;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.mail.internet.MimeMessage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.mail.internet.MimeMessage;
 import java.io.File;
 
 
@@ -26,7 +29,8 @@ import java.io.File;
 
 @RestController
 @RequestMapping("/rest")
-@Api(tags = {"mail"})
+//@Api(tags = {"mail"})
+@Tag(name = "Mail")
 public class MailRestController {
     private static final Logger log = LogManager.getLogger(MailRestController.class.getName());
 
@@ -40,7 +44,8 @@ public class MailRestController {
         this.javaMailSender = javaMailSender;
     }
 
-    @ApiOperation(value = "Sample mail")
+//    @ApiOperation(value = "Sample mail")
+    @Operation(summary = "Sample mail")
     @PostMapping("/mail.html")
     public String sendEmail(@RequestBody Email email) {
         try {
@@ -58,8 +63,9 @@ public class MailRestController {
     }
 
 
+//    @ApiOperation(value = "HTML mail")
     @PostMapping("/htmlEmail.html")
-    @ApiOperation(value = "HTML mail")
+    @Operation(summary = "Html mail")
     public String sendHtmlEmail(@RequestBody Email email) {
         MimeMessage message = null;
         try {
@@ -81,7 +87,8 @@ public class MailRestController {
 
 
     @PostMapping("/mailWithAttachments.html")
-    @ApiOperation(value = "Mail with attachments")
+//    @ApiOperation(value = "Mail with attachments")
+    @Operation(summary = "Mail with attachments")
     public String sendAttachmentsMail(@RequestBody Email email) {
         MimeMessage message = null;
         try {

@@ -5,7 +5,7 @@ package com.restController;
 import com.constant.AceEnvironment;
 import com.service.FilesService;
 import com.util.NullUtil;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
 
 
 //https://blog.csdn.net/qq_35416214/article/details/106231487
@@ -23,7 +24,8 @@ import java.util.*;
 //https://blog.csdn.net/qq_38762237/article/details/81282444
 @RestController
 @RequestMapping("/rest/gallery")
-@Api(tags = "gallery")
+//@Api(tags = "gallery")
+@Tag(name = "Gallery")
 public class GalleryRestController {
     private static final Logger log = LogManager.getLogger(GalleryRestController.class.getName());
 

@@ -1,14 +1,17 @@
 package com.restController;
 
+import com.controller.common.CommonController;
 import com.exception.ResponseException;
 import com.exception.ResponseExceptionType;
 import com.models.common.AjaxResponse;
-import io.swagger.annotations.Api;
+import com.util.NullUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.controller.common.CommonController;
-import org.springframework.web.bind.annotation.*;
-import com.util.NullUtil;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
@@ -20,7 +23,8 @@ import com.util.NullUtil;
 
 @RestController
 @RequestMapping("/rest/ajaxResponse")
-@Api(tags = "ajaxResponse")
+//@Api(tags = "ajaxResponse")
+@Tag(name = "AjaxResponse")
 public class AjaxResponseRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(AjaxResponseRestController.class.getName());
 

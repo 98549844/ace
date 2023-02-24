@@ -1,13 +1,13 @@
 package com.restController;
 
-import com.generator.insertRoles;
 import com.controller.common.CommonController;
+import com.generator.insertRoles;
 import com.models.common.AjaxResponse;
 import com.models.entity.Roles;
 import com.models.entity.Users;
 import com.service.RolesService;
 import com.service.UsersService;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/roles")
-@Api(tags = "roles")
+//@Api(tags = "roles")
+@Tag(name = "Roles")
 public class RolesRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(RolesRestController.class.getName());
 

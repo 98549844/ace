@@ -43,7 +43,6 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
-
 spring:
   devtools:
     livereload:
@@ -163,19 +162,19 @@ spring:
         #use_sql_comments: true
         #对应的entity
 
-#  redis:
-#    # Redis服务器地址
-#    host: localhost
-#    # Redis服务器连接端口
-#    port: 6379
-#
-#  rabbitmq:
-#    #producer
-#    addresses: 192.168.31.131:5672
-#    connection-timeout: 15000
-#    username: garlam
-#    password: garlamau
-#    virtual-host:
+    #  redis:
+    #    # Redis服务器地址
+    #    host: localhost
+    #    # Redis服务器连接端口
+    #    port: 6379
+    #
+    #  rabbitmq:
+    #    #producer
+    #    addresses: 192.168.31.131:5672
+    #    connection-timeout: 15000
+    #    username: garlam
+    #    password: garlamau
+    #    virtual-host:
 
     #自定义springboot banner
     #  main:
@@ -214,3 +213,11 @@ spring:
     #password: guest
     #username: guest
     #virtual-host: /
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+  packages-to-scan: com.restController
+

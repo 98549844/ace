@@ -1,11 +1,11 @@
 package com.restController;
 
+import com.controller.common.CommonController;
 import com.models.common.AjaxResponse;
 import com.models.entity.Users;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.controller.common.CommonController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rest/exception")
-@Api(tags = "exception")
+//@Api(tags = "exception")
+@Tag(name = "Exception")
 public class ExceptionRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(ExceptionRestController.class.getName());
 

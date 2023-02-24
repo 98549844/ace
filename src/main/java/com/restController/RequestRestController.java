@@ -1,7 +1,7 @@
 package com.restController;
 
 import com.models.common.AjaxResponse;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @RestController
 @RequestMapping("/rest/request")
-@Api(tags = "request")
+//@Api(tags = "request")
+@Tag(name = "Request")
 public class RequestRestController {
     private static final Logger log = LogManager.getLogger(RequestRestController.class.getName());
 

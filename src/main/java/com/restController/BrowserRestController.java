@@ -1,15 +1,13 @@
 package com.restController;
 
-import com.config.BrowserConfig;
 import com.util.Console;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rest/browser")
-@Api(tags = "browser")
+//@Api(tags = "browser")
+@Tag(name = "Browser")
 public class BrowserRestController {
     private static final Logger log = LogManager.getLogger(BrowserRestController.class.getName());
 

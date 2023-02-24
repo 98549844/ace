@@ -1,8 +1,6 @@
 package com.restController;
 
 import cn.dev33.satoken.SaManager;
-//sa-taken version 1.29.0
-//import cn.dev33.satoken.action.SaTokenAction;
 import cn.dev33.satoken.config.SaTokenConfig;
 import cn.dev33.satoken.context.SaTokenContext;
 import cn.dev33.satoken.dao.SaTokenDao;
@@ -13,7 +11,8 @@ import com.controller.common.CommonController;
 import com.models.common.AjaxResponse;
 import com.models.entity.Users;
 import com.service.UsersService;
-import io.swagger.annotations.Api;
+import com.util.NullUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
-import com.util.NullUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +36,8 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/rest/saToken")
-@Api(tags = "saToken")
+//@Api(tags = "saToken")
+@Tag(name = "SaTaken")
 public class SaTakenRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(SaTakenRestController.class.getName());
     private final UsersService usersService;

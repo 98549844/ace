@@ -2,7 +2,7 @@ package com.restController;
 
 import com.models.entity.Menu;
 import com.service.MenuService;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/menu")
-@Api(tags = "menu")
+//@Api(tags = "menu")
+@Tag(name = "Menu")
 public class MenuRestController {
 	private final static Logger log = LogManager.getLogger(MenuRestController.class.getName());
 

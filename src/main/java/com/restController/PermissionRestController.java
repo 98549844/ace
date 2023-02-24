@@ -1,5 +1,6 @@
 package com.restController;
 
+import com.controller.common.CommonController;
 import com.generator.insertPermissions;
 import com.models.common.AjaxResponse;
 import com.models.entity.Permissions;
@@ -7,10 +8,9 @@ import com.models.entity.Users;
 import com.service.PermissionsService;
 import com.service.RolesService;
 import com.service.UsersService;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.controller.common.CommonController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +29,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/permission")
-@Api(tags = "permission")
+//@Api(tags = "permission")
+@Tag(name = "Permission")
 public class PermissionRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(PermissionRestController.class.getName());
 

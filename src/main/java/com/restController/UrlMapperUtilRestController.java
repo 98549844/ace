@@ -2,7 +2,7 @@ package com.restController;
 
 import com.models.common.AjaxResponse;
 import com.util.UrlMapperUtil;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +11,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Classname: UrlMapperUtilRestController
@@ -24,7 +21,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/url")
-@Api(tags = "Url Mapping")
+//@Api(tags = "Url Mapping")
+@Tag(name = "UrlMapperUtil")
 @EnableConfigurationProperties
 public class UrlMapperUtilRestController {
     private static final Logger log = LogManager.getLogger(UrlMapperUtilRestController.class.getName());
