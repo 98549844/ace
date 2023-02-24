@@ -204,11 +204,31 @@
             &lt;!&ndash;在引用时请在maven中央仓库搜索2.X最新版本号&ndash;&gt;
             <version>2.0.9</version>
         </dependency>-->
+
+        <!--springboot2版本-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
             <version>3.0.3</version>
         </dependency>
+
+        <!--springboot3版本-->
+        <!--<dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>4.0.0</version>
+        </dependency>-->
+
+        <!--<dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.14</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
+            <version>4.0.0</version>
+        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
