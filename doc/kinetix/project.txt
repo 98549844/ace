@@ -1,4 +1,5 @@
 Professional Service for upgrade of MPFA => Maintenance Services for PRHAS 22/23 (2月份填6日, 其他用旧code)
 
-eApplication Submission Portal => Maintenance and Support Service of  MPFA Web Application Technical Framework (2022-2024)
-                                  Maintenance Support Service of the eApplication Submission Platform for MPF Products (eAS) 2023
+eApplication Submission Portal =>
+Maintenance and Support Service of MPFA Web Application Technical Framework (2022-2024) -> SM&S Support month 13 -> SMS-202302
+Maintenance Support Service of the eApplication Submission Platform for MPF Products (eAS) 2023
