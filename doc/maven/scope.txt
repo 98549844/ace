@@ -10,5 +10,5 @@
 实际项目打包的时候,lib文件夹里面maven导入的provided包没有
 
 <scope>system</scope>
-类似provided (不会打包到项目中),
 结合<systemPath>指定jar路径
+类似provided (不会打包到项目中),
