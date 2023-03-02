@@ -28,13 +28,13 @@ public class DBConnectionConfig extends CommonController {
 
     //yml有local和remote remote datasource
     //启动时因为两个datasource用相同的实例, 所以报错
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource")
+    //@Bean
+    //@ConfigurationProperties(prefix = "spring.datasource")
     public DataSource datasource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean
+    //@Bean
     public SqlSessionFactory sqlSessionFactory(DataSource datasource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(datasource);
@@ -55,13 +55,13 @@ public class DBConnectionConfig extends CommonController {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.remote")
+    //@Bean
+    //@ConfigurationProperties(prefix = "spring.datasource.remote")
     public DataSource remoteDatasource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean
+    //@Bean
     public SqlSessionFactory remoteSqlSessionFactory(DataSource remoteDatasource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(remoteDatasource);
