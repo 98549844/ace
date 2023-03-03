@@ -6,7 +6,7 @@ EXPOSE 8088
 # 暴露端口 与配置文件对应
 ENTRYPOINT ["java","-jar","ace.jar","--spring.profiles.active=docker"]
 # 激活名为 appliction-docker.yml 或 appliction-docker.properties 的配置
-#java -jar ace-1.2.jar --spring.profiles.active=uat
+#java -jar ace-3.0.jar --spring.profiles.active=dev
 
 
 
