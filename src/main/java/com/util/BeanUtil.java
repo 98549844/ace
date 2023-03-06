@@ -57,7 +57,7 @@ public class BeanUtil implements ApplicationContextAware {
      */
     public <T> T copy(Object source, Class<T> target) {
         try {
-            T newInstance = target.newInstance();
+            T newInstance = target.getDeclaredConstructor().newInstance();
             BeanUtils.copyProperties(source, newInstance);
             return newInstance;
         } catch (Exception e) {
