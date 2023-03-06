@@ -1,29 +1,31 @@
+<!--
 List<String> getAccGroupsByAccessRight
     (@Param("applId") String applId,
     @Param("className") String className,
     @Param("accessRights") List<String> accessRights);
+-->
 
 
 
-        <select id="getAccGroupsByAccessRight" resultType="java.lang.String" parameterType="java.util.HashMap">
-            select b.FAG_ACC_GRP_ID
-            from R_FNC_FUNCTION a
-            , R_FNC_FUNCTION c
-            , R_FAG_FUNCTION_ACC_GRP b
-            where a.FNC_APPL_ID = #{applId,jdbcType=VARCHAR}
-            and a.FNC_PROG_CLASS = #{className,jdbcType=VARCHAR}
-            and a.FNC_FUNC_TYP = 'PROG'
-            and c.FNC_PARENT_FUNC_ID = a.FNC_FUNC_ID
-            and c.FNC_FUNC_TYP = 'ACTION'
-            and b.FAG_APPL_ID = c.FNC_APPL_ID
-            and b.FAG_PARENT_FUNC_ID = c.FNC_PARENT_FUNC_ID
-            and b.FAG_FUNC_ID = c.FNC_FUNC_ID
-            <if test="accessRights != null and accessRights.size() !=0">
+<select id="getAccGroupsByAccessRight" resultType="java.lang.String" parameterType="java.util.HashMap">
+    select b.FAG_ACC_GRP_ID
+    from R_FNC_FUNCTION a
+    , R_FNC_FUNCTION c
+    , R_FAG_FUNCTION_ACC_GRP b
+    where a.FNC_APPL_ID = #{applId,jdbcType=VARCHAR}
+    and a.FNC_PROG_CLASS = #{className,jdbcType=VARCHAR}
+    and a.FNC_FUNC_TYP = 'PROG'
+    and c.FNC_PARENT_FUNC_ID = a.FNC_FUNC_ID
+    and c.FNC_FUNC_TYP = 'ACTION'
+    and b.FAG_APPL_ID = c.FNC_APPL_ID
+    and b.FAG_PARENT_FUNC_ID = c.FNC_PARENT_FUNC_ID
+    and b.FAG_FUNC_ID = c.FNC_FUNC_ID
+    <if test="accessRights != null and accessRights.size() !=0">
 
-                AND
-                <foreach item="item" index="index" collection="accessRights" open="(" separator="or" close=")">
-                    C.FNC_FUNC_ID LIKE concat('%',#{item,jdbcType=VARCHAR})
-                </foreach>
+        AND
+        <foreach item="item" index="index" collection="accessRights" open="(" separator="or" close=")">
+            C.FNC_FUNC_ID LIKE concat('%',#{item,jdbcType=VARCHAR})
+        </foreach>
 
-            </if>
-        </select>
+    </if>
+</select>
