@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 //import jakarta.servlet.SessionCookieConfig;
-import javax.servlet.SessionCookieConfig;
 
 
 /**
@@ -140,9 +139,9 @@ public class Ace {
             // 方案2
             Process videoProcess = new ProcessBuilder(command).redirectErrorStream(true).start();
 
-            new PrintStream(videoProcess.getErrorStream()).start();
+           // new PrintStream(videoProcess.getErrorStream()).start();
 
-            new PrintStream(videoProcess.getInputStream()).start();
+           // new PrintStream(videoProcess.getInputStream()).start();
 
             videoProcess.waitFor();
 
@@ -154,19 +153,19 @@ public class Ace {
     }
 }
 
-class PrintStream extends Thread {
-    java.io.InputStream __is = null;
+/*class PrintStream extends Thread {
+    java.io.InputStream IS = null;
 
     public PrintStream(java.io.InputStream is) {
-        __is = is;
+        IS = is;
     }
 
     @Override
     public void run() {
         try {
-            while (this != null) {
-                int _ch = __is.read();
-                if (_ch != -1) {
+            while (true) {
+                int ch = IS.read();
+                if (ch != -1) {
 //                    System.out.print((char) _ch);
                 } else {
                     break;
@@ -177,6 +176,6 @@ class PrintStream extends Thread {
         }
     }
 
-}
+}*/
 
 
