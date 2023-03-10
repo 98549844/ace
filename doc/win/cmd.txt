@@ -1,0 +1,59 @@
+常用语法(cmd命令)
+HELP [command]
+    command - 显示该命令的帮助信息.
+
+
+目录操作
+cd              显示当前目录名或改变当前目录.
+md              创建目录.
+rd              删除一个目录.
+dir             显示目录中的文件和子目录列表.
+tree            以图形显示驱动器或路径的文件夹结构.
+
+
+文件操作
+type            显示文本文件的内容.
+copy            将一份或多份文件复制到另一个位置.
+del             删除一个或数个文件.
+move            移动文件并重命名文件和目录.(Windows XP Home Edition中没有)
+ren             重命名文件.
+replace         替换文件.
+attrib          显示或更改文件属性.
+find            搜索字符串.
+fc              比较两个文件或两个文件集并显示它们之间的不同
+
+网网操作
+ping            进行网络连接测试,名称解析
+ftp             文件传输
+net             网络命令集及用户管理
+telnet          远程登陆
+ipconfig        显示,修改TCP/IP设置
+msg             给用户发送消息
+arp             显示,修改局域网的IP地址-物理地址映射列表
+
+
+系统操作
+at              安排在特定日期和时间运行命令和程序
+shutdown        立即或定时关机或重启
+tskill          结束进程
+taskkill        结束进程(比tskill高级，但WinXPHome版中无该命令)
+tasklist        显示进程列表(Windows XP Home Edition中没有)
+sc              系统服务设置与控制
+reg             注册表控制台工具
+powercfg        控制系统上的电源设置
+
+
+其他命令介绍
+echo           显示消息，或将命令回显打开或关闭.
+rem            记录批处理文件或 CONFIG.SYS 中的注释(批注).
+pause          暂停批处理文件的处理并显示消息.
+call           从另一个批处理程序调用这一个.
+start          启动单独的窗口以运行指定的程序或命令.
+goto           将 Windows 命令解释程序定向到批处理程序中某个带标签的行.
+set            显示,设置或删除 Windows 环境变量.
+
+
+
+
+
+

@@ -1,0 +1,4 @@
+cmd
+
+cd xxx/xxx/xxx/java/bin
+javac xxx/xxx/application.java
