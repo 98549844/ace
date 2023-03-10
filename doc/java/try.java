@@ -12,7 +12,7 @@ public class Ace {
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         try {
             System.out.println("do something...");
-            fileOutputStream.write("aaa".getBytes());
+            fileOutputStream.write("abc".getBytes());
             fileOutputStream.flush();
         } catch (Exception e) {
             System.out.println("do ...");
@@ -24,7 +24,7 @@ public class Ace {
 
     //这样写很难受,可以进行优化,
     //将FileOutputStream fileOutputStream = new FileOutputStream(file)放到try()里面,也可以放多个
-    public void try12() throws IOException {
+    public void try2() throws IOException {
         File file = new File("E://test");
         if (!file.exists()) {
             file.createNewFile();
@@ -32,7 +32,7 @@ public class Ace {
 
         try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
             System.out.println("do something...");
-            fileOutputStream.write("aaa".getBytes());
+            fileOutputStream.write("abc".getBytes());
             fileOutputStream.flush();
         } catch (Exception e) {
             System.out.println("do ...");
