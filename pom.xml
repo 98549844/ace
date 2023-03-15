@@ -242,6 +242,23 @@
             <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
             <version>1.16</version>
         </dependency>
+
+        <!--springboot heartbeat-->
+         <!--<dependency> &lt;!&ndash;for server use&ndash;&gt;
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+            <version>3.0.1</version>
+        </dependency>-->
+        <!--<dependency> &lt;!&ndash;heartbeat ui&ndash;&gt;
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-server-ui</artifactId>
+            <version>3.0.1</version>
+        </dependency>-->
+        <!--<dependency> &lt;!&ndash;for client use&ndash;&gt;
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>3.0.1</version>
+        </dependency>-->
     </dependencies>
 
 
