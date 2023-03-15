@@ -26,13 +26,11 @@ sa-token:
   is-log: true
 
 
-#showSql
+##showSql
 logging:
   level:
-    #root logging mode
-    root: info
-    com:
-      mapper: debug
+    root: info #root logging mode
+    com.mapper: debug #specify package log level
 
 
 # mybatis 配置
