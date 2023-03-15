@@ -31,6 +31,8 @@ logging:
   level:
     root: info #root logging mode
     com.mapper: debug #specify package log level
+  charset:
+    console: UTF-8
 
 
 # mybatis 配置
@@ -42,6 +44,8 @@ mybatis:
 
 
 spring:
+  application:
+    name: "Project for Ace Application - Spring Boot 3"
   devtools:
     livereload:
       port: 35731
@@ -219,3 +223,12 @@ springdoc:
     disable-swagger-default-url: true
   packages-to-scan: com.restController
 
+#  actuator for springboot admin heartbeat use
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  info:
+    env:
+      enabled: true
