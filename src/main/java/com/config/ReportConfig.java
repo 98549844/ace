@@ -1,4 +1,4 @@
-package com.report.config;
+package com.config;
 
 import com.constant.AceEnvironment;
 import org.apache.logging.log4j.LogManager;

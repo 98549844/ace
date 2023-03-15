@@ -2,7 +2,7 @@ package com.restController;
 
 import com.config.AceConfig;
 import com.models.common.AjaxResponse;
-import com.report.config.ReportConfig;
+import com.config.ReportConfig;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,7 +36,7 @@ public class AceRestController {
 
 
     @Autowired
-    public AceRestController( AceConfig aceConfig, ReportConfig reportConfig) {
+    public AceRestController(AceConfig aceConfig, ReportConfig reportConfig) {
         this.aceConfig = aceConfig;
         this.reportConfig = reportConfig;
 

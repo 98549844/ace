@@ -1,7 +1,7 @@
 package com.report;
 
 import com.lowagie.text.pdf.BaseFont;
-import com.report.config.ReportConfig;
+import com.config.ReportConfig;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports;
 import net.sf.dynamicreports.report.builder.column.Columns;
@@ -39,10 +39,10 @@ import java.sql.SQLException;
 
 public class UserReport {
     private static final Logger log = LogManager.getLogger(UserReport.class.getName());
-    private ReportConfig reportConfig;
+    private final ReportConfig reportConfig;
 
 
-    @Autowired
+   // @Autowired
     public UserReport(ReportConfig reportConfig) {
         this.reportConfig = reportConfig;
     }
