@@ -223,6 +223,7 @@ springdoc:
     disable-swagger-default-url: true
   packages-to-scan: com.restController
 
+#  springboot admin client side
 #  actuator for springboot admin heartbeat use
 management:
   endpoints:

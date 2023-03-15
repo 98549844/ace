@@ -35,7 +35,6 @@ import java.util.Map;
 @MapperScan("com.mapper")
 @EnableTransactionManagement
 @EnableCaching
-//@EnableFeignClients
 @EnableJpaAuditing //for baseEntity using
 public class AceApplication {
     private static final Logger log = LogManager.getLogger(AceApplication.class.getName());
