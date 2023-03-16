@@ -30,7 +30,7 @@ sa-token:
 logging:
   level:
     root: info #root logging mode
-    com.mapper: debug #specify package log level
+    com.ace.mapper: debug #specify package log level
   charset:
     console: UTF-8
 
@@ -221,7 +221,7 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     disable-swagger-default-url: true
-  packages-to-scan: com.restController
+  packages-to-scan: com.ace.restController
 
 #  springboot admin client side
 #  actuator for springboot admin heartbeat use

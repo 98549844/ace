@@ -296,7 +296,7 @@
                 <version>${spring.version}</version>
                 <configuration>
                     <!--配置mainClass，指定程序入口-->
-                    <mainClass>com.AceApplication</mainClass>
+                    <mainClass>com.ace.AceApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
