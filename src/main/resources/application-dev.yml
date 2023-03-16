@@ -72,7 +72,7 @@ spring:
     static-path-pattern: /static/** # js ,css 等静态文件路径
     pathmatch:
       matching-strategy: ant_path_matcher
-      #Failed to start bean "documentationPluginsBootstrapper"的解决方法
+      #Failed to start bean 'documentationPluginsBootstrapper' 的解决方法
       #Spring Boot 2.6.X使用PathPatternMatcher匹配路径,
       #Swagger引用的Springfox使用的路径匹配是基于AntPathMatcher的,
       #添加配置spring.mvc.pathmatch.matching-strategy=ANT_PATH_MATCHER

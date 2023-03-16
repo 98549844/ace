@@ -24,14 +24,6 @@
     </properties>
 
     <dependencies>
-        <!--springboot2.5.6 need spring-cloud 3.0.8-->
-        <!--没有解决springboot3 兼容问题-->
-        <!--<dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <version>3.1.5</version>
-        </dependency>-->
-
         <dependency>
             <groupId>com</groupId>
             <artifactId>utilities</artifactId>
@@ -113,6 +105,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
 
         <!--rabbitmq-->
         <!--commented RabbitMQConfig.java RabbitMQRestController.java-->
