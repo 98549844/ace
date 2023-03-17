@@ -8,6 +8,7 @@ import com.util.OsUtil;
 import com.util.PathUtil;
 
 import java.io.File;
+import java.io.IOException;
 
 public class ClearLog {
     private static final Logger log = LogManager.getLogger(ClearLog.class.getName());
@@ -20,7 +21,7 @@ public class ClearLog {
     private static final String macWarnPath = path + "/src/main/resources/log4j/warn/";
     private static final String osName = OsUtil.getOsInfo();
 
-    public void clearLog() {
+    public void clearLog() throws IOException {
         FileUtil.mkDirs(windowsErrorPath);
         FileUtil.mkDirs(windowsInfoPath);
         FileUtil.mkDirs(windowsWarnPath);
@@ -43,12 +44,14 @@ public class ClearLog {
 
             File warnFolder = new File(windowsWarnPath);
             clearingLogFile(warnFolder);
+        }else {
+            throw new IOException("UNKNOWN OPERATION SYSTEM");
         }
     }
 
     private void clearingLogFile(File file) {
         File[] Files = file.listFiles();
-        if (NullUtil.isNotNull(file) && Files.length > 0) {
+        if (NullUtil.isNotNull(file)) {
             for (File f : Files) {
                 f.delete();
             }

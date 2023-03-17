@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import java.io.IOException;
+
 //@Scheduled注解各参数详解
 //https://www.jianshu.com/p/1defb0f22ed1
 //      cron表达式语法
@@ -28,7 +30,7 @@ public class Scheduler {
     //@Scheduled(cron = "0 */1 * * * ?")
     //直接指定时间间隔，例如：5秒 = 5000
     @Scheduled(fixedRate = 600000)
-    private void runClearLog() throws Exception {
+    private void runClearLog() throws IOException {
         ClearLog c = new ClearLog();
         c.clearLog();
     }
