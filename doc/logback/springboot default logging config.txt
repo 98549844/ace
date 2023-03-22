@@ -1,0 +1,10 @@
+
+#配置console log 输出格式 (application.yml配置)
+logging:
+  level:
+    root: info #root logging mode
+    com.ace.mapper: debug #specify package log level
+  charset:
+    console: UTF-8
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %highlight(%-5level) [%boldMagenta(%-10t)]- %green(%c) %boldCyan(%-10M): %msg%n"
