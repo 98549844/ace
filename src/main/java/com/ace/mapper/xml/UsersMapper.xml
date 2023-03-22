@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mapper.UsersMapper">
+<mapper namespace="com.ace.mapper.UsersMapper">
     <resultMap id="BaseResultMap" type="com.ace.models.entity.Users">
         <id column="userId" jdbcType="BIGINT" property="userId"/>
         <result column="createdBy" jdbcType="BIGINT" property="createdBy"/>

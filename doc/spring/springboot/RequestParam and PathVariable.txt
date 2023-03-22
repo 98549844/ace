@@ -1,0 +1,158 @@
+常用注解之@PathVariable与@RequestParam详解
+
+@PathVariable和@RequestParam
+
+首先说一下Request了解一下请求参数是什么
+
+在访问各种各样网站时,  经常会发现网站的URL的最后一部分形如:
+?xxxx=yyyy&zzzz=wwww. 这就是HTTP协议中的Request参数,  它有什么用呢?先来看一个例子:
+
+在知乎中搜索web
+浏览器跳转到新页面后,  URL变为https://www.zhihu.com/search?type=content&q=web
+这里type=content&q=web就是搜索请求的参数,  不同参数之间用&分隔,
+每个参数形如name=value形式,  分别表示参数名字和参数值. 在这个例子中,
+我们输入不同的搜索关键词,  在搜索结果页面的URL的q参数是不同的,  也就是说,
+HTTP参数实际上可以认为是一种用户的输入,  根据不同的用户输入,
+服务器经过处理后返回不同的输出(例如搜索spring和搜索java,  显示结果是不一样的. )
+
+
+
+@RequestParam:
+
+@RequestParam 和 @PathVariable 注解是用于从request中接收请求的,
+两个都可以接收参数,  关键点不同的是@RequestParam 是从request里面拿取值,
+而 @PathVariable 是从一个URI模板里面来填充
+
+@RequestParam
+看下面一段代码:
+
+http://localhost:8080/springmvc/hello/101?param1=10¶m2=20
+
+根据上面的这个URL,  你可以用这样的方式来进行获取
+
+public String getDetails(
+@RequestParam(value="param1", required=true) String param1,
+@RequestParam(value="param2", required=false) String param2){
+...
+}
+
+Param 支持下面四种参数
+
+defaultValue 如果本次请求没有携带这个参数,  或者参数为空,  那么就会启用默认值
+name 绑定本次参数的名称,  要跟URL上面的一样
+required 这个参数是不是必须的
+value 跟name一样的作用,  是name属性的一个别名
+
+
+
+
+@PathVariable:
+
+@PathVariable绑定URI模板变量值
+
+@PathVariable是用来获得请求url中的动态参数的
+
+@PathVariable用于将请求URL中的模板变量映射到功能处理方法的参数上.
+//配置url和方法的一个关系@RequestMapping("item/{itemId}")
+
+/* @RequestMapping 来映射请求,  也就是通过它来指定控制器可以处理哪些URL请求,类似于struts的action请求
+   @responsebody表示该方法的返回结果直接写入HTTP response body中
+  *一般在异步获取数据时使用,  在使用@RequestMapping后,  返回值通常解析为跳转路径,
+  加上@responsebody后返回结果不会被解析为跳转路径,  而是直接写入HTTP response *body中.
+  *比如异步获取json数据,  加上@responsebody后,  会直接返回json数据. *
+  *@Pathvariable注解绑定它传过来的值到方法的参数上
+  *用于将请求URL中的模板变量映射到功能处理方法的参数上,  即取出uri模板中的变量作为参数
+  */
+
+这个注解能够识别URL里面的一个模板,  我们看下面的一个URL
+
+http://localhost:8080/springmvc/hello/101?param1=10&param2=20
+上面的一个url你可以这样写:
+
+@RequestMapping("/hello/{id}")
+public String getDetails(@PathVariable(value="id") String id,
+@RequestParam(value="param1", required=true) String param1,
+@RequestParam(value="param2", required=false) String param2){
+.......
+}
+
+
+Spring MVC中的Request参数
+
+在SpringMVC框架中,  现在我们已经可以通过定义@RequestMapping来处理URL请求了,  和@PathVariable一样,  我们也需要再处理URL的函数中获取URL中的参数-也就是?key=value1&key2=value2这样的参数列表. 通过注解@RequestParam可以轻松的将URL中的参数绑定到处理函数方法的变量中:
+
+@RequestMapping("/user")
+@ResponseBody
+public String getUserBlog(@RequestParam("id") int blogId) {
+return "blogId = " + blogId;
+}
+
+这样当我们访问/user/?id=123时,  Spring MVC帮助我们将Request参数id的值绑定到了处理函数的参数blogId上.
+这样就能够轻松获取用户输入,  并根据它的值进行计算并返回了.
+
+运行结果:
+
+
+
+
+
+相信大家可能注意到了,  @RequestParam和@PathVariable都能够完成类似的功能——因为本质上,  它们都是用户的输入,
+只不过输入的部分不同,  一个在URL路径部分,  另一个在参数部分,  简单的说就是url写法不同,  如下:
+
+使用@RequestParam时,  URL是这样的:  http://host:port/path?参数名=参数值
+
+使用@PathVariable时,  URL是这样的:  http://host:port/path/参数值
+
+
+
+后台接收方式如下:
+
+@RequestMapping(value="/user",method = RequestMethod.GET)
+@ResponseBody
+public User printUser(@RequestParam(value = "id", required = false, defaultValue = "0")  int id) {
+User user = new User();
+user = userService.getUserById(id);
+return user;
+}
+
+@GetMapping("/edit/{userId}")
+public String edit(@PathVariable("userId") Long userId, Model model)
+{
+User user = userService.selectUserById(userId);
+List<Role> roles = roleService.selectRolesByUserId(userId);
+List<Post> posts = postService.selectPostsByUserId(userId);
+model.addAttribute("roles", roles);
+model.addAttribute("posts", posts);
+model.addAttribute("user", user);
+return prefix + "/edit";
+}
+一旦我们在方法中定义了@RequestParam变量,  如果访问的URL中不带有相应的参数,
+就会抛出异常——这是显然的,  Spring尝试帮我们进行绑定,  然而没有成功. 但有的时候,
+参数确实不一定永远都存在,  这是我们可以通过定义required属性:
+
+@RequestParam(name="id",required=false)
+当然,  在参数不存在的情况下,  可能希望变量有一个默认值:
+
+@RequestParam(name="id",required=false,defaultValue="0")
+
+
+在springboot中这么用:
+
+一个参数:
+![](img/0002.png)
+
+
+
+
+补充:
+
+@PathParam
+这个注解是和spring的pathVariable是一样的,  也是基于模板的,  但是这个是jboss包下面的一个实现,  上面的是spring的一个实现,  都要导包
+
+@QueryParam
+@QueryParam 是 JAX-RS 本来就提供的,  和Spring的RequestParam作用一致
+
+
+多个参数:
+
+![](img/0001.png)

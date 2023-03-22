@@ -114,10 +114,10 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>-->
         <!--redis RedisConfig.java RedisService.java  RedisRestController.java-->
-        <!--<dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>-->
+        </dependency>
 
         <!-- springboot3 artifactId 使用 sa-token-spring-boot3-starter-->
         <dependency>
