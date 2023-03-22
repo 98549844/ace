@@ -1,0 +1,35 @@
+$event
+
+如果想要事件发生时既要传递实参又要在函数中使用事件对象，
+那么就必须在调用函数时使用 $event 来表示传递的是事件对象，
+如下代码所示：
+
+<div id="root">
+    <h2>欢迎来到{{name}}学习</h2>
+    <!-- $event表示这个参数是事件对象而不是自定义的实参 -->
+    <button @click="showInfo1($event, 22)">点我提示信息1</button>
+</div>
+</body>
+
+<script type="text/javascript">
+    const vm = new Vue({
+        el:'#root',
+        data:{
+            name:'霍格沃茨',
+        },
+        methods: {
+            showInfo1(event, number) {
+                // event表示事件对象，number表示接收的实参
+                console.log(event.target)
+                console.log('参数数字是' + number)
+            },
+        }
+    })
+</script>
+
+总结：
+
+methods 中定义的方法属于被 Vue 实例所管理的方法：
+如果使用箭头函数，this 表示 window
+如果使用普通函数，this 表示 Vue 实例或者组件实例对象
+

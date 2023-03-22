@@ -1,0 +1,57 @@
+数据代理概念
+
+数据代理：通过一个代理对象，
+操作另一个对象中的数据，而不是直接操作该对象
+
+<!-- 想要通过obj2获取、修改obj中的数据，而不是直接操作obj -->
+<script type="text/javascript" >
+
+    let obj = {
+        x:100
+    }
+    let obj2 = {
+        y:200
+    }
+
+    Object.defineProperty(obj2,'x',{
+        get(){
+            return obj.x
+        },
+        set(value){
+            obj.x = value
+        }
+    })
+</script>
+
+
+Vue中的数据代理
+<body>
+<div id="root">
+    <h2>名称：{{name}}</h2>
+    <h2>地址：{{address}}</h2>
+</div>
+</body>
+
+<script type="text/javascript">
+    const vm = new Vue({
+        el:'#root',
+        data:{
+            name:'Jay',
+            address:'台湾'
+        }
+    })
+</script>
+
+
+总结：
+
+Vue 中的数据代理指的就是通过 Vue 实例（Vue实例中也会有上述的 name、address 属性）来代理 data 对象中 name、address 属性的操作
+
+如果没有数据代理，那么在 View 中获取 data 中的数据只能通过上述的 _data 来获取
+
+Vue 使用数据代理的目的就是可以编码时简写，比如直接写 name 就可以拿到 'Jay' 这个值（编码获取的是 Vue 中的 name，最终通过 getter() 方法读取到的是 data 中的 name）
+Vue 使用数据代理还可以将数据的改变同步到页面上，比如修改 vm.name 值，最终通过 setter() 方法修改的是 data 中的数据，data 中的数据发生了变化，最终会直接影响到页面上的数据
+只要 data 中的数据发生变化，Vue 就会重新解析模板（View），以更新模板中的值，如果解析模板的过程中，插值表达式中有调用函数，这个函数一定会被重新调用
+通过 Object.defineProperty() 方法把 data 对象中的所有属性添加到 Vue 实例上，并且为每个属性自动的添加 getter/setter，通过这些方法修改 data 中的属性值
+
+

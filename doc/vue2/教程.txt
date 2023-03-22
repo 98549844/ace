@@ -1,0 +1,7 @@
+https://v2.cn.vuejs.org/v2/guide
+
+https://www.jianshu.com/p/ab44c05df33d
+
+https://blog.csdn.net/weixin_49343190/article/details/124141447 =>看到第10 计算属性
+
+
