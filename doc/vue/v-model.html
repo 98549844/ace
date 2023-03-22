@@ -1,0 +1,33 @@
+基本语法：v-model:value = "JS表达式",
+表示双向绑定, 也就是 data 中的值被修改, 页面的值也会被修改；
+页面的值被修改, 对应的 data 属性值也会随之修改
+
+简写：v-model = "JS表达式", 即双向绑定默认操作的属性就是 value
+
+<body>
+<div id="root">
+
+    <!-- 普通写法 -->
+    双向数据绑定：<input type="text" v-model:value="name"><br/>
+
+    <!-- 简写 -->
+    双向数据绑定：<input type="text" v-model="name"><br/>
+
+    <div> data属性的值：{{name}} </div>
+</div>
+</body>
+
+<script type="text/javascript">
+    new Vue({
+        el:'#root',
+        data:{
+            name:'Bruno Mars'
+        }
+    })
+</script>
+
+
+注意：
+
+双向绑定只能使用在表单类元素上，也就是标签必须有 value 属性，比如输入框、单选框、多选框等
+插值表达式和单向绑定数据只能从 data 流向页面，而双向绑定还可以使数据从页面流向 data
