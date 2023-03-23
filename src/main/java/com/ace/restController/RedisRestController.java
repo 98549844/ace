@@ -28,7 +28,6 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("/rest/redis")
-//@Api(tags = "redis")
 @Tag(name = "Redis")
 public class RedisRestController {
     private final static Logger log = LogManager.getLogger(RedisRestController.class.getName());
