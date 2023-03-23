@@ -4,6 +4,7 @@ import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.Users;
 import com.ace.service.RedisService;
 import com.ace.service.UsersService;
+import com.util.FastJsonUtil;
 import com.util.NullUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -81,21 +82,15 @@ public class RedisRestController {
         Object object = redisService.get("all");
         if (NullUtil.isNull(object)) {
             List<Users> users = usersService.findAll();
-            List<String> result = new ArrayList<>();
-            for (Users user : users) {
-                String u = user.getUsername() + "   [" + user.getPassword() + "]" + "   [" + user.getEmail() + "]";
-                result.add(u);
-            }
-            redisService.set("all", result);
-            // redisService.set("all", new Gson().toJson(users)); //gson 拿不到private final field, 问题未处理
+            redisService.set("all", FastJsonUtil.ObjectToJson(users));
         }
 
-        // Users user = usersService.findByUserAccount("garlam");
-        // redisService.set(user.getUsername(), new Gson().toJson(user));
+        Users user = usersService.findByUserAccount("garlam");
+        redisService.set(user.getUsername(), FastJsonUtil.ObjectToJson(user));
 
         List<Object> ls = new ArrayList<>();
+        ls.add(redisService.get(user.getUsername()));
         ls.add(redisService.get("all"));
-        // ls.add(redisService.get(user.getUsername()));
 
         return AjaxResponse.success(ls);
     }
