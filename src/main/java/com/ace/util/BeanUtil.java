@@ -4,6 +4,7 @@ import com.ace.AceApplication;
 import com.util.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -18,7 +19,9 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -98,6 +101,23 @@ public class BeanUtil implements ApplicationContextAware {
         }
     }
 
+
+    public static void find(String name, ApplicationContext applicationContext) {
+        String[] beanNames = applicationContext.getBeanDefinitionNames();
+        log.info("total bean: {}", applicationContext.getBeanDefinitionCount());
+        int i = 0;
+        String result = null;
+        for (String s : beanNames) {
+            if (s.toLowerCase().contains(name.toLowerCase())) {
+                result = s;
+                log.info("{},beanName: {}", ++i, s);
+            }
+        }
+        if (NullUtil.isNull(result)) {
+            log.warn("No bean name like {} found .", name);
+        }
+    }
+
     public static List<String> getBeanNameList() {
         BeanUtil.applicationContext = ContextLoader.getCurrentWebApplicationContext();
         List<String> ls = new ArrayList<>();
@@ -120,9 +140,7 @@ public class BeanUtil implements ApplicationContextAware {
         log.info("total bean: {}", applicationContext.getBeanDefinitionCount());
         // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加RequestMapping注解的bean
         List<String> ls = new ArrayList<>();
-        for (String s : beanNames) {
-            ls.add(s);
-        }
+        ls.addAll(Arrays.asList(beanNames));
         return ls;
     }
 
