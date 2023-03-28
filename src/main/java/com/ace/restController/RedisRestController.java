@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Classname: RedisController
@@ -43,13 +41,25 @@ public class RedisRestController {
     }
 
 
-    @Operation(summary = "Get by key")
+    @Operation(summary = "Get all")
+    @RequestMapping(method = RequestMethod.GET, value = "/getAll")
+    public AjaxResponse getAll() {
+        Set<String> keys = redisService.getKeys();
+        Map<String, Object> result = new HashMap<>();
+        for (String key : keys) {
+            result.put(key, redisService.get(key)); // object 转换会出错
+        }
+        return AjaxResponse.success(result);
+    }
+
+
+    @Operation(summary = "Get value by key")
     @RequestMapping(method = RequestMethod.GET, value = "/get/{key}")
-    public AjaxResponse getByKey(@PathVariable(value = "key") String key) {
+    public AjaxResponse getValueByKey(@PathVariable(value = "key") String key) {
         return AjaxResponse.success(redisService.get(key));
     }
 
-    @Operation(summary = "Get key set")
+    @Operation(summary = "Get all keys")
     @RequestMapping(method = RequestMethod.GET, value = "/getKeys")
     public AjaxResponse getKeys() {
         Set<String> keys = redisService.getKeys();

@@ -1,0 +1,9 @@
+cmd
+docker exec -it redis-7 /bin/bash
+
+cli mode
+redis-cli
+
+set password
+config set requirepass root
+
