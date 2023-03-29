@@ -1,3 +1,4 @@
+# FROM 指定基础镜像
 FROM unitfinance/jdk17-sbt-scala:latest
 MAINTAINER Garlam Au
 #VOLUME /tmp
