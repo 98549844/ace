@@ -7,3 +7,10 @@ eApplication Submission Portal =>
 Maintenance and Support Service of MPFA Web Application Technical Framework (2022-2024) -> SM&S Support month 13 -> SMS-202302
 Maintenance Support Service of the eApplication Submission Platform for MPF Products (eAS) 2023
 
+3月
+eAS Portal enhancement2 =>
+Miscellaneous Assignment
+
+Professional Service for upgrade of MPFA Web Application Framework =>
+Program development
+Maintenance and Support Service of  MPFA Web Application Technical Framework (2022-2024)

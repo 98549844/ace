@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
  * @Classname: Ace
  * @Date: 2022/10/18 下午 04:15
@@ -23,9 +22,8 @@ public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
     public static void main(String[] args) throws IOException {
-
-
-
+        StringBuilder messageText1 = new StringBuilder();
+        System.out.println(messageText1.length());
     }
 
 
@@ -138,9 +136,9 @@ public class Ace {
             // 方案2
             Process videoProcess = new ProcessBuilder(command).redirectErrorStream(true).start();
 
-           // new PrintStream(videoProcess.getErrorStream()).start();
+            // new PrintStream(videoProcess.getErrorStream()).start();
 
-           // new PrintStream(videoProcess.getInputStream()).start();
+            // new PrintStream(videoProcess.getInputStream()).start();
 
             videoProcess.waitFor();
 
