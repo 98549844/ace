@@ -14,3 +14,18 @@ Miscellaneous Assignment
 Professional Service for upgrade of MPFA Web Application Framework =>
 Program development
 Maintenance and Support Service of  MPFA Web Application Technical Framework (2022-2024)
+
+4月
+Professional Service for upgrade of MPFA Web Application Framework
+=> Conduct UAT - 202304 => 2.25
+
+Maintenance Support Service of e-ORSO Portal (2022-2023)
+=> SM&S Support month 12 => 1.50
+
+Maintenance and Support Service of MPFA Web Application Technical Framework (2022-2024)
+=> SM&S Support month 15 => 0.50
+
+Digital Asset ATM System Enhancement (6 Items) [Ref:MMATX230330CC01]
+=> Transfer balance plus fees and Promo codes support transfer balance  => 10
+=> All Mmatrix API add token parameter => 4.88
+
