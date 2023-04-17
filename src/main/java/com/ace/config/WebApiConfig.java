@@ -45,10 +45,14 @@ public class WebApiConfig {
     @Bean
     AceApi AceApi() {
         //注册local api url
-        WebClient apiClient = WebClient.builder()
-                                .baseUrl("http://localhost:8088")
-                                .build();
-        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(apiClient)).build();
+        WebClient apiClient =
+                WebClient.builder()
+                        .baseUrl("http://localhost:8088")
+                        .build();
+
+        HttpServiceProxyFactory httpServiceProxyFactory =
+                HttpServiceProxyFactory
+                        .builder(WebClientAdapter.forClient(apiClient)).build();
         return httpServiceProxyFactory.createClient(AceApi.class);
     }
 
@@ -56,10 +60,14 @@ public class WebApiConfig {
     @Bean
     Daatm DaatmApi() {
         //注册第三方api url
-        WebClient daatmClient = WebClient.builder()
-                                .baseUrl("http://svrtest000.mmatrix.io")
-                                .build();
-        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(daatmClient)).build();
+        WebClient daatmClient =
+                WebClient.builder()
+                        .baseUrl("http://svrtest000.mmatrix.io")
+                        .build();
+
+        HttpServiceProxyFactory httpServiceProxyFactory =
+                HttpServiceProxyFactory
+                        .builder(WebClientAdapter.forClient(daatmClient)).build();
         return httpServiceProxyFactory.createClient(Daatm.class);
     }
 
