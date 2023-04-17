@@ -1,6 +1,7 @@
 package com.ace.config;
 
 import com.ace.api.AceApi;
+import com.ace.api.Daatm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
@@ -24,16 +25,42 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 public class WebApiConfig {
     private static final Logger log = LogManager.getLogger(WebApiConfig.class.getName());
 
-    @Bean
+    //注册local api
+/*    @Bean(name = "webClient")
     WebClient webClient(ObjectMapper objectMapper) {
-        return WebClient.builder().baseUrl("http://localhost:8088").build();
+        return WebClient.builder()
+                .baseUrl("http://localhost:8088")
+                .build();
+    }*/
+
+    //注册第三方api
+/*    @Bean(name = "daatmWebClient")
+    WebClient daatmWebClient(ObjectMapper objectMapper) {
+        return WebClient.builder()
+                .baseUrl("http://svrtest000.mmatrix.io")
+                .build();
+    }*/
+
+    @SneakyThrows
+    @Bean
+    AceApi AceApi() {
+        //注册local api url
+        WebClient apiClient = WebClient.builder()
+                                .baseUrl("http://localhost:8088")
+                                .build();
+        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(apiClient)).build();
+        return httpServiceProxyFactory.createClient(AceApi.class);
     }
 
     @SneakyThrows
     @Bean
-    AceApi AceApi(WebClient webClient) {
-        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(webClient)).build();
-        return httpServiceProxyFactory.createClient(AceApi.class);
+    Daatm DaatmApi() {
+        //注册第三方api url
+        WebClient daatmClient = WebClient.builder()
+                                .baseUrl("http://svrtest000.mmatrix.io")
+                                .build();
+        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(daatmClient)).build();
+        return httpServiceProxyFactory.createClient(Daatm.class);
     }
 
 

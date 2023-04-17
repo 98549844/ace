@@ -1,6 +1,7 @@
 package com.ace.restController;
 
 import com.ace.api.AceApi;
+import com.ace.api.Daatm;
 import com.ace.api.Response;
 import com.ace.models.common.AjaxResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,11 +27,13 @@ public class ApiRestController {
     private static final Logger log = LogManager.getLogger(ApiRestController.class.getName());
 
     private final AceApi aceApi;
+    private final Daatm daatm;
 
     @Autowired
-    public ApiRestController(AceApi aceApi) {
+    public ApiRestController(AceApi aceApi, Daatm daatm) {
 
         this.aceApi = aceApi;
+        this.daatm = daatm;
     }
 
     @GetMapping("/getAllUsers")
@@ -38,6 +41,13 @@ public class ApiRestController {
         AjaxResponse ajaxResponse = aceApi.getAllUsers();
         log.info(ajaxResponse.getData());
         return Response.success(ajaxResponse);
+    }
+
+    @GetMapping("/getDaatm")
+    public Response getDaatm() {
+        String ajaxResponse1 = daatm.getDaatm();
+        log.info(ajaxResponse1);
+        return Response.success(ajaxResponse1);
     }
 
 

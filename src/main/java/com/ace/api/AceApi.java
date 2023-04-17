@@ -13,11 +13,11 @@ import org.springframework.web.service.annotation.HttpExchange;
 
 
 
-@HttpExchange("/rest")
+//@HttpExchange("/rest")
 public interface AceApi {
 
     //call target controller url
-    @GetExchange("/users/getUsers")
+    @GetExchange("/rest/users/getUsers")
     AjaxResponse getAllUsers();
 
 }
