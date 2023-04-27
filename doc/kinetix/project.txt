@@ -25,7 +25,17 @@ Maintenance Support Service of e-ORSO Portal (2022-2023)
 Maintenance and Support Service of MPFA Web Application Technical Framewor k (2022-2024)
 => SM&S Support month 15 => 0.50 -> 14 remain:0
 
+Maintenance Support Service of the eApplication Submission Platform for MPF Products (eAS) 2023
+=> SMS-202304 => 0.75 -> 26 remain 0
+
+CV No.11 - System Enhancement for Business Rules Engine Module of the PRHAS (Contract No. DC20150422)
+=> Deploy UAT and Support UAT => 2 -> 25 26 remain o
+
+Framework upgrade CR - mpfa-core xml sql counting and css override information
+=> CR - Framework Upgrade - 2023-04 => 1 -> 27 remain 0
+
+
 Digital Asset ATM System Enhancement (6 Items) [Ref:MMATX230330CC01]
-=> All Mmatrix API add token parameter => 4.88 -> 17,18,19,20,21 remain: 0
+=> All Mmatrix API add token parameter => 4.88 -> 17,18,19,20,21 remain: 0.13
 => Transfer balance plus fees and Promo codes support transfer balance  => 10
 
