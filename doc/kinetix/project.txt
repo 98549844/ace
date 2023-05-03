@@ -39,3 +39,47 @@ Digital Asset ATM System Enhancement (6 Items) [Ref:MMATX230330CC01]
 => All Mmatrix API add token parameter => 4.88 -> 17,18,19,20,21 remain: 0.13
 => Transfer balance plus fees and Promo codes support transfer balance  => 10
 
+
+5月
+Professional Service for upgrade of MPFA Web Application Framework
+=> Conduct UAT - 202304 => 1
+
+Digital Asset ATM System Enhancement (6 Items) [Ref:MMATX230330CC01]
+=> Transfer balance plus fees and Promo codes support transfer balance => 9.75
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
