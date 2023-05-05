@@ -47,6 +47,11 @@ Professional Service for upgrade of MPFA Web Application Framework
 Digital Asset ATM System Enhancement (6 Items) [Ref:MMATX230330CC01]
 => Transfer balance plus fees and Promo codes support transfer balance => 9.75
 
+Maintenance Support Service of the eApplication Submission Platform for MPF Products (eAS) 2023
+=> SMS-202305-M03 => 0.75
+
+Framework upgrade CR - mpfa-core xml sql counting and css override information
+=> CR - Framework Upgrade - 202305 => 6
 
 
 
