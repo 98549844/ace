@@ -1,0 +1,5 @@
+1. generate energy report
+powercfg -energy
+
+2. generate battery report
+powercfg/batteryreport
