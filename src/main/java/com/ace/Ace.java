@@ -1,9 +1,10 @@
 package com.ace;
 
+import com.alibaba.fastjson2.JSONObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
+import java.net.UnknownHostException;
 
 
 /**
@@ -17,20 +18,15 @@ import java.io.IOException;
 public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
-    public static void main(String[] args) {
-        int a = 10;
-        addOne(a);
-        System.out.println(a); // 输出 10
+    public static void main(String[] args) throws UnknownHostException {
+//        log.error( java.net.getByName("api.coinmarketcap.com" ) );
+        log.error(java.net.InetAddress.getByName("api.coinmarketcap.com"));
 
+        String address = String.valueOf(java.net.InetAddress.getByName("api.coinmarketcap.com"));
 
-        Integer b = 10;
-        addOne(b);
-        System.out.println(b); // 输出 11
+      //  JSONObject result = RestUtil.get_StrToJson("https://13.226.120.9/data-api/v3/cryptocurrency/quote/latest?id=1&convertld=2792",10000,null);
     }
 
-    public static void addOne(int num) {
-        num++;
-    }
 }
 
 

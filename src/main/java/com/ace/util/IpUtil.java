@@ -39,6 +39,11 @@ public class IpUtil implements ApplicationListener<WebServerInitializedEvent> {
         return hostName;
     }
 
+    public static String getDomainIp(String domain) throws UnknownHostException {
+        String domainIp = String.valueOf(java.net.InetAddress.getByName(domain));
+        log.info("domain information: " + domainIp);
+        return String.valueOf(java.net.InetAddress.getByName(domain));
+    }
 
     public Map getHostInfo() {
         InetAddress address = null;

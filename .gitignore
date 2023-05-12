@@ -20,6 +20,7 @@ target/
 *.ipr
 *.log
 *.ear
+*.exe
 .mvn
 src/main/resources/log4j
 #src/main/java/com/config/RabbitMQConfig.java
