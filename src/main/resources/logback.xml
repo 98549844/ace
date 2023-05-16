@@ -4,7 +4,7 @@
     <!-- <springProperty scope="context" name="LOG_PATH" source="log.home"/> -->
     <!-- <springProperty scope="context" name="APPDIR" source="spring.application.name"/> -->
     <!-- 关闭启动时logback日志显示 -->
-    <!--<statusListener class="ch.qos.logback.core.status.NopStatusListener"/>-->
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
     <property name="LOG_PATH" value="./src/main/resources"/>
     <property name="APPDIR" value="log4j"/>
 

@@ -1,9 +1,10 @@
 package com.ace;
 
-import com.alibaba.fastjson2.JSONObject;
+import com.ace.util.IpUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 
@@ -20,11 +21,13 @@ public class Ace {
 
     public static void main(String[] args) throws UnknownHostException {
 //        log.error( java.net.getByName("api.coinmarketcap.com" ) );
-        log.error(java.net.InetAddress.getByName("api.coinmarketcap.com"));
+        IpUtil.getDomainIp("api.coinmarketcap.com");
+        System.out.println(IpUtil.getHostName());
 
-        String address = String.valueOf(java.net.InetAddress.getByName("api.coinmarketcap.com"));
+        String ip = InetAddress.getLocalHost().getHostAddress();
+        System.out.println("ip: "+ip);
 
-      //  JSONObject result = RestUtil.get_StrToJson("https://13.226.120.9/data-api/v3/cryptocurrency/quote/latest?id=1&convertld=2792",10000,null);
+        //  JSONObject result = RestUtil.get_StrToJson("https://13.226.120.9/data-api/v3/cryptocurrency/quote/latest?id=1&convertld=2792",10000,null);
     }
 
 }
