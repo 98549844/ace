@@ -1,6 +1,5 @@
 package com.ace.service;
 
-import com.util.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -17,12 +16,12 @@ import java.util.Map;
 
 
 @Service
-public class CacheService {
-    private static final Logger log = LogManager.getLogger(CacheService.class.getName());
+public class CacheMapService {
+    private static final Logger log = LogManager.getLogger(CacheMapService.class.getName());
 
     private Map<String, Object> map;
 
-    public CacheService() {
+    public CacheMapService() {
         this.map = new HashMap();
     }
 

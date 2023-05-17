@@ -1,9 +1,8 @@
 package com.ace.restController;
 
-import com.ace.api.Response;
 import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.Users;
-import com.ace.service.CacheService;
+import com.ace.service.CacheMapService;
 import com.ace.service.UsersService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
@@ -31,11 +30,11 @@ public class CacheMapRestController {
     private static final Logger log = LogManager.getLogger(CacheMapRestController.class.getName());
 
     private UsersService usersService;
-    private CacheService cacheService;
+    private CacheMapService cacheMapService;
 
-    public CacheMapRestController(CacheService cacheService, UsersService usersService) {
+    public CacheMapRestController(CacheMapService cacheMapService, UsersService usersService) {
         this.usersService = usersService;
-        this.cacheService = cacheService;
+        this.cacheMapService = cacheMapService;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/setMap")
@@ -43,20 +42,20 @@ public class CacheMapRestController {
         List<Users> ls = usersService.findAll();
         Map map = new HashMap();
         map.put("users", ls);
-        cacheService.setMap(map);
+        cacheMapService.setMap(map);
         return AjaxResponse.success(true);
     }
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/getCacheMap")
     public AjaxResponse getMap() {
-        Map map = cacheService.getMap();
+        Map map = cacheMapService.getMap();
         return AjaxResponse.success(map);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/get/{key}")
     public Object get(@PathVariable String key) {
-        String result = cacheService.getString(key);
+        String result = cacheMapService.getString(key);
 
         return AjaxResponse.success(result);
 
@@ -65,8 +64,8 @@ public class CacheMapRestController {
     @RequestMapping(method = RequestMethod.GET, value = "/put/{key}/{value}")
     public AjaxResponse put(@PathVariable String key, @PathVariable String value) {
 
-        cacheService.put(key, value);
-        String result = cacheService.getString(key);
+        cacheMapService.put(key, value);
+        String result = cacheMapService.getString(key);
 
         return AjaxResponse.success(result);
 
@@ -74,15 +73,15 @@ public class CacheMapRestController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/delete/{key}")
     public AjaxResponse delete(@PathVariable String key) {
-        cacheService.delete(key);
-        String result = cacheService.getString(key);
+        cacheMapService.delete(key);
+        String result = cacheMapService.getString(key);
 
         return AjaxResponse.success(result);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/flush")
     public AjaxResponse flush() {
-        cacheService.flush();
+        cacheMapService.flush();
         return AjaxResponse.success(true);
 
     }
