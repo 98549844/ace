@@ -4,3 +4,4 @@ https://github.com/cloudflare/cloudflared/releases/download/2022.12.1/cloudflare
 2.cd to cloudflared folder
 3.run command => (端口80指向本地application)
 cloudflared-windows-amd64.exe tunnel --url http://localhost:9080
+cloudflared-windows-amd64.exe tunnel --url https://localhost:9443/

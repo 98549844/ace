@@ -1,9 +1,0 @@
-MAC
-layer 0:    MAC默认层
-layer 2:    MO(2)
-layer 4:    MO(4)共用层
-
-WINDOWS
-layer 1:    WINDOWS默认层
-layer 3:    MO(3)
-layer 4:    MO(4)共用层

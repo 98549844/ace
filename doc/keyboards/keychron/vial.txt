@@ -1,5 +1,0 @@
-vial
-https://get.vial.today/
-
-keychron q2
-https://www.keychron.com/blogs/archived/how-to-factory-reset-or-flash-your-qmk-via-enabled-keychron-q2-keyboard
