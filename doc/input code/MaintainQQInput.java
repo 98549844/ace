@@ -10,6 +10,7 @@ import java.util.Map;
 
 public class MaintainQQInput {
 
+    //批量处理qq输入法的符号替换
     static String filePath = "D:\\SVN\\spring-boot\\doc\\input code";
     static String fileName = "\\QQINPUT.ini";
     static String fullPath = filePath + fileName;

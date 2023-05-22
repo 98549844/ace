@@ -153,7 +153,7 @@ spring:
       naming:
         #使用驼峰式命名生成table
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      ddl-auto: update
+      ddl-auto: validate
       #create:
       #根据entity新建表, 原table不动
       #create-drop:
