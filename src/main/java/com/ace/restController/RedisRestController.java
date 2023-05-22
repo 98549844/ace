@@ -1,5 +1,6 @@
 package com.ace.restController;
 
+import com.ace.exception.ResponseException;
 import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.Users;
 import com.ace.service.RedisService;
@@ -11,10 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -52,6 +50,11 @@ public class RedisRestController {
         return AjaxResponse.success(result);
     }
 
+    @Operation(summary = "check key exist")
+    @RequestMapping(method = RequestMethod.GET, value = "/exist/{key}")
+    public AjaxResponse exist(@PathVariable(value = "key") String key) {
+        return AjaxResponse.success(redisService.keyExists(key));
+    }
 
     @Operation(summary = "Get value by key")
     @RequestMapping(method = RequestMethod.GET, value = "/get/{key}")
@@ -67,14 +70,38 @@ public class RedisRestController {
     }
 
 
+    @Operation(summary = "Set key value")
+    @RequestMapping(method = RequestMethod.GET, value = "/set/{key}/{value}")
+    public AjaxResponse set(@PathVariable String key, @PathVariable String value) {
+        return AjaxResponse.success(redisService.set(key, value));
+    }
+
+    @Operation(summary = "Set key value using post method")
+    @RequestMapping(value = "/set", method = RequestMethod.POST)
+    public AjaxResponse post(@RequestParam("key") String key, @RequestParam("body") Object body) {
+        return AjaxResponse.success(redisService.set(key, body));
+    }
+
+    @Operation(summary = "renameKey key value ")
+    @RequestMapping(value = "/renameKey/{oldKey}/{newKey}", method = RequestMethod.PUT)
+    public AjaxResponse renameKey(@PathVariable String oldKey, @PathVariable String newKey) {
+        boolean result = redisService.renameKey(oldKey, newKey);
+        if (result) {
+            return AjaxResponse.success(true);
+        } else {
+            return AjaxResponse.error(new ResponseException("rename key exist, use other key"));
+        }
+    }
+
+
     @Operation(summary = "Clear redis cache")
     @RequestMapping(method = RequestMethod.GET, value = "/clearAll")
     public AjaxResponse clearAll() {
         return AjaxResponse.success(redisService.clearAll());
     }
 
-    @Operation(summary = "Get")
-    @RequestMapping(method = RequestMethod.GET, value = "/get")
+    @Operation(summary = "GetVersion")
+    @RequestMapping(method = RequestMethod.GET, value = "/getVersion")
     public String get() {
         redisService.set("ace", "<<< ace >>>");
         redisService.set("version", "版本 3.0", 10);

@@ -19,7 +19,7 @@ public class IndexRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{userName}")
-    public String getIndex(@PathVariable String userName) {
+    public String getUserName(@PathVariable String userName) {
         log.info(userName);
 
         String get = "Welcome Index !" + userName + " GET";

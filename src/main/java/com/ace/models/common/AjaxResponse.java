@@ -23,7 +23,6 @@ public class AjaxResponse {
     private Object data;
 
 
-
     //请求出现异常时的响应数据封装
     public static AjaxResponse error(ResponseException e) {
 
@@ -31,7 +30,9 @@ public class AjaxResponse {
         resultBean.setOk(false);
         resultBean.setCode(e.getCode());
 
-        if (e.getCode() == ResponseExceptionType.USER_INPUT_ERROR.getCode()) {
+        if (e.getCode() == ResponseExceptionType.CUSTOM_EXCEPTION.getCode()) {
+            resultBean.setMessage(e.getMessage());
+        } else if (e.getCode() == ResponseExceptionType.USER_INPUT_ERROR.getCode()) {
             resultBean.setMessage(e.getMessage() + ", 用户输入资料错误");
         } else if (e.getCode() == ResponseExceptionType.PAGE_NOT_FOUND_ERROR.getCode()) {
             resultBean.setMessage(e.getMessage() + ", 未找到页面，请联系管理员!");

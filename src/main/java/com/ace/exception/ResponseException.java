@@ -11,17 +11,29 @@ import org.apache.logging.log4j.Logger;
  */
 
 
-public class ResponseException extends RuntimeException{
+public class ResponseException extends RuntimeException {
     private static final Logger log = LogManager.getLogger(ResponseException.class.getName());
 
-    //异常错误编码
-    private int code ;
+    //异常错误编码 默认为0
+    private int code;
     //异常信息
-    private String message;
+    private final String message;
 
 
     public ResponseException(ResponseExceptionType exceptionTypeEnum, String message) {
         this.code = exceptionTypeEnum.getCode();
+        this.message = message;
+    }
+
+    /**
+     * Constructs a new runtime exception with the specified detail message.
+     * The cause is not initialized, and may subsequently be initialized by a
+     * call to {@link #initCause}.
+     *
+     * @param message the detail message. The detail message is saved for
+     *                later retrieval by the {@link #getMessage()} method.
+     */
+    public ResponseException(String message) {
         this.message = message;
     }
 

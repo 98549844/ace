@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 public class RedisService {
     private static final Logger log = LogManager.getLogger(RedisService.class.getName());
 
-    private RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
     public RedisService(RedisTemplate<String, Object> redisTemplate) {
@@ -39,15 +39,13 @@ public class RedisService {
      * @param time 时间(秒)
      */
 
-    public boolean expire(String key, long time) {
+    public void expire(String key, long time) {
         try {
             if (time > 0) {
                 redisTemplate.expire(key, time, TimeUnit.SECONDS);
             }
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
     }
 
@@ -165,6 +163,20 @@ public class RedisService {
         }
     }
 
+    public boolean renameKey(String oldKey, String newKey) {
+        if (keyExists(newKey)) {
+            log.warn("newKey exist");
+            return false;
+        }
+        String value = (String) redisTemplate.opsForValue().get(oldKey); // 先获取原有的值
+        redisTemplate.rename(oldKey, newKey); // 修改 key 的名称
+        redisTemplate.opsForValue().set(newKey, value); // 将原有的值设置到新的 key 中
+        return true;
+    }
+
+    public boolean keyExists(String key) {
+        return Boolean.TRUE.equals(redisTemplate.hasKey(key));
+    }
 
     /**
      * 递增
