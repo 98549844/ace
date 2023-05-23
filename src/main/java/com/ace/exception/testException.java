@@ -33,10 +33,10 @@ public class testException extends Exception {
             throw new testException("testException : 请输入整数数字！, " + c);
 
         }
-        if ((Integer.valueOf(c)) > 100 || (Integer.valueOf(c)) < 0) {
+        if ((Integer.parseInt(c)) > 100 || (Integer.parseInt(c)) < 0) {
             throw new testException("testException: 请输入0到100之间的整数！, " + c);
         }
-        return Integer.valueOf(c);
+        return Integer.parseInt(c);
 
     }
 
