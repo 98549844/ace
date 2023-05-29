@@ -50,11 +50,20 @@ public class RedisRestController {
         return AjaxResponse.success(result);
     }
 
-    @Operation(summary = "check key exist")
+    @Operation(summary = "Check key exist")
     @RequestMapping(method = RequestMethod.GET, value = "/exist/{key}")
     public AjaxResponse exist(@PathVariable(value = "key") String key) {
         return AjaxResponse.success(redisService.keyExists(key));
     }
+
+    @Operation(summary = "Delete", description = "support multi param, using ',' for split, xxx for single and xxx,xxx,xxx... for multi !!!")
+    @RequestMapping(method = RequestMethod.GET, value = "/delete")
+    public AjaxResponse delete(@RequestParam(value = "key") String... key) {
+        log.info("key: {}", (Object) key);
+        redisService.delete(key);
+        return AjaxResponse.success(true);
+    }
+
 
     @Operation(summary = "Get value by key")
     @RequestMapping(method = RequestMethod.GET, value = "/get/{key}")
