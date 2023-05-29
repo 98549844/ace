@@ -56,7 +56,7 @@ public class RedisRestController {
         return AjaxResponse.success(redisService.keyExists(key));
     }
 
-    @Operation(summary = "Delete", description = "support multi param, using ',' for split, xxx for single and xxx,xxx,xxx... for multi !!!")
+    @Operation(summary = "Delete", description = "xxx for single, using ',' for split, xxx,xxx,xxx... for multi !!!")
     @RequestMapping(method = RequestMethod.GET, value = "/delete")
     public AjaxResponse delete(@RequestParam(value = "key") String... key) {
         log.info("key: {}", (Object) key);
