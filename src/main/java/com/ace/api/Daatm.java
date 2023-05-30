@@ -1,6 +1,5 @@
 package com.ace.api;
 
-import com.ace.models.common.AjaxResponse;
 import org.springframework.web.service.annotation.GetExchange;
 
 /**

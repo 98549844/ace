@@ -2,6 +2,7 @@ package com.ace.config;
 
 import com.ace.api.AceApi;
 import com.ace.api.Daatm;
+import com.ace.api.EthGasStation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
@@ -60,5 +61,13 @@ public class WebApiConfig {
     }
 
 
+    @SneakyThrows
+    @Bean
+    EthGasStation EthGasStationApi() {
+        //注册第三方api url
+        WebClient daatmClient = WebClient.builder().baseUrl("https://api.ethgasstation.info").build();
+        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(daatmClient)).build();
+        return httpServiceProxyFactory.createClient(EthGasStation.class);
+    }
 }
 

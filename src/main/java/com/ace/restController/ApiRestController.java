@@ -2,8 +2,11 @@ package com.ace.restController;
 
 import com.ace.api.AceApi;
 import com.ace.api.Daatm;
+import com.ace.api.EthGasStation;
 import com.ace.api.Response;
 import com.ace.models.common.AjaxResponse;
+import com.util.FastJsonUtil;
+import com.util.GsonUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,12 +31,14 @@ public class ApiRestController {
 
     private final AceApi aceApi;
     private final Daatm daatm;
+    private final EthGasStation ethGasStation;
 
     @Autowired
-    public ApiRestController(AceApi aceApi, Daatm daatm) {
+    public ApiRestController(AceApi aceApi, Daatm daatm, EthGasStation ethGasStation) {
 
         this.aceApi = aceApi;
         this.daatm = daatm;
+        this.ethGasStation = ethGasStation;
     }
 
     @GetMapping("/getAllUsers")
@@ -45,9 +50,16 @@ public class ApiRestController {
 
     @GetMapping("/getDaatm")
     public Response getDaatm() {
-        String ajaxResponse1 = daatm.getDaatm();
-        log.info(ajaxResponse1);
-        return Response.success(ajaxResponse1);
+        String ajaxResponse = daatm.getDaatm();
+        log.info(ajaxResponse);
+        return Response.success(ajaxResponse);
+    }
+
+    @GetMapping("/getFeeEstimate")
+    public Response getFeeEstimate() {
+        String ajaxResponse = ethGasStation.getFeeEstimate();
+        System.out.println(GsonUtil.getPrettyJson(ajaxResponse));
+        return Response.success(ajaxResponse);
     }
 
 
