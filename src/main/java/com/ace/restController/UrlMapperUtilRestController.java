@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @Classname: UrlMapperUtilRestController
  * @Date: 2023/1/13 上午 09:51
@@ -38,8 +40,8 @@ public class UrlMapperUtilRestController {
     @RequestMapping(method = RequestMethod.GET, value = "/get")
     public AjaxResponse getUrlMapping() {
         UrlMapperUtil urlMapperUtil = new UrlMapperUtil();
-        urlMapperUtil.setApplicationContext(applicationContext);
-        return AjaxResponse.success("URL logged in console");
+        List<String> url = urlMapperUtil.getUrl();
+        return AjaxResponse.success(url);
     }
 
 }

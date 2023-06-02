@@ -1,5 +1,6 @@
 package com.ace.util;
 
+import com.ace.AceApplication;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeansException;
@@ -31,10 +32,14 @@ public class UrlMapperUtil implements ApplicationContextAware {
         Map<String, Object> controllerBeans = applicationContext.getBeansWithAnnotation(Controller.class);
         // Map<String, Object> restControllerBeans = applicationContext.getBeansWithAnnotation(RestController.class);
 
-        List<String> list = new ArrayList<>();
-        list.addAll(getUrl(controllerBeans, applicationContext));
+        List<String> list = new ArrayList<>(getUrl(controllerBeans, applicationContext));
         // list.addAll(getUrl(restControllerBeans, applicationContext));
 
+    }
+
+    public List<String> getUrl() {
+        Map<String, Object> controllerBeans = AceApplication.applicationContext.getBeansWithAnnotation(Controller.class);
+        return new ArrayList<>(getUrl(controllerBeans, AceApplication.applicationContext));
     }
 
     private List<String> getUrl(Map<String, Object> beans, ApplicationContext applicationContext) {
@@ -86,8 +91,8 @@ public class UrlMapperUtil implements ApplicationContextAware {
                 }
                 //log.info("url : {}  , desc : {}, system_code:{}", url, desc, system_code);
                 //log.info("Url: {}  , desc : {}", url, desc);
-                log.info("Url: {}", url);
-                list.add("Url: " + url);
+                log.info("url: {}", url);
+                list.add(url);
 
                 //url信息入库
             }
