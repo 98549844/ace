@@ -10,6 +10,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertySource;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * @Classname: PropertiesUtil
@@ -30,25 +33,27 @@ public class PropertiesUtil {
         PropertiesUtil.environment = environment;
     }
 
-    public static void printLoadedProperties() {
+    public static Map<String, String> getLoadedProperties() {
         Environment env = PropertiesUtil.environment;
         log.info("Start print loaded properties");
         //遍历每个配置来源中的配置项
         int m = 0;
+        Map<String, String> result = new HashMap<>();
         for (PropertySource<?> propertySource : ((AbstractEnvironment) env).getPropertySources()) {
             if (propertySource instanceof EnumerablePropertySource) {
                 m = m + 1;
                 int n = 0;
                 for (String name : ((EnumerablePropertySource<?>) propertySource).getPropertyNames()) {
                     n = n + 1;
-                    log.info("{}.{}=> Key: {}", m, n, name);
-                    log.info("Value: {}", env.getProperty(name));
+                    String value = env.getProperty(name);
+                    log.info("{}.{} --> key:{}; value:{}", m, n, name, value);
+                    result.put(name, value);
                 }
             }
         }
         log.info("Complete !!!");
+        return result;
     }
-
 
 
 }

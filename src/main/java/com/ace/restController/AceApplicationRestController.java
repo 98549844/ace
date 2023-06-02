@@ -1,18 +1,25 @@
 package com.ace.restController;
 
+import com.ace.AceApplication;
 import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.Users;
 import com.ace.service.UsersService;
+import com.ace.util.BeanUtil;
+import com.ace.util.PropertiesUtil;
+import com.util.Console;
+import com.util.NullUtil;
+import com.util.StringUtil;
+import com.util.SystemUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname: AceApplicationRestController
@@ -56,6 +63,47 @@ public class AceApplicationRestController {
         return userRolePermissionRestController.mapRolesAndPermissions();
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/getBean")
+    public AjaxResponse getBean(@RequestParam(required = false) String key) {
+        if (NullUtil.isNull(key)) {
+            log.info("print all bean name !!!");
+            //print all loaded BeanName and properties value
+            String[] beanNames = BeanUtil.getBeanNames(AceApplication.applicationContext);
 
+            //根据字符串长度由短到长排列
+            StringUtil.sortByLength(beanNames);
+            int beanSize = beanNames.length;
+            List<String> result = new ArrayList<>();
+            for (int i = 0; i < beanSize; i++) {
+                result.add(i + ". " + beanNames[i]);
+            }
+            return AjaxResponse.success(result);
+        } else {
+            boolean result = BeanUtil.beanExist(key);
+            String message;
+            Map<String, Object> map = new HashMap<>();
+            if (result) {
+                message = key + " exist";
+                map.put("Result", true);
+                map.put("BeanName", message);
+            } else {
+                message = key + " not found";
+                map.put("Result", false);
+                map.put("BeanName", message);
+            }
+            return AjaxResponse.success(map);
+        }
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/getProperties")
+    public AjaxResponse getProperties(@RequestParam(required = false) String key) {
+        Map<String, String> properties = PropertiesUtil.getLoadedProperties();
+        if (NullUtil.isNull(key)) {
+            return AjaxResponse.success(properties);
+        } else {
+            return AjaxResponse.success(key + ": " + properties.get(key));
+        }
+    }
 }
 

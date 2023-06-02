@@ -46,7 +46,7 @@ public class AceApplication {
 
         //  print all loaded BeanName and properties value
         //  Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
-        //  BeanUtil.printBeanName(applicationContext);
+        //  BeanUtil.getBeanNames(applicationContext);
         //  PropertiesUtil.printLoadedProperties();
         //  Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
 

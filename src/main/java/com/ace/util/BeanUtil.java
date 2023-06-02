@@ -2,6 +2,7 @@ package com.ace.util;
 
 import com.ace.AceApplication;
 import com.util.NullUtil;
+import com.util.SetUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
@@ -91,7 +92,7 @@ public class BeanUtil implements ApplicationContextAware {
      *
      * @param applicationContext
      */
-    public static void printBeanName(ApplicationContext applicationContext) {
+    public static String[] getBeanNames(ApplicationContext applicationContext) {
         String[] beanNames = applicationContext.getBeanDefinitionNames();
         log.info("total bean: {}", applicationContext.getBeanDefinitionCount());
         // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加RequestMapping注解的bean
@@ -99,6 +100,7 @@ public class BeanUtil implements ApplicationContextAware {
         for (String s : beanNames) {
             log.info("{},beanName: {}", ++i, s);
         }
+        return beanNames;
     }
 
 
@@ -128,9 +130,7 @@ public class BeanUtil implements ApplicationContextAware {
         String[] beanNames = BeanUtil.applicationContext.getBeanDefinitionNames();
         log.info("total bean: {}", applicationContext.getBeanDefinitionCount());
         // String[] beanNames = applicationContext.getBeanNamesForAnnotation(RequestMapping.class);//所有添加RequestMapping注解的bean
-        for (String s : beanNames) {
-            ls.add(s);
-        }
+        ls.addAll(Arrays.asList(beanNames));
         return ls;
     }
 
@@ -176,10 +176,12 @@ public class BeanUtil implements ApplicationContextAware {
 
 
     public Object getBeanByName(String name) {
-        Object object = applicationContext.getBean(name);
-        return object;
+        return applicationContext.getBean(name);
     }
 
+    public static boolean beanExist(String name) {
+        return SetUtil.containsString(BeanUtil.getBeanNames(applicationContext), name);
+    }
 
     /**
      * 加载ApplicationContext
@@ -211,7 +213,7 @@ public class BeanUtil implements ApplicationContextAware {
         log.info("xxx.xml");
         log.info("classpath:xxx.xml (location => src/main/resources/xxx.xml)");
         ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:logback.xml");
-        printBeanName(ctx);
+        getBeanNames(ctx);
         return ctx.getBean("beanName");
     }
 
@@ -226,7 +228,7 @@ public class BeanUtil implements ApplicationContextAware {
         HttpSession session = request.getSession();
         ServletContext context = session.getServletContext(); //arg0.getSession().getServletContext();
         ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(context);
-        printBeanName(ctx);
+        getBeanNames(ctx);
         return ctx.getBean("beanName");
 
     }
