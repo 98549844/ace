@@ -46,7 +46,7 @@ public class PropertiesUtil {
                 for (String name : ((EnumerablePropertySource<?>) propertySource).getPropertyNames()) {
                     n = n + 1;
                     String value = env.getProperty(name);
-                    log.info("{}.{} --> key:{}; value:{}", m, n, name, value);
+                    log.info("{}.{}--> key:{}; value:{}", m, n, name, value);
                     result.put(name, value);
                 }
             }
