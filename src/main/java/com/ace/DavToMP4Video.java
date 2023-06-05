@@ -42,9 +42,9 @@ public class DavToMP4Video {
             log.error(inputPath + " is not file");
             return false;
         }
-        String video = "";
-        String imgUrl = "";
-        String oldVideoUrl = "";
+        String video;
+        String imgUrl;
+        String oldVideoUrl;
         if (StringUtil.isNotBlank(inputPath)) {
             imgUrl = inputPath;
             video = imgUrl.replaceAll("\\\\", "/");
