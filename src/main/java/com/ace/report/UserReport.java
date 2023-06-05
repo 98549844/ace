@@ -48,18 +48,23 @@ public class UserReport {
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        //main method
         buildReport(getConn(), null);
+
+        //get application properties value to receive data
+        //UserReport userReport = new UserReport(new ReportConfig());
+        //userReport.buildReport(userReport.getConnection(), null);
     }
 
     public static Connection getConn() throws ClassNotFoundException, SQLException {
         Class.forName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
         // return (Connection) DriverManager.getConnection("jdbc:mariadb://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8", "root", "garlamau");
-        return (Connection) DriverManager.getConnection("jdbc:log4jdbc:mysql://localhost:3306/ace?characterEncoding=UTF-8&useUnicode=true&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8", "root", "root");
+        return DriverManager.getConnection("jdbc:log4jdbc:mysql://localhost:3306/ace?characterEncoding=UTF-8&useUnicode=true&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8", "root", "root");
     }
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName(reportConfig.getForName());
-        return (Connection) DriverManager.getConnection(reportConfig.getUrl(), reportConfig.getUserName(), reportConfig.getPassword());
+        return DriverManager.getConnection(reportConfig.getUrl(), reportConfig.getUserName(), reportConfig.getPassword());
     }
 
     @SuppressWarnings("deprecation")
