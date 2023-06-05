@@ -41,19 +41,20 @@ public class UserReport {
     private final ReportConfig reportConfig;
 
 
-   // @Autowired
+    // get application datasource to receive data
+    // @Autowired
     public UserReport(ReportConfig reportConfig) {
         this.reportConfig = reportConfig;
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-
         buildReport(getConn(), null);
     }
 
     public static Connection getConn() throws ClassNotFoundException, SQLException {
         Class.forName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
-        return (Connection) DriverManager.getConnection("jdbc:mariadb://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8", "root", "garlamau");
+        // return (Connection) DriverManager.getConnection("jdbc:mariadb://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8", "root", "garlamau");
+        return (Connection) DriverManager.getConnection("jdbc:log4jdbc:mysql://localhost:3306/ace?characterEncoding=UTF-8&useUnicode=true&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8", "root", "root");
     }
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
@@ -89,7 +90,8 @@ public class UserReport {
             //显示报表
             report.show(false);  //关闭预览窗口后不退出程序
             try {
-                FileOutputStream fileOutputStream = new FileOutputStream("/Users/garlam/IdeaProjects/ace/src/main/resources/files/" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
+                // FileOutputStream fileOutputStream = new FileOutputStream("/Users/garlam/IdeaProjects/ace/src/main/resources/files/" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
+                FileOutputStream fileOutputStream = new FileOutputStream("C:\\ideaPorject\\ace\\src\\main\\resources\\files\\" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
                 report.toPdf(fileOutputStream);//打印的pdf地址
                 try {
                     fileOutputStream.flush();  //保证pdf输出完毕
