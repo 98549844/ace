@@ -1,19 +1,20 @@
-纯HTML解决PDF显示，四种解决方法
+纯HTML解决PDF显示, 四种解决方法
 1.HTML5新标签<embed>
 定义和用法
-<embed> 标签定义嵌入的内容，比如插件。
+<embed> 标签定义嵌入的内容, 比如插件.
 
 实例
 <embed src="helloworld.pdf" type="application/pdf" width="100%" height="100%" internalinstanceid="81 />
 2.<iframe>
-<iframe>方法是嵌入PDF的最简单方法之一。但是，如果<iframe>浏览器不支持PDF呈现，则可能无法提供足够的后备内容。
+<iframe>方法是嵌入PDF的最简单方法之一. 但是, 如果<iframe>浏览器不支持PDF呈现, 则可能无法提供足够的后备内容.
 
 实例
 <iframe src="您的PDF地址" width="100%" height="100%">
- 该浏览器无法支持PDF，请点击查看：
+ 该浏览器无法支持PDF, 请点击查看:
 <a href="PDF地址">下载 PDF</a></iframe>
 3.<object>
-与<embed>不同，<object>如果浏览器不支持PDF嵌入，则该元素可提示内容。所有浏览器都支持<object>元素，但是，每个浏览器中的实现方式通常存在差异。如果您使用该<object>元素，请务必在浏览器和操作系统中彻底测试您的页面。
+与<embed>不同, <object>如果浏览器不支持PDF嵌入, 则该元素可提示内容. 所有浏览器都支持<object>元素,
+但是, 每个浏览器中的实现方式通常存在差异. 如果您使用该<object>元素, 请务必在浏览器和操作系统中彻底测试您的页面.
 
 实例
 <object data="您的pdf地址" type="application/pdf" width="100%" height="100%">
@@ -24,13 +25,13 @@
 4.<object><iframe></object>
 <object data="您的pdf地址" type="application/pdf" width="100%" height="100%">
 <iframe src="您的PDF地址" width="100%" height="100%" style="border: none;">
-该浏览器不支持PDFs，请单击查看:
+该浏览器不支持PDFs, 请单击查看:
 <a href="您的PDF地址">Download PDF</a>
 </iframe>
 </object>
-以上例子，不设置宽高默认会全屏显示。
+以上例子, 不设置宽高默认会全屏显示.
 
-默认情况下，当浏览器不支持嵌入式PDF时，PDFObject会向PDF插入后备链接。这可确保您的用户始终可以访问您的PDF，并旨在帮助您编写更少的代码。
+默认情况下, 当浏览器不支持嵌入式PDF时, PDFObject会向PDF插入后备链接. 这可确保您的用户始终可以访问您的PDF, 并旨在帮助您编写更少的代码.
 
 pdfobject完美解决PDF显示问题
 https://pdfobject.com/
