@@ -10,7 +10,7 @@
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %highlight(%-5level) [%boldMagenta(%-10t)]- %green(%c) %boldCyan(%-10M): %msg%n
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %highlight(%-5level) [%boldMagenta(%-10t)] %green(%c) %boldCyan(%-10M): %msg%n
             </pattern>
             <charset>utf-8</charset>
         </encoder>
@@ -86,7 +86,7 @@
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %highlight(%-5level) [%boldMagenta(%-10t)]- %green(%c) %boldCyan(%-10M): %msg%n
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %highlight(%-5level) [%boldMagenta(%-10t)] %green(%c) %boldCyan(%-10M): %msg%n
             </pattern>
         </encoder>
     </appender>
