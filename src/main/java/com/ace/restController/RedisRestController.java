@@ -39,6 +39,13 @@ public class RedisRestController {
     }
 
 
+    @Operation(summary = "Match key", description = "* for match symbol")
+    @RequestMapping(method = RequestMethod.GET, value = "/match/{key}")
+    public AjaxResponse match(@PathVariable(value = "key") String key) {
+        List<String> result = redisService.scan(key);
+        return AjaxResponse.success(result);
+    }
+
     @Operation(summary = "Get all")
     @RequestMapping(method = RequestMethod.GET, value = "/getAll")
     public AjaxResponse getAll() {
@@ -68,7 +75,10 @@ public class RedisRestController {
     @Operation(summary = "Get value by key")
     @RequestMapping(method = RequestMethod.GET, value = "/get/{key}")
     public AjaxResponse getValueByKey(@PathVariable(value = "key") String key) {
-        return AjaxResponse.success(redisService.get(key));
+      //  return AjaxResponse.success(redisService.get(key));
+        Object obj = redisService.get(key);
+        String result = FastJsonUtil.ObjectToJson(obj);
+        return AjaxResponse.success(result);
     }
 
     @Operation(summary = "Get all keys")

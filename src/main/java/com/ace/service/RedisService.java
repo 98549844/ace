@@ -3,14 +3,16 @@ package com.ace.service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.Cursor;
+import org.springframework.data.redis.core.RedisConnectionUtils;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -139,6 +141,45 @@ public class RedisService {
         }
     }
 
+
+    /**
+     * 查找匹配key
+     *
+     * @param pattern key
+     * @return /
+     */
+    public List<String> scan(String pattern) {
+        ScanOptions options = ScanOptions.scanOptions().match(pattern).build();
+        RedisConnectionFactory factory = redisTemplate.getConnectionFactory();
+        RedisConnection rc = Objects.requireNonNull(factory).getConnection();
+        Cursor<byte[]> cursor = rc.scan(options);
+        List<String> result = new ArrayList<>();
+        while (cursor.hasNext()) {
+            result.add(new String(cursor.next()));
+        }
+        try {
+            RedisConnectionUtils.releaseConnection(rc, factory);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return result;
+    }
+
+
+    /**
+     * 根据key获取Set中的所有值
+     *
+     * @param key 键
+     * @return
+     */
+    public Set<Object> sGet(String key) {
+        try {
+            return redisTemplate.opsForSet().members(key);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return null;
+        }
+    }
 
     /**
      * 普通缓存放入并设置时间
