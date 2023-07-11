@@ -1,9 +1,7 @@
 package com.ace;
 
-import com.util.FastJsonUtil;
-import com.util.GsonUtil;
+import com.util.FastJson2Util;
 import com.util.SleepUtil;
-import net.minidev.json.JSONUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,13 +31,14 @@ public class Ace {
                 String response1 = sendGetRequest(BTC);
                 String response2 = sendGetRequest(ETH);
                 String response3 = sendGetRequest(USDT);
-                System.out.println(response1);
-                System.out.println(response2);
-                System.out.println(response3);
+               // System.out.println(response1);
+//                System.out.println(response2);
+//                System.out.println(response3);
+                System.out.println(FastJson2Util.formatJson(response3));
 
-            //    System.out.println(GsonUtil.getPrettyJson(response1));
-            //    System.out.println(GsonUtil.getPrettyJson(response2));
-            //    System.out.println(GsonUtil.getPrettyJson(response3));
+                //    System.out.println(GsonUtil.getPrettyJson(response1));
+                //    System.out.println(GsonUtil.getPrettyJson(response2));
+                //    System.out.println(GsonUtil.getPrettyJson(response3));
                 SleepUtil.sleep(1);
             }
         } catch (Exception e) {
@@ -51,7 +50,7 @@ public class Ace {
         StringBuilder sb = new StringBuilder();
         /*try {*/
         URLConnection conn = new URL(url).openConnection();
-     //   URLConnection conn = null;
+        //   URLConnection conn = null;
         conn.setRequestProperty("User-Agent", "Mozilla/5.0");
         BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         String line;

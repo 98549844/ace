@@ -5,7 +5,7 @@ import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.Users;
 import com.ace.service.RedisService;
 import com.ace.service.UsersService;
-import com.util.FastJsonUtil;
+import com.util.FastJson2Util;
 import com.util.NullUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -77,7 +77,7 @@ public class RedisRestController {
     public AjaxResponse getValueByKey(@PathVariable(value = "key") String key) {
       //  return AjaxResponse.success(redisService.get(key));
         Object obj = redisService.get(key);
-        String result = FastJsonUtil.ObjectToJson(obj);
+        String result = FastJson2Util.ObjectToJson(obj);
         return AjaxResponse.success(result);
     }
 
@@ -137,11 +137,11 @@ public class RedisRestController {
         Object object = redisService.get("all");
         if (NullUtil.isNull(object)) {
             List<Users> users = usersService.findAll();
-            redisService.set("all", FastJsonUtil.ObjectToJson(users));
+            redisService.set("all", FastJson2Util.ObjectToJson(users));
         }
 
         Users user = usersService.findByUserAccount("garlam");
-        redisService.set(user.getUsername(), FastJsonUtil.ObjectToJson(user));
+        redisService.set(user.getUsername(), FastJson2Util.ObjectToJson(user));
 
         List<Object> ls = new ArrayList<>();
         ls.add(redisService.get(user.getUsername()));

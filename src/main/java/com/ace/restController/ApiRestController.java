@@ -5,7 +5,6 @@ import com.ace.api.Daatm;
 import com.ace.api.EthGasStation;
 import com.ace.api.Response;
 import com.ace.models.common.AjaxResponse;
-import com.util.FastJsonUtil;
 import com.util.GsonUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
