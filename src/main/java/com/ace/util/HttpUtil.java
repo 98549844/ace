@@ -31,126 +31,87 @@ public class HttpUtil {
 
 
     private static void httpStatusCommonCode() {
-        List<Cell> header = new ArrayList<>() {{
-            add(new Cell("常见的HTTP状态码"));
-        }};
+        List<String> header = new ArrayList<>();
+        header.add("常见的HTTP状态码");
 
-        List<List<Cell>> body = new ArrayList<>() {{
-            add(new ArrayList<>() {{
-                add(new Cell("200 - 请求成功"));
-            }});
-            add(new ArrayList<>() {{
-                add(new Cell("301 - 资源(网页等)被永久转移到其它URL"));
-            }});
-            add(new ArrayList<>() {{
-                add(new Cell("404 - 请求的资源(网页等)不存在"));
-            }});
-            add(new ArrayList<>() {{
-                add(new Cell("500 - 内部服务器错误"));
-            }});
-
-        }};
-
+        List<String[]> body = new ArrayList<>();
+        body.add(new String[]{"200 - 请求成功"});
+        body.add(new String[]{"301 - 资源(网页等)被永久转移到其它URL"});
+        body.add(new String[]{"404 - 请求的资源(网页等)不存在"});
+        body.add(new String[]{"500 - 内部服务器错误"});
 
         ConsoleTable.println(header, body);
-
     }
 
     public static void httpStatusCode() {
-        Console.println("HTTP状态码的分类", Console.BLUE, Console.BOLD);
-        List<Cell> header = new ArrayList<>() {{
-            add(new Cell("code分类"));
-            add(new Cell("分类描述"));
-        }};
+        List<String> header = new ArrayList<>();
+        header.add("code分类");
+        header.add("分类描述");
 
-        List<List<Cell>> body = new ArrayList<>() {{
-            add(new ArrayList<>() {{
-                add(new Cell("1**"));
-                add(new Cell("信息,服务器收到请求,需要请求者继续执行操作"));
-            }});
-            add(new ArrayList<>() {{
-                add(new Cell("2**"));
-                add(new Cell("成功,操作被成功接收并处理"));
-            }});
-            add(new ArrayList<>() {{
-                add(new Cell("3**"));
-                add(new Cell("重定向,需要进一步的操作以完成请求"));
-            }});
-            add(new ArrayList<>() {{
-                add(new Cell("4**"));
-                add(new Cell("客户端错误,请求包含语法错误或无法完成请求"));
-            }});
-            add(new ArrayList<>() {{
-                add(new Cell("5**"));
-                add(new Cell("服务器错误,服务器在处理请求的过程中发生了错误"));
-            }});
-        }};
+        List<String[]> body = new ArrayList<>();
+        body.add(new String[]{"1**", "信息,服务器收到请求,需要请求者继续执行操作"});
+        body.add(new String[]{"2**", "成功,操作被成功接收并处理"});
+        body.add(new String[]{"3**", "重定向,需要进一步的操作以完成请求"});
+        body.add(new String[]{"4**", "客户端错误,请求包含语法错误或无法完成请求"});
+        body.add(new String[]{"5**", "服务器错误,服务器在处理请求的过程中发生了错误"});
 
         ConsoleTable.println(header, body);
     }
 
     public static void httpStatusList() {
-        List<Cell> header = new ArrayList<>() {{
-            add(new Cell("状态码"));
-            add(new Cell("状态码英文名称"));
-            add(new Cell("中文描述"));
-        }};
+        List<String> header = new ArrayList<>();
+        header.add("状态码");
+        header.add("状态码英文名称");
+        header.add("中文描述");
 
-        List<List<Cell>> body = new ArrayList<>() {{
-            add(new ArrayList<>() {{add(new Cell("100"));add(new Cell("Continue"));add(new Cell("继续. 客户端应继续其请求"));}});
-            add(new ArrayList<>() {{add(new Cell("101"));add(new Cell("Switching Protocols"));add(new Cell("切换协议. 服务器根据客户端的请求切换协议. 只能切换到更高级的协议, 例如, 切换到HTTP的新版本协议"));}});
-            add(new ArrayList<>() {{add(new Cell(""));add(new Cell(""));add(new Cell(""));}});
-            add(new ArrayList<>() {{add(new Cell("200"));add(new Cell("OK"));add(new Cell("请求成功. 一般用于GET与POST请求"));}});
-            add(new ArrayList<>() {{add(new Cell("201"));add(new Cell("Created"));add(new Cell("已创建. 成功请求并创建了新的资源"));}});
-            add(new ArrayList<>() {{add(new Cell("202"));add(new Cell("Accepted"));add(new Cell("已接受. 已经接受请求, 但未处理完成"));}});
-            add(new ArrayList<>() {{add(new Cell("203"));add(new Cell("Non-Authoritative Information"));add(new Cell("非授权信息. 请求成功. 但返回的meta信息不在原始的服务器, 而是一个副本"));}});
-            add(new ArrayList<>() {{add(new Cell("204"));add(new Cell("No Content"));add(new Cell("无内容. 服务器成功处理, 但未返回内容. 在未更新网页的情况下, 可确保浏览器继续显示当前文档"));}});
-            add(new ArrayList<>() {{add(new Cell("205"));add(new Cell("Reset Content"));add(new Cell("重置内容. 服务器处理成功, 用户终端(例如: 浏览器)应重置文档视图. 可通过此返回码清除浏览器的表单域"));}});
-            add(new ArrayList<>() {{add(new Cell("206"));add(new Cell("Partial Content"));add(new Cell("部分内容. 服务器成功处理了部分GET请求"));}});
-
-            add(new ArrayList<>() {{add(new Cell(""));add(new Cell(""));add(new Cell(""));}});
-            add(new ArrayList<>() {{add(new Cell("300"));add(new Cell("Multiple Choices"));add(new Cell("多种选择. 请求的资源可包括多个位置, 相应可返回一个资源特征与地址的列表用于用户终端(例如: 浏览器)选择"));}});
-            add(new ArrayList<>() {{add(new Cell("301"));add(new Cell("Moved Permanently"));add(new Cell("永久移动. 请求的资源已被永久的移动到新URI, 返回信息会包括新的URI, 浏览器会自动定向到新URI. 今后任何新的请求都应使用新的URI代替"));}});
-            add(new ArrayList<>() {{add(new Cell("302"));add(new Cell("Found"));add(new Cell("临时移动. 与301类似. 但资源只是临时被移动. 客户端应继续使用原有URI"));}});
-            add(new ArrayList<>() {{add(new Cell("303"));add(new Cell("See Other"));add(new Cell("查看其它地址. 与301类似. 使用GET和POST请求查看"));}});
-            add(new ArrayList<>() {{add(new Cell("304"));add(new Cell("Not Modified"));add(new Cell("未修改. 所请求的资源未修改, 服务器返回此状态码时, 不会返回任何资源. 客户端通常会缓存访问过的资源, 通过提供一个头信息指出客户端希望只返回在指定日期之后修改的资源"));}});
-            add(new ArrayList<>() {{add(new Cell("305"));add(new Cell("Use Proxy"));add(new Cell("使用代理. 所请求的资源必须通过代理访问"));}});
-            add(new ArrayList<>() {{add(new Cell("306"));add(new Cell("Unused"));add(new Cell("已经被废弃的HTTP状态码"));}});
-            add(new ArrayList<>() {{add(new Cell("307"));add(new Cell("Temporary Redirect"));add(new Cell("临时重定向. 与302类似. 使用GET请求重定向"));}});
-            add(new ArrayList<>() {{add(new Cell(""));add(new Cell(""));add(new Cell(""));}});
-
-            add(new ArrayList<>() {{add(new Cell("400"));add(new Cell("Bad Request"));add(new Cell("客户端请求的语法错误, 服务器无法理解"));}});
-            add(new ArrayList<>() {{add(new Cell("401"));add(new Cell("Unauthorized"));add(new Cell("请求要求用户的身份认证"));}});
-            add(new ArrayList<>() {{add(new Cell("402"));add(new Cell("Payment Required"));add(new Cell("保留, 将来使用"));}});
-            add(new ArrayList<>() {{add(new Cell("403"));add(new Cell("Forbidden"));add(new Cell("服务器理解请求客户端的请求, 但是拒绝执行此请求"));}});
-            add(new ArrayList<>() {{add(new Cell("404"));add(new Cell("Not Found"));add(new Cell("服务器无法根据客户端的请求找到资源(网页). 通过此代码, 网站设计人员可设置\"您所请求的资源无法找到\" 的个性页面"));}});
-            add(new ArrayList<>() {{add(new Cell("405"));add(new Cell("Method Not Allowed"));add(new Cell("客户端请求中的方法被禁止"));}});
-            add(new ArrayList<>() {{add(new Cell("406"));add(new Cell("Not Acceptable"));add(new Cell("服务器无法根据客户端请求的内容特性完成请求"));}});
-            add(new ArrayList<>() {{add(new Cell("407"));add(new Cell("Proxy Authentication Required"));add(new Cell("请求要求代理的身份认证, 与401类似, 但请求者应当使用代理进行授权"));}});
-            add(new ArrayList<>() {{add(new Cell("408"));add(new Cell("Request Time-out"));add(new Cell("服务器等待客户端发送的请求时间过长, 超时"));}});
-            add(new ArrayList<>() {{add(new Cell("409"));add(new Cell("Conflict"));add(new Cell("服务器完成客户端的 PUT 请求时可能返回此代码, 服务器处理请求时发生了冲突"));}});
-
-            add(new ArrayList<>() {{add(new Cell("410"));add(new Cell("Gone"));add(new Cell("客户端请求的资源已经不存在. 410不同于404, 如果资源以前有, 现在被永久删除了可使用410代码, 网站设计人员可通过301代码指定资源的新位置"));}});
-            add(new ArrayList<>() {{add(new Cell("411"));add(new Cell("Length Required"));add(new Cell("服务器无法处理客户端发送的不带Content-Length的请求信息"));}});
-            add(new ArrayList<>() {{add(new Cell("412"));add(new Cell("Precondition Failed"));add(new Cell("客户端请求信息的先决条件错误"));}});
-            add(new ArrayList<>() {{add(new Cell("413"));add(new Cell("Request Entity Too Large"));add(new Cell("由于请求的实体过大, 服务器无法处理, 因此拒绝请求. 为防止客户端的连续请求, 服务器可能会关闭连接. 如果只是服务器暂时无法处理, 则会包含一个Retry-After的响应信息"));}});
-            add(new ArrayList<>() {{add(new Cell("414"));add(new Cell("Request-URI Too Large"));add(new Cell("请求的URI过长(URI通常为网址), 服务器无法处理"));}});
-            add(new ArrayList<>() {{add(new Cell("415"));add(new Cell("Unsupported Media Type"));add(new Cell("服务器无法处理请求附带的媒体格式"));}});
-            add(new ArrayList<>() {{add(new Cell("416"));add(new Cell("Requested range not satisfiable"));add(new Cell("客户端请求的范围无效"));}});
-            add(new ArrayList<>() {{add(new Cell("417"));add(new Cell("Expectation Failed"));add(new Cell("服务器无法满足Expect的请求头信息"));}});
-            add(new ArrayList<>() {{add(new Cell(""));add(new Cell(""));add(new Cell(""));}});
-            add(new ArrayList<>() {{add(new Cell("500"));add(new Cell("Internal Server Error"));add(new Cell("服务器内部错误, 无法完成请求"));}});
-
-            add(new ArrayList<>() {{add(new Cell("501"));add(new Cell("Not Implemented"));add(new Cell("服务器不支持请求的功能, 无法完成请求"));}});
-            add(new ArrayList<>() {{add(new Cell("502"));add(new Cell("Bad Gateway"));add(new Cell("作为网关或者代理工作的服务器尝试执行请求时, 从远程服务器接收到了一个无效的响应"));}});
-            add(new ArrayList<>() {{add(new Cell("503"));add(new Cell("Service Unavailable"));add(new Cell("由于超载或系统维护, 服务器暂时的无法处理客户端的请求. 延时的长度可包含在服务器的Retry-After头信息中"));}});
-            add(new ArrayList<>() {{add(new Cell("504"));add(new Cell("Gateway Time-out"));add(new Cell("充当网关或代理的服务器, 未及时从远端服务器获取请求"));}});
-            add(new ArrayList<>() {{add(new Cell("505"));add(new Cell("HTTP Version not supported"));add(new Cell("服务器不支持请求的HTTP协议的版本, 无法完成处理"));}});
-        }};
-
+        List<String[]> body = new ArrayList<>();
+        body.add(new String[]{"100", "Continue", "继续。客户端应继续其请求"});
+        body.add(new String[]{"101", "Switching Protocols", "切换协议。服务器根据客户端的请求切换协议。只能切换到更高级的协议，例如，切换到HTTP的新版本协议"});
+        body.add(new String[]{"–", "–", "–"});
+        body.add(new String[]{"200", "OK", "请求成功。一般用于GET与POST请求"});
+        body.add(new String[]{"201", "Created", "已创建。成功请求并创建了新的资源"});
+        body.add(new String[]{"202", "Accepted", "已接受。已经接受请求，但未处理完成"});
+        body.add(new String[]{"203", "Non-Authoritative Information", "非授权信息。请求成功。但返回的meta信息不在原始的服务器，而是一个副本"});
+        body.add(new String[]{"204", "No Content", "无内容。服务器成功处理，但未返回内容。在未更新网页的情况下，可确保浏览器继续显示当前文档"});
+        body.add(new String[]{"205", "Reset Content", "重置内容。服务器处理成功，用户终端（例如：浏览器）应重置文档视图。可通过此返回码清除浏览器的表单域"});
+        body.add(new String[]{"206", "Partial Content", "部分内容。服务器成功处理了部分GET请求"});
+        body.add(new String[]{"", "", ""});
+        body.add(new String[]{"300", "Multiple Choices", "多种选择。请求的资源可包括多个位置，相应可返回一个资源特征与地址的列表用于用户终端（例如：浏览器）选择"});
+        body.add(new String[]{"301", "Moved Permanently", "永久移动。请求的资源已被永久的移动到新URI，返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替"});
+        body.add(new String[]{"302", "Found", "临时移动。与301类似。但资源只是临时被移动。客户端应继续使用原有URI"});
+        body.add(new String[]{"303", "See Other", "查看其它地址。与301类似。使用GET和POST请求查看"});
+        body.add(new String[]{"304", "Not Modified", "未修改。所请求的资源未修改，服务器返回此状态码时，不会返回任何资源。客户端通常会缓存访问过的资源，通过提供一个头信息指出客户端希望只返回在指定日期之后修改的资源"});
+        body.add(new String[]{"305", "Use Proxy", "使用代理。所请求的资源必须通过代理访问"});
+        body.add(new String[]{"306", "Unused", "已经被废弃的HTTP状态码"});
+        body.add(new String[]{"307", "Temporary Redirect", "临时重定向。与302类似。使用GET请求重定向"});
+        body.add(new String[]{"–", "–", "–"});
+        body.add(new String[]{"400", "Bad Request", "客户端请求的语法错误，服务器无法理解"});
+        body.add(new String[]{"401", "Unauthorized", "请求要求用户的身份认证"});
+        body.add(new String[]{"402", "Payment Required", "保留，将来使用"});
+        body.add(new String[]{"403", "Forbidden", "服务器理解请求客户端的请求，但是拒绝执行此请求"});
+        body.add(new String[]{"404", "Not Found", "服务器无法根据客户端的请求找到资源（网页）。通过此代码，网站设计人员可设置\"您所请求的资源无法找到\"的个性页面"});
+        body.add(new String[]{"405", "Method Not Allowed", "客户端请求中的方法被禁止"});
+        body.add(new String[]{"406", "Not Acceptable", "服务器无法根据客户端请求的内容特性完成请求"});
+        body.add(new String[]{"407", "Proxy Authentication Required", "请求要求代理的身份认证，与401类似，但请求者应当使用代理进行授权"});
+        body.add(new String[]{"408", "Request Time-out", "服务器等待客户端发送的请求时间过长，超时"});
+        body.add(new String[]{"409", "Conflict", "服务器完成客户端的 PUT 请求时可能返回此代码，服务器处理请求时发生了冲突"});
+        body.add(new String[]{"410", "Gone", "客户端请求的资源已经不存在。410不同于404，如果资源以前有，现在被永久删除了可使用410代码，网站设计人员可通过301代码指定资源的新位置"});
+        body.add(new String[]{"411", "Length Required", "服务器无法处理客户端发送的不带Content-Length的请求信息"});
+        body.add(new String[]{"412", "Precondition Failed", "客户端请求信息的先决条件错误"});
+        body.add(new String[]{"413", "Request Entity Too Large", "由于请求的实体过大，服务器无法处理，因此拒绝请求。为防止客户端的连续请求，服务器可能会关闭连接。如果只是服务器暂时无法处理，则会包含一个Retry-After的响应信息"});
+        body.add(new String[]{"414", "Request-URI Too Large", "请求的URI过长（URI通常为网址），服务器无法处理"});
+        body.add(new String[]{"415", "Unsupported Media Type", "服务器无法处理请求附带的媒体格式"});
+        body.add(new String[]{"416", "Requested range not satisfiable", "客户端请求的范围无效"});
+        body.add(new String[]{"417", "Expectation Failed", "服务器无法满足Expect的请求头信息"});
+        body.add(new String[]{"", "", ""});
+        body.add(new String[]{"500", "Internal Server Error", "服务器内部错误，无法完成请求"});
+        body.add(new String[]{"501", "Not Implemented", "服务器不支持请求的功能，无法完成请求"});
+        body.add(new String[]{"502", "Bad Gateway", "作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应"});
+        body.add(new String[]{"503", "Service Unavailable", "由于超载或系统维护，服务器暂时的无法处理客户端的请求。延时的长度可包含在服务器的Retry-After头信息中"});
+        body.add(new String[]{"504", "Gateway Time-out", "充当网关或代理的服务器，未及时从远端服务器获取请求"});
+        body.add(new String[]{"505", "HTTP Version not supported", "服务器不支持请求的HTTP协议的版本，无法完成处理"});
 
         ConsoleTable.println(header, body);
-
     }
 
 
