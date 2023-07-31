@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,18 +23,17 @@ import java.util.List;
  * @Description:
  */
 
+//@Api(tags = "ace")
+@CrossOrigin // 解决浏览器禁止ajax请求本地以外的资源, 后端同时在Controller层的类上增加@CrossOrign注解
 @RestController
 @RequestMapping("/rest/ace")
-//@Api(tags = "ace")
 @Tag(name = "Ace")
 @EnableConfigurationProperties
 public class AceRestController {
     private final static Logger log = LogManager.getLogger(AceRestController.class.getName());
 
-
     private final AceConfig aceConfig;
     private final ReportConfig reportConfig;
-
 
     @Autowired
     public AceRestController(AceConfig aceConfig, ReportConfig reportConfig) {
