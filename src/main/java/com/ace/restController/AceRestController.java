@@ -50,7 +50,7 @@ public class AceRestController {
         log.info("aceConfig.isSwaggerEnable(): " + aceConfig.isSwaggerEnable());
         log.info("aceConfig.getProfile(): " + aceConfig.getProfile());
 
-        List aceList = new ArrayList();
+        List<String> aceList = new ArrayList<>();
         aceList.add("Ace Profile: " + aceConfig.getProfile());
         aceList.add(aceConfig.getName());
         aceList.add(aceConfig.getVersion());
