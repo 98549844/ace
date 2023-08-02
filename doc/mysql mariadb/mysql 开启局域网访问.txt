@@ -1,0 +1,24 @@
+mysql 开启局域网访问
+
+MySQL是一种流行的开源关系型数据库管理系统(RDBMS), 可以在多个平台上使用. 在许多情况下, 我们需要允许其他设备连接MySQL服务. 这就需要开启MySQL的局域网访问. 
+以下是步骤: 
+1. 修改MySQL配置文件
+sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf
+在文件最后添加如下内容: 
+bind-address = 0.0.0.0
+
+2. 重启MySQL服务
+sudo service mysql restart
+
+3. 创建新的MySQL用户并允许访问
+CREATE USER 'newuser'@'%' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'newuser'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+其中, newuser为新用户的用户名, password为该用户的密码. ‘%’表示任何IP地址都可以访问MySQL服务. 
+
+4. 允许防火墙访问
+如果您正在使用Linux服务器, 请确保防火墙允许MySQL端口访问(默认为3306). 
+sudo ufw allow from any to any port 3306
+
+至此, MySQL已经开启了局域网访问
+

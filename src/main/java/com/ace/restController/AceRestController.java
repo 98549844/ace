@@ -23,7 +23,6 @@ import java.util.List;
  * @Description:
  */
 
-//@Api(tags = "ace")
 @CrossOrigin // 解决浏览器禁止ajax请求本地以外的资源, 后端同时在Controller层的类上增加@CrossOrign注解
 @RestController
 @RequestMapping("/rest/ace")
