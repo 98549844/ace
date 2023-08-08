@@ -45,7 +45,7 @@ public class IpUtil implements ApplicationListener<WebServerInitializedEvent> {
         return String.valueOf(java.net.InetAddress.getByName(domain));
     }
 
-    public Map getHostInfo() {
+    public Map<String, Object> getHostInfo() {
         InetAddress address = null;
         try {
             address = InetAddress.getLocalHost();
@@ -56,7 +56,7 @@ public class IpUtil implements ApplicationListener<WebServerInitializedEvent> {
         hostName = address.getHostName();
         domain = address.getHostName();
 
-        Map m = new HashMap();
+        Map<String, Object> m = new HashMap();
 
         m.put("ip", ip);
         m.put("port", Port);
