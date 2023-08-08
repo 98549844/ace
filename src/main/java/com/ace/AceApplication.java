@@ -63,9 +63,9 @@ public class AceApplication {
             //决定项目启动时, 是否主动打开swagger/docHtml
             BrowserConfig browserConfig = new BrowserConfig();
             browserConfig.openAceIndexAndSwagger(aceConfig.isIndexEnable(), aceConfig.isSwaggerEnable(), aceConfig.isDocHtmlEnabled());
+            // browserConfig.getCss();
+            // browserConfig.getIndex();
         }
-        // browserConfig.getCss();
-        // browserConfig.getIndex();
         log.info("Running success: Sa-Token config: {}", SaManager.getConfig());
     }
 
