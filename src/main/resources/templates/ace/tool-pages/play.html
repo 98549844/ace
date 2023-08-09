@@ -493,7 +493,7 @@
                     const playId = '/[[${playId}]]';
                     if (url.indexOf('.ts') !== -1 || url.indexOf('key') !== -1) {
                         url = url + playId;
-                   } else if (url.indexOf('index') !== -1) {
+                    } else if (url.indexOf('index') !== -1) {
                         url = 'play/ts/index.m3u8/' + playId;
                         // url = 'media/play/ts/index.m3u8?uuid=[[${playId}]]'; for requestParam
                     }
@@ -593,12 +593,19 @@
     });
 
     dp.on('play', function () {
+        /*
+        dp.video: 原生 video
+        dp.video.currentTime: 返回视频当前播放时间
+        dp.video.duration: 返回视频总时间
+        dp.video.paused: 返回视频是否暂停
+        */
     });
 
     dp.on('pause', function () {
     });
 
     dp.on('canplay', function () {
+        console.log("Can play")
     });
 
     dp.on('playing', function () {
@@ -608,6 +615,7 @@
     });
 
     dp.on('error', function () {
+        alert("occur error !!!")
     });
 
 
