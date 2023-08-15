@@ -20,25 +20,25 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from access_log
+        from accessLog
         where logId = #{logId,jdbcType=BIGINT}
     </select>
 
     <select id="selectAll"  resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from access_log
+        from accessLog
     </select>
 
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete
-        from access_log
+        from accessLog
         where logId = #{logId,jdbcType=BIGINT}
     </delete>
     <insert id="insert" keyColumn="logId" keyProperty="logId" parameterType="com.ace.models.entity.AccessLog"
             useGeneratedKeys="true">
-        insert into access_log (createdBy, createdDate, lastUpdatedBy,
+        insert into accessLog (createdBy, createdDate, lastUpdatedBy,
                                 lastUpdateDate, version, accessTime,
                                 description, `operator`)
         values (#{createdBy,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP}, #{lastUpdatedBy,jdbcType=VARCHAR},
@@ -47,7 +47,7 @@
     </insert>
     <insert id="insertSelective" keyColumn="logId" keyProperty="logId" parameterType="com.ace.models.entity.AccessLog"
             useGeneratedKeys="true">
-        insert into access_log
+        insert into accessLog
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="createdBy != null">
                 createdBy,
@@ -102,7 +102,7 @@
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.ace.models.entity.AccessLog">
-        update access_log
+        update accessLog
         <set>
             <if test="createdBy != null">
                 createdBy = #{createdBy,jdbcType=VARCHAR},
@@ -132,7 +132,7 @@
         where logId = #{logId,jdbcType=BIGINT}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.ace.models.entity.AccessLog">
-        update access_log
+        update accessLog
         set createdBy       = #{createdBy,jdbcType=VARCHAR},
             createdDate     = #{createdDate,jdbcType=TIMESTAMP},
             lastUpdatedBy   = #{lastUpdatedBy,jdbcType=VARCHAR},
