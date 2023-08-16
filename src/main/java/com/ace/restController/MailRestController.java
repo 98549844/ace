@@ -44,7 +44,6 @@ public class MailRestController {
         this.javaMailSender = javaMailSender;
     }
 
-//    @ApiOperation(value = "Sample mail")
     @Operation(summary = "Sample mail")
     @PostMapping("/mail.html")
     public String sendEmail(@RequestBody Email email) {
@@ -63,7 +62,6 @@ public class MailRestController {
     }
 
 
-//    @ApiOperation(value = "HTML mail")
     @PostMapping("/htmlEmail.html")
     @Operation(summary = "Html mail")
     public String sendHtmlEmail(@RequestBody Email email) {
@@ -87,12 +85,10 @@ public class MailRestController {
 
 
     @PostMapping("/mailWithAttachments.html")
-//    @ApiOperation(value = "Mail with attachments")
     @Operation(summary = "Mail with attachments")
     public String sendAttachmentsMail(@RequestBody Email email) {
-        MimeMessage message = null;
         try {
-            message = javaMailSender.createMimeMessage();
+            MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom(from);
             helper.setTo(email.getTo()); // 接收地址
@@ -109,7 +105,6 @@ public class MailRestController {
             return e.getMessage();
         }
     }
-
 
 
 }

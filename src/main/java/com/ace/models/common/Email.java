@@ -20,7 +20,7 @@ public class Email {
     private String to = "";
     @NotNull
     private String subject = "";
-    private StringBuffer content;
+    private String content;
     private String cc;
     private String bcc;
     private String attachmentsPath;
@@ -58,14 +58,6 @@ public class Email {
         this.subject = subject;
     }
 
-    public StringBuffer getContent() {
-        return content;
-    }
-
-    public void setContent(StringBuffer content) {
-        this.content = content;
-    }
-
     public String getCc() {
         return cc;
     }
@@ -80,6 +72,14 @@ public class Email {
 
     public void setBcc(String bcc) {
         this.bcc = bcc;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
 
