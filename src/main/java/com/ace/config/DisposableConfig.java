@@ -43,7 +43,7 @@ public class DisposableConfig implements DisposableBean {
             StpUtil.getSession().logout();
             StpUtil.logout();
         }
-        log.info("AceApplication shutdown completed !!!");
+        log.info("AceApplication shutdown completed !");
     }
 }
 
