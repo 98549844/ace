@@ -27,7 +27,8 @@ public class MailConfig {
         mailSender.setPort(465);
 
         mailSender.setUsername("87548744@qq.com");
-        mailSender.setPassword("expyxtjadzylbjab"); // 更新password / 授权码
+        mailSender.setPassword("expyxtjadzylbjab");
+        // 授权码的有效期为一个月 (2023-08-15更新)
         // 邮箱首页 => 设置 => 账号
         // => POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务 => 管理服务 => 生成授权码
 
