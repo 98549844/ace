@@ -1,5 +1,6 @@
 package com.ace.restController;
 
+import com.ace.models.common.AjaxResponse;
 import com.ace.models.common.Email;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -46,7 +47,8 @@ public class MailRestController {
 
     @Operation(summary = "Sample mail")
     @PostMapping("/mail.html")
-    public String sendEmail(@RequestBody Email email) {
+    public AjaxResponse sendEmail(@RequestBody Email email) {
+        String status;
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(from);
@@ -54,18 +56,22 @@ public class MailRestController {
             message.setSubject(email.getSubject()); // 标题
             message.setText(email.getContent().toString()); // 内容
             javaMailSender.send(message);
-            return "success";
+            status = "success";
         } catch (Exception e) {
+            status = e.getMessage();
             e.printStackTrace();
-            return e.getMessage();
         }
+        return AjaxResponse.success(status);
+
     }
 
 
     @PostMapping("/htmlEmail.html")
     @Operation(summary = "Html mail")
-    public String sendHtmlEmail(@RequestBody Email email) {
-        MimeMessage message = null;
+    public AjaxResponse sendHtmlEmail(@RequestBody Email email) {
+        MimeMessage message;
+        String status;
+
         try {
             message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -76,36 +82,39 @@ public class MailRestController {
             StringBuffer sb = new StringBuffer(email.getContent());
             helper.setText(sb.toString(), true);
             javaMailSender.send(message);
-            return "success";
+            status = "success";
         } catch (Exception e) {
+            status = e.getMessage();
             e.printStackTrace();
-            return e.getMessage();
         }
+        return AjaxResponse.success(status);
+
     }
 
 
     @PostMapping("/mailWithAttachments.html")
     @Operation(summary = "Mail with attachments")
-    public String sendAttachmentsMail(@RequestBody Email email) {
+    public AjaxResponse sendAttachmentsMail(@RequestBody Email email) {
+        String status;
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom(from);
             helper.setTo(email.getTo()); // 接收地址
             helper.setSubject(email.getSubject()); // 标题
-            helper.setText(email.getContent().toString()); // 内容
+            helper.setText(email.getContent()); // 内容
             // 传入附件
             File f = new File(email.getAttachmentsPath());
             FileSystemResource file = new FileSystemResource(f);
             helper.addAttachment(f.getName(), file);
             javaMailSender.send(message);
-            return "success";
+            status = "success !";
         } catch (Exception e) {
+            status = e.getMessage();
             e.printStackTrace();
-            return e.getMessage();
         }
+        return AjaxResponse.success(status);
     }
-
 
 }
 
