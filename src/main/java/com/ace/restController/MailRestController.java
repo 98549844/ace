@@ -69,18 +69,15 @@ public class MailRestController {
     @PostMapping("/htmlEmail.html")
     @Operation(summary = "Html mail")
     public AjaxResponse sendHtmlEmail(@RequestBody Email email) {
-        MimeMessage message;
         String status;
-
         try {
-            message = javaMailSender.createMimeMessage();
+            MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom(from);
             helper.setTo(email.getTo()); // 接收地址
             helper.setSubject(email.getSubject()); // 标题
             // 带HTML格式的内容
-            StringBuffer sb = new StringBuffer(email.getContent());
-            helper.setText(sb.toString(), true);
+            helper.setText(email.getContent(), true);
             javaMailSender.send(message);
             status = "success";
         } catch (Exception e) {
@@ -88,7 +85,6 @@ public class MailRestController {
             e.printStackTrace();
         }
         return AjaxResponse.success(status);
-
     }
 
 
