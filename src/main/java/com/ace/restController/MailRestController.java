@@ -1,5 +1,6 @@
 package com.ace.restController;
 
+import com.ace.exception.ResponseException;
 import com.ace.models.common.AjaxResponse;
 import com.ace.models.common.Email;
 import io.swagger.v3.oas.annotations.Operation;
@@ -105,11 +106,12 @@ public class MailRestController {
             helper.addAttachment(f.getName(), file);
             javaMailSender.send(message);
             status = "success !";
+            return AjaxResponse.success(status);
         } catch (Exception e) {
             status = e.getMessage();
             e.printStackTrace();
+            return AjaxResponse.error(new ResponseException(status));
         }
-        return AjaxResponse.success(status);
     }
 
 }
