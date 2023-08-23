@@ -58,11 +58,12 @@ public class MailRestController {
             message.setText(email.getContent().toString()); // 内容
             javaMailSender.send(message);
             status = "success";
+            return AjaxResponse.success(status);
         } catch (Exception e) {
             status = e.getMessage();
             e.printStackTrace();
+            return AjaxResponse.error(new ResponseException(status));
         }
-        return AjaxResponse.success(status);
 
     }
 
@@ -81,11 +82,12 @@ public class MailRestController {
             helper.setText(email.getContent(), true);
             javaMailSender.send(message);
             status = "success";
+            return AjaxResponse.success(status);
         } catch (Exception e) {
             status = e.getMessage();
             e.printStackTrace();
+            return AjaxResponse.error(new ResponseException(status));
         }
-        return AjaxResponse.success(status);
     }
 
 
