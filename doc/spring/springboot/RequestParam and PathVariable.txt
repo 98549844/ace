@@ -1,3 +1,9 @@
+
+
+@RequestParam
+@PathVariable
+
+
 常用注解之@PathVariable与@RequestParam详解
 
 @PathVariable和@RequestParam
