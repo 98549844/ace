@@ -1,0 +1,11 @@
+Entity Headers (request和reponse中都可能会有)
+https://segmentfault.com/a/1190000018234763
+
+Allow - 枚举资源所支持的 HTTP 方法的集合(GET, POST, HEAD);
+Content-Encoding - 用于对特定媒体类型的数据进行压缩(gzip|br|deflate);
+Content-Language - 访问者希望采用的语言或语言组合(需配合html lang="de");
+Content-Length(禁止修改) - 发送给接收方的消息主体的大小;
+Content-Location - 替代对应资源的 URI;
+Content-Range - 实体主体的位置范围;
+Content-Security-Policy - 允许站点管理者控制用户代理能够为指定的页面加载哪些资源, 这将帮助防止跨站脚本攻击
+Content-Type - 客户端告诉服务器实际发送的数据类型,服务端告诉客户端返回的内容类型(text/html; charset=utf-8);

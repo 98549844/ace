@@ -7,6 +7,18 @@
 使用第三种时，为保证服务在后台运行，会使用nohup
 nohup java -jar web.jar --spring.profiles.active=dev
 
+nohup介绍
+nohup 是 no hang up 的缩写，
+就是不挂断的意思。
+
+用途：不挂断地运行命令
+语法：nohup Command [ Arg … ] [　& ]
+描述：nohup 命令运行由 Command 参数和任何相关的 Arg 参数指定的命令，
+忽略所有挂断（SIGHUP）信号。在注销后使用 nohup 命令运行后台中的程序。
+要运行后台中的 nohup 命令，添加 & （ 表示“and”的符号）到命令的尾部。
+
+
+
 配置内置tomcat属性：
 关于Tomcat的属性都在org.springframework.boot.autoconfigure.web.ServerProperties配置类中做了定义，
 我们只需在application.properties配置属性做配置即可。

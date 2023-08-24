@@ -1,0 +1,26 @@
+like模糊查询的几种实现方式
+
+1.concat函数和#{}拼接的方式
+student_name like concat('%',#{studentName},'%')
+
+2.%和${}拼接的方式
+student_name like '%${studentName}%'
+
+3.concat函数和${}拼接的方式
+student_name like concat('%','${studentName}','%')
+
+4.||和#{}拼接的方式
+student_name like '%'||#{studentName}||'%'
+
+分析: 
+(1)${ }:表示拼接sql串, 将接收到参数的内容不加任何修饰拼接在sql中, 可能引发sql注入. 
+(2)#{ }是预编译处理, MyBatis在处理#{ }时, 它会将sql中的#{ }替换为？, 
+        然后调用PreparedStatement的set方法来赋值, 传入字符串后, 会在值两边加上单引号, 
+        使用占位符的方式提高效率, 可以防止sql注入. 因此最好使用#{ }方式. 
+(3)concat函数最好不要使用, 最好使用||, 因为在Oracle中, 
+        concat()只能对两个字符串进行拼接(字符串多的话只能嵌套使用), 而||可以对字符串无限拼接. 
+
+5.建议使用的方式
+<if test="studentName != null and studentName !=''">
+	and student_name like '%'||#{studentName}||'%'
+</if>
