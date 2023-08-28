@@ -83,6 +83,15 @@ value 跟name一样的作用,  是name属性的一个别名
 
 这个注解能够识别URL里面的一个模板,  我们看下面的一个URL
 
+http://localhost:8080/springmvc/hello/1,2,3,4,5
+上面的一个url你可以这样写:
+
+@RequestMapping("/hello/{id}")
+public String getDetails(@PathVariable(value="id") String[] id){
+.......
+}
+
+
 http://localhost:8080/springmvc/hello/101?param1=10&param2=20
 上面的一个url你可以这样写:
 
@@ -96,7 +105,9 @@ public String getDetails(@PathVariable(value="id") String id,
 
 Spring MVC中的Request参数
 
-在SpringMVC框架中,  现在我们已经可以通过定义@RequestMapping来处理URL请求了,  和@PathVariable一样,  我们也需要再处理URL的函数中获取URL中的参数-也就是?key=value1&key2=value2这样的参数列表. 通过注解@RequestParam可以轻松的将URL中的参数绑定到处理函数方法的变量中:
+在SpringMVC框架中,  现在我们已经可以通过定义@RequestMapping来处理URL请求了,
+和@PathVariable一样,  我们也需要再处理URL的函数中获取URL中的参数-也就是?key=value1&key2=value2这样的参数列表.
+通过注解@RequestParam可以轻松的将URL中的参数绑定到处理函数方法的变量中:
 
 @RequestMapping("/user")
 @ResponseBody
