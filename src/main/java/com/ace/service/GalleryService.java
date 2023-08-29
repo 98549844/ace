@@ -104,7 +104,7 @@ public class GalleryService {
     }
 
     private void deleteThumbnails(List<String> ls, List<String> tempLs) {
-        Map mp = ListUtil.getDeduplicateElements(ls, tempLs);
+        Map mp = ListUtil.getNonDeduplicateElements(ls, tempLs);
         compressImages((List<String>) mp.get(ListUtil.LIST_1));
         tempLs = (List<String>) mp.get(ListUtil.LIST_2);
         if (NullUtil.isNotNull(tempLs)) {

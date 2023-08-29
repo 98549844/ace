@@ -87,7 +87,7 @@ public class MediaService {
         List<String> t1 = FileUtil.getNames(videoList);
         List<String> t2 = FileUtil.getDirs(videoM3u8);
 
-        Map mp = ListUtil.getDeduplicateElements(t1, t2);
+        Map mp = ListUtil.getNonDeduplicateElements(t1, t2);
         videoList = (List<String>) mp.get(ListUtil.LIST_1);
 
         if (NullUtil.isNotNull(videoList)) {
