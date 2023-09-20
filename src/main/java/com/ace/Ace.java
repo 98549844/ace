@@ -1,8 +1,10 @@
 package com.ace;
 
-import org.antlr.v4.runtime.atn.ATN;
+import com.util.FileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 
 /**
  * @Classname: Ace
@@ -15,8 +17,25 @@ import org.apache.logging.log4j.Logger;
 public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
+
     public static void main(String[] args) {
-      //  ATN atn = new ATN();
+
+        FileUtil fileUtil = new FileUtil();
+        List a = fileUtil.getFilesLocation("C:\\ideaPorject\\ace");
+
+        System.out.println("List a "+a.size());
+        for (Object s : a) {
+            System.out.println(s.toString());
+        }
+
+        System.out.println("------------------------------");
+
+        List b = fileUtil.getFilePaths("C:\\ideaPorject\\ace");
+        System.out.println("List b "+b.size());
+        for (Object s : b) {
+            System.out.println(s.toString());
+        }
+
     }
 
 
