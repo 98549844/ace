@@ -35,14 +35,12 @@ import java.sql.SQLException;
  * @Description:
  */
 
-
+//https://dynamicreports.org/
 public class UserReport {
     private static final Logger log = LogManager.getLogger(UserReport.class.getName());
     private final ReportConfig reportConfig;
 
-
     // get application datasource to receive data
-    // @Autowired
     public UserReport(ReportConfig reportConfig) {
         this.reportConfig = reportConfig;
     }
@@ -84,7 +82,7 @@ public class UserReport {
         report.setPageFormat(PageType.A5); //设置每一页的格式
 
         report.columns(
-                Columns.column("操作日期", "createdDate", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER),
+                        Columns.column("操作日期", "createdDate", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER),
                         Columns.column("用户姓名", "username", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER),
                         Columns.column("ip", "ip", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER),
                         Columns.column("主机", "hostName", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER),
