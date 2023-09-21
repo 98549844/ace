@@ -97,8 +97,8 @@ public class UserReport {
         //.setDataSource("SELECT * FROM ReportMessage WHERE OperateTimeCustomerID = '" + sqlString + "'", conn)
         //数据源
         try {
-            //显示报表
-            report.show(false);  //关闭预览窗口后不退出程序
+            //显示报表, main方法会挂起,不会close, 关闭预览窗口后不退出程序
+            report.show(false);
             try {
                 // FileOutputStream fileOutputStream = new FileOutputStream("/Users/garlam/IdeaProjects/ace/src/main/resources/files/" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
                 FileOutputStream fileOutputStream = new FileOutputStream("C:\\ideaPorject\\ace\\src\\main\\resources\\files\\" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
