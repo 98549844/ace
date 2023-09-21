@@ -1,0 +1,32 @@
+1.注册@bean
+@Configuration
+public class AceConfig {
+    @Bean(name = "AceOne")
+    public String Ace1() {
+        return "Method Ace1 !";
+    }
+    public String Ace2() {
+        return "Method Ace1 !";
+    }
+}
+
+第一种调用方法:通过ApplicationContext获取Bean对像
+    public AjaxResponse getAAA() {
+        ApplicationContext applicationContext = new ApplicationContextUtil().getApplicationContext();
+        String result = applicationContext.getBean("AceOne", java.lang.String.class);
+        return AjaxResponse.success(result);
+    }
+
+第二种调用方法:@Autowired
+构造器
+    private final String AceOne;
+    @Autowired
+    public AceRestController(String aceOne) {
+        AceOne = aceOne;
+    }
+
+方法体直接调用成员变量
+    @RequestMapping(method = RequestMethod.GET, value = "/getAceOne")
+    public AjaxResponse getAAA() {
+        return AjaxResponse.success(AceOne);
+    }
