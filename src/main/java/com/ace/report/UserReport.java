@@ -36,6 +36,7 @@ import java.sql.SQLException;
  */
 
 //https://dynamicreports.org/
+//flying-saucer-pdf html转pdf
 public class UserReport {
     private static final Logger log = LogManager.getLogger(UserReport.class.getName());
     private final ReportConfig reportConfig;
