@@ -68,7 +68,7 @@ public class UserReport {
     }
 
     @SuppressWarnings("deprecation")
-    public static void buildReport(Connection conn, String sqlString) {
+    public static void buildReport(Connection conn, String sqlString) throws SQLException {
         JasperReportBuilder report = DynamicReports.report();//创建空报表
         //设置报表的一系列样式 ，stl是创建和自定义风格的一组方法
         StyleBuilder boldStl = DynamicReports.stl.style().bold();
@@ -83,14 +83,21 @@ public class UserReport {
 
         report.setPageFormat(PageType.A5); //设置每一页的格式
 
-        report.columns(Columns.column("操作日期", "createdDate", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("用户姓名", "username", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("ip", "ip", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("主机", "hostName", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("用户ID", "userId", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("email", "email", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER)).setColumnStyle(fontStyleBuilder)   //查询的数据的字体格式
+        report.columns(
+                Columns.column("操作日期", "createdDate", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER),
+                        Columns.column("用户姓名", "username", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER),
+                        Columns.column("ip", "ip", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER),
+                        Columns.column("主机", "hostName", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER),
+                        Columns.column("用户ID", "userId", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER),
+                        Columns.column("email", "email", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER))
+                .setColumnStyle(fontStyleBuilder)   //查询的数据的字体格式
                 .setColumnTitleStyle(columnTitleStl) //设置列名的风格
                 .setHighlightDetailEvenRows(true)  //偶数行高亮显示
-                .title(Components.text("客户消费单").setStyle(titleStl))//标题
+                .title(Components.text("用户列表").setStyle(titleStl))//标题
                 .pageFooter(Components.pageXofY().setStyle(boldCenteredStl))//页角
-                .setDataSource("SELECT * FROM users", conn)
+                .setDataSource("SELECT * FROM users", conn);
         //.setDataSource("SELECT * FROM ReportMessage WHERE OperateTimeCustomerID = '" + sqlString + "'", conn)
-        ;//数据源
+        //数据源
         try {
             //显示报表
             report.show(false);  //关闭预览窗口后不退出程序
@@ -104,6 +111,7 @@ public class UserReport {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                conn.close();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
