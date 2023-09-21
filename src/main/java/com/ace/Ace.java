@@ -21,7 +21,7 @@ public class Ace {
     public static void main(String[] args) {
 
         FileUtil fileUtil = new FileUtil();
-        List a = fileUtil.getFilesLocation("C:\\ideaPorject\\ace");
+        List a = fileUtil.getFilePaths("C:\\ideaPorject\\ace");
 
         System.out.println("List a "+a.size());
         for (Object s : a) {
