@@ -30,11 +30,9 @@ public class PdfService {
 
     private final ClassLoaderTemplateResolver classLoaderTemplateResolver;
 
-
     public PdfService(ClassLoaderTemplateResolver classLoaderTemplateResolver) {
         this.classLoaderTemplateResolver = classLoaderTemplateResolver;
     }
-
 
     public byte[] generatePdf(HttpServletResponse httpServletResponse) {
         log.info("generate pdf run........!");
@@ -47,7 +45,8 @@ public class PdfService {
             Data data = exampleData();
             context.setVariable("data", data);
             //url+context渲染html页面
-            String renderHtmlContent = templateEngine.process("templates/ace/modules/report/pdf/template.html", context);
+            String template = "templates/ace/modules/report/pdf/template.html";
+            String renderHtmlContent = templateEngine.process(template, context);
             String xHtml = convertToXHtml(renderHtmlContent);
 
             //String fileName = sampleReq.getFullName()+"_"+System.currentTimeMillis();
@@ -73,6 +72,7 @@ public class PdfService {
     }
 
     private String convertToXHtml(String renderHtmlContent) {
+        //System.out.println(renderHtmlContent);
         log.info("convert to xhtml......!");
         Tidy tidy = new Tidy();
         tidy.setInputEncoding(UTF_8);
