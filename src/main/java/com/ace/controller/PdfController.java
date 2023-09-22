@@ -38,6 +38,7 @@ public class PdfController extends CommonController {
     }
 
 
+    //http://localhost:8088/ace/pdf/generate/getPdf.html
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/getPdf.html", produces = MediaType.APPLICATION_PDF_VALUE)

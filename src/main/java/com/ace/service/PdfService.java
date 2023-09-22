@@ -29,12 +29,10 @@ public class PdfService {
     private static final Logger log = LogManager.getLogger(PdfService.class.getName());
 
     private final ClassLoaderTemplateResolver classLoaderTemplateResolver;
-    private final ITextRenderer iTextRenderer;
 
 
-    public PdfService(ClassLoaderTemplateResolver classLoaderTemplateResolver, ITextRenderer iTextRenderer) {
+    public PdfService(ClassLoaderTemplateResolver classLoaderTemplateResolver) {
         this.classLoaderTemplateResolver = classLoaderTemplateResolver;
-        this.iTextRenderer = iTextRenderer;
     }
 
 
@@ -54,6 +52,7 @@ public class PdfService {
             String fileName = String.valueOf(System.currentTimeMillis());
             File output = new File(fileName + ".pdf");
             log.info("initializing output path : {}", output.getPath());
+            ITextRenderer iTextRenderer = new ITextRenderer();
             iTextRenderer.setDocumentFromString(xHtml);
             iTextRenderer.layout();
 
