@@ -44,7 +44,8 @@ public class PdfService {
         try {
             templateEngine.setTemplateResolver(classLoaderTemplateResolver);
             Context context = new Context();
-            context.setVariable("data", exampleData());
+            Data data = exampleData();
+            context.setVariable("data", data);
             String renderHtmlContent = templateEngine.process("templates/ace/modules/report/pdf/template.html", context);
             String xHtml = convertToXHtml(renderHtmlContent);
 
