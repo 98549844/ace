@@ -1,10 +1,10 @@
 package com.ace;
 
-import com.util.FileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
+import java.net.MalformedURLException;
+import java.nio.file.FileSystems;
 
 /**
  * @Classname: Ace
@@ -18,23 +18,15 @@ public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MalformedURLException {
+        String baseUrl = FileSystems
+                .getDefault()
+                .getPath("src", "main", "resources", "templates","ace","modules","report","pdf")
+                .toUri()
+                .toURL()
+                .toString();
 
-        FileUtil fileUtil = new FileUtil();
-        List a = fileUtil.getFilePaths("C:\\ideaPorject\\ace");
-
-        System.out.println("List a "+a.size());
-        for (Object s : a) {
-            System.out.println(s.toString());
-        }
-
-        System.out.println("------------------------------");
-
-        List b = fileUtil.getFilePaths("C:\\ideaPorject\\ace");
-        System.out.println("List b "+b.size());
-        for (Object s : b) {
-            System.out.println(s.toString());
-        }
+        System.out.println(baseUrl);
 
     }
 

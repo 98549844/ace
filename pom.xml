@@ -206,6 +206,28 @@
             <version>6.12.1</version>
         </dependency>
         <dependency>
+            <groupId>com.github.jtidy</groupId>
+            <artifactId>jtidy</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-pdf-itext5</artifactId>
+            <version>9.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-core</artifactId>
+            <version>9.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>ognl</groupId>
+            <artifactId>ognl</artifactId>
+            <version>3.3.4</version> <!--ognl3.3.4配合FlyingSaucer将thymeleaf3.1.2.RELEASE(springboot3.1)转pdf使用-->
+        </dependency>
+
+
+        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjtools</artifactId>
             <version>1.9.19</version>
