@@ -46,6 +46,7 @@ public class PdfService {
             Context context = new Context();
             Data data = exampleData();
             context.setVariable("data", data);
+            //url+context渲染html页面
             String renderHtmlContent = templateEngine.process("templates/ace/modules/report/pdf/template.html", context);
             String xHtml = convertToXHtml(renderHtmlContent);
 
