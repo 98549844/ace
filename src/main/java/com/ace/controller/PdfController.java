@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 
 @Controller
-@RequestMapping("/api/pdf/generate")
+@RequestMapping("/pdf/generate")
 public class PdfController extends CommonController {
     private static final Logger log = LogManager.getLogger(PdfController.class.getName());
 
