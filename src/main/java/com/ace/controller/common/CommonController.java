@@ -89,6 +89,16 @@ public class CommonController {
         return modelAndView;
     }
 
+    /**
+     * 不需要登陆并返回页面
+     *
+     * @param page page
+     * @return mv
+     */
+    protected ModelAndView pageWithOutLogin(String page) {
+        return new ModelAndView(page);
+    }
+
     protected ModelAndView redirect(String url) {
         ModelAndView modelAndView = null;
         try {
@@ -141,7 +151,7 @@ public class CommonController {
 
     protected void setUsersSession(Users users) {
         StpUtil.getSession().set("user", users);
-       // setHttpSession("user", users); // springboot3 set不进去, 有问题未解决
+        // setHttpSession("user", users); // springboot3 set不进去, 有问题未解决
     }
 
     protected void setSession(String key, Object object) {
@@ -208,7 +218,6 @@ public class CommonController {
         saLoginModel.setIsLastingCookie(rememberMe);
         StpUtil.login(userId, saLoginModel);
     }
-
 
 
     protected void logout(long userId, String device) {
