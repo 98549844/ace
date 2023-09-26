@@ -50,7 +50,7 @@ public class AceEnvironment {
         String osName = OsUtil.getOsName();
         if (osName.contains(OsUtil.WINDOWS)) {
             String c = "C:\\";
-            String ace = "ACE\\";
+            String ace = "ace\\";
 
             String filePath = c + ace + "files\\";
 
@@ -79,7 +79,32 @@ public class AceEnvironment {
 
             msg = "ACE environment setup complete : Windows !!!";
         } else if (osName.contains(OsUtil.MAC)) {
-            msg = "ACE environment setup complete : MAC !!! => ACE Environment setup incomplete !!!";
+            String users = "/Users/garlam/";
+            String ace = "ace/";
+            String filePath = users + ace + "files/";
+            String imgPath = users + ace + "images/";
+            String thumbnail = imgPath + "thumbnail/";
+            String video = users + ace + "videos/";
+            String m3u8 = video + "m3u8/";
+            String miscellaneous = users + ace + "misc/";
+            //create folder
+            FileUtil.mkDirs(filePath);
+            FileUtil.mkDirs(thumbnail);
+            FileUtil.mkDirs(m3u8);
+            FileUtil.mkDirs(miscellaneous);
+
+            //set value for system use
+            setFilePath(filePath);
+            setImagesPath(imgPath);
+            setImagesThumbnail(thumbnail);
+            setVideoPath(video);
+            setVideoM3u8(m3u8);
+            setMisc(miscellaneous);
+
+
+            msg = "ACE environment setup complete : MAC !!!";
+
+
         } else if (osName.contains(OsUtil.LINUX)) {
             String optWorkspace = "/opt/workspace/";
             String ace = "ace/";
@@ -117,6 +142,9 @@ public class AceEnvironment {
         Console.println(msg, Console.BLUE, Console.BOLD);
     }
 
+    private static void setFolder(String... paths){
+
+    }
 
     public static String getFilePath() {
         return filePath;
