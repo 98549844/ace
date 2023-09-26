@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 
 @Controller
-@RequestMapping("/ace/pdf/generate")
+@RequestMapping("/api/pdf/generate")
 public class PdfController extends CommonController {
     private static final Logger log = LogManager.getLogger(PdfController.class.getName());
 
@@ -48,10 +48,10 @@ public class PdfController extends CommonController {
     }
 
 
-    //http://localhost:8088/ace/pdf/generate/getPage.html
+    //http://localhost:8088/api/pdf/generate/getPage.html
     @RequestMapping(value = "/getPage.html", method = RequestMethod.GET)
     public ModelAndView getPage() {
-        ModelAndView modelAndView = super.page("ace/modules/report/pdf/template");
+        ModelAndView modelAndView = super.pageWithOutLogin("ace/modules/report/pdf/template");
         modelAndView.addObject("data", pdfService.exampleData());
         return modelAndView;
     }

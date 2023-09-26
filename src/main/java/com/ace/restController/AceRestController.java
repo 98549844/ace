@@ -41,7 +41,7 @@ public class AceRestController {
 
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/get")
+    @RequestMapping(method = RequestMethod.GET, value = "/get.html")
     public AjaxResponse getAceProperties() {
         log.info("aceConfig.getName(): " + aceConfig.getName());
         log.info("aceConfig.getVersion():" + aceConfig.getVersion());

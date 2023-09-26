@@ -214,7 +214,6 @@
         <dependency>
             <groupId>org.xhtmlrenderer</groupId>
             <artifactId>flying-saucer-pdf</artifactId>
-            <!--<version>9.1.6</version>-->
             <version>9.2.2</version>
         </dependency>
         <dependency>
