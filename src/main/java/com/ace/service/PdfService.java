@@ -34,6 +34,10 @@ public class PdfService {
         this.classLoaderTemplateResolver = classLoaderTemplateResolver;
     }
 
+    /** 直接render数据+静态文件然后输出pdf
+     * @param httpServletResponse
+     * @return
+     */
     public byte[] generatePdf(HttpServletResponse httpServletResponse) {
         log.info("generate pdf run........!");
         byte[] pdf = null;

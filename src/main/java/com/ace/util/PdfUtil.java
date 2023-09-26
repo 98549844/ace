@@ -40,11 +40,14 @@ public class PdfUtil {
         String input = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\";
         String output = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\output\\wood.pdf";
         jpgsMergeToPdf(input, output);
-//        for (int i = 0; i < 10; i++) {
-//            System.out.println(RandomUtil.getInt(100));
-//        }
     }
 
+    /** 读取url的html然后render html to pdf
+     * @param targetUrl
+     * @param pdfLocation
+     * @throws IOException
+     * @throws DocumentException
+     */
     public static void generatePdfFromUrl(String targetUrl, String pdfLocation) throws IOException, DocumentException {
         OutputStream outputStream = new FileOutputStream(pdfLocation);
         HtmlUtil htmlUtil = new HtmlUtil();
