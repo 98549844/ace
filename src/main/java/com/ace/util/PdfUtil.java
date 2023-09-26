@@ -4,8 +4,7 @@ import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Image;
 import com.lowagie.text.Rectangle;
-import com.lowagie.text.pdf.BaseFont;
-import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.*;
 import com.util.NullUtil;
 import com.util.RandomUtil;
 import org.apache.logging.log4j.LogManager;
@@ -22,6 +21,8 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Classname: PdfUtil
@@ -35,14 +36,86 @@ public class PdfUtil {
     private static final Logger log = LogManager.getLogger(PdfUtil.class.getName());
 
     public static void main(String[] args) throws IOException {
-        //  String input = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/";
-        // String output = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/output/wood.pdf";
-        String input = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\";
-        String output = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\output\\wood.pdf";
-        jpgsMergeToPdf(input, output);
+        PdfUtil pdfUtil = new PdfUtil();
+        try {
+            List<InputStream> pdfs = new ArrayList<InputStream>();
+            pdfs.add(new FileInputStream("c:\\aa.pdf"));
+            pdfs.add(new FileInputStream("c:\\bb.pdf"));
+            OutputStream output = new FileOutputStream("c:\\merge.pdf");
+            pdfUtil.concatPDFs(pdfs, output, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    /** 读取url的html然后render html to pdf
+
+    public void concatPDFs(List<InputStream> streamOfPdfFiles, OutputStream outputStream, boolean pagination) {
+        Document document = new Document();
+        try {
+            List<InputStream> pdfs = streamOfPdfFiles;
+            List<PdfReader> readers = new ArrayList<>();
+            int totalPages = 0;
+
+            // Create Readers for the pdfs.
+            for (InputStream pdf : pdfs) {
+                PdfReader pdfReader = new PdfReader(pdf);
+                readers.add(pdfReader);
+                totalPages += pdfReader.getNumberOfPages();
+            }
+            // Create a writer for the outputStream
+            PdfWriter writer = PdfWriter.getInstance(document, outputStream);
+
+            document.open();
+            BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA,
+                    BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+            PdfContentByte cb = writer.getDirectContent(); // Holds the PDF
+
+            PdfImportedPage page;
+            int currentPageNumber = 0;
+            int pageOfCurrentReaderPDF = 0;
+
+            // Loop through the PDF files and add to the output.
+            for (PdfReader pdfReader : readers) {
+                // Create a new page in the target for each source page.
+                while (pageOfCurrentReaderPDF < pdfReader.getNumberOfPages()) {
+                    document.newPage();
+                    pageOfCurrentReaderPDF++;
+                    currentPageNumber++;
+                    page = writer.getImportedPage(pdfReader,
+                            pageOfCurrentReaderPDF);
+                    cb.addTemplate(page, 0, 0);
+                    // Code for pagination.
+                    if (pagination) {
+                        cb.beginText();
+                        cb.setFontAndSize(bf, 9);
+                        cb.showTextAligned(PdfContentByte.ALIGN_CENTER, ""
+                                        + currentPageNumber + " of " + totalPages, 520,
+                                5, 0);
+                        cb.endText();
+                    }
+                }
+                pageOfCurrentReaderPDF = 0;
+            }
+            outputStream.flush();
+            document.close();
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (document.isOpen())
+                document.close();
+            try {
+                if (outputStream != null)
+                    outputStream.close();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 读取url的html然后render html to pdf
+     *
      * @param targetUrl
      * @param pdfLocation
      * @throws IOException
@@ -63,7 +136,9 @@ public class PdfUtil {
     }
 
 
-    /** 支持一张或多张图片转换成pdf
+    /**
+     * 支持一张或多张图片转换成pdf
+     *
      * @param input
      * @param output
      * @throws IOException
@@ -114,7 +189,9 @@ public class PdfUtil {
     }
 
 
-    /** 文件夹下多张图片转成一个pdf(多页文件)
+    /**
+     * 文件夹下多张图片转成一个pdf(多页文件)
+     *
      * @param imageFolderPath
      * @param pdfPath
      */
