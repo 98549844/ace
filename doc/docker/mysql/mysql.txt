@@ -10,7 +10,7 @@ docker pull mysql:5.7 =>拉取mysql 5.7
 docker images
 
 2.运行容器
-docker run -itd --name mysql-8.0 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql
+docker run -itd --name mysql-8.1 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql
 docker run -itd --name mysql-5.7 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql:5.7
 docker run -itd --name mysql-xxx -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql:tag
 

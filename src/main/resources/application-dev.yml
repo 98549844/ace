@@ -26,7 +26,7 @@ sa-token:
   is-log: true
 
 
-##showSql
+#showSql
 logging:
   level:
     root: info #root logging mode
@@ -214,7 +214,7 @@ spring:
     #key: order.*
     #name: order-exchange
     #type: topic
-    ## 表示消费者消费成功消息以后需要手工的进行签收(ack)，默认为auto
+    #表示消费者消费成功消息以后需要手工的进行签收(ack)，默认为auto
     #simple:
     #acknowledge-mode: manual
     #concurrency: 5
