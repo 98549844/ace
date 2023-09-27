@@ -1,13 +1,9 @@
 package com.ace.util;
 
-import com.util.AsciiTableUtil;
-import com.util.Console;
 import com.util.ConsoleTable;
-import com.util.impl.consoleTable.table.Cell;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.*;
 
@@ -28,6 +24,7 @@ public class HttpUtil {
         httpStatusCode();
         httpStatusList();
     }
+
 
 
     private static void httpStatusCommonCode() {
@@ -123,7 +120,7 @@ public class HttpUtil {
             String[] paramValues = request.getParameterValues(paramName);
             if (paramValues.length == 1) {
                 String paramValue = paramValues[0];
-                if (paramValue.length() != 0) {
+                if (!paramValue.isEmpty()) {
                     map.put(paramName, paramValue);
                 }
             }
