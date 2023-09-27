@@ -10,6 +10,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @Classname: AceEnvironment
  * @Date: 19/7/2021 12:26 下午
@@ -48,91 +51,80 @@ public class AceEnvironment {
     private static void folderSetUp() {
         String msg;
         String osName = OsUtil.getOsName();
+
+        String root;
+        String ace;
+        String filePath;
+        String imgPath;
+        String thumbnail;
+        String video;
+        String m3u8;
+        String miscellaneous;
+        Map<String, String> map = new HashMap<>();
+
+
         if (osName.contains(OsUtil.WINDOWS)) {
-            String c = "C:\\";
-            String ace = "ace\\";
+            root = "C:\\";
+            ace = "ace\\";
+            filePath = root + ace + "files\\";
+            imgPath = root + ace + "images\\";
+            thumbnail = imgPath + "thumbnail\\";
+            video = root + ace + "videos\\";
+            m3u8 = video + "m3u8\\";
+            miscellaneous = root + ace + "misc\\";
 
-            String filePath = c + ace + "files\\";
+            map.put("root", root);
+            map.put("ace", ace);
+            map.put("filePath", filePath);
+            map.put("imgPath", imgPath);
+            map.put("thumbnail", thumbnail);
+            map.put("video", video);
+            map.put("m3u8", m3u8);
+            map.put("miscellaneous", miscellaneous);
 
-            String imgPath = c + ace + "images\\";
-
-            String thumbnail = imgPath + "thumbnail\\";
-
-            String video = c + ace + "videos\\";
-            String m3u8 = video + "m3u8\\";
-
-            String miscellaneous = c + ace + "misc\\";
-
-            //create folder
-            FileUtil.mkDirs(filePath);
-            FileUtil.mkDirs(thumbnail);
-            FileUtil.mkDirs(m3u8);
-            FileUtil.mkDirs(miscellaneous);
-
-            //set value for system use
-            setFilePath(filePath);
-            setImagesPath(imgPath);
-            setImagesThumbnail(thumbnail);
-            setVideoPath(video);
-            setVideoM3u8(m3u8);
-            setMisc(miscellaneous);
-
+            createFolderAndSetValue(map);
             msg = "ACE environment setup complete : Windows !!!";
         } else if (osName.contains(OsUtil.MAC)) {
-            String users = "/Users/garlam/";
-            String ace = "ace/";
-            String filePath = users + ace + "files/";
-            String imgPath = users + ace + "images/";
-            String thumbnail = imgPath + "thumbnail/";
-            String video = users + ace + "videos/";
-            String m3u8 = video + "m3u8/";
-            String miscellaneous = users + ace + "misc/";
-            //create folder
-            FileUtil.mkDirs(filePath);
-            FileUtil.mkDirs(thumbnail);
-            FileUtil.mkDirs(m3u8);
-            FileUtil.mkDirs(miscellaneous);
+            root = "/Users/garlam/";
+            ace = "ace/";
+            filePath = root + ace + "files/";
+            imgPath = root + ace + "images/";
+            thumbnail = imgPath + "thumbnail/";
+            video = root + ace + "videos/";
+            m3u8 = video + "m3u8/";
+            miscellaneous = root + ace + "misc/";
 
-            //set value for system use
-            setFilePath(filePath);
-            setImagesPath(imgPath);
-            setImagesThumbnail(thumbnail);
-            setVideoPath(video);
-            setVideoM3u8(m3u8);
-            setMisc(miscellaneous);
+            map.put("root", root);
+            map.put("ace", ace);
+            map.put("filePath", filePath);
+            map.put("imgPath", imgPath);
+            map.put("thumbnail", thumbnail);
+            map.put("video", video);
+            map.put("m3u8", m3u8);
+            map.put("miscellaneous", miscellaneous);
 
-
+            createFolderAndSetValue(map);
             msg = "ACE environment setup complete : MAC !!!";
-
-
         } else if (osName.contains(OsUtil.LINUX)) {
-            String optWorkspace = "/opt/workspace/";
-            String ace = "ace/";
+            root = "/opt/workspace/";
+            ace = "ace/";
+            filePath = root + ace + "files/";
+            imgPath = root + ace + "images/";
+            thumbnail = imgPath + "thumbnail/";
+            video = root + ace + "videos/";
+            m3u8 = video + "m3u8/";
+            miscellaneous = root + ace + "misc/";
 
-            String filePath = optWorkspace + ace + "files/";
+            map.put("root", root);
+            map.put("ace", ace);
+            map.put("filePath", filePath);
+            map.put("imgPath", imgPath);
+            map.put("thumbnail", thumbnail);
+            map.put("video", video);
+            map.put("m3u8", m3u8);
+            map.put("miscellaneous", miscellaneous);
 
-            String imgPath = optWorkspace + ace + "images/";
-            String thumbnail = imgPath + "thumbnail/";
-
-            String video = optWorkspace + ace + "videos/";
-            String m3u8 = video + "m3u8/";
-
-            String miscellaneous = optWorkspace + ace + "misc/";
-
-            //create folder
-            FileUtil.mkDirs(filePath);
-            FileUtil.mkDirs(thumbnail);
-            FileUtil.mkDirs(m3u8);
-            FileUtil.mkDirs(miscellaneous);
-
-
-            //set value for system use
-            setFilePath(filePath);
-            setImagesPath(imgPath);
-            setImagesThumbnail(thumbnail);
-            setVideoPath(video);
-            setVideoM3u8(m3u8);
-            setMisc(miscellaneous);
+            createFolderAndSetValue(map);
             msg = "ACE environment setup complete : LINUX !!!";
         } else {
             msg = "WARNING => UNKNOWN OS, ACE Environment setup incomplete !!!";
@@ -142,8 +134,20 @@ public class AceEnvironment {
         Console.println(msg, Console.BLUE, Console.BOLD);
     }
 
-    private static void setFolder(String... paths){
+    private static void createFolderAndSetValue(Map map) {
+        //create folder
+        FileUtil.mkDirs((String) map.get("filePath"));
+        FileUtil.mkDirs((String) map.get("thumbnail"));
+        FileUtil.mkDirs((String) map.get("m3u8"));
+        FileUtil.mkDirs((String) map.get("miscellaneous"));
 
+        //set value for system use
+        setFilePath((String) map.get("filePath"));
+        setImagesPath((String) map.get("imgPath"));
+        setImagesThumbnail((String) map.get("thumbnail"));
+        setVideoPath((String) map.get("video"));
+        setVideoM3u8((String) map.get("m3u8"));
+        setMisc((String) map.get("miscellaneous"));
     }
 
     public static String getFilePath() {
