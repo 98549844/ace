@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "folders")
+@Table(name = "folders", uniqueConstraints = {@UniqueConstraint(name = "constraint_path", columnNames = {"path"})})
 @Entity
 public class Folders extends BaseEntity {
     private static final Logger log = LogManager.getLogger(Folders.class.getName());
@@ -30,11 +30,11 @@ public class Folders extends BaseEntity {
     @Column
     private Long id;
     @Column
-    private Integer parentId = 0;
+    private Long parentId = 0l;
     @Column
     private String folderName;
     @Column
-    private String owner;
+    private Long ownerId;
     @Column
     private String path = AceEnvironment.getAce(); // 默认 root/ace/
     @Column
@@ -43,7 +43,7 @@ public class Folders extends BaseEntity {
     public static final String CREATED = "created"; //新建
 
     @Column
-    private boolean shared = false; //默认不分享
+    private boolean isShared = false; //默认不分享
     @Column
     private String sharedUserId;
 
@@ -56,11 +56,12 @@ public class Folders extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getParentId() {
+
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(Integer parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
@@ -80,12 +81,13 @@ public class Folders extends BaseEntity {
         this.status = status;
     }
 
+
     public boolean isShared() {
-        return shared;
+        return isShared;
     }
 
     public void setShared(boolean shared) {
-        this.shared = shared;
+        isShared = shared;
     }
 
     public String getSharedUserId() {
@@ -104,12 +106,12 @@ public class Folders extends BaseEntity {
         this.folderName = folderName;
     }
 
-    public String getOwner() {
-        return owner;
+    public Long getOwnerId() {
+        return ownerId;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 }
 

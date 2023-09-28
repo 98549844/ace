@@ -3,6 +3,7 @@ package com.ace.controller;
 import com.ace.constant.AceEnvironment;
 import com.ace.controller.common.CommonController;
 import com.ace.service.FilesService;
+import com.ace.service.FoldersService;
 import com.util.PathUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,11 +35,13 @@ public class FileController extends CommonController {
 
 
     private final FilesService filesService;
+    private final FoldersService foldersService;
     private final String filesPath;
 
     @Autowired
-    public FileController(FilesService filesService) {
+    public FileController(FilesService filesService, FoldersService foldersService) {
         this.filesService = filesService;
+        this.foldersService = foldersService;
         this.filesPath = AceEnvironment.getFilePath();
     }
 
@@ -50,7 +53,7 @@ public class FileController extends CommonController {
     @RequestMapping(value = "/files.html", method = RequestMethod.GET)
     public ModelAndView getFilesTree() {
         log.info("access files");
-
+        foldersService.getFolderTreeByCurrentUser(getCurrentUser());
 
         return super.page("ace/modules/files/file");
     }

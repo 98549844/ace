@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 @Transactional
 public interface FoldersDao extends JpaRepository<Folders, Long>, JpaSpecificationExecutor<Folders> {
@@ -14,4 +16,5 @@ public interface FoldersDao extends JpaRepository<Folders, Long>, JpaSpecificati
     Folders findByPath(String folder);
 
 
+    List<Folders> findByOwnerId(Long ownerId);
 }

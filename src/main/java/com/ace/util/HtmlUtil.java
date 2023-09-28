@@ -10,7 +10,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
-import static com.ace.constant.Constant.UTF_8;
+import static com.ace.constant.constant.UTF_8;
 
 /**
  * @Classname: HtmlUtil
