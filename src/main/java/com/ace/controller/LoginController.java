@@ -1,10 +1,12 @@
 package com.ace.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
+import com.ace.constant.AceEnvironment;
 import com.ace.controller.common.CommonController;
 import com.ace.exception.PasswordNotMatchException;
 import com.ace.exception.UserNotFoundException;
 import com.ace.models.entity.Users;
+import com.ace.service.FoldersService;
 import com.ace.service.LoginService;
 import com.ace.service.UsersService;
 import com.util.DateTimeUtil;
@@ -32,11 +34,18 @@ public class LoginController extends CommonController {
 
     private final UsersService usersService;
     private final LoginService loginService;
+    private final FoldersService foldersService;
+    private final String usersFolder;
+    private final String separator;
+
 
     @Autowired
-    public LoginController(LoginService loginService, UsersService usersService) {
+    public LoginController(LoginService loginService, UsersService usersService, FoldersService foldersService) {
         this.loginService = loginService;
         this.usersService = usersService;
+        this.foldersService = foldersService;
+        this.usersFolder = AceEnvironment.getUsers();
+        this.separator = AceEnvironment.getSeparator();
     }
 
 
@@ -104,7 +113,13 @@ public class LoginController extends CommonController {
                 return modelAndView;
             }
         }
-        //  modelAndView = super.page("ace/index.html");
+        //modelAndView = super.page("ace/index.html");
+        //创建当前用户文件夹
+        String currentUser = getCurrentUser().getUserAccount();
+        String currentUserPath = usersFolder + currentUser + separator;
+        foldersService.createCurrentUserFolder(currentUserPath, currentUser);
+        AceEnvironment.setCurrentUserFolder(currentUserPath);
+
         modelAndView = super.redirect("ace/index.html");
         return modelAndView;
     }

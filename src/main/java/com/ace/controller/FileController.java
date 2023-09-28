@@ -8,12 +8,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -44,11 +46,12 @@ public class FileController extends CommonController {
      * access to gallery page
      *
      * @return
-     * @throws IOException
      */
     @RequestMapping(value = "/files.html", method = RequestMethod.GET)
-    public ModelAndView gallery() throws IOException {
-        log.info("access files.html");
+    public ModelAndView getFilesTree() {
+        log.info("access files");
+
+
         return super.page("ace/modules/files/file");
     }
 

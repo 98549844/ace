@@ -256,7 +256,7 @@ public class FilesService {
             f.setLocation(path + fileName + suffix);
             f.setPath(path);
             f.setSize((multipartFile.getSize()));
-            f.setStatus(Files.UPLOADED);
+           // f.setStatus(Files.UPLOADED);
             if (FileUtil.isImage(f.getLocation())) {
                 f.setType(Files.IMAGE);
             } else if (FileUtil.isVideo(f.getLocation())) {

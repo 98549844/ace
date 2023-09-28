@@ -27,6 +27,12 @@ public class AceEnvironment {
 
     //container of application.yml value
     public static Environment environment;
+
+    private static String separator;
+    private static String root;
+    private static String ace;
+    private static String users;
+    private static String currentUserFolder;
     private static String filePath;
     private static String misc;
     //  private static String filesTemp;
@@ -53,78 +59,22 @@ public class AceEnvironment {
         String osName = OsUtil.getOsName();
 
         String root;
-        String ace;
-        String filePath;
-        String imgPath;
-        String thumbnail;
-        String video;
-        String m3u8;
-        String miscellaneous;
-        Map<String, String> map = new HashMap<>();
-
+        String separator;
 
         if (osName.contains(OsUtil.WINDOWS)) {
-            root = "C:\\";
-            ace = "ace\\";
-            filePath = root + ace + "files\\";
-            imgPath = root + ace + "images\\";
-            thumbnail = imgPath + "thumbnail\\";
-            video = root + ace + "videos\\";
-            m3u8 = video + "m3u8\\";
-            miscellaneous = root + ace + "misc\\";
-
-            map.put("root", root);
-            map.put("ace", ace);
-            map.put("filePath", filePath);
-            map.put("imgPath", imgPath);
-            map.put("thumbnail", thumbnail);
-            map.put("video", video);
-            map.put("m3u8", m3u8);
-            map.put("miscellaneous", miscellaneous);
-
-            createFolderAndSetValue(map);
+            separator = "\\";
+            root = "C:" + separator;
+            createFolderAndSetValue(root, separator);
             msg = "ACE environment setup complete : Windows !!!";
         } else if (osName.contains(OsUtil.MAC)) {
-            root = "/Users/garlam/";
-            ace = "ace/";
-            filePath = root + ace + "files/";
-            imgPath = root + ace + "images/";
-            thumbnail = imgPath + "thumbnail/";
-            video = root + ace + "videos/";
-            m3u8 = video + "m3u8/";
-            miscellaneous = root + ace + "misc/";
-
-            map.put("root", root);
-            map.put("ace", ace);
-            map.put("filePath", filePath);
-            map.put("imgPath", imgPath);
-            map.put("thumbnail", thumbnail);
-            map.put("video", video);
-            map.put("m3u8", m3u8);
-            map.put("miscellaneous", miscellaneous);
-
-            createFolderAndSetValue(map);
+            separator = "/";
+            root = "/Users/garlam" + separator;
+            createFolderAndSetValue(root, separator);
             msg = "ACE environment setup complete : MAC !!!";
         } else if (osName.contains(OsUtil.LINUX)) {
-            root = "/opt/workspace/";
-            ace = "ace/";
-            filePath = root + ace + "files/";
-            imgPath = root + ace + "images/";
-            thumbnail = imgPath + "thumbnail/";
-            video = root + ace + "videos/";
-            m3u8 = video + "m3u8/";
-            miscellaneous = root + ace + "misc/";
-
-            map.put("root", root);
-            map.put("ace", ace);
-            map.put("filePath", filePath);
-            map.put("imgPath", imgPath);
-            map.put("thumbnail", thumbnail);
-            map.put("video", video);
-            map.put("m3u8", m3u8);
-            map.put("miscellaneous", miscellaneous);
-
-            createFolderAndSetValue(map);
+            separator = "/";
+            root = "/opt/workspace" + separator;
+            createFolderAndSetValue(root, separator);
             msg = "ACE environment setup complete : LINUX !!!";
         } else {
             msg = "WARNING => UNKNOWN OS, ACE Environment setup incomplete !!!";
@@ -134,20 +84,39 @@ public class AceEnvironment {
         Console.println(msg, Console.BLUE, Console.BOLD);
     }
 
-    private static void createFolderAndSetValue(Map map) {
+    private static void createFolderAndSetValue(String root, String separator) {
+        String ace = root + "ace" + separator;
+
+        String users = ace + "users" + separator;
+
+        String filePath = ace + "files" + separator;
+
+        String imgPath = ace + "images" + separator;
+        String thumbnail = imgPath + "thumbnail" + separator;
+
+        String video = ace + "videos" + separator;
+        String m3u8 = video + "m3u8" + separator;
+
+        String miscellaneous = ace + "misc" + separator;
+
         //create folder
-        FileUtil.mkDirs((String) map.get("filePath"));
-        FileUtil.mkDirs((String) map.get("thumbnail"));
-        FileUtil.mkDirs((String) map.get("m3u8"));
-        FileUtil.mkDirs((String) map.get("miscellaneous"));
+        FileUtil.mkDirs(filePath); //已包含root
+        FileUtil.mkDirs(users); //已包含root
+        FileUtil.mkDirs(thumbnail); //已包括images
+        FileUtil.mkDirs(m3u8); //已包括video
+        FileUtil.mkDirs(miscellaneous);
 
         //set value for system use
-        setFilePath((String) map.get("filePath"));
-        setImagesPath((String) map.get("imgPath"));
-        setImagesThumbnail((String) map.get("thumbnail"));
-        setVideoPath((String) map.get("video"));
-        setVideoM3u8((String) map.get("m3u8"));
-        setMisc((String) map.get("miscellaneous"));
+        setSeparator(separator);
+        setRoot(root);
+        setAce(ace);
+        setUsers(users);
+        setFilePath(filePath);
+        setImagesPath(imgPath);
+        setImagesThumbnail(thumbnail);
+        setVideoPath(video);
+        setVideoM3u8(m3u8);
+        setMisc(miscellaneous);
     }
 
     public static String getFilePath() {
@@ -197,5 +166,47 @@ public class AceEnvironment {
     public static void setMisc(String misc) {
         AceEnvironment.misc = misc;
     }
+
+    public static String getSeparator() {
+        return separator;
+    }
+
+    public static void setSeparator(String separator) {
+        AceEnvironment.separator = separator;
+    }
+
+    public static String getRoot() {
+        return root;
+    }
+
+    public static void setRoot(String root) {
+        AceEnvironment.root = root;
+    }
+
+    public static String getUsers() {
+        return users;
+    }
+
+    public static void setUsers(String users) {
+        AceEnvironment.users = users;
+    }
+
+    public static String getAce() {
+        return ace;
+    }
+
+    public static void setAce(String ace) {
+        AceEnvironment.ace = ace;
+    }
+
+    public static String getCurrentUserFolder() {
+        return currentUserFolder;
+    }
+
+    public static void setCurrentUserFolder(String currentUserFolder) {
+        AceEnvironment.currentUserFolder = currentUserFolder;
+    }
+
+
 }
 

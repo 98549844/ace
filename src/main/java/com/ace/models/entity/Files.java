@@ -45,11 +45,14 @@ public class Files extends BaseEntity {
     @Column
     private int count = 0;
     @Column
-    private String status; //uploaded: 已上载 fragment:已切片 compressed:已压缩
-    public static final String UPLOADED = "uploaded";
-    public static final String FRAGMENT = "fragment";
-    public static final String COMPRESSED = "compressed";
+    private String status = UPLOADED;
+    public static final String DELETED = "deleted"; //已删除
+    public static final String UPLOADED = "uploaded"; //已上载
+    public static final String FRAGMENT = "fragment"; //已切片
+    public static final String COMPRESSED = "compressed";//已压缩
     public static final String LOST = "lost";
+    public static final String DENIED = "denied"; //拒绝读取
+
     @Column
     private String originationName; //原文件名
     @Column
