@@ -232,6 +232,14 @@
             <version>3.3.4</version> <!--ognl3.3.4配合FlyingSaucer将thymeleaf3.1.2.RELEASE(springboot3.1)转pdf使用-->
         </dependency>
 
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns-native-macos</artifactId>
+            <version>4.1.98.Final</version>
+            <classifier>osx-aarch_64</classifier>
+            <scope>runtime</scope>
+            <!--解决 Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider-->
+        </dependency>
 
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -257,7 +265,7 @@
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.15.4</version>
+            <version>1.16.1</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -339,13 +347,11 @@
         </dependency>
 
 
-
-
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
             <!-- <version>3.1.2</version>-->
-             <version>${spring.version}</version>
+            <version>${spring.version}</version>
         </dependency>
 
     </dependencies>

@@ -46,7 +46,7 @@ public class FileController extends CommonController {
     }
 
     /**
-     * access to gallery page
+     * access to files page
      *
      * @return
      */

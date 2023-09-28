@@ -11,10 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Classname: CacheService
@@ -48,16 +45,32 @@ public class FoldersService {
 
     public void getFolderTreeByCurrentUser(Users currentUser) {
         List<Folders> folders = foldersDao.findByOwnerId(currentUser.getUserId());
-        Map folderTree = new HashMap();
+        Map<Integer, List<String>> folderTree = new HashMap<>();
+//        List<List<String>> folderTree = new ArrayList<>();
+
+//        for (Folders child : folders) {
+//            List<String> childList = new ArrayList<>();
+//            for (Folders parent : folders) {
+//                if (child.getParentId().equals(parent.getId())) {
+//                    childList.add(child.getFolderName());
+//                }
+//            }
+//            folderTree.put(parentFolder, childList);
+//        }
+
+        Integer level = 0;
         for (Folders parent : folders) {
-            List<String> childFolderList = new ArrayList<>();
+            List<String> childList = new ArrayList<>();
             for (Folders child : folders) {
-                if (child.getId().equals(parent.getParentId())) {
-                    childFolderList.add(child.getFolderName());
+                if (child.getParentId().equals(parent.getId())) {
+                    childList.add(child.getFolderName());
                 }
-                folderTree.put(parent.getFolderName(), childFolderList);
             }
+            folderTree.put(level, childList);
+            ++level;
         }
+
+
         System.out.println("------");
     }
 

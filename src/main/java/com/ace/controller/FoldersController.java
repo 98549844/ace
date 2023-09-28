@@ -1,5 +1,6 @@
 package com.ace.controller;
 
+import com.ace.constant.AceEnvironment;
 import com.ace.controller.common.CommonController;
 import com.ace.service.FoldersService;
 import org.apache.logging.log4j.LogManager;
@@ -42,7 +43,8 @@ public class FoldersController extends CommonController {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public ModelAndView testCreateFolder() {
         log.info("access createNewFolder");
-        String currentPath = "C:\\ace\\users\\garlam\\";
+        String currentPath = AceEnvironment.getCurrentUserFolder();
+        System.out.println("currentPath: " + currentPath);
         String newFolderName = "AAA";
         String newFolderNameB = "BBB";
         Map<String, String> status = foldersService.create(currentPath, newFolderName, getCurrentUser());
@@ -50,8 +52,8 @@ public class FoldersController extends CommonController {
         System.out.println(status.get("msg"));
         System.out.println(status1.get("msg"));
 
-        String currentPath1 = "C:\\ace\\users\\garlam\\AAA\\";
-        String currentPath2 = "C:\\ace\\users\\garlam\\BBB\\";
+        String currentPath1 = AceEnvironment.getCurrentUserFolder() + "AAA" + AceEnvironment.getSeparator();
+        String currentPath2 = AceEnvironment.getCurrentUserFolder() + "BBB" + AceEnvironment.getSeparator();
         String newFolderNameA = "C1";
         String newFolderNameBB = "C2";
         String newFolderNameBC = "C3";

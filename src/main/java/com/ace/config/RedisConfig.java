@@ -45,7 +45,11 @@ public class RedisConfig {
         // 指定序列化输入的类型，类必须是非final修饰的，final修饰的类，比如String,Integer等会跑出异常
         // om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);   //过期，用下面的方法来代替
         om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
-        jackson2JsonRedisSerializer.setObjectMapper(om);
+
+        //*** 如果用不了还用, un-comment setObjectMapper
+        //jackson2JsonRedisSerializer.setObjectMapper(om);
+        template.setValueSerializer(jackson2JsonRedisSerializer);
+
         //setObjectMapper 过时doc
         //https://docs.spring.io/spring-data/redis/docs/current/api/org/springframework/data/redis/serializer/Jackson2JsonRedisSerializer.html#setObjectMapper(com.fasterxml.jackson.databind.ObjectMapper)
 
