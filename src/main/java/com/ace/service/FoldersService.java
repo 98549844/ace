@@ -11,7 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname: CacheService
@@ -28,6 +31,9 @@ public class FoldersService {
     private final FoldersDao foldersDao;
     private final String currentUserPath;
     private final String separator;
+    public final String FOLDER_ID = "folderId";
+    public final String FOLDER_NAME = "folderName";
+    public final String SUB_FOLDERS = "subFolders";
 
     public FoldersService(FoldersDao foldersDao) {
         this.foldersDao = foldersDao;
@@ -43,35 +49,65 @@ public class FoldersService {
         return foldersDao.findByPath(path);
     }
 
-    public void getFolderTreeByCurrentUser(Users currentUser) {
+    public Folders getRootFolder(Users currentUser) {
+        return foldersDao.findByFolderNameAndParentId(currentUser.getUserAccount(), 0l);
+    }
+
+    public List<Folders> getFolders(Users currentUser, Long parentId) {
+        return foldersDao.findByOwnerIdAndParentId(currentUser.getUserId(), parentId);
+    }
+
+
+    //  https://www.treejs.cn/v3/demo.php#_113
+    //https://github.com/ParadeTo/vue-tree-list Vue Tree List Component
+    //https://github.com/zdy1988/vue-jstree vue-jstree
+    public Map<String, Object> buildFolderMapByCurrentUser(Users currentUser) {
         List<Folders> folders = foldersDao.findByOwnerId(currentUser.getUserId());
-        Map<Integer, List<String>> folderTree = new HashMap<>();
-//        List<List<String>> folderTree = new ArrayList<>();
+        Map<Long, Folders> folderTree = new HashMap<>();
 
-//        for (Folders child : folders) {
-//            List<String> childList = new ArrayList<>();
-//            for (Folders parent : folders) {
-//                if (child.getParentId().equals(parent.getId())) {
-//                    childList.add(child.getFolderName());
-//                }
-//            }
-//            folderTree.put(parentFolder, childList);
-//        }
-
-        Integer level = 0;
-        for (Folders parent : folders) {
-            List<String> childList = new ArrayList<>();
-            for (Folders child : folders) {
-                if (child.getParentId().equals(parent.getId())) {
-                    childList.add(child.getFolderName());
-                }
-            }
-            folderTree.put(level, childList);
-            ++level;
+        Folders root = null;
+        // 构建节点映射表
+        for (Folders folder : folders) {
+            folderTree.put(folder.getId(), folder);
         }
 
+        // 构建树状结构
+        for (Folders folder : folders) {
+            Long parentId = folder.getParentId();
+            if (parentId == 0) {
+                root = folder;
+            } else {
+                Folders parent = folderTree.get(parentId);
+                if (parent != null) {
+                    parent.addSubFolder(folder);
+                }
+            }
+        }
 
-        System.out.println("------");
+        if (root == null) {
+            return new HashMap<>();
+        }
+        Map<String, Object> aaa = buildTree(root);
+        return buildTree(root);
+
+    }
+
+    private Map<String, Object> buildTree(Folders folder) {
+        Map<String, Object> tree = new HashMap<>();
+        tree.put(this.FOLDER_ID, folder.getId());
+        tree.put(this.FOLDER_NAME, folder.getFolderName());
+
+        List<Folders> children = folder.getSubFolders();
+        if (!children.isEmpty()) {
+            List<Map<String, Object>> childTrees = new ArrayList<>();
+            for (Folders child : children) {
+                Map<String, Object> childTree = buildTree(child);
+                childTrees.add(childTree);
+            }
+
+            tree.put(this.SUB_FOLDERS, childTrees);
+        }
+        return tree;
     }
 
 
@@ -138,12 +174,22 @@ public class FoldersService {
         return folder.getOwnerId().equals(currentUser.getUserId());
     }
 
+    /**
+     * 未完成
+     *
+     * @return
+     */
     public Map<String, String> delete() {
         Map<String, String> status = new HashMap();
 
         return status;
     }
 
+    /**
+     * 未完成
+     *
+     * @return
+     */
     public Map<String, String> rename() {
         Map<String, String> status = new HashMap();
 

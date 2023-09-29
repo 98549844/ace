@@ -17,4 +17,8 @@ public interface FoldersDao extends JpaRepository<Folders, Long>, JpaSpecificati
 
 
     List<Folders> findByOwnerId(Long ownerId);
+
+    Folders findByFolderNameAndParentId(String folderName, Long parentId);
+
+    List<Folders> findByOwnerIdAndParentId(Long ownerId, Long parentId);
 }

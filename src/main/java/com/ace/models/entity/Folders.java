@@ -1,7 +1,6 @@
 package com.ace.models.entity;
 
 import com.ace.constant.AceEnvironment;
-import com.ace.controller.common.CommonController;
 import com.ace.models.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import org.apache.logging.log4j.LogManager;
@@ -9,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,6 +47,9 @@ public class Folders extends BaseEntity {
     @Column
     private String sharedUserId;
 
+    @Transient
+    private List<Folders> subFolders = new ArrayList<>();
+    ;
 
     public Long getId() {
         return id;
@@ -112,6 +115,18 @@ public class Folders extends BaseEntity {
 
     public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
+    }
+
+    public List<Folders> getSubFolders() {
+        return subFolders;
+    }
+
+    public void setSubFolders(List<Folders> subFolders) {
+        this.subFolders = subFolders;
+    }
+
+    public void addSubFolder(Folders child) {
+        this.subFolders.add(child);
     }
 }
 

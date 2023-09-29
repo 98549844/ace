@@ -42,7 +42,6 @@ public class AceEnvironment {
     private static String videoM3u8;
 
 
-    @Autowired
     public AceEnvironment(Environment environment) {
         AceEnvironment.environment = environment;
         setUp();

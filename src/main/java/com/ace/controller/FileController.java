@@ -2,6 +2,7 @@ package com.ace.controller;
 
 import com.ace.constant.AceEnvironment;
 import com.ace.controller.common.CommonController;
+import com.ace.models.entity.Folders;
 import com.ace.service.FilesService;
 import com.ace.service.FoldersService;
 import com.util.PathUtil;
@@ -53,9 +54,13 @@ public class FileController extends CommonController {
     @RequestMapping(value = "/files.html", method = RequestMethod.GET)
     public ModelAndView getFilesTree() {
         log.info("access files");
-        foldersService.getFolderTreeByCurrentUser(getCurrentUser());
+        Folders root = foldersService.getRootFolder(getCurrentUser());
+        List<Folders> subFolders = foldersService.getFolders(getCurrentUser(), root.getParentId());
 
-        return super.page("ace/modules/files/file");
+        ModelAndView modelAndView = super.page("ace/modules/files/file");
+        modelAndView.addObject("root", root);
+        modelAndView.addObject("folders", subFolders);
+        return modelAndView;
     }
 
 

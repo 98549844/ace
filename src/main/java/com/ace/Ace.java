@@ -1,47 +1,103 @@
 package com.ace;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Ace {
+
+
     public static void main(String[] args) {
-        String rootPath = "/Users/garlam/ace/users/garlam/";
-        File rootFolder = new File(rootPath);
-        List<String> fileList = new ArrayList<>();
-        listFilesAndFolders(rootFolder, 0, fileList);
+        List<Node> nodes = generateNodes();
 
-        // 打印结果
-        for (String entry : fileList) {
-            System.out.println(entry);
+        Map<Integer, Node> nodeMap = new HashMap<>();
+        Node root = null;
+
+        // 构建节点映射表
+        for (Node node : nodes) {
+            nodeMap.put(node.getId(), node);
         }
-    }
 
-    public static void listFilesAndFolders(File folder, int level, List<String> fileList) {
-        if (folder.isDirectory()) {
-            // 将文件夹名称添加到列表
-            fileList.add(getIndent(level) + "[Folder] " + folder.getName());
-
-            // 获取文件夹中的所有文件和子文件夹
-            File[] files = folder.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    listFilesAndFolders(file, level + 1, fileList); // 递归调用
+        // 构建树状结构
+        for (Node node : nodes) {
+            int parentId = node.getParentId();
+            if (parentId == 0) {
+                root = node;
+            } else {
+                Node parent = nodeMap.get(parentId);
+                if (parent != null) {
+                    parent.addChild(node);
                 }
             }
-        } else {
-            // 将文件名称添加到列表
-            fileList.add(getIndent(level) + "[File] " + folder.getName());
+        }
+
+        // 打印树状结构
+        if (root != null) {
+            printTree(root, 0);
         }
     }
 
-    public static String getIndent(int level) {
+    private static List<Node> generateNodes() {
+        List<Node> nodes = new ArrayList<>();
+
+        // 添加节点数据
+        nodes.add(new Node(1, 0, "Node 1"));
+        nodes.add(new Node(2, 1, "Node 2"));
+        nodes.add(new Node(3, 1, "Node 3"));
+        nodes.add(new Node(4, 2, "Node 4"));
+        nodes.add(new Node(5, 2, "Node 5"));
+        nodes.add(new Node(6, 3, "Node 6"));
+
+        return nodes;
+    }
+
+    private static void printTree(Node node, int level) {
         StringBuilder indent = new StringBuilder();
         for (int i = 0; i < level; i++) {
-            indent.append("\t"); // 使用制表符缩进
+            indent.append("  ");
         }
-        return indent.toString();
+
+        System.out.println(indent + node.getName());
+
+        List<Node> children = node.getChildren();
+        for (Node child : children) {
+            printTree(child, level + 1);
+        }
+    }
+
+    static class Node {
+        private int id;
+        private int parentId;
+        private String name;
+        private List<Node> children;
+
+        public Node(int id, int parentId, String name) {
+            this.id = id;
+            this.parentId = parentId;
+            this.name = name;
+            this.children = new ArrayList<>();
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public int getParentId() {
+            return parentId;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public List<Node> getChildren() {
+            return children;
+        }
+
+        public void addChild(Node child) {
+            children.add(child);
+        }
     }
 }
+
+
 
 
