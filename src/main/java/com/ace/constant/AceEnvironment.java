@@ -35,12 +35,16 @@ public class AceEnvironment {
     private static String currentUserFolder;
     private static String filePath;
     private static String misc;
-    //  private static String filesTemp;
+    private static String tmp;
     private static String imagesPath;
     private static String imagesThumbnail;
     private static String videoPath;
     private static String videoM3u8;
 
+    public static void main(String[] args) {
+        AceEnvironment.setUp();
+        System.out.println(getAce());
+    }
 
     public AceEnvironment(Environment environment) {
         AceEnvironment.environment = environment;
@@ -206,6 +210,12 @@ public class AceEnvironment {
         AceEnvironment.currentUserFolder = currentUserFolder;
     }
 
+    public static String getTmp() {
+        return tmp;
+    }
 
+    public static void setTmp(String tmp) {
+        AceEnvironment.tmp = tmp;
+    }
 }
 
