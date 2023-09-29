@@ -1,2 +1,24 @@
 https://plugins.jetbrains.com/plugin/1800-database-navigator/versions
 https://plugins.jetbrains.com/plugin/19161-database-tool
+
+
+select * from  t_ztree;
+
+insert into t_ztree (id, name, open,pid) values (452,'garlam' ,false,0  );
+insert into t_ztree (id, name, open,pid) values (453,'AAA'    ,false,452  );
+insert into t_ztree (id, name, open,pid) values (454,'BBB'    ,true, 452 );
+insert into t_ztree (id, name, open,pid) values (455,'C1'     ,true, 453 );
+insert into t_ztree (id, name, open,pid) values (456,'C2'     ,false,454  );
+insert into t_ztree (id, name, open,pid) values (457,'C3'     ,false,454  );
+commit;
+
+
+CREATE TABLE mr1805.t_ztree
+(
+    id   BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100),
+    open boolean,
+    pid  BIGINT,
+    PRIMARY KEY (id)
+);
+commit;
