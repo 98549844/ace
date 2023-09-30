@@ -24,6 +24,7 @@
     </properties>
 
     <dependencies>
+        <!--https://github.com/98549844/utilities.git-->
         <dependency>
             <groupId>com</groupId>
             <artifactId>utilities</artifactId>
@@ -512,6 +513,8 @@
                 <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
             </properties>
         </profile>-->
+
+        <!--定义读取application.yml文件, 好像没有作用-->
         <profile>
             <!-- 生产环境 -->
             <id>prod</id>
