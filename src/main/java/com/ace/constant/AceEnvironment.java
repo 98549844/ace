@@ -44,6 +44,7 @@ public class AceEnvironment {
     public static void main(String[] args) {
         AceEnvironment.setUp();
         System.out.println(getAce());
+        System.out.println(getTmp());
     }
 
     public AceEnvironment(Environment environment) {
