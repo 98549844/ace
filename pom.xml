@@ -24,6 +24,7 @@
     </properties>
 
     <dependencies>
+        <!--https://github.com/98549844/utilities.git-->
         <dependency>
             <groupId>com</groupId>
             <artifactId>utilities</artifactId>
@@ -281,11 +282,13 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.49</version>
         </dependency>
-        <!--<dependency>
+        <!--
+        <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
-            <version>8.0.32</version>
-        </dependency>-->
+            <version>8.1.0</version>
+        </dependency>
+        -->
 
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -510,6 +513,8 @@
                 <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
             </properties>
         </profile>-->
+
+        <!--定义读取application.yml文件, 好像没有作用-->
         <profile>
             <!-- 生产环境 -->
             <id>prod</id>

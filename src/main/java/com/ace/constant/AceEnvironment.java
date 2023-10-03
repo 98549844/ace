@@ -35,12 +35,17 @@ public class AceEnvironment {
     private static String currentUserFolder;
     private static String filePath;
     private static String misc;
-    //  private static String filesTemp;
+    private static String tmp;
     private static String imagesPath;
     private static String imagesThumbnail;
     private static String videoPath;
     private static String videoM3u8;
 
+    public static void main(String[] args) {
+        AceEnvironment.setUp();
+        System.out.println(getAce());
+        System.out.println(getTmp());
+    }
 
     public AceEnvironment(Environment environment) {
         AceEnvironment.environment = environment;
@@ -97,6 +102,7 @@ public class AceEnvironment {
         String m3u8 = video + "m3u8" + separator;
 
         String miscellaneous = ace + "misc" + separator;
+        String tamp = ace + "tmp" + separator;
 
         //create folder
         FileUtil.mkDirs(filePath); //已包含root
@@ -104,6 +110,7 @@ public class AceEnvironment {
         FileUtil.mkDirs(thumbnail); //已包括images
         FileUtil.mkDirs(m3u8); //已包括video
         FileUtil.mkDirs(miscellaneous);
+        FileUtil.mkDirs(tamp);
 
         //set value for system use
         setSeparator(separator);
@@ -116,6 +123,7 @@ public class AceEnvironment {
         setVideoPath(video);
         setVideoM3u8(m3u8);
         setMisc(miscellaneous);
+        setTmp(tamp);
     }
 
     public static String getFilePath() {
@@ -206,6 +214,12 @@ public class AceEnvironment {
         AceEnvironment.currentUserFolder = currentUserFolder;
     }
 
+    public static String getTmp() {
+        return tmp;
+    }
 
+    public static void setTmp(String tmp) {
+        AceEnvironment.tmp = tmp;
+    }
 }
 
