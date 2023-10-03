@@ -1,0 +1,18 @@
+1.  首先下载nvm
+    下载地址：https://github.com/coreybutler/nvm-windows/releases
+    或者 https://download.csdn.net/download/xiaofiy/85235297
+    下载安装过程建议傻瓜式安装，直接安装到c盘
+
+2.  安装14版本和16版本的node（默认会安装最新最稳定版本）
+    nvm install 14
+    nvm install 16
+
+3.  查看nvm路径命令
+    nvm root
+
+4.  列出所有可管理的node版本
+    nvm ls
+
+5.  切换使用node时,
+    只需nvm use 版本号，指定当前使用的node版本
+    nvm use node_version
