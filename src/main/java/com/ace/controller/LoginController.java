@@ -51,7 +51,6 @@ public class LoginController extends CommonController {
 
     @RequestMapping(value = {"/ace/login.html", "/"}, method = RequestMethod.GET)
     public ModelAndView login() {
-        System.out.println(getCurrentUser().getCurrentUserPath());
         if (isLogin()) {
             return super.page("ace/index.html");
         } else {

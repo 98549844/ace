@@ -1,0 +1,6 @@
+1.  检查 Vue CLI 版本
+    vue --version
+
+2.  安装 Vue CLI, 全局安装最新版本的 Vue CLI
+    npm install -g @vue/cli
+
