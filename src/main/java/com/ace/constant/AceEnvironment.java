@@ -32,7 +32,6 @@ public class AceEnvironment {
     private static String root;
     private static String ace;
     private static String users;
-    private static String currentUserFolder;
     private static String filePath;
     private static String misc;
     private static String tmp;
@@ -204,14 +203,6 @@ public class AceEnvironment {
 
     public static void setAce(String ace) {
         AceEnvironment.ace = ace;
-    }
-
-    public static String getCurrentUserFolder() {
-        return currentUserFolder;
-    }
-
-    public static void setCurrentUserFolder(String currentUserFolder) {
-        AceEnvironment.currentUserFolder = currentUserFolder;
     }
 
     public static String getTmp() {

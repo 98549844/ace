@@ -43,7 +43,7 @@ public class FoldersController extends CommonController {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public ModelAndView testCreateFolder() {
         log.info("access createNewFolder");
-        String currentPath = AceEnvironment.getCurrentUserFolder();
+        String currentPath = getCurrentUser().getCurrentUserPath();;
         System.out.println("currentPath: " + currentPath);
         String newFolderName = "AAA";
         String newFolderNameB = "BBB";
@@ -52,8 +52,8 @@ public class FoldersController extends CommonController {
         System.out.println(status.get("msg"));
         System.out.println(status1.get("msg"));
 
-        String currentPath1 = AceEnvironment.getCurrentUserFolder() + "AAA" + AceEnvironment.getSeparator();
-        String currentPath2 = AceEnvironment.getCurrentUserFolder() + "BBB" + AceEnvironment.getSeparator();
+        String currentPath1 = getCurrentUser().getCurrentUserPath() + "AAA" + AceEnvironment.getSeparator();
+        String currentPath2 = getCurrentUser().getCurrentUserPath() + "BBB" + AceEnvironment.getSeparator();
         String newFolderNameA = "C1";
         String newFolderNameBB = "C2";
         String newFolderNameBC = "C3";

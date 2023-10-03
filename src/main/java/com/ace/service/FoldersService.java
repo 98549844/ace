@@ -29,7 +29,6 @@ public class FoldersService {
     private static final Logger log = LogManager.getLogger(FoldersService.class.getName());
 
     private final FoldersDao foldersDao;
-    private final String currentUserPath;
     private final String separator;
     public final String FOLDER_ID = "folderId";
     public final String FOLDER_NAME = "folderName";
@@ -37,7 +36,6 @@ public class FoldersService {
 
     public FoldersService(FoldersDao foldersDao) {
         this.foldersDao = foldersDao;
-        this.currentUserPath = AceEnvironment.getCurrentUserFolder();
         this.separator = AceEnvironment.getSeparator();
     }
 

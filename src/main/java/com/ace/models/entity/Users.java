@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -72,7 +73,8 @@ public class Users extends BaseEntity implements Serializable {
     @Column
     private boolean enabled = true; // user account
 
-
+    @Transient
+    private String currentUserPath;
 
 
     public Long getUserId() {
@@ -218,5 +220,13 @@ public class Users extends BaseEntity implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCurrentUserPath() {
+        return currentUserPath;
+    }
+
+    public void setCurrentUserPath(String currentUserPath) {
+        this.currentUserPath = currentUserPath;
     }
 }
