@@ -1,0 +1,6 @@
+1.  config JAVA_HOME
+    在windows的系统环景参数加入
+    JAVA_HOME
+    C:\Users\Kalam_au\.jdks\graalvm-ce-17
+
+2.  cmd执行C:\tomcat\tomcat-9.0.65\bin\startup.bat

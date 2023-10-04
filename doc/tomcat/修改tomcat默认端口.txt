@@ -1,0 +1,12 @@
+1.  找到 server.xml 文件：
+    在你的 Tomcat 安装目录下，
+    进入 conf 文件夹，找到名为 server.xml 的配置文件。
+
+2.  编辑 server.xml 文件：
+    使用文本编辑器打开 server.xml 文件。
+
+3.  找到 Connector 元素：
+    在 server.xml 文件中，
+    找到类似以下的 Connector 元素
+
+4.  <Connector port="新端口"

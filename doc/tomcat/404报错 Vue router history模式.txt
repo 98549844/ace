@@ -1,0 +1,11 @@
+在<description>下加入<error-page>
+
+=>
+    <description>
+        Welcome to Tomcat
+    </description>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/</location>
+    </error-page>
+=>
