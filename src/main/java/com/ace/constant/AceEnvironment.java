@@ -5,13 +5,11 @@ import com.util.FileUtil;
 import com.util.OsUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.File;
 
 /**
  * @Classname: AceEnvironment
@@ -62,20 +60,20 @@ public class AceEnvironment {
         String osName = OsUtil.getOsName();
 
         String root;
-        String separator;
+        String separator = File.separator;
 
         if (osName.contains(OsUtil.WINDOWS)) {
-            separator = "\\";
+            //separator = "\\";
             root = "C:" + separator;
             createFolderAndSetValue(root, separator);
             msg = "ACE environment setup complete : Windows !!!";
         } else if (osName.contains(OsUtil.MAC)) {
-            separator = "/";
+            //separator = "/";
             root = "/Users/garlam" + separator;
             createFolderAndSetValue(root, separator);
             msg = "ACE environment setup complete : MAC !!!";
         } else if (osName.contains(OsUtil.LINUX)) {
-            separator = "/";
+            //separator = "/";
             root = "/opt/workspace" + separator;
             createFolderAndSetValue(root, separator);
             msg = "ACE environment setup complete : LINUX !!!";
