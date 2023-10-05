@@ -17,14 +17,14 @@ import java.io.IOException;
 public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
-    final static String p = "C:\\ideaPorject\\zfile\\src\\main\\resources\\static\\aaa\\";
+    final static String p = "C:\\ideaPorject\\zfile\\src\\main\\resources\\static\\index.html";
 //    final static String p = "C:\\ace\\tmp";
 
     public static void main(String[] args) throws IOException {
 
-          FileUtil.countByType(p);
-          FileUtil.count(p);
-
+        //  FileUtil.countByType(p);
+        //  FileUtil.count(p);
+        FileUtil.getCurrentFolderList(p);
 
 
     }
