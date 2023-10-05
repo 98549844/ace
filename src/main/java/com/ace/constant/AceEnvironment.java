@@ -37,6 +37,8 @@ public class AceEnvironment {
     private static String imagesThumbnail;
     private static String videoPath;
     private static String videoM3u8;
+    private static String systemTmpDir;
+
 
     public static void main(String[] args) {
         AceEnvironment.setUp();
@@ -65,23 +67,21 @@ public class AceEnvironment {
         if (osName.contains(OsUtil.WINDOWS)) {
             //separator = "\\";
             root = "C:" + separator;
-            createFolderAndSetValue(root, separator);
             msg = "ACE environment setup complete : Windows !!!";
         } else if (osName.contains(OsUtil.MAC)) {
             //separator = "/";
             root = "/Users/garlam" + separator;
-            createFolderAndSetValue(root, separator);
             msg = "ACE environment setup complete : MAC !!!";
         } else if (osName.contains(OsUtil.LINUX)) {
             //separator = "/";
             root = "/opt/workspace" + separator;
-            createFolderAndSetValue(root, separator);
             msg = "ACE environment setup complete : LINUX !!!";
         } else {
             msg = "WARNING => UNKNOWN OS, ACE Environment setup incomplete !!!";
             Console.println(msg, Console.RED, Console.BOLD);
             return;
         }
+        createFolderAndSetValue(root, separator);
         Console.println(msg, Console.BLUE, Console.BOLD);
     }
 
@@ -100,6 +100,7 @@ public class AceEnvironment {
 
         String miscellaneous = ace + "misc" + separator;
         String tamp = ace + "tmp" + separator;
+
 
         //create folder
         FileUtil.mkDirs(filePath); //已包含root
@@ -121,6 +122,7 @@ public class AceEnvironment {
         setVideoM3u8(m3u8);
         setMisc(miscellaneous);
         setTmp(tamp);
+        setSystemTmpDir(System.getProperty("java.io.tmpdir"));
     }
 
     public static String getFilePath() {
@@ -209,6 +211,14 @@ public class AceEnvironment {
 
     public static void setTmp(String tmp) {
         AceEnvironment.tmp = tmp;
+    }
+
+    public static String getSystemTmpDir() {
+        return systemTmpDir;
+    }
+
+    private static void setSystemTmpDir(String systemTmpDir) {
+        AceEnvironment.systemTmpDir = systemTmpDir;
     }
 }
 
