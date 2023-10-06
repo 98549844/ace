@@ -45,8 +45,8 @@ public class GalleryService {
     public List getImages(Users users) throws IOException {
         log.info("image location: {}", imagePath);
 
-        List<String> ls = FileUtil.getFileNames(imagePath);
-        List<String> tempLs = FileUtil.getFileNames(imagesThumbnail);
+        List<String> ls = FileUtil.getFileNamesWithExt(imagePath);
+        List<String> tempLs = FileUtil.getFileNamesWithExt(imagesThumbnail);
 
         try {
             deleteThumbnails(ls, tempLs);

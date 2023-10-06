@@ -51,12 +51,12 @@ public class MediaService {
     }
 
     public List getThumbnail() throws IOException {
-        List<String> videoList = FileUtil.getFileNames(videoPath);
+        List<String> videoList = FileUtil.getFileNamesWithExt(videoPath);
         List<String> names = FileUtil.getNames(videoList);
         return getActualList(names);
     }
 
-    private List getActualList(List<String> t1) throws IOException {
+    private List getActualList(List<String> t1) {
         //根据folder实际文件控制数据库, 删除不存文件数据
         List<String> fName = FileUtil.getNames(t1);
         List<com.ace.models.entity.Files> filesList = filesService.findFilesByPathAndFileNameNotIn(videoPath, fName);
@@ -70,7 +70,7 @@ public class MediaService {
      * @throws IOException
      */
     public List getM3U8ByPlayId(String playId) throws IOException {
-        List<String> videoList = FileUtil.getFileNames(videoPath);
+        List<String> videoList = FileUtil.getFileNamesWithExt(videoPath);
         List<String> names = FileUtil.getNames(videoList);
         com.ace.models.entity.Files f = filesService.findFilesByFileName(playId);
         getMultipartFileList(f.getLocation());
@@ -83,7 +83,7 @@ public class MediaService {
      * @throws IOException
      */
     public List getM3U8() throws IOException {
-        List<String> videoList = FileUtil.getFileNames(videoPath);
+        List<String> videoList = FileUtil.getFileNamesWithExt(videoPath);
         List<String> t1 = FileUtil.getNames(videoList);
         List<String> t2 = FileUtil.getDirs(videoM3u8);
 
@@ -108,10 +108,9 @@ public class MediaService {
 
     /** VideoPath 文件夹内video名字
      * @return
-     * @throws IOException
      */
-    private List getVideoPathList() throws IOException {
-        List list = FileUtil.getFileNames(videoPath);
+    private List getVideoPathList() {
+        List list = FileUtil.getFileNamesWithExt(videoPath);
         List filesList = FileUtil.getNames(list);
 
         Users users = (Users) StpUtil.getSession().get("user");
