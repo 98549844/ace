@@ -19,12 +19,7 @@ public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
     public static void main(String[] args) {
-        String p = "C:\\ace\\images";
-        List<String> a = FileUtil.getFileNamesWithExt(p);
 
-        for (int i = 0; i < a.size(); i++) {
-            System.out.println(a.get(i));
-        }
     }
 }
 
