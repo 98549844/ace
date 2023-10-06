@@ -43,7 +43,7 @@ public class ReportController extends CommonController {
     @RequestMapping(value = "/report/newIssue.html", method = RequestMethod.GET)
     public ModelAndView newIssue(@ModelAttribute Reports reports) {
         log.info("access report/newIssue.html => create new issue");
-        ModelAndView modelAndView = super.page("ace/modules/report/report");
+        ModelAndView modelAndView = super.page("ace/modules/report/new-issue");
         //   reports = reportsService.saveAndFlush(reports);
         modelAndView.addObject("report", reports);
         return modelAndView;
