@@ -1,5 +1,6 @@
 package com.ace.config;
 
+import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.thymeleaf.dialect.SaTokenDialect;
@@ -22,8 +23,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SaTokenConfig implements WebMvcConfigurer {
     private static final Logger log = LogManager.getLogger(SaTokenConfig.class.getName());
 
-   // @Override
-    /* public void addInterceptors(InterceptorRegistry registry) {
+/*    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new SaInterceptor(handle -> {
             try {
                 System.out.println("-------- 前端访问path：" + SaHolder.getRequest().getRequestPath());
@@ -31,46 +32,10 @@ public class SaTokenConfig implements WebMvcConfigurer {
                 System.out.println("-------- 此 path 校验成功：" + SaHolder.getRequest().getRequestPath());
             } catch (Exception e) {
                 System.out.println("-------- 此 path 校验失败：" + SaHolder.getRequest().getRequestPath());
+                throw e;
             }
         })).addPathPatterns("/**");
     }*/
-
-    // 注册拦截器
-    // @Override
-//    public void addInterceptors11(InterceptorRegistry registry) {
-
-//        // 注册Sa-Token的路由拦截器写法
-//       // registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin())) //after 1.31
-//        registry.addInterceptor(new SaInterceptor(handler -> SaRouter.match("/**")
-//                        //开放登陆,注册 url
-//                        .notMatch("/ace/logging.html")
-//                        .notMatch("/ace/login.html")
-//                        .notMatch("/ace/registration.html")
-//                        .notMatch("/ace/password/reset.html")
-//                        .notMatch("/")
-//                        //开放restController
-//                        .notMatch("/rest/**")
-//                        //开方api
-//                        .notMatch("/api/**")
-//                        .notMatch("/**/*.js",
-//                                            "/**/*.png",
-//                                            "/**/*.jpg",
-//                                            "/favicon.ico",
-//                                            "/**/*.css",
-//                                            "/**/*.woff2",
-//                                            "/**/*.woff",
-//                                            "/**/*.ttf",
-//                                            "/**/*.svg",
-//                                            "/**/*.eot",
-//                                            "/**/*.map",
-//                                            "/images/**")
-//                        //swagger
-//                        .notMatch("/doc.html")
-//                        .notMatch("/swagger-ui.html", "/csrf", "/webjars/**", "/swagger-resources/**", "/v2/**")
-//                        .check(r -> StpUtil.checkLogin())
-//                        )).addPathPatterns("/**"); //after 1.31
-//
-//    }
 
 
     //springboot
@@ -94,6 +59,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
                 .excludePathPatterns( "/api/**")
                 .excludePathPatterns( "/pdf/**")
                 .excludePathPatterns(
+                        "/assets/**",
                         "/**/*.js",
                         "/**/*.png",
                         "/**/*.jpg",
