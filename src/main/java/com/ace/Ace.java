@@ -1,6 +1,6 @@
 package com.ace;
 
-import com.util.LogUtil;
+import com.tools.ContentTool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,8 +15,9 @@ import org.apache.logging.log4j.Logger;
 public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
-    public static void main(String[] args) {
-        LogUtil.main(new String[2]);
+    public static void main(String[] args) throws Exception {
+        String p = "/Users/garlam/IdeaProjects/ace/src/main/java/com/ace/exception/AceGlobalExceptionHandler.java";
+        ContentTool.replace(p);
     }
 }
 
