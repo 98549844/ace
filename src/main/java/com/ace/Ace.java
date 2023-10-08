@@ -25,7 +25,7 @@ public class Ace {
 
         FileUtil fileUtil = new FileUtil();
         Map a = fileUtil.countByType(s);
-      //  fileUtil.countByType(s);
+     //   fileUtil.countByType(s,"css","jpg","jj");
         System.out.println("-----");
 
     }
