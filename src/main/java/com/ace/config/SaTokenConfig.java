@@ -58,8 +58,8 @@ public class SaTokenConfig implements WebMvcConfigurer {
                 //开方api
                 .excludePathPatterns( "/api/**")
                 .excludePathPatterns( "/pdf/**")
+                .excludePathPatterns( "/assets/**")
                 .excludePathPatterns(
-                        "/assets/**",
                         "/**/*.js",
                         "/**/*.png",
                         "/**/*.jpg",
