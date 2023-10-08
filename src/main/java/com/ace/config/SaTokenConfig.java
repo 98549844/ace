@@ -58,7 +58,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
                 //开方api
                 .excludePathPatterns( "/api/**")
                 .excludePathPatterns( "/pdf/**")
-                .excludePathPatterns( "/assets/**")
+                .excludePathPatterns( "/assets/**") //url一定不能以assets开头, 不然就所有url都开放
                 .excludePathPatterns(
                         "/**/*.js",
                         "/**/*.png",
