@@ -19,17 +19,12 @@ public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
     public static void main(String[] args) throws Exception {
-        String s = "/Users/garlam/IdeaProjects/ace/src/main/resources/static/assets";
-        // String s = "/Users/garlam/IdeaProjects/ace/src/main/resources/static/assets/fonts";
+        String s = "/Users/garlam/IdeaProjects/ace/src/main/resources/static/assets/css";
+        //  String s = "/Users/garlam/IdeaProjects/ace/src/main/resources/static/assets";
         FileUtil f = new FileUtil();
-       /* List ls = f.getFilePaths(s);
-        List list = FileUtil.getFolderAndSubFolderList(s);
 
-        for (Object location : list) {
-            log.info(location.toString());
-            FileUtil.countByType(location.toString());
-        }*/
-        Map a = FileUtil.countByTypeWithSubFolders(s);
+        Map a = FileUtil.countByType(s, "css");
+        //  Map a = FileUtil.countByType(s);
         System.out.println("-----");
 
     }
