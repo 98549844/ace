@@ -1,6 +1,7 @@
 package com.ace;
 
 import com.util.FileUtil;
+import com.util.MapUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,14 +20,12 @@ public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
     public static void main(String[] args) throws Exception {
-        //  String s = "/Users/garlam/IdeaProjects/ace/src/main/resources/static/assets/fonts";
-        String s = "/Users/garlam/IdeaProjects/ace/src/main/resources/static/assets";
-        FileUtil f = new FileUtil();
+        String s = "/Users/garlam/IdeaProjects/ace/src/main/resources/static/assets/css";
+        //  String s = "/Users/garlam/IdeaProjects/ace/src/main/resources/static/assets";
 
-//        Map a =
-        //    FileUtil.count(s);
-//        Map a = FileUtil.countByType(s,"css","ssss");
-        FileUtil.countByType(s);
+        FileUtil fileUtil = new FileUtil();
+        Map a = fileUtil.countByType(s);
+      //  fileUtil.countByType(s);
         System.out.println("-----");
 
     }
