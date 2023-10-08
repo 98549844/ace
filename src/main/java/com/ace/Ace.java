@@ -29,7 +29,7 @@ public class Ace {
             log.info(location.toString());
             FileUtil.countByType(location.toString());
         }*/
-        Map a = f.countByTypeWithSubFolders(s);
+        Map a = FileUtil.countByTypeWithSubFolders(s);
         System.out.println("-----");
 
     }
