@@ -19,11 +19,12 @@ public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
     public static void main(String[] args) throws Exception {
-        String s = "/Users/garlam/IdeaProjects/ace/src/main/resources/static/assets";
-        //  String s = "/Users/garlam/IdeaProjects/ace/src/main/resources/static/assets";
+      //  String s = "/Users/garlam/IdeaProjects/ace/src/main/resources/static/assets/fonts";
+          String s = "/Users/garlam/IdeaProjects/ace/src/main/resources/static";
         FileUtil f = new FileUtil();
 
-        Map a = FileUtil.countByType(s);
+//        Map a =
+        FileUtil.count(s);
         //  Map a = FileUtil.countByType(s);
         System.out.println("-----");
 
