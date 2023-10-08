@@ -1,9 +1,7 @@
 package com.ace.config;
 
 import com.ace.api.AceApi;
-import com.ace.api.Daatm;
-import com.ace.api.EthGasStation;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ace.api.Blockchain;
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,23 +49,14 @@ public class WebApiConfig {
         return httpServiceProxyFactory.createClient(AceApi.class);
     }
 
-    @SneakyThrows
-    @Bean
-    Daatm DaatmApi() {
-        //注册第三方api url
-        WebClient daatmClient = WebClient.builder().baseUrl("http://svrtest000.mmatrix.io").build();
-        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(daatmClient)).build();
-        return httpServiceProxyFactory.createClient(Daatm.class);
-    }
-
 
     @SneakyThrows
     @Bean
-    EthGasStation EthGasStationApi() {
+    Blockchain blockchain() {
         //注册第三方api url
-        WebClient daatmClient = WebClient.builder().baseUrl("https://api.ethgasstation.info").build();
-        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(daatmClient)).build();
-        return httpServiceProxyFactory.createClient(EthGasStation.class);
+        WebClient blockchain = WebClient.builder().baseUrl("https://api.tatum.io/v3/blockchain/fee").build();
+        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(blockchain)).build();
+        return httpServiceProxyFactory.createClient(Blockchain.class);
     }
 }
 

@@ -1,9 +1,6 @@
 package com.ace.restController;
 
-import com.ace.api.AceApi;
-import com.ace.api.Daatm;
-import com.ace.api.EthGasStation;
-import com.ace.api.Response;
+import com.ace.api.*;
 import com.ace.models.common.AjaxResponse;
 import com.util.GsonUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,34 +26,26 @@ public class ApiRestController {
     private static final Logger log = LogManager.getLogger(ApiRestController.class.getName());
 
     private final AceApi aceApi;
-    private final Daatm daatm;
-    private final EthGasStation ethGasStation;
+    private final Blockchain blockchain;
 
-    @Autowired
-    public ApiRestController(AceApi aceApi, Daatm daatm, EthGasStation ethGasStation) {
-
+    public ApiRestController(AceApi aceApi, Blockchain blockchain) {
         this.aceApi = aceApi;
-        this.daatm = daatm;
-        this.ethGasStation = ethGasStation;
+        this.blockchain = blockchain;
     }
 
     @GetMapping("/getAllUsers")
     public Response getAllUsers() {
+        log.info("access api");
         AjaxResponse ajaxResponse = aceApi.getAllUsers();
         log.info(ajaxResponse.getData());
         return Response.success(ajaxResponse);
     }
 
-    @GetMapping("/getDaatm")
-    public Response getDaatm() {
-        String ajaxResponse = daatm.getDaatm();
-        log.info(ajaxResponse);
-        return Response.success(ajaxResponse);
-    }
 
-    @GetMapping("/getFeeEstimate")
+
+    @GetMapping("/getFee")
     public Response getFeeEstimate() {
-        String ajaxResponse = ethGasStation.getFeeEstimate();
+        String ajaxResponse = blockchain.getETH();
         System.out.println(GsonUtil.getPrettyJson(ajaxResponse));
         return Response.success(ajaxResponse);
     }
