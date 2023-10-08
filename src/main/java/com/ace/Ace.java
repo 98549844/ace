@@ -1,8 +1,10 @@
 package com.ace;
 
-import com.tools.ContentTool;
+import com.util.FileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 
 /**
  * @Classname: Ace
@@ -16,8 +18,16 @@ public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
     public static void main(String[] args) throws Exception {
-        String p = "/Users/garlam/IdeaProjects/ace/src/main/java/com/ace/exception/AceGlobalExceptionHandler.java";
-        ContentTool.replace(p);
+        String s = "/Users/garlam/IdeaProjects/ace/src/main/resources/static/assets";
+        // String s = "/Users/garlam/IdeaProjects/ace/src/main/resources/static/assets/fonts";
+        FileUtil f = new FileUtil();
+        List ls = f.getFilePaths(s);
+        List list = FileUtil.getFolderAndSubFolderList(s);
+
+        for (Object location : list) {
+            log.info(location.toString());
+            FileUtil.countByType(location.toString());
+        }
     }
 }
 

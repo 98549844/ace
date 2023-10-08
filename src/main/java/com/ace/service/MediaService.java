@@ -85,7 +85,7 @@ public class MediaService {
     public List getM3U8() throws IOException {
         List<String> videoList = FileUtil.getFileNamesWithExt(videoPath);
         List<String> t1 = FileUtil.getNames(videoList);
-        List<String> t2 = FileUtil.getDirs(videoM3u8);
+        List<String> t2 = FileUtil.getDirsName(videoM3u8);
 
         Map mp = ListUtil.getNonDeduplicateElements(t1, t2);
         videoList = (List<String>) mp.get(ListUtil.LIST_1);

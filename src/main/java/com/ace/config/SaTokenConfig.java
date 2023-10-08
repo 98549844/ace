@@ -28,7 +28,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
         registry.addInterceptor(new SaInterceptor(handle -> {
             try {
                 System.out.println("-------- 前端访问path：" + SaHolder.getRequest().getRequestPath());
-                StpUtil.checkLogin();
+               // StpUtil.checkLogin();
                 System.out.println("-------- 此 path 校验成功：" + SaHolder.getRequest().getRequestPath());
             } catch (Exception e) {
                 System.out.println("-------- 此 path 校验失败：" + SaHolder.getRequest().getRequestPath());
@@ -58,20 +58,20 @@ public class SaTokenConfig implements WebMvcConfigurer {
                 //开方api
                 .excludePathPatterns( "/api/**")
                 .excludePathPatterns( "/pdf/**")
-                .excludePathPatterns( "/assets/**") //url一定不能以assets开头, 不然就所有url都开放
+              //  .excludePathPatterns( "/assets/**") //url一定不能以assets开头, 不然就所有url都开放
                 .excludePathPatterns(
-                        "/**/*.js",
-                        "/**/*.png",
-                        "/**/*.jpg",
-                        "/favicon.ico",
-                        "/**/*.css",
-                        "/**/*.woff2",
-                        "/**/*.woff",
-                        "/**/*.ttf",
-                        "/**/*.svg",
-                        "/**/*.eot",
-                        "/**/*.map",
-                        "/images/**")
+                        "/assets/**/*.js",
+                        "/assets/**/*.png",
+                        "/assets/**/*.jpg",
+                        "/assets/favicon.ico",
+                        "/assets/**/*.css",
+                        "/assets/**/*.woff2",
+                        "/assets/**/*.woff",
+                        "/assets/**/*.ttf",
+                        "/assets/**/*.svg",
+                        "/assets/**/*.eot",
+                        "/assets/**/*.map",
+                        "/assets/images/**")
                 //swagger
                 .excludePathPatterns("/doc.html")
                 .excludePathPatterns(
