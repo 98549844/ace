@@ -63,6 +63,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
                         "/assets/**/*.js",
                         "/assets/**/*.png",
                         "/assets/**/*.jpg",
+                        "/assets/**/*.gif",
                         "/assets/favicon.ico",
                         "/assets/**/*.css",
                         "/assets/**/*.woff2",
@@ -70,6 +71,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
                         "/assets/**/*.ttf",
                         "/assets/**/*.svg",
                         "/assets/**/*.eot",
+                        "/assets/**/*.swf",
                         "/assets/**/*.map",
                         "/assets/images/**")
                 //swagger
