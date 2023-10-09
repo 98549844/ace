@@ -26,7 +26,7 @@ public class DisposableConfig implements DisposableBean {
     private HttpServletRequest request;
 
     private HttpServletRequest getRequest() {
-        if (NullUtil.isNotNull(RequestContextHolder.getRequestAttributes())) {
+        if (NullUtil.isNonNull(RequestContextHolder.getRequestAttributes())) {
             ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
             request = servletRequestAttributes.getRequest();
             return request;
@@ -38,7 +38,7 @@ public class DisposableConfig implements DisposableBean {
     @Override
     public void destroy() throws Exception {
         log.info("Shutting down AceApplication ... ");
-        if (NullUtil.isNotNull(getRequest())) {
+        if (NullUtil.isNonNull(getRequest())) {
             // 注销此Session会话 (从持久库删除此Session)
             StpUtil.getSession().logout();
             StpUtil.logout();

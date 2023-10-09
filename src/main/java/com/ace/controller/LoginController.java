@@ -72,7 +72,7 @@ public class LoginController extends CommonController {
             msg = "Account/Password empty";
             modelAndView = loginService.loginError(msg);
             return modelAndView;
-        } else if (NullUtil.isNotNull(userAccount) && NullUtil.isNotNull(password)) {
+        } else if (NullUtil.isNonNull(userAccount) && NullUtil.isNonNull(password)) {
             if (isLogin()) {
                 log.info("Logged into Ace");
                 return super.page("ace/index.html");
@@ -99,7 +99,7 @@ public class LoginController extends CommonController {
                 user.setHostName(getRequest().getRemoteHost());
 
                 //rememberMe = on 记住我
-                login(userId, deviceType, NullUtil.isNotNull(rememberMe));
+                login(userId, deviceType, NullUtil.isNonNull(rememberMe));
 
                 log.info("UserId: {}", userId);
                 setUsersSession(user);

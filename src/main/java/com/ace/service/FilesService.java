@@ -51,7 +51,7 @@ public class FilesService {
      */
     public List<Files> saveAll(List<Files> files) {
         for (Files file : files) {
-            if (NullUtil.isNotNull(file.getId())) {
+            if (NullUtil.isNonNull(file.getId())) {
                 file.setLocation(file.getPath() + file.getFileName() + file.getExt());
             } else {
                 Users users = (Users) StpUtil.getSession().get("user");
@@ -68,7 +68,7 @@ public class FilesService {
      * @return
      */
     public Files save(Files file) {
-        if (NullUtil.isNotNull(file.getId())) {
+        if (NullUtil.isNonNull(file.getId())) {
             file.setLocation(file.getPath() + file.getFileName() + file.getExt());
         } else {
             Users users = (Users) StpUtil.getSession().get("user");
@@ -78,7 +78,7 @@ public class FilesService {
     }
 
     public Files saveAndFlush(Files file) {
-        if (NullUtil.isNotNull(file.getId())) {
+        if (NullUtil.isNonNull(file.getId())) {
             file.setLocation(file.getPath() + file.getFileName() + file.getExt());
         } else {
             Users users = (Users) StpUtil.getSession().get("user");

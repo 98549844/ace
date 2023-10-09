@@ -51,7 +51,7 @@ public class ClearLog {
 
     private void clearingLogFile(File file) {
         File[] Files = file.listFiles();
-        if (NullUtil.isNotNull(file)) {
+        if (NullUtil.isNonNull(file)) {
             for (File f : Files) {
                 f.delete();
             }

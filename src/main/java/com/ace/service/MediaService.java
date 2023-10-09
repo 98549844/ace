@@ -90,14 +90,14 @@ public class MediaService {
         Map mp = ListUtil.getNonDeduplicateElements(t1, t2);
         videoList = (List<String>) mp.get(ListUtil.LIST_1);
 
-        if (NullUtil.isNotNull(videoList)) {
+        if (NullUtil.isNonNull(videoList)) {
             for (String s : videoList) {
                 com.ace.models.entity.Files f = filesService.findFilesByFileName(s);
                 getMultipartFileList(f.getLocation());
             }
         }
         List<String> videoM3u8List = (List<String>) mp.get(ListUtil.LIST_2);
-        if (NullUtil.isNotNull(videoM3u8List)) {
+        if (NullUtil.isNonNull(videoM3u8List)) {
             for (String folderName : videoM3u8List) {
                 boolean isOk = FileUtil.deleteDirectories(videoM3u8 + folderName);
                 log.info("{} => delete m3u8 folder: {}", isOk, folderName);

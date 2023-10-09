@@ -107,7 +107,7 @@ public class GalleryService {
         Map mp = ListUtil.getNonDeduplicateElements(ls, tempLs);
         compressImages((List<String>) mp.get(ListUtil.LIST_1));
         tempLs = (List<String>) mp.get(ListUtil.LIST_2);
-        if (NullUtil.isNotNull(tempLs)) {
+        if (NullUtil.isNonNull(tempLs)) {
             //原图已删, 删除掉缩略图
             for (String s : tempLs) {
                 FileUtil.delete(imagesThumbnail + s);

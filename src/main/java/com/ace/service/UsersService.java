@@ -206,7 +206,7 @@ public class UsersService {
 
     public boolean validate(Users users) {
         boolean validate = true;
-        if (NullUtil.isNotNull(users)) {
+        if (NullUtil.isNonNull(users)) {
             if (NullUtil.isNull(users.getEmail().trim()) || NullUtil.isNull(users.getUserAccount().trim()) || NullUtil.isNull(users.getPassword())) {
                 validate = false;
             }
@@ -331,9 +331,9 @@ public class UsersService {
 
 
     public void calcAge(List<Users> userList) {
-        if (NullUtil.isNotNull(userList)) {
+        if (NullUtil.isNonNull(userList)) {
             for (Users users : userList) {
-                if (NullUtil.isNotNull(users.getDateOfBirth())) {
+                if (NullUtil.isNonNull(users.getDateOfBirth())) {
                     LocalDateTime now = LocalDateTime.now();
                     LocalDateTime dateOfBirth = users.getDateOfBirth();
                     long age = DateTimeUtil.differenceYearsByLocalDateTime(dateOfBirth, now);
@@ -346,7 +346,7 @@ public class UsersService {
     }
 
     public void calcAge(Users user) {
-        if (NullUtil.isNotNull(user) && NullUtil.isNotNull(user.getDateOfBirth())) {
+        if (NullUtil.isNonNull(user) && NullUtil.isNonNull(user.getDateOfBirth())) {
             LocalDateTime now = LocalDateTime.now();
             LocalDateTime birthDate = user.getDateOfBirth();
             long age = DateTimeUtil.differenceYearsByLocalDateTime(birthDate, now);

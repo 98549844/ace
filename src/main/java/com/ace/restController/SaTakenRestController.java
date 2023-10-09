@@ -50,7 +50,7 @@ public class SaTakenRestController extends CommonController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public AjaxResponse doLogin(String username, String password) {
         Users users = usersService.findUsersById(1001l);
-        if (NullUtil.isNotNull(users.getUserId())) {
+        if (NullUtil.isNonNull(users.getUserId())) {
             StpUtil.login(users.getUserId());
             return AjaxResponse.success(users.getUsername() + " login success !");
         }

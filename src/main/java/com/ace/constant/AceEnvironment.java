@@ -38,6 +38,7 @@ public class AceEnvironment {
     private static String videoPath;
     private static String videoM3u8;
     private static String systemTmpDir;
+    private static String systemDir;
 
 
     public static void main(String[] args) {
@@ -122,6 +123,7 @@ public class AceEnvironment {
         setVideoM3u8(m3u8);
         setMisc(miscellaneous);
         setTmp(tamp);
+        setSystemDir(System.getProperty("user.dir"));
         setSystemTmpDir(System.getProperty("java.io.tmpdir"));
     }
 
@@ -219,6 +221,14 @@ public class AceEnvironment {
 
     private static void setSystemTmpDir(String systemTmpDir) {
         AceEnvironment.systemTmpDir = systemTmpDir;
+    }
+
+    public static String getSystemDir() {
+        return systemDir;
+    }
+
+    private static void setSystemDir(String systemDir) {
+        AceEnvironment.systemDir = systemDir;
     }
 }
 
