@@ -22,8 +22,8 @@ public class Ace {
         //  String s = "/Users/garlam/IdeaProjects/ace/src/main/resources/static/assets";
 
         FileUtil fileUtil = new FileUtil();
-        Map a = fileUtil.countByType(s);
-     //   fileUtil.countByType(s,"css","jpg","jj");
+       // Map a = fileUtil.countByType(s);
+        fileUtil.countByType(s,"css","jpg","jj");
         System.out.println("-----");
 
     }
