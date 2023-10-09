@@ -29,7 +29,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
             try {
                 System.out.println("-------- 前端访问path：" + SaHolder.getRequest().getRequestPath());
                // StpUtil.checkLogin();
-                System.out.println("-------- 此 path 校验成功：" + SaHolder.getRequest().getRequestPath());
+              //  System.out.println("-------- 此 path 校验成功：" + SaHolder.getRequest().getRequestPath());
             } catch (Exception e) {
                 System.out.println("-------- 此 path 校验失败：" + SaHolder.getRequest().getRequestPath());
                 throw e;
