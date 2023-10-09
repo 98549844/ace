@@ -20,6 +20,9 @@ import java.util.regex.Pattern;
 public class TikTokUtil {
     private static final Logger log = LogManager.getLogger(TikTokUtil.class.getName());
 
+
+    //https://github.com/Prevter/tiktok-scraper
+
     /**
      * 短视频解析
      *
