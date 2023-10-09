@@ -25,22 +25,16 @@ public class Analyze {
     static {
         Map<String,String > hd=new HashMap<>();
         hd.put("referer","https://www.iesdouyin.com/");
-
         hd.put("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36 Edg/89.0.774.54");
         headers.add(hd);
-
         hd.put("User-Agent","Mozilla/5.0 (Windows NT 7.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4389.90 Safari/537.36 Edg/87.0.774.54");
         headers.add(hd);
-
         hd.put("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101 Firefox/78.0 ");
         headers.add(hd);
-
         hd.put("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101 Firefox/78.0 ");
         headers.add(hd);
-
         hd.put("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101 Firefox/78.0 ");
         headers.add(hd);
-
     }
     static Pattern DOUYIN_SHARE_URL=Pattern.compile("(https://v.douyin.com/[^/]+)");
     final static String URL_PARAMS_SPLIT="?";
