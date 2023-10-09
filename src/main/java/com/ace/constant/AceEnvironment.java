@@ -67,15 +67,12 @@ public class AceEnvironment {
         String separator = File.separator;
 
         if (osName.contains(OsUtil.WINDOWS)) {
-            //separator = "\\";
             root = "C:" + separator;
             msg = "ACE environment setup complete : Windows !!!";
         } else if (osName.contains(OsUtil.MAC)) {
-            //separator = "/";
             root = "/Users/garlam" + separator;
             msg = "ACE environment setup complete : MAC !!!";
         } else if (osName.contains(OsUtil.LINUX)) {
-            //separator = "/";
             root = "/opt/workspace" + separator;
             msg = "ACE environment setup complete : LINUX !!!";
         } else {

@@ -36,7 +36,7 @@ public class FFmpegUtil {
 
 
     // 跨平台换行符
-    private static final String separator = SystemUtil.separator();
+    private static final String newLine = SystemUtil.newLine();
 
     /**
      * 生成随机16个字节的AESKEY
@@ -83,8 +83,8 @@ public class FFmpegUtil {
 
         // key_info 文件写入
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("key").append(separator);                  // m3u8加载key文件网络路径
-        stringBuilder.append(keyFile.toString()).append(separator);    // FFmpeg加载key_info文件路径
+        stringBuilder.append("key").append(newLine);                  // m3u8加载key文件网络路径
+        stringBuilder.append(keyFile.toString()).append(newLine);    // FFmpeg加载key_info文件路径
         stringBuilder.append(iv);                                       // ASE 向量
 
         Path keyInfo = Paths.get(folder, "key_info");
@@ -104,8 +104,8 @@ public class FFmpegUtil {
      */
     private static void genIndex(String file, String indexPath, String bandWidth) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("#EXTM3U").append(separator);
-        stringBuilder.append("#EXT-X-STREAM-INF:BANDWIDTH=" + bandWidth).append(separator);  // 码率
+        stringBuilder.append("#EXTM3U").append(newLine);
+        stringBuilder.append("#EXT-X-STREAM-INF:BANDWIDTH=" + bandWidth).append(newLine);  // 码率
         stringBuilder.append(indexPath);
         Files.writeString(Paths.get(file), stringBuilder.toString(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
