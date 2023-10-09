@@ -39,6 +39,7 @@ public class AceEnvironment {
     private static String videoM3u8;
     private static String systemTmpDir;
     private static String systemDir;
+    private static String newLine;
 
 
     public static void main(String[] args) {
@@ -125,6 +126,7 @@ public class AceEnvironment {
         setTmp(tamp);
         setSystemDir(System.getProperty("user.dir"));
         setSystemTmpDir(System.getProperty("java.io.tmpdir"));
+        setNewLine(System.getProperty("line.separator"));
     }
 
     public static String getFilePath() {
@@ -229,6 +231,14 @@ public class AceEnvironment {
 
     private static void setSystemDir(String systemDir) {
         AceEnvironment.systemDir = systemDir;
+    }
+
+    public static String getNewLine() {
+        return newLine;
+    }
+
+    private static void setNewLine(String newLine) {
+        AceEnvironment.newLine = newLine;
     }
 }
 
