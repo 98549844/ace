@@ -1,5 +1,6 @@
 package com.ace.interceptor;
 
+import com.util.Console;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -25,20 +26,8 @@ public class Interceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException, IOException {
         String status = Integer.toString(response.getStatus());
         String RequestURI = request.getRequestURI();
-        log.info("status: {}; request uri: {}", status, RequestURI);
-
-        //boolean isLogin = isLogin();
-        /*
-        String root = "/";
-        String index = "/ace/login.html";
-        String logging = "/ace/logging.html";
-        if (!isLogin && !index.equals(RequestURI) && !root.equals(RequestURI) && !logging.equals(RequestURI)) {
-            log.info("isLogin: " + false);
-            log.info("preHandler allow [/]; [/ace/login.html]; [/ace/logging.html]");
-            response.sendRedirect("/ace/login.html");
-            return false;
-        }
-        */
+       // log.info("status: {}; request uri: {}", status, RequestURI);
+        Console.println("status: " + status + "; Request uri: " + RequestURI, Console.BOLD,Console.FLUORESCENT_GREEN);
         return true;
     }
 
