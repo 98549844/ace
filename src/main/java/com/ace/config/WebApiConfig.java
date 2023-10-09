@@ -24,6 +24,7 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 public class WebApiConfig {
     private static final Logger log = LogManager.getLogger(WebApiConfig.class.getName());
 
+    //springboot 2 call api方法
     //注册local api
 /*    @Bean(name = "webClient")
     WebClient webClient(ObjectMapper objectMapper) {
