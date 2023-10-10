@@ -3,11 +3,15 @@ package com.ace.controller;
 import com.ace.constant.Css;
 import com.ace.controller.common.CommonController;
 import com.ace.models.common.AjaxResponse;
+import com.util.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +43,10 @@ public class LogoutController extends CommonController {
 //    @RequestMapping(value = {"/logout.html","/ace/logout.html", "/ace/**/logout.html"}, method = RequestMethod.GET)
 /*    public ModelAndView logout() {
         log.info("logout()");
-        logout(getCurrentUser().getUserId(), getDevice());
+        if (NullUtil.isNull(success)) {
+            logout(getCurrentUser().getUserId(), getDevice());
+            return new ModelAndView("ace/success/logout.html");
+        }
         ModelAndView modelAndView = new ModelAndView("ace/login.html");
         String msg = "Logout success";
         modelAndView.addObject("msg", msg);
