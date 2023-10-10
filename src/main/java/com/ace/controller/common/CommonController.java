@@ -130,7 +130,7 @@ public class CommonController {
         String msg = "Logged out";
         modelAndView.addObject("msg", msg);
         modelAndView.addObject(Css.css, Css.red);
-        StpUtil.logout();
+        StpUtil.logout(); //当前会话注销登录
         return modelAndView;
     }
 
