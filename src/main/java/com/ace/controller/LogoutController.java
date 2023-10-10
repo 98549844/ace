@@ -2,7 +2,6 @@ package com.ace.controller;
 
 import com.ace.constant.Css;
 import com.ace.controller.common.CommonController;
-import com.ace.models.entity.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -23,8 +22,9 @@ public class LogoutController extends CommonController {
     private static final Logger log = LogManager.getLogger(LogoutController.class.getName());
 
 
-    @RequestMapping(value = {"/logout.html", "/ace/logout.html", "/ace/**/logout.html"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/logout.html", "/ace/**/logout.html"}, method = RequestMethod.GET)
     public ModelAndView logout() {
+        log.info("logout()");
         logout(getCurrentUser().getUserId(), getDevice());
         ModelAndView modelAndView = new ModelAndView("ace/login.html");
         String msg = "Logout success";
@@ -33,5 +33,11 @@ public class LogoutController extends CommonController {
         return modelAndView;
     }
 
-}
 
+    @RequestMapping(value = {"/ace/logout.html",}, method = RequestMethod.GET)
+    public ModelAndView logout1() {
+        log.info("logout1()");
+        return super.logout();
+    }
+
+}
