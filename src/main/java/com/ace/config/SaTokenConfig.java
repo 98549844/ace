@@ -51,14 +51,14 @@ public class SaTokenConfig implements WebMvcConfigurer {
                         "/ace/logging.html",
                         "/ace/login.html",
                         "/ace/registration.html",
-                        "/ace/password/reset.html"
-                        ,"/")
+                        "/ace/password/reset.html",
+                        "/")
                 //开放restController
                 .excludePathPatterns( "/rest/**")
                 //开方api
                 .excludePathPatterns( "/api/**")
                 .excludePathPatterns( "/pdf/**")
-              //  .excludePathPatterns( "/assets/**") //url一定不能以assets开头, 不然就所有url都开放
+              //.excludePathPatterns( "/assets/**") //url一定不能以assets开头, 不然就所有url都开放
                 .excludePathPatterns(
                         "/assets/**/*.js",
                         "/assets/**/*.png",
