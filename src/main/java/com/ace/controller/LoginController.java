@@ -102,7 +102,7 @@ public class LoginController extends CommonController {
                 login(userId, deviceType, NullUtil.isNonNull(rememberMe));
 
                 log.info("UserId: {}", userId);
-                setUsersSession(user);
+                setUsersSaSession(user);
                 usersService.save(user);
                 log.info("login device: {}", StpUtil.getLoginDevice());
             } catch (UserNotFoundException | PasswordNotMatchException e) {

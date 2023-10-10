@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 
 /**
  * @Classname: LogoutController
@@ -26,16 +24,12 @@ public class LogoutController extends CommonController {
 
 
     @RequestMapping(value = {"/logout.html", "/ace/logout.html", "/ace/**/logout.html"}, method = RequestMethod.GET)
-    public ModelAndView logout(HttpServletRequest request) {
-        ModelAndView modelAndView = super.page("ace/login");
+    public ModelAndView logout() {
+        logout(getCurrentUser().getUserId(), getDevice());
+        ModelAndView modelAndView = new ModelAndView("ace/login.html");
         String msg = "Logout success";
         modelAndView.addObject("msg", msg);
         modelAndView.addObject(Css.css, Css.green);
-        Users user = getCurrentUser();
-
-        // logout();
-        logout(user.getUserId(), getDevice());
-        clearSession();
         return modelAndView;
     }
 

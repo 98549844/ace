@@ -134,6 +134,10 @@ public class CommonController {
         return modelAndView;
     }
 
+    protected void logout(long userId, String device) {
+        StpUtil.logout(userId, device);
+    }
+
     /**
      * 需要原因地被登出
      *
@@ -149,7 +153,7 @@ public class CommonController {
         return modelAndView;
     }
 
-    protected void setUsersSession(Users users) {
+    protected void setUsersSaSession(Users users) {
         StpUtil.getSession().set("user", users);
         // setHttpSession("user", users); // springboot3 set不进去, 有问题未解决
     }
@@ -173,15 +177,15 @@ public class CommonController {
 
     protected void clearSession() {
         // 注销此Session会话 (从持久库删除此Session)
-        SaSession session = getSession();
-        removeHttpSession("user");
+        SaSession session = StpUtil.getSession();
+        session.delete("user");
         session.logout();
     }
 
-    protected void clearSession(String Key) {
+    protected void clearSession(String key) {
         // 注销此Session会话 (从持久库删除此Session)
         SaSession session = getSession();
-        removeHttpSession(Key);
+        session.delete(key);
         session.logout();
     }
 
@@ -219,18 +223,12 @@ public class CommonController {
         StpUtil.login(userId, saLoginModel);
     }
 
-
-    protected void logout(long userId, String device) {
-        StpUtil.logout(userId, device);
-    }
-
     protected String getDevice() {
         return StpUtil.getLoginDevice();
     }
 
     protected boolean isLogin() {
-        boolean isLogin = StpUtil.isLogin();
-        return isLogin;
+        return StpUtil.isLogin();
     }
 
 }
