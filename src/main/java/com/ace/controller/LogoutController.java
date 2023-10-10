@@ -43,7 +43,6 @@ public class LogoutController extends CommonController {
         modelAndView.addObject(Css.css, Css.red);
       //  StpUtil.logout(); //当前会话注销登录
         super.logout(getCurrentUser().getUserId(), getDevice());
-
         return modelAndView;
     }
 
