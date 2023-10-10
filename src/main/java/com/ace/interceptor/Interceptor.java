@@ -23,11 +23,10 @@ public class Interceptor implements HandlerInterceptor {
     private static final Logger log = LogManager.getLogger(Interceptor.class.getName());
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException, IOException {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String status = Integer.toString(response.getStatus());
         String RequestURI = request.getRequestURI();
-       // log.info("status: {}; request uri: {}", status, RequestURI);
-        Console.println("status: " + status + "; Request uri: " + RequestURI, Console.BOLD,Console.FLUORESCENT_GREEN);
+        Console.println("status code: " + status + " -- Request uri: " + RequestURI, Console.BOLD,Console.FLUORESCENT_GREEN);
         return true;
     }
 
