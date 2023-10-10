@@ -2,7 +2,6 @@ package com.ace.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.ace.constant.AceEnvironment;
-import com.ace.constant.Css;
 import com.ace.controller.common.CommonController;
 import com.ace.exception.PasswordNotMatchException;
 import com.ace.exception.UserNotFoundException;
@@ -16,7 +15,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
