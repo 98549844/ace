@@ -60,8 +60,8 @@ function docReady() {
 
 $("a.logout").on("click", function () {
     //mobile logout and hidden menu
-  //  $(".navbar-toggle.menu-toggler.pull-left.display").removeClass(".display");
-  //  $("#sidebar").removeClass(".display");
+    //  $(".navbar-toggle.menu-toggler.pull-left.display").removeClass(".display");
+    //  $("#sidebar").removeClass(".display");
     logout();
 });
 
@@ -83,7 +83,10 @@ function logout() {
                 type: "get", // 以get方式发起请求
                 url: "logout.html",
                 success(data) {
-                    window.location.href = '/ace/login.html';
+                    let css = data.data.msgCss;
+                    const msg = data.data.msg;
+                    window.location.href = '/ace/login.html/' + css + '/' + msg;
+                    //  window.location.href = '/ace/login.html';
                 }
             })
 
@@ -145,11 +148,13 @@ function windowHeight() {
         document.documentElement.clientHeight :
         document.body.clientHeight;
 }
+
 //-------------------------------------------------------------------------------------------------------------
 
 
 //check scrolling up or down
 let position = $(window).scrollTop();
+
 function scrollDown() {
     let down;
     const scroll = $(window).scrollTop();

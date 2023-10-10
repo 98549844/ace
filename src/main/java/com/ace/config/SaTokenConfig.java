@@ -48,8 +48,9 @@ public class SaTokenConfig implements WebMvcConfigurer {
         registry.addInterceptor(new SaInterceptor(handler -> StpUtil.checkLogin())) //after 1.31
                 //开放登陆,注册 url
                 .excludePathPatterns(
-                        "/ace/logging.html",
                         "/ace/login.html",
+                        "/ace/login.html/*/*",
+                        "/ace/logging.html",
                         "/ace/registration.html",
                         "/ace/password/reset.html",
                         "/")

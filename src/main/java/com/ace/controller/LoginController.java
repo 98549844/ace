@@ -2,6 +2,7 @@ package com.ace.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.ace.constant.AceEnvironment;
+import com.ace.constant.Css;
 import com.ace.controller.common.CommonController;
 import com.ace.exception.PasswordNotMatchException;
 import com.ace.exception.UserNotFoundException;
@@ -15,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -49,12 +51,18 @@ public class LoginController extends CommonController {
     }
 
 
-    @RequestMapping(value = {"/ace/login.html", "/"}, method = RequestMethod.GET)
-    public ModelAndView login() {
+    @RequestMapping(value = {"/ace/login.html", "/", "/ace/login.html/{css}/{msg}"}, method = RequestMethod.GET)
+    public ModelAndView login(@PathVariable("css") String css, @PathVariable("msg") String msg) {
         if (isLogin()) {
             return super.page("ace/index.html");
         } else {
-            return super.page("ace/login.html");
+            ModelAndView modelAndView = super.page("ace/login.html");
+            if (NullUtil.isNonNull(css) && NullUtil.isNonNull(msg)) {
+                //登出时获取登信息和css
+                modelAndView.addObject("msg", msg);
+                modelAndView.addObject(Css.css, Css.green);
+            }
+            return modelAndView;
         }
     }
 
