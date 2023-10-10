@@ -51,18 +51,12 @@ public class LoginController extends CommonController {
     }
 
 
-    @RequestMapping(value = {"/ace/login.html", "/", "/ace/login.html/{css}/{msg}"}, method = RequestMethod.GET)
-    public ModelAndView login(@PathVariable(value = "css", required = false) String css, @PathVariable(value = "msg", required = false) String msg) {
+    @RequestMapping(value = {"/ace/login.html", "/"}, method = RequestMethod.GET)
+    public ModelAndView login() {
         if (isLogin()) {
             return super.page("ace/index.html");
         } else {
-            ModelAndView modelAndView = super.page("ace/login.html");
-            if (NullUtil.isNonNull(css) && NullUtil.isNonNull(msg)) {
-                //登出时获取登信息和css
-                modelAndView.addObject("msg", msg);
-                modelAndView.addObject(Css.css, Css.green);
-            }
-            return modelAndView;
+            return super.page("ace/login.html");
         }
     }
 

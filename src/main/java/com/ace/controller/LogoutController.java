@@ -29,30 +29,30 @@ public class LogoutController extends CommonController {
     private static final Logger log = LogManager.getLogger(LogoutController.class.getName());
 
 
-    @RequestMapping(value = {"/logout.html", "/ace/logout.html", "/ace/**/logout.html"}, method = RequestMethod.GET)
-    public AjaxResponse doLogout() {
-        log.info("logout()");
-        logout(getCurrentUser().getUserId(), getDevice());
-        String msg = "Logout success";
-        Map<String, String> map = new HashMap();
-        map.put("msg", msg);
-        map.put(Css.css, Css.green);
-        return AjaxResponse.success(map);
-    }
+//    @RequestMapping(value = {"/logout.html", "/ace/logout.html", "/ace/**/logout.html"}, method = RequestMethod.GET)
+//    public AjaxResponse doLogout() {
+//        log.info("logout()");
+//        logout(getCurrentUser().getUserId(), getDevice());
+//        String msg = "Logout success";
+//        Map<String, String> map = new HashMap();
+//        map.put("msg", msg);
+//        map.put(Css.css, Css.green);
+//        return AjaxResponse.success(map);
+//    }
 
-//    @RequestMapping(value = {"/logout.html","/ace/logout.html", "/ace/**/logout.html"}, method = RequestMethod.GET)
-/*    public ModelAndView logout() {
+    @RequestMapping(value = {"/logout.html","/ace/logout.html", "/ace/**/logout.html"}, method = RequestMethod.GET)
+    public ModelAndView logout() {
         log.info("logout()");
-        if (NullUtil.isNull(success)) {
+        if (isLogin()) {
             logout(getCurrentUser().getUserId(), getDevice());
-            return new ModelAndView("ace/success/logout.html");
+            return null;
         }
         ModelAndView modelAndView = new ModelAndView("ace/login.html");
         String msg = "Logout success";
         modelAndView.addObject("msg", msg);
         modelAndView.addObject(Css.css, Css.green);
         return modelAndView;
-    }*/
+    }
 
 
 }

@@ -53,6 +53,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
                         "/ace/logging.html",
                         "/ace/registration.html",
                         "/ace/password/reset.html",
+                        "/ace/logout.html",
                         "/")
                 //开放restController
                 .excludePathPatterns( "/rest/**")

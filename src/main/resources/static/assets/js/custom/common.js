@@ -83,10 +83,10 @@ function logout() {
                 type: "get", // 以get方式发起请求
                 url: "logout.html",
                 success(data) {
-                    let css = data.data.msgCss;
-                    const msg = data.data.msg;
-                    window.location.href = '/ace/login.html/' + css + '/' + msg;
-                    //  window.location.href = '/ace/login.html';
+                    // let css = data.data.msgCss;
+                    // const msg = data.data.msg;
+                    // window.location.href = '/ace/login.html/' + css + '/' + msg;
+                    window.location.href = '/ace/logout.html';
                 }
             })
 
