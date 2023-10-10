@@ -80,25 +80,24 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
         log.warn("Exception message: {}", message);
         if (stackTrace.contains(NotLoginException)) {
             log.warn("Exception stackTrace: {}", NotLoginException);
-            log.warn("用户未登陆 Ace Application");
         } else {
             log.error("Exception stackTrace: {}", stackTrace);
         }
     }
 
 
-//    关于/error的调用, 它是一个特殊的错误处理路径, 
-//    用于处理应用程序中的错误和异常. 当应用程序抛出未处理的异常时, 
-//    Spring Boot会自动将请求重定向到/error路径. 
-//    通过自定义@ControllerAdvice和定义一个处理/error路径的方法, 可以实现自定义的错误处理逻辑. 
+//    关于/error的调用, 它是一个特殊的错误处理路径,
+//    用于处理应用程序中的错误和异常. 当应用程序抛出未处理的异常时,
+//    Spring Boot会自动将请求重定向到/error路径.
+//    通过自定义@ControllerAdvice和定义一个处理/error路径的方法, 可以实现自定义的错误处理逻辑.
 //
-//    步骤: 
-//    创建一个@ControllerAdvice类, 用于处理全局的异常和错误. 
-//    在该类中, 使用@ExceptionHandler注解定义方法来处理特定类型的异常. 
-//    在该类中, 使用@ModelAttribute注解定义方法来添加全局模型属性. 
-//    创建一个处理/error路径的方法, 并在方法中进行自定义的错误处理逻辑. 
-//    在@ControllerAdvice类上添加@RequestMapping("/error")注解, 将该类映射到/error路径. 
-//    通过这样的设置, 当应用程序抛出未处理的异常时, 请求将被重定向到/error路径, 并由自定义的错误处理方法进行处理. 
+//    步骤:
+//    创建一个@ControllerAdvice类, 用于处理全局的异常和错误.
+//    在该类中, 使用@ExceptionHandler注解定义方法来处理特定类型的异常.
+//    在该类中, 使用@ModelAttribute注解定义方法来添加全局模型属性.
+//    创建一个处理/error路径的方法, 并在方法中进行自定义的错误处理逻辑.
+//    在@ControllerAdvice类上添加@RequestMapping("/error")注解, 将该类映射到/error路径.
+//    通过这样的设置, 当应用程序抛出未处理的异常时, 请求将被重定向到/error路径, 并由自定义的错误处理方法进行处理.
 
     @RequestMapping(value = {"/error"})
     @ResponseBody
