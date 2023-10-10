@@ -22,7 +22,7 @@ public class LogoutController extends CommonController {
     private static final Logger log = LogManager.getLogger(LogoutController.class.getName());
 
 
-    @RequestMapping(value = {"/logout.html", "/ace/**/logout.html"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/logout.html","/ace/logout.html", "/ace/**/logout.html"}, method = RequestMethod.GET)
     public ModelAndView logout() {
         log.info("logout()");
         logout(getCurrentUser().getUserId(), getDevice());
@@ -34,10 +34,17 @@ public class LogoutController extends CommonController {
     }
 
 
-    @RequestMapping(value = {"/ace/logout.html",}, method = RequestMethod.GET)
+    @RequestMapping(value = {"11"}, method = RequestMethod.GET)
     public ModelAndView logout1() {
         log.info("logout1()");
-        return super.logout();
+        ModelAndView modelAndView = page("ace/login.html");
+        String msg = "Logged out";
+        modelAndView.addObject("msg", msg);
+        modelAndView.addObject(Css.css, Css.red);
+      //  StpUtil.logout(); //当前会话注销登录
+        super.logout(getCurrentUser().getUserId(), getDevice());
+
+        return modelAndView;
     }
 
 }

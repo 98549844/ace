@@ -23,12 +23,22 @@ public class CommonController {
     private HttpServletResponse response;
     private HttpServletRequest request;
 
+    /**
+     * Http Request
+     *
+     * @return
+     */
     protected HttpServletRequest getRequest() {
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         request = servletRequestAttributes.getRequest();
         return request;
     }
 
+    /**
+     * Http Response
+     *
+     * @return
+     */
     protected HttpServletResponse getResponse() {
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         response = servletRequestAttributes.getResponse();
@@ -36,6 +46,7 @@ public class CommonController {
     }
 
     /**
+     * Http
      * 特点: 不需要saToken登入
      *
      * @param key
@@ -49,6 +60,7 @@ public class CommonController {
     }
 
     /**
+     * Http
      * 特点: 不需要saToken登入
      *
      * @param key
@@ -62,6 +74,7 @@ public class CommonController {
     }
 
     /**
+     * Http
      * 特点: 不需要saToken登入
      *
      * @param key
@@ -116,12 +129,23 @@ public class CommonController {
         return modelAndView;
     }
 
+    /** 根据userId踢人
+     * @param userId
+     */
     protected void kickout(Long userId) {
         StpUtil.kickout(userId);
     }
 
+    /** 根据userId和device踢人
+     * @param userId
+     * @param device
+     */
+    protected void kickout(Long userId, String device) {
+        StpUtil.kickout(userId,device);
+    }
+
     /**
-     * 不需要原因地被登出
+     * 不需要原因登出当前
      *
      * @return
      */
@@ -130,12 +154,28 @@ public class CommonController {
         String msg = "Logged out";
         modelAndView.addObject("msg", msg);
         modelAndView.addObject(Css.css, Css.red);
-        StpUtil.logout(); //当前会话注销登录
+        StpUtil.logout(); //注销当前会话登录
         return modelAndView;
     }
 
+    /**
+     * 根据userId和设置device注销登录
+     *
+     * @param userId
+     * @param device
+     */
     protected void logout(long userId, String device) {
         StpUtil.logout(userId, device);
+    }
+
+    /**
+     * 根据userId注销登录
+     * /**
+     *
+     * @param userId
+     */
+    protected void logout(long userId) {
+        StpUtil.logout(userId);
     }
 
     /**
