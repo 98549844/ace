@@ -51,7 +51,7 @@ public class Users extends BaseEntity implements Serializable {
     private String gender;
     @Column
     private LocalDateTime dateOfBirth;
-    private long age = 0l;
+    private long age = 0L;
     @Column
     private LocalDateTime loginDateTime;
     @Column
