@@ -52,7 +52,7 @@ public class LoginController extends CommonController {
 
 
     @RequestMapping(value = {"/ace/login.html", "/", "/ace/login.html/{css}/{msg}"}, method = RequestMethod.GET)
-    public ModelAndView login(@PathVariable("css") String css, @PathVariable("msg") String msg) {
+    public ModelAndView login(@PathVariable(value = "css", required = false) String css, @PathVariable(value = "msg", required = false) String msg) {
         if (isLogin()) {
             return super.page("ace/index.html");
         } else {
