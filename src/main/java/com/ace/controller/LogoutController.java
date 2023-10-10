@@ -40,10 +40,10 @@ public class LogoutController extends CommonController {
 //        return AjaxResponse.success(map);
 //    }
 
-    @RequestMapping(value = {"/logout.html","/ace/logout.html", "/ace/**/logout.html"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/logout.html", "/ace/logout.html", "/ace/**/logout.html"}, method = RequestMethod.GET)
     public ModelAndView logout() {
-        log.info("logout()");
         if (isLogin()) {
+            log.info("logging out !");
             logout(getCurrentUser().getUserId(), getDevice());
             return null;
         }
@@ -51,6 +51,7 @@ public class LogoutController extends CommonController {
         String msg = "Logout success";
         modelAndView.addObject("msg", msg);
         modelAndView.addObject(Css.css, Css.green);
+        log.info(msg+" !");
         return modelAndView;
     }
 
