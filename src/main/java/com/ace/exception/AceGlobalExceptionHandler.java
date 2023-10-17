@@ -138,6 +138,7 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ModelAndView exceptionHandler(Exception e) {
+        ModelAndView modelAndView;
         if (e instanceof NotLoginException) {
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw, true));
@@ -145,7 +146,7 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
             String message = e.getMessage();
             logException(message, stackTrace);
 
-            ModelAndView modelAndView = new ModelAndView("ace/login");
+            modelAndView = new ModelAndView("ace/login");
             if (message.contains("token 已被踢下线")) {
                 modelAndView.addObject("msg", "Account kicked out");
             } else if (message.contains("token 无效")) {
@@ -168,7 +169,7 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
 
             String warningMsg = "<strong> OCCUR EXCEPTION </strong>";
             //返回错误页面
-            ModelAndView modelAndView = exceptionModelAndView("ace/error", Css.faGear, 999, warningMsg);
+            modelAndView = exceptionModelAndView("ace/error", Css.faGear, 999, warningMsg);
             String exceptionMsg = "<strong style=\"color: red\">" + e.getMessage() + "</strong>" + "<br><br>" + stackTrace;
             modelAndView.addObject("exceptionMsg", exceptionMsg);
             return modelAndView;
@@ -177,7 +178,7 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
 
 
     private ModelAndView exceptionModelAndView(String url, String faCss, int status, String warningMsg) {
-        ModelAndView modelAndView = page(url);
+        ModelAndView modelAndView = new ModelAndView(url);
         modelAndView.addObject("faCss", faCss);
         modelAndView.addObject("httpStatus", status);
         modelAndView.addObject("warningMsg", warningMsg);
