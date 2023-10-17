@@ -105,21 +105,32 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
         String requestURL = super.getRequest().getRequestURL().toString();
         ModelAndView modelAndView;
         int status = super.getResponse().getStatus();
-        if (status == 404) {
-            log.info("{} => error: {} [page not found]", requestURL, status);
-            String warningMsg = "Page Not Found";
-            modelAndView = exceptionModelAndView("ace/error", Css.faSitemap, status, warningMsg);
-            modelAndView.addObject("exceptionMsg", "page not found");
-        } else if (status == 500) {
-            log.info("{} error: {} [internal server error]", requestURL, status);
-            String warningMsg = "Something Went Wrong";
-            modelAndView = exceptionModelAndView("ace/error", Css.faRandom, status, warningMsg);
-            modelAndView.addObject("exceptionMsg", "server internal error");
-        } else {
-            log.info("{} error: {}", requestURL, status);
-            String warningMsg = "Occur Unknown exception";
-            modelAndView = exceptionModelAndView("ace/error", Css.faGear, status, warningMsg);
-            modelAndView.addObject("exceptionMsg", "UNKNOWN EXCEPTION");
+
+        switch (status) {
+            case 404 -> {
+                log.info("{} => error: {} [page not found]", requestURL, status);
+                String warningMsg = "Page Not Found";
+                modelAndView = exceptionModelAndView("ace/error", Css.faSitemap, status, warningMsg);
+                modelAndView.addObject("exceptionMsg", "page not found");
+            }
+            case 401 -> {
+                log.info("{} => error: {} [user not login]", requestURL, status);
+                String warningMsg = "User Not Login";
+                modelAndView = exceptionModelAndView("ace/error", Css.faSitemap, status, warningMsg);
+                modelAndView.addObject("exceptionMsg", "user not login");
+            }
+            case 500 -> {
+                log.info("{} error: {} [internal server error]", requestURL, status);
+                String warningMsg = "Something Went Wrong";
+                modelAndView = exceptionModelAndView("ace/error", Css.faRandom, status, warningMsg);
+                modelAndView.addObject("exceptionMsg", "server internal error");
+            }
+            default -> {
+                log.info("{} error: {}", requestURL, status);
+                String warningMsg = "Occur Unknown exception";
+                modelAndView = exceptionModelAndView("ace/error", Css.faGear, status, warningMsg);
+                modelAndView.addObject("exceptionMsg", "UNKNOWN EXCEPTION");
+            }
         }
         return modelAndView;
     }
@@ -135,15 +146,15 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
             logException(message, stackTrace);
 
             ModelAndView modelAndView = new ModelAndView("ace/login");
-            if (message.contains("Token已被踢下线")) {
+            if (message.contains("token 已被踢下线")) {
                 modelAndView.addObject("msg", "Account kicked out");
-            } else if (message.contains("Token无效")) {
+            } else if (message.contains("token 无效")) {
                 modelAndView.addObject("msg", "Session invalid");
-            } else if (message.contains("Token已被顶下线")) {
+            } else if (message.contains("token 已被顶下线")) {
                 modelAndView.addObject("msg", "Account forced to logout");
-            } else if (message.contains("未能读取到有效Token")) {
+            } else if (message.contains("未能读取到有效token ")) {
                 modelAndView.addObject("msg", "Session illegal");
-            } else if (message.contains("Token已过期")) {
+            } else if (message.contains("token 已过期")) {
                 modelAndView.addObject("msg", "Session timeout");
             }
             modelAndView.addObject(Css.css, Css.red);
