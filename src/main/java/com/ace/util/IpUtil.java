@@ -28,7 +28,6 @@ public class IpUtil implements ApplicationListener<WebServerInitializedEvent> {
     public static void main(String[] args) {
         IpUtil ip = new IpUtil();
         Map m = ip.getHostInfo();
-        MapUtil mapUtil = new MapUtil();
         MapUtil.iterateMapKeySet(m);
     }
 

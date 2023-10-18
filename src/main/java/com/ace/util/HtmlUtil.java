@@ -24,6 +24,10 @@ public class HtmlUtil {
     private static final Logger log = LogManager.getLogger(HtmlUtil.class.getName());
 
 
+    /** 转成xhtml并检查语法
+     * @param renderHtmlContent
+     * @return
+     */
     public String convertToXHtml(String renderHtmlContent) {
         log.info("convert to xhtml......!");
         Tidy tidy = new Tidy();

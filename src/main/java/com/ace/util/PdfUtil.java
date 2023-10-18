@@ -49,6 +49,11 @@ public class PdfUtil {
     }
 
 
+    /** 多份pdf串连成一份pdf
+     * @param streamOfPdfFiles
+     * @param outputStream
+     * @param pagination
+     */
     public void concatPDFs(List<InputStream> streamOfPdfFiles, OutputStream outputStream, boolean pagination) {
         Document document = new Document();
         try {
