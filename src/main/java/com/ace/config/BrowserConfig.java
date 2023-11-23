@@ -167,11 +167,8 @@ public class BrowserConfig {
     }
 
     private static String getOsInfo() {
-        //Java获取当前操作系统的信息
-        //https://blog.csdn.net/qq_35981283/article/details/73332040
         Properties props = System.getProperties();
         String osName = props.getProperty("os.name").toUpperCase();
-        System.out.println("OPERATION SYSTEM TYPE: " + osName);
         return osName;
     }
 
