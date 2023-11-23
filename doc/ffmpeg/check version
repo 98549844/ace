@@ -1,0 +1,12 @@
+查看 FFmpeg 版本
+ffmpeg -version
+列出了所有可用的解码器
+ffmpeg -decoders
+列出了所有可用的编码器
+ffmpeg -encoders
+转码视频格式
+ffmpeg -i input.mp4 -c:v libx264 -c:a aac output.mp4
+
+
+more info
+https://zhuanlan.zhihu.com/p/662421567
