@@ -4,6 +4,7 @@ import cn.dev33.satoken.SaManager;
 import com.ace.config.AceConfig;
 import com.ace.config.BrowserConfig;
 import com.ace.util.BeanUtil;
+import com.ace.util.ComponentUtil;
 import com.ace.util.IpUtil;
 import com.util.Console;
 import com.util.MapUtil;
@@ -59,6 +60,7 @@ public class AceApplication {
         IpUtil ip = beanUtil.getBeanByName("ipUtil", IpUtil.class);
         Map m = ip.getHostInfo();
         MapUtil.iterateMapKeySet(m);
+        ComponentUtil.versionCheck();
 
         AceConfig aceConfig = beanUtil.getBeanByName("aceConfig", AceConfig.class);
         if (!AceConfig.DOCKER.equals(aceConfig.getProfile())) {

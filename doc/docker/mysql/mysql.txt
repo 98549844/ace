@@ -32,7 +32,7 @@ MYSQL_ROOT_PASSWORD=root: 设置 MySQL 服务 root 用户的密码
 
 3.进入mysql容器shell
 docker exec -it 容器的id /bin/bash
-docker exec -it mysql-8.0 /bin/bash
+docker exec -it mysql-8.1 /bin/bash
 
 4. access mysql console
 mysql -h localhost -u root -p

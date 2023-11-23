@@ -104,7 +104,7 @@ public class DavToMP4Video {
             log.error(oldFilePath + " is not file");
             return false;
         }
-        List<String> command = new ArrayList<String>();
+        List<String> command = new ArrayList<>();
         command.add(ffmpegPath + "ffmpeg");
         command.add("-i");
         command.add(oldFilePath);
