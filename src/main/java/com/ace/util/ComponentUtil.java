@@ -21,6 +21,12 @@ import java.util.List;
 public class ComponentUtil {
     private static final Logger log = LogManager.getLogger(ComponentUtil.class.getName());
 
+    public static void main(String[] args) throws IOException {
+        Console.println(dockerVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
+        Console.println(dockerRunningContainer(), Console.FLUORESCENT_PURPLE, Console.BOLD);
+        Console.println(ffmpegVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
+    }
+
     public static void versionCheck() throws IOException {
         Console.println(dockerVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
         Console.println(dockerRunningContainer(), Console.FLUORESCENT_PURPLE, Console.BOLD);
@@ -29,15 +35,17 @@ public class ComponentUtil {
 
 
     public static String dockerVersion() throws IOException {
-        return Console.execute("docker --version");
+        return Console.execute("docker", "--version");
     }
 
     public static String dockerRunningContainer() throws IOException {
-        return Console.execute("docker ps");
+        //--是特殊符号, 要折分处理
+        String[] formatPs = new String[]{"docker", "ps", "--format", "\"{{.Names}} {{.Status}}\""};
+        return Console.execute(formatPs);
     }
 
     public static String ffmpegVersion() throws IOException {
-        return Console.execute("ffmpeg -version");
+        return Console.execute("ffmpeg", "-version");
     }
 
 
