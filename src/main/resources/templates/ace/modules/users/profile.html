@@ -89,15 +89,24 @@
 													<img id="avatar" class="editable img-responsive" alt="Alex's Avatar"
                                                          th:src="@{/assets/images/avatars/profile-pic.jpg}"/>
 												</span>
-
+                                        <form id="uploadForm" enctype="multipart/form-data">
+                                            <p>
+                                            <span class="label label-sm label-primary arrowed arrowed-right">
+                                            <i class="ace-icon glyphicon glyphicon-user">
+                                            </i>
+                                            </span>
+                                            </p>
+                                        </form>
                                         <div class="space-4"></div>
 
                                         <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
                                             <div class="inline position-relative">
                                                 <a href="#" class="user-title-label dropdown-toggle"
                                                    data-toggle="dropdown">
-                                                    <i th:if="${user.enabled}" class="ace-icon fa fa-circle light-green"></i>
-                                                    <i th:if="${not user.enabled}" class="ace-icon fa fa-circle light-red"></i>
+                                                    <i th:if="${user.enabled}"
+                                                       class="ace-icon fa fa-circle light-green"></i>
+                                                    <i th:if="${not user.enabled}"
+                                                       class="ace-icon fa fa-circle light-red"></i>
                                                     &nbsp;
                                                     <span class="white" th:text="${user.username}"></span>
                                                 </a>
