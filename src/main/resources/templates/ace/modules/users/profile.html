@@ -86,31 +86,35 @@
                                 <div class="col-xs-12 col-sm-3 center">
                                     <div>
                                         <!-- controller动态控制图片-->
-                                        <span class="profile-picture">
-                                            <a th:href="@{/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg}"
-                                               data-rel="colorbox"
-                                               class="cboxElement">
-                                            <img
-                                                    alt="150x150" width="180px" height="200px"
-                                                    th:src="@{/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg}"
-                                            />
-                                            </a>
-                                            <div class="tools tools-bottom">
-                                                <a href="javascript:void(0);"
-                                                   id="rotate-l-8893c5a2-c11f-43e7-ba19-516eee51942d" class="rotate">
-                                                    <i class="ace-icon fa fa-undo"></i>
-                                                </a>
-                                                <a href="javascript:void(0);"
-                                                   id="rotate-r-8893c5a2-c11f-43e7-ba19-516eee51942d" class="rotate">
-                                                    <i class="ace-icon fa fa-repeat"></i>
-                                                </a>
-                                                <label for="uploadBtn" class="btn btn-xs btn-white"
-                                                       style="border-width:0px;">
-                                                <i class="ace-icon fa fa-cloud-upload green"></i>
-                                                </label>
-                                            </div>
-										</span>
                                         <input type="file" id="uploadBtn" value="upload" style="display: none;">
+                                        <span class="profile-picture">
+                                            <ul class="ace-thumbnails clearfix">
+                                                <li>
+                                                    <a th:href="@{/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg}"
+                                                       data-rel="colorbox"
+                                                       class="cboxElement">
+                                                        <img alt="150x150" width="180px" height="200px"
+                                                             th:src="@{/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg}"/>
+                                                    </a>
+
+                                                    <div class="tools tools-bottom">
+                                                        <a href="javascript:void(0);"
+                                                           id="rotate-l-8893c5a2-c11f-43e7-ba19-516eee51942d"
+                                                           class="rotate">
+                                                            <i class="ace-icon fa fa-undo"></i>
+                                                        </a>
+                                                        <a href="javascript:void(0);"
+                                                           id="rotate-r-8893c5a2-c11f-43e7-ba19-516eee51942d"
+                                                           class="rotate">
+                                                            <i class="ace-icon fa fa-repeat"></i>
+                                                        </a>
+                                                        <label for="uploadBtn" style="cursor: pointer">
+                                                            <i class="ace-icon fa fa-cloud-upload white"></i>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </span>
 
                                         <!-- 直接读取静态文件-->
                                         <!--
@@ -2128,18 +2132,20 @@
     });
 
     function initColorbox() {
+        //https://blog.csdn.net/sunny_sailor/article/details/7267760
         let $overflow = '';
         const colorbox_params = {
             rel: 'colorbox',
             reposition: true,
             scalePhotos: true,
             scrolling: false,
-            //   previous: '<i class="ace-icon fa fa-arrow-left"></i>',
-            //  next: '<i class="ace-icon fa fa-arrow-right"></i>',
+            previous: '<i class="ace-icon fa fa-arrow-left"></i>',
+            next: '<i class="ace-icon fa fa-arrow-right"></i>',
             close: '&times;',
             current: '{current} of {total}',
             maxWidth: '100%',
             maxHeight: '100%',
+            arrowKey: true,
             onOpen: function () {
                 $overflow = document.body.style.overflow;
                 document.body.style.overflow = 'hidden';
