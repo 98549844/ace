@@ -343,7 +343,7 @@
 
 
     //collapse触发
-    $("a.accordion-toggle").bind("click", function () {
+    $("a.accordion-toggle").on("click", function () {
         if (paging !== 0) {
             paging = 0;
         }

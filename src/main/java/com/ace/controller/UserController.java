@@ -13,14 +13,13 @@ import com.ace.service.UserRolesService;
 import com.ace.service.UsersService;
 import com.util.NullUtil;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import jakarta.transaction.Transactional;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -52,7 +51,7 @@ public class UserController extends CommonController {
         this.rolesService = rolesService;
         this.userRolesService = userRolesService;
         this.filesService = filesService;
-        this.usersPath= AceEnvironment.getUsers();
+        this.usersPath = AceEnvironment.getUsers();
     }
 
     @RequestMapping(value = "/user.html", method = RequestMethod.GET)
@@ -95,6 +94,9 @@ public class UserController extends CommonController {
         modelAndView.addObject("user", user);
         modelAndView.addObject("roles", rolesList);
         modelAndView.addObject("allRoles", allRoles);
+
+    //http://192.168.10.7:8088/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg
+     //   modelAndView.addObject("avatarUrl", userList);
         return modelAndView;
     }
 
@@ -145,9 +147,10 @@ public class UserController extends CommonController {
      */
     @RequestMapping(value = "/icon/get/{userId}", method = RequestMethod.GET)
     @ResponseBody
-    public void get(@PathVariable("userId") String userId, HttpServletResponse response) throws IOException {
+    public void getAvatar(@PathVariable("userId") String userId, HttpServletResponse response) throws IOException {
         log.info("access icon/get/{}", userId);
 
+        //http://192.168.10.7:8088/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg
         String name;
         String ext;
         if (!userId.contains(".")) {
