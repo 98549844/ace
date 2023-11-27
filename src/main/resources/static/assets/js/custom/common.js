@@ -25,7 +25,9 @@ function setTitle() {
 
 
 function docReady() {
-    const aHref = "a[href*='.html']";
+   // const aHref = "a[href*='.html']";
+     const aHref = "#sidebar a[href*='.html']"; //id=sidebar a元素并四配.html
+
     const currentForm = "#current_form";
     //提交表单验证
     $(currentForm).off("submit");
@@ -35,10 +37,10 @@ function docReady() {
     });
 
     //链接点击绑定弹出加载框
-    $(aHref).off();
-    $(aHref).on("click", function () {
-        const link = $(this).attr("href");
-        $.cookie('currentURL', link);
+    //$(aHref).off();
+    //$(aHref).on("click", function () {
+        //const link = $(this).attr("href");
+        //$.cookie('currentURL', link);
 
         //左菜单 loading bar
         /*  if ($(this).attr("target") !== "_blank") {
@@ -46,9 +48,10 @@ function docReady() {
             }, 1000);
             showLoading();
         }*/
-    });
+    //});
 
-    const currentURL = $.cookie('currentURL');
+   // const currentURL = window.location.href; // fullUrl
+    const currentURL = window.location.pathname; // /ace/index.html
     $.each($(aHref), function () {
         const link = $(this).attr("href");
         if (link === currentURL) {

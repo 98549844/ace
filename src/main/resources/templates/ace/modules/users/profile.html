@@ -85,18 +85,23 @@
                             <div id="user-profile-1" class="user-profile row">
                                 <div class="col-xs-12 col-sm-3 center">
                                     <div>
-												<span class="profile-picture">
-													<img id="avatar" class="editable img-responsive" alt="Alex's Avatar"
-                                                         th:src="@{/assets/images/avatars/profile-pic.jpg}"/>
-												</span>
-                                        <form id="uploadForm" enctype="multipart/form-data">
-                                            <p>
-                                            <span class="label label-sm label-primary arrowed arrowed-right">
-                                            <i class="ace-icon glyphicon glyphicon-user">
+										<span class="profile-picture">
+											<img id="avatar" class="editable img-responsive" alt="Alex's Avatar"
+                                                 th:src="@{/assets/images/avatars/profile-pic.jpg}"/>
+										</span>
+
+
+                                        <p>
+                                            <label for="uploadBtn">
+                                            <span class="btn btn-xs btn-info">
+                                            <i class=" ace-icon glyphicon glyphicon-user">
                                             </i>
                                             </span>
-                                            </p>
-                                        </form>
+                                            </label>
+                                        </p>
+
+                                        <input type="file" id="uploadBtn" value="upload" style="display: none;">
+
                                         <div class="space-4"></div>
 
                                         <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">

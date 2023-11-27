@@ -1,0 +1,7 @@
+MDN web docs: javascript api docs
+
+javascript组成部分:
+1. ECMAScript => javascript基础语法, ECMAScript是javascript的超集
+2. Web Api => DOM页面文檔对像模型, BOM浏览器对像模型
+
+
