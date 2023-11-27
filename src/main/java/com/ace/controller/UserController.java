@@ -2,13 +2,17 @@ package com.ace.controller;
 
 
 import cn.dev33.satoken.stp.StpUtil;
+import com.ace.constant.AceEnvironment;
 import com.ace.controller.common.CommonController;
+import com.ace.models.entity.Files;
 import com.ace.models.entity.Roles;
 import com.ace.models.entity.Users;
+import com.ace.service.FilesService;
 import com.ace.service.RolesService;
 import com.ace.service.UserRolesService;
 import com.ace.service.UsersService;
 import com.util.NullUtil;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.transaction.Transactional;
+
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -34,12 +42,17 @@ public class UserController extends CommonController {
     private final UsersService usersService;
     private final UserRolesService userRolesService;
     private final RolesService rolesService;
+    private final FilesService filesService;
+    private final String usersPath;
+
 
     @Autowired
-    public UserController(UserRolesService userRolesService, UsersService usersService, RolesService rolesService) {
+    public UserController(UserRolesService userRolesService, UsersService usersService, RolesService rolesService, FilesService filesService) {
         this.usersService = usersService;
         this.rolesService = rolesService;
         this.userRolesService = userRolesService;
+        this.filesService = filesService;
+        this.usersPath= AceEnvironment.getUsers();
     }
 
     @RequestMapping(value = "/user.html", method = RequestMethod.GET)
@@ -122,5 +135,29 @@ public class UserController extends CommonController {
 
         // 校验：当前账号是否含有指定权限 [指定多个，只要其一验证通过即可]
         StpUtil.checkPermissionOr("user-update", "user-delete");
+    }
+
+    /**
+     * 缩略图显示请求
+     * 响应输出图片文件
+     *
+     * @param userId
+     */
+    @RequestMapping(value = "/icon/get/{userId}", method = RequestMethod.GET)
+    @ResponseBody
+    public void get(@PathVariable("userId") String userId, HttpServletResponse response) throws IOException {
+        log.info("access icon/get/{}", userId);
+
+        String name;
+        String ext;
+        if (!userId.contains(".")) {
+            Files f = filesService.findFilesByFileName(userId);
+            ext = f.getExt().split("\\.")[1];
+            name = userId + f.getExt();
+        } else {
+            name = userId;
+            ext = userId.split("\\.")[1];
+        }
+        ImageIO.write(ImageIO.read(new File(usersPath + name)), ext, response.getOutputStream());
     }
 }
