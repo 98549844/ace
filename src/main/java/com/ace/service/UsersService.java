@@ -1,5 +1,6 @@
 package com.ace.service;
 
+import com.ace.constant.AceEnvironment;
 import com.ace.dao.UsersDao;
 import com.ace.exception.PasswordNotMatchException;
 import com.ace.exception.UserNotFoundException;
@@ -40,16 +41,20 @@ public class UsersService {
     private final UserRolesService userRolesService;
     private final RolesService rolesService;
     private final PermissionsService permissionsService;
+    private final FilesService filesService;
+    private final String usersPath;
 
 
     @Autowired
-    public UsersService(UsersMapper usersMapper, UsersDao usersDao, PasswordEncoder passwordEncoder, UserRolesService userRolesService, RolesService rolesService, PermissionsService permissionsService) {
+    public UsersService(UsersMapper usersMapper, UsersDao usersDao, PasswordEncoder passwordEncoder, UserRolesService userRolesService, RolesService rolesService, PermissionsService permissionsService, FilesService filesService) {
         this.usersDao = usersDao;
         this.passwordEncoder = passwordEncoder;
         this.userRolesService = userRolesService;
         this.rolesService = rolesService;
         this.permissionsService = permissionsService;
         this.usersMapper = usersMapper;
+        this.filesService = filesService;
+        this.usersPath = AceEnvironment.getUsers();
     }
 
 
@@ -355,9 +360,6 @@ public class UsersService {
             log.warn("User not exist !");
         }
     }
-
-
-
 
 }
 

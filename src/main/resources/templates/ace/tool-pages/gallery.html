@@ -266,7 +266,7 @@
                 }
             },
         }
-        loadingImage();
+        loadImages();
         initColorbox();
     });
 
@@ -348,12 +348,12 @@
         if (paging !== 0) {
             paging = 0;
         }
-        loadingImage();
+        loadImages();
     });
 
 
     //加载图片
-    function loadingImage() {
+    function loadImages() {
         const loadingDialog = dialog({
             title: 'Loading ...',
             content: $("#loading_img").html(),

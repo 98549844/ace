@@ -1,24 +1,21 @@
 package com.ace.controller;
 
 import com.ace.constant.AceEnvironment;
+import com.ace.controller.common.CommonController;
 import com.ace.models.entity.Files;
 import com.ace.models.entity.Users;
 import com.ace.service.FilesService;
-import com.ace.service.GalleryService;
 import com.ace.service.ImagesService;
 import com.util.FileUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.ace.controller.common.CommonController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -40,7 +37,7 @@ public class ImagesController extends CommonController {
     private final String imagePath;
     private final String imagesThumbnail;
 
-    public ImagesController(GalleryService galleryService, FilesService filesService, ImagesService imagesService) {
+    public ImagesController(FilesService filesService, ImagesService imagesService) {
         this.imagesService = imagesService;
         this.filesService = filesService;
         this.imagePath = AceEnvironment.getImagesPath();
@@ -204,10 +201,7 @@ public class ImagesController extends CommonController {
     @ResponseBody
     public Files rotate(@PathVariable String direction, @PathVariable String uuid) throws Exception {
         log.info("access image/rotate => rotate {} {}", direction, uuid);
-        //  ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
-        Files f = imagesService.rotate(direction, uuid);
-        //  String result = JsonUtil.ObjectToJson(f);
-        //  modelAndView.addObject("ajaxResult", result);
+        Files f = imagesService.rotate(direction, imagesThumbnail, uuid);
         return f;
     }
 

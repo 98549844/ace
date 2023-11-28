@@ -92,32 +92,35 @@
 
 
                                             </ul>
-                                            <!--
-                                            <ul class="ace-thumbnails clearfix" id="imageDiv">-->
-                                            <!--                                                <li>-->
-                                            <!--                                                    <a th:href="@{/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg}"-->
-                                            <!--                                                       data-rel="colorbox" class="cboxElement">-->
-                                            <!--                                                        <img alt="150x150" width="180px" height="200px"-->
-                                            <!--                                                             th:src="@{/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg}"/>-->
-                                            <!--                                                    </a>-->
+                                            <!-- <ul class="ace-thumbnails clearfix" id="imageDiv">
+                                                 <li>
+                                                     <a th:href="@{/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg}"
+                                                        data-rel="colorbox"
+                                                        class="cboxElement">
+                                                         <img alt="150x150"
+                                                              width="180px"
+                                                              height="200px"
+                                                              th:src="@{/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg}"/>
+                                                     </a>
 
-                                            <!--                                                    <div class="tools tools-bottom">-->
-                                            <!--                                                        <a href="javascript:void(0);"-->
-                                            <!--                                                           id="rotate-l-8893c5a2-c11f-43e7-ba19-516eee51942d"-->
-                                            <!--                                                           class="rotate">-->
-                                            <!--                                                            <i class="ace-icon fa fa-undo"></i>-->
-                                            <!--                                                        </a>-->
-                                            <!--                                                        <a href="javascript:void(0);"-->
-                                            <!--                                                           id="rotate-r-8893c5a2-c11f-43e7-ba19-516eee51942d"-->
-                                            <!--                                                           class="rotate">-->
-                                            <!--                                                            <i class="ace-icon fa fa-repeat"></i>-->
-                                            <!--                                                        </a>-->
-                                            <!--                                                        <label for="uploadBtn" style="cursor: pointer">-->
-                                            <!--                                                            <i class="ace-icon fa fa-cloud-upload white"></i>-->
-                                            <!--                                                        </label>-->
-                                            <!--                                                    </div>-->
-                                            <!--                                                </li>-->
-                                            <!--                                            </ul>-->
+                                                     <div class="tools tools-bottom">
+                                                         <a href="javascript:void(0);"
+                                                            id="rotate-l-8893c5a2-c11f-43e7-ba19-516eee51942d"
+                                                            class="rotate">
+                                                             <i class="ace-icon fa fa-undo"></i>
+                                                         </a>
+                                                         <a href="javascript:void(0);"
+                                                            id="rotate-r-8893c5a2-c11f-43e7-ba19-516eee51942d"
+                                                            class="rotate">
+                                                             <i class="ace-icon fa fa-repeat"></i>
+                                                         </a>
+                                                         <label for="uploadBtn"
+                                                                style="cursor: pointer">
+                                                             <i class="ace-icon fa fa-cloud-upload white"></i>
+                                                         </label>
+                                                     </div>
+                                                 </li>
+                                             </ul>-->
                                         </span>
 
                                         <!-- 直接读取静态文件-->
@@ -961,15 +964,15 @@
 
 <script type="text/javascript">
     jQuery(function () {
-        loadingImage();
-        //   initColorbox();
+        loadImages();
+        initColorbox();
     });
 
     let paging = 0;
-    const id = '07372ba5-199d-4960-99e0-a64d5e563dea';
+    const id = '41e16381-aa08-4397-bac0-44364d48355d';
 
     //加载图片
-    function loadingImage() {
+    function loadImages() {
         const loadingDialog = dialog({
             title: 'Loading ...',
             content: $("#loading_img").html(),
@@ -1005,12 +1008,10 @@
                                             <a href="javascript:void(0);" id="rotate-r-${fileName}" class="rotate">
                                                 <i class="ace-icon fa fa-repeat"></i>
                                             </a>
-                                            <a href="image/download/${fileName}" id="download-${fileName}" class="imageDownload">
-                                                <i class="ace-icon fa fa-download green"></i>
-                                            </a>
-                                            <a href="javascript:void(0);" id="delete-${fileName}" class="imageDelete">
-                                                <i class="ace-icon fa fa-times red"></i>
-                                            </a>
+                                            <label for="uploadBtn"
+                                                   style="cursor: pointer">
+                                                <i class="ace-icon fa fa-cloud-upload white"></i>
+                                            </label>
                                         </div>
                                     </li>`;
                 }
@@ -1026,6 +1027,26 @@
         })
     }
 
+    $("#uploadBtn").on('click', function () {
+        const files = $("#uploadBtn").prop("files")[0]; // 获取选择的文件
+        const formData = new FormData(); // 创建FormData对象
+        formData.append("files", files); // 将文件添加到FormData对象中
+        $.ajax({
+            url: "/ace/image/uploads.html", // 上传文件的后端处理文件
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                alert("成功")
+                // 上传成功后的处理代码
+            },
+            error: function (xhr, status, error) {
+                alert("失败")
+                // 上传失败后的处理代码
+            }
+        });
+    });
 
     let $body = $('body'); //用于选取 HTML 文档中的 <body> 元素
     $body.on('click', '.rotate', function () {
@@ -1072,16 +1093,17 @@
                                         <a href="image/download/${fileName}" id="download-${fileName}" class="imageDownload">
                                             <i class="ace-icon fa fa-download green"></i>
                                         </a>
-                                        <a href="javascript:void(0);" id="delete-${fileName}" class="imageDelete">
-                                            <i class="ace-icon fa fa-times red"></i>
-                                        </a>
+                                        <label for="uploadBtn"
+                                               style="cursor: pointer">
+                                            <i class="ace-icon fa fa-cloud-upload white"></i>
+                                        </label>
                                     </div>
                                 </li>`;
                 $("#li-" + imgId + "").replaceWith(html);
                 initColorbox();
             },
             error(data) {
-                window.location.href = '500.html';
+                window.location.href = '/ace/500.html';
             },
         })
     });

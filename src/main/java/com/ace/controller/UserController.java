@@ -93,9 +93,6 @@ public class UserController extends CommonController {
         modelAndView.addObject("user", user);
         modelAndView.addObject("roles", rolesList);
         modelAndView.addObject("allRoles", allRoles);
-
-        //http://192.168.10.7:8088/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg
-        //   modelAndView.addObject("avatarUrl", userList);
         return modelAndView;
     }
 
@@ -154,17 +151,6 @@ public class UserController extends CommonController {
     @ResponseBody
     public void get(@PathVariable("fileName") String fileName, HttpServletResponse response) throws IOException {
         log.info("access avatar/get/{}", fileName);
-//        String name;
-//        String ext;
-//        if (!fileName.contains(".")) {
-//            Files f = filesService.findFilesByFileName(fileName);
-//            ext = f.getExt().split("\\.")[1];
-//            name = fileName + f.getExt();
-//        } else {
-//            name = fileName;
-//            ext = fileName.split("\\.")[1];
-//        }
-//        ImageIO.write(ImageIO.read(new File(usersPath + name)), ext, response.getOutputStream());
         imagesService.get(usersPath, fileName, response);
     }
 
@@ -174,5 +160,13 @@ public class UserController extends CommonController {
         log.info("access icon/get/{}", userId);
         List ls = imagesService.getImagesByFileName(userId);
         return ls;
+    }
+
+    @RequestMapping(value = "/avatar/rotate/{direction}/{uuid}", method = RequestMethod.GET)
+    @ResponseBody
+    public Files rotate(@PathVariable String direction, @PathVariable String uuid) throws Exception {
+        log.info("access image/rotate => rotate {} {}", direction, uuid);
+        Files f = imagesService.rotate(direction, usersPath, uuid);
+        return f;
     }
 }

@@ -49,32 +49,31 @@ public class ImagesService extends CommonController {
         log.info("image location: {}", imagePath);
 
         List<String> ls = FileUtil.getFileNamesWithExt(imagePath);
-        List<String> tempLs = FileUtil.getFileNamesWithExt(imagesThumbnail);
+        List<String> thumbnailLs = FileUtil.getFileNamesWithExt(imagesThumbnail);
 
         try {
-            deleteThumbnails(ls, tempLs);
+            deleteThumbnails(ls, thumbnailLs); //删除缩略图, 如果原图不存在
         } catch (Exception e) {
             log.warn("Image still compressing, not ready to display ....");
             e.printStackTrace();
-        } finally {
-            //根据folder实际文件控制数据库, 删除folder不存文件数据
-            List<String> fName = FileUtil.getNames(ls);
-            List<Files> filesList = filesService.findFilesByPathAndFileNameNotIn(imagePath, fName);
-            filesService.deleteAll(filesList);
-
-            List<Roles> rolesList = rolesService.getRolesByUserId(users.getUserId());
-
-            //只处理单角色,多角色及后再新增处理
-            if (Roles.ADMIN.equals(rolesList.get(0).getRoleCode())) {
-                //根据数据库排序
-                return filesService.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fName, Files.COMPRESSED);
-            } else {
-                //根据数据库排序
-                return filesService.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(fName, Files.COMPRESSED, users.getUserId().toString());
-            }
-            //根据文件排序
-            // return FileUtil.getNamesOrderByLastModifiedDate(imagesThumbnail, true);
         }
+        //根据folder实际文件控制数据库, 删除folder不存文件数据
+        List<String> fName = FileUtil.getNames(ls);
+        List<Files> filesList = filesService.findFilesByPathAndFileNameNotIn(imagePath, fName);
+        filesService.deleteAll(filesList);
+
+        List<Roles> rolesList = rolesService.getRolesByUserId(users.getUserId());
+
+        //只处理单角色,多角色及后再新增处理
+        if (Roles.ADMIN.equals(rolesList.get(0).getRoleCode())) {
+            //根据数据库排序
+            return filesService.findFilesByFileNameInAndStatusOrderByCreatedDateDesc(fName, Files.COMPRESSED);
+        } else {
+            //根据数据库排序
+            return filesService.findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(fName, Files.COMPRESSED, users.getUserId().toString());
+        }
+        //根据文件排序
+        // return FileUtil.getNamesOrderByLastModifiedDate(imagesThumbnail, true);
     }
 
 
@@ -97,10 +96,12 @@ public class ImagesService extends CommonController {
                     compressImage(l);
                 }
             } else if (!original.exists() && thumbnail.exists()) {
-                //原图不存在, 缩略图存在, 删除缩略图
-                thumbnail.delete();
-                l.setStatus(Files.LOST);
-                filesService.save(l);
+                //删除缩略图, 当原图不存在
+                if (thumbnail.delete()) {
+                    //更新数据
+                    l.setStatus(Files.LOST);
+                    filesService.save(l);
+                }
             }
         }
         return result;
@@ -135,7 +136,7 @@ public class ImagesService extends CommonController {
         ImageIO.write(ImageIO.read(new File(location + name)), ext, response.getOutputStream());
     }
 
-    public Files rotate(String direction, String uuid) throws Exception {
+    public Files rotate(String direction, String location, String uuid) throws Exception {
         int rotate;
         if ("left".equals(direction)) {
             rotate = -90;
@@ -146,14 +147,14 @@ public class ImagesService extends CommonController {
         Files f = filesService.findFilesByFileName(uuid);
         rename(f.getLocation(), imagePath + newUuid + f.getExt());
 
-        String temp = imagesThumbnail + f.getFileName() + f.getExt();
-        String newTemp = imagesThumbnail + newUuid + f.getExt();
+        String image = location + f.getFileName() + f.getExt();
+        String newImage = location + newUuid + f.getExt();
 
         f.setFileName(newUuid);
         f.setRemark("Ace Application UUID: " + newUuid);
-        ImageUtil.rotation(temp, newTemp, rotate);
+        ImageUtil.rotation(image, newImage, rotate);
 
-        filesService.delFile(temp);
+        filesService.delFile(image);
         return filesService.saveAndFlush(f);
 
     }
@@ -210,11 +211,10 @@ public class ImagesService extends CommonController {
     }
 
 
-    private static void rename(String src, String desc) throws Exception {
-        log.info("Start rename file");
+    private static void rename(String src, String desc) throws IOException {
         // 旧的文件或目录
         File oldName = new File(src);
-        // 新的文件或目录1
+        // 新的文件或目录
         File newName = new File(desc);
         if (newName.exists()) {  //  确保新的文件名不存在
             throw new java.io.IOException("target file exists !!!");
@@ -225,5 +225,7 @@ public class ImagesService extends CommonController {
             log.error("File rename fail !!!");
         }
     }
+
+
 }
 
