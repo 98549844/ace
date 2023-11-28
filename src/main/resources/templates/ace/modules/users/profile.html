@@ -951,46 +951,15 @@
 <div th:insert="~{ace/pb-pages/common-script :: common-script}"></div>
 <!-- page specific plugin scripts -->
 <script th:src="@{/assets/js/jquery.colorbox.min.js}"></script>
+<script th:src="@{/assets/js/custom/colorbox.js}"></script>
+
 
 <script type="text/javascript">
     jQuery(function () {
         initColorbox();
     });
 
-    function initColorbox() {
-        //https://blog.csdn.net/sunny_sailor/article/details/7267760
-        let $overflow = '';
-        const colorbox_params = {
-            rel: 'colorbox',
-            reposition: true,
-            scalePhotos: true,
-            scrolling: false,
-            previous: '<i class="ace-icon fa fa-arrow-left"></i>',
-            next: '<i class="ace-icon fa fa-arrow-right"></i>',
-            close: '&times;',
-            current: '{current} of {total}',
-            maxWidth: '100%',
-            maxHeight: '100%',
-            arrowKey: true,
-            onOpen: function () {
-                $overflow = document.body.style.overflow;
-                document.body.style.overflow = 'hidden';
-            },
-            onClosed: function () {
-                document.body.style.overflow = $overflow;
-            },
-            onComplete: function () {
-                $.colorbox.resize();
-            }
-        };
-        //一个页面只能有一个.ace-thumbnails, 不然会count total出错
-        //如果需要多个color, 需要加入id
-        $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
-        $("#cboxLoadingGraphic").html("<i class='ace-icon fa fa-spinner orange fa-spin'></i>");//let's add a custom loading icon
-        $(document).one('ajaxloadstart.page', function (e) {
-            $('#colorbox, #cboxOverlay').remove();
-        });
-    }
+
 </script>
 
 
