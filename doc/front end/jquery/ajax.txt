@@ -2,7 +2,9 @@ $.ajax()方法详解
 
 1.url:
 要求为String类型的参数，
-(默认为当前页地址)发送请求的地址.  
+(默认为当前页地址)发送请求的地址.
+以/开头:    即是相对路经, 表现为 http://localhost:8080 + /aaa/bbb
+有没/开头:  最终的请求路径是: http://localhost:8080/当前url.html + /aaa/bbb
 
 2.type:
 要求为String类型的参数，请求方式(post或get)默认为get.
@@ -32,14 +34,14 @@ $.ajax()方法详解
 要求为String类型的参数，预期服务器返回的数据类型.
 如果不指定，JQuery将自动根据http包mime信息返回responseXML或responseText，
 并作为回调函数参数传递.  可用的类型如下：
-xml：返回XML文档，可用JQuery处理.  
-html：返回纯文本HTML信息；包含的script标签会在插入DOM时执行.  
+xml：返回XML文档，可用JQuery处理.
+html：返回纯文本HTML信息；包含的script标签会在插入DOM时执行.
 script：返回纯文本JavaScript代码.  不会自动缓存结果.
 除非设置了cache参数.  注意在远程请求时(不在同一个域下)，所有post请求都将转为get请求.
-json：返回JSON数据.  
+json：返回JSON数据.
 jsonp：JSONP格式.  使用SONP形式调用函数时，例如myurl?callback=?，
 JQuery将自动替换后一个“?”为正确的函数名，以执行回调函数.
-text：返回纯文本字符串.  
+text：返回纯文本字符串.
 
 8.beforeSend：
 要求为Function类型的参数，发送请求前可以修改XMLHttpRequest对象的函数，
@@ -56,9 +58,9 @@ XMLHttpRequest对象是惟一的参数.
              this;    //调用本次ajax请求时传递的options参数
           }
 
-10.success：要求为Function类型的参数，请求成功后调用的回调函数，有两个参数.  
-         (1)由服务器返回，并根据dataType参数进行处理后的数据.  
-         (2)描述状态的字符串.  
+10.success：要求为Function类型的参数，请求成功后调用的回调函数，有两个参数.
+         (1)由服务器返回，并根据dataType参数进行处理后的数据.
+         (2)描述状态的字符串.
          function(data, textStatus){undefined
             //data可能是xmlDoc、jsonObj、html、text等等
             this;  //调用本次ajax请求时传递的options参数
@@ -108,10 +110,10 @@ type是调用jQuery.ajax时提供的dataType参数.  函数返回的值将由jQu
 例如{jsonp:'onJsonPLoad'}会导致将"onJsonPLoad=?"传给服务器.
 
 18.username：
-要求为String类型的参数，用于响应HTTP访问认证请求的用户名.  
+要求为String类型的参数，用于响应HTTP访问认证请求的用户名.
 
 19.password：
-要求为String类型的参数，用于响应HTTP访问认证请求的密码.  
+要求为String类型的参数，用于响应HTTP访问认证请求的密码.
 
 20.processData：
 要求为Boolean类型的参数，默认为true.  默认情况下，
@@ -134,7 +136,7 @@ $(function(){
              dataType: "json",
              success: function(data){
                          $('#resText').empty();   //清空resText里面的所有内容
-                         var html = ''; 
+                         var html = '';
                          $.each(data, function(commentIndex, comment){
                                html += '<div class="comment"><h6>' + comment['username']
                                          + ':</h6><p class="para"' + comment['content']

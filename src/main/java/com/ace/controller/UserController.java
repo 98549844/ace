@@ -7,10 +7,7 @@ import com.ace.controller.common.CommonController;
 import com.ace.models.entity.Files;
 import com.ace.models.entity.Roles;
 import com.ace.models.entity.Users;
-import com.ace.service.FilesService;
-import com.ace.service.RolesService;
-import com.ace.service.UserRolesService;
-import com.ace.service.UsersService;
+import com.ace.service.*;
 import com.util.NullUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
@@ -42,15 +39,17 @@ public class UserController extends CommonController {
     private final UserRolesService userRolesService;
     private final RolesService rolesService;
     private final FilesService filesService;
+    private final ImagesService imagesService;
     private final String usersPath;
 
 
     @Autowired
-    public UserController(UserRolesService userRolesService, UsersService usersService, RolesService rolesService, FilesService filesService) {
+    public UserController(UserRolesService userRolesService, UsersService usersService, RolesService rolesService, FilesService filesService, ImagesService imagesService) {
         this.usersService = usersService;
         this.rolesService = rolesService;
         this.userRolesService = userRolesService;
         this.filesService = filesService;
+        this.imagesService = imagesService;
         this.usersPath = AceEnvironment.getUsers();
     }
 
@@ -95,8 +94,8 @@ public class UserController extends CommonController {
         modelAndView.addObject("roles", rolesList);
         modelAndView.addObject("allRoles", allRoles);
 
-    //http://192.168.10.7:8088/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg
-     //   modelAndView.addObject("avatarUrl", userList);
+        //http://192.168.10.7:8088/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg
+        //   modelAndView.addObject("avatarUrl", userList);
         return modelAndView;
     }
 
@@ -145,22 +144,35 @@ public class UserController extends CommonController {
      *
      * @param userId
      */
+    /**
+     * 缩略图显示请求
+     * 响应输出图片文件
+     *
+     * @param fileName
+     */
+    @RequestMapping(value = "/avatar/get/{fileName}", method = RequestMethod.GET)
+    @ResponseBody
+    public void get(@PathVariable("fileName") String fileName, HttpServletResponse response) throws IOException {
+        log.info("access avatar/get/{}", fileName);
+//        String name;
+//        String ext;
+//        if (!fileName.contains(".")) {
+//            Files f = filesService.findFilesByFileName(fileName);
+//            ext = f.getExt().split("\\.")[1];
+//            name = fileName + f.getExt();
+//        } else {
+//            name = fileName;
+//            ext = fileName.split("\\.")[1];
+//        }
+//        ImageIO.write(ImageIO.read(new File(usersPath + name)), ext, response.getOutputStream());
+        imagesService.get(usersPath, fileName, response);
+    }
+
     @RequestMapping(value = "/icon/get/{userId}", method = RequestMethod.GET)
     @ResponseBody
-    public void getAvatar(@PathVariable("userId") String userId, HttpServletResponse response) throws IOException {
+    public List getAvatar(@PathVariable(value = "userId") String userId) throws IOException {
         log.info("access icon/get/{}", userId);
-
-        //http://192.168.10.7:8088/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg
-        String name;
-        String ext;
-        if (!userId.contains(".")) {
-            Files f = filesService.findFilesByFileName(userId);
-            ext = f.getExt().split("\\.")[1];
-            name = userId + f.getExt();
-        } else {
-            name = userId;
-            ext = userId.split("\\.")[1];
-        }
-        ImageIO.write(ImageIO.read(new File(usersPath + name)), ext, response.getOutputStream());
+        List ls = imagesService.getImagesByFileName(userId);
+        return ls;
     }
 }

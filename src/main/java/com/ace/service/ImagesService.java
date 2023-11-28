@@ -5,11 +5,14 @@ import com.ace.models.entity.Files;
 import com.ace.models.entity.Roles;
 import com.ace.models.entity.Users;
 import com.util.*;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.ace.controller.common.CommonController;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,7 +45,7 @@ public class ImagesService extends CommonController {
     }
 
 
-    public List getImages(Users users) throws IOException {
+    public List getImages(Users users) {
         log.info("image location: {}", imagePath);
 
         List<String> ls = FileUtil.getFileNamesWithExt(imagePath);
@@ -75,7 +78,7 @@ public class ImagesService extends CommonController {
     }
 
 
-    public List getImagesByLimit(Users users, int paging) throws IOException {
+    public List getImagesByLimit(Users users, int paging) {
         List<Roles> rolesList = rolesService.getRolesByUserId(users.getUserId());
         List<Files> filesLs;
         if (Roles.ADMIN.equals(rolesList.get(0).getRoleCode())) {
@@ -101,6 +104,35 @@ public class ImagesService extends CommonController {
             }
         }
         return result;
+    }
+
+    public List<Files> getImagesByFileName(String fileName) {
+        List<Files> result = new ArrayList<>();
+        Files f = filesService.findFilesByFileName(fileName);
+        result.add(f);
+        return result;
+    }
+
+
+    /**
+     * 根据文件名读取文件
+     *
+     * @param fileName
+     * @param response
+     * @throws IOException
+     */
+    public void get(String location, String fileName, HttpServletResponse response) throws IOException {
+        String name;
+        String ext;
+        if (!fileName.contains(".")) {
+            Files f = filesService.findFilesByFileName(fileName);
+            ext = f.getExt().split("\\.")[1];
+            name = fileName + f.getExt();
+        } else {
+            name = fileName;
+            ext = fileName.split("\\.")[1];
+        }
+        ImageIO.write(ImageIO.read(new File(location + name)), ext, response.getOutputStream());
     }
 
     public Files rotate(String direction, String uuid) throws Exception {

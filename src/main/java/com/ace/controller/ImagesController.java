@@ -102,18 +102,7 @@ public class ImagesController extends CommonController {
     @ResponseBody
     public void get(@PathVariable("fileName") String fileName, HttpServletResponse response) throws IOException {
         log.info("access image/get/{}", fileName);
-
-        String name;
-        String ext;
-        if (!fileName.contains(".")) {
-            Files f = filesService.findFilesByFileName(fileName);
-            ext = f.getExt().split("\\.")[1];
-            name = fileName + f.getExt();
-        } else {
-            name = fileName;
-            ext = fileName.split("\\.")[1];
-        }
-        ImageIO.write(ImageIO.read(new File(imagesThumbnail + name)), ext, response.getOutputStream());
+        imagesService.get(imagesThumbnail, fileName, response);
     }
 
 

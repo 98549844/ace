@@ -88,31 +88,36 @@
                                         <!-- controller动态控制图片-->
                                         <input type="file" id="uploadBtn" value="upload" style="display: none;">
                                         <span class="profile-picture">
-                                            <ul class="ace-thumbnails clearfix">
-                                                <li>
-                                                    <a th:href="@{/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg}"
-                                                       data-rel="colorbox" class="cboxElement">
-                                                        <img alt="150x150" width="180px" height="200px"
-                                                             th:src="@{/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg}"/>
-                                                    </a>
+                                            <ul class="ace-thumbnails clearfix" id="imageDiv">
 
-                                                    <div class="tools tools-bottom">
-                                                        <a href="javascript:void(0);"
-                                                           id="rotate-l-8893c5a2-c11f-43e7-ba19-516eee51942d"
-                                                           class="rotate">
-                                                            <i class="ace-icon fa fa-undo"></i>
-                                                        </a>
-                                                        <a href="javascript:void(0);"
-                                                           id="rotate-r-8893c5a2-c11f-43e7-ba19-516eee51942d"
-                                                           class="rotate">
-                                                            <i class="ace-icon fa fa-repeat"></i>
-                                                        </a>
-                                                        <label for="uploadBtn" style="cursor: pointer">
-                                                            <i class="ace-icon fa fa-cloud-upload white"></i>
-                                                        </label>
-                                                    </div>
-                                                </li>
+
                                             </ul>
+                                            <!--
+                                            <ul class="ace-thumbnails clearfix" id="imageDiv">-->
+                                            <!--                                                <li>-->
+                                            <!--                                                    <a th:href="@{/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg}"-->
+                                            <!--                                                       data-rel="colorbox" class="cboxElement">-->
+                                            <!--                                                        <img alt="150x150" width="180px" height="200px"-->
+                                            <!--                                                             th:src="@{/ace/users/icon/get/8893c5a2-c11f-43e7-ba19-516eee51942d.jpeg}"/>-->
+                                            <!--                                                    </a>-->
+
+                                            <!--                                                    <div class="tools tools-bottom">-->
+                                            <!--                                                        <a href="javascript:void(0);"-->
+                                            <!--                                                           id="rotate-l-8893c5a2-c11f-43e7-ba19-516eee51942d"-->
+                                            <!--                                                           class="rotate">-->
+                                            <!--                                                            <i class="ace-icon fa fa-undo"></i>-->
+                                            <!--                                                        </a>-->
+                                            <!--                                                        <a href="javascript:void(0);"-->
+                                            <!--                                                           id="rotate-r-8893c5a2-c11f-43e7-ba19-516eee51942d"-->
+                                            <!--                                                           class="rotate">-->
+                                            <!--                                                            <i class="ace-icon fa fa-repeat"></i>-->
+                                            <!--                                                        </a>-->
+                                            <!--                                                        <label for="uploadBtn" style="cursor: pointer">-->
+                                            <!--                                                            <i class="ace-icon fa fa-cloud-upload white"></i>-->
+                                            <!--                                                        </label>-->
+                                            <!--                                                    </div>-->
+                                            <!--                                                </li>-->
+                                            <!--                                            </ul>-->
                                         </span>
 
                                         <!-- 直接读取静态文件-->
@@ -956,9 +961,130 @@
 
 <script type="text/javascript">
     jQuery(function () {
-        initColorbox();
+        loadingImage();
+        //   initColorbox();
     });
 
+    let paging = 0;
+    const id = '07372ba5-199d-4960-99e0-a64d5e563dea';
+
+    //加载图片
+    function loadingImage() {
+        const loadingDialog = dialog({
+            title: 'Loading ...',
+            content: $("#loading_img").html(),
+            cancel: false,
+        });
+        loadingDialog.showModal();
+
+        $.ajax({
+            type: "get", // 以get方式发起请求
+            url: "/ace/users/icon/get/" + id,
+            dataType: "json",
+            // 将你的请求参数以问号拼接到url中进行参数传递
+            success(data) {
+                let html = "";
+                for (let i = 0; i < data.length; i++) {
+                    const fileName = data[i].fileName;
+                    const ext = data[i].ext;
+                    let toolsClass = "tools tools-bottom";
+                    let side = 250;
+                    if (isMobile()) {
+                        toolsClass = "tools tools-bottom in";
+                        side = 100;
+                    }
+
+                    html = html + `<li id="li-${fileName}" class="lazy">
+                                        <a href="/ace/users/avatar/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
+                                            <img width="${side}" height="${side}" alt="150x150" src="/ace/users/avatar/get/${fileName}" id="img-${fileName}">
+                                        </a>
+                                        <div class="${toolsClass}">
+                                            <a href="javascript:void(0);" id="rotate-l-${fileName}" class="rotate">
+                                                <i class="ace-icon fa fa-undo"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" id="rotate-r-${fileName}" class="rotate">
+                                                <i class="ace-icon fa fa-repeat"></i>
+                                            </a>
+                                            <a href="image/download/${fileName}" id="download-${fileName}" class="imageDownload">
+                                                <i class="ace-icon fa fa-download green"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" id="delete-${fileName}" class="imageDelete">
+                                                <i class="ace-icon fa fa-times red"></i>
+                                            </a>
+                                        </div>
+                                    </li>`;
+                }
+                $("#imageDiv").html(html);
+                initColorbox();
+                loadingDialog.close().remove();
+                // data为返回值
+                // 成功后的回调方法
+            },
+            error(data) {
+                window.location.href = '/ace/500.html';
+            }
+        })
+    }
+
+
+    let $body = $('body'); //用于选取 HTML 文档中的 <body> 元素
+    $body.on('click', '.rotate', function () {
+        const idl = $(this).attr('id').split("rotate-l-")[1];
+        const idr = $(this).attr('id').split("rotate-r-")[1];
+
+        let imgId;
+        let rotateURL;
+        if (typeof (idl) == "undefined") {
+            rotateURL = "image/rotate/right/" + idr;
+            imgId = idr;
+        } else {
+            rotateURL = "image/rotate/left/" + idl;
+            imgId = idl;
+        }
+
+        $.ajax({
+            type: "get", // 以get方式发起请求
+            url: rotateURL,
+            dataType: "json",
+            // 将你的请求参数以问号拼接到url中进行参数传递
+            success(data) {
+                const fileName = data.fileName;
+                const ext = data.ext;
+                let toolsClass = "tools tools-bottom";
+                let side = 250;
+                if (isMobile()) {
+                    toolsClass = "tools tools-bottom in";
+                    side = 100;
+                }
+
+                let html = "";
+                html = html + `<li id="li-${fileName}" class="lazy">
+                                    <a href="/ace/users/avatar/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
+                                        <img width="${side}" height="${side}" alt="150x150"  src="/ace/users/avatar/get/${fileName}" id="img-${fileName}">
+                                    </a>
+                                    <div class="${toolsClass}">
+                                        <a href="javascript:void(0);" id="rotate-l-${fileName}" class="rotate">
+                                            <i class="ace-icon fa fa-undo"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" id="rotate-r-${fileName}" class="rotate">
+                                            <i class="ace-icon fa fa-repeat"></i>
+                                        </a>
+                                        <a href="image/download/${fileName}" id="download-${fileName}" class="imageDownload">
+                                            <i class="ace-icon fa fa-download green"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" id="delete-${fileName}" class="imageDelete">
+                                            <i class="ace-icon fa fa-times red"></i>
+                                        </a>
+                                    </div>
+                                </li>`;
+                $("#li-" + imgId + "").replaceWith(html);
+                initColorbox();
+            },
+            error(data) {
+                window.location.href = '500.html';
+            },
+        })
+    });
 
 </script>
 

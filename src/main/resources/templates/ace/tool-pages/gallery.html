@@ -335,7 +335,7 @@
                 // 成功后的回调方法
             },
             error(data) {
-                window.location.href = '500.html';
+                window.location.href = '/ace/500.html';
             }
         })
     }
@@ -410,13 +410,13 @@
         })
     }
 
-    let $body = $('body');
 
     /* $(document).on('click', '.imageDelete', function(){
          alert(this.id)
          // 事件处理函数
      });*/
 
+    let $body = $('body'); //用于选取 HTML 文档中的 <body> 元素
     $body.on('click', '.rotate', function () {
         const idl = $(this).attr('id').split("rotate-l-")[1];
         const idr = $(this).attr('id').split("rotate-r-")[1];
@@ -473,7 +473,6 @@
                 window.location.href = '500.html';
             },
         })
-
     });
 
     $body.on('click', '.imageDelete', function () {
