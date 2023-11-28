@@ -1027,7 +1027,7 @@
         })
     }
 
-    $("#uploadBtn").on('click', function () {
+    $("#uploadBtn").on('change', function () {
         const files = $("#uploadBtn").prop("files")[0]; // 获取选择的文件
         const formData = new FormData(); // 创建FormData对象
         formData.append("files", files); // 将文件添加到FormData对象中
@@ -1039,6 +1039,8 @@
             contentType: false,
             success: function (response) {
                 alert("成功")
+               // 1.要compress原图,并删除原图
+               // 2.把上传的已压缩图ajax入 profile那里
                 // 上传成功后的处理代码
             },
             error: function (xhr, status, error) {
