@@ -1003,7 +1003,7 @@
 
         $.ajax({
             type: "get", // 以get方式发起请求
-            url: "/ace/users/avatars/get/" + userAccount,
+            url: "/ace/users/avatars/get/" + userAccount + '-avatar',
             dataType: "json",
             // 将你的请求参数以问号拼接到url中进行参数传递
             success(data) {
@@ -1023,8 +1023,7 @@
                         side = 100;
                     }
 
-                    if (fileName.indexOf('avatar') !== -1) {
-                        html = html + `<li id="li-${fileName}" class="lazy">
+                    html = html + `<li id="li-${fileName}" class="lazy">
                                         <a href="/ace/users/avatar/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
                                             <img width="${side}" height="${side}" alt="150x150" src="/ace/users/avatar/get/${fileName}" id="img-${fileName}">
                                         </a>
@@ -1041,7 +1040,6 @@
                                             </label>
                                         </div>
                                     </li>`;
-                    }
                 }
                 $("#imageDiv").html(html);
                 initColorbox();
@@ -1067,6 +1065,7 @@
             contentType: false,
             success: function (data) {
                 let html = "";
+                let iconHtml = "";
                 for (let i = 0; i < data.length; i++) {
                     const fileName = data[i].fileName;
                     const ext = data[i].ext;
@@ -1076,28 +1075,31 @@
                         toolsClass = "tools tools-bottom in";
                         side = 100;
                     }
-                    if (fileName.indexOf('avatar') !== -1) {
+                    if (fileName.indexOf('-avatar') !== -1) {
                         html = html + `<li id="li-${fileName}" class="lazy">
-                                        <a href="/ace/users/avatar/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
-                                            <img width="${side}" height="${side}" alt="150x150" src="/ace/users/avatar/get/${fileName}" id="img-${fileName}">
-                                        </a>
-                                        <div class="${toolsClass}">
-                                            <a href="javascript:void(0);" id="rotate-l-${fileName}" class="rotate">
-                                                <i class="ace-icon fa fa-undo"></i>
+                                            <a href="/ace/users/avatar/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
+                                                <img width="${side}" height="${side}" alt="150x150" src="/ace/users/avatar/get/${fileName}" id="img-${fileName}">
                                             </a>
-                                            <a href="javascript:void(0);" id="rotate-r-${fileName}" class="rotate">
-                                                <i class="ace-icon fa fa-repeat"></i>
-                                            </a>
-                                            <label for="uploadBtn"
-                                                   style="cursor: pointer">
-                                                <i class="ace-icon fa fa-cloud-upload white"></i>
-                                            </label>
-                                        </div>
-                                    </li>`;
+                                            <div class="${toolsClass}">
+                                                <a href="javascript:void(0);" id="rotate-l-${fileName}" class="rotate">
+                                                    <i class="ace-icon fa fa-undo"></i>
+                                                </a>
+                                                <a href="javascript:void(0);" id="rotate-r-${fileName}" class="rotate">
+                                                    <i class="ace-icon fa fa-repeat"></i>
+                                                </a>
+                                                <label for="uploadBtn"
+                                                       style="cursor: pointer">
+                                                    <i class="ace-icon fa fa-cloud-upload white"></i>
+                                                </label>
+                                            </div>
+                                        </li>`;
                     }
-                    ;
+                    if (fileName.indexOf('-icon') !== -1) {
+                        iconHtml =iconHtml +`<img class="nav-user-photo" src="/ace/users/avatar/get/${fileName}" alt="150x150"/>`;
+                    }
                 }
                 //$("#imageDiv").html('');
+                $("#navIcon").html(iconHtml);
                 $("#imageDiv").html(html);
                 initColorbox();
                 // 1.要compress原图,并删除原图
