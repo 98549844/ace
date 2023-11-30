@@ -7,6 +7,7 @@ import com.ace.models.entity.Users;
 import com.ace.service.FilesService;
 import com.ace.service.ImagesService;
 import com.util.FileUtil;
+import com.util.UUID;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -197,7 +198,7 @@ public class ImagesController extends CommonController {
     @ResponseBody
     public Files rotate(@PathVariable String direction, @PathVariable String uuid) throws Exception {
         log.info("access image/rotate => rotate {} {}", direction, uuid);
-        Files f = imagesService.rotateThumbnail(direction, imagesThumbnail, uuid);
+        Files f = imagesService.rotateDesc(direction, imagesThumbnail, uuid, UUID.get());
         return f;
     }
 

@@ -1096,7 +1096,7 @@
                     }
                     if (fileName.indexOf('-icon') !== -1) {
                         const username = [[${currentUser.username}]];
-                        iconHtml =iconHtml +`<img class="nav-user-photo" src="/ace/users/avatar/get/${fileName}" alt="150x150"/>
+                        iconHtml = iconHtml + `<img class="nav-user-photo" src="/ace/users/avatar/get/${fileName}" alt="150x150"/>
                                              <span class="user-info">
                                                 <small>Welcome,</small>
                                                 ${username}
@@ -1139,17 +1139,20 @@
             dataType: "json",
             // 将你的请求参数以问号拼接到url中进行参数传递
             success(data) {
-                const fileName = data.fileName;
-                const ext = data.ext;
-                let toolsClass = "tools tools-bottom";
-                let side = 250;
-                if (isMobile()) {
-                    toolsClass = "tools tools-bottom in";
-                    side = 100;
-                }
-
                 let html = "";
-                html = html + `<li id="li-${fileName}" class="lazy">
+                let iconHtml = "";
+                for (let i = 0; i < data.length; i++) {
+                    const fileName = data[i].fileName;
+                    const ext = data[i].ext;
+                    let toolsClass = "tools tools-bottom";
+                    let side = 250;
+                    if (isMobile()) {
+                        toolsClass = "tools tools-bottom in";
+                        side = 100;
+                    }
+
+                    if (fileName.indexOf('-avatar') !== -1) {
+                        html = html + `<li id="li-${fileName}" class="lazy">
                                     <a href="/ace/users/avatar/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
                                         <img width="${side}" height="${side}" alt="150x150" src="/ace/users/avatar/get/${fileName}" id="img-${fileName}">
                                     </a>
@@ -1166,6 +1169,18 @@
                                         </label>
                                     </div>
                                  </li>`;
+                    }
+                    if (fileName.indexOf('-icon') !== -1) {
+                        const username = [[${currentUser.username}]];
+                        iconHtml = iconHtml + `<img class="nav-user-photo" src="/ace/users/avatar/get/${fileName}" alt="150x150"/>
+                                             <span class="user-info">
+                                                <small>Welcome,</small>
+                                                ${username}
+                                            </span>
+                                            <i class="ace-icon fa fa-caret-down"></i>`;
+                    }
+                }
+                $("#navIcon").html(iconHtml);
                 $("#li-" + imgId + "").replaceWith(html);
                 initColorbox();
             },

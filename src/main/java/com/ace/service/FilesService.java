@@ -71,6 +71,7 @@ public class FilesService {
      */
     public Files save(Files file) {
         if (NullUtil.isNonNull(file.getId())) {
+            //更新location
             file.setLocation(file.getPath() + file.getFileName() + file.getExt());
         } else {
             Users users = (Users) StpUtil.getSession().get("user");

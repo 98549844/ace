@@ -8,6 +8,7 @@ import com.ace.models.entity.Files;
 import com.ace.models.entity.Roles;
 import com.ace.models.entity.Users;
 import com.ace.service.*;
+import com.util.FileUtil;
 import com.util.NullUtil;
 import com.util.SqlUtil;
 import com.util.UUID;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -194,13 +196,27 @@ public class UserController extends CommonController {
      */
     @RequestMapping(value = "/avatar/rotate/{direction}/{uuid}", method = RequestMethod.GET)
     @ResponseBody
-    public Files rotateAvatar(@PathVariable String direction, @PathVariable String uuid) throws Exception {
+    public List<Files> rotateAvatar(@PathVariable String direction, @PathVariable String uuid) throws Exception {
         log.info("access image/rotate => rotate {} {}", direction, uuid);
-        String newAvatarUuid = getCurrentUser().getUserAccount()+"-avatar-"+UUID.get();
-        String newIconUuid = getCurrentUser().getUserAccount()+"-icon-"+UUID.get();
-      //  Files fAvatar = imagesService.rotate(direction,  uuid, newAvatarUuid);
-      //  Files fIcon = imagesService.rotate(direction,  uuid);
-        return new Files();
+        String newUuid = UUID.get();
+        Users users = getCurrentUser();
+        String newFileName = users.getUserAccount() + "-" + newUuid;
+        String newAvatarUuid = users.getUserAccount() + "-avatar-" + newUuid;
+        String newIconUuid = users.getUserAccount() + "-icon-" + newUuid;
+
+        String[] fUuid = uuid.split("-");
+        Files f = filesService.findFilesByFileName(users.getUserAccount() + "-" + fUuid[2]);
+        f.setFileName(newFileName);
+        FileUtil.rename(f.getLocation(), f.getPath() + newFileName + f.getExt());
+
+        filesService.save(f);
+        Files fAvatar = imagesService.rotate(direction, uuid, newAvatarUuid);
+
+        Files fIcon = imagesService.rotate(direction, users.getUserAccount() + "-icon-" + fUuid[2], newIconUuid);
+        List<Files> fs = new ArrayList<>();
+        fs.add(fAvatar);
+        fs.add(fIcon);
+        return fs;
     }
 
 

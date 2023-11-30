@@ -144,19 +144,19 @@ public class ImagesService extends CommonController {
     /**
      * 缩略图转圏
      */
-    public Files rotateThumbnail(String direction, String location, String uuid) throws Exception {
+    public Files rotateDesc(String direction, String descPath, String uuid, String newUuid) throws Exception {
         int rotate;
         if ("left".equals(direction)) {
             rotate = -90;
         } else {
             rotate = 90;
         }
-        String newUuid = UUID.get();
+        //  String newUuid = UUID.get();
         Files f = filesService.findFilesByFileName(uuid);
         rename(f.getLocation(), imagePath + newUuid + f.getExt());
 
-        String image = location + f.getFileName() + f.getExt();
-        String newImage = location + newUuid + f.getExt();
+        String image = descPath + f.getFileName() + f.getExt();
+        String newImage = descPath + newUuid + f.getExt();
 
         f.setFileName(newUuid);
         f.setRemark("Ace Application UUID: " + newUuid);
@@ -165,6 +165,29 @@ public class ImagesService extends CommonController {
         filesService.delFile(image);
         return filesService.saveAndFlush(f);
 
+    }
+
+    /**
+     * 原图自转圏
+     */
+    public Files rotate(String direction, String uuid, String newUuid) throws Exception {
+        int rotate;
+        if ("left".equals(direction)) {
+            rotate = -90;
+        } else {
+            rotate = 90;
+        }
+        Files f = filesService.findFilesByFileName(uuid);
+        String image = f.getPath() + f.getFileName() + f.getExt();
+        String newImage = f.getPath() + newUuid + f.getExt();
+        ImageUtil.rotation(f.getLocation(), newImage, rotate);
+
+        f.setFileName(newUuid);
+        f.setRemark("Ace Application UUID: " + newUuid);
+        ImageUtil.rotation(image, newImage, rotate);
+
+        filesService.delFile(image);
+        return filesService.saveAndFlush(f);
     }
 
     public void compressImage(Files f) {
