@@ -116,7 +116,7 @@ public class ImagesService extends CommonController {
     }
 
     public List<Files> getFilesByFileNameLike(String fileName) {
-        return filesService.findFilesByFileNameLike(SqlUtil.likeRight(fileName));
+        return filesService.findFilesByFileNameLike(fileName);
     }
 
 

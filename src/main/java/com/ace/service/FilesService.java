@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -229,11 +230,11 @@ public class FilesService {
             String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
             // 新文件名，避免文件名重复，造成文件替换问题
             if (NullUtil.isNull(uuid)) {
-                log.warn("uuid provide empty, generate by UUID.randomUUID()!!!");
                 uuid = UUID.get();
+                log.info("Ace Application UUID: {}", uuid);
                 f.setRemark("ACE Application UUID: " + uuid);
             } else {
-                f.setRemark("DropZone UUID: " + uuid);
+                f.setRemark("UUID: " + uuid);
             }
 
             String fileName = uuid;
@@ -257,7 +258,7 @@ public class FilesService {
             f.setLocation(path + fileName + suffix);
             f.setPath(path);
             f.setSize((multipartFile.getSize()));
-           // f.setStatus(Files.UPLOADED);
+            // f.setStatus(Files.UPLOADED);
             if (FileUtil.isImage(f.getLocation())) {
                 f.setType(Files.IMAGE);
             } else if (FileUtil.isVideo(f.getLocation())) {
@@ -306,11 +307,11 @@ public class FilesService {
     }
 
     public boolean delFile(String location) {
-        if (!FileUtil.delete(location)) {
-            log.error("delete file fail => {}", location);
-            return false;
+        if (FileUtil.delete(location)) {
+            return true;
         }
-        return true;
+        log.error("delete file fail => {}", location);
+        return false;
     }
 
     public boolean deleteDirectories(String directory) {

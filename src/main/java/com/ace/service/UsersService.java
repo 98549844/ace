@@ -64,8 +64,8 @@ public class UsersService {
             String[] fileName = f.getFileName().split("-");
             String avatar = fileName[0] + "-avatar-" + fileName[1];
             String icon = fileName[0] + "-icon-" + fileName[1];
-            ImageUtil.compressPicForScale(f.getLocation(), f.getPath() + avatar + f.getExt(), 80, 0.6, 200, 200);
-            ImageUtil.compressPicForScale(f.getLocation(), f.getPath() + icon + f.getExt(), 10, 0.6, 40, 40);
+            ImageUtil.compressPicForScale(f.getLocation(), f.getPath() + avatar + f.getExt(), 80, 2, 400, 400);
+            ImageUtil.compressPicForScale(f.getLocation(), f.getPath() + icon + f.getExt(), 10, 2, 60, 60);
 
             f.setStatus(Files.COMPRESSED);
 

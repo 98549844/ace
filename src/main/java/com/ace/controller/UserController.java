@@ -9,6 +9,8 @@ import com.ace.models.entity.Roles;
 import com.ace.models.entity.Users;
 import com.ace.service.*;
 import com.util.NullUtil;
+import com.util.SqlUtil;
+import com.util.UUID;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
@@ -20,8 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -156,11 +156,9 @@ public class UserController extends CommonController {
     @ResponseBody
     public List getAvatar(@PathVariable(value = "userId") String userId) throws IOException {
         log.info("access avatars/get/{}", userId);
-        List ls = imagesService.getFilesByFileNameLike(userId);
-        需要处理当新用户没有头像, 要设个default值
+        List ls = imagesService.getFilesByFileNameLike(SqlUtil.likeRight(userId));
         return ls;
     }
-
 
 
     /**
@@ -168,12 +166,22 @@ public class UserController extends CommonController {
      */
     @RequestMapping(value = "/avatar/uploads.html", method = RequestMethod.POST)
     @ResponseBody
-    public List<String> uploadAvatar(@RequestParam(value = "files") MultipartFile[] files, MultipartHttpServletRequest request) {
-        String uuid = request.getParameter("uuid");
-        log.info("access avatar/uploads.html => uuid: {}", uuid);
-        List<String> list = filesService.uploads(files, uuid, usersPath);
-        usersService.compressAvatar(filesService.findFilesByFileName(uuid));
-        return list;
+    public List uploadAvatar(@RequestParam(value = "files") MultipartFile[] files, MultipartHttpServletRequest request) {
+        log.info("access avatar/uploads.html");
+        Users users = getCurrentUser();
+        //删除旧头像
+        List<Files> deleteAvatars = imagesService.getFilesByFileNameLike(SqlUtil.likeRight(users.getUserAccount()));
+        for (Files f : deleteAvatars) {
+            filesService.delFile(f.getLocation());
+        }
+        filesService.deleteAll(deleteAvatars);
+
+        //上传新头头像
+        String uuid = users.getUserAccount() + "-" + UUID.get();
+        filesService.uploads(files, uuid, usersPath);//上传图片,并更新数据
+        usersService.compressAvatar(filesService.findFilesByFileName(uuid)); //同时压缩生成avatar和icon,并更新数据
+        List<Files> fs = imagesService.getFilesByFileNameLike(SqlUtil.likeRight(getCurrentUser().getUserAccount()));
+        return fs;
     }
 
     @RequestMapping(value = "/avatar/rotate/{direction}/{uuid}", method = RequestMethod.GET)

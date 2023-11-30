@@ -89,7 +89,25 @@
                                         <input type="file" id="uploadBtn" value="upload" style="display: none;">
                                         <span class="profile-picture">
                                             <ul class="ace-thumbnails clearfix" id="imageDiv">
-
+                                                <li id="li-${fileName}" class="lazy">
+                                                    <img width="200" height="200" alt="150x150"
+                                                         th:src="@{/assets/images/avatars/user.jpg}"
+                                                         id="img-avatar">
+                                                    <div class="tools tools-bottom">
+                                                        <a href="javascript:void(0);" id="rotate-l-avatar"
+                                                           class="rotate">
+                                                            <i class="ace-icon fa fa-undo"></i>
+                                                        </a>
+                                                        <a href="javascript:void(0);" id="rotate-r-avatar"
+                                                           class="rotate">
+                                                            <i class="ace-icon fa fa-repeat"></i>
+                                                        </a>
+                                                        <label for="uploadBtn"
+                                                               style="cursor: pointer">
+                                                            <i class="ace-icon fa fa-cloud-upload white"></i>
+                                                        </label>
+                                                    </div>
+                                                </li>
 
                                             </ul>
                                             <!-- <ul class="ace-thumbnails clearfix" id="imageDiv">
@@ -989,6 +1007,11 @@
             dataType: "json",
             // 将你的请求参数以问号拼接到url中进行参数传递
             success(data) {
+                if (data.length === 0) {
+                    initColorbox();
+                    loadingDialog.close().remove();
+                    return;
+                }
                 let html = "";
                 for (let i = 0; i < data.length; i++) {
                     const fileName = data[i].fileName;
@@ -1035,9 +1058,7 @@
     $("#uploadBtn").on('change', function () {
         const files = $("#uploadBtn").prop("files")[0]; // 获取选择的文件
         const formData = new FormData(); // 创建FormData对象
-        const prefixUuid = [[${currentUser.userAccount}]] + '-';
         formData.append("files", files); // 将文件添加到FormData对象中
-        formData.append("uuid", prefixUuid + getUuid(prefixUuid));
         $.ajax({
             url: "/ace/users/avatar/uploads.html", // 上传文件的后端处理文件
             type: "POST",
@@ -1055,8 +1076,8 @@
                         toolsClass = "tools tools-bottom in";
                         side = 100;
                     }
-
-                    html = html + `<li id="li-${fileName}" class="lazy">
+                    if (fileName.indexOf('avatar') !== -1) {
+                        html = html + `<li id="li-${fileName}" class="lazy">
                                         <a href="/ace/users/avatar/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
                                             <img width="${side}" height="${side}" alt="150x150" src="/ace/users/avatar/get/${fileName}" id="img-${fileName}">
                                         </a>
@@ -1073,10 +1094,12 @@
                                             </label>
                                         </div>
                                     </li>`;
+                    }
+                    ;
                 }
                 //$("#imageDiv").html('');
                 $("#imageDiv").html(html);
-                alert("成功")
+                initColorbox();
                 // 1.要compress原图,并删除原图
                 // 2.把上传的已压缩图ajax入 profile那里
                 // 上传成功后的处理代码
