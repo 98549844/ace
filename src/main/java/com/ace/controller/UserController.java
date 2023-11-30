@@ -153,7 +153,6 @@ public class UserController extends CommonController {
         imagesService.get(usersPath, fileName, response);
     }
 
-
     @RequestMapping(value = "/avatars/get/{userId}", method = RequestMethod.GET)
     @ResponseBody
     public List getAvatar(@PathVariable(value = "userId") String userId) throws IOException {
@@ -161,7 +160,6 @@ public class UserController extends CommonController {
         List ls = imagesService.getFilesByFileNameLike(SqlUtil.likeRight(userId));
         return ls;
     }
-
 
     /**
      * 图片上传
