@@ -971,7 +971,8 @@
     });
 
     let paging = 0;
-    const id = '41e16381-aa08-4397-bac0-44364d48355d';
+    const userAccount = [[${currentUser.userAccount}]];
+    // const userAccount = '41e16381-aa08-4397-bac0-44364d48355d';
 
     //加载图片
     function loadImages() {
@@ -984,10 +985,66 @@
 
         $.ajax({
             type: "get", // 以get方式发起请求
-            url: "/ace/users/icon/get/" + id,
+            url: "/ace/users/avatars/get/" + userAccount,
             dataType: "json",
             // 将你的请求参数以问号拼接到url中进行参数传递
             success(data) {
+                let html = "";
+                for (let i = 0; i < data.length; i++) {
+                    const fileName = data[i].fileName;
+                    const ext = data[i].ext;
+                    let toolsClass = "tools tools-bottom";
+                    let side = 250;
+                    if (isMobile()) {
+                        toolsClass = "tools tools-bottom in";
+                        side = 100;
+                    }
+
+                    if (fileName.indexOf('avatar') !== -1) {
+                        html = html + `<li id="li-${fileName}" class="lazy">
+                                        <a href="/ace/users/avatar/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
+                                            <img width="${side}" height="${side}" alt="150x150" src="/ace/users/avatar/get/${fileName}" id="img-${fileName}">
+                                        </a>
+                                        <div class="${toolsClass}">
+                                            <a href="javascript:void(0);" id="rotate-l-${fileName}" class="rotate">
+                                                <i class="ace-icon fa fa-undo"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" id="rotate-r-${fileName}" class="rotate">
+                                                <i class="ace-icon fa fa-repeat"></i>
+                                            </a>
+                                            <label for="uploadBtn"
+                                                   style="cursor: pointer">
+                                                <i class="ace-icon fa fa-cloud-upload white"></i>
+                                            </label>
+                                        </div>
+                                    </li>`;
+                    }
+                }
+                $("#imageDiv").html(html);
+                initColorbox();
+                loadingDialog.close().remove();
+                // data为返回值
+                // 成功后的回调方法
+            },
+            error(data) {
+                window.location.href = '/ace/500.html';
+            }
+        })
+    }
+
+    $("#uploadBtn").on('change', function () {
+        const files = $("#uploadBtn").prop("files")[0]; // 获取选择的文件
+        const formData = new FormData(); // 创建FormData对象
+        const prefixUuid = [[${currentUser.userAccount}]] + '-';
+        formData.append("files", files); // 将文件添加到FormData对象中
+        formData.append("uuid", prefixUuid + getUuid(prefixUuid));
+        $.ajax({
+            url: "/ace/users/avatar/uploads.html", // 上传文件的后端处理文件
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
                 let html = "";
                 for (let i = 0; i < data.length; i++) {
                     const fileName = data[i].fileName;
@@ -1017,31 +1074,8 @@
                                         </div>
                                     </li>`;
                 }
+                //$("#imageDiv").html('');
                 $("#imageDiv").html(html);
-                initColorbox();
-                loadingDialog.close().remove();
-                // data为返回值
-                // 成功后的回调方法
-            },
-            error(data) {
-                window.location.href = '/ace/500.html';
-            }
-        })
-    }
-
-    $("#uploadBtn").on('change', function () {
-        const files = $("#uploadBtn").prop("files")[0]; // 获取选择的文件
-        const formData = new FormData(); // 创建FormData对象
-        const prefixUuid = [[${currentUser.email}]] + '-';
-        formData.append("files", files); // 将文件添加到FormData对象中
-        formData.append("uuid", prefixUuid + getUuid(prefixUuid));
-        $.ajax({
-            url: "/ace/image/uploads.html", // 上传文件的后端处理文件
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
                 alert("成功")
                 // 1.要compress原图,并删除原图
                 // 2.把上传的已压缩图ajax入 profile那里

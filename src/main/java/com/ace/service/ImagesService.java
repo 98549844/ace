@@ -87,20 +87,21 @@ public class ImagesService extends CommonController {
             filesLs = filesService.findFilesByStatusAndOwnerOrderByCreatedDateDesc(Files.COMPRESSED, users.getUserId().toString(), paging);
         }
         List<Files> result = new ArrayList<>();
-        for (Files l : filesLs) {
-            File original = new File(l.getLocation());
-            File thumbnail = new File(imagesThumbnail + l.getFileName() + l.getExt());
-            if (original.exists()) {
-                result.add(l);
+        for (Files f : filesLs) {
+            File original = new File(f.getLocation());
+            File thumbnail = new File(imagesThumbnail + f.getFileName() + f.getExt());
+            if (original.exists() && !f.getFileName().contains(users.getUserAccount())) {
+                //文件名包含userAccount,定义为头像
+                result.add(f);
                 if (!thumbnail.exists()) {
-                    compressImage(l);
+                    compressImage(f);
                 }
             } else if (!original.exists() && thumbnail.exists()) {
                 //删除缩略图, 当原图不存在
                 if (thumbnail.delete()) {
                     //更新数据
-                    l.setStatus(Files.LOST);
-                    filesService.save(l);
+                    f.setStatus(Files.LOST);
+                    filesService.save(f);
                 }
             }
         }
@@ -112,6 +113,10 @@ public class ImagesService extends CommonController {
         Files f = filesService.findFilesByFileName(fileName);
         result.add(f);
         return result;
+    }
+
+    public List<Files> getFilesByFileNameLike(String fileName) {
+        return filesService.findFilesByFileNameLike(SqlUtil.likeRight(fileName));
     }
 
 

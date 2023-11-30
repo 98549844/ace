@@ -52,6 +52,7 @@ public class FilesService {
     public List<Files> saveAll(List<Files> files) {
         for (Files file : files) {
             if (NullUtil.isNonNull(file.getId())) {
+                //file id not null , update location
                 file.setLocation(file.getPath() + file.getFileName() + file.getExt());
             } else {
                 Users users = (Users) StpUtil.getSession().get("user");
@@ -318,6 +319,10 @@ public class FilesService {
 
     public Files findFilesByFileName(String fileName) {
         return filesDao.findFilesByFileName(fileName);
+    }
+
+    public List<Files> findFilesByFileNameLike(String fileName) {
+        return filesDao.findFilesByFileNameLike(fileName);
     }
 
     public List<Files> findFilesInFileName(List<String> fileNames) {

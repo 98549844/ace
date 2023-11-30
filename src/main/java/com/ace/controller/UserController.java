@@ -137,12 +137,7 @@ public class UserController extends CommonController {
         StpUtil.checkPermissionOr("user-update", "user-delete");
     }
 
-    /**
-     * 缩略图显示请求
-     * 响应输出图片文件
-     *
-     * @param userId
-     */
+
     /**
      * 缩略图显示请求
      * 响应输出图片文件
@@ -156,21 +151,17 @@ public class UserController extends CommonController {
         imagesService.get(usersPath, fileName, response);
     }
 
-    @RequestMapping(value = "/icon/get/{userId}", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/avatars/get/{userId}", method = RequestMethod.GET)
     @ResponseBody
     public List getAvatar(@PathVariable(value = "userId") String userId) throws IOException {
-        log.info("access icon/get/{}", userId);
-        List ls = imagesService.getImagesByFileName(userId);
+        log.info("access avatars/get/{}", userId);
+        List ls = imagesService.getFilesByFileNameLike(userId);
+        需要处理当新用户没有头像, 要设个default值
         return ls;
     }
 
-    @RequestMapping(value = "/avatar/rotate/{direction}/{uuid}", method = RequestMethod.GET)
-    @ResponseBody
-    public Files rotate(@PathVariable String direction, @PathVariable String uuid) throws Exception {
-        log.info("access image/rotate => rotate {} {}", direction, uuid);
-        Files f = imagesService.rotate(direction, usersPath, uuid);
-        return f;
-    }
+
 
     /**
      * 图片上传
@@ -183,5 +174,13 @@ public class UserController extends CommonController {
         List<String> list = filesService.uploads(files, uuid, usersPath);
         usersService.compressAvatar(filesService.findFilesByFileName(uuid));
         return list;
+    }
+
+    @RequestMapping(value = "/avatar/rotate/{direction}/{uuid}", method = RequestMethod.GET)
+    @ResponseBody
+    public Files rotate(@PathVariable String direction, @PathVariable String uuid) throws Exception {
+        log.info("access image/rotate => rotate {} {}", direction, uuid);
+        Files f = imagesService.rotate(direction, usersPath, uuid);
+        return f;
     }
 }

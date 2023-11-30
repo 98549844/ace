@@ -59,16 +59,46 @@ public class UsersService {
         }
         try {
             ImageUtil imageUtil = new ImageUtil();
-            imageUtil.square(f.getLocation(), true);
+            imageUtil.square(f.getLocation(), false);
 
             String[] fileName = f.getFileName().split("-");
-            String avatar = f.getPath() + fileName[0] + "avatar" + fileName[1];
-            String icon = f.getPath() + fileName[0] + "icon" + fileName[1];
-            ImageUtil.compressPicForScale(f.getLocation(), avatar, 80, 0.8, 200, 200);
-            ImageUtil.compressPicForScale(f.getLocation(), icon, 10, 0.8, 40, 40);
+            String avatar = fileName[0] + "-avatar-" + fileName[1];
+            String icon = fileName[0] + "-icon-" + fileName[1];
+            ImageUtil.compressPicForScale(f.getLocation(), f.getPath() + avatar + f.getExt(), 80, 0.6, 200, 200);
+            ImageUtil.compressPicForScale(f.getLocation(), f.getPath() + icon + f.getExt(), 10, 0.6, 40, 40);
 
             f.setStatus(Files.COMPRESSED);
-            filesService.save(f);
+
+            Files fAvatar = new Files();
+            Files fIcon = new Files();
+
+
+            fAvatar.setRemark("ACE Application avatar: " + avatar);
+            fAvatar.setOriginationName(f.getOriginationName());
+            fAvatar.setExt(f.getExt());
+            fAvatar.setFileName(avatar);
+            fAvatar.setLocation(f.getPath() + avatar + f.getExt());
+            fAvatar.setPath(f.getPath());
+            fAvatar.setSize((FileUtil.getFileSize(f.getPath() + avatar + f.getExt())));
+            fAvatar.setType(Files.IMAGE);
+            fAvatar.setStatus("avatar");
+
+            fIcon.setRemark("ACE Application icon: " + icon);
+            fIcon.setOriginationName(f.getOriginationName());
+            fIcon.setExt(f.getExt());
+            fIcon.setFileName(icon);
+            fIcon.setLocation(f.getPath() + icon + f.getExt());
+            fIcon.setPath(f.getPath());
+            fIcon.setSize((FileUtil.getFileSize(f.getPath() + icon + f.getExt())));
+            fIcon.setType(Files.IMAGE);
+            fIcon.setStatus("icon");
+
+            List<Files> fs = new ArrayList<>();
+            fs.add(f);
+            fs.add(fAvatar);
+            fs.add(fIcon);
+
+            filesService.saveAll(fs);
         } catch (Exception e) {
             e.printStackTrace();
         }
