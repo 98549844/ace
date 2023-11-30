@@ -1,8 +1,30 @@
+// window.addEventListener('DOMContentLoaded', function () {
+//     // 这里写入需要在页面加载完成后执行的 JavaScript 代码
+// });
 //$(document).ready(function () {
 jQuery(function ($) {
     docReady();
     setTitle();
+   // getIcon();
 });
+
+function getIcon() {
+    alert("ccc");
+    let iconHtml = "";
+    const fileName ='garlam-icon-eb15156e8cd34808be55447fa84f4f49';
+    //拿不到值
+    const username = /*[[${currentUser.username}]]*/ '';
+   // const icon = /*[[${icon}]]*/ '';
+   // alert(username + "  " + icon);
+    iconHtml = iconHtml + `<img class="nav-user-photo" src="/ace/users/avatar/get/${fileName}" alt="150x150"/>
+                             <span class="user-info">
+                                <small>Welcome,</small>
+                                ${username}
+                            </span>
+                            <i class="ace-icon fa fa-caret-down"></i>`;
+
+    $("#navIcon").html(iconHtml);
+}
 
 function setTitle() {
     const pName = window.location.pathname;

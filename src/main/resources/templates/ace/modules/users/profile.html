@@ -1097,11 +1097,11 @@
                     if (fileName.indexOf('-icon') !== -1) {
                         const username = [[${currentUser.username}]];
                         iconHtml = iconHtml + `<img class="nav-user-photo" src="/ace/users/avatar/get/${fileName}" alt="150x150"/>
-                                             <span class="user-info">
-                                                <small>Welcome,</small>
-                                                ${username}
-                                            </span>
-                                            <i class="ace-icon fa fa-caret-down"></i>`;
+                                                 <span class="user-info">
+                                                    <small>Welcome,</small>
+                                                    ${username}
+                                                </span>
+                                                <i class="ace-icon fa fa-caret-down"></i>`;
                     }
                 }
                 $("#navIcon").html(iconHtml);
