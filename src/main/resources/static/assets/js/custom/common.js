@@ -35,20 +35,6 @@ function docReady() {
         return true;
     });
 
-    //链接点击绑定弹出加载框
-    //$(aHref).off();
-    //$(aHref).on("click", function () {
-    //const link = $(this).attr("href");
-    //$.cookie('currentURL', link);
-
-    //左菜单 loading bar
-    /*  if ($(this).attr("target") !== "_blank") {
-        setTimeout(() => {
-        }, 1000);
-        showLoading();
-    }*/
-    //});
-
     // const currentURL = window.location.href; // fullUrl
     const currentURL = window.location.pathname; // /ace/index.html
     $.each($(aHref), function () {
