@@ -141,7 +141,10 @@ public class ImagesService extends CommonController {
         ImageIO.write(ImageIO.read(new File(location + name)), ext, response.getOutputStream());
     }
 
-    public Files rotate(String direction, String location, String uuid) throws Exception {
+    /**
+     * 缩略图转圏
+     */
+    public Files rotateThumbnail(String direction, String location, String uuid) throws Exception {
         int rotate;
         if ("left".equals(direction)) {
             rotate = -90;

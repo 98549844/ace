@@ -184,11 +184,24 @@ public class UserController extends CommonController {
         return fs;
     }
 
+    /**
+     * 头像旋转
+     *
+     * @param direction
+     * @param uuid
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/avatar/rotate/{direction}/{uuid}", method = RequestMethod.GET)
     @ResponseBody
-    public Files rotate(@PathVariable String direction, @PathVariable String uuid) throws Exception {
+    public Files rotateAvatar(@PathVariable String direction, @PathVariable String uuid) throws Exception {
         log.info("access image/rotate => rotate {} {}", direction, uuid);
-        Files f = imagesService.rotate(direction, usersPath, uuid);
-        return f;
+        String newAvatarUuid = getCurrentUser().getUserAccount()+"-avatar-"+UUID.get();
+        String newIconUuid = getCurrentUser().getUserAccount()+"-icon-"+UUID.get();
+      //  Files fAvatar = imagesService.rotate(direction,  uuid, newAvatarUuid);
+      //  Files fIcon = imagesService.rotate(direction,  uuid);
+        return new Files();
     }
+
+
 }

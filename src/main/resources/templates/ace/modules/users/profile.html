@@ -1095,10 +1095,15 @@
                                         </li>`;
                     }
                     if (fileName.indexOf('-icon') !== -1) {
-                        iconHtml =iconHtml +`<img class="nav-user-photo" src="/ace/users/avatar/get/${fileName}" alt="150x150"/>`;
+                        const username = [[${currentUser.username}]];
+                        iconHtml =iconHtml +`<img class="nav-user-photo" src="/ace/users/avatar/get/${fileName}" alt="150x150"/>
+                                             <span class="user-info">
+                                                <small>Welcome,</small>
+                                                ${username}
+                                            </span>
+                                            <i class="ace-icon fa fa-caret-down"></i>`;
                     }
                 }
-                //$("#imageDiv").html('');
                 $("#navIcon").html(iconHtml);
                 $("#imageDiv").html(html);
                 initColorbox();
@@ -1121,10 +1126,10 @@
         let imgId;
         let rotateURL;
         if (typeof (idl) == "undefined") {
-            rotateURL = "image/rotate/right/" + idr;
+            rotateURL = "/ace/users/avatar/rotate/right/" + idr;
             imgId = idr;
         } else {
-            rotateURL = "image/rotate/left/" + idl;
+            rotateURL = "/ace/users/avatar/rotate/left/" + idl;
             imgId = idl;
         }
 
@@ -1146,7 +1151,7 @@
                 let html = "";
                 html = html + `<li id="li-${fileName}" class="lazy">
                                     <a href="/ace/users/avatar/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
-                                        <img width="${side}" height="${side}" alt="150x150"  src="/ace/users/avatar/get/${fileName}" id="img-${fileName}">
+                                        <img width="${side}" height="${side}" alt="150x150" src="/ace/users/avatar/get/${fileName}" id="img-${fileName}">
                                     </a>
                                     <div class="${toolsClass}">
                                         <a href="javascript:void(0);" id="rotate-l-${fileName}" class="rotate">
@@ -1155,15 +1160,12 @@
                                         <a href="javascript:void(0);" id="rotate-r-${fileName}" class="rotate">
                                             <i class="ace-icon fa fa-repeat"></i>
                                         </a>
-                                        <a href="image/download/${fileName}" id="download-${fileName}" class="imageDownload">
-                                            <i class="ace-icon fa fa-download green"></i>
-                                        </a>
                                         <label for="uploadBtn"
                                                style="cursor: pointer">
                                             <i class="ace-icon fa fa-cloud-upload white"></i>
                                         </label>
                                     </div>
-                                </li>`;
+                                 </li>`;
                 $("#li-" + imgId + "").replaceWith(html);
                 initColorbox();
             },

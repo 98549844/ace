@@ -193,11 +193,11 @@ public class ImagesController extends CommonController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/image/rotate/{direction}/{uuid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/thumbnail/rotate/{direction}/{uuid}", method = RequestMethod.GET)
     @ResponseBody
     public Files rotate(@PathVariable String direction, @PathVariable String uuid) throws Exception {
         log.info("access image/rotate => rotate {} {}", direction, uuid);
-        Files f = imagesService.rotate(direction, imagesThumbnail, uuid);
+        Files f = imagesService.rotateThumbnail(direction, imagesThumbnail, uuid);
         return f;
     }
 
