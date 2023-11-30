@@ -1,0 +1,11 @@
+th:inline="javascript"
+允许在 HTML 模板模式下处理的模板中更好地集成 JavaScript 的 <script> 标签
+
+<script type="text/javascript" th:inline="javascript">
+    $("#btn").on('click', function () {
+            const username = /*[[${currentUser.username}]]*/;
+            const email = [[${currentUser.email}]];
+            alert(username + "   " + email);
+        }
+    );
+</script>
