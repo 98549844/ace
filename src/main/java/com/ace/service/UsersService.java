@@ -8,10 +8,7 @@ import com.ace.mapper.UsersMapper;
 import com.ace.models.entity.*;
 import com.ace.models.info.UsersInfo;
 import com.ace.util.BeanUtil;
-import com.util.DateTimeUtil;
-import com.util.NullUtil;
-import com.util.RandomUtil;
-import com.util.SqlUtil;
+import com.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +31,6 @@ import java.util.Map;
 @Service
 public class UsersService {
     private static final Logger log = LogManager.getLogger(UsersService.class.getName());
-
     private final UsersDao usersDao;
     private final UsersMapper usersMapper;
     private final PasswordEncoder passwordEncoder;
@@ -55,6 +51,27 @@ public class UsersService {
         this.usersMapper = usersMapper;
         this.filesService = filesService;
         this.usersPath = AceEnvironment.getUsers();
+    }
+
+    public void compressAvatar(Files f) {
+        if (NullUtil.isNull(f)) {
+            return;
+        }
+        try {
+            ImageUtil imageUtil = new ImageUtil();
+            imageUtil.square(f.getLocation(), true);
+
+            String[] fileName = f.getFileName().split("-");
+            String avatar = f.getPath() + fileName[0] + "avatar" + fileName[1];
+            String icon = f.getPath() + fileName[0] + "icon" + fileName[1];
+            ImageUtil.compressPicForScale(f.getLocation(), avatar, 80, 0.8, 200, 200);
+            ImageUtil.compressPicForScale(f.getLocation(), icon, 10, 0.8, 40, 40);
+
+            f.setStatus(Files.COMPRESSED);
+            filesService.save(f);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

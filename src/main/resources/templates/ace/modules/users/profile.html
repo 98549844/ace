@@ -960,6 +960,9 @@
 <!-- page specific plugin scripts -->
 <script th:src="@{/assets/js/jquery.colorbox.min.js}"></script>
 <script th:src="@{/assets/js/custom/colorbox.js}"></script>
+<script th:src="@{/assets/js/custom/uuid.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/uuid@9.0.1/dist/index.min.js"></script>
+
 
 
 <script type="text/javascript">
@@ -1031,6 +1034,7 @@
         const files = $("#uploadBtn").prop("files")[0]; // 获取选择的文件
         const formData = new FormData(); // 创建FormData对象
         formData.append("files", files); // 将文件添加到FormData对象中
+        formData.append("uuid", files); // 将文件添加到FormData对象中
         $.ajax({
             url: "/ace/image/uploads.html", // 上传文件的后端处理文件
             type: "POST",

@@ -168,7 +168,7 @@ public class ImagesService extends CommonController {
         try {
             ImageUtil imageUtil = new ImageUtil();
             imageUtil.square(f.getLocation(), true);
-            ImageUtil.compress(imagesThumbnail + f.getFileName() + f.getExt());
+            ImageUtil.compress(f.getPath() + f.getFileName() + f.getExt());
             f.setStatus(Files.COMPRESSED);
             filesService.save(f);
         } catch (Exception e) {

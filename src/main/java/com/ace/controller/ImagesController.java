@@ -105,10 +105,6 @@ public class ImagesController extends CommonController {
 
     /**
      * 图片上传
-     *
-     * @param files
-     * @param request
-     * @return
      */
     @RequestMapping(value = "/image/uploads.html", method = RequestMethod.POST)
     @ResponseBody

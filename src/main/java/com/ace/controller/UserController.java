@@ -16,6 +16,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.imageio.ImageIO;
@@ -168,5 +170,18 @@ public class UserController extends CommonController {
         log.info("access image/rotate => rotate {} {}", direction, uuid);
         Files f = imagesService.rotate(direction, usersPath, uuid);
         return f;
+    }
+
+    /**
+     * 图片上传
+     */
+    @RequestMapping(value = "/avatar/uploads.html", method = RequestMethod.POST)
+    @ResponseBody
+    public List<String> uploadAvatar(@RequestParam(value = "files") MultipartFile[] files, MultipartHttpServletRequest request) {
+        String uuid = request.getParameter("uuid");
+        log.info("access avatar/uploads.html => uuid: {}", uuid);
+        List<String> list = filesService.uploads(files, uuid, usersPath);
+        usersService.compressAvatar(filesService.findFilesByFileName(uuid));
+        return list;
     }
 }
