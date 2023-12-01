@@ -149,10 +149,7 @@ public class UserController extends CommonController {
     @ResponseBody
     public void get(@PathVariable("fileName") String fileName, HttpServletResponse response) throws IOException {
         log.info("access avatar/get/{}", fileName);
-        //  String aaa = SystemUtil.getPath() + "/src/main/resources/static/assets/images/avatars/avatar5.png";
-        // ImageIO.write(ImageIO.read(new File(SystemUtil.getPath() + "/src/main/resources/static/assets/images/avatars/" + "avatar5.png")), ".png", response.getOutputStream());
-
-      imagesService.get(usersPath, fileName, response);
+        imagesService.get(usersPath, fileName, response);
     }
 
     public static void main(String[] args) throws IOException {

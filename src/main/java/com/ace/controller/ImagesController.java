@@ -75,35 +75,6 @@ public class ImagesController extends CommonController {
         return ls;
     }
 
-
-    /**
-     * 暂时弃用
-     * 缩略图显示请求
-     * 响应输出图片文件
-     *
-     * @param fileName
-     */
-    @RequestMapping(value = "/image/thumbnail/get/{fileName}", method = RequestMethod.GET)
-    public void getThumbnail(@PathVariable("fileName") String fileName, HttpServletResponse response) {
-        log.info("access image/thumbnail/get/{}", fileName);
-        String thumbnail = imagesThumbnail + fileName + filesService.findFilesByFileName(fileName).getExt();
-        filesService.get(thumbnail, response);
-    }
-
-    /**
-     * 缩略图显示请求
-     * 响应输出图片文件
-     *
-     * @param fileName
-     */
-    @RequestMapping(value = "/image/get/{fileName}", method = RequestMethod.GET)
-    @ResponseBody
-    public void get(@PathVariable("fileName") String fileName, HttpServletResponse response) throws IOException {
-        log.info("access image/get/{}", fileName);
-        imagesService.get(imagesThumbnail, fileName, response);
-    }
-
-
     /**
      * 图片上传
      */
@@ -115,7 +86,6 @@ public class ImagesController extends CommonController {
         List<String> list = filesService.uploads(files, uuid, imagePath);
         return list;
     }
-
 
     /**
      * 移除图片
@@ -184,22 +154,6 @@ public class ImagesController extends CommonController {
         } else {
             log.error("download {} {}", uuid, "fail");
         }
-    }
-
-    /**
-     * 图片旋转
-     *
-     * @param direction
-     * @param uuid
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "/thumbnail/rotate/{direction}/{uuid}", method = RequestMethod.GET)
-    @ResponseBody
-    public Files rotate(@PathVariable String direction, @PathVariable String uuid) throws Exception {
-        log.info("access image/rotate => rotate {} {}", direction, uuid);
-        Files f = imagesService.rotateDesc(direction, imagesThumbnail, uuid, UUID.get());
-        return f;
     }
 
     /**
