@@ -38,7 +38,6 @@ public class UsersService {
     private final RolesService rolesService;
     private final PermissionsService permissionsService;
     private final FilesService filesService;
-    private final String usersPath;
 
 
     @Autowired
@@ -50,7 +49,6 @@ public class UsersService {
         this.permissionsService = permissionsService;
         this.usersMapper = usersMapper;
         this.filesService = filesService;
-        this.usersPath = AceEnvironment.getUsers();
     }
 
     public void compressAvatar(Files f) {
