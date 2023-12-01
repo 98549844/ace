@@ -8,10 +8,7 @@ import com.ace.models.entity.Files;
 import com.ace.models.entity.Roles;
 import com.ace.models.entity.Users;
 import com.ace.service.*;
-import com.util.FileUtil;
-import com.util.NullUtil;
-import com.util.SqlUtil;
-import com.util.UUID;
+import com.util.*;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
@@ -23,6 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -149,7 +149,18 @@ public class UserController extends CommonController {
     @ResponseBody
     public void get(@PathVariable("fileName") String fileName, HttpServletResponse response) throws IOException {
         log.info("access avatar/get/{}", fileName);
-        imagesService.get(usersPath, fileName, response);
+        //  String aaa = SystemUtil.getPath() + "/src/main/resources/static/assets/images/avatars/avatar5.png";
+        // ImageIO.write(ImageIO.read(new File(SystemUtil.getPath() + "/src/main/resources/static/assets/images/avatars/" + "avatar5.png")), ".png", response.getOutputStream());
+
+      imagesService.get(usersPath, fileName, response);
+    }
+
+    public static void main(String[] args) throws IOException {
+        String aaaa = SystemUtil.getPath() + "/src/main/resources/static/assets/images/avatars/avatar5.png";
+
+        BufferedImage aaa = ImageIO.read(new File(aaaa));
+        System.out.println(aaa.getWidth());
+
     }
 
     @RequestMapping(value = "/avatars/get/{userId}", method = RequestMethod.GET)

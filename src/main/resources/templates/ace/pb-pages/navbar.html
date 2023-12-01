@@ -283,7 +283,9 @@
                 <li class="light-blue dropdown-modal">
                     <a data-toggle="dropdown" th:href="@{/#}" class="dropdown-toggle" id="navIcon">
                         <img class="nav-user-photo" th:src="@{'/ace/users/avatar/get/'+${currentUser.icon}}"
-                             th:alt="${currentUser.userAccount}"/>
+                             th:alt="${currentUser.userAccount}" th:if="${currentUser.icon != ''}"/>
+                        <img class="nav-user-photo" th:src="@{/assets/images/avatars/user.jpg}"
+                             th:alt="${currentUser.userAccount}" th:if="${currentUser.icon == ''}"/>
                         <span class="user-info">
                             <small>Welcome,</small>
                             <!--[[${currentUser.username}]]-->

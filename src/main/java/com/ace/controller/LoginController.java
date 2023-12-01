@@ -134,7 +134,10 @@ public class LoginController extends CommonController {
 
     private String getUserIcon(String userAccount) {
         List<Files> fs = imagesService.getFilesByFileNameLike(SqlUtil.likeRight(userAccount + "-icon"));
-        return fs.get(0).getFileName()+fs.get(0).getExt();
+        if (fs.isEmpty()) {
+            return "";
+        }
+        return fs.get(0).getFileName() + fs.get(0).getExt();
     }
 
 }
