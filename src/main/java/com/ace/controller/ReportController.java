@@ -40,6 +40,10 @@ public class ReportController extends CommonController {
         return modelAndView;
     }
 
+    /** 未测试
+     * @param reports
+     * @return
+     */
     @RequestMapping(value = "/report/newIssue.html", method = RequestMethod.GET)
     public ModelAndView newIssue(@ModelAttribute Reports reports) {
         log.info("access report/newIssue.html => create new issue");
@@ -50,6 +54,10 @@ public class ReportController extends CommonController {
     }
 
 
+    /** 未完成
+     * @param reportId
+     * @return
+     */
     @RequestMapping(value = "/report/reportId.html/{reportId}", method = RequestMethod.GET)
     public ModelAndView getReportInfoById(@PathVariable(value = "reportId") Long reportId) {
         log.info("access report/list {} => update issue", reportId);
@@ -60,6 +68,10 @@ public class ReportController extends CommonController {
     }
 
 
+    /** 未完成
+     * @param reportsInfo
+     * @return
+     */
     @RequestMapping(value = "/report/submit.html", method = RequestMethod.POST)
     public ModelAndView submit(@ModelAttribute ReportsInfo reportsInfo) {
         log.info("access report/submit.html");
@@ -70,6 +82,10 @@ public class ReportController extends CommonController {
         return modelAndView;
     }
 
+    /** 未完成
+     * @param reportId
+     * @return
+     */
     @RequestMapping(value = "/report/delete.html/{reportId}", method = RequestMethod.GET)
     @ResponseBody
     public boolean deleteReportById(@PathVariable Long reportId) {
