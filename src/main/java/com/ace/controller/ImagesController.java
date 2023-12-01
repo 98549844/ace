@@ -50,11 +50,10 @@ public class ImagesController extends CommonController {
      * get all images
      *
      * @return
-     * @throws IOException
      */
     @RequestMapping(value = "/getImages.html", method = RequestMethod.GET)
     @ResponseBody
-    public List getImages() throws IOException {
+    public List getImages() {
         log.info("access getImages.html");
         List ls = imagesService.getImages(getCurrentUser());
         return ls;

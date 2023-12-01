@@ -131,6 +131,7 @@ public class ImagesService extends CommonController {
         String name;
         String ext;
         if (!fileName.contains(".")) {
+            //不包含".", 查数据库获获
             Files f = filesService.findFilesByFileName(fileName);
             ext = f.getExt().split("\\.")[1];
             name = fileName + f.getExt();
