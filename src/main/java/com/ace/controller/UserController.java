@@ -139,20 +139,6 @@ public class UserController extends CommonController {
         StpUtil.checkPermissionOr("user-update", "user-delete");
     }
 
-
-    //???????
-    @RequestMapping(value = "/icon/get.html", method = RequestMethod.GET)
-    public ModelAndView getIcon() {
-        log.info("access /icon/get.html");
-        ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
-        List<Files> fs = imagesService.getFilesByFileNameLike(SqlUtil.likeRight(getCurrentUser().getUserAccount() + "-icon"));
-        String iconSrc = "/ace/users/avatar/get/" + fs.get(0).getFileName();
-        String icon = fs.get(0).getFileName();
-        modelAndView.addObject("iconSrc", iconSrc);
-        modelAndView.addObject("icon", icon);
-        return modelAndView;
-    }
-
     /**
      * 缩略图显示请求
      * 响应输出图片文件

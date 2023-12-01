@@ -282,7 +282,7 @@
 
                 <li class="light-blue dropdown-modal">
                     <a data-toggle="dropdown" th:href="@{/#}" class="dropdown-toggle" id="navIcon">
-                        <img class="nav-user-photo" th:src="@{/assets/images/avatars/user.jpg}"
+                        <img class="nav-user-photo" th:src="@{'/ace/users/avatar/get/'+${currentUser.icon}}"
                              th:alt="${currentUser.userAccount}"/>
                         <span class="user-info">
                             <small>Welcome,</small>

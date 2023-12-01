@@ -76,6 +76,9 @@ public class Users extends BaseEntity implements Serializable {
     @Transient
     private String currentUserPath;
 
+    @Transient
+    private String icon;
+
 
     public Long getUserId() {
         return userId;
@@ -228,5 +231,13 @@ public class Users extends BaseEntity implements Serializable {
 
     public void setCurrentUserPath(String currentUserPath) {
         this.currentUserPath = currentUserPath;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

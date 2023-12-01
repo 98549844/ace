@@ -5,12 +5,15 @@ import com.ace.constant.AceEnvironment;
 import com.ace.controller.common.CommonController;
 import com.ace.exception.PasswordNotMatchException;
 import com.ace.exception.UserNotFoundException;
+import com.ace.models.entity.Files;
 import com.ace.models.entity.Users;
 import com.ace.service.FoldersService;
+import com.ace.service.ImagesService;
 import com.ace.service.LoginService;
 import com.ace.service.UsersService;
 import com.util.DateTimeUtil;
 import com.util.NullUtil;
+import com.util.SqlUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @Classname: LoginController
@@ -37,13 +41,15 @@ public class LoginController extends CommonController {
     private final FoldersService foldersService;
     private final String usersFolder;
     private final String separator;
+    private final ImagesService imagesService;
 
 
     @Autowired
-    public LoginController(LoginService loginService, UsersService usersService, FoldersService foldersService) {
+    public LoginController(LoginService loginService, UsersService usersService, FoldersService foldersService, ImagesService imagesService) {
         this.loginService = loginService;
         this.usersService = usersService;
         this.foldersService = foldersService;
+        this.imagesService = imagesService;
         this.usersFolder = AceEnvironment.getUsers();
         this.separator = AceEnvironment.getSeparator();
     }
@@ -97,11 +103,14 @@ public class LoginController extends CommonController {
                 user.setLoginDateTime(LocalDateTime.now());
                 user.setIp(getRequest().getRemoteAddr());
                 user.setHostName(getRequest().getRemoteHost());
+                String userIconId = getUserIcon(user.getUserAccount());
+                user.setIcon(userIconId);
 
                 //rememberMe = on 记住我
                 login(userId, deviceType, NullUtil.isNonNull(rememberMe));
 
                 log.info("UserId: {}", userId);
+                //  setIcon(user);
                 setUsersSaSession(user);
                 usersService.save(user);
                 log.info("login device: {}", StpUtil.getLoginDevice());
@@ -123,6 +132,10 @@ public class LoginController extends CommonController {
         return modelAndView;
     }
 
+    private String getUserIcon(String userAccount) {
+        List<Files> fs = imagesService.getFilesByFileNameLike(SqlUtil.likeRight(userAccount + "-icon"));
+        return fs.get(0).getFileName()+fs.get(0).getExt();
+    }
 
 }
 
