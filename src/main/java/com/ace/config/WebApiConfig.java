@@ -46,6 +46,12 @@ public class WebApiConfig {
     AceApi AceApi() {
         //注册local api url
         WebClient apiClient = WebClient.builder().baseUrl("http://localhost:8088").build();
+        //springframework 6.1后,
+        //builderFor(HttpExchangeAdapter exchangeAdapter)
+        //代替builder(HttpClientAdapter clientAdapter)
+        //WebClientAdapter create(WebClient webClient)
+        //代替WebClientAdapter forClient(WebClient webClient)
+        //HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(apiClient)).build();
         HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(apiClient)).build();
         return httpServiceProxyFactory.createClient(AceApi.class);
     }
@@ -56,6 +62,12 @@ public class WebApiConfig {
     Blockchain blockchain() {
         //注册第三方api url
         WebClient blockchain = WebClient.builder().baseUrl("https://api.tatum.io/v3/blockchain/fee").build();
+        //springframework 6.1后,
+        //builderFor(HttpExchangeAdapter exchangeAdapter)
+        //代替builder(HttpClientAdapter clientAdapter)
+        //WebClientAdapter create(WebClient webClient)
+        //代替WebClientAdapter forClient(WebClient webClient)
+        //HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(blockchain)).build();
         HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(blockchain)).build();
         return httpServiceProxyFactory.createClient(Blockchain.class);
     }
