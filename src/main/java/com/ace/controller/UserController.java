@@ -176,18 +176,26 @@ public class UserController extends CommonController {
     public List uploadAvatar(@RequestParam(value = "files") MultipartFile[] files, MultipartHttpServletRequest request) {
         log.info("access avatar/uploads.html");
         Users users = getCurrentUser();
+        String userAccount = users.getUserAccount();
         //删除旧头像
-        List<Files> deleteAvatars = imagesService.getFilesByFileNameLike(SqlUtil.likeRight(users.getUserAccount()));
+        List<Files> deleteAvatars = imagesService.getFilesByFileNameLike(SqlUtil.likeRight(userAccount));
         for (Files f : deleteAvatars) {
             filesService.delFile(f.getLocation());
         }
         filesService.deleteAll(deleteAvatars);
 
         //上传新头头像
-        String uuid = users.getUserAccount() + "-" + UUID.get();
+        String uuid = userAccount + "-" + UUID.get();
         filesService.uploads(files, uuid, usersPath);//上传图片,并更新数据
         usersService.compressAvatar(filesService.findFilesByFileName(uuid)); //同时压缩生成avatar和icon,并更新数据
-        List<Files> fs = imagesService.getFilesByFileNameLike(SqlUtil.likeRight(getCurrentUser().getUserAccount()));
+        List<Files> fs = imagesService.getFilesByFileNameLike(SqlUtil.likeRight(userAccount));
+        for (Files f : fs) {
+            if (f.getFileName().contains(userAccount + "-icon")) {
+                //更新currentUser icon id
+                users.setIcon(f.getFileName());
+                setUsersSaSession(users);
+            }
+        }
         return fs;
     }
 

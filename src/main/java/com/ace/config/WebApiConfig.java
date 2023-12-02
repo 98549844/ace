@@ -2,7 +2,7 @@ package com.ace.config;
 
 import com.ace.api.AceApi;
 import com.ace.api.Blockchain;
-import lombok.SneakyThrows;
+// import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +41,7 @@ public class WebApiConfig {
                 .build();
     }*/
 
-    @SneakyThrows
+   // @SneakyThrows
     @Bean
     AceApi AceApi() {
         //注册local api url
@@ -51,13 +51,13 @@ public class WebApiConfig {
         //代替builder(HttpClientAdapter clientAdapter)
         //WebClientAdapter create(WebClient webClient)
         //代替WebClientAdapter forClient(WebClient webClient)
-        //HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(apiClient)).build();
-        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(apiClient)).build();
+        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(apiClient)).build();
+        //HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(apiClient)).build();
         return httpServiceProxyFactory.createClient(AceApi.class);
     }
 
 
-    @SneakyThrows
+   // @SneakyThrows
     @Bean
     Blockchain blockchain() {
         //注册第三方api url
@@ -67,8 +67,8 @@ public class WebApiConfig {
         //代替builder(HttpClientAdapter clientAdapter)
         //WebClientAdapter create(WebClient webClient)
         //代替WebClientAdapter forClient(WebClient webClient)
-        //HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(blockchain)).build();
-        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(blockchain)).build();
+        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(blockchain)).build();
+        //HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(blockchain)).build();
         return httpServiceProxyFactory.createClient(Blockchain.class);
     }
 }
