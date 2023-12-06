@@ -1,0 +1,11 @@
+1.  node --version
+    node -v
+
+2.  npm --version
+    npm -v
+
+3.  yarn --version
+    yarn -v
+
+4.  pnpm --version
+    pnpm -v
