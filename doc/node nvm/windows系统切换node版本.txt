@@ -3,7 +3,22 @@
     或者 https://download.csdn.net/download/xiaofiy/85235297
     下载安装过程建议傻瓜式安装，直接安装到c盘
 
-2.  安装14版本和16版本的node（默认会安装最新最稳定版本）
+    mac version nvm
+    terminal access (raw.gitmirror)
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+    curl -o- https://raw.gitmirror.com/nvm-sh/nvm/v0.39.6/install.sh | bash
+    curl -o- https://usercontent.githubfast.com/raw/nvm-sh/nvm/v0.39.6/install.sh | bash
+    https://githubfast.com/nvm-sh/nvm#install--update-script
+
+
+1.1 检查nvm版本
+    nvm --version
+
+2.  列出可供安装的所有 Node.js 版本
+    nvm ls-remote
+
+
+2.1  安装14版本和16版本的node（默认会安装最新最稳定版本）
     nvm install 14
     nvm install 16
 
@@ -16,3 +31,16 @@
 5.  切换使用node时,
     只需nvm use 版本号，指定当前使用的node版本
     nvm use node_version
+
+6.  删除 Node.js 版本
+    nvm uninstall <version>
+    nvm uninstall 16.20.0
+
+
+
+
+macOS上安装和使用nvm
+https://blog.csdn.net/qq_39997939/article/details/130877282
+
+nvm安装成功，但命令不可用（command not found: nvm）
+https://blog.csdn.net/weixin_42617917/article/details/114703595
