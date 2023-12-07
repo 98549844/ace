@@ -53,7 +53,7 @@ public class ImagesController extends CommonController {
      */
     @RequestMapping(value = "/getImages.html", method = RequestMethod.GET)
     @ResponseBody
-    public List getImages() {
+    public List getCurrentUserImages() {
         log.info("access getImages.html");
         List ls = imagesService.getImages(getCurrentUser());
         return ls;

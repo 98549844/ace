@@ -88,13 +88,13 @@ public class ImagesService extends CommonController {
         }
         List<Files> result = new ArrayList<>();
         for (Files f : filesLs) {
-            File original = new File(f.getLocation());
-            File thumbnail = new File(imagesThumbnail + f.getFileName() + f.getExt());
+            File original = new File(f.getLocation()); //原图
+            File thumbnail = new File(imagesThumbnail + f.getFileName() + f.getExt()); //缩略图
             if (original.exists() && !f.getFileName().contains(users.getUserAccount())) {
                 //文件名包含userAccount,定义为头像
                 result.add(f);
                 if (!thumbnail.exists()) {
-                    compressImage(f);
+                    compressImage(f); //缩略图不存在, 生成缩略图
                 }
             } else if (!original.exists() && thumbnail.exists()) {
                 //删除缩略图, 当原图不存在
@@ -230,13 +230,13 @@ public class ImagesService extends CommonController {
         log.info("compressing image complete !!!");
     }
 
-    private void deleteThumbnails(List<String> ls, List<String> tempLs) {
-        Map mp = ListUtil.getNonDeduplicateElements(ls, tempLs);
-        compressImages((List<String>) mp.get(ListUtil.LIST_1));
-        tempLs = (List<String>) mp.get(ListUtil.LIST_2);
-        if (NullUtil.isNonNull(tempLs)) {
+    private void deleteThumbnails(List<String> ls, List<String> thumbnailList) {
+        Map mp = ListUtil.getNonDeduplicateElements(ls, thumbnailList);
+        compressImages((List<String>) mp.get(ListUtil.LIST_1)); //原图有, 但缩略图没有, 并压缩生成缩略图
+        thumbnailList = (List<String>) mp.get(ListUtil.LIST_2); //原图没有, 但缩略图存在
+        if (NullUtil.isNonNull(thumbnailList)) {
             //原图已删, 删除掉缩略图
-            for (String s : tempLs) {
+            for (String s : thumbnailList) {
                 FileUtil.delete(imagesThumbnail + s);
             }
         }
