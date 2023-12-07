@@ -199,7 +199,7 @@ public class ImagesService extends CommonController {
         }
         try {
             ImageUtil imageUtil = new ImageUtil();
-            imageUtil.square(f.getLocation(), true);
+            imageUtil.square(f.getLocation(), imagesThumbnail);
             ImageUtil.compress(f.getPath() + f.getFileName() + f.getExt());
             f.setStatus(Files.COMPRESSED);
             filesService.save(f);
@@ -210,24 +210,25 @@ public class ImagesService extends CommonController {
     }
 
     private void compressImages(List<String> ls) {
-        log.info("temp images expired, compressing image ...");
+        log.info("thumbnail expired, compressing image ...");
         if (NullUtil.isNull(ls)) {
             return;
         }
         try {
             ImageUtil imageUtil = new ImageUtil();
             for (String name : ls) {
-                imageUtil.square(imagePath + name, true);
-                ImageUtil.compress(imagesThumbnail + name);
-                Files f = filesService.findFilesByFileName(FileUtil.getName(name));
-                f.setStatus(Files.COMPRESSED);
-                filesService.save(f);
+                String location = imagePath + name;
+                if (FileUtil.isImage(location)) {
+                    imageUtil.square(location, imagesThumbnail);
+                    ImageUtil.compress(imagesThumbnail + name);
+                    Files f = filesService.findFilesByFileName(FileUtil.getName(name));
+                    f.setStatus(Files.COMPRESSED);
+                    filesService.save(f);
+                }
             }
         } catch (Exception e) {
-            log.error("Include non image files !!!");
             e.printStackTrace();
-        }
-        log.info("compressing image complete !!!");
+        } log.info("compressing image complete !!!");
     }
 
     private void deleteThumbnails(List<String> ls, List<String> thumbnailList) {

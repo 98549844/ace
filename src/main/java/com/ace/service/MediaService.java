@@ -195,7 +195,7 @@ public class MediaService {
 
             ImageUtil imageUtil = new ImageUtil();
             FileUtil.copy(posterLocation, thumbnailLocation);
-            imageUtil.square(thumbnailLocation, false);
+            imageUtil.square(thumbnailLocation, null);
             ImageUtil.compress(thumbnailLocation);
 
 

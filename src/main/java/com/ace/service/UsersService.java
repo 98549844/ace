@@ -57,7 +57,7 @@ public class UsersService {
         }
         try {
             ImageUtil imageUtil = new ImageUtil();
-            imageUtil.square(f.getLocation(), false);
+            imageUtil.square(f.getLocation(), null);
 
             String[] fileName = f.getFileName().split("-");
             String avatar = fileName[0] + "-avatar-" + fileName[1];

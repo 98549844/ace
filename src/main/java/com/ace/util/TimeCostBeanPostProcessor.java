@@ -18,7 +18,7 @@ import java.util.Map;
  * @Description:
  */
 
-@Component
+//@Component
 public class TimeCostBeanPostProcessor implements BeanPostProcessor {
     private static final Logger log = LogManager.getLogger(TimeCostBeanPostProcessor.class.getName());
 
