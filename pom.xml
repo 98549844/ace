@@ -122,7 +122,10 @@
             <scope>runtime</scope>
         </dependency>
 
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
         <!--rabbitmq-->
         <!--commented RabbitMQConfig.java RabbitMQRestController.java-->
         <!--<dependency>
@@ -130,10 +133,17 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>-->
         <!--redis RedisConfig.java RedisService.java  RedisRestController.java-->
-        <dependency>
+
+        <!-- ActiveMQ  和 连接池  -->
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-pool</artifactId>
+        </dependency>-->
+        <!--没有java实现qctiveMQ功能-->
 
         <!-- springboot3 artifactId 使用 sa-token-spring-boot3-starter-->
         <dependency>
