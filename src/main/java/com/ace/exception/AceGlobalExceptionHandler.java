@@ -105,8 +105,8 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
     @ResponseBody
     public ModelAndView error() {
         String requestURL = super.getRequest().getRequestURL().toString();
-        ModelAndView modelAndView;
         int status = super.getResponse().getStatus();
+        ModelAndView modelAndView;
 
         switch (status) {
             case 404 -> {
@@ -140,6 +140,8 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ModelAndView exceptionHandler(Exception e) {
+       // String requestURL = super.getRequest().getRequestURL().toString();
+       // int status = super.getResponse().getStatus();
         ModelAndView modelAndView;
         if (e instanceof NotLoginException) {
             StringWriter sw = new StringWriter();

@@ -24,7 +24,7 @@ public class Interceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        String status = Integer.toString(response.getStatus());
+        int status = response.getStatus();
         String RequestURI = request.getRequestURI();
         Console.println("status code: " + status + " -- Request uri: " + RequestURI, Console.BOLD,Console.FLUORESCENT_GREEN);
         return true;
