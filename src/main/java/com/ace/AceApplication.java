@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.IOException;
 import java.util.Map;
+
 import com.ace.util.PropertiesUtil;
 
 
@@ -46,7 +47,9 @@ public class AceApplication {
 
 
     public static void main(String[] args) throws IOException {
-        applicationContext = SpringApplication.run(AceApplication.class, args);
+        // applicationContext = SpringApplication.run(AceApplication.class, args);
+        SpringApplication application = new SpringApplication(AceApplication.class); //实例化application, 内含丰富多功能提供调用
+        applicationContext = application.run(AceApplication.class, args); //run application并付值给applicationContext上下文
 
         //  print all loaded BeanName and properties value
         //  Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
