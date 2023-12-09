@@ -3,6 +3,8 @@ package com.ace.exception;
 import cn.dev33.satoken.exception.NotLoginException;
 import com.ace.constant.Css;
 import com.ace.controller.common.CommonController;
+import com.ace.models.entity.Users;
+import com.util.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -182,6 +184,12 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
         modelAndView.addObject("faCss", faCss);
         modelAndView.addObject("httpStatus", status);
         modelAndView.addObject("warningMsg", warningMsg);
+        if (NullUtil.isNull(getCurrentUser())) {
+            modelAndView.addObject("currentUser", new Users());
+        } else {
+            modelAndView.addObject("currentUser", getCurrentUser());
+
+        }
         return modelAndView;
     }
 
