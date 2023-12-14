@@ -57,7 +57,8 @@ public class Users extends BaseEntity implements Serializable {
     @Column
     private String status = "ACTIVE"; // ACTIVE || INACTIVE //决定模组功能是否开启
 
-
+    @Column
+    private String region;
     @Column
     private String domain;
     @Column
@@ -235,6 +236,14 @@ public class Users extends BaseEntity implements Serializable {
 
     public String getIcon() {
         return icon;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public void setIcon(String icon) {

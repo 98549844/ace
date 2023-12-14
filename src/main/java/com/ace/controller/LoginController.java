@@ -11,6 +11,7 @@ import com.ace.service.FoldersService;
 import com.ace.service.ImagesService;
 import com.ace.service.LoginService;
 import com.ace.service.UsersService;
+import com.ace.util.RegionUtil;
 import com.util.DateTimeUtil;
 import com.util.NullUtil;
 import com.util.SqlUtil;
@@ -103,6 +104,7 @@ public class LoginController extends CommonController {
                 user.setLoginDateTime(LocalDateTime.now());
                 user.setIp(getRequest().getRemoteAddr());
                 user.setHostName(getRequest().getRemoteHost());
+                user.setRegion(getRegion());
                 String userIconId = getUserIcon(user.getUserAccount());
                 user.setIcon(userIconId);
 
@@ -138,6 +140,17 @@ public class LoginController extends CommonController {
             return "";
         }
         return fs.get(0).getFileName() + fs.get(0).getExt();
+    }
+
+    private String getRegion() {
+        String ip = RegionUtil.getIpAddr(getRequest());
+        //离线获取
+        String region = RegionUtil.getAddr(ip);
+        if (NullUtil.isNull(region)) {
+            //在线获取
+            region = RegionUtil.getRealAddressByIP(ip);
+        }
+        return region;
     }
 
 }

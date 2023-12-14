@@ -7,4 +7,9 @@ public class constant {
     public static final String DENIED = "denied";
     public static final String EXIST = "exist";
 
+    /**
+     * 本地ip
+     */
+    public static final String LOCAL_IP = "127.0.0.1";
+
 }

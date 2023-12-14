@@ -12,6 +12,23 @@ v-bind: 简写为直接冒号
 null或undefined, 会被属性移除
 支持boolean属性
 
+v-if / v-else / v-else-if
+指令用于条件性地渲染一块内容
+使用 v-else 为 v-if 添加一个“else 区块”
+一个 v-else 元素必须跟在一个 v-if
+或者 v-else-if 元素后面，否则它将不会被识别
+
+v-show = v-if
+v-show初始时开销开, 适合频繁切换状态, 基于css渲染
+
+v-for
+指令的值需要使用 item in items 形式的特殊语法，
+其中 items 是源数据的数组，而 item 是迭代项的别名
+可以使用 v-for 来遍历一个对象的所有属性。
+遍历的顺序会基于对该对象调用 Object.keys() 的返回值来决定
+v-for关键值
+value key index => 这是它的默认顺序
+
 <script>
 export default {
   data() {
@@ -23,7 +40,17 @@ export default {
       objectAttrs: {
         id: 'objectId',
         class: 'objectActive',
-      }
+      },
+      vif: true,
+      vType: 'aa',
+      forItems: ['aa', 'bb', 'cc'],
+      forObject: [
+        {
+          title: 'How to do lists in Vue',
+          author: 'Jane Doe',
+          publishedAt: '2016-04-10'
+        }
+      ]
     }
   }
 }
@@ -34,4 +61,12 @@ export default {
 <span v-html="rawHtml"></span>
 <span v-bind:id="dynamicId" :class="dynamicClass">bind attributes 绑定属性</span>
 <span v-bind="objectAttrs">绑定对像属性,一次绑定多属性</span>
+<span v-if="vif"></span>
+<span v-else></span>
+<span v-if="vType==='a'">a</span>
+<span v-else-if="vType==='b'">b</span>
+<span v-else>not a/b</span>
+<span v-for="item in forItems">{{ item }}</span>
+<span v-for="(title,author,publishedAt) in forItems">{{ title }},{{ author }},{{ publishedAt }}</span>
+
 </p>
