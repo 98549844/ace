@@ -29,10 +29,30 @@ v-for
 v-for关键值
 value key index => 这是它的默认顺序
 
+v-on 简写为 @
+事件处理
+使用 v-on 指令 (简写为 @) 来监听 DOM 事件，
+并在事件触发时执行对应的 JavaScript。
+用法：v-on:click="handler" 或 @click="handler"
+
+事件处理器 (handler) 的值可以是：
+内联事件处理器：事件被触发时执行的内联 JavaScript 语句 (与 onclick 类似)。
+方法事件处理器：一个指向组件上定义的方法的属性名或是路径。
+
 <script>
 export default {
+  methods: {
+    addCount(num, e) {
+      //e for event对像
+      //vue里面的event对像就是原生js对像
+      console.log(e)
+      //读取data内数值
+      this.count = this.count + num + 1
+    }
+  },
   data() {
     return {
+      count: 4,
       msg: 'hello world',
       rawHtml: <a href="https://google.com">google</a>,
       dynamicId: 'appId',
@@ -46,6 +66,7 @@ export default {
       forItems: ['aa', 'bb', 'cc'],
       forObject: [
         {
+          id: 101,
           title: 'How to do lists in Vue',
           author: 'Jane Doe',
           publishedAt: '2016-04-10'
@@ -67,6 +88,9 @@ export default {
 <span v-else-if="vType==='b'">b</span>
 <span v-else>not a/b</span>
 <span v-for="item in forItems">{{ item }}</span>
-<span v-for="(title,author,publishedAt) in forItems">{{ title }},{{ author }},{{ publishedAt }}</span>
-
+<span v-for="(title,author,publishedAt) in forItems" :key="forItems.id">
+  {{ title }},{{ author }},{{ publishedAt }}
+</span>
+<button @click="addCount(4, $event)">add</button>
+<span>{{ count }}</span>
 </p>

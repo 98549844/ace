@@ -22,6 +22,9 @@ import java.io.IOException;
 public class Interceptor implements HandlerInterceptor {
     private static final Logger log = LogManager.getLogger(Interceptor.class.getName());
 
+
+    // https://mp.weixin.qq.com/s/N8EpeV7geQzbICLw__wQ9w
+    // Spring Boot 防止重复提交
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         int status = response.getStatus();
