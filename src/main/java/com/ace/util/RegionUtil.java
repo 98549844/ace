@@ -133,7 +133,6 @@ public class RegionUtil extends CommonController {
         } catch (Exception e) {
             ipAddress = "";
         }
-
         return ipAddress;
     }
 
