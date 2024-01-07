@@ -83,7 +83,13 @@ public class CommonController {
     protected String getHttpSessionId() {
         HttpSession session = getRequest().getSession();
         String sessionId = session.getId();
-        Console.println("sessionId: "+sessionId,Console.BLUE);
+        Console.println("http sessionId: "+sessionId,Console.BLUE);
+        return sessionId;
+    }
+
+    protected String getSaSessionId() {
+        String sessionId = getSaSession().getId();
+        Console.println("sa sessionId: "+sessionId,Console.BLUE);
         return sessionId;
     }
 
@@ -212,12 +218,12 @@ public class CommonController {
         // setHttpSession("user", users); // springboot3 set不进去, 有问题未解决
     }
 
-    protected void setSession(String key, Object object) {
+    protected void setSaSession(String key, Object object) {
         StpUtil.getSession().set(key, object);
         setHttpSession(key, object);
     }
 
-    protected SaSession getSession() {
+    protected SaSession getSaSession() {
         return StpUtil.getSession();
     }
 
@@ -238,12 +244,12 @@ public class CommonController {
 
     protected void clearSession(String key) {
         // 注销此Session会话 (从持久库删除此Session)
-        SaSession session = getSession();
+        SaSession session = getSaSession();
         session.delete(key);
         session.logout();
     }
 
-    protected SaSession getSessionByLoginId(Long id) {
+    protected SaSession getSaSessionByLoginId(Long id) {
         return StpUtil.getSessionByLoginId(id);
     }
 

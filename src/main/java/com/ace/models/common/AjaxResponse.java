@@ -61,6 +61,15 @@ public class AjaxResponse {
         return resultBean;
     }
 
+    public static AjaxResponse warn(Object data) {
+        AjaxResponse resultBean = new AjaxResponse();
+        resultBean.setOk(true);
+        resultBean.setCode(200);
+        resultBean.setMessage("warning");
+        resultBean.setData(data);
+        return resultBean;
+    }
+
     public boolean isOk() {
         return isOk;
     }
