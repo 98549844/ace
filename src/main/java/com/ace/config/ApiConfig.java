@@ -3,7 +3,6 @@ package com.ace.config;
 import com.ace.api.AceApi;
 import com.ace.api.Blockchain;
 // import lombok.SneakyThrows;
-import com.ace.api.Vue3Api;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
@@ -42,12 +41,7 @@ public class ApiConfig {
                 .build();
     }*/
 
-    @Bean
-    Vue3Api Vue3Api() {
-        WebClient apiClient = WebClient.builder().baseUrl("http://localhost:8080").build();
-        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(apiClient)).build();
-        return httpServiceProxyFactory.createClient(Vue3Api.class);
-    }
+
 
 
     @Bean
