@@ -5,6 +5,7 @@ import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
 import com.ace.constant.Css;
 import com.ace.models.entity.Users;
+import com.util.Console;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -71,6 +72,19 @@ public class CommonController {
         String sessionId = session.getId();
         log.info("getSession ID: " + sessionId);
         return session.getAttribute(key);
+    }
+
+    /**
+     * Http
+     * 特点: 不需要saToken登入
+     *
+     * @return
+     */
+    protected String getHttpSessionId() {
+        HttpSession session = getRequest().getSession();
+        String sessionId = session.getId();
+        Console.println("sessionId: "+sessionId,Console.BLUE);
+        return sessionId;
     }
 
     /**

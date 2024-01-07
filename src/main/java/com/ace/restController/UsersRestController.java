@@ -47,6 +47,12 @@ public class UsersRestController extends CommonController {
     }
 
 
+    @RequestMapping(method = RequestMethod.POST, value = "/get/{userId}")
+    public AjaxResponse getUserById(@PathVariable Long userId) {
+        Users user = usersService.findUsersById(userId);
+        return AjaxResponse.success(user);
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/getUsers")
     public AjaxResponse getUsers() {
         List<Users> ls = usersService.findAll();

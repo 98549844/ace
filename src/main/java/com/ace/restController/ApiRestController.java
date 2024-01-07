@@ -1,13 +1,15 @@
 package com.ace.restController;
 
-import com.ace.api.*;
+import com.ace.api.AceApi;
+import com.ace.api.Blockchain;
+import com.ace.api.Response;
 import com.ace.models.common.AjaxResponse;
 import com.util.GsonUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,6 +43,13 @@ public class ApiRestController {
         return Response.success(ajaxResponse);
     }
 
+    @GetMapping("/get/{userId}")
+    public Response getById(@PathVariable Long userId) {
+        log.info("access api.getUserById: {}", userId);
+        AjaxResponse ajaxResponse = aceApi.getUserById(userId);
+        log.info(ajaxResponse.getData());
+        return Response.success(ajaxResponse);
+    }
 
 
     @GetMapping("/getFee")

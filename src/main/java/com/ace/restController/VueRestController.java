@@ -1,5 +1,6 @@
 package com.ace.restController;
 
+import com.ace.controller.common.CommonController;
 import com.ace.models.common.AjaxResponse;
 import com.ace.models.view.FormData;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * @Classname: VueRestController
  * @Date: 2023/8/4 下午 12:12
@@ -17,11 +19,11 @@ import java.util.List;
  * @Description:
  */
 
-@CrossOrigin // 解决浏览器禁止ajax请求本地以外的资源, 后端同时在Controller层的类上增加@CrossOrign注解
+@CrossOrigin // 解决浏览器禁止ajax跨域请求本地以外的资源, 后端同时在Controller层的类上增加@CrossOrign注解
 @RestController
 @RequestMapping("/rest/vue")
 @Tag(name = "Vue")
-public class VueRestController {
+public class VueRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(VueRestController.class.getName());
 
 
@@ -51,5 +53,9 @@ public class VueRestController {
         return AjaxResponse.success(result);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/getSessionId.html")
+    public AjaxResponse getSessionId() {
+        return AjaxResponse.success(getHttpSessionId());
+    }
 }
 

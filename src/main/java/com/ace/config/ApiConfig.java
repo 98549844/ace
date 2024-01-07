@@ -3,6 +3,7 @@ package com.ace.config;
 import com.ace.api.AceApi;
 import com.ace.api.Blockchain;
 // import lombok.SneakyThrows;
+import com.ace.api.Vue3Api;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
@@ -21,8 +22,8 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 
 @Configuration
-public class WebApiConfig {
-    private static final Logger log = LogManager.getLogger(WebApiConfig.class.getName());
+public class ApiConfig {
+    private static final Logger log = LogManager.getLogger(ApiConfig.class.getName());
 
     //springboot 2 call api方法
     //注册local api
@@ -41,7 +42,14 @@ public class WebApiConfig {
                 .build();
     }*/
 
-   // @SneakyThrows
+    @Bean
+    Vue3Api Vue3Api() {
+        WebClient apiClient = WebClient.builder().baseUrl("http://localhost:8080").build();
+        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(apiClient)).build();
+        return httpServiceProxyFactory.createClient(Vue3Api.class);
+    }
+
+
     @Bean
     AceApi AceApi() {
         //注册local api url
@@ -57,18 +65,10 @@ public class WebApiConfig {
     }
 
 
-   // @SneakyThrows
     @Bean
     Blockchain blockchain() {
-        //注册第三方api url
         WebClient blockchain = WebClient.builder().baseUrl("https://api.tatum.io/v3/blockchain/fee").build();
-        //springframework 6.1后,
-        //builderFor(HttpExchangeAdapter exchangeAdapter)
-        //代替builder(HttpClientAdapter clientAdapter)
-        //WebClientAdapter create(WebClient webClient)
-        //代替WebClientAdapter forClient(WebClient webClient)
         HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(blockchain)).build();
-        //HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(blockchain)).build();
         return httpServiceProxyFactory.createClient(Blockchain.class);
     }
 }
