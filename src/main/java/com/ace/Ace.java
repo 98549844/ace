@@ -1,12 +1,10 @@
 package com.ace;
 
-import com.ace.util.RegionUtil;
-import com.util.FileUtil;
-import com.util.PathUtil;
+import com.util.CompressUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.*;
+import java.io.IOException;
 
 /**
  * @Classname: Ace
@@ -19,6 +17,11 @@ import java.io.*;
 public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
+    public static void main(String[] args) throws IOException {
+        String in = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/rar/springmvc.zip";
+        String out = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/rar/unRar";
 
+        CompressUtil.unZip(in, out);
+    }
 }
 
