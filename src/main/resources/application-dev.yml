@@ -47,9 +47,9 @@ mybatis:
 
 spring:
   #main:
-    #lazy-initialization: true
-    #配置为 true 表示所有 Bean 都将延迟初始化。
-    #可以一定程度上提高启动速度,但是第一次访问可能较慢
+  #lazy-initialization: true
+  #配置为 true 表示所有 Bean 都将延迟初始化。
+  #可以一定程度上提高启动速度,但是第一次访问可能较慢
   application:
     name: "Project for Ace Application - Spring Boot 3"
   devtools:
@@ -171,12 +171,17 @@ spring:
         format_sql: false
         #use_sql_comments: true
         #对应的entity
-
     #  redis:
     #    # Redis服务器地址
     #    host: localhost
     #    # Redis服务器连接端口
     #    port: 6379
+    #  data:
+    #    redis:
+    #      port: 6379
+    #      host: localhost
+    #      database: 0
+
     #
     #  rabbitmq:
     #    #producer
@@ -223,6 +228,7 @@ spring:
     #password: guest
     #username: guest
     #virtual-host: /
+
 springdoc:
   api-docs:
     path: /v3/api-docs
