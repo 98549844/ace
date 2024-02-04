@@ -18,10 +18,7 @@ public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
     public static void main(String[] args) throws IOException {
-        String in = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/rar/springmvc.zip";
-        String out = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/rar/unRar";
-
-        CompressUtil.unZip(in, out);
     }
+
 }
 
