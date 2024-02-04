@@ -12,6 +12,9 @@ import org.apache.logging.log4j.Logger;
  */
 
 
+
+    // https://blog.csdn.net/m0_45161766/article/details/124126114
+    // https://blog.csdn.net/WYP123456L/article/details/122037038
 public class AceLambda implements AceInterface {
     private static final Logger log = LogManager.getLogger(AceLambda.class.getName());
 

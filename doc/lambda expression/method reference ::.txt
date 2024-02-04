@@ -1,0 +1,14 @@
+对比最开始的Lambda写法，这里已经非常非常简洁了。
+但是如果，我们的要求变一下，变成print这个人的全部信息，
+及p -> System.out.println(p);
+那么还可以利用Method reference来继续简化。
+所谓Method reference,
+就是用已经写好的别的Object/Class的method来代替Lambda expression。
+格式如下：
+
+
+方法引用共分为四类：
+1.类名::静态方法名
+2.对象::实例方法名
+3.类名::实例方法名
+4.类名::new
