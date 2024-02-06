@@ -41,7 +41,6 @@ public class ComponentUtil {
     }
 
     public static String dockerRunningContainer() throws IOException {
-        //--是特殊符号, 要折分处理
         String[] formatPs = new String[]{"docker", "ps", "--format", "\"{{.Names}} {{.Status}}\""};
         return Console.execute(formatPs);
     }
