@@ -29,6 +29,8 @@ public class ComponentUtil {
 
     public static void versionCheck() throws IOException {
         Console.println(dockerVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
+
+        Console.println("Docker Running Container: ",  Console.BOLD);
         Console.println(dockerRunningContainer(), Console.FLUORESCENT_PURPLE, Console.BOLD);
         Console.println(ffmpegVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
     }
