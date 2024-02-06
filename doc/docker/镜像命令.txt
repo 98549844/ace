@@ -1,7 +1,8 @@
 docker images  #查看所有本地主机的镜像
 docker search 镜像名           #搜索镜像
 docker pull 镜像名 [标签]      #下载镜像（如果不写tag，默认是latest）
-docker rmi 镜像名 [标签]       #删除镜像    docker rmi -f $(docker images -aq)  删除全部镜像
+docker rmi 镜像名 [标签]       #删除镜像
+docker rmi -f $(docker images -aq)  删除全部镜像
 docker tag  镜像名:版本   新镜像名:版本    #复制镜像并且修改名称
 docker commit  -a "xxx"  -c "xxx" 镜像ID 名字：版本   #提交镜像
 -a :提交的镜像作者；

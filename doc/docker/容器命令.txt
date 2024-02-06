@@ -24,4 +24,4 @@ docker attach / docker exec  容器实例的ID    #同为进入容器命令，�
 docker image inspect  容器名称：容器标签     #查看容器内源数据
 docker cp       容器id：容器内路径   目的主机路径     #从容器内拷贝文件到主机（常用）或者从主机拷贝到容器（一般用挂载）
 exit            #直接退出容器
-crlt + P + Q    #退出容器但是不终止运行
+ctrl + P + Q    #退出容器但是不终止运行
