@@ -19,6 +19,8 @@ public class PasswordConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(11);
+        // 明文密码
+        // PasswordEncoder passwordEncoder = NoOpPasswordEncoder.getInstance();
         return passwordEncoder;
     }
 }
