@@ -2,7 +2,7 @@
 FROM unitfinance/jdk17-sbt-scala:latest
 MAINTAINER Garlam Au
 #VOLUME /tmp
-ADD target/ace-1.2.jar ace.jar
+ADD target/ace-3.2.jar ace.jar
 EXPOSE 8088
 # 暴露端口 与配置文件对应
 ENTRYPOINT ["java","-jar","ace.jar","--spring.profiles.active=docker"]

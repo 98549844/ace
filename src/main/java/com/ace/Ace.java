@@ -17,10 +17,6 @@ import java.io.IOException;
 public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
-    public static void main(String[] args) throws IOException {
-    }
-
-
 
 }
 
