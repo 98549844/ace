@@ -2,7 +2,10 @@ package com.ace.util;
 
 import com.ace.constant.constant;
 import com.util.MapUtil;
+import com.util.NullUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import net.dreamlu.mica.ip2region.core.Ip2regionSearcher;
+import net.dreamlu.mica.ip2region.core.IpInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.web.context.WebServerInitializedEvent;
@@ -38,6 +41,18 @@ public class IpUtil implements ApplicationListener<WebServerInitializedEvent> {
         Map m = u.getHostInfo();
         hostName = (String) m.get("hostName");
         return hostName;
+    }
+
+    /**
+     * 根据ip获取详细地址
+     */
+    public static String getLocalCityInfo(String ip) {
+        final Ip2regionSearcher ip2regionSearcher = ApplicationContextUtil.getBean(Ip2regionSearcher.class);
+        IpInfo ipInfo = ip2regionSearcher.memorySearch(ip);
+        if (!NullUtil.isNull(ipInfo)) {
+            return ipInfo.getAddress();
+        }
+        return "No information found !";
     }
 
     public static String getDomainIp(String domain) throws UnknownHostException {

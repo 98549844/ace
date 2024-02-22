@@ -3,12 +3,12 @@ package com.ace;
 import cn.dev33.satoken.SaManager;
 import com.ace.config.AceConfig;
 import com.ace.config.BrowserConfig;
-import com.ace.util.BeanUtil;
-import com.ace.util.ComponentUtil;
-import com.ace.util.IpUtil;
+import com.ace.util.*;
 import com.util.Console;
 import com.util.MapUtil;
 import com.util.SystemUtil;
+import net.dreamlu.mica.ip2region.core.Ip2regionSearcher;
+import net.dreamlu.mica.ip2region.core.IpInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mybatis.spring.annotation.MapperScan;
@@ -22,8 +22,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.IOException;
 import java.util.Map;
-
-import com.ace.util.PropertiesUtil;
 
 
 /*
@@ -79,6 +77,9 @@ public class AceApplication {
         }
         log.info("Running success: Sa-Token config: {}", SaManager.getConfig());
     }
+
+
+
 
 
 }

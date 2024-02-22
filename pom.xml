@@ -265,6 +265,14 @@
             <version>1.9.19</version>
         </dependency>
 
+        <!-- ip2region IP库 -->
+        <!-- https://mvnrepository.com/artifact/net.dreamlu/mica-ip2region -->
+        <dependency>
+            <groupId>net.dreamlu</groupId>
+            <artifactId>mica-ip2region</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+
         <!--utilities included-->
         <!--<dependency>
             <groupId>com.alibaba</groupId>
