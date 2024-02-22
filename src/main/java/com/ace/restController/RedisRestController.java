@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.DataType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -57,6 +58,7 @@ public class RedisRestController {
         return AjaxResponse.success(result);
     }
 
+
     @Operation(summary = "Check key exist")
     @RequestMapping(method = RequestMethod.GET, value = "/exist/{key}")
     public AjaxResponse exist(@PathVariable(value = "key") String key) {
@@ -75,11 +77,34 @@ public class RedisRestController {
     @Operation(summary = "Get value by key")
     @RequestMapping(method = RequestMethod.GET, value = "/get/{key}")
     public AjaxResponse getValueByKey(@PathVariable(value = "key") String key) {
-      //  return AjaxResponse.success(redisService.get(key));
+        //  return AjaxResponse.success(redisService.get(key));
         Object obj = redisService.get(key);
         String result = FastJson2Util.ObjectToJson(obj);
         return AjaxResponse.success(result);
     }
+
+    @Operation(summary = "Get type by key")
+    @RequestMapping(method = RequestMethod.GET, value = "/getType/{key}")
+    public AjaxResponse getTypeByKey(@PathVariable(value = "key") String key) {
+        DataType type = redisService.getTypeByKey(key);
+        Map result = new HashMap();
+        result.put("key", key);
+        result.put("type", type.name());
+        return AjaxResponse.success(result);
+    }
+
+    @Operation(summary = "Get all types")
+    @RequestMapping(method = RequestMethod.GET, value = "/getAllTypes")
+    public AjaxResponse getTypes() {
+        Set<String> keys = redisService.getKeys();
+        Map result = new HashMap();
+        for (String key : keys) {
+            DataType type = redisService.getTypeByKey(key);
+            result.put("key:" + key, "type:" + type.name());
+        }
+        return AjaxResponse.success(result);
+    }
+
 
     @Operation(summary = "Get all keys")
     @RequestMapping(method = RequestMethod.GET, value = "/getKeys")
@@ -121,7 +146,7 @@ public class RedisRestController {
 
     @Operation(summary = "GetVersion")
     @RequestMapping(method = RequestMethod.GET, value = "/getVersion")
-    public String get() {
+    public String getVersion() {
         redisService.set("ace", "<<< ace >>>");
         redisService.set("version", "版本 3.0", 10);
         System.out.println(redisService.get("ace"));

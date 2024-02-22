@@ -23,5 +23,12 @@ public class PasswordConfig {
         // PasswordEncoder passwordEncoder = NoOpPasswordEncoder.getInstance();
         return passwordEncoder;
     }
+
+    public static void main(String[] args) {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encode = passwordEncoder.encode("admin");
+        System.out.println(encode);
+
+    }
 }
 

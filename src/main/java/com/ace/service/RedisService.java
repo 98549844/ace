@@ -3,6 +3,7 @@ package com.ace.service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.Cursor;
@@ -118,9 +119,17 @@ public class RedisService {
      * @param key 键
      * @return 值
      */
-
     public Object get(String key) {
         return key == null ? null : redisTemplate.opsForValue().get(key);
+    }
+
+
+    /**
+     * @param key
+     * @return
+     */
+    public DataType getTypeByKey(String key) {
+        return key == null ? null : redisTemplate.type(key);
     }
 
     /**
