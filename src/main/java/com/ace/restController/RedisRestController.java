@@ -5,6 +5,7 @@ import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.Users;
 import com.ace.service.RedisService;
 import com.ace.service.UsersService;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.util.FastJson2Util;
 import com.util.NullUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -53,7 +54,8 @@ public class RedisRestController {
         Set<String> keys = redisService.getKeys();
         Map<String, Object> result = new HashMap<>();
         for (String key : keys) {
-            result.put(key, redisService.get(key)); // object 转换会出错
+            Object obj = redisService.get(key);
+            result.put(key, FastJson2Util.ObjectToJson(obj)); // object 转换成json
         }
         return AjaxResponse.success(result);
     }
@@ -80,6 +82,7 @@ public class RedisRestController {
         //  return AjaxResponse.success(redisService.get(key));
         Object obj = redisService.get(key);
         String result = FastJson2Util.ObjectToJson(obj);
+        System.out.println(result);
         return AjaxResponse.success(result);
     }
 
@@ -100,7 +103,7 @@ public class RedisRestController {
         Map result = new HashMap();
         for (String key : keys) {
             DataType type = redisService.getTypeByKey(key);
-            result.put("key:" + key, "type:" + type.name());
+            result.put("key=>" + key, "type:" + type.name());
         }
         return AjaxResponse.success(result);
     }
