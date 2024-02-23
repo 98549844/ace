@@ -34,6 +34,7 @@ public class MariaDBRestController {
     private final static Logger log = LogManager.getLogger(MariaDBRestController.class.getName());
 
     private final UsersService usersService;
+    private final DataBaseService dataBaseService;
 
     @Autowired
     public MariaDBRestController(UsersService usersService, DataBaseService dataBaseService) {
@@ -41,7 +42,6 @@ public class MariaDBRestController {
         this.dataBaseService = dataBaseService;
     }
 
-    private DataBaseService dataBaseService;
 
 
     @RequestMapping(value = "/tableList", method = RequestMethod.GET)
