@@ -133,7 +133,7 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <!--rabbitmq-->
-        <!--commented RabbitMQConfig.java .java-->
+        <!--commented RabbitMQConfig.java RabbitMQRestController.java application.yml的rabbitmq config-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
