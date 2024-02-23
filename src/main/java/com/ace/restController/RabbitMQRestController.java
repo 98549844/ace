@@ -64,9 +64,15 @@ public class RabbitMQRestController {
     //发送者和接收者的queue name必须一致，不然不能接收
     //queues是指要监听的队列的名字
     @RabbitListener(queues = RabbitMQConfig.QUEUE)
-    public void receiverDirectQueue(String msg) {
+    public void receiverDirectQueue1(String msg) {
         SleepUtil.sleep(3);
-        Console.println("【receiverDirectQueue监听到消息】" + msg, Console.BOLD);
+        Console.println("【receiver监听到消息1】" + msg, Console.BOLD);
+    }
+
+    @RabbitListener(queues = RabbitMQConfig.QUEUE)
+    public void receiverDirectQueue2(String msg) {
+        SleepUtil.sleep(3);
+        Console.println("【receiver监听到消息2】" + msg, Console.BOLD);
     }
 
     @RabbitListener(queues = RabbitMQConfig.QUEUE_USERS)
