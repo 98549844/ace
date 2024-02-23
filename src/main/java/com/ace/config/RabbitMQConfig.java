@@ -1,4 +1,3 @@
-/*
 package com.ace.config;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,14 +10,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
-*/
 /**
  * @Classname: RabbitMQConfig
  * @Date: 8/5/2021 1:02 上午
  * @Author: garlam
  * @Description:
- *//*
-
+ */
 
 
 @Configuration
@@ -26,16 +23,16 @@ public class RabbitMQConfig {
     private static final Logger log = LogManager.getLogger(RabbitMQConfig.class.getName());
 
     public static final String QUEUE = "direct_queue";
+    public static final String QUEUE_USERS = "queue_users";
     public static final String TOPIC_QUEUE1 = "topic.queue1";
     public static final String TOPIC_QUEUE2 = "topic.queue2";
     public static final String TOPIC_EXCHANGE = "topic.exchange";
 
-    */
-/**
+    /**
      * Direct模式
      *
      * @return
-     *//*
+     */
 
     @Bean
     public Queue directQueue() {
@@ -43,15 +40,18 @@ public class RabbitMQConfig {
         return new Queue(QUEUE, true);
     }
 
+    @Bean
+    public Queue QueueUsers() {
+        // 第一个参数是队列名字， 第二个参数是指是否持久化
+        return new Queue(QUEUE_USERS, true);
+    }
 
-    */
-/**
+
+    /**
      * Topic模式
      *
      * @return
-     *//*
-
-
+     */
     @Bean
     public Queue topicQueue1() {
         return new Queue(TOPIC_QUEUE1);
@@ -80,4 +80,3 @@ public class RabbitMQConfig {
 
 }
 
-*/

@@ -1,0 +1,19 @@
+# 进入kafka1服务
+docker exec -it kafka1 /bin/bash
+
+# 创建topic【first】
+kafka-topics.sh --bootstrap-server localhost:9092 --create --partitions 3 --replication-factor 3 --topic ace-application
+
+# 生产者发送消息到topic
+kafka-console-producer.sh --bootstrap-server localhost:9092 --topic ace-application
+
+# -------------------------------------
+
+# 进入kafka2服务
+docker exec -it kafka2 /bin/bash
+
+# 查看主题列表
+kafka-topics.sh --bootstrap-server localhost:9093 --list
+
+# 消费者
+kafka-console-consumer.sh --bootstrap-server localhost:9093 --topic ace-application

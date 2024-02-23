@@ -133,12 +133,11 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <!--rabbitmq-->
-        <!--commented RabbitMQConfig.java RabbitMQRestController.java-->
-        <!--<dependency>
+        <!--commented RabbitMQConfig.java .java-->
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
-        </dependency>-->
-        <!--redis RedisConfig.java RedisService.java  RedisRestController.java-->
+        </dependency>
 
         <!-- ActiveMQ  和 连接池  -->
         <!--<dependency>
@@ -179,12 +178,12 @@
             <version>${ffmpeg.version}</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.projectlombok</groupId>-->
-<!--            <artifactId>lombok</artifactId>-->
-<!--            <version>1.18.30</version>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.projectlombok</groupId>-->
+        <!--            <artifactId>lombok</artifactId>-->
+        <!--            <version>1.18.30</version>-->
+        <!--            <scope>provided</scope>-->
+        <!--        </dependency>-->
         <!--springboot3版本 openApi3-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
