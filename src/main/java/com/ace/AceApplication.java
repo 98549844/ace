@@ -62,8 +62,7 @@ public class AceApplication {
         //print server side information
         BeanUtil beanUtil = applicationContext.getBean("beanUtil", BeanUtil.class);
         IpUtil ip = beanUtil.getBeanByName("ipUtil", IpUtil.class);
-        Map m = ip.getHostInfo();
-        MapUtil.iterateMapKeySet(m);
+        MapUtil.iterateMapKeySet(ip.getHostInfo());
         ComponentUtil.versionCheck();
 
         AceConfig aceConfig = beanUtil.getBeanByName("aceConfig", AceConfig.class);
