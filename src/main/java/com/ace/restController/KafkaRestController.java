@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * @Classname: KafkaRestController
  * @Date: 24/2/2024 10:21 pm
  * @Author: garlam
- * @Description:
- * 参考资料 https://blog.csdn.net/cold___play/article/details/132398946
+ * @Description: 参考资料 https://blog.csdn.net/cold___play/article/details/132398946
  */
 
 @RestController
@@ -32,9 +31,10 @@ public class KafkaRestController {
     }
 
     //简单生产者
-    @GetMapping("/kafka/normal/{message}")
+    @GetMapping("/send/{message}")
     public void sendMessage(@PathVariable("message") String message) {
         for (int i = 0; i < 10; i++) {
+            log.info("Kafka send " + i);
             kafkaTemplate.send("ace", message + " " + i);
             SleepUtil.sleep(1);
         }

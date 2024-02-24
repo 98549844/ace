@@ -229,7 +229,7 @@ spring:
           #partitioner: #指定分区器
           #class: pers.zhang.config.CustomerPartitionHandler
     consumer:
-      group-id: testGroup #默认的消费组ID
+      group-id: aceGroup #默认的消费组ID
       enable-auto-commit: true #是否自动提交offset
       auto-commit-interval: 2000 #提交offset延时
       # 当kafka中没有初始offset或offset超出范围时将自动重置offset
@@ -243,7 +243,7 @@ spring:
       properties:
         session:
           timeout:
-            ms: 120000 # 消费会话超时时间（超过这个时间 consumer 没有发送心跳，就会触发 rebalance 操作）
+            ms: 120000 # 消费会话超时时间（超过这个时间 consumer 没有发送心跳，就会触发 re-balance 操作）
         request:
           timeout:
             ms: 18000 # 消费请求的超时时间
