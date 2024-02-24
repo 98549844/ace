@@ -10,10 +10,14 @@ kafka-console-producer.sh --bootstrap-server localhost:9092 --topic ace-applicat
 # -------------------------------------
 
 # 进入kafka2服务
+docker exec -it kafka1 /bin/bash
 docker exec -it kafka2 /bin/bash
+docker exec -it kafka3 /bin/bash
 
 # 查看主题列表
 kafka-topics.sh --bootstrap-server localhost:9093 --list
 
 # 消费者
-kafka-console-consumer.sh --bootstrap-server localhost:9093 --topic ace-application
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic ace
+kafka-console-consumer.sh --bootstrap-server localhost:9093 --topic ace-callback
+kafka-console-consumer.sh --bootstrap-server localhost:9094 --topic ace-callback

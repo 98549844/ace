@@ -58,7 +58,7 @@ public class KafkaRestController {
         for (int i = 0; i < 10; i++) {
             log.info("Kafka callback send " + i);
             // kafkaTemplate.send("ace", message + " " + i);
-            completableFuture = kafkaTemplate.send("ace-callback", UUID.randomUUID().toString(), message);
+            completableFuture = kafkaTemplate.send("ace-callback", UUID.randomUUID().toString(), message + ": " + i);
             SleepUtil.sleep(1);
         }
 
