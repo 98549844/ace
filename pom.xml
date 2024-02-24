@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.2</version>
+        <version>3.2.3</version>
         <relativePath/>
     </parent>
 
@@ -552,7 +552,7 @@
                 <profiles.active>dev</profiles.active>
             </properties>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>true</activeByDefault> <!--定义默认激活此profile-->
             </activation>
         </profile>
         <profile>
