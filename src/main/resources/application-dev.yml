@@ -214,7 +214,8 @@ spring:
     #virtual-host: /
 
   kafka:
-    bootstrap-servers: 192.168.1.100:9092 #这个是kafka的地址,对应你server.properties中配置的
+    bootstrap-servers: 192.168.1.100:9092,192.168.1.100:9093,192.168.1.100:9094
+    #这个是kafka的地址,对应你server.properties中配置的
     producer:
       batch-size: 16384 #批量大小
       acks: -1 #应答级别:多少个分区副本备份完成时向生产者发送ack确认(可选0、1、all/-1)
