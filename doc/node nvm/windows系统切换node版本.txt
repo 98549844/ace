@@ -51,7 +51,15 @@
 9.2 验证默认版本
    nvm alias
 
+10. 尝试升级/update到当前节点版本上最新的npm
+nvm install-latest-npm
 
+11. 使用NVM更新Node.js并保留旧版本
+    nvm install NEW_VERSION --reinstall-packages-from=OLD_VERSION
+    nvm uninstall OLD_VERSION
+
+    nvm install 18.19.1 --reinstall-packages-from=18.19.0
+    nvm uninstall 18.19.0
 
 macOS上安装和使用nvm
 https://blog.csdn.net/qq_39997939/article/details/130877282
