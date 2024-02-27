@@ -150,7 +150,7 @@ public class RedisRestController {
     }
 
 
-    @Operation(summary = "Clear all")
+    @Operation(summary = "Clear all ")
     @RequestMapping(method = RequestMethod.GET, value = "/clearAll")
     public AjaxResponse clearAll() {
         return AjaxResponse.success(redisService.clearAll());
