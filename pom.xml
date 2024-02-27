@@ -123,25 +123,28 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka-clients</artifactId>
-            <version>3.6.1</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <!--rabbitmq-->
         <!--commented RabbitMQConfig.java RabbitMQRestController.java application.yml的rabbitmq config-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-        </dependency>
+        <!-- <dependency>-->
+        <!--     <groupId>org.springframework.boot</groupId>-->
+        <!--     <artifactId>spring-boot-starter-amqp</artifactId>-->
+        <!-- </dependency>-->
+        <!--        -->
+        <!-- <dependency>-->
+        <!--     <groupId>org.springframework.kafka</groupId>-->
+        <!--     <artifactId>spring-kafka</artifactId>-->
+        <!-- </dependency>-->
+
+        <!-- main方法独立测试 =>  KafkaCustomProducer.java
+                                KafkaRestController.java-->
+        <!-- <dependency>-->
+        <!--     <groupId>org.apache.kafka</groupId>-->
+        <!--     <artifactId>kafka-clients</artifactId>-->
+        <!--     <version>3.6.1</version>-->
+        <!-- </dependency>-->
 
         <!-- ActiveMQ  和 连接池  -->
         <!--<dependency>
