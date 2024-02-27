@@ -11,5 +11,6 @@ public class constant {
      * 本地ip
      */
     public static final String LOCAL_IP = "127.0.0.1";
+    public static final String LOCAL_HOST = "localhost";
 
 }

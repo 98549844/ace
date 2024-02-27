@@ -98,7 +98,7 @@ public class RedisRestController {
     @Operation(summary = "Get type by key")
     @RequestMapping(method = RequestMethod.GET, value = "/getType/{key}")
     public AjaxResponse getTypeByKey(@PathVariable(value = "key") String key) {
-        DataType type = redisService.getTypeByKey(key);
+        DataType type = redisService.getType(key);
         Map result = new HashMap();
         result.put("key", key);
         result.put("type", type.name());
@@ -111,7 +111,7 @@ public class RedisRestController {
         Set<String> keys = redisService.getKeys();
         Map result = new HashMap();
         for (String key : keys) {
-            DataType type = redisService.getTypeByKey(key);
+            DataType type = redisService.getType(key);
             result.put("key=>" + key, "type:" + type.name());
         }
         return AjaxResponse.success(result);
@@ -138,7 +138,7 @@ public class RedisRestController {
         return AjaxResponse.success(redisService.set(key, body));
     }
 
-    @Operation(summary = "renameKey key value ")
+    @Operation(summary = "Rename key")
     @RequestMapping(value = "/renameKey/{oldKey}/{newKey}", method = RequestMethod.PUT)
     public AjaxResponse renameKey(@PathVariable String oldKey, @PathVariable String newKey) {
         boolean result = redisService.renameKey(oldKey, newKey);
@@ -150,7 +150,7 @@ public class RedisRestController {
     }
 
 
-    @Operation(summary = "Clear redis cache")
+    @Operation(summary = "Clear all")
     @RequestMapping(method = RequestMethod.GET, value = "/clearAll")
     public AjaxResponse clearAll() {
         return AjaxResponse.success(redisService.clearAll());

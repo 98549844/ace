@@ -125,6 +125,21 @@ public class RedisService {
      * @return 值
      */
     public Object get(String key) {
+        DataType type = getType(key);
+        try {
+            if (DataType.STRING.equals(type)) {
+                return getString(key);
+            } else if (DataType.HASH.equals(type)) {
+                return hashGet(key);
+            }
+            return key == null ? null : redisTemplate.opsForValue().get(key);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Object getString(String key) {
         return key == null ? null : stringRedisTemplate.opsForValue().get(key);
     }
 
@@ -133,7 +148,7 @@ public class RedisService {
      * @param key
      * @return
      */
-    public DataType getTypeByKey(String key) {
+    public DataType getType(String key) {
         return key == null ? null : redisTemplate.type(key);
     }
 
