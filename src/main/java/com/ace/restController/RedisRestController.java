@@ -86,6 +86,15 @@ public class RedisRestController {
         return AjaxResponse.success(result);
     }
 
+    @Operation(summary = "Get hash by key")
+    @RequestMapping(method = RequestMethod.GET, value = "/getHash/{key}")
+    public AjaxResponse getHashByKey(@PathVariable(value = "key") String key) {
+        Map<Object, Object> obj = redisService.hashGet(key);
+        String result = FastJson2Util.ObjectToJson(obj);
+        System.out.println(result);
+        return AjaxResponse.success(result);
+    }
+
     @Operation(summary = "Get type by key")
     @RequestMapping(method = RequestMethod.GET, value = "/getType/{key}")
     public AjaxResponse getTypeByKey(@PathVariable(value = "key") String key) {
@@ -176,6 +185,19 @@ public class RedisRestController {
         ls.add(redisService.get("all"));
 
         return AjaxResponse.success(ls);
+    }
+
+    @Operation(summary = "redis connection status")
+    @RequestMapping(method = RequestMethod.GET, value = "/getConnection")
+    public AjaxResponse connection() {
+        String status;
+        if (redisService.getConnection()) {
+            status = "closed";
+        } else {
+            status = "connected";
+        }
+        String connection = "Redis connection status: " + status;
+        return AjaxResponse.success(connection);
     }
 
 }

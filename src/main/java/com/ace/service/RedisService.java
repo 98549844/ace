@@ -36,6 +36,10 @@ public class RedisService {
         this.stringRedisTemplate = stringRedisTemplate;
     }
 
+    public boolean getConnection() {
+        return redisTemplate.getConnectionFactory().getConnection().isClosed();
+    }
+
     /**
      * 指定缓存失效时间
      *
