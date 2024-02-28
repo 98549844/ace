@@ -3,6 +3,7 @@ package com.ace.restController;
 import com.ace.config.AceConfig;
 import com.ace.config.ReportConfig;
 import com.ace.models.common.AjaxResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +27,7 @@ import java.util.List;
 @CrossOrigin // 解决浏览器禁止ajax请求本地以外的资源, 后端同时在Controller层的类上增加@CrossOrign注解
 @RestController
 @RequestMapping("/rest/ace")
-@Tag(name = "Ace")
+@Tag(name = "AceProperties")
 @EnableConfigurationProperties
 public class AceRestController {
     private final static Logger log = LogManager.getLogger(AceRestController.class.getName());
@@ -41,6 +42,7 @@ public class AceRestController {
 
     }
 
+    @Operation(summary = "get ace properties")
     @RequestMapping(method = RequestMethod.GET, value = "/get.html")
     public AjaxResponse getAceProperties() {
         log.info("aceConfig.getName(): " + aceConfig.getName());

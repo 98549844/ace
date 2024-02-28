@@ -1,0 +1,2 @@
+1. npm install -g pnpm
+-g: 将pnpm安装到全局环境变量里

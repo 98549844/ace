@@ -5,7 +5,7 @@
 
     mac version nvm
     terminal access (raw.gitmirror)
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
     curl -o- https://raw.gitmirror.com/nvm-sh/nvm/v0.39.6/install.sh | bash
     curl -o- https://usercontent.githubfast.com/raw/nvm-sh/nvm/v0.39.6/install.sh | bash
     https://githubfast.com/nvm-sh/nvm#install--update-script

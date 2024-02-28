@@ -4,6 +4,3 @@
 2.  安装 Vue CLI, 全局安装最新版本的 Vue CLI
     npm install -g @vue/cli
 
-->     v14.21.3
-       v16.20.2
-       v18.19.1
