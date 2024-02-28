@@ -1,0 +1,10 @@
+项目名: ace-firebase-application
+web应用: npm install firebase
+
+firebase安装: npm install firebase
+firebase工具: npm install -g firebase-tools
+
+
+登入: firebase login
+初始化: firebase init
+布署: firebase deploy
