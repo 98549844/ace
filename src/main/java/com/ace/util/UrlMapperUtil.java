@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +37,18 @@ public class UrlMapperUtil implements ApplicationContextAware {
         List<String> list = new ArrayList<>(getUrl(controllerBeans, applicationContext));
         // list.addAll(getUrl(restControllerBeans, applicationContext));
 
+    }
+
+
+    public boolean getUrlStatus(String url) {
+        try {
+            URLConnection connection = new URL(url).openConnection();
+            connection.connect();
+            return true;
+        } catch (final Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public List<String> getUrl() {
