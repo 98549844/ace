@@ -17,7 +17,12 @@ public class Ace {
 
 
     public static void main(String[] args) {
-        UrlUtil.getUrlConnectionStatus("http://ocsp.apple.com/ocsp02-wwdr01");
+        //  UrlUtil.getUrlConnectionStatus("http://ocsp.apple.com/ocsp02-wwdr01");
+        //  UrlUtil.readFileByUrl("http://ocsp.apple.com/ocsp02-wwdr01");
+
+        UrlUtil.readFileContentByUrl("https://www.apache.org/licenses/LICENSE-2.0.txt");
+
+      //  System.out.println(a);
     }
 }
 
