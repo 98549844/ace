@@ -23,12 +23,15 @@ public class UrlUtil  {
      * @return
      */
     public boolean getUrlConnectionStatus(String url) {
+            System.out.println("url: " + url);
         try {
             URLConnection connection = new URL(url).openConnection();
             connection.connect();
+            System.out.println("connection is ok");
             return true;
         } catch (final Exception e) {
             e.printStackTrace();
+            System.out.println("connection is fail");
             return false;
         }
     }
