@@ -33,4 +33,7 @@ npm install firebase-admin --save
 npm install firebase-tools --save
 4. init firebase
 firebase init
-
+5. 本地部署测试
+firebase serve --only hosting --project=default
+6. 部署网站
+firebase deploy --project=default
