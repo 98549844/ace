@@ -50,9 +50,9 @@ public class ClearLog {
     }
 
     private void clearingLogFile(File file) {
-        File[] Files = file.listFiles();
+        File[] files = file.listFiles();
         if (NullUtil.isNonNull(file)) {
-            for (File f : Files) {
+            for (File f : files) {
                 f.delete();
             }
         }
