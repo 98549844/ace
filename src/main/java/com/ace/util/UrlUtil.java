@@ -22,7 +22,7 @@ public class UrlUtil  {
      * @param url
      * @return
      */
-    public boolean getUrlConnectionStatus(String url) {
+    public static boolean getUrlConnectionStatus(String url) {
             System.out.println("url: " + url);
         try {
             URLConnection connection = new URL(url).openConnection();
