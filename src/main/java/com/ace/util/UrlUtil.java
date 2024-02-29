@@ -18,6 +18,10 @@ import java.net.URLConnection;
 public class UrlUtil  {
     private static final Logger log = LogManager.getLogger(UrlUtil.class.getName());
 
+    /** 检查url是否可连接
+     * @param url
+     * @return
+     */
     public boolean getUrlStatus(String url) {
         try {
             URLConnection connection = new URL(url).openConnection();
