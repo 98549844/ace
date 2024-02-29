@@ -1,1 +1,2 @@
-aaa
+id:tnt-admin
+pw:tntadmin
