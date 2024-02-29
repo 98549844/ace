@@ -1,10 +1,8 @@
 package com.ace;
 
-import com.util.CompressUtil;
+import com.ace.util.UrlUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.io.IOException;
 
 /**
  * @Classname: Ace
@@ -18,5 +16,8 @@ public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
 
+    public static void main(String[] args) {
+        UrlUtil.getUrlConnectionStatus("http://ocsp.apple.com/ocsp02-wwdr01");
+    }
 }
 

@@ -2,14 +2,14 @@
 web应用: npm install firebase
 
 firebase安装: npm install firebase
-firebase工具: npm install -g firebase-tools
+firebase工具: npm install firebase-tools
 
 
 cli登入: firebase login
 server site logon: firebase --no-localhost
 
 初始化:
-npm init -y
+npm init -y (build empty nodejs project)
 -y: all option select Yes
 
 布署: firebase deploy
@@ -24,8 +24,13 @@ https://console.firebase.google.com/
 install firebase admin sdk
 
 1.mkdir folder
-midir /xx/xx/xx
+mkdir /xx/xx/xx
+cd /xx/xx/xx
 2.init
 npm init -y
 3.install firebase admin
 npm install firebase-admin --save
+npm install firebase-tools --save
+4. init firebase
+firebase init
+
