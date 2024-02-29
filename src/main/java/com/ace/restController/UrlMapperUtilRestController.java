@@ -1,7 +1,7 @@
 package com.ace.restController;
 
 import com.ace.models.common.AjaxResponse;
-import com.ace.util.UrlMapperUtil;
+import com.ace.util.AnnotationMapperUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/rest/url")
 //@Api(tags = "Url Mapping")
-@Tag(name = "UrlMapperUtil")
+@Tag(name = "AnnotationMapperUtil")
 @EnableConfigurationProperties
 public class UrlMapperUtilRestController {
     private static final Logger log = LogManager.getLogger(UrlMapperUtilRestController.class.getName());
@@ -39,8 +39,8 @@ public class UrlMapperUtilRestController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/get")
     public AjaxResponse getUrlMapping() {
-        UrlMapperUtil urlMapperUtil = new UrlMapperUtil();
-        List<String> url = urlMapperUtil.getUrl();
+        AnnotationMapperUtil annotationMapperUtil = new AnnotationMapperUtil();
+        List<String> url = annotationMapperUtil.getUrl();
         return AjaxResponse.success(url);
     }
 

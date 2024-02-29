@@ -20,14 +20,14 @@ import java.util.Map;
 /**
  * 扫瞄项目里已经mapped的url
  *
- * @Classname: UrlMapperUtil
+ * @Classname: AnnotationMapperUtil
  * @Date: 2023/1/13 上午 09:48
  * @Author: kalam_au
  * @Description:
  */
 
-public class UrlMapperUtil implements ApplicationContextAware {
-    private static final Logger log = LogManager.getLogger(UrlMapperUtil.class.getName());
+public class AnnotationMapperUtil implements ApplicationContextAware {
+    private static final Logger log = LogManager.getLogger(AnnotationMapperUtil.class.getName());
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -39,17 +39,6 @@ public class UrlMapperUtil implements ApplicationContextAware {
 
     }
 
-
-    public boolean getUrlStatus(String url) {
-        try {
-            URLConnection connection = new URL(url).openConnection();
-            connection.connect();
-            return true;
-        } catch (final Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 
     public List<String> getUrl() {
         Map<String, Object> controllerBeans = AceApplication.applicationContext.getBeansWithAnnotation(Controller.class);
