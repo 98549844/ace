@@ -19,7 +19,12 @@ import java.nio.charset.StandardCharsets;
 
 public class UrlUtil {
     private static final Logger log = LogManager.getLogger(UrlUtil.class.getName());
+    private static final String sampleUrl="https://www.apache.org/licenses/LICENSE-2.0.txt";
 
+    public static void main(String[] args) {
+        System.out.println(getUrlConnectionStatus(sampleUrl));
+        readFileContentByUrl(sampleUrl);
+    }
     /**
      * 检查url是否可连接
      *
@@ -54,7 +59,7 @@ public class UrlUtil {
             }
             reader.close();
             inputStream.close();
-           // connection.disconnect();
+            // connection.disconnect();
         } catch (IOException e) {
             e.printStackTrace();
         }
