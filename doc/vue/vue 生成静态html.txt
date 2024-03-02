@@ -3,6 +3,7 @@
 
 2.  进入到 my-project 文件夹中, 安装 Vue 的静态网站生成工具(Vuepress)
     npm install -D vuepress
+    在npm中，-D 是 --save-dev 的简写形式，表示将包作为开发依赖(devDependency)项进行安装
 
 3.  创建一个 markdown 文件(README.md),如果没有
 
