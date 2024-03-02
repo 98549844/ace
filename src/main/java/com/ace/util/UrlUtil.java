@@ -22,8 +22,9 @@ public class UrlUtil {
     private static final String sampleUrl="https://www.apache.org/licenses/LICENSE-2.0.txt";
 
     public static void main(String[] args) {
-        System.out.println(getUrlConnectionStatus(sampleUrl));
-        readFileContentByUrl(sampleUrl);
+        String target ="www.gstatic.com";
+        System.out.println(getUrlConnectionStatus(target));
+       // readFileContentByUrl(sampleUrl);
     }
     /**
      * 检查url是否可连接

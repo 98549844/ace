@@ -22,12 +22,22 @@ public class NotificationsController extends CommonController {
     private static final Logger log = LogManager.getLogger(NotificationsController.class.getName());
 
     @RequestMapping(value = "/notifications.html", method = RequestMethod.GET)
-    public ModelAndView index() {
+    public ModelAndView notifications() {
         if (!isLogin()) {
             return logout();
         }
         ModelAndView modelAndView = super.page("ace/modules/notifications/notifications");
         return modelAndView;
     }
+
+    @RequestMapping(value = "/push.html", method = RequestMethod.GET)
+    public ModelAndView push() {
+        if (!isLogin()) {
+            return logout();
+        }
+        ModelAndView modelAndView = super.page("ace/modules/notifications/push");
+        return modelAndView;
+    }
+
 }
 

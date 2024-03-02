@@ -485,12 +485,39 @@
     </li>
 
     <li class="">
-        <a class="menu" th:href="@{/ace/notifications.html}">
+        <a th:href="@{/#}" class="menu dropdown-toggle">
             <i class="menu-icon fa fa-envelope"></i>
-            <span class="menu-text"> Notifications </span>
+            <span class="menu-text">
+                Notifications
+                <span class="badge badge-primary">1</span>
+            </span>
+
+            <b class="arrow fa fa-angle-down"></b>
         </a>
+
         <b class="arrow"></b>
+
+        <ul class="submenu">
+            <li class="">
+                <a class="menu" th:href="@{/ace/notifications.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    申请消息推送权限
+                </a>
+                <b class="arrow"></b>
+            </li>
+        </ul>
+        <ul class="submenu">
+            <li class="">
+                <a class="menu" th:href="@{/ace/push.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    Push notifications
+                </a>
+                <b class="arrow"></b>
+            </li>
+        </ul>
     </li>
+
+
 
     <li class="">
         <a th:href="@{/#}" class="menu dropdown-toggle">
