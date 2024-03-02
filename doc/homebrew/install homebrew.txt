@@ -1,0 +1,23 @@
+installation:
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# 查看 Homebrew 版本
+brew -v
+
+# 列出已安装的软件
+brew list
+
+# 使用浏览器打开 Homebrew 官网
+brew home
+
+# 查看包的详细信息
+brew info 包名
+
+# 检测系统中与Homebrew有关的潜在问题
+brew doctor
+
+# 查看包的所有版本
+brew list --versions | grep 包名
+
+# 以树形展示所有已安装包的依赖
+brew deps --installed --tree

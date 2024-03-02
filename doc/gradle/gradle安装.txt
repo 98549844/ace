@@ -1,0 +1,11 @@
+1. 使用homebrew安装
+brew install gradle
+
+2. 检查版本
+gradle -v
+
+3. 查看gradle安装路径
+which gradle =>显示的是shotcut
+
+4. 用brew安装gradle,用brew查看安装路径
+brew list gradle

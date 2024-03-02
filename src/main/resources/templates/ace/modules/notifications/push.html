@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{ace/pb-pages/header :: header}">
+    <!-- inline styles related to this page -->
+</head>
+
+<body class="no-skin">
+<div id="navbar" class="navbar navbar-default ace-save-state"
+     th:insert="~{ace/pb-pages/navbar :: navbar}"></div>
+
+<div class="main-container ace-save-state" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.loadState('main-container')
+        } catch (e) {
+        }
+    </script>
+
+    <div id="sidebar" class="sidebar responsive ace-save-state"
+         th:insert="~{ace/pb-pages/sidebar :: sidebar}">
+    </div>
+
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="breadcrumbs" th:insert="~{ace/pb-pages/breadcrumbs :: breadcrumbs}"></div>
+            <div class="page-content">
+                <div class="ace-settings-container" id="ace-settings-container"
+                     th:insert="~{ace/pb-pages/ace-settings-container :: ace-settings-container}">
+                </div><!-- /.ace-settings-container -->
+
+                <div class="page-header">
+                    <h1>
+                        Web Push Notification Page
+                        <small>
+                            <i class="ace-icon fa fa-angle-double-right"></i>
+                            Demo
+                        </small>
+                    </h1>
+                </div><!-- /.page-header -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <button onclick="requestNotificationPermission()">Request Notification Permission</button>
+                        <br><br>
+                        <input type="text" id="title" placeholder="Notification Title">
+                        <br><br>
+                        <input type="text" id="body" placeholder="Notification Body">
+                        <br><br>
+                        <input type="text" id="token" placeholder="Firebase Token">
+                        <br><br>
+                        <button onclick="sendNotification()">Send Notification</button>
+
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+
+    <div class="footer" th:insert="~{ace/pb-pages/footer :: footer}">
+    </div>
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse"
+       th:insert="~{ace/pb-pages/btn-scroll-up :: btn-scroll-up}">
+    </a>
+</div><!-- /.main-container -->
+
+<div th:insert="~{ace/pb-pages/common-script :: common-script}"></div>
+<!-- page specific plugin scripts -->
+<!--firebase script start-->
+<script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-messaging.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/firebase@10.8.1/firebase-app.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@firebase/messaging@0.12.6/dist/esm/index.esm2017.min.js"></script>-->
+<!--<script th:src="@{/assets/firebase-messaging/firebase-app.10.8.1.js}"></script>-->
+<!--<script th:src="@{/assets/firebase-messaging/firebase-messaging-0.12.6.js}"></script>-->
+<!--<script th:src="@{/assets/firebase-messaging/analytics-0.10.1.js}"></script>-->
+
+<script>
+    // 初始化Firebase App
+    const firebaseConfig = {
+        apiKey: "AIzaSyCyzW8VJNU-Dp_hBeXMEx2yblaW6JL670Y",
+        authDomain: "ace-firebase-application.firebaseapp.com",
+        databaseURL: "https://ace-firebase-application-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "ace-firebase-application",
+        storageBucket: "ace-firebase-application.appspot.com",
+        messagingSenderId: "988257136816",
+        appId: "1:988257136816:web:5259ccb0c73d4697784b75",
+        measurementId: "G-6SJR5K7E3G"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // 获取Firebase Messaging 实例
+    const messaging = firebase.messaging();
+    messaging.usePublicVapidKey("YOUR_PUBLIC_VAPID_KEY");
+
+    // 请求用户授权订阅推送通知
+    function requestNotificationPermission() {
+        messaging.requestPermission()
+            .then(function () {
+                console.log("Notification permission granted.");
+                return messaging.getToken();
+            })
+            .then(function (token) {
+                console.log("Token: " + token);
+                document.getElementById("token").value = token;
+            })
+            .catch(function (error) {
+                console.log("Error requesting notification permission: " + error);
+            });
+    }
+
+    // 发送推送通知请求
+    function sendNotification() {
+        const title = document.getElementById("title").value;
+        const body = document.getElementById("body").value;
+        const token = document.getElementById("token").value;
+
+        const data = {
+            title: title,
+            body: body,
+            token: token
+        };
+
+        fetch('/sendNotification', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(function (response) {
+                console.log("Notification sent.");
+            })
+            .catch(function (error) {
+                console.log("Error sending notification: " + error);
+            });
+    }
+</script>
+<!--firebase script end-->
+
+</body>
+</html>
