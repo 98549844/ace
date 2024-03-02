@@ -25,7 +25,6 @@ import java.util.Map;
 @Order(1)
 public class PropertiesUtil {
     private static final Logger log = LogManager.getLogger(PropertiesUtil.class.getName());
-
     public static Environment environment;
 
     @Autowired
