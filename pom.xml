@@ -381,12 +381,6 @@
             <version>1.16.1</version>
         </dependency>
 
-        <!--<dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            &lt;!&ndash; <version>3.1.2</version>&ndash;&gt;
-            <version>${spring.version}</version>
-        </dependency>-->
         <dependency>
             <groupId>org.lionsoul</groupId>
             <artifactId>ip2region</artifactId>
@@ -398,9 +392,12 @@
             <artifactId>firebase-admin</artifactId>
             <version>9.2.0</version>
         </dependency>
-
-
-
+        <!--<dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            &lt;!&ndash; <version>3.1.2</version>&ndash;&gt;
+            <version>${spring.version}</version>
+        </dependency>-->
     </dependencies>
 
 
