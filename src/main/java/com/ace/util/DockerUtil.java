@@ -222,7 +222,6 @@ public class DockerUtil {
             containers = dockerClient.listContainersCmd().exec();
             for (Container container : containers) {
                 if (container.getNames()[0].contains(containerName)) {
-                    // containerId = container.getId();
                     containerIdList.add(container.getId());
                 }
             }
