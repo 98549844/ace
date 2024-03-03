@@ -10,5 +10,8 @@ docker run -itd --name ffmpeg \
 
 --entrypoint='bash' =>bash指的是容器里的bash
 
-3.检查ffmpeg版本
+3.进入容器
+docker exec -it ffmpeg /bin/bash
+
+4.检查ffmpeg版本
 ffmpeg -version

@@ -63,6 +63,7 @@ public class DockerUtil {
 
 
     public static void main(String[] args) throws IOException {
+
         DockerUtil dockerUtil = new DockerUtil();
         DockerClient dockerClient = dockerUtil.getDockerClient();
        // dockerUtil.dockerVersion(dockerClient);
@@ -100,9 +101,7 @@ public class DockerUtil {
                 super.onNext(frame);
             }
         };
-
         execStartCmd.exec(execStartResultCallback);
-
         try {
             execStartResultCallback.awaitCompletion();
         } catch (InterruptedException e) {

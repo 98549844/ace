@@ -20,11 +20,13 @@ public class DavToMP4Video {
     private static final Logger log = LogManager.getLogger(DavToMP4Video.class.getName());
 
 
+    public static void main(String[] args) {
+        startDavToMP4Video();
+    }
 
-
-    public static void startDavToMP4Video(String[] args) {
-        String inputPath = "C:\\ACE\\temp\\" + "aaa.MOV";
-        String outputPath = "C:\\ACE\\temp\\";
+    public static void startDavToMP4Video() {
+        String inputPath = "/Users/garlam/ace/videos/aaa.MP4";
+        String outputPath = "/Users/garlam/ace/videos/m3u8/";
         String newFileName = "some_name";
         DavToMP4Video davToMP4Video = new DavToMP4Video();
         davToMP4Video.davToMP4Video(inputPath, outputPath, newFileName);
@@ -38,7 +40,7 @@ public class DavToMP4Video {
     public boolean davToMP4Video(String inputPath, String outputPath, String newFileName) {
         //ffmpeg软件地址
         String ffmpegPath = "";
-        if (!checkfile(inputPath)) {
+        if (!checkFile(inputPath)) {
             log.error(inputPath + " is not file");
             return false;
         }
@@ -89,7 +91,7 @@ public class DavToMP4Video {
     }
 
 
-    private static boolean checkfile(String path) {
+    private static boolean checkFile(String path) {
         File file = new File(path);
         if (!file.isFile()) {
             log.error(path + "不是文件夹！");
@@ -100,7 +102,7 @@ public class DavToMP4Video {
 
     private static boolean processMp4(String inputPath, String oldFilePath, String ffmpegPath, String outputPath, String fileName) {
 
-        if (!checkfile(inputPath)) {
+        if (!checkFile(inputPath)) {
             log.error(oldFilePath + " is not file");
             return false;
         }
@@ -121,6 +123,9 @@ public class DavToMP4Video {
         command.add("-movflags");
         command.add("faststart");
         command.add(outputPath + fileName + ".mp4");
+        //ffmpeg -i /mnt/app/aaa.MP4 -c:v libx264 -mbd 0 -c:a aac -strict -2 -pix_fmt yuv420p
+        // -movflags faststart /mnt/app/m3u8/some_name.mp4
+
         try {
 
             // 方案1
