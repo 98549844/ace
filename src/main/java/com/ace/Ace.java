@@ -1,8 +1,10 @@
 package com.ace;
 
-import com.ace.util.UrlUtil;
+import com.ace.util.CangJieUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
 
 /**
  * @Classname: Ace
@@ -14,13 +16,12 @@ import org.apache.logging.log4j.Logger;
 
 public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
-
-
     public static void main(String[] args) {
-        //  UrlUtil.getUrlConnectionStatus("http://ocsp.apple.com/ocsp02-wwdr01");
-        //  UrlUtil.readFileByUrl("http://ocsp.apple.com/ocsp02-wwdr01");
-
-        UrlUtil.readFileContentByUrl("http://www.apache.org/licenses/LICENSE-2.0");
     }
+
+    private static void cangJieCheck(String code) throws IOException {
+        CangJieUtil.checkCangJieCode(code);
+    }
+
 }
 
