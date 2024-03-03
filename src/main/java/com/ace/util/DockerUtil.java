@@ -35,20 +35,20 @@ public class DockerUtil {
     private static final Logger log = LogManager.getLogger(DockerUtil.class.getName());
 
 
-/*
-    1. cd到docker安装路径
-    cd /Users/garlam/.docker/daemon.json
+    /*
+        1. cd到docker安装路径
+        cd /Users/garlam/.docker/daemon.json
 
-    2.加入config
-    {
-        "hosts": [ "unix:///var/run/docker.sock","tcp://0.0.0.0:2375"],
-    }
+        2.加入config
+        {
+            "hosts": [ "unix:///var/run/docker.sock","tcp://0.0.0.0:2375"],
+        }
 
-    3.重启docker服务
-    docker desktop restart
-*/
+        3.重启docker服务
+        docker desktop restart
+    */
     //需要暴路端口2375
-    private final static String LOCAL_DOCKER ="unix:///var/run/docker.sock";
+    private final static String LOCAL_DOCKER = "unix:///var/run/docker.sock";
 
     private final DockerClient dockerClient = getDockerClient(); //init docker client
     private String remoteUrl;
@@ -61,36 +61,29 @@ public class DockerUtil {
     }
 
 
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
 
         DockerUtil dockerUtil = new DockerUtil();
         DockerClient dockerClient = dockerUtil.getDockerClient();
-       // dockerUtil.dockerVersion(dockerClient);
+        // dockerUtil.dockerVersion(dockerClient);
         // dockerUtil.dockerImages();
         // dockerUtil.dockerContainers();
-        // dockerUtil.close(dockerClient);
-       // dockerUtil.execute("ffmpeg -version");
+        dockerUtil.execute(dockerUtil.getContainerId("ffmpeg"), "ffmpeg -version");
+        //关闭Docker客户端连接
+        dockerUtil.close(dockerClient);
     }
 
-    public void execute(String containerId,  String... command) throws IOException {
-        //创建Docker客户端
-       // DockerClient dockerClient = dockerClient();
-
-        // 获取要执行的命令和容器ID
-      //  String command = "ffmpeg -version";
-      //  String containerId = "490b4fed08ea786a4c1927ec9dcfec3e5e4072bbb3596336ec5c65f6ede851b0";
-
+    public void execute(String containerId, String... command) throws IOException {
         // 创建执行命令的请求
-        ExecCreateCmdResponse execCreateCmdResponse = dockerClient.execCreateCmd(containerId)
-                .withCmd("sh", "-c", command[0]) //sh 是指定要使用的 shell, -c 是告诉 shell 后面的参数是要执行的命令
-                .withAttachStdout(true)
-                .withAttachStderr(true)
-                .exec();
-
+        ExecCreateCmdResponse execCreateCmdResponse = dockerClient
+                                                        .execCreateCmd(containerId).withCmd("sh", "-c", command[0]) //sh 是指定要使用的 shell, -c 是告诉 shell 后面的参数是要执行的命令
+                                                        .withAttachStdout(true)
+                                                        .withAttachStderr(true)
+                                                        .exec();
         // 启动命令的执行
-        ExecStartCmd execStartCmd = dockerClient.execStartCmd(execCreateCmdResponse.getId())
-                .withDetach(false);
+        ExecStartCmd execStartCmd = dockerClient
+                                    .execStartCmd(execCreateCmdResponse.getId())
+                                    .withDetach(false);
 
         // 处理命令的输出并获取版本号
         StringBuilder outputBuilder = new StringBuilder();
@@ -108,12 +101,8 @@ public class DockerUtil {
             e.printStackTrace();
         }
 
-        // 输出命令的版本号
         String output = outputBuilder.toString();
         System.out.println(output);
-
-        //关闭Docker客户端连接
-        close(dockerClient);
     }
 
     private static String parseVersion(String output) {
@@ -126,37 +115,37 @@ public class DockerUtil {
         return version;
     }
 
-    public DockerClient getDockerClient(){
+    public DockerClient getDockerClient() {
         DockerClientConfig config = dockerClientConfig();
         ApacheDockerHttpClient httpClient = apacheDockerHttpClient();
         //创建Docker客户端
-        DockerClient dockerClient = DockerClientBuilder.getInstance(config)
-                .withDockerHttpClient(httpClient)
-                .build();
+        DockerClient dockerClient = DockerClientBuilder.getInstance(config).withDockerHttpClient(httpClient).build();
         return dockerClient;
     }
 
-    private DockerClientConfig dockerClientConfig(){
+    private DockerClientConfig dockerClientConfig() {
         String url = LOCAL_DOCKER;
         if (!NullUtil.isNull(remoteUrl)) {
             log.info("remote docker url: " + remoteUrl);
             url = remoteUrl;
         }
         // 配置Docker客户端
-        DockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder()
-                .withDockerHost(url)
-                .withDockerTlsVerify(false)
-                .build();
+        DockerClientConfig config = DefaultDockerClientConfig
+                                    .createDefaultConfigBuilder()
+                                    .withDockerHost(url)
+                                    .withDockerTlsVerify(false)
+                                    .build();
         return config;
     }
 
-    private ApacheDockerHttpClient apacheDockerHttpClient(){
+    private ApacheDockerHttpClient apacheDockerHttpClient() {
         DockerClientConfig config = dockerClientConfig();
         // 创建DockerHTTP客户端
-        ApacheDockerHttpClient httpClient = new ApacheDockerHttpClient.Builder()
-                .dockerHost(config.getDockerHost())
-                .sslConfig(config.getSSLConfig())
-                .build();
+        ApacheDockerHttpClient httpClient = new ApacheDockerHttpClient
+                                                    .Builder()
+                                                    .dockerHost(config.getDockerHost())
+                                                    .sslConfig(config.getSSLConfig())
+                                                    .build();
         return httpClient;
     }
 
@@ -246,7 +235,6 @@ public class DockerUtil {
             throw new Exception("容器名称: " + containerName + " 找到多个容器id");
         }
     }
-
 
 
 }
