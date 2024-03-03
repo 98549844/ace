@@ -1,1 +1,14 @@
-https://blog.csdn.net/mjl3861770/article/details/132111510
+https://mp.weixin.qq.com/s/xjiv0QcV0Tx-ysipOkSZeA
+
+1.拉取镜像
+docker pull linuxserver/ffmpeg
+
+2. 启动容器
+docker run -itd --name ffmpeg \
+-p 8066:8066 -v /Users/garlam/ace/videos/:/mnt/app/ \
+--entrypoint='bash' linuxserver/ffmpeg
+
+--entrypoint='bash' =>bash指的是容器里的bash
+
+3.检查ffmpeg版本
+ffmpeg -version
