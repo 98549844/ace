@@ -67,21 +67,25 @@ public class DockerUtil {
         String[] commands = {
                 "echo cd to /mnt/app/",
                 "cd /mnt/app/",
-                "rm aaa.MP4",
                 "echo aaa.mp4",
-                "rm bbb.MP4",
                 "echo bbb.mp4",
         };
         String id = dockerUtil.getContainerId("ffmpeg");
         dockerUtil.execute(id, commands);
-//        String[] a =  dockerUtil.prepareCommand(commands);
-//        for (String c : a) {
-//            System.out.println(c);
-//        }
+
+        List<String> c = new ArrayList<>();
+        c.add("echo a1");
+        c.add("echo a2");
+        c.add("echo a3");
+        c.add("echo a4");
+
+        dockerUtil.execute(id, c);
+
+        dockerUtil.close();
 
     }
 
-    private String[] prepareCommand(String... command) {
+    private String[] prepareCommandSet(String... command) {
         String[] commands = new String[]{"sh", "-c"};
         //sh 是指定要使用的 shell, -c 是告诉 shell 后面的参数是要执行的命令
         int commandsLen = commands.length;
@@ -97,17 +101,42 @@ public class DockerUtil {
         return newCommands;
     }
 
+    public String[] prepareCommandList(List<String> command) throws IOException {
+        String[] commands = new String[]{"sh", "-c"};
+        //sh 是指定要使用的 shell, -c 是告诉 shell 后面的参数是要执行的命令
+        int commandsLen = commands.length;
+        int commandSize = command.size();
+
+        String[] newCommands = Arrays.copyOf(commands, commandsLen + 1);
+        int newCommandsSize = newCommands.length;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < commandSize; i++) {
+            sb.append(command.get(i)).append(" && ");
+        }
+        newCommands[newCommandsSize - 1] = sb.substring(0, sb.toString().length() - 4);
+        return newCommands;
+    }
+
+    public void execute(String containerId, String... command) throws IOException {
+        containerExecute(containerId, prepareCommandSet(command));
+    }
+
+    public void execute(String containerId, List<String> command) throws IOException {
+        containerExecute(containerId, prepareCommandList(command));
+    }
+
+
 
     /** String... command 需要用到" && "拼接命令
      * @param containerId
      * @param command
      * @throws IOException
      */
-    public void execute(String containerId, String... command) throws IOException {
-        String[] commands = prepareCommand( command);
+    private void containerExecute(String containerId, String... command) throws IOException {
+      //  String[] commands = prepareCommand(command);
         ExecCreateCmdResponse execCreateCmdResponse = dockerClient
                                                         .execCreateCmd(containerId)
-                                                        .withCmd(commands)
+                                                        .withCmd(command)
                                                         .withAttachStdout(true)
                                                         .withAttachStderr(true)
                                                         .exec();
@@ -181,6 +210,10 @@ public class DockerUtil {
     }
 
     public void close(DockerClient dockerClient) throws IOException {
+        // 关闭 Docker 客户端连接, close()相同功能
+        dockerClient.close();
+    }
+    public void close() throws IOException {
         // 关闭 Docker 客户端连接
         dockerClient.close();
     }

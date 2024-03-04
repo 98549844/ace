@@ -50,7 +50,7 @@ public class MediaService {
         this.videoPath = AceEnvironment.getVideoPath();
     }
 
-    public List getThumbnail() throws IOException {
+    public List getThumbnail() {
         List<String> videoList = FileUtil.getFileNamesWithExt(videoPath);
         List<String> names = FileUtil.getNames(videoList);
         return getActualList(names);
@@ -157,10 +157,10 @@ public class MediaService {
 
         // io到临时文件
         Path tempFile = tempDir.resolve(title);
-        log.info("io到临时文件: {}", tempFile.toString());
         try {
             log.info("Generate by UUID.randomUUID()!!!");
             //  String titleName = UUID.get();
+            log.info("io到临时文件: {}", tempFile.toString());
             video.transferTo(tempFile);
             // 删除后缀
             //title = title.substring(0, title.lastIndexOf("."));
