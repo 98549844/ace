@@ -64,24 +64,9 @@ public class DockerUtil {
     public static void main(String[] args) throws Exception {
 
         DockerUtil dockerUtil = new DockerUtil();
-        String[] commands = {
-                "echo cd to /mnt/app/",
-                "cd /mnt/app/",
-                "echo aaa.mp4",
-                "echo bbb.mp4",
-        };
-        String id = dockerUtil.getContainerId("ffmpeg");
-        dockerUtil.execute(id, commands);
+        String a = dockerUtil.getContainers();
+        System.out.println(a);
 
-        List<String> c = new ArrayList<>();
-        c.add("echo a1");
-        c.add("echo a2");
-        c.add("echo a3");
-        c.add("echo a4");
-
-        dockerUtil.execute(id, c);
-
-        dockerUtil.close();
 
     }
 

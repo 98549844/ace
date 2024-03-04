@@ -22,9 +22,10 @@ public class ComponentUtil {
     private static final Logger log = LogManager.getLogger(ComponentUtil.class.getName());
 
     public static void main(String[] args) throws IOException {
-        Console.println(dockerVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
-        Console.println(dockerRunningContainer(), Console.FLUORESCENT_PURPLE, Console.BOLD);
-        Console.println(ffmpegVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
+     //   Console.println(dockerVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
+      //  Console.println(dockerRunningContainer(), Console.FLUORESCENT_PURPLE, Console.BOLD);
+        Console.println(getRunningContainerByName("ffmpeg"), Console.FLUORESCENT_PURPLE, Console.BOLD);
+      //  Console.println(ffmpegVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
     }
 
     public static void versionCheck() throws IOException {
@@ -43,6 +44,11 @@ public class ComponentUtil {
     public static String dockerRunningContainer() throws IOException {
         String[] formatPs = new String[]{"docker", "ps", "--format", "\"{{.Names}} {{.Status}}\""};
         return Console.execute(formatPs);
+    }
+
+    public static String getRunningContainerByName(String ContainerName) throws IOException {
+        String[] exec = new String[]{"docker", "ps", "--filter", "name=" + ContainerName};
+        return Console.execute(exec);
     }
 
     public static String ffmpegVersion() throws IOException {
