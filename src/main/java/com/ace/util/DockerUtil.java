@@ -20,8 +20,8 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
 
 /**
  * @Classname: DockerUtil
@@ -64,19 +64,40 @@ public class DockerUtil {
     public static void main(String[] args) throws Exception {
 
         DockerUtil dockerUtil = new DockerUtil();
-        DockerClient dockerClient = dockerUtil.getDockerClient();
-        // dockerUtil.dockerVersion(dockerClient);
-        // dockerUtil.dockerImages();
-        // dockerUtil.dockerContainers();
-        dockerUtil.execute(dockerUtil.getContainerId("ffmpeg"), "ffmpeg -version");
-        //关闭Docker客户端连接
-        dockerUtil.close(dockerClient);
+        String[] commands = {
+                "echo cd to /mnt/app/",
+                "cd /mnt/app/",
+                "rm aaa.MP4",
+                "echo aaa.mp4",
+                "rm bbb.MP4",
+                "echo bbb.mp4",
+        };
+        String id = dockerUtil.getContainerId("ffmpeg");
+        String[] a =  dockerUtil.prepareCommand(commands);
+        System.out.println(a);
+
     }
 
+    private String[] prepareCommand(String... command) {
+        String[] commands = new String[]{"sh", "-c"};
+        //sh 是指定要使用的 shell, -c 是告诉 shell 后面的参数是要执行的命令
+        int commandsLen = commands.length;
+        int commandSize = command.length;
+
+        String[] newCommands = Arrays.copyOf(commands, commandsLen + commandSize);
+        int newCommandsSize = newCommands.length;
+        for (int i = 0; i < commandSize; i++) {
+            newCommands[newCommandsSize - commandSize + i] = command[i];
+        }
+        return newCommands;
+    }
+
+
     public void execute(String containerId, String... command) throws IOException {
-        // 创建执行命令的请求
+        String[] commands = prepareCommand( command);
         ExecCreateCmdResponse execCreateCmdResponse = dockerClient
-                                                        .execCreateCmd(containerId).withCmd("sh", "-c", command[0]) //sh 是指定要使用的 shell, -c 是告诉 shell 后面的参数是要执行的命令
+                                                        .execCreateCmd(containerId)
+                                                        .withCmd(commands)
                                                         .withAttachStdout(true)
                                                         .withAttachStderr(true)
                                                         .exec();

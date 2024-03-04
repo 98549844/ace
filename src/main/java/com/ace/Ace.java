@@ -2,10 +2,14 @@ package com.ace;
 
 import com.ace.util.CangJieUtil;
 import com.ace.util.DockerUtil;
+import com.github.dockerjava.api.command.ExecCreateCmdResponse;
+import com.github.dockerjava.api.model.Frame;
+import com.github.dockerjava.core.command.ExecStartResultCallback;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * @Classname: Ace
@@ -18,7 +22,8 @@ import java.io.IOException;
 public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
-    public static void main(String[] args) throws Exception {
+
+    public static void main1(String[] args) throws Exception {
         DockerUtil dockerUtil = new DockerUtil();
         // dockerUtil.getVersion();
         // dockerUtil.getImages();

@@ -169,7 +169,9 @@ public class MediaService {
             log.info("创建文件夹目录：{}", targetFolder);
             Files.createDirectories(targetFolder);
             // 执行转码操作
-            log.info("开始转码");
+            log.info("开始转码 这里docker和宿主机问题 ******");
+            //transcodeToM3u8 commands: [ffmpeg, -i, /var/folders/qv/m_nbxsrj1p12p2b9w5tgc5w00000gn/T/e7626188-08a1-48bb-9608-30ff97f1157c.MP4, -c:v, libx264, -c:a, copy, -hls_key_info_file, /Users/garlam/ace/videos/m3u8/e7626188-08a1-48bb-9608-30ff97f1157c/ts/key_info, -hls_time, 10, -hls_playlist_type, vod, -hls_segment_filename, %06d.ts, index.m3u8]
+
             try {
                 FFmpegUtil fFmpegUtil = new FFmpegUtil();
                 fFmpegUtil.transcodeToM3u8(tempFile.toString(), targetFolder.toString(), transcodeConfig);
