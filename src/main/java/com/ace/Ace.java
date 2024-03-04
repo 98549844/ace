@@ -23,7 +23,7 @@ public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
 
-    public static void main1(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
         DockerUtil dockerUtil = new DockerUtil();
         // dockerUtil.getVersion();
         // dockerUtil.getImages();
@@ -32,8 +32,15 @@ public class Ace {
        // System.out.println(id);
 
         String command = "ffmpeg -version";
+        String[] commands = {
+                "echo cd to /mnt/app/",
+                "cd /mnt/app/",
+                "echo aaa.mp4",
+                "echo bbb.mp4",
+                "ffmpeg -version"
+        };
       //  String command1 = "ffmpeg -version";
-        dockerUtil.execute(id,command);
+        dockerUtil.execute(id,commands);
 
     }
 

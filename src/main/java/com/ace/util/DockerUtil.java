@@ -73,8 +73,11 @@ public class DockerUtil {
                 "echo bbb.mp4",
         };
         String id = dockerUtil.getContainerId("ffmpeg");
-        String[] a =  dockerUtil.prepareCommand(commands);
-        System.out.println(a);
+        dockerUtil.execute(id, commands);
+//        String[] a =  dockerUtil.prepareCommand(commands);
+//        for (String c : a) {
+//            System.out.println(c);
+//        }
 
     }
 
@@ -84,15 +87,22 @@ public class DockerUtil {
         int commandsLen = commands.length;
         int commandSize = command.length;
 
-        String[] newCommands = Arrays.copyOf(commands, commandsLen + commandSize);
+        String[] newCommands = Arrays.copyOf(commands, commandsLen + 1);
         int newCommandsSize = newCommands.length;
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < commandSize; i++) {
-            newCommands[newCommandsSize - commandSize + i] = command[i];
+            sb.append(command[i]).append(" && ");
         }
+        newCommands[newCommandsSize - 1] = sb.substring(0, sb.toString().length() - 4);
         return newCommands;
     }
 
 
+    /** String... command 需要用到" && "拼接命令
+     * @param containerId
+     * @param command
+     * @throws IOException
+     */
     public void execute(String containerId, String... command) throws IOException {
         String[] commands = prepareCommand( command);
         ExecCreateCmdResponse execCreateCmdResponse = dockerClient
