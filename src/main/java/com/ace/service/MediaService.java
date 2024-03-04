@@ -158,32 +158,20 @@ public class MediaService {
         // io到临时文件
         Path tempFile = tempDir.resolve(title);
         try {
-            log.info("Generate by UUID.randomUUID()!!!");
+            // log.info("Generate by UUID.randomUUID()!!!");
             //  String titleName = UUID.get();
+            log.info("io到临时文件: {}", tempFile.toString());
+            video.transferTo(tempFile);
             // 删除后缀
             //title = title.substring(0, title.lastIndexOf("."));
-
             // 创建视频目录
             Path targetFolder = Files.createDirectories(Paths.get(videoM3u8, fileName));
             log.info("创建文件夹目录：{}", targetFolder);
             Files.createDirectories(targetFolder);
-
-            log.info("io到临时文件: {}", tempFile.toString());
-            video.transferTo(tempFile);
             // 执行转码操作
             log.info("开始转码");
-            //transcodeToM3u8 commands: [ffmpeg, -i, /var/folders/qv/m_nbxsrj1p12p2b9w5tgc5w00000gn/T/e7626188-08a1-48bb-9608-30ff97f1157c.MP4, -c:v, libx264, -c:a, copy, -hls_key_info_file, /Users/garlam/ace/videos/m3u8/e7626188-08a1-48bb-9608-30ff97f1157c/ts/key_info, -hls_time, 10, -hls_playlist_type, vod, -hls_segment_filename, %06d.ts, index.m3u8]
-            try {
-                FFmpegUtil fFmpegUtil = new FFmpegUtil();
-                fFmpegUtil.transcodeToM3u8(tempFile.toString(), targetFolder.toString(), transcodeConfig);
-            } catch (Exception e) {
-                log.error("转码异常：{}", e.getMessage());
-                Map<String, Object> result = new HashMap<>();
-                result.put("success", false);
-                result.put("message", e.getMessage());
-                ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
-                return;
-            }
+            FFmpegUtil fFmpegUtil = new FFmpegUtil();
+            fFmpegUtil.transcodeToM3u8(tempFile.toString(), targetFolder.toString(), transcodeConfig);
             // 封装结果
             Map<String, Object> videoInfo = new HashMap<>();
             videoInfo.put("title", fileName);
@@ -211,6 +199,12 @@ public class MediaService {
             result.put("data", videoInfo);
             filesService.save(f);
 
+        } catch (Exception e) {
+            log.error("转码异常：{}", e.getMessage());
+            Map<String, Object> result = new HashMap<>();
+            result.put("success", false);
+            result.put("message", e.getMessage());
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
         } finally {
             // 始终删除临时文件
             Files.delete(tempFile);

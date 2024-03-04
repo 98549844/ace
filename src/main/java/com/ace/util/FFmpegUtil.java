@@ -201,7 +201,7 @@ public class FFmpegUtil {
      * @throws IOException
      * @throws InterruptedException
      */
-    private static MediaInfo getMediaInfo(String source) throws IOException, InterruptedException {
+    private MediaInfo getMediaInfo(String source) throws IOException, InterruptedException {
         List<String> commands = new ArrayList<>();
         commands.add("ffprobe");
         commands.add("-i");
