@@ -19,10 +19,9 @@ public class Commands {
     private static final Logger log = LogManager.getLogger(Commands.class.getName());
 
     public static void main(String[] args) throws IOException {
-     //   Console.println(dockerVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
-      //  Console.println(dockerRunningContainer(), Console.FLUORESCENT_PURPLE, Console.BOLD);
-        Console.println(getRunningContainerByName("ffmpeg"), Console.FLUORESCENT_PURPLE, Console.BOLD);
-      //  Console.println(ffmpegVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
+        Console.println(dockerVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
+        Console.println(dockerRunningContainer(), Console.FLUORESCENT_PURPLE, Console.BOLD);
+        Console.println(ffmpegVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
     }
 
     public static void versionCheck() throws IOException {
@@ -39,8 +38,8 @@ public class Commands {
     }
 
     public static String dockerRunningContainer() throws IOException {
-        String[] formatPs = new String[]{"docker", "ps", "--format", "\"{{.Names}} {{.Status}}\""};
-        return Console.execute(formatPs);
+        String[] containers = new String[]{"docker", "ps", "--format", "\"{{.Names}} {{.Status}}\""};
+        return Console.execute(containers);
     }
 
     public static String getRunningContainerByName(String ContainerName) throws IOException {
@@ -49,7 +48,8 @@ public class Commands {
     }
 
     public static String ffmpegVersion() throws IOException {
-        return Console.execute("ffmpeg", "-version");
+        String ffmpegVersion = Console.execute("ffmpeg", "-version");
+        return ffmpegVersion.substring(0,35);
     }
 
 
