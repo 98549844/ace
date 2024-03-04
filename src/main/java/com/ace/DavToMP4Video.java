@@ -1,10 +1,12 @@
 package com.ace;
 
+import com.ace.util.Commands;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.util.StringUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,15 +21,25 @@ import java.util.List;
 public class DavToMP4Video {
     private static final Logger log = LogManager.getLogger(DavToMP4Video.class.getName());
 
+    private final boolean isFFmpegDocker;
 
-    public static void main(String[] args) {
+    {
+        String FFMPEG = "ffmpeg";
+        try {
+            isFFmpegDocker = Commands.getRunningContainerByName(FFMPEG).contains(FFMPEG);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
         startDavToMP4Video();
     }
 
-    public static void startDavToMP4Video() {
-        String inputPath = "/Users/garlam/ace/videos/aaa.MP4";
-        String outputPath = "/Users/garlam/ace/videos/m3u8/";
-        String newFileName = "some_name";
+    public static void startDavToMP4Video() throws IOException {
+        String inputPath = "/tmp/ccc.MOV";
+        String outputPath = "/tmp/";
+        String newFileName = "c111";
         DavToMP4Video davToMP4Video = new DavToMP4Video();
         davToMP4Video.davToMP4Video(inputPath, outputPath, newFileName);
     }
@@ -37,10 +49,10 @@ public class DavToMP4Video {
      * @param outputPath  视频转完格式存放地址
      * @param newFileName 新生成的视频名称
      */
-    public boolean davToMP4Video(String inputPath, String outputPath, String newFileName) {
+    public boolean davToMP4Video(String inputPath, String outputPath, String newFileName) throws IOException {
         //ffmpeg软件地址
-        String ffmpegPath = "";
-        if (!checkFile(inputPath)) {
+        String ffmpegPath = ""; //在没有配置全局参数, 需要指定ffmpeg路径
+        if (!isFFmpegDocker && !checkFile(inputPath)) {
             log.error(inputPath + " is not file");
             return false;
         }
@@ -58,7 +70,7 @@ public class DavToMP4Video {
         }
         String oldFileName = video;
 //		int type = checkContentType(inputPath);
-        boolean status = false;
+        boolean status;
         log.info("直接转成mp4格式");
         status = processMp4(inputPath, inputPath, ffmpegPath, outputPath, newFileName);// 直接转成mp4格式
 
@@ -100,13 +112,22 @@ public class DavToMP4Video {
         return true;
     }
 
-    private static boolean processMp4(String inputPath, String oldFilePath, String ffmpegPath, String outputPath, String fileName) {
+    private boolean processMp4(String inputPath, String oldFilePath, String ffmpegPath, String outputPath, String fileName) throws IOException {
+        List<String> command = new ArrayList<>();
 
-        if (!checkFile(inputPath)) {
+        if(isFFmpegDocker){
+            // 路径要指向容器内的路径, 不可以指向宿主的路径
+            command.add("docker");
+            command.add("exec");
+            //  commands.add("-it");
+            command.add("ffmpeg"); //器容名称
+        }else if(!checkFile(inputPath)){
             log.error(oldFilePath + " is not file");
             return false;
         }
-        List<String> command = new ArrayList<>();
+
+
+
         command.add(ffmpegPath + "ffmpeg");
         command.add("-i");
         command.add(oldFilePath);
@@ -123,8 +144,6 @@ public class DavToMP4Video {
         command.add("-movflags");
         command.add("faststart");
         command.add(outputPath + fileName + ".mp4");
-        //ffmpeg -i /mnt/app/aaa.MP4 -c:v libx264 -mbd 0 -c:a aac -strict -2 -pix_fmt yuv420p
-        // -movflags faststart /mnt/app/m3u8/some_name.mp4
 
         try {
 

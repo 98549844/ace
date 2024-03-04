@@ -4,11 +4,7 @@ import cn.dev33.satoken.SaManager;
 import com.ace.config.AceConfig;
 import com.ace.config.BrowserConfig;
 import com.ace.util.*;
-import com.util.Console;
 import com.util.MapUtil;
-import com.util.SystemUtil;
-import net.dreamlu.mica.ip2region.core.Ip2regionSearcher;
-import net.dreamlu.mica.ip2region.core.IpInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mybatis.spring.annotation.MapperScan;
@@ -21,7 +17,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.IOException;
-import java.util.Map;
 
 
 /*
@@ -63,7 +58,7 @@ public class AceApplication {
         BeanUtil beanUtil = applicationContext.getBean("beanUtil", BeanUtil.class);
         IpUtil ip = beanUtil.getBeanByName("ipUtil", IpUtil.class);
         MapUtil.iterateMapKeySet(ip.getHostInfo());
-        ComponentUtil.versionCheck();
+        Commands.versionCheck();
 
         AceConfig aceConfig = beanUtil.getBeanByName("aceConfig", AceConfig.class);
         if (!AceConfig.DOCKER.equals(aceConfig.getProfile())) {

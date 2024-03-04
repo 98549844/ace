@@ -118,7 +118,7 @@ public class DockerUtil {
      * @throws IOException
      */
     private void containerExecute(String containerId, String... command) throws IOException {
-      //  String[] commands = prepareCommand(command);
+      //  String[] Commands = prepareCommand(command);
         ExecCreateCmdResponse execCreateCmdResponse = dockerClient
                                                         .execCreateCmd(containerId)
                                                         .withCmd(command)
@@ -145,7 +145,6 @@ public class DockerUtil {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         String output = outputBuilder.toString();
         System.out.println(output);
     }

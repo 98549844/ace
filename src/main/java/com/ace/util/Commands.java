@@ -1,25 +1,22 @@
 package com.ace.util;
 
 import com.util.Console;
-import com.util.ConsoleTable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
- * @Classname: ComponentUtil
+ * @Classname: Commands
  * @Date: 23/11/2023 7:16 pm
  * @Author: garlam
  * @Description:
  */
 
 
-public class ComponentUtil {
-    private static final Logger log = LogManager.getLogger(ComponentUtil.class.getName());
+public class Commands {
+    private static final Logger log = LogManager.getLogger(Commands.class.getName());
 
     public static void main(String[] args) throws IOException {
      //   Console.println(dockerVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
@@ -47,7 +44,7 @@ public class ComponentUtil {
     }
 
     public static String getRunningContainerByName(String ContainerName) throws IOException {
-        String[] exec = new String[]{"docker", "ps", "--filter", "name=" + ContainerName};
+        String[] exec = new String[]{"docker", "ps","--format", "\"{{.Names}} {{.Status}}\"", "--filter", "name=" + ContainerName};
         return Console.execute(exec);
     }
 

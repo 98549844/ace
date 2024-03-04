@@ -10,3 +10,4 @@
 垂=hjtm
 醬=vimcw
 瓶=ttmvn
+聘=sjlws

@@ -58,8 +58,8 @@ public class FFmpegUtil {
 
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        String src = "C:\\ACE\\videos\\82e71ea8-4df7-4ba4-8a68-1a3b96fc1c50.mp4";
-        String desc = "C:\\ACE\\videos\\";
+        String src = "/tmp/aaa.MP4";
+        String desc = "/tmp/aaa/";
 
         FFmpegUtil fFmpegUtil = new FFmpegUtil();
         fFmpegUtil.transcodeToM3u8(src, desc, new TranscodeConfig());
@@ -84,7 +84,7 @@ public class FFmpegUtil {
         // key_info 文件写入
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("key").append(newLine);                  // m3u8加载key文件网络路径
-        stringBuilder.append(keyFile.toString()).append(newLine);    // FFmpeg加载key_info文件路径
+        stringBuilder.append(keyFile).append(newLine);                  // FFmpeg加载key_info文件路径
         stringBuilder.append(iv);                                       // ASE 向量
 
         Path keyInfo = Paths.get(folder, "key_info");

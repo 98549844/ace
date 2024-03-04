@@ -203,7 +203,7 @@ public class Messaging {
     } else if (args.length == 1 && args[0].equals("override-message")) {
 	  sendOverrideMessage();
     } else {
-      System.err.println("Invalid command. Please use one of the following commands:");
+      System.err.println("Invalid command. Please use one of the following Commands:");
       // To send a simple notification message that is sent to all platforms using the common
       // fields.
       System.err.println("./gradlew run -Pmessage=common-message");
