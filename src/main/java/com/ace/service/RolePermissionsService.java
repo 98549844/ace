@@ -3,12 +3,14 @@ package com.ace.service;
 import com.ace.dao.RolePermissionsDao;
 import com.ace.models.entity.Permissions;
 import com.ace.models.entity.RolePermissions;
+import com.ace.models.entity.Roles;
 import com.util.EntityUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +35,17 @@ public class RolePermissionsService {
 
     public List<Permissions> findPermissionsByRoleCode(String roleCode) {
         List<Map> results = rolePermissionsDao.findPermissionsByRoleCode(roleCode);
+        List<Permissions> permissionsList = EntityUtil.listMapToEntity(results, Permissions.class);
+        return permissionsList;
+    }
+
+    public List<Permissions> findPermissionsInRoleCode(List<Roles> roles) {
+        List<String> roleCOdes = new ArrayList<>();
+        for (Roles r : roles) {
+            //没有解决到直接传对像, 然后在sql调用entity.field的问题
+            roleCOdes.add(r.getRoleCode());
+        }
+        List<Map> results = rolePermissionsDao.findPermissionsInRoles(roleCOdes);
         List<Permissions> permissionsList = EntityUtil.listMapToEntity(results, Permissions.class);
         return permissionsList;
     }

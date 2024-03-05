@@ -174,6 +174,10 @@ public class UsersService {
         return usersDao.findUserRolePermission();
     }
 
+    public List<Map> findUserRolePermissionByUserAccount(String userAccount) {
+        return usersDao.findUserRolePermissionByUserAccount(userAccount);
+    }
+
     public Users findUsersByEmail(String email) {
         return usersDao.findUsersByEmail(email);
     }

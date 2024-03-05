@@ -185,7 +185,7 @@ public class UserRolePermissionRestController extends CommonController {
         RolePermissions insert;
         RolePermissions update;
         RolePermissions select;
-        RolePermissions delete ;
+        RolePermissions delete;
         RolePermissions deny;
 
         for (Roles roles : rolesService.findAll()) {
@@ -364,14 +364,51 @@ public class UserRolePermissionRestController extends CommonController {
                     break;
             }
         }
-        // return AjaxResponse.success("User Roles Permission merged without default user");
         return AjaxResponse.success("除去默认用户, 其他用户已重新建立角色和权限关系");
     }
 
 
+
+    @Operation(summary = "查询用户的角色权限关系,java实现")
+    @RequestMapping(method = RequestMethod.GET, value = "/findUserRolePermissionByUserAccount/{userAccount}")
+    public AjaxResponse findUserRolePermissionByUserAccount(@PathVariable String userAccount) {
+        log.info("user {} 的角色和权限", userAccount);
+        Users users = usersService.findByUserAccount(userAccount);
+        List<Roles> rolesList = rolesService.getRolesByUserId(users.getUserId());
+        List<Permissions> permissions = rolePermissionsService.findPermissionsInRoleCode(rolesList);
+
+        Map<String, Map> r = new HashMap<>();
+        for (Roles rs : rolesList) {
+            Map p = new HashMap();
+            for (Permissions ps : permissions) {
+                p.put("权限代码:"+ps.getPermissionCode() , ps.getAction());
+            }
+            r.put(rs.getRoleCode(), p);
+        }
+        Map<String, Map<String, Map>> urp = new HashMap<>();
+        urp.put(users.getUserAccount(), r);
+        return AjaxResponse.success(urp);
+    }
+
+
+    @Operation(summary = "查询用户的角色权限关系,sql实现")
+    @RequestMapping(method = RequestMethod.GET, value = "/findUserRolePermissionByUserAcc/{userAccount}")
+    public AjaxResponse findUserRolePermissionByUserAcc(@PathVariable String userAccount) {
+        log.info("user {} 的角色和权限", userAccount);
+
+        List<Map> list = usersService.findUserRolePermissionByUserAccount(userAccount);
+        MapUtil mapUtil = new MapUtil();
+        for (Map map : list) {
+            System.out.println("--------------");
+            mapUtil.iterateMapKeySet(map);
+        }
+        return AjaxResponse.success(list);
+    }
+
+    @Operation(summary = "查询所有用户的角色权限关系,sql实现")
     @RequestMapping(method = RequestMethod.GET, value = "/findUserRolePermission")
     public AjaxResponse findUserRolePermission() {
-        log.info("List detail by USERS");
+        log.info("List detail by USERS对像");
         List<Map> list = usersService.findUserRolePermission();
         MapUtil mapUtil = new MapUtil();
         for (Map map : list) {

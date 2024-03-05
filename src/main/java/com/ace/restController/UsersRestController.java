@@ -140,7 +140,6 @@ public class UsersRestController extends CommonController {
         usersService.deleteAll(users);
         userRolesService.deleteAll(userRoles);
 
-
         return AjaxResponse.success("All users and roles relation deleted, but not include default user account");
     }
 
@@ -154,7 +153,6 @@ public class UsersRestController extends CommonController {
         log.info("passwordEncoder matches=>" + passwordEncoder.matches("909394", password));
         List<Users> usersList = InsertUsers.insertUsers();
         usersService.saveAll(usersList);
-
 
         if (remap) {
             userRolePermissionRestController.rebuildUsersRolesPermissionRelation();
