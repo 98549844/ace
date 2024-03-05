@@ -95,12 +95,13 @@ public class RolesRestController extends CommonController {
     public AjaxResponse getPermissionByRoleCode(@PathVariable String roleCode) {
         roleCode = roleCode.toUpperCase();
         List<Permissions> permissionsList = rolePermissionsService.findPermissionsByRoleCode(roleCode);
-        List<Permissions> result = new ArrayList<>();
+        List<Map> result = new ArrayList<>();
         for (Permissions p : permissionsList) {
-            Permissions ps = new Permissions();
-            ps.setAction(p.getAction());
-            ps.setPermissionsId(p.getPermissionsId());
-            ps.setPermissionCode(p.getPermissionCode());
+            Map ps = new LinkedHashMap();
+            ps.put("Permissions Id",p.getPermissionsId());
+            ps.put("Action",p.getAction());
+            ps.put("Permission Code",p.getPermissionCode());
+            ps.put("description",p.getDescription());
             result.add(ps);
         }
         return AjaxResponse.success(result);
