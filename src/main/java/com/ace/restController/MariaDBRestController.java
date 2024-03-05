@@ -28,7 +28,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/mariadb")
-//@Api(tags = "mariadb")
 @Tag(name = "MariaDB")
 public class MariaDBRestController {
     private final static Logger log = LogManager.getLogger(MariaDBRestController.class.getName());

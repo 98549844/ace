@@ -17,7 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname: UserRestController
@@ -28,7 +30,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/users")
-//@Api(tags = "users")
 @Tag(name = "Users")
 public class UsersRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(UsersRestController.class.getName());
@@ -56,12 +57,11 @@ public class UsersRestController extends CommonController {
     @RequestMapping(method = RequestMethod.GET, value = "/getUsers")
     public AjaxResponse getUsers() {
         List<Users> ls = usersService.findAll();
-        List<String> result = new ArrayList<>();
+        Map<Long, String> map = new HashMap<>();
         for (Users user : ls) {
-            String u = user.getUsername() + "   [" + user.getPassword() + "]";
-            result.add(u);
+            map.put(user.getUserId(), user.getUserAccount());
         }
-        return AjaxResponse.success(result);
+        return AjaxResponse.success(map);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getUsersByMybatis")

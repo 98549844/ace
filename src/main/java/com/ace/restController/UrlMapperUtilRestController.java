@@ -23,7 +23,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/url")
-//@Api(tags = "Url Mapping")
 @Tag(name = "AnnotationMapperUtil")
 @EnableConfigurationProperties
 public class UrlMapperUtilRestController {

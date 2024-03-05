@@ -6,17 +6,20 @@ import com.ace.models.entity.*;
 import com.ace.service.*;
 import com.util.MapUtil;
 import com.util.NullUtil;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +33,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/rest/userRolePermission")
-//@Api(tags = "userRolePermission")
 @Tag(name = "UserRolePermission")
 public class UserRolePermissionRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(UserRolePermissionRestController.class.getName());
@@ -244,13 +246,14 @@ public class UserRolePermissionRestController extends CommonController {
      *
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/remapUsersRolesPermissionRelation")
+    @Operation(description = "整理没有用户组别的现有用户, 默认用户除外")
+    @RequestMapping(method = RequestMethod.GET, value = "/remapUsersRolesPermission")
     public AjaxResponse remapUsersRolesPermissionRelation() {
         //find default users
-        List<String> account = new ArrayList<>();
-        account.add("admin");
-        account.add("garlam");
-        List<Users> users = usersService.findByUserAccountNotIn(account);
+        List<String> accounts = new ArrayList<>();
+        accounts.add("admin");
+        accounts.add("garlam");
+        List<Users> nonDefaultUsers = usersService.findByUserAccountNotIn(accounts); // 找出默认用户除外的用户
 
         //find default user roles
         Users admin = usersService.findByUserAccount("admin");
@@ -274,33 +277,33 @@ public class UserRolePermissionRestController extends CommonController {
         Roles roleViewer = rolesService.findByRoleCode(Roles.VIEWER);
 
         List<UserRoles> userRolesList = new ArrayList<>();
-        int userSize = users.size();
+        int userSize = nonDefaultUsers.size();
         //用户加入角色
         for (int i = 0; i < userSize; i++) {
             UserRoles userRoles = new UserRoles();
-            switch (users.get(i).getDescription()) {
+            switch (nonDefaultUsers.get(i).getDescription()) {
                 case Users.ADMINISTRATOR:
-                    userRoles.setUserId(users.get(i).getUserId());
+                    userRoles.setUserId(nonDefaultUsers.get(i).getUserId());
                     userRoles.setRoleId(roleAdmin.getRoleId());
                     break;
                 case Users.DISABLE:
-                    userRoles.setUserId(users.get(i).getUserId());
+                    userRoles.setUserId(nonDefaultUsers.get(i).getUserId());
                     userRoles.setRoleId(RoleDisable.getRoleId());
                     break;
                 case Users.USER:
-                    userRoles.setUserId(users.get(i).getUserId());
+                    userRoles.setUserId(nonDefaultUsers.get(i).getUserId());
                     userRoles.setRoleId(roleUser.getRoleId());
                     break;
                 case Users.VIEWER:
-                    userRoles.setUserId(users.get(i).getUserId());
+                    userRoles.setUserId(nonDefaultUsers.get(i).getUserId());
                     userRoles.setRoleId(roleViewer.getRoleId());
                     break;
             }
             userRolesList.add(userRoles);
         }
-        userRolesService.saveAll(userRolesList);
+        userRolesService.saveAll(userRolesList); //保存到user_roles
 
-        rolePermissionsService.deleteAll(); // delete all roles and permission relation
+        rolePermissionsService.deleteAll(); // delete all role_permissions relation
 
         List<Roles> rolesList = rolesService.findAll();
         int rolesSize = rolesList.size();
@@ -311,6 +314,7 @@ public class UserRolePermissionRestController extends CommonController {
         Permissions p4 = permissionsService.findPermissionsByPermissionCode(Permissions.SELECT);
         Permissions p10 = permissionsService.findPermissionsByPermissionCode(Permissions.DENY);
 
+        //保存到role_permissions
         for (int i = 0; i < rolesSize; i++) {
             RolePermissions all;
             RolePermissions insert;
@@ -388,26 +392,40 @@ public class UserRolePermissionRestController extends CommonController {
         return AjaxResponse.success(list);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/getUserRolePermissionById")
-    public AjaxResponse getUserRolePermissionById() {
+    @RequestMapping(method = RequestMethod.GET, value = "/getUserRolePermissionById/{userId}")
+    public AjaxResponse getUserRolePermissionById(@PathVariable String userId) {
         log.info("List detail by UserRolePermission Mybatis");
+        Long id = Long.valueOf(userId);
         List<Map> m0 = usersService.findAllUserRolePermissionByMybatis();
-        List<Map> getUsersByMybatis = usersService.getUserRolePermissionById(533l);
-        List<Map> getUsersByHibernate = usersService.findUserRolePermissionDetailById(533l);
+        List<Map> getUsersByMybatis = usersService.getUserRolePermissionById(id);
+        List<Map> getUsersByHibernate = usersService.findUserRolePermissionDetailById(id);
 
-        Long userId = (Long) getUsersByMybatis.get(0).get("userId");
+        Long userIdMybatis = (Long) getUsersByMybatis.get(0).get("userId");
         String userAccount = (String) getUsersByMybatis.get(0).get("userAccount");
         String roleName = (String) getUsersByMybatis.get(0).get("roleName");
         String permissionCode = (String) getUsersByMybatis.get(0).get("permissionCode");
         Long permissionsId = (Long) getUsersByMybatis.get(0).get("permissionsId");
-        log.info("userId: {}", userId);
+        log.info("userId form Mybatis: {}", userIdMybatis);
         log.info("userAccount: {}", userAccount);
         log.info("roleName: {}", roleName);
         log.info("permissionCode: {}", permissionCode);
         log.info("permissionsId: {}", permissionsId);
 
         List<List<Map>> result = new ArrayList<>();
+        Map mybatisMap = new HashMap();
+        mybatisMap.put("source 1", "mybatis");
+        Map hibernateMap = new HashMap();
+        hibernateMap.put("source 2", "hibernate");
+
+        List<Map> result1 = new ArrayList<>();
+        result1.add(mybatisMap);
+        List<Map> result2 = new ArrayList<>();
+        result2.add(hibernateMap);
+
+
+        result.add(result1);
         result.add(getUsersByMybatis);
+        result.add(result2);
         result.add(getUsersByHibernate);
 
         return AjaxResponse.success(result);

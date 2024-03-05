@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rest/utilities")
-//@Api(tags = "utilities")
 @Tag(name = "Utilities")
 @EnableConfigurationProperties
 public class UtilitiesRestController {
