@@ -142,13 +142,13 @@ public class UsersService {
     }
 
 
-    public Users findByUserAccount(Users param) throws UserNotFoundException, PasswordNotMatchException {
-        Users user = usersDao.findByUserAccount(param.getUserAccount());
+    public Users findByUserAccount(Users ur) throws UserNotFoundException, PasswordNotMatchException {
+        Users user = usersDao.findByUserAccount(ur.getUserAccount());
         if (NullUtil.isNull(user) || NullUtil.isNull(user.getUserId())) {
             //抛出异常，会根据配置跳到登录失败页面
-            throw new UserNotFoundException(param.getUserAccount());
+            throw new UserNotFoundException(ur.getUserAccount());
         }
-        boolean matches = passwordEncoder.matches(param.getPassword(), user.getPassword());
+        boolean matches = passwordEncoder.matches(ur.getPassword(), user.getPassword());
         log.info("Match result: {}", matches);
         if (!matches) {
             throw new PasswordNotMatchException();

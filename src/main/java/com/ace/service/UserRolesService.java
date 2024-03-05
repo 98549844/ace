@@ -2,12 +2,15 @@ package com.ace.service;
 
 
 import com.ace.dao.UserRolesDao;
+import com.ace.models.entity.Roles;
 import com.ace.models.entity.UserRoles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -54,6 +57,10 @@ public class UserRolesService {
         return userRolesDao.findAllByUserId(userId);
     }
 
+    public List<UserRoles> findAllByUserIdAndRoleId(Long userId, Long roleId) {
+        return userRolesDao.findAllByUserIdAndRoleId(userId, roleId);
+    }
+
     public List<UserRoles> findAllByUserIdIn(List<Long> userId) {
         return userRolesDao.findAllByUserIdIn(userId);
     }
@@ -62,8 +69,18 @@ public class UserRolesService {
         return userRolesDao.findAllByUserRolesIdNotIn(userRoles);
     }
 
+
+    @Transactional
     public void deleteUserRolesByUserId(Long userId) {
         userRolesDao.deleteUserRolesByUserId(userId);
     }
+
+//    public void deleteUserRolesByUserIdAndRoleId(Long userId, List<Roles> rolesList) {
+//        List<Long> rolesId = new ArrayList<>();
+//        for (Roles rs : rolesList) {
+//            rolesId.add(rs.getRoleId());
+//        }
+//        userRolesDao.deleteUserRolesByUserIdAndRoleId(userId, rs);
+//    }
 
 }

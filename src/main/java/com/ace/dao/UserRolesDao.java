@@ -14,9 +14,13 @@ public interface UserRolesDao extends JpaRepository<UserRoles, Long>, JpaSpecifi
 
     List<UserRoles> findAllByUserId(Long userId);
 
+    List<UserRoles> findAllByUserIdAndRoleId(Long userId, Long roleId);
+
+
     List<UserRoles> findAllByUserIdIn(List<Long> usersId);
 
     List<UserRoles> findAllByUserRolesIdNotIn(List<Long> userRoles);
 
     void deleteUserRolesByUserId(Long userId);
+  //  void deleteUserRolesByUserIdAndRoleIdIn(Long userId, List<Long> roleId);
 }

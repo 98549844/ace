@@ -69,6 +69,10 @@ public class RolesService {
     }
 
 
+    public List<Roles> findRolesByRoleCodeIn(List<String> rolesCode) {
+        return rolesDao.findRolesByRoleCodeIn(rolesCode);
+    }
+
     public List<Roles> getRolesByUsers(List<Users> users) {
         List<Long> usersId = new ArrayList<>();
         for (Users user : users) {

@@ -1,18 +1,24 @@
 package com.ace.restController;
 
 import com.ace.controller.common.CommonController;
+import com.ace.exception.ResponseException;
 import com.ace.generator.InsertUsers;
 import com.ace.models.common.AjaxResponse;
+import com.ace.models.entity.Permissions;
+import com.ace.models.entity.Roles;
 import com.ace.models.entity.UserRoles;
 import com.ace.models.entity.Users;
+import com.ace.service.RolesService;
 import com.ace.service.UserRolesService;
 import com.ace.service.UsersService;
 import com.util.RandomUtil;
 import com.util.TypeUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.kerby.kerberos.kerb.crypto.enc.Aes128CtsHmacSha1Enc;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -38,16 +44,55 @@ public class UsersRestController extends CommonController {
     private final UsersService usersService;
     private final UserRolesService userRolesService;
     private final PasswordEncoder passwordEncoder;
+    private final RolesService rolesService;
     private final UserRolePermissionRestController userRolePermissionRestController;
 
     @Autowired
-    public UsersRestController(UserRolesService userRolesService, UserRolePermissionRestController userRolePermissionRestController, UsersService usersService, PasswordEncoder passwordEncoder) {
+    public UsersRestController(UserRolesService userRolesService, UserRolePermissionRestController userRolePermissionRestController, UsersService usersService, PasswordEncoder passwordEncoder, RolesService rolesService) {
         this.usersService = usersService;
         this.userRolesService = userRolesService;
         this.passwordEncoder = passwordEncoder;
         this.userRolePermissionRestController = userRolePermissionRestController;
+        this.rolesService = rolesService;
     }
 
+
+    @Operation(summary = "根据userAccount查看角色")
+    @RequestMapping(method = RequestMethod.GET, value = "/getRoles/{userAccount}")
+    public AjaxResponse getUserById(@PathVariable String userAccount) {
+        Users user = usersService.findByUserAccount(userAccount);
+        List<Roles> rolesList = rolesService.getRolesByUserId(user.getUserId());
+        List<String> r = new ArrayList<>();
+        for (Roles rs : rolesList) {
+            r.add(rs.getRoleCode());
+        }
+        Map<String, List> urp = new HashMap<>();
+        urp.put(user.getUserAccount(), r);
+        return AjaxResponse.success(urp);
+    }
+
+    @Operation(summary = "根据userAccount更新角色组", description = "清空原有用户的角色并更新, List<String> = xxx,xxx")
+    @RequestMapping(method = RequestMethod.GET, value = "/updateRoles/{userAccount}/{rolesCode}")
+    public AjaxResponse updateUserRoles(@PathVariable String userAccount, @NotNull @PathVariable List<String> rolesCode) {
+        Users user = usersService.findByUserAccount(userAccount);
+        //删除用户和角色关系
+        userRolesService.deleteUserRolesByUserId(user.getUserId());
+        List<Roles> rolesList = rolesService.findRolesByRoleCodeIn(rolesCode);
+        if (rolesList.isEmpty()) {
+            log.warn(rolesCode + " 查询不到结果");
+            return AjaxResponse.error(new ResponseException("查无相关角色: " + rolesCode));
+        }
+
+        Map map = new HashMap();
+        for (Roles r : rolesList) {
+            UserRoles userRoles = new UserRoles();
+            userRoles.setUserId(user.getUserId());
+            userRoles.setRoleId(r.getRoleId());
+            userRoles = userRolesService.saveAndFlush(userRoles);
+            map.put(userRoles.getUserRolesId(), user.getUserAccount() + " => " + r.getRoleCode());
+        }
+        return AjaxResponse.success(map);
+    }
 
     @RequestMapping(method = RequestMethod.POST, value = "/get/{userId}")
     public AjaxResponse getUserById(@PathVariable Long userId) {

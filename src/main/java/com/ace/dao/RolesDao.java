@@ -13,7 +13,13 @@ public interface RolesDao extends JpaRepository<Roles, Long>, JpaSpecificationEx
 
     Roles findRolesByRoleId(Long roleId);
 
-    List<Roles> findRolesByRoleIdIn(List<Long> rolesList);
+    List<Roles> findRolesByRoleIdIn(List<Long> roleId);
+
+
+    List<Roles> findRolesByRoleCodeIn(List<String> roleCode);
+
+
+
 
 
 }
