@@ -11,6 +11,7 @@ import com.ace.models.entity.Users;
 import com.ace.service.RolesService;
 import com.ace.service.UserRolesService;
 import com.ace.service.UsersService;
+import com.util.ListUtil;
 import com.util.RandomUtil;
 import com.util.TypeUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -74,14 +75,14 @@ public class UsersRestController extends CommonController {
     @Operation(summary = "根据userAccount更新角色组", description = "清空原有用户的角色并更新, List<String> = xxx,xxx")
     @RequestMapping(method = RequestMethod.GET, value = "/updateRoles/{userAccount}/{rolesCode}")
     public AjaxResponse updateUserRoles(@PathVariable String userAccount, @NotNull @PathVariable List<String> rolesCode) {
-        Users user = usersService.findByUserAccount(userAccount);
-        //删除用户和角色关系
-        userRolesService.deleteUserRolesByUserId(user.getUserId());
-        List<Roles> rolesList = rolesService.findRolesByRoleCodeIn(rolesCode);
+        List<Roles> rolesList = rolesService.findRolesByRoleCodeIn(ListUtil.convertToUpperCase(rolesCode));
         if (rolesList.isEmpty()) {
             log.warn(rolesCode + " 查询不到结果");
             return AjaxResponse.error(new ResponseException("查无相关角色: " + rolesCode));
         }
+        Users user = usersService.findByUserAccount(userAccount);
+        //删除用户和角色关系
+        userRolesService.deleteUserRolesByUserId(user.getUserId());
 
         Map map = new HashMap();
         for (Roles r : rolesList) {
