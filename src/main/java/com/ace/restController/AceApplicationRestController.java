@@ -8,6 +8,7 @@ import com.ace.util.BeanUtil;
 import com.ace.util.PropertiesUtil;
 import com.util.NullUtil;
 import com.util.StringUtil;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,6 +46,7 @@ public class AceApplicationRestController {
     }
 
 
+    @Operation(summary = "Init Default User")
     @RequestMapping(method = RequestMethod.GET, value = "/initDefaultUser")
     public AjaxResponse GenerateDefaultUser() {
         userRolePermissionRestController.defaultUser();
@@ -58,6 +60,7 @@ public class AceApplicationRestController {
         return AjaxResponse.success(result);
     }
 
+    @Operation(summary = "Init Roles Permissions")
     @RequestMapping(method = RequestMethod.GET, value = "/initRolesPermissions")
     public AjaxResponse initRolesPermissions() {
         log.info("init roles and permissions relation !!!");

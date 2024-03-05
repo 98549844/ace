@@ -71,7 +71,7 @@ public class UserRolePermissionRestController extends CommonController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/addDefaultUsers")
     public AjaxResponse addDefaultAdminUsers() {
-        if (0 == rolesService.findAll().size() || 0 == permissionsService.findAll().size()) {
+        if (rolesService.findAll().isEmpty() || permissionsService.findAll().isEmpty()) {
             log.warn("roles or permission is empty, rebuild default roles and permission ...");
             mapRolesAndPermissions();
             log.info("rebuild roles and permission complete !");
