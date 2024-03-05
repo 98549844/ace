@@ -246,8 +246,8 @@ public class UserRolePermissionRestController extends CommonController {
      *
      * @return
      */
-    @Operation(description = "整理没有用户组别的现有用户, 默认用户除外")
-    @RequestMapping(method = RequestMethod.GET, value = "/remapUsersRolesPermission")
+    @Operation(summary = "重建现有用户的角色和权限, 默认用户除外")
+    @RequestMapping(method = RequestMethod.GET, value = "/rebuildUsersRolesPermission")
     public AjaxResponse remapUsersRolesPermissionRelation() {
         //find default users
         List<String> accounts = new ArrayList<>();
@@ -364,7 +364,8 @@ public class UserRolePermissionRestController extends CommonController {
                     break;
             }
         }
-        return AjaxResponse.success("User Roles Permission merged");
+        // return AjaxResponse.success("User Roles Permission merged without default user");
+        return AjaxResponse.success("除去默认用户, 其他用户已重新建立角色和权限关系");
     }
 
 
