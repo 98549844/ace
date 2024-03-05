@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -34,13 +36,11 @@ import java.util.List;
 public class PermissionRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(PermissionRestController.class.getName());
 
-    private final RolesService rolesService;
     private final PermissionsService permissionsService;
     private final UsersService usersService;
 
     @Autowired
-    public PermissionRestController(UsersService usersService, RolesService rolesService, PermissionsService permissionsService) {
-        this.rolesService = rolesService;
+    public PermissionRestController(UsersService usersService, PermissionsService permissionsService) {
         this.permissionsService = permissionsService;
         this.usersService = usersService;
     }
@@ -52,21 +52,19 @@ public class PermissionRestController extends CommonController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getPermission")
-    public AjaxResponse getRoles() {
+    public AjaxResponse getPermission() {
         List<Permissions> ls = permissionsService.findAll();
-        List<String> result = new ArrayList<>();
+        Map map =new LinkedHashMap();
         for (Permissions permissions : ls) {
-            String u = permissions.getDescription() + "   [" + permissions.getPermissionCode() + "]";
-            result.add(u);
+            map.put(permissions.getAction(),"PermissionCode: "+"[" + permissions.getPermissionCode() + "]");
         }
-        return AjaxResponse.success(result);
+        return AjaxResponse.success(map);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/insertPermission")
     public AjaxResponse insertPermission() {
         permissionsService.deleteAll();
         log.info("All permissions DELETED !");
-
 
         Users user = usersService.findByUserAccount("garlam");
         //generate roles data
@@ -75,14 +73,11 @@ public class PermissionRestController extends CommonController {
 
         permissionsService.saveAll(ls);
         log.info("Default permissions has been CREATED !");
-
-
-        List<String> result = new ArrayList<>();
+        Map map =new LinkedHashMap();
         for (Permissions permissions : ls) {
-            String u = permissions.getDescription() + "   [" + permissions.getPermissionCode() + "]";
-            result.add(u);
+            map.put(permissions.getAction(),"PermissionCode: "+"[" + permissions.getPermissionCode() + "]");
         }
-        return AjaxResponse.success(result);
+        return AjaxResponse.success(map);
     }
 }
 

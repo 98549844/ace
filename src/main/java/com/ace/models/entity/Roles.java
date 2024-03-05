@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "roles", uniqueConstraints = {@UniqueConstraint(name = "constraint_roleCode", columnNames = "roleCode")})
+//定义constraint_roleCode只能是维一
 @Entity
 public class Roles extends BaseEntity implements Serializable {
     //roleCode

@@ -9,6 +9,7 @@ import com.ace.service.UserRolesService;
 import com.ace.service.UsersService;
 import com.util.RandomUtil;
 import com.util.TypeUtil;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -144,8 +145,9 @@ public class UsersRestController extends CommonController {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/insertSampleUser")
-    public AjaxResponse insertSampleUser(boolean remap) {
+    @Operation(summary = "sample用户生成")
+    @RequestMapping(method = RequestMethod.GET, value = "/genSampleUser")
+    public AjaxResponse genSampleUser(boolean remap) {
         //generate users data
         //default password = 909394
         String password = passwordEncoder.encode("909394");
@@ -155,7 +157,7 @@ public class UsersRestController extends CommonController {
 
 
         if (remap) {
-            userRolePermissionRestController.remapUsersRolesPermissionRelation();
+            userRolePermissionRestController.rebuildUsersRolesPermissionRelation();
         }
         List<String> result = new ArrayList<>();
         for (Users user : usersList) {

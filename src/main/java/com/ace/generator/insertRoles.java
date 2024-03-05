@@ -24,6 +24,10 @@ public class insertRoles {
     public List<Roles> insertRoles(Users users) {
         List<Roles> ls = new ArrayList<>();
 
+        // ADMIN => ALL
+        // DISABLE => DENY
+        // USER => INSERT SELECT
+        // VIEWER => SELECT
         Roles r1 = new Roles();
         Roles r2 = new Roles();
         Roles r3 = new Roles();
@@ -56,12 +60,6 @@ public class insertRoles {
         r2.setCreatedDate(LocalDateTime.now());
         r3.setCreatedDate(LocalDateTime.now());
         r4.setCreatedDate(LocalDateTime.now());
-
-//        r1.setDescription(Constant.Administrator);
-//        r2.setDescription(Constant.Disable);
-//        r3.setDescription(Constant.User);
-//        r4.setDescription(Constant.Viewer);
-
 
         r1.setLastUpdateDate(LocalDateTime.now());
         r2.setLastUpdateDate(LocalDateTime.now());

@@ -64,7 +64,7 @@ public class AceApplicationRestController {
     @RequestMapping(method = RequestMethod.GET, value = "/initRolesPermissions")
     public AjaxResponse initRolesPermissions() {
         log.info("init roles and permissions relation !!!");
-        return userRolePermissionRestController.mapRolesAndPermissions();
+        return userRolePermissionRestController.buildRolesPermissions();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getBean")
