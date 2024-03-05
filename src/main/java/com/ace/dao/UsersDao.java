@@ -28,7 +28,7 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
     @Query("update Users t set t.username = :#{#users.username} , t.email =:#{#users.email}, t.mobile = :#{#users.mobile}  where t.userId=:#{#users.userId}")
     int updateUsers(@Param("users") Users users);
 
-    Users findById(long id);
+    Users findByUserId(long id);
 
     List<Users> findByUserIdIn(List<Long> userId);
 

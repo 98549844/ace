@@ -7,8 +7,10 @@ import com.ace.models.entity.Permissions;
 import com.ace.models.entity.Roles;
 import com.ace.models.entity.Users;
 import com.ace.service.PermissionsService;
+import com.ace.service.RolePermissionsService;
 import com.ace.service.RolesService;
 import com.ace.service.UsersService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,14 +42,14 @@ public class RolesRestController extends CommonController {
 
     private final UsersService usersService;
     private final RolesService rolesService;
-    private final PermissionsService permissionsService;
+    private final RolePermissionsService rolePermissionsService;
 
 
     @Autowired
-    public RolesRestController(RolesService rolesService, UsersService usersService, PermissionsService permissionsService) {
+    public RolesRestController(RolesService rolesService, UsersService usersService, RolePermissionsService rolePermissionsService) {
         this.rolesService = rolesService;
         this.usersService = usersService;
-        this.permissionsService = permissionsService;
+        this.rolePermissionsService = rolePermissionsService;
     }
 
 
@@ -88,12 +90,20 @@ public class RolesRestController extends CommonController {
         return AjaxResponse.success("All roles deleted");
     }
 
+    @Operation(summary = "根据roleCode查所属权限")
     @RequestMapping(method = RequestMethod.GET, value = "/getPermissionByRoleCode/{roleCode}")
     public AjaxResponse getPermissionByRoleCode(@PathVariable String roleCode) {
         roleCode = roleCode.toUpperCase();
-        //  List<Permissions> permissionsList = permissionsService.
-
-        return AjaxResponse.success("");
+        List<Permissions> permissionsList = rolePermissionsService.findPermissionsByRoleCode(roleCode);
+        List<Permissions> result = new ArrayList<>();
+        for (Permissions p : permissionsList) {
+            Permissions ps = new Permissions();
+            ps.setAction(p.getAction());
+            ps.setPermissionsId(p.getPermissionsId());
+            ps.setPermissionCode(p.getPermissionCode());
+            result.add(ps);
+        }
+        return AjaxResponse.success(result);
     }
 }
 

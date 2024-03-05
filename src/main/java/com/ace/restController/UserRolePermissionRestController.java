@@ -1,6 +1,7 @@
 package com.ace.restController;
 
 import com.ace.controller.common.CommonController;
+import com.ace.exception.ResponseException;
 import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.*;
 import com.ace.service.*;
@@ -72,7 +73,7 @@ public class UserRolePermissionRestController extends CommonController {
     public AjaxResponse addDefaultAdminUsers() {
         if (rolesService.findAll().isEmpty() || permissionsService.findAll().isEmpty()) {
             log.warn("roles or permission is empty, rebuild default roles and permission ...");
-            mapRolesAndPermissions();
+            buildRolesPermissions();
             log.info("rebuild roles and permission complete !");
         }
 
@@ -139,21 +140,27 @@ public class UserRolePermissionRestController extends CommonController {
         return AjaxResponse.success("User: administrator and garlam has been generated into roles");
     }
 
+    @Operation(summary = "删除所有角色和权限数据")
+    @RequestMapping(method = RequestMethod.GET, value = "/deleteAllRolePermission")
+    public AjaxResponse deleteAllRolePermission() {
+        rolesService.deleteAll();
+        permissionsService.deleteAll();
+        return AjaxResponse.success("Roles and Permission deleted !");
+    }
 
     /**
      * 关联用户组别和权限级别
      *
-     * @return
+     * @return AjaxResponse
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/relateRolesAndPermissions")
-    public AjaxResponse mapRolesAndPermissions() {
-
+    @Operation(summary = "重建角色和权限关系")
+    @RequestMapping(method = RequestMethod.GET, value = "/buildRolesPermissions")
+    public AjaxResponse buildRolesPermissions() {
         int rSize = rolesService.findAll().size();
         int pSize = permissionsService.findAll().size();
         if (0 == rSize && 0 == pSize) {
             log.info("Clean ROLES and PERMISSION DATA ...");
-            rolesService.deleteAll();
-            permissionsService.deleteAll();
+            rolePermissionsService.deleteAll();
             log.info("Clean ROLES and PERMISSION COMPLETED !");
 
             log.info("Build ROLES and PERMISSION data ...");
@@ -163,11 +170,9 @@ public class UserRolePermissionRestController extends CommonController {
         } else {
             log.info("Roles size: {}", rolesService.findAll().size());
             log.info("Permission size: {}", permissionsService.findAll().size());
-            StringBuilder c = new StringBuilder();
-            c.append("Rebuild roles permission fail !!! ");
-            c.append("Roles size: " + rSize);
-            c.append("Permission size: " + pSize);
-            return AjaxResponse.success(c.toString());
+            log.warn("请清空roles和permission数据 !");
+            String c = "Rebuild roles permission fail !!! " + " Roles size: " + rSize + " Permission size: " + pSize;
+            return AjaxResponse.error(new ResponseException(c));
         }
 
         //insert default roles
@@ -180,11 +185,11 @@ public class UserRolePermissionRestController extends CommonController {
         RolePermissions insert;
         RolePermissions update;
         RolePermissions select;
-        // RolePermissions delete ;
+        RolePermissions delete ;
         RolePermissions deny;
 
-        Permissions permission;
         for (Roles roles : rolesService.findAll()) {
+            Permissions permission;
             if (Users.ACTIVE.equals(roles.getStatus())) {
                 switch (roles.getRoleCode()) {
                     case Roles.ADMIN:
@@ -192,7 +197,6 @@ public class UserRolePermissionRestController extends CommonController {
                         permission = permissionsService.findPermissionsByPermissionCode(Permissions.ALL);
                         all.setPermissionsId(permission.getPermissionsId());
                         all.setRoleId(roleAdmin.getRoleId());
-
                         rolePermissionsService.save(all);
                         break;
                     case Roles.DISABLE:
@@ -232,20 +236,20 @@ public class UserRolePermissionRestController extends CommonController {
                         break;
                 }
             }
-
         }
-        return AjaxResponse.success("Roles Permission merged");
+        //   }
+        return AjaxResponse.success("角色和权限关系已重建");
     }
 
 
     /**
      * 整理没有用户组别的现有用户
      *
-     * @return
+     * @return AjaxResponse
      */
     @Operation(summary = "重建现有用户的角色和权限, 默认用户除外")
     @RequestMapping(method = RequestMethod.GET, value = "/rebuildUsersRolesPermission")
-    public AjaxResponse remapUsersRolesPermissionRelation() {
+    public AjaxResponse rebuildUsersRolesPermissionRelation() {
         //find default users
         List<String> accounts = new ArrayList<>();
         accounts.add("admin");
@@ -274,25 +278,24 @@ public class UserRolePermissionRestController extends CommonController {
         Roles roleViewer = rolesService.findByRoleCode(Roles.VIEWER);
 
         List<UserRoles> userRolesList = new ArrayList<>();
-        int userSize = nonDefaultUsers.size();
         //用户加入角色
-        for (int i = 0; i < userSize; i++) {
+        for (Users nonDefaultUser : nonDefaultUsers) {
             UserRoles userRoles = new UserRoles();
-            switch (nonDefaultUsers.get(i).getDescription()) {
+            switch (nonDefaultUser.getDescription()) {
                 case Users.ADMINISTRATOR:
-                    userRoles.setUserId(nonDefaultUsers.get(i).getUserId());
+                    userRoles.setUserId(nonDefaultUser.getUserId());
                     userRoles.setRoleId(roleAdmin.getRoleId());
                     break;
                 case Users.DISABLE:
-                    userRoles.setUserId(nonDefaultUsers.get(i).getUserId());
+                    userRoles.setUserId(nonDefaultUser.getUserId());
                     userRoles.setRoleId(RoleDisable.getRoleId());
                     break;
                 case Users.USER:
-                    userRoles.setUserId(nonDefaultUsers.get(i).getUserId());
+                    userRoles.setUserId(nonDefaultUser.getUserId());
                     userRoles.setRoleId(roleUser.getRoleId());
                     break;
                 case Users.VIEWER:
-                    userRoles.setUserId(nonDefaultUsers.get(i).getUserId());
+                    userRoles.setUserId(nonDefaultUser.getUserId());
                     userRoles.setRoleId(roleViewer.getRoleId());
                     break;
             }
@@ -436,18 +439,22 @@ public class UserRolePermissionRestController extends CommonController {
         Users user = usersService.findByUserAccount(userAccount);
         List<Map> getUsersByHibernate = usersService.findUserRolePermissionDetailById(user.getUserId());
 
-        Map map = new LinkedHashMap();
-        map.put("userAccount",getUsersByHibernate.get(0).get("userAccount"));
-        map.put("userId",getUsersByHibernate.get(0).get("userId"));
-        map.put("status",getUsersByHibernate.get(0).get("status"));
-        map.put("ip",getUsersByHibernate.get(0).get("ip"));
-        map.put("action",getUsersByHibernate.get(0).get("action"));
-        map.put("roleId",getUsersByHibernate.get(0).get("roleId"));
-        map.put("roleCode",getUsersByHibernate.get(0).get("roleCode"));
-        map.put("roleName",getUsersByHibernate.get(0).get("roleName"));
-        map.put("permissionsId",getUsersByHibernate.get(0).get("permissionsId"));
-        map.put("permissionCode",getUsersByHibernate.get(0).get("permissionCode"));
-        return AjaxResponse.success(map);
+        List results = new ArrayList();
+        for (Map map : getUsersByHibernate) {
+            Map m = new LinkedHashMap();
+            map.put("userAccount", map.get("userAccount"));
+            map.put("userId", map.get("userId"));
+            map.put("status", map.get("status"));
+            map.put("ip", map.get("ip"));
+            map.put("action", map.get("action"));
+            map.put("roleId", map.get("roleId"));
+            map.put("roleCode", map.get("roleCode"));
+            map.put("roleName", map.get("roleName"));
+            map.put("permissionsId", map.get("permissionsId"));
+            map.put("permissionCode", map.get("permissionCode"));
+            results.add(m);
+        }
+        return AjaxResponse.success(results);
     }
 }
 

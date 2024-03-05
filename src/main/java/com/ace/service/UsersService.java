@@ -271,7 +271,7 @@ public class UsersService {
 
 
     public Users findUsersById(long id) {
-        Users user = usersDao.findById(id);
+        Users user = usersDao.findByUserId(id);
         calcAge(user);
         return user;
     }
@@ -281,7 +281,7 @@ public class UsersService {
      * @return
      */
     public UsersInfo findUsersInfoById(long id) {
-        Users user = usersDao.findById(id);
+        Users user = usersDao.findByUserId(id);
         calcAge(user);
         BeanUtil beanUtil = new BeanUtil();
         UsersInfo usersInfo = beanUtil.copy(user, UsersInfo.class);
