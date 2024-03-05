@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -432,5 +429,25 @@ public class UserRolePermissionRestController extends CommonController {
         return AjaxResponse.success(result);
     }
 
+    @Operation(summary = "用户的角色和权根关系")
+    @RequestMapping(method = RequestMethod.GET, value = "/getUserRolePermissionByUserAccount/{userAccount}")
+    public AjaxResponse getUserRolePermissionByUserAccount(@PathVariable String userAccount) {
+        log.info("List detail by UserRolePermission Mybatis");
+        Users user = usersService.findByUserAccount(userAccount);
+        List<Map> getUsersByHibernate = usersService.findUserRolePermissionDetailById(user.getUserId());
+
+        Map map = new LinkedHashMap();
+        map.put("userAccount",getUsersByHibernate.get(0).get("userAccount"));
+        map.put("userId",getUsersByHibernate.get(0).get("userId"));
+        map.put("status",getUsersByHibernate.get(0).get("status"));
+        map.put("ip",getUsersByHibernate.get(0).get("ip"));
+        map.put("action",getUsersByHibernate.get(0).get("action"));
+        map.put("roleId",getUsersByHibernate.get(0).get("roleId"));
+        map.put("roleCode",getUsersByHibernate.get(0).get("roleCode"));
+        map.put("roleName",getUsersByHibernate.get(0).get("roleName"));
+        map.put("permissionsId",getUsersByHibernate.get(0).get("permissionsId"));
+        map.put("permissionCode",getUsersByHibernate.get(0).get("permissionCode"));
+        return AjaxResponse.success(map);
+    }
 }
 
