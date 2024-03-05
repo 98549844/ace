@@ -218,7 +218,7 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
-            <version>3.6.4</version>
+            <version>3.7.1</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
@@ -233,7 +233,7 @@
         <dependency>
             <groupId>net.sourceforge.dynamicreports</groupId>
             <artifactId>dynamicreports-core</artifactId>
-            <version>6.12.1</version>
+            <version>6.20.1</version>
         </dependency>
         <dependency>
             <groupId>com.github.jtidy</groupId>
@@ -244,22 +244,23 @@
         <dependency>
             <groupId>org.xhtmlrenderer</groupId>
             <artifactId>flying-saucer-pdf</artifactId>
-            <version>9.2.2</version>
+            <version>9.5.2</version>
         </dependency>
         <dependency>
             <groupId>org.xhtmlrenderer</groupId>
             <artifactId>flying-saucer-pdf-itext5</artifactId>
-            <version>9.2.2</version>
+            <version>9.5.2</version>
         </dependency>
         <dependency>
             <groupId>org.xhtmlrenderer</groupId>
             <artifactId>flying-saucer-core</artifactId>
-            <version>9.2.2</version>
+            <version>9.5.2</version>
         </dependency>
         <dependency>
             <groupId>ognl</groupId>
             <artifactId>ognl</artifactId>
-            <version>3.3.4</version> <!--ognl3.3.4配合FlyingSaucer将thymeleaf3.1.2.RELEASE(springboot3.1)转pdf使用-->
+            <version>3.3.4</version>
+            <!--ognl3.3.4配合FlyingSaucer将thymeleaf3.1.2.RELEASE(springboot3.1)转pdf使用-->
         </dependency>
 
         <dependency>
