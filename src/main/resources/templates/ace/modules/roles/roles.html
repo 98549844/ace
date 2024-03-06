@@ -45,35 +45,41 @@
                             <tr>
                                 <th>Role description</th>
                                 <th>Role code</th>
-                                <th>Permission code</th>
+                                <th>Status</th>
                                 <th>Action</th>
-                                <th></th>
+                                <th>Code</th>
+                                <th>Operation</th>
                             </tr>
                             </thead>
 
                             <tbody>
                             <tr th:each="rowRole:${roles}">
+                                <input type="hidden" th:value="${rowRole.roleId}" th:id="'roleId-'+${rowRole.roleId}"/>
                                 <td th:text="${rowRole.roleName}"></td>
                                 <td th:text="${rowRole.roleCode}"></td>
-                                <td th:text="PC"></td>
-                                <td th:text="AC"></td>
+                                <td th:text="${rowRole.status}" th:if="${rowRole.status} eq 'ACTIVE'" class="blue"></td>
+                                <td th:text="${rowRole.status}" th:if="${rowRole.status} eq 'INACTIVE'"
+                                    class="red"></td>
                                 <td>
-                                    <div class="hidden-sm hidden-xs btn-group">
-                                        <button class="btn btn-xs btn-success">
-                                            <i class="ace-icon fa fa-check bigger-120"></i>
-                                        </button>
-
+                                    <label th:each="permission:${rowRole.permissions}"
+                                           th:text="${permission.action}+'&nbsp;&nbsp;'"
+                                           th:id="'action-'+${permission.permissionsId}"></label>
+                                </td>
+                                <td>
+                                    <span class="blue" th:each="permission:${rowRole.permissions}"
+                                          th:text="${permission.permissionCode}+'&nbsp;&nbsp;'"></span>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
                                         <button class="btn btn-xs btn-info" th:id="'btnInfo-'+${rowRole.roleId}">
-                                            <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                            <a href="#modal-table" role="button" data-toggle="modal">
+                                                <i class="ace-icon fa fa-pencil bigger-120 white"></i>
+                                            </a>
                                         </button>
-
-                                        <button class="btn btn-xs btn-danger"
-                                                th:id="'btnDanger-'+${rowRole.roleId}">
-                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                        </button>
-
-                                        <button class="btn btn-xs btn-warning">
-                                            <i class="ace-icon fa fa-flag bigger-120"></i>
+                                        <button class="btn btn-xs btn-danger" th:id="'btnDanger-'+${rowRole.roleId}">
+                                            <a href="#modal-table" role="button" data-toggle="modal">
+                                                <i class="ace-icon fa fa-trash-o bigger-120 white"></i>
+                                            </a>
                                         </button>
                                     </div>
                                 </td>
@@ -164,6 +170,59 @@
                             </div><!-- /.span -->
                         </div>
 
+                        <div id="modal-table" class="modal fade" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header no-padding">
+                                        <div class="table-header" id="tableHeaderInfo">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                <span class="white">&times;</span>
+                                            </button>
+                                            <strong id="tableTitle">Update xxx permission => xxx</strong>
+                                        </div>
+
+                                        <div class="table-header" style="background-color: crimson"
+                                             id="tableHeaderDanger">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                <span class="white">&times;</span>
+                                            </button>
+                                            <strong>clean xxx all permission</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-body no-padding center">
+                                        <table class=" table table-striped table-bordered table-hover no-margin-bottom no-border-top">
+                                            <thead>
+                                            <tr class="center">
+                                                <th>Action</th>
+                                                <th>
+                                                    <!-- <i class="ace-icon fa fa-clock-o bigger-110"></i>-->
+                                                    Enable
+                                                </th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody id="modelTable-tbody">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="modal-footer no-margin-top">
+                                        <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
+                                            <i class="ace-icon fa fa-times"></i>
+                                            Close
+                                        </button>
+                                        <button class="btn btn-sm btn-info pull-right" data-dismiss="modal">
+                                            <i class="ace-icon fa fa-times"></i>
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div>
+
+
                         <!-- PAGE CONTENT ENDS -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -180,6 +239,144 @@
 
 <div th:insert="~{ace/pb-pages/common-script :: common-script}"></div>
 <!-- page specific plugin scripts -->
+<script type="application/javascript">
+
+    $(".btn.btn-xs.btn-danger").on('click', function () {
+        const btnDangerId = $(this).attr("id");
+        $("#tableHeaderInfo").hide();
+        $("#tableHeaderDanger").show();
+    });
+
+    $('.btn.btn-xs.btn-info').on('click', function () {
+        $('#tableHeaderDanger').hide();
+        $('#tableHeaderInfo').show();
+
+        const tbodyHtml = `<tr>
+                                <td>
+                                    <span><strong>ALL</strong></span>
+                                    <input id="check-ALL" type="checkbox"
+                                           class="ace ace-switch ace-switch-5"/>
+                                    <span class="lbl middle"></span>
+                                </td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span><strong>INSERT</strong></span>
+                                    <input id="check-INSERT" type="checkbox"
+                                           class="ace ace-switch ace-switch-5"/>
+                                    <span class="lbl middle"></span>
+                                </td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span><strong>UPDATE</strong></span>
+                                    <input id="check-UPDATE" type="checkbox"
+                                           class="ace ace-switch ace-switch-5"/>
+                                    <span class="lbl middle"></span>
+                                </td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span><strong>DELETE</strong></span>
+                                    <input id="check-DELETE" type="checkbox"
+                                           class="ace ace-switch ace-switch-5"/>
+                                    <span class="lbl middle"></span>
+                                </td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span><strong>SELECT</strong></span>
+                                    <input id="check-SELECT" type="checkbox"
+                                           class="ace ace-switch ace-switch-5"/>
+                                    <span class="lbl middle"></span>
+                                </td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span><strong>DENY</strong></span>
+                                    <input id="check-DENY" type="checkbox"
+                                           class="ace ace-switch ace-switch-5"/>
+                                    <span class="lbl middle"></span>
+                                </td>
+                                <td>10</td>
+                            </tr>`
+        $('#modelTable-tbody').html(tbodyHtml);
+
+        const roleId = $(this).attr('id').split('btnInfo-')[1];
+        $.ajax( //第一个ajax
+            {
+                url: "/ace/roles/getPermission/" + roleId,
+                type: "GET",
+                cache: false,
+                // dataType: "json", 指的是数据的返回类型
+                success: function (data) {
+                    $('#tableTitle').html(`Update ${data.roleCode} permission`);
+                    const permission = data.permissions; //permission=用户权限
+
+                    $('#modelTable-tbody tr').each(function () {
+                        const actionContent = $(this).find('td span strong').html();
+                        for (let i = 0; i < permission.length; i++) {
+                            let tr;
+                            if (actionContent === permission[i].action) {
+                                tr = `<tr>
+                                    <td>
+                                        <span><strong>${permission[i].action}</strong></span>
+                                        <input th:id="'check-'+${permission.action}" checked=""
+                                                   th:checked="${permission.enabled}"
+                                                   type="checkbox"
+                                                   class="ace ace-switch ace-switch-5 "/>
+                                            <span class="lbl middle"></span>
+                                    </td>
+                                    <td class="blue">${permission[i].permissionCode}</td>
+                                </tr>`;
+                                $(this).replaceWith(tr);
+                            }
+                        }
+                    });
+
+                },
+                error: function () {
+                    alert("AJAX FAILURE");
+                }
+            }
+        )
+
+
+        // let actions = [];
+        // actions.push(roleId);
+        // $(this).closest('td').siblings('td').find('label').each(function () {
+        //     const htmlContent = $(this).html().split("&nbsp;")[0];
+        //     actions.push(htmlContent)
+        //     // 在这里对每个 label 的 HTML 内容进行操作
+        // });
+        //
+
+        // $.ajax(
+        //     {
+        //         url: "/ace/roles/update.html?" + encodeURIComponent(actions.join(',')) + "&roleId=" + roleId,
+        //         type: "GET",
+        //         data: {
+        //             roleId: roleId,
+        //             actions: actions
+        //         },
+        //         dataType: "json",
+        //         cache: false,
+        //         success: function (data) {
+        //
+        //         },
+        //         error: function () {
+        //             alert("AJAX FAILURE");
+        //         }
+        //     }
+        // )
+    });
+
+</script>
 
 
 </body>
