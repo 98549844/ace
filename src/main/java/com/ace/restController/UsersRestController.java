@@ -4,7 +4,6 @@ import com.ace.controller.common.CommonController;
 import com.ace.exception.ResponseException;
 import com.ace.generator.InsertUsers;
 import com.ace.models.common.AjaxResponse;
-import com.ace.models.entity.Permissions;
 import com.ace.models.entity.Roles;
 import com.ace.models.entity.UserRoles;
 import com.ace.models.entity.Users;
@@ -16,7 +15,6 @@ import com.util.RandomUtil;
 import com.util.TypeUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.apache.kerby.kerberos.kerb.crypto.enc.Aes128CtsHmacSha1Enc;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -242,6 +240,18 @@ public class UsersRestController extends CommonController {
         return AjaxResponse.success(result);
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/enable/{userAccount}/{enable}")
+    public AjaxResponse setEnableByUserAccount(@NotNull @PathVariable String userAccount, @PathVariable boolean enable) {
+        Users user = usersService.findByUserAccount(userAccount);
+        user.setEnabled(enable);
+
+        Map m = new HashMap();
+        m.put("userAccount", user.getUserAccount());
+        m.put("enable", user.isEnabled());
+        m.put("roles description", user.getDescription());
+
+        return AjaxResponse.success(m);
+    }
 
 }
 

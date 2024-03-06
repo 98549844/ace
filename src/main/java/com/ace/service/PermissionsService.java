@@ -41,4 +41,8 @@ public class PermissionsService {
     public void saveAll(List<Permissions> permissions) {
         permissionsDao.saveAll(permissions);
     }
+
+    public void save(Permissions permissions) {
+        permissionsDao.save(permissions);
+    }
 }

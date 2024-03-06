@@ -1,6 +1,7 @@
 package com.ace.restController;
 
 import com.ace.controller.common.CommonController;
+import com.ace.exception.ResponseException;
 import com.ace.generator.insertRoles;
 import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.Permissions;
@@ -14,6 +15,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -98,13 +100,26 @@ public class RolesRestController extends CommonController {
         List<Map> result = new ArrayList<>();
         for (Permissions p : permissionsList) {
             Map ps = new LinkedHashMap();
-            ps.put("Permissions Id",p.getPermissionsId());
-            ps.put("Action",p.getAction());
-            ps.put("Permission Code",p.getPermissionCode());
-            ps.put("description",p.getDescription());
+            ps.put("Permissions Id", p.getPermissionsId());
+            ps.put("Action", p.getAction());
+            ps.put("Permission Code", p.getPermissionCode());
+            ps.put("description", p.getDescription());
             result.add(ps);
         }
         return AjaxResponse.success(result);
+    }
+
+    @Operation(summary = "控制角色开关", description = "ACTIVE / INACTIVE")
+    @RequestMapping(method = RequestMethod.GET, value = "/status/{roleCode}/{status}")
+    public AjaxResponse setStatusByRoleCode(@NotNull @PathVariable String roleCode, @NotNull @PathVariable String status) {
+        Roles roles = rolesService.findByRoleCode(roleCode);
+        status = status.toUpperCase();
+        if (Roles.ACTIVE.equals(status) || Roles.INACTIVE.equals(status)) {
+            roles.setStatus(status.toUpperCase());
+        } else {
+            return AjaxResponse.error(new ResponseException("status code 不正确, 请输入 ACTIVE / INACTIVE"));
+        }
+        return AjaxResponse.success("");
     }
 }
 

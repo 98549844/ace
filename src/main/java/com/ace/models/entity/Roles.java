@@ -33,7 +33,9 @@ public class Roles extends BaseEntity implements Serializable {
     private String roleName;
 
     @Column
-    private String status = "ACTIVE"; // ACTIVE || INACTIVE
+    private String status = ACTIVE; // ACTIVE || INACTIVE
+    public static final String ACTIVE = "ACTIVE";
+    public static final String INACTIVE = "INACTIVE";
 
 
     public Long getRoleId() {
