@@ -26,7 +26,7 @@ public class insertRoles {
 
         // ADMIN => ALL
         // DISABLE => DENY
-        // USER => INSERT SELECT
+        // USER => INSERT SELECT UPDATE (只限自已的数据)
         // VIEWER => SELECT
         Roles r1 = new Roles();
         Roles r2 = new Roles();
