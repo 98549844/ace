@@ -2062,7 +2062,7 @@
                 if(currentValue == newValue) return;
                 currentValue = newValue;
 
-                var new_source = (!newValue || newValue == "") ? [] : cities[newValue];
+                const new_source = (!newValue || newValue == "") ? [] : cities[newValue];
 
                 //the destroy method is causing errors in x-editable v1.4.6+
                 //it worked fine in v1.4.5
@@ -2377,16 +2377,16 @@
         //right & left position
         //show the user info on right or left depending on its position
         $('#user-profile-2 .memberdiv').on('mouseenter touchstart', function(){
-            var $this = $(this);
-            var $parent = $this.closest('.tab-pane');
+            const $this = $(this);
+            const $parent = $this.closest('.tab-pane');
 
-            var off1 = $parent.offset();
-            var w1 = $parent.width();
+            const off1 = $parent.offset();
+            const w1 = $parent.width();
 
-            var off2 = $this.offset();
-            var w2 = $this.width();
+            const off2 = $this.offset();
+            const w2 = $this.width();
 
-            var place = 'left';
+            let place = 'left';
             if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) place = 'right';
 
             $this.find('.popover').removeClass('right left').addClass(place);

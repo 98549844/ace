@@ -14,10 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import com.util.NullUtil;
 
@@ -102,28 +99,41 @@ public class RolesController extends CommonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/roles/update/{roleId}/{actions}", method = RequestMethod.GET)
-    public ModelAndView updatePermissionByRoleId(@PathVariable Long roleId, @PathVariable List<String> actions) {
+    @RequestMapping(value = "/roles/getPermission/{roleId}", method = RequestMethod.GET)
+    @ResponseBody
+    public Roles getPermissionByRoleCode(@PathVariable Long roleId) {
+        log.info("roleCode: {}", roleId);
+        Roles role = rolesService.findRolesByRoleId(roleId);
+        List<Permissions> ps = rolePermissionsService.findPermissionsByRoleCode(role.getRoleCode());
+        role.setPermissions(ps);
+        return role;
+    }
+
+  //  @RequestMapping(value = "/roles/update.html", method = RequestMethod.GET)
+   // @ResponseBody
+    public ModelAndView updatePermissionByRoleId(@RequestParam(value = "roleId") Long roleId, @RequestParam(value = "actions") List<String> actions) {
         log.info("roleId: {}, permissionId: {}", roleId, actions);
-        Roles roles = rolesService.findRolesByRoleId(roleId);
-        rolePermissionsService.deleteByRoleId(roleId);
+//        log.info("roleId: {}", roleId);
+
+
+        //  rolePermissionsService.deleteByRoleId(roleId);
         ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
 
-        try {
-            List<RolePermissions> rpList = new ArrayList<>();
-            for (String action : actions) {
-                Permissions p = permissionsService.findPermissionsByAction(action);
-                RolePermissions rp = new RolePermissions();
-                rp.setRoleId(roleId);
-                rp.setPermissionsId(p.getPermissionsId());
-                rpList.add(rp);
-            }
-            rolePermissionsService.saveAll(rpList);
-            modelAndView.addObject("ajaxResult", actions);
-        } catch (Exception e) {
-            e.printStackTrace();
-            modelAndView.addObject("ajaxResult", false);
-        }
+//        try {
+//            List<RolePermissions> rpList = new ArrayList<>();
+//            for (String action : actions) {
+//                Permissions p = permissionsService.findPermissionsByAction(action);
+//                RolePermissions rp = new RolePermissions();
+//                rp.setRoleId(roleId);
+//                rp.setPermissionsId(p.getPermissionsId());
+//                rpList.add(rp);
+//            }
+//            rolePermissionsService.saveAll(rpList);
+//            modelAndView.addObject("ajaxResult", actions);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            modelAndView.addObject("ajaxResult", false);
+//        }
 
         return modelAndView;
     }
