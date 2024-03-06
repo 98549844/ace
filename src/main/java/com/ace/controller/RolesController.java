@@ -3,10 +3,13 @@ package com.ace.controller;
 
 import com.ace.controller.common.CommonController;
 import com.ace.models.entity.Permissions;
+import com.ace.models.entity.RolePermissions;
+import com.ace.service.PermissionsService;
 import com.ace.service.RolePermissionsService;
 import com.google.gson.Gson;
 import com.ace.models.entity.Roles;
 import com.ace.service.RolesService;
+import org.apache.commons.math3.analysis.function.Exp;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.util.NullUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,11 +39,13 @@ public class RolesController extends CommonController {
 
     private final RolesService rolesService;
     private final RolePermissionsService rolePermissionsService;
+    private final PermissionsService permissionsService;
 
     @Autowired
-    public RolesController(RolesService rolesService, RolePermissionsService rolePermissionsService) {
+    public RolesController(RolesService rolesService, RolePermissionsService rolePermissionsService, PermissionsService permissionsService) {
         this.rolesService = rolesService;
         this.rolePermissionsService = rolePermissionsService;
+        this.permissionsService = permissionsService;
     }
 
     @RequestMapping(value = "/roles/getByUserId/{userId}", method = RequestMethod.GET)
@@ -96,13 +102,28 @@ public class RolesController extends CommonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/roles/edit.html", method = RequestMethod.GET)
-    public ModelAndView editRole(Long roleId) {
-        log.info("roleId: {}", roleId);
+    @RequestMapping(value = "/roles/update/{roleId}/{actions}", method = RequestMethod.GET)
+    public ModelAndView updatePermissionByRoleId(@PathVariable Long roleId, @PathVariable List<String> actions) {
+        log.info("roleId: {}, permissionId: {}", roleId, actions);
         Roles roles = rolesService.findRolesByRoleId(roleId);
-
+        rolePermissionsService.deleteByRoleId(roleId);
         ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
-        modelAndView.addObject("ajaxResult", new Gson().toJson(roles));
+
+        try {
+            List<RolePermissions> rpList = new ArrayList<>();
+            for (String action : actions) {
+                Permissions p = permissionsService.findPermissionsByAction(action);
+                RolePermissions rp = new RolePermissions();
+                rp.setRoleId(roleId);
+                rp.setPermissionsId(p.getPermissionsId());
+                rpList.add(rp);
+            }
+            rolePermissionsService.saveAll(rpList);
+            modelAndView.addObject("ajaxResult", actions);
+        } catch (Exception e) {
+            e.printStackTrace();
+            modelAndView.addObject("ajaxResult", false);
+        }
 
         return modelAndView;
     }

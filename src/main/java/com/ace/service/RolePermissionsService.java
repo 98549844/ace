@@ -25,9 +25,10 @@ public class RolePermissionsService {
         this.rolePermissionsDao = rolePermissionsDao;
     }
 
-    public RolePermissions save(RolePermissions rolePermissions) {
+    public RolePermissions saveAndFlush(RolePermissions rolePermissions) {
         return rolePermissionsDao.saveAndFlush(rolePermissions);
     }
+
 
     public List<RolePermissions> findRolePermissionsByRoleId(Long roleId) {
         return rolePermissionsDao.findRolePermissionsByRoleId(roleId);
@@ -50,13 +51,26 @@ public class RolePermissionsService {
         return permissionsList;
     }
 
-    public List<RolePermissions> saveAll(List<RolePermissions> permissionsArrayList) {
-        return rolePermissionsDao.saveAll(permissionsArrayList);
+    public void saveAll(List<RolePermissions> permissionsArrayList) {
+        rolePermissionsDao.saveAll(permissionsArrayList);
+    }
+
+    public void save(RolePermissions rolePermissions) {
+        rolePermissionsDao.save(rolePermissions);
+    }
+
+    public List<RolePermissions> saveAllAndFlush(List<RolePermissions> permissionsArrayList) {
+        return rolePermissionsDao.saveAllAndFlush(permissionsArrayList);
     }
 
     public void deleteAll() {
         rolePermissionsDao.deleteAll();
     }
+
+    public void deleteByRoleId(Long roleId) {
+        rolePermissionsDao.deleteByRoleId(roleId);
+    }
+
 
     public void delete(RolePermissions rolePermissions) {
         rolePermissionsDao.delete(rolePermissions);
