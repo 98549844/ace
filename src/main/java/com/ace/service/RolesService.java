@@ -50,11 +50,17 @@ public class RolesService {
         return rolesDao.findRolesByRoleIdIn(rolesId);
     }
 
-    public void saveAllAndFlush(List<Roles> roles) {
-        rolesDao.saveAllAndFlush(roles);
+    public List<Roles> saveAllAndFlush(List<Roles> roles) {
+        return rolesDao.saveAllAndFlush(roles);
     }
 
-    /** find all roles Id by userId
+    public Roles saveAndFlush(Roles roles) {
+        return rolesDao.saveAndFlush(roles);
+    }
+
+    /**
+     * find all roles Id by userId
+     *
      * @param userId
      * @return
      */

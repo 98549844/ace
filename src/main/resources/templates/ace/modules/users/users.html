@@ -109,7 +109,7 @@
                                                 <span class="lbl middle"></span>
                                             </td>
 
-                                            <td th:if="${not rowUser.enabled}">
+                                            <td th:if="${not rowUser.enabled}" class="col-sm-2">
                                                 <span th:id="'enable-'+${rowUser.userId}">
                                                     <strong class="red">Disable</strong></span>
                                                 <input th:id="'check-'+${rowUser.userId}" checked=""

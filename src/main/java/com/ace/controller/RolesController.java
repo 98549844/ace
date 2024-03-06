@@ -2,6 +2,8 @@ package com.ace.controller;
 
 
 import com.ace.controller.common.CommonController;
+import com.ace.models.entity.Permissions;
+import com.ace.service.RolePermissionsService;
 import com.google.gson.Gson;
 import com.ace.models.entity.Roles;
 import com.ace.service.RolesService;
@@ -32,10 +34,12 @@ public class RolesController extends CommonController {
     private static final Logger log = LogManager.getLogger(RolesController.class.getName());
 
     private final RolesService rolesService;
+    private final RolePermissionsService rolePermissionsService;
 
     @Autowired
-    public RolesController(RolesService rolesService) {
+    public RolesController(RolesService rolesService, RolePermissionsService rolePermissionsService) {
         this.rolesService = rolesService;
+        this.rolePermissionsService = rolePermissionsService;
     }
 
     @RequestMapping(value = "/roles/getByUserId/{userId}", method = RequestMethod.GET)
@@ -49,6 +53,13 @@ public class RolesController extends CommonController {
     @RequestMapping(value = "/roles.html", method = RequestMethod.GET)
     public ModelAndView getRoleList() {
         List<Roles> rolesList = rolesService.findAll();
+        for (int i = 0; i < rolesList.size(); i++) {
+            Roles roles = rolesList.get(i);
+            List<Permissions> permissions = rolePermissionsService.findPermissionsByRoleCode(roles.getRoleCode());
+            rolesList.get(i).setPermissions(permissions);
+        }
+
+
         ModelAndView modelAndView = super.page("ace/modules/roles/roles");
         modelAndView.addObject("roles", rolesList);
         return modelAndView;

@@ -1,4 +1,4 @@
-空格键: &nbsp;
+空格键 space: &nbsp;
 用户资料: USER_LOGIN_SESSION
 包括外部jsp:
 <%@ include file="相关路径jsp文件" %>

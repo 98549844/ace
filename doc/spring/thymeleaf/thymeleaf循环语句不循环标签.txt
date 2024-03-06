@@ -1,0 +1,12 @@
+https://blog.csdn.net/Destroy_h/article/details/128065244
+
+<th:block th:each="banner:${banners}">
+    <div>
+        XXXXXX
+    </地址>
+</th:block>
+
+thymeleaf的th:each可以起到循环遍历数据作用，然而当需要判断哪条数据作为初始active就需要进行判断。
+thymeleaf的th:if搭配th:each="xxx:${yyy}"的xxxStat.index可以进行数据的迭代判断，也可以使用th:each="xxx:${yyy}"的xxxStat.first进行判断。
+Block标签解决循环出多余标签显示问题：
+使用th:each标签，在循环的过程中会造成生成多个多余标签，导致bootstrap的效果未能正确显示，使用这个标签可以既迭代了数据，又没有生成多余的标签

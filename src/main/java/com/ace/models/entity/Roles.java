@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "roles", uniqueConstraints = {@UniqueConstraint(name = "constraint_roleCode", columnNames = "roleCode")})
@@ -37,6 +38,16 @@ public class Roles extends BaseEntity implements Serializable {
     public static final String ACTIVE = "ACTIVE";
     public static final String INACTIVE = "INACTIVE";
 
+    @Transient
+    private List<Permissions> permissions;
+
+    public List<Permissions> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<Permissions> permissions) {
+        this.permissions = permissions;
+    }
 
     public Long getRoleId() {
         return roleId;
