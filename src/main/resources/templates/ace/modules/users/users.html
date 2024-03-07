@@ -71,6 +71,7 @@
                                         <th>User Name</th>
                                         <th class="hidden-480">Account Status</th>
                                         <th class="hidden-480">Roles</th>
+                                        <th class="hidden-480">Region</th>
                                         <th>
                                             <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
                                             Login Time
@@ -121,6 +122,7 @@
                                             </td>
 
                                             <td th:id="'userId-'+${rowUser.userId}" class="userRoles"></td>
+                                            <td th:id="'region-'+${rowUser.region}" th:text="${rowUser.region}"></td>
 
                                             <td th:text="${#temporals.format(rowUser.loginDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                             <!-- 原文 <td th:text="${#temporals.format(rowUser.expireDate, 'yyyy-MM-dd HH:mm:ss')}"></td>-->
