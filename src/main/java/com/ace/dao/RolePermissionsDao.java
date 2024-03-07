@@ -1,11 +1,12 @@
 package com.ace.dao;
 
 import com.ace.models.entity.RolePermissions;
-import com.ace.models.entity.Roles;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,8 @@ public interface RolePermissionsDao extends JpaRepository<RolePermissions, Long>
 
     RolePermissions findRolePermissionsByRoleIdAndPermissionsId(Long roleId, Long permissionsId);
 
+    @Modifying
+    @Transactional
     void deleteByRoleId(Long roleId);
 
     @Query(nativeQuery = true, value = "select p.* from roles r, role_permissions rp, permissions p where r.roleId = rp.roleId and rp.permissionsId = p.permissionsId and r.roleCode = :#{#roleCode}")

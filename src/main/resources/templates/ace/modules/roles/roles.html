@@ -78,9 +78,7 @@
                                             </a>
                                         </button>
                                         <button class="btn btn-xs btn-danger" th:id="'btnDanger-'+${rowRole.roleId}">
-                                            <a href="#modal-table" role="button" data-toggle="modal">
-                                                <i class="ace-icon fa fa-trash-o bigger-120 white"></i>
-                                            </a>
+                                            <i class="ace-icon fa fa-trash-o bigger-120 white"></i>
                                         </button>
                                     </div>
                                 </td>
@@ -180,14 +178,6 @@
                                                 <span class="white">&times;</span>
                                             </button>
                                             <strong id="tableTitle">Update xxx permission => xxx</strong>
-                                        </div>
-
-                                        <div class="table-header" style="background-color: crimson"
-                                             id="tableHeaderDanger">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                                <span class="white">&times;</span>
-                                            </button>
-                                            <strong>clean xxx all permission</strong>
                                         </div>
                                     </div>
 
@@ -298,9 +288,36 @@
     $(".btn.btn-xs.btn-danger").on('click', function () {
         const btnDangerId = $(this).attr("id");
         const roleId = btnDangerId.split('btnDanger-')[1];
-        alert(btnDangerId+"---"+roleId)
-        $("#tableHeaderInfo").hide();
-        $("#tableHeaderDanger").show();
+        d = dialog({
+            title: 'Clean role all permission !',
+            content: 'Are you confirm to CLEAN ALL PERMISSION ?',
+            okValue: 'Confirm',
+            ok: function () {
+                this.title('CLEANING …');
+                $.ajax(
+                    {
+                        url: `/ace/rolePermissions/deleteAllByRoleId.html/${roleId}`,
+                        type: "GET",
+                        cache: false,
+                        // dataType: "json", 指的是数据的返回类型
+                        success: function (data) {
+                            const pIdAction = 'roleAction-' + roleId;
+                            const pCodeAction = 'rolePcode-' + roleId;
+                            $('#' + pIdAction).empty();
+                            $('#' + pCodeAction).empty();
+                        },
+                        error: function () {
+                            alert("AJAX FAILURE");
+                        }
+                    }
+                )
+                return true;
+            },
+            cancelValue: 'Cancel',
+            cancel: function () {
+            }
+        });
+        d.showModal();
     });
 
     let currentRoleId;
@@ -334,12 +351,11 @@
                 }
             }
         )
-
     });
 
     $('.btn.btn-xs.btn-info').on('click', function () {
-        $('#tableHeaderDanger').hide();
-        $('#tableHeaderInfo').show();
+        //  $('#tableHeaderDanger').hide();
+        //  $('#tableHeaderInfo').show();
 
         //可以用ajax call后台数据代替页面写面的html代码
         //后台代码极少改动, html代码可以直接写死

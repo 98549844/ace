@@ -9,8 +9,10 @@ import com.ace.service.RolesService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -36,12 +38,11 @@ public class RolePermissionController extends CommonController {
         this.rolePermissionsService = rolePermissionsService;
     }
 
-    @RequestMapping(value = "/updateRolePermission.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/rolePermissions/updateRolePermission.html", method = RequestMethod.POST)
     public ModelAndView registration(Long rolesId, List<Permissions> permissions) {
+        log.info("清空角色权限并重建角色权限关系: {}", permissions);
         ModelAndView modelAndView = new ModelAndView();
-
         Roles roles = rolesService.findRolesByRoleId(rolesId);
-
         //delete roles permission
         List<RolePermissions> rolePermissions = rolePermissionsService.findRolePermissionsByRoleId(rolesId);
         for (RolePermissions r : rolePermissions) {
@@ -55,8 +56,16 @@ public class RolePermissionController extends CommonController {
             rolePermission.setPermissionsId(p.getPermissionsId());
             rolePermissionsService.save(rolePermission);
         }
-
         return modelAndView;
     }
+
+    @RequestMapping(value = "/rolePermissions/deleteAllByRoleId.html/{roleId}", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean deleteAllByRoleId(@PathVariable Long roleId) {
+        rolePermissionsService.deleteByRoleId(roleId);
+        return true;
+    }
+
+
 }
 
