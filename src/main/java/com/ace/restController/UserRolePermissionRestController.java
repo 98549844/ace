@@ -469,8 +469,8 @@ public class UserRolePermissionRestController extends CommonController {
         return AjaxResponse.success(result);
     }
 
-    @Operation(summary = "用户的角色和权根关系")
-    @RequestMapping(method = RequestMethod.GET, value = "/getUserRolePermissionByUserAccount/{userAccount}")
+    @Operation(summary = "查詢用户的角色和权根关系")
+    @RequestMapping(method = RequestMethod.GET, value = "/getByUserAccount/{userAccount}")
     public AjaxResponse getUserRolePermissionByUserAccount(@PathVariable String userAccount) {
         log.info("List detail by UserRolePermission Mybatis");
         Users user = usersService.findByUserAccount(userAccount);
@@ -479,16 +479,16 @@ public class UserRolePermissionRestController extends CommonController {
         List results = new ArrayList();
         for (Map map : getUsersByHibernate) {
             Map m = new LinkedHashMap();
-            map.put("userAccount", map.get("userAccount"));
-            map.put("userId", map.get("userId"));
-            map.put("status", map.get("status"));
-            map.put("ip", map.get("ip"));
-            map.put("action", map.get("action"));
-            map.put("roleId", map.get("roleId"));
-            map.put("roleCode", map.get("roleCode"));
-            map.put("roleName", map.get("roleName"));
-            map.put("permissionsId", map.get("permissionsId"));
-            map.put("permissionCode", map.get("permissionCode"));
+            m.put("userId", map.get("userId"));
+            m.put("userAccount", map.get("userAccount"));
+            m.put("roleCode", map.get("roleCode"));
+            m.put("action", map.get("action"));
+            m.put("status", map.get("status"));
+            m.put("roleId", map.get("roleId"));
+            m.put("roleName", map.get("roleName"));
+            m.put("permissionsId", map.get("permissionsId"));
+            m.put("permissionCode", map.get("permissionCode"));
+            m.put("ip", map.get("ip"));
             results.add(m);
         }
         return AjaxResponse.success(results);

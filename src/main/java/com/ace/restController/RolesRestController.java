@@ -74,7 +74,8 @@ public class RolesRestController extends CommonController {
         return AjaxResponse.success(map);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/getRoles")
+    @Operation(summary = "查詢所有角色")
+    @RequestMapping(method = RequestMethod.GET, value = "/getAll")
     public AjaxResponse getRoles() {
         List<Roles> ls = rolesService.findAll();
         List<String> result = new ArrayList<>();
