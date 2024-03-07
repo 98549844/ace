@@ -11,6 +11,7 @@ import com.ace.service.RolesService;
 import com.ace.service.UserRolesService;
 import com.ace.service.UsersService;
 import com.util.ListUtil;
+import com.util.NullUtil;
 import com.util.RandomUtil;
 import com.util.TypeUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -56,7 +57,7 @@ public class UsersRestController extends CommonController {
     }
 
 
-    @Operation(summary = "根据userAccount查看角色")
+    @Operation(summary = "查询用户角色")
     @RequestMapping(method = RequestMethod.GET, value = "/getRoles/{userAccount}")
     public AjaxResponse getUserById(@PathVariable String userAccount) {
         Users user = usersService.findByUserAccount(userAccount);
@@ -97,6 +98,51 @@ public class UsersRestController extends CommonController {
     public AjaxResponse getUserById(@PathVariable Long userId) {
         Users user = usersService.findUsersById(userId);
         return AjaxResponse.success(user);
+    }
+
+    @Operation(summary = "删除用户角色")
+    @RequestMapping(method = RequestMethod.POST, value = "/deleteBy/{userAccount}/{roleCode}")
+    public AjaxResponse deleteByUserAccount(@PathVariable String userAccount, @PathVariable String roleCode) {
+        roleCode = roleCode.toUpperCase();
+        log.info("userAccount: {}  roleCode: {}", userAccount, roleCode);
+        try {
+            Users user = usersService.findByUserAccount(userAccount);
+            Roles roles = rolesService.findByRoleCode(roleCode);
+            Long userId = user.getUserId();
+            Long roleId = roles.getRoleId();
+            if (NullUtil.isNull(userRolesService.findUserRolesByUserIdAndRoleId(userId, roleId))) {
+                userRolesService.deleteUserRolesByUserIdAndRoleId(user.getUserId(), roles.getRoleId());
+            }
+            return AjaxResponse.success(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResponse.error(new ResponseException("operation fail !"));
+        }
+    }
+
+    @Operation(summary = "新增用户角色")
+    @RequestMapping(method = RequestMethod.POST, value = "/addBy/{userAccount}/{roleCode}")
+    public AjaxResponse addByUserAccount(@PathVariable String userAccount, @PathVariable String roleCode) {
+        roleCode = roleCode.toUpperCase();
+        log.info("userAccount: {}  roleCode: {}", userAccount, roleCode);
+        try {
+            Users user = usersService.findByUserAccount(userAccount);
+            Roles roles = rolesService.findByRoleCode(roleCode);
+            Long userId = user.getUserId();
+            Long roleId = roles.getRoleId();
+            UserRoles userRoles = new UserRoles();
+            userRoles.setUserId(user.getUserId());
+            userRoles.setRoleId(roles.getRoleId());
+            if (NullUtil.isNull(userRolesService.findUserRolesByUserIdAndRoleId(userId, roleId))) {
+                userRolesService.save(userRoles);
+                return AjaxResponse.success(true);
+            }
+            return AjaxResponse.error(new ResponseException("operation fail !"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResponse.error(new ResponseException("user has " + roleCode+" this role."));
+        }
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getUsers")

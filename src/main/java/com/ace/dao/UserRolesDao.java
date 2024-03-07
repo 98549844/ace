@@ -15,6 +15,7 @@ public interface UserRolesDao extends JpaRepository<UserRoles, Long>, JpaSpecifi
     //   List<Map> findUserRolePermission();
 
     List<UserRoles> findAllByUserId(Long userId);
+    UserRoles findUserRolesByUserIdAndRoleId(Long userId, Long roleId);
 
     List<UserRoles> findAllByUserIdAndRoleId(Long userId, Long roleId);
 
@@ -26,5 +27,8 @@ public interface UserRolesDao extends JpaRepository<UserRoles, Long>, JpaSpecifi
     @Modifying
     @Transactional
     void deleteUserRolesByUserId(Long userId);
-  //  void deleteUserRolesByUserIdAndRoleIdIn(Long userId, List<Long> roleId);
+
+    @Modifying
+    @Transactional
+    void deleteUserRolesByUserIdAndRoleId(Long userId, Long roleId);
 }

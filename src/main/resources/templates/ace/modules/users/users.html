@@ -128,7 +128,8 @@
                                             <td th:id="'expireDate-'+${rowUser.userId}">
                                                 <div class="profile-info-value">
                                                     <span class="editable expireDate"
-                                                          th:id="'updateExpire-'+${rowUser.userId}" th:text="${#temporals.format(rowUser.expireDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                                          th:id="'updateExpire-'+${rowUser.userId}"
+                                                          th:text="${#temporals.format(rowUser.expireDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
                                                 </div>
                                             </td>
                                             <td>
@@ -371,7 +372,7 @@
                 success(data) {
                     let text = "";
                     for (let i = 0; i < data.length; i++) {
-                        text = data[i].roleCode + " ";
+                        text = text + data[i].roleCode + "  ";
                         //如果user已经在disable组, hidden enable button
                         /*if ('DISABLE' === data[i].roleCode) {
                             $("#check-"+userId).remove();

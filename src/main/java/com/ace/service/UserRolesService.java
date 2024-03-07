@@ -73,6 +73,12 @@ public class UserRolesService {
         userRolesDao.deleteUserRolesByUserId(userId);
     }
 
+    public void deleteUserRolesByUserIdAndRoleId(Long userId, Long roleId) {
+        userRolesDao.deleteUserRolesByUserIdAndRoleId(userId, roleId);
+    }
 
+    public UserRoles findUserRolesByUserIdAndRoleId(Long userId, Long roleId) {
+        return userRolesDao.findUserRolesByUserIdAndRoleId(userId, roleId);
+    }
 
 }
