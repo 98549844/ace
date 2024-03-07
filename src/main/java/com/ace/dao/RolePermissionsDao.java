@@ -14,6 +14,8 @@ public interface RolePermissionsDao extends JpaRepository<RolePermissions, Long>
 
     List<RolePermissions> findRolePermissionsByRoleId(Long roleId);
 
+    RolePermissions findRolePermissionsByRoleIdAndPermissionsId(Long roleId, Long permissionsId);
+
     void deleteByRoleId(Long roleId);
 
     @Query(nativeQuery = true, value = "select p.* from roles r, role_permissions rp, permissions p where r.roleId = rp.roleId and rp.permissionsId = p.permissionsId and r.roleCode = :#{#roleCode}")

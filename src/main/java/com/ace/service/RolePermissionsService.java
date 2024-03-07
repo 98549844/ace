@@ -29,6 +29,10 @@ public class RolePermissionsService {
         return rolePermissionsDao.saveAndFlush(rolePermissions);
     }
 
+    public RolePermissions findRolePermissionsByRoleIdAndPermissionsId(Long roleId, Long permissionsId) {
+        return rolePermissionsDao.findRolePermissionsByRoleIdAndPermissionsId(roleId,permissionsId);
+    }
+
 
     public List<RolePermissions> findRolePermissionsByRoleId(Long roleId) {
         return rolePermissionsDao.findRolePermissionsByRoleId(roleId);

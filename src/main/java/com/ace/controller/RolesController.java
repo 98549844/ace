@@ -4,22 +4,24 @@ package com.ace.controller;
 import com.ace.controller.common.CommonController;
 import com.ace.models.entity.Permissions;
 import com.ace.models.entity.RolePermissions;
+import com.ace.models.entity.Roles;
 import com.ace.service.PermissionsService;
 import com.ace.service.RolePermissionsService;
-import com.google.gson.Gson;
-import com.ace.models.entity.Roles;
 import com.ace.service.RolesService;
-import org.apache.commons.math3.analysis.function.Exp;
+import com.util.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import com.util.NullUtil;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -109,33 +111,30 @@ public class RolesController extends CommonController {
         return role;
     }
 
-  //  @RequestMapping(value = "/roles/update.html", method = RequestMethod.GET)
-   // @ResponseBody
-    public ModelAndView updatePermissionByRoleId(@RequestParam(value = "roleId") Long roleId, @RequestParam(value = "actions") List<String> actions) {
-        log.info("roleId: {}, permissionId: {}", roleId, actions);
-//        log.info("roleId: {}", roleId);
+    @RequestMapping(value = "/roles/update.html/{roleId}/{action}", method = RequestMethod.GET)
+    @ResponseBody
+    public Map updatePermissionByRoleId(@PathVariable Long roleId, @PathVariable(value = "action") String action) {
+        log.info("roleId: {}, action: {}", roleId, action);
+        Permissions p = permissionsService.findPermissionsByAction(action);
+        Long pId = p.getPermissionsId();
+        RolePermissions rp = rolePermissionsService.findRolePermissionsByRoleIdAndPermissionsId(roleId, pId);
+        Map map = new HashMap();
+        if (NullUtil.isNull(rp)) {
+            //增加角色权限
+            RolePermissions rolePermissions = new RolePermissions();
+            rolePermissions.setPermissionsId(pId);
+            rolePermissions.setRoleId(roleId);
+            rolePermissionsService.save(rolePermissions);
+            map.put("result", true);
+            map.put("pCode", p.getPermissionCode());
 
-
-        //  rolePermissionsService.deleteByRoleId(roleId);
-        ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
-
-//        try {
-//            List<RolePermissions> rpList = new ArrayList<>();
-//            for (String action : actions) {
-//                Permissions p = permissionsService.findPermissionsByAction(action);
-//                RolePermissions rp = new RolePermissions();
-//                rp.setRoleId(roleId);
-//                rp.setPermissionsId(p.getPermissionsId());
-//                rpList.add(rp);
-//            }
-//            rolePermissionsService.saveAll(rpList);
-//            modelAndView.addObject("ajaxResult", actions);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            modelAndView.addObject("ajaxResult", false);
-//        }
-
-        return modelAndView;
+        } else {
+            //删除角色权限
+            rolePermissionsService.delete(rp);
+            map.put("result", false);
+            map.put("pCode", null);
+        }
+        return map;
     }
 
 }

@@ -60,14 +60,15 @@
                                 <td th:text="${rowRole.status}" th:if="${rowRole.status} eq 'ACTIVE'" class="blue"></td>
                                 <td th:text="${rowRole.status}" th:if="${rowRole.status} eq 'INACTIVE'"
                                     class="red"></td>
-                                <td>
+                                <td th:id="'roleAction-'+${rowRole.roleId}">
                                     <label th:each="permission:${rowRole.permissions}"
                                            th:text="${permission.action}+'&nbsp;&nbsp;'"
-                                           th:id="'action-'+${permission.permissionsId}"></label>
+                                           th:id="'action-'+${permission.action}"></label>
                                 </td>
-                                <td>
+                                <td th:id="'rolePcode-'+${rowRole.roleId}">
                                     <span class="blue" th:each="permission:${rowRole.permissions}"
-                                          th:text="${permission.permissionCode}+'&nbsp;&nbsp;'"></span>
+                                          th:text="${permission.permissionCode}+'&nbsp;&nbsp;'"
+                                          th:id="'pCode-'+${permission.action}"></span>
                                 </td>
                                 <td>
                                     <div class="btn-group">
@@ -170,7 +171,6 @@
                             </div><!-- /.span -->
                         </div>
 
-                        <!--data-backdrop="static" = 控制dialog是readonly-->
                         <div id="modal-table" class="modal fade" tabindex="-1" data-backdrop="static">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -203,20 +203,16 @@
                                             </tr>
                                             </thead>
 
-                                            <tbody id="modelTable-tbody">
+                                            <tbody id="modelTbody">
 
                                             </tbody>
                                         </table>
                                     </div>
 
                                     <div class="modal-footer no-margin-top">
-                                        <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
-                                            <i class="ace-icon fa fa-times"></i>
-                                            Close
-                                        </button>
                                         <button class="btn btn-sm btn-info pull-right" data-dismiss="modal">
                                             <i class="ace-icon fa fa-times"></i>
-                                            Submit
+                                            Close
                                         </button>
                                     </div>
                                 </div><!-- /.modal-content -->
@@ -242,10 +238,103 @@
 <!-- page specific plugin scripts -->
 <script type="application/javascript">
 
+    function tBodyInit() {
+        return `<tr>
+                    <td>
+                        <span><strong>ALL</strong></span>
+                        <input id="check-ALL" type="checkbox"
+                               class="ace ace-switch ace-switch-5"/>
+                        <span class="lbl middle"></span>
+                    </td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span><strong>INSERT</strong></span>
+                        <input id="check-INSERT" type="checkbox"
+                               class="ace ace-switch ace-switch-5"/>
+                        <span class="lbl middle"></span>
+                    </td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span><strong>UPDATE</strong></span>
+                        <input id="check-UPDATE" type="checkbox"
+                               class="ace ace-switch ace-switch-5"/>
+                        <span class="lbl middle"></span>
+                    </td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span><strong>DELETE</strong></span>
+                        <input id="check-DELETE" type="checkbox"
+                               class="ace ace-switch ace-switch-5"/>
+                        <span class="lbl middle"></span>
+                    </td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span><strong>SELECT</strong></span>
+                        <input id="check-SELECT" type="checkbox"
+                               class="ace ace-switch ace-switch-5"/>
+                        <span class="lbl middle"></span>
+                    </td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span><strong>DENY</strong></span>
+                        <input id="check-DENY" type="checkbox"
+                               class="ace ace-switch ace-switch-5"/>
+                        <span class="lbl middle"></span>
+                    </td>
+                    <td>10</td>
+                </tr>`;
+    }
+
     $(".btn.btn-xs.btn-danger").on('click', function () {
         const btnDangerId = $(this).attr("id");
+        const roleId = btnDangerId.split('btnDanger-')[1];
+        alert(btnDangerId+"---"+roleId)
         $("#tableHeaderInfo").hide();
         $("#tableHeaderDanger").show();
+    });
+
+    let currentRoleId;
+    let $modelTable = $('#modelTbody');
+    //重新绑定input.ace.ace-switch.ace-switch-5元素
+    $modelTable.on('click', 'input.ace.ace-switch.ace-switch-5', function () {
+        const roleId = currentRoleId;
+        const checkPId = $(this).attr('id');
+        const pAction = checkPId.split('check-')[1];
+        $.ajax(
+            {
+                url: `/ace/roles/update.html/${roleId}/${pAction}`,
+                type: "GET",
+                cache: false,
+                // dataType: "json", 指的是数据的返回类型
+                success: function (data) {
+                    const pIdAction = 'action-' + pAction;
+                    const pCodeAction = 'pCode-' + pAction;
+                    if (data.result) {
+                        const trAction = `<label id="action-${pAction}">${pAction}&nbsp;&nbsp;</label>`;
+                        const trPCode = `<span class="blue" id="${pCodeAction}">${data.pCode}&nbsp;&nbsp;</span>`;
+                        $('#roleAction-' + roleId).append(trAction);
+                        $('#rolePcode-' + roleId).append(trPCode);
+                    } else {
+                        $('#' + pIdAction).remove();
+                        $('#' + pCodeAction).remove();
+                    }
+                },
+                error: function () {
+                    alert("AJAX FAILURE");
+                }
+            }
+        )
+
     });
 
     $('.btn.btn-xs.btn-info').on('click', function () {
@@ -254,63 +343,11 @@
 
         //可以用ajax call后台数据代替页面写面的html代码
         //后台代码极少改动, html代码可以直接写死
-        const tbodyHtml = `<tr>
-                                <td>
-                                    <span><strong>ALL</strong></span>
-                                    <input id="check-ALL" type="checkbox"
-                                           class="ace ace-switch ace-switch-5"/>
-                                    <span class="lbl middle"></span>
-                                </td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span><strong>INSERT</strong></span>
-                                    <input id="check-INSERT" type="checkbox"
-                                           class="ace ace-switch ace-switch-5"/>
-                                    <span class="lbl middle"></span>
-                                </td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span><strong>UPDATE</strong></span>
-                                    <input id="check-UPDATE" type="checkbox"
-                                           class="ace ace-switch ace-switch-5"/>
-                                    <span class="lbl middle"></span>
-                                </td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span><strong>DELETE</strong></span>
-                                    <input id="check-DELETE" type="checkbox"
-                                           class="ace ace-switch ace-switch-5"/>
-                                    <span class="lbl middle"></span>
-                                </td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span><strong>SELECT</strong></span>
-                                    <input id="check-SELECT" type="checkbox"
-                                           class="ace ace-switch ace-switch-5"/>
-                                    <span class="lbl middle"></span>
-                                </td>
-                                <td>4</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span><strong>DENY</strong></span>
-                                    <input id="check-DENY" type="checkbox"
-                                           class="ace ace-switch ace-switch-5"/>
-                                    <span class="lbl middle"></span>
-                                </td>
-                                <td>10</td>
-                            </tr>`
-        $('#modelTable-tbody').html(tbodyHtml);
+        const tbodyHtml = tBodyInit();
+        $('#modelTbody').html(tbodyHtml);
 
         const roleId = $(this).attr('id').split('btnInfo-')[1];
+        currentRoleId = roleId;
         $.ajax( //第一个ajax
             {
                 url: "/ace/roles/getPermission/" + roleId,
@@ -321,7 +358,7 @@
                     $('#tableTitle').html(`Update ${data.roleCode} permission`);
                     const permission = data.permissions; //permission=用户权限
 
-                    $('#modelTable-tbody tr').each(function () {
+                    $('#modelTbody tr').each(function () {
                         const actionContent = $(this).find('td span strong').html();
                         for (let i = 0; i < permission.length; i++) {
                             let tr;
@@ -329,10 +366,10 @@
                                 tr = `<tr>
                                     <td>
                                         <span><strong>${permission[i].action}</strong></span>
-                                        <input th:id="'check-'+${permission.action}" checked=""
-                                                   th:checked="${permission.enabled}"
+                                        <input id="check-${permission[i].action}" checked=""
+                                                   checked="${permission[i].enabled}"
                                                    type="checkbox"
-                                                   class="ace ace-switch ace-switch-5 "/>
+                                                   class="ace ace-switch ace-switch-5"/>
                                             <span class="lbl middle"></span>
                                     </td>
                                     <td class="blue">${permission[i].permissionCode}</td>
