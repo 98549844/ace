@@ -3,6 +3,8 @@ package com.ace.dao;
 import com.ace.models.entity.UserRoles;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +23,8 @@ public interface UserRolesDao extends JpaRepository<UserRoles, Long>, JpaSpecifi
 
     List<UserRoles> findAllByUserRolesIdNotIn(List<Long> userRoles);
 
+    @Modifying
+    @Transactional
     void deleteUserRolesByUserId(Long userId);
   //  void deleteUserRolesByUserIdAndRoleIdIn(Long userId, List<Long> roleId);
 }

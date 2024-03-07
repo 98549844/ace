@@ -69,18 +69,10 @@ public class UserRolesService {
         return userRolesDao.findAllByUserRolesIdNotIn(userRoles);
     }
 
-
-    @Transactional
     public void deleteUserRolesByUserId(Long userId) {
         userRolesDao.deleteUserRolesByUserId(userId);
     }
 
-//    public void deleteUserRolesByUserIdAndRoleId(Long userId, List<Roles> rolesList) {
-//        List<Long> rolesId = new ArrayList<>();
-//        for (Roles rs : rolesList) {
-//            rolesId.add(rs.getRoleId());
-//        }
-//        userRolesDao.deleteUserRolesByUserIdAndRoleId(userId, rs);
-//    }
+
 
 }

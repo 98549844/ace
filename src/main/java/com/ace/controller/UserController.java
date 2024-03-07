@@ -57,9 +57,10 @@ public class UserController extends CommonController {
         this.usersPath = AceEnvironment.getUsers();
     }
 
-    @RequestMapping(value = "/user.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/users.html", method = RequestMethod.GET)
     public ModelAndView getUserList() {
         List<Users> userList = usersService.findUsersOrderByLoginDateTime(15);
+
         ModelAndView modelAndView = super.page("ace/modules/users/users");
         modelAndView.addObject("users", userList);
         return modelAndView;

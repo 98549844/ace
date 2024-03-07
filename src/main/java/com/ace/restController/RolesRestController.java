@@ -7,9 +7,9 @@ import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.Permissions;
 import com.ace.models.entity.Roles;
 import com.ace.models.entity.Users;
-import com.ace.service.PermissionsService;
 import com.ace.service.RolePermissionsService;
 import com.ace.service.RolesService;
+import com.ace.service.UserRolesService;
 import com.ace.service.UsersService;
 import com.util.NullUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -53,8 +53,9 @@ public class RolesRestController extends CommonController {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/insertRoles")
-    public AjaxResponse insertRoles() {
+    @Operation(summary = "重建角色", description = "删除所有角色并重建")
+    @RequestMapping(method = RequestMethod.GET, value = "/rebuildRoles")
+    public AjaxResponse rebuildRoles() {
         Users user = usersService.findByUserAccount("garlam");
         rolesService.deleteAll();
         log.info("All roles DELETED !");

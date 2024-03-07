@@ -164,7 +164,7 @@ public class UserRolePermissionRestController extends CommonController {
             log.info("Clean ROLES and PERMISSION COMPLETED !");
 
             log.info("Build ROLES and PERMISSION data ...");
-            rolesRestController.insertRoles();
+            rolesRestController.rebuildRoles();
             permissionRestController.insertPermission();
             log.info("Build ROLES and PERMISSION COMPLETE !");
         } else {
