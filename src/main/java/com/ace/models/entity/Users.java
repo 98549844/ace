@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(name = "constraint_userAccount", columnNames = {"userAccount"}), @UniqueConstraint(name = "constraint_email", columnNames = {"email"})})
@@ -80,6 +81,17 @@ public class Users extends BaseEntity implements Serializable {
     @Transient
     private String icon = "";
 
+
+    @Transient
+    private List<Roles> roles ;
+
+    public List<Roles> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Roles> roles) {
+        this.roles = roles;
+    }
 
     public Long getUserId() {
         return userId;

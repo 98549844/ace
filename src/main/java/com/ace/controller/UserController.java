@@ -60,7 +60,10 @@ public class UserController extends CommonController {
     @RequestMapping(value = "/users.html", method = RequestMethod.GET)
     public ModelAndView getUserList() {
         List<Users> userList = usersService.findUsersOrderByLoginDateTime(15);
-
+        List<Roles> roles = rolesService.findAll();
+        for (Users users : userList) {
+            users.setRoles(roles);
+        }
         ModelAndView modelAndView = super.page("ace/modules/users/users");
         modelAndView.addObject("users", userList);
         return modelAndView;

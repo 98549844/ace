@@ -180,10 +180,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                         <div class="col-xs-12 col-sm-7">
                                                             <div class="space visible-xs"></div>
-
                                                             <div class="profile-user-info profile-user-info-striped">
                                                                 <div class="profile-info-row">
                                                                     <div class="profile-info-name"> Username</div>
@@ -238,33 +236,27 @@
 
                                                         <div class="col-xs-12 col-sm-3">
                                                             <div class="space visible-xs"></div>
-                                                            <h4 class="header blue lighter less-margin">Send a
-                                                                message
-                                                                to
-                                                                [(${rowUser.username})]</h4>
-
+                                                            <h4 class="header blue lighter less-margin">
+                                                                [(${rowUser.username})]' roles group</h4>
                                                             <div class="space-6"></div>
-
                                                             <form>
-                                                                <fieldset>
-                                                                <textarea class="width-100" resize="none"
-                                                                          placeholder="Type something…"></textarea>
-                                                                </fieldset>
-
-                                                                <div class="hr hr-dotted"></div>
-
-                                                                <div class="clearfix">
-                                                                    <label class="pull-left">
-                                                                        <input type="checkbox" class="ace"/>
-                                                                        <span class="lbl"> Email me a copy</span>
-                                                                    </label>
-
-                                                                    <button class="pull-right btn btn-sm btn-primary btn-white btn-round"
-                                                                            type="button">
-                                                                        Submit
-                                                                        <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
-                                                                    </button>
+                                                                <p>
+                                                                <div class="width-100" resize="none">
+                                                                    <select multiple=""
+                                                                            class="chosen-select form-control"
+                                                                            id="form-field-select-4">
+                                                                        <option value="AL"
+                                                                                th:each="role:${rowUser.roles}"
+                                                                                th:text="${role.roleCode}"></option>
+                                                                    </select>
                                                                 </div>
+                                                                </p>
+                                                                <p>
+                                                                    <button class="btn btn-sm btn-info pull-right">
+                                                                        <i class="ace-icon fa fa-floppy-o"></i>
+                                                                        update
+                                                                    </button>
+                                                                </p>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -387,6 +379,30 @@
                 },
             });
         });
+        if (!ace.vars['touch']) { //检查是否为非触摸设备. 如果不是触摸设备, 将执行以下代码块
+            $('.chosen-select').chosen({allow_single_deselect: true}); //允许选择框的选项中取消选择
+            //$('.chosen-select')来选中具有chosen-select类的元素，
+            //并通过调用chosen()方法将其转换为Chosen插件选择框
+            //resize the chosen on window resize
+
+            $(window)
+                .off('resize.chosen')
+                .on('resize.chosen', function () {
+                    $('.chosen-select').each(function () {
+                        const $this = $(this);
+                        // $this.parent().width() = 当前元素父类的绝不是度的值
+                        $this.next().css({'width': '100%'}); //selectBox 寛度
+                    })
+                }).trigger('resize.chosen');
+            //resize chosen on sidebar collapse/expand
+            $(document).on('settings.ace.chosen', function (e, event_name, event_val) {
+                if (event_name != 'sidebar_collapsed') return;
+                $('.chosen-select').each(function () {
+                    const $this = $(this);
+                    $this.next().css({'width': $this.parent().width()});
+                })
+            });
+        }
     });
 
     //custom date editable
