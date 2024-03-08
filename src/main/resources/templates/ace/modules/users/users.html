@@ -244,7 +244,7 @@
                                                                 <div class="width-100" resize="none">
                                                                     <select multiple=""
                                                                             class="chosen-select form-control"
-                                                                            th:id="form-field-select-4">
+                                                                            th:id="'form-field-select-'+${rowUser.userId}">
                                                                         <option value="AL"
                                                                                 th:each="role:${rowUser.roles}"
                                                                                 th:text="${role.roleCode}"></option>
@@ -459,21 +459,25 @@
         roles.push(userId);
 
         let roleTable = '';
-        $('#form-field-select-4 option:selected').each(function () {
+        const formFieldSelectId = 'form-field-select-' + userId;
+        $(`#${formFieldSelectId} option:selected`).each(function () {
             const text = $(this).text();
             roles.push(text);
             roleTable = roleTable + text + "  ";
         });
-        alert(roles);
-        alert("roleTable=>    " + roleTable);
         $.ajax({
             url: '/ace/users/updateRoles.html', // 替换为实际的后台 URL
             method: 'POST', // 或其他适当的 HTTP 方法
             data: JSON.stringify(roles), // 转换成json并发送的数据，根据后台要求进行调整
             contentType: "application/json; charset=utf-8", // 设置请求的 Content-Type
             success: function (response) {
-                $('#userId-' + userId).text(roleTable);
-                alert('update:' + response);
+                if (roleTable === '') {
+                    $('#userId-' + userId).text('DISABLE');
+                } else {
+
+                    $('#userId-' + userId).text(roleTable);
+                }
+                console.log('update:' + response);
                 // 处理后台响应的逻辑
             },
             error: function (xhr, status, error) {
