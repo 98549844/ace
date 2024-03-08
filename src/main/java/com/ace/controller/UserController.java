@@ -8,6 +8,7 @@ import com.ace.models.entity.Files;
 import com.ace.models.entity.Roles;
 import com.ace.models.entity.Users;
 import com.ace.service.*;
+import com.alibaba.fastjson2.JSONObject;
 import com.util.*;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
@@ -69,6 +70,19 @@ public class UserController extends CommonController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/expire/update.html", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean updateExpire(@RequestBody String newDateTime) {
+        JSONObject jsonObject = FastJson2Util.JsonToObject(newDateTime);
+        String dateTime = (String) jsonObject.get("newDateTime");
+        Long userId = Long.parseLong((String) jsonObject.get("userId"));
+        log.info("dateTime: {}", dateTime);
+        log.info("userId: {}", userId);
+        Users user = usersService.findUsersById(userId);
+        user.setExpireDate(DateTimeUtil.convertLocalDate(dateTime));
+        usersService.save(user);
+        return true;
+    }
 
     @RequestMapping(value = "/enable.html", method = RequestMethod.GET)
     public ModelAndView setEnable(@RequestParam(value = "userId") Long userId) {
