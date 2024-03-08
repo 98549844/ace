@@ -6,9 +6,13 @@ import com.ace.constant.AceEnvironment;
 import com.ace.controller.common.CommonController;
 import com.ace.models.entity.Files;
 import com.ace.models.entity.Roles;
+import com.ace.models.entity.UserRoles;
 import com.ace.models.entity.Users;
 import com.ace.service.*;
 import com.alibaba.fastjson2.JSONObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.util.*;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
@@ -72,7 +76,7 @@ public class UserController extends CommonController {
 
     @RequestMapping(value = "/expire/update.html", method = RequestMethod.POST)
     @ResponseBody
-    public boolean updateExpire(@RequestBody String newDateTime) {
+    public boolean updateExpire(@RequestBody String newDateTime) throws Exception {
         JSONObject jsonObject = FastJson2Util.JsonToObject(newDateTime);
         String dateTime = (String) jsonObject.get("newDateTime");
         Long userId = Long.parseLong((String) jsonObject.get("userId"));
@@ -83,6 +87,39 @@ public class UserController extends CommonController {
         usersService.save(user);
         return true;
     }
+
+    @RequestMapping(value = "/updateRoles.html", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean updateRolesByUserId(@RequestBody String data) throws JsonProcessingException {
+        //第一个为userId, 其他的是角色
+        log.info("data: {}", data);
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<String> listData = objectMapper.readValue(data, new TypeReference<>() {
+        });
+        try {
+            Long userId = Long.parseLong(listData.get(0));
+            userRolesService.deleteUserRolesByUserId(userId);
+            if (listData.size() == 1) {
+                //没有选择弱了Code,默认选deny
+                Roles role = rolesService.findByRoleCode(Roles.DISABLE);
+                UserRoles ur = new UserRoles();
+                ur.setUserId(userId);
+                ur.setRoleId(role.getRoleId());
+                userRolesService.save(ur);
+            }
+            for (int i = 1; i < listData.size(); i++) {
+                Roles role = rolesService.findByRoleCode(listData.get(i));
+                UserRoles ur = new UserRoles();
+                ur.setUserId(userId);
+                ur.setRoleId(role.getRoleId());
+                userRolesService.save(ur);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
 
     @RequestMapping(value = "/enable.html", method = RequestMethod.GET)
     public ModelAndView setEnable(@RequestParam(value = "userId") Long userId) {

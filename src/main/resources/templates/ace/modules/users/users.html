@@ -62,7 +62,7 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <div class="row">
-                            <div class="col-xs-12">
+                            <div class="col-xs-12" id="userTable">
                                 <table id="simple-table" class="table  table-bordered table-hover">
                                     <thead>
                                     <tr>
@@ -234,31 +234,31 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-xs-12 col-sm-3">
+                                                        <div class="col-xs-12 col-sm-3" id="rolesSubmit">
                                                             <div class="space visible-xs"></div>
                                                             <h4 class="header blue lighter less-margin">
                                                                 [(${rowUser.username})]' roles group</h4>
                                                             <div class="space-6"></div>
-                                                            <form>
+                                                            <form id="rolesForm">
                                                                 <p>
                                                                 <div class="width-100" resize="none">
                                                                     <select multiple=""
                                                                             class="chosen-select form-control"
-                                                                            id="form-field-select-4">
+                                                                            th:id="form-field-select-4">
                                                                         <option value="AL"
                                                                                 th:each="role:${rowUser.roles}"
                                                                                 th:text="${role.roleCode}"></option>
                                                                     </select>
                                                                 </div>
                                                                 </p>
-                                                                <p>
-                                                                    <button class="btn btn-sm btn-info pull-right"
-                                                                            id="btnUpdateRoles">
-                                                                        <i class="ace-icon fa fa-floppy-o"></i>
-                                                                        update
-                                                                    </button>
-                                                                </p>
                                                             </form>
+                                                            <p>
+                                                                <button class="btn btn-sm btn-info pull-right"
+                                                                        th:id="'btnUpdateRoles-'+${rowUser.userId}">
+                                                                    <i class="ace-icon fa fa-floppy-o"></i>
+                                                                    update
+                                                                </button>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -412,17 +412,77 @@
     $('.editable.expireDate').editable({
         type: 'adate',
         date: {
-
             //datepicker plugin options
             format: 'yyyy-mm-dd',
             viewformat: 'yyyy-mm-dd',
             weekStart: 1
-
             //,nativeUI: true//if true and browser support input[type=date], native browser control will be used
             //,format: 'yyyy-mm-dd',
-            //viewformat: 'yyyy-mm-dd'
+        },
+        success: function (response, newValue) {
+            const userId = $(this).attr('id').split('updateExpire-')[1];
+            // const newDateTime = JSON.stringify(newValue);
+            // 构造发送的数据对象
+            const dateTime = {
+                newDateTime: newValue,
+                userId: userId
+                // 添加其他参数...
+            };
+
+            // AJAX 请求成功后的处理逻辑
+            // 发送 AJAX 请求
+            $.ajax({
+                url: '/ace/users/expire/update.html', // 替换为实际的后台 URL
+                method: 'POST', // 或其他适当的 HTTP 方法
+                data: JSON.stringify(dateTime), // 转换成json并发送的数据，根据后台要求进行调整
+                contentType: "application/json; charset=utf-8", // 设置请求的 Content-Type
+                success: function (response) {
+                    console.log('update:' + response);
+                    // 处理后台响应的逻辑
+                },
+                error: function (xhr, status, error) {
+                    alert('AJAX error:' + error);
+                    // 处理 AJAX 错误的逻辑
+                }
+            });
+        },
+        error: function (response, newValue) {
+            console.error('Editable error:', newValue);
+            // 处理编辑错误的逻辑
         }
     })
+
+    const $userTable = $('#userTable');
+    $userTable.on('click', '.btn.btn-sm.btn-info.pull-right', function () {
+        const userId = $(this).attr('id').split('btnUpdateRoles-')[1];
+        const roles = [];
+        roles.push(userId);
+
+        let roleTable = '';
+        $('#form-field-select-4 option:selected').each(function () {
+            const text = $(this).text();
+            roles.push(text);
+            roleTable = roleTable + text + "  ";
+        });
+        alert(roles);
+        alert("roleTable=>    " + roleTable);
+        $.ajax({
+            url: '/ace/users/updateRoles.html', // 替换为实际的后台 URL
+            method: 'POST', // 或其他适当的 HTTP 方法
+            data: JSON.stringify(roles), // 转换成json并发送的数据，根据后台要求进行调整
+            contentType: "application/json; charset=utf-8", // 设置请求的 Content-Type
+            success: function (response) {
+                $('#userId-' + userId).text(roleTable);
+                alert('update:' + response);
+                // 处理后台响应的逻辑
+            },
+            error: function (xhr, status, error) {
+                alert('AJAX error:' + error);
+                // 处理 AJAX 错误的逻辑
+            }
+        });
+    });
+
 
 </script>
 
