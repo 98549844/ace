@@ -44,7 +44,7 @@ function setTitle() {
 
 }
 
-
+//循环左边menu, 用作控制class
 function docReady() {
     // const aHref = "a[href*='.html']";
     const aHref = "#sidebar a[href*='.html']"; //id=sidebar a元素并四配.html
