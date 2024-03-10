@@ -45,8 +45,9 @@ function setTitle() {
 }
 
 //循环左边menu, 用作控制class
+//暂时技持两层打开
 function docReady() {
-    // const aHref = "a[href*='.html']";
+    // const aHref = "a[href*='.html']"; // a元素并四配.html
     const aHref = "#sidebar a[href*='.html']"; //id=sidebar a元素并四配.html
 
     const currentForm = "#current_form";
