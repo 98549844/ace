@@ -1,3 +1,6 @@
+查看网络
+docker network ls
+
 创建network
 docker network create 网络名mynet;
 
@@ -8,13 +11,15 @@ docker network rm mynet;
 docker network rm mynet1 mynet2 mynet3;
 
 删除所有未使用的网络
+docker network prune
 docker network prune [OPTIONS: -f]; -f:默认 false, 不要提示确认
 
 用于显示一个或多个网络的详细信息
 docker network inspect [OPTIONS: -f] NETWORK [NETWORK...]; -f:使用给定的Go模板格式化输出
 
 断开容器的网络
-docker network disconnect [OPTIONS: -f] NETWORK CONTAINER; -f:默认 false, 强制容器断开网络的连接
+docker network disconnect 网络名 容器
+docker network disconnect [OPTIONS: -f] NETWORK_NAME CONTAINER_NAME; -f:默认 false, 强制容器断开网络的连接
 
 
 
@@ -23,7 +28,14 @@ docker network disconnect [OPTIONS: -f] NETWORK CONTAINER; -f:默认 false, 强�
 
 
 用于将容器连接到网络
-docker network connect [OPTIONS] NETWORK CONTAINER
+1.将正在运行的容器连接到网络
+docker network connect 网络名 正在运行的容器名
+2.启动时将容器连接到网络
+docker run -itd --network=网络名 即将启动的容器名
+3.指定容器的IP地址
+docker network connect --ip 10.10.10.10 网络名 容器
+
+docker network connect [OPTIONS] NETWORK_NAME CONTAINER_NAME
 [OPTION]:
 --alias
 为容器添加网络范围的别名
