@@ -1,0 +1,2 @@
+启动服务命令
+docker-compose -f docker-compose-gitea.yml -p gitea up -d
