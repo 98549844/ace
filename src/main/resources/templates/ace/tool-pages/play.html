@@ -617,8 +617,9 @@
     dp.on('ended', function () {
     });
 
-    dp.on('error', function () {
-        alert("occur error !!!")
+    dp.on('error', function (error) {
+        alert("occur error !!!  " + error);
+        //dp.video.onerror;
     });
 
 

@@ -1,0 +1,5 @@
+1. 宿主机=>docker容器
+docker cp /Users/garlam/docker/gitlab/gitlab.rb gitlab:/etc/gitlab/gitlab.rb
+
+2. docker容器=>宿主机
+docker cp gitlab:/etc/gitlab/gitlab.rb /Users/garlam/docker/gitlab/gitlab.rb
