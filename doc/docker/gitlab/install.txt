@@ -3,7 +3,7 @@ https://blog.csdn.net/weixin_45707730/article/details/132022017
 1. pull gitlab images
 docker pull gitlab/gitlab-ce:latest
 
-2. 启动gitlab命令
+2. 启动gitlab命令,修改宿主机路径
 # /Users/garlam/docker/gitlab/config:/etc/gitlab是docker中gitlab配置映射在主机中的位置，可自己改动(主机文件位置:docker文件位置)
 # /Users/garlam/docker/gitlab/log:/var/log/gitlab是docker中gitlab日志映射在主机中的位置，可自己改动(主机文件位置:docker文件位置)
 # /Users/garlam/docker/gitlab/data:/var/opt/gitlab是docker中gitlab数据映射在主机中的位置，可自己改动(主机文件位置:docker文件位置)

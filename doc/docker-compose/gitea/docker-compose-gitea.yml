@@ -21,8 +21,8 @@ services:
       - gitea
     volumes:
       - /Users/garlam/docker/gitea:/data   # - ./gitea:/data ./gitea = 当前文件夹下的gitea文件
-      - /Users/garlam/docker/gitea/timezone:/etc/timezone:ro
-      - /Users/garlam/docker/gitea/localtime:/etc/localtime:ro
+      - /Users/garlam/docker/gitea/timezone:/etc/timezone:ro # 修改宿主机路径
+      - /Users/garlam/docker/gitea/localtime:/etc/localtime:ro # 修改宿主机路径
     ports:
       - "3000:3000"
       - "222:22"
