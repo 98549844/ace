@@ -51,7 +51,7 @@ public class PlayController extends CommonController {
         return modelAndView;
     }
 
-    /**
+    /** 1. access player page
      * 开始加载媒体准备播放
      *
      * @param uuid
@@ -70,7 +70,7 @@ public class PlayController extends CommonController {
     }
 
 
-    /**
+    /** 2 get index.m3u8 info
      * access m3u8
      *
      * @param uuid
@@ -85,7 +85,7 @@ public class PlayController extends CommonController {
         filesService.get(location, response);
     }
 
-    /**
+    /** 3 get ts key
      * access TS key
      *
      * @param uuid
@@ -100,7 +100,7 @@ public class PlayController extends CommonController {
         filesService.get(location, response);
     }
 
-    /**
+    /** 4 get ts media to play
      * 加载TS切片
      *
      * @param response

@@ -492,12 +492,21 @@
                 lowLatencyMode: true,
                 // hls config
                 xhrSetup: function (xhr, url) {
+                    console.log('1 origin url:' + url);
                     //用手机播放, xhr不生效
                     const playId = '/[[${playId}]]';
                     if (url.indexOf('.ts') !== -1 || url.indexOf('key') !== -1) {
                         url = url + playId;
+                        if (url.indexOf('.ts') !== -1) {
+                            console.log('4 ts url:' + url);
+                        } else if (url.indexOf('key') !== -1) {
+                            console.log('3 key url:' + url);
+                        }
+
                     } else if (url.indexOf('index') !== -1) {
-                        url = 'play/ts/index.m3u8/' + playId;
+                        url = 'play/ts/index.m3u8' + playId;
+                        console.log('2 m3u8 url:' + url);
+
                         // url = 'media/play/ts/index.m3u8?uuid=[[${playId}]]'; for requestParam
                     }
                     xhr.open('GET', url, true);
