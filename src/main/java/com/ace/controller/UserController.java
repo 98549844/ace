@@ -208,10 +208,10 @@ public class UserController extends CommonController {
     }
 
     public static void main(String[] args) throws IOException {
-        String aaaa = SystemUtil.getPath() + "/src/main/resources/static/assets/images/avatars/avatar5.png";
+        String png = SystemUtil.getPath() + "/src/main/resources/static/assets/images/avatars/avatar5.png";
 
-        BufferedImage aaa = ImageIO.read(new File(aaaa));
-        System.out.println(aaa.getWidth());
+        BufferedImage result = ImageIO.read(new File(png));
+        System.out.println(result.getWidth());
 
     }
 

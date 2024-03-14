@@ -83,7 +83,7 @@ public class AceApplicationRestController {
             }
             return AjaxResponse.success(result);
         } else {
-            boolean result = BeanUtil.beanExist(key);
+            boolean result = BeanUtil.isExist(key);
             String message;
             Map<String, Object> map = new HashMap<>();
             if (result) {

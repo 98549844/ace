@@ -139,6 +139,7 @@ public class ImagesService extends CommonController {
             name = fileName;
             ext = fileName.split("\\.")[1];
         }
+        System.out.println("file location: " + location + name);
         ImageIO.write(ImageIO.read(new File(location + name)), ext, response.getOutputStream());
     }
 
@@ -228,7 +229,8 @@ public class ImagesService extends CommonController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } log.info("compressing image complete !!!");
+        }
+        log.info("compressing image complete !!!");
     }
 
     private void deleteThumbnails(List<String> ls, List<String> thumbnailList) {

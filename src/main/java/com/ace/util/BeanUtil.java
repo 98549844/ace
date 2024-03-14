@@ -205,7 +205,7 @@ public class BeanUtil implements ApplicationContextAware {
         return applicationContext.getBean(name);
     }
 
-    public static boolean beanExist(String name) {
+    public static boolean isExist(String name) {
         return SetUtil.containsString(BeanUtil.getBeanNames(applicationContext), name);
     }
 
