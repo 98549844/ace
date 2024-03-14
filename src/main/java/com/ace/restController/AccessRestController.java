@@ -2,6 +2,7 @@ package com.ace.restController;
 
 import com.ace.mapper.AccessLogMapper;
 import com.ace.models.entity.AccessLog;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,8 +22,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/rest/accesslog")
-//@Api(tags = "accesslog")
+@RequestMapping("/rest/accessLog")
 @Tag(name = "Access")
 public class AccessRestController {
     private static final Logger log = LogManager.getLogger(AccessRestController.class.getName());
@@ -34,6 +34,8 @@ public class AccessRestController {
         this.accessLogMapper = accessLogMapper;
     }
 
+
+    @Operation(summary = "get access log")
     @RequestMapping(method = RequestMethod.GET, value = "/get")
     public boolean getAll() {
         List<AccessLog> ls = accessLogMapper.selectAll();
