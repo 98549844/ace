@@ -1,7 +1,7 @@
 version: '3.5'
 
 networks:
-  ace-net:  # 网络名
+  ace-net: # 网络名
     name: ace-net
     driver: bridge
 
@@ -11,7 +11,7 @@ services:
     image: redis:latest
     container_name: redis-7
     restart: always
-   # environment:
+    # environment:
     #  - TZ=Asia/Shanghai
     ports:
       - "6379:6379"
@@ -58,13 +58,17 @@ services:
     image: ace-img:latest
     container_name: ace-application
     restart: always
-   # environment:
-   #   TZ: Asia/Shanghai
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=ace
+    #   TZ: Asia/Shanghai
     ports:
       - "8088:8088"
     depends_on:
       - redis
-    #  - mysql
+      - mysql
     networks:
       - ace-net
 
