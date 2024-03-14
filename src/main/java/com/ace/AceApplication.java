@@ -3,7 +3,9 @@ package com.ace;
 import cn.dev33.satoken.SaManager;
 import com.ace.config.AceConfig;
 import com.ace.config.BrowserConfig;
+import com.ace.constant.AceEnvironment;
 import com.ace.util.*;
+import com.util.GetterSetterUtil;
 import com.util.MapUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -70,6 +72,9 @@ public class AceApplication {
             // browserConfig.getIndex();
         }
         log.info("Running success: Sa-Token config: {}", SaManager.getConfig());
+        System.out.println("AceEnvironment文件储存路径 =>");
+        AceEnvironment environment = ApplicationContextUtil.getBean(AceEnvironment.class);
+        GetterSetterUtil.getterValue(environment);
     }
 
 }
