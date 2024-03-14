@@ -7,12 +7,18 @@ networks:
 
 services:
 
-  redis:
-    image: redis:latest
-    container_name: redis-7
+  ace-application:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # image: ace-img:latest
     restart: always
+    container_name: ace-application
     ports:
-      - 6379:6379
+      - 8088:8088
+    depends_on:
+      - redis
+      - mysql
     networks:
       - ace-net
 
@@ -31,18 +37,16 @@ services:
     networks:
       - ace-net
 
-  ace-application:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    # image: ace-img:latest
+  redis:
+    image: redis:latest
+    container_name: redis-7
     restart: always
-    container_name: ace-application
     ports:
-      - 8088:8088
-    depends_on:
-      - redis
-      - mysql
+      - 6379:6379
     networks:
       - ace-net
+
+
+
+
 

@@ -10,6 +10,15 @@ ENTRYPOINT ["java","-jar","ace.jar","--spring.profiles.active=docker"]
 #java -jar ace-3.2.jar --spring.profiles.active=dev
 
 
+#打开shell执行docker build命令
+#1. dockerfile 构建自己的docker image
+#docker build -f Dockerfile -t ace-img .
+#
+#-f Dockerfile 指定了 Dockerfile 的名称为 Dockerfile
+#-t ace-application 指定了构建的镜像名称为 ace-img
+#.  Dockerfile 所在的目录为当前目录, cd到当前目录执行
+
+
 
 #FROM            #基础镜像,一切从这里开始构建.
 #MAINTAINER      #镜像是谁写的,姓名+邮箱
