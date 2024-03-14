@@ -12,8 +12,8 @@ services:
       context: .
       dockerfile: Dockerfile
     # image: ace-img:latest
-    restart: always
     container_name: application
+    restart: always
     ports:
       - 8090:8090
     depends_on:
