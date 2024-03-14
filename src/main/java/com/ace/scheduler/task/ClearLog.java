@@ -19,14 +19,18 @@ public class ClearLog {
     private static final String macErrorPath = path + "/src/main/resources/log4j/error/";
     private static final String macInfoPath = path + "/src/main/resources/log4j/info/";
     private static final String macWarnPath = path + "/src/main/resources/log4j/warn/";
-    private static final String osName = OsUtil.getOsInfo();
+
+    private static final String linuxErrorPath = path + "/src/main/resources/log4j/error/";
+    private static final String linuxInfoPath = path + "/src/main/resources/log4j/info/";
+    private static final String linuxWarnPath = path + "/src/main/resources/log4j/warn/";
+    private static final String osName = OsUtil.getOsName();
 
     public void clearLog() throws IOException {
         FileUtil.mkDirs(windowsErrorPath);
         FileUtil.mkDirs(windowsInfoPath);
         FileUtil.mkDirs(windowsWarnPath);
 
-        if (osName.contains("MAC OS")) {
+        if (osName.contains(OsUtil.MAC)) {
             File errorFolder = new File(macErrorPath);
             clearingLogFile(errorFolder);
 
@@ -35,7 +39,7 @@ public class ClearLog {
 
             File warnFolder = new File(macWarnPath);
             clearingLogFile(warnFolder);
-        } else if (osName.contains("WINDOWS")) {
+        } else if (osName.contains(OsUtil.WINDOWS)) {
             File errorFolder = new File(windowsErrorPath);
             clearingLogFile(errorFolder);
 
@@ -44,7 +48,19 @@ public class ClearLog {
 
             File warnFolder = new File(windowsWarnPath);
             clearingLogFile(warnFolder);
-        }else {
+        }else if (osName.contains(OsUtil.LINUX)) {
+            //for docker container
+            File errorFolder = new File(linuxErrorPath);
+            clearingLogFile(errorFolder);
+
+            File infoFolder = new File(linuxInfoPath);
+            clearingLogFile(infoFolder);
+
+            File warnFolder = new File(linuxWarnPath);
+            clearingLogFile(warnFolder);
+        }
+
+        else {
             throw new IOException("UNKNOWN OPERATION SYSTEM");
         }
     }

@@ -1,6 +1,7 @@
 package com.ace.util;
 
 import com.util.Console;
+import com.util.OsUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,9 +26,13 @@ public class Commands {
     }
 
     public static void versionCheck() throws IOException {
+        if (OsUtil.getOsName().equals(OsUtil.LINUX)) {
+            //docker container
+            return;
+        }
         Console.println(dockerVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
 
-        Console.println("Docker Running Container: ",  Console.BOLD);
+        Console.println("Docker Running Container: ", Console.BOLD);
         Console.println(dockerRunningContainer(), Console.FLUORESCENT_PURPLE, Console.BOLD);
         Console.println(ffmpegVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
     }
@@ -43,13 +48,13 @@ public class Commands {
     }
 
     public static String getRunningContainerByName(String ContainerName) throws IOException {
-        String[] exec = new String[]{"docker", "ps","--format", "\"{{.Names}} {{.Status}}\"", "--filter", "name=" + ContainerName};
+        String[] exec = new String[]{"docker", "ps", "--format", "\"{{.Names}} {{.Status}}\"", "--filter", "name=" + ContainerName};
         return Console.execute(exec);
     }
 
     public static String ffmpegVersion() throws IOException {
         String ffmpegVersion = Console.execute("ffmpeg", "-version");
-        return ffmpegVersion.substring(0,35);
+        return ffmpegVersion.substring(0, 35);
     }
 
 
