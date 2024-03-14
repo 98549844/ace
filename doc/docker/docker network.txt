@@ -21,7 +21,9 @@ docker network inspect [OPTIONS: -f] NETWORK [NETWORK...]; -f:使用给定的Go�
 docker network disconnect 网络名 容器
 docker network disconnect [OPTIONS: -f] NETWORK_NAME CONTAINER_NAME; -f:默认 false, 强制容器断开网络的连接
 
-
+查看容器的网络名(连接的网络)
+docker inspect <容器ID> -f '{{.NetworkSettings.Networks}}'
+docker inspect mysql-8.1 -f '{{.NetworkSettings.Networks}}'
 
 
 

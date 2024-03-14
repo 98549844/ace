@@ -1,0 +1,2 @@
+启动服务命令
+docker-compose -f docker-compose-ace-application.yml -p ace-application up -d
