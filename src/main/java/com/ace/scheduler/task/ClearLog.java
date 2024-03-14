@@ -48,7 +48,7 @@ public class ClearLog {
 
             File warnFolder = new File(windowsWarnPath);
             clearingLogFile(warnFolder);
-        }else if (osName.contains(OsUtil.LINUX)) {
+        } else if (osName.contains(OsUtil.LINUX)) {
             //for docker container
             File errorFolder = new File(linuxErrorPath);
             clearingLogFile(errorFolder);
@@ -58,10 +58,8 @@ public class ClearLog {
 
             File warnFolder = new File(linuxWarnPath);
             clearingLogFile(warnFolder);
-        }
-
-        else {
-            throw new IOException("UNKNOWN OPERATION SYSTEM");
+        } else {
+            throw new IOException("UNKNOWN OPERATION SYSTEM: " + osName);
         }
     }
 

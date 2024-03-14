@@ -7,13 +7,13 @@ networks:
 
 services:
 
-  ace-application:
+  application:
     build:
       context: .
       dockerfile: Dockerfile
     # image: ace-img:latest
     restart: always
-    container_name: ace-application
+    container_name: application
     ports:
       - 8090:8090
     depends_on:

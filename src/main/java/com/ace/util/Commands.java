@@ -1,7 +1,6 @@
 package com.ace.util;
 
 import com.util.Console;
-import com.util.OsUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,10 +25,6 @@ public class Commands {
     }
 
     public static void versionCheck() throws IOException {
-        if (OsUtil.getOsName().equals(OsUtil.LINUX)) {
-            //docker container
-            return;
-        }
         Console.println(dockerVersion(), Console.FLUORESCENT_PURPLE, Console.BOLD);
 
         Console.println("Docker Running Container: ", Console.BOLD);

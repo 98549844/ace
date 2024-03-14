@@ -60,7 +60,6 @@ public class AceApplication {
         BeanUtil beanUtil = applicationContext.getBean("beanUtil", BeanUtil.class);
         IpUtil ip = beanUtil.getBeanByName("ipUtil", IpUtil.class);
         MapUtil.iterateMapKeySet(ip.getHostInfo());
-        Commands.versionCheck();
 
         AceConfig aceConfig = beanUtil.getBeanByName("aceConfig", AceConfig.class);
         if (!AceConfig.DOCKER.equals(aceConfig.getProfile())) {
@@ -68,6 +67,7 @@ public class AceApplication {
             //决定项目启动时, 是否主动打开swagger/docHtml
             BrowserConfig browserConfig = new BrowserConfig();
             browserConfig.openAceIndexAndSwagger(aceConfig.isIndexEnable(), aceConfig.isSwaggerEnable(), aceConfig.isDocHtmlEnabled());
+            Commands.versionCheck();
             // browserConfig.getCss();
             // browserConfig.getIndex();
         }
