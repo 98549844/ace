@@ -1,3 +1,6 @@
 docker run -itd -p 8088:8088 ace-img
 
 docker run -itd -p 8088:8088 --name ace ace-img
+
+docker run -itd --network=bridge --name ace ace-img
+把image为ace-img, 容器名为ace连接上名叫bridge的网络上

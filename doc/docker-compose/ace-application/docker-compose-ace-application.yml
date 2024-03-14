@@ -11,8 +11,8 @@ services:
     image: redis:latest
     container_name: redis-7
     restart: always
-    environment:
-      - TZ=Asia/Shanghai
+   # environment:
+    #  - TZ=Asia/Shanghai
     ports:
       - "6379:6379"
       # volumes:
@@ -58,13 +58,13 @@ services:
     image: ace-img:latest
     container_name: ace-application
     restart: always
-    environment:
-      TZ: Asia/Shanghai
+   # environment:
+   #   TZ: Asia/Shanghai
     ports:
       - "8088:8088"
     depends_on:
       - redis
-      - mysql
+    #  - mysql
     networks:
       - ace-net
 
