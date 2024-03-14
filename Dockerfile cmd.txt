@@ -1,0 +1,6 @@
+1. dockerfile 构建自己的docker image
+docker build -f Dockerfile -t ace-img .
+
+-f Dockerfile 指定了 Dockerfile 的名称为 Dockerfile
+-t ace-application 指定了构建的镜像名称为 ace-img
+.  Dockerfile 所在的目录为当前目录, cd到当前目录执行

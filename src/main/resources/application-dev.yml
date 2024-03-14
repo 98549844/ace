@@ -52,7 +52,7 @@ spring:
   application:
     name: "Project for Ace Application - Spring Boot 3"
   devtools:
-    livereload:
+    livereload: # 热加载静态文件
       port: 35731
     restart:
       enabled: false
