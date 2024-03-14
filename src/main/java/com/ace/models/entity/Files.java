@@ -5,6 +5,8 @@ import com.ace.models.entity.base.BaseEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.*;
@@ -17,8 +19,10 @@ import jakarta.persistence.*;
  */
 
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "files", uniqueConstraints = {@UniqueConstraint(name = "constraint_fileName", columnNames = {"fileName", "path"})}) // "fileName", "path" 定义复合唯一键
+@Table(name = "files", uniqueConstraints = {@UniqueConstraint(name = "constraint_fileName", columnNames = {"fileName", "path"})})
+// "fileName", "path" 定义复合唯一键
 @Entity
+@PropertySource(value = {"classpath:ace.properties"}, encoding = "UTF-8", name = "ace.properties")
 public class Files extends BaseEntity {
     private static final Logger log = LogManager.getLogger(Files.class.getName());
 
@@ -36,8 +40,10 @@ public class Files extends BaseEntity {
     public static final String APPLICATION = "application";
     @Column
     private String location;
+
+    @Value("${file.path}")
     @Column
-    private String path = AceEnvironment.getFilePath();
+    private String path;
     @Column
     private Long size;
     @Column
@@ -57,8 +63,10 @@ public class Files extends BaseEntity {
     private String originationName; //原文件名
     @Column
     private String owner;
+
+    @Value("'default path:'+${file.path}")
     @Column
-    private String remark = "default path:" + AceEnvironment.getFilePath();
+    private String remark;
 
     public Long getId() {
         return id;

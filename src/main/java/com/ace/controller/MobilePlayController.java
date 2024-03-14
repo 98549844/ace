@@ -31,9 +31,9 @@ public class MobilePlayController extends CommonController {
 
 
     @Autowired
-    public MobilePlayController(MobilePlayService mobilePlayService) {
+    public MobilePlayController(AceEnvironment aceEnvironment,MobilePlayService mobilePlayService) {
         this.mobilePlayService = mobilePlayService;
-        this.videoPath = AceEnvironment.getVideoPath();
+        this.videoPath = aceEnvironment.getVideoPath();
     }
 
 

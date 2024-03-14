@@ -29,9 +29,9 @@ public class GalleryController extends CommonController {
     private final ImagesService imagesService;
     private final String imagesThumbnail;
 
-    public GalleryController(ImagesService imagesService) {
+    public GalleryController(AceEnvironment aceEnvironment,ImagesService imagesService) {
         this.imagesService = imagesService;
-        this.imagesThumbnail = AceEnvironment.getImagesThumbnail();
+        this.imagesThumbnail = aceEnvironment.getImagesThumbnail();
     }
 
 

@@ -34,8 +34,8 @@ public class MobilePlayService {
 
     private final String videoPath;
 
-    public MobilePlayService() {
-        this.videoPath = AceEnvironment.getVideoPath();
+    public MobilePlayService(AceEnvironment aceEnvironment) {
+        this.videoPath = aceEnvironment.getVideoPath();
     }
 
 

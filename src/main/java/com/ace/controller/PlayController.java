@@ -34,9 +34,9 @@ public class PlayController extends CommonController {
 
 
     @Autowired
-    public PlayController(FilesService filesService) {
+    public PlayController(AceEnvironment aceEnvironment,FilesService filesService) {
         this.filesService = filesService;
-        this.videoM3u8 = AceEnvironment.getVideoM3u8();
+        this.videoM3u8 = aceEnvironment.getVideoM3u8();
 
     }
 

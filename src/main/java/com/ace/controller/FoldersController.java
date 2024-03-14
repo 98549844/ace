@@ -26,10 +26,12 @@ public class FoldersController extends CommonController {
     private static final Logger log = LogManager.getLogger(FoldersController.class.getName());
 
     private final FoldersService foldersService;
+    private final AceEnvironment aceEnvironment;
 
 
-    public FoldersController(FoldersService foldersService) {
+    public FoldersController(AceEnvironment aceEnvironment, FoldersService foldersService) {
         this.foldersService = foldersService;
+        this.aceEnvironment=aceEnvironment;
     }
 
     @RequestMapping(value = "/folder/create/{currentPath}/{newFolderName}", method = RequestMethod.GET)
@@ -52,8 +54,8 @@ public class FoldersController extends CommonController {
         System.out.println(status.get("msg"));
         System.out.println(status1.get("msg"));
 
-        String currentPath1 = getCurrentUser().getCurrentUserPath() + "AAA" + AceEnvironment.getSeparator();
-        String currentPath2 = getCurrentUser().getCurrentUserPath() + "BBB" + AceEnvironment.getSeparator();
+        String currentPath1 = getCurrentUser().getCurrentUserPath() + "AAA" + aceEnvironment.getSeparator();
+        String currentPath2 = getCurrentUser().getCurrentUserPath() + "BBB" + aceEnvironment.getSeparator();
         String newFolderNameA = "C1";
         String newFolderNameBB = "C2";
         String newFolderNameBC = "C3";

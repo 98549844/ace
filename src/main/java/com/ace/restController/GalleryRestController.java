@@ -49,9 +49,9 @@ public class GalleryRestController {
     private final String imagesPath;
 
     @Autowired
-    public GalleryRestController(FilesService filesService) {
+    public GalleryRestController(AceEnvironment aceEnvironment,FilesService filesService) {
         this.filesService = filesService;
-        this.imagesPath = AceEnvironment.getImagesPath();
+        this.imagesPath = aceEnvironment.getImagesPath();
     }
 
 

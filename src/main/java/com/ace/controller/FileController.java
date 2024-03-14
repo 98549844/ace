@@ -40,10 +40,10 @@ public class FileController extends CommonController {
     private final String filesPath;
 
     @Autowired
-    public FileController(FilesService filesService, FoldersService foldersService) {
+    public FileController(AceEnvironment aceEnvironment,FilesService filesService, FoldersService foldersService) {
         this.filesService = filesService;
         this.foldersService = foldersService;
-        this.filesPath = AceEnvironment.getFilePath();
+        this.filesPath = aceEnvironment.getFilePath();
     }
 
     /**

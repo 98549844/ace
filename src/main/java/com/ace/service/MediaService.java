@@ -43,11 +43,11 @@ public class MediaService {
     private final Path tempDir = Paths.get(System.getProperty("java.io.tmpdir"));
 
     @Autowired
-    public MediaService(FilesService filesService, RolesService rolesService) {
+    public MediaService(AceEnvironment aceEnvironment, FilesService filesService, RolesService rolesService) {
         this.filesService = filesService;
         this.rolesService = rolesService;
-        this.videoM3u8 = AceEnvironment.getVideoM3u8();
-        this.videoPath = AceEnvironment.getVideoPath();
+        this.videoM3u8 = aceEnvironment.getVideoM3u8();
+        this.videoPath = aceEnvironment.getVideoPath();
     }
 
     public List getThumbnail() {

@@ -53,13 +53,13 @@ public class UserController extends CommonController {
 
 
     @Autowired
-    public UserController(UserRolesService userRolesService, UsersService usersService, RolesService rolesService, FilesService filesService, ImagesService imagesService) {
+    public UserController(AceEnvironment aceEnvironment, UserRolesService userRolesService, UsersService usersService, RolesService rolesService, FilesService filesService, ImagesService imagesService) {
         this.usersService = usersService;
         this.rolesService = rolesService;
         this.userRolesService = userRolesService;
         this.filesService = filesService;
         this.imagesService = imagesService;
-        this.usersPath = AceEnvironment.getUsers();
+        this.usersPath = aceEnvironment.getUsers();
     }
 
     @RequestMapping(value = "/users.html", method = RequestMethod.GET)

@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "folders", uniqueConstraints = {@UniqueConstraint(name = "constraint_path", columnNames = {"path"})})
 @Entity
+@PropertySource(value = {"classpath:ace.properties"}, encoding = "UTF-8", name = "ace.properties")
 public class Folders extends BaseEntity {
     private static final Logger log = LogManager.getLogger(Folders.class.getName());
 
@@ -35,8 +38,10 @@ public class Folders extends BaseEntity {
     private String folderName;
     @Column
     private Long ownerId;
+
+    @Value("${file.ace}")
     @Column
-    private String path = AceEnvironment.getAce(); // 默认 root/ace/
+    private String path; // 默认 root/ace/
     @Column
     private String status = CREATED; // 已新建
     public static final String DENIED = "denied"; //拒绝读取

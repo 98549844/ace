@@ -42,11 +42,11 @@ public class MediaController extends CommonController {
     private final String thumbnail = "thumbnail.jpg";
 
     @Autowired
-    public MediaController(MediaService mediaService, FilesService filesService) {
+    public MediaController(AceEnvironment aceEnvironment,MediaService mediaService, FilesService filesService) {
         this.filesService = filesService;
         this.mediaService = mediaService;
-        this.videoPath = AceEnvironment.getVideoPath();
-        this.videoM3u8 = AceEnvironment.getVideoM3u8();
+        this.videoPath = aceEnvironment.getVideoPath();
+        this.videoM3u8 = aceEnvironment.getVideoM3u8();
     }
 
     /**

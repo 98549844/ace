@@ -37,11 +37,11 @@ public class ImagesService extends CommonController {
     private final String imagePath;
     private final String imagesThumbnail;
 
-    public ImagesService(FilesService filesService, RolesService rolesService) {
+    public ImagesService(AceEnvironment aceEnvironment, FilesService filesService, RolesService rolesService) {
         this.filesService = filesService;
         this.rolesService = rolesService;
-        this.imagePath = AceEnvironment.getImagesPath();
-        this.imagesThumbnail = AceEnvironment.getImagesThumbnail();
+        this.imagePath = aceEnvironment.getImagesPath();
+        this.imagesThumbnail = aceEnvironment.getImagesThumbnail();
     }
 
 

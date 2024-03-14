@@ -46,13 +46,13 @@ public class LoginController extends CommonController {
 
 
     @Autowired
-    public LoginController(LoginService loginService, UsersService usersService, FoldersService foldersService, ImagesService imagesService) {
+    public LoginController(AceEnvironment aceEnvironment, LoginService loginService, UsersService usersService, FoldersService foldersService, ImagesService imagesService) {
         this.loginService = loginService;
         this.usersService = usersService;
         this.foldersService = foldersService;
         this.imagesService = imagesService;
-        this.usersFolder = AceEnvironment.getUsers();
-        this.separator = AceEnvironment.getSeparator();
+        this.usersFolder = aceEnvironment.getUsers();
+        this.separator = aceEnvironment.getSeparator();
     }
 
 

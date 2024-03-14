@@ -17,20 +17,27 @@ import org.springframework.stereotype.Component;
 public class ReportConfig {
     private static final Logger log = LogManager.getLogger(ReportConfig.class.getName());
 
+
+    private AceEnvironment aceEnvironment;
+
+    public ReportConfig(AceEnvironment aceEnvironment) {
+        this.aceEnvironment = aceEnvironment;
+    }
+
     public String getUrl() {
-        return AceEnvironment.environment.getProperty("spring.datasource.url");
+        return aceEnvironment.environment.getProperty("spring.datasource.url");
     }
 
     public String getUserName() {
-        return AceEnvironment.environment.getProperty("spring.datasource.username");
+        return aceEnvironment.environment.getProperty("spring.datasource.username");
     }
 
     public String getPassword() {
-        return AceEnvironment.environment.getProperty("spring.datasource.password");
+        return aceEnvironment.environment.getProperty("spring.datasource.password");
     }
 
     public String getForName() {
-        return AceEnvironment.environment.getProperty("spring.datasource.driver-class-name");
+        return aceEnvironment.environment.getProperty("spring.datasource.driver-class-name");
     }
 
 

@@ -34,9 +34,9 @@ public class FoldersService {
     public final String FOLDER_NAME = "folderName";
     public final String SUB_FOLDERS = "subFolders";
 
-    public FoldersService(FoldersDao foldersDao) {
+    public FoldersService(FoldersDao foldersDao, AceEnvironment aceEnvironment) {
         this.foldersDao = foldersDao;
-        this.separator = AceEnvironment.getSeparator();
+        this.separator = aceEnvironment.getSeparator();
     }
 
     public Folders save(Folders folders) {

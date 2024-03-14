@@ -24,42 +24,42 @@ public class AceEnvironment {
     private static final Logger log = LogManager.getLogger(AceEnvironment.class.getName());
 
     //container of application.yml value
-    public static Environment environment;
+    public Environment environment;
 
-    private static String separator;
-    private static String root;
-    private static String ace;
-    private static String users;
-    private static String filePath;
-    private static String misc;
-    private static String tmp;
-    private static String imagesPath;
-    private static String imagesThumbnail;
-    private static String videoPath;
-    private static String videoM3u8;
-    private static String systemTmpDir;
-    private static String systemDir;
-    private static String newLine;
+    private String separator;
+    private String root;
+    private String ace;
+    private String users;
+    private String filePath;
+    private String misc;
+    private String tmp;
+    private String imagesPath;
+    private String imagesThumbnail;
+    private String videoPath;
+    private String videoM3u8;
+    private String systemTmpDir;
+    private String systemDir;
+    private String newLine;
 
 
-    public static void main(String[] args) {
-        AceEnvironment.setUp();
-        System.out.println(getAce());
-        System.out.println(getTmp());
-    }
+//    public static void main(String[] args) {
+//        AceEnvironment.setUp();
+//        System.out.println(getAce());
+//        System.out.println(getTmp());
+//    }
 
     public AceEnvironment(Environment environment) {
-        AceEnvironment.environment = environment;
+        this.environment = environment;
         setUp();
     }
 
 
-    public static void setUp() {
+    public void setUp() {
         folderSetUp();
     }
 
 
-    private static void folderSetUp() {
+    private void folderSetUp() {
         String msg;
         String osName = OsUtil.getOsName();
 
@@ -84,7 +84,7 @@ public class AceEnvironment {
         Console.println(msg, Console.BLUE, Console.BOLD);
     }
 
-    private static void createFolderAndSetValue(String root, String separator) {
+    private void createFolderAndSetValue(String root, String separator) {
         String ace = root + "ace" + separator;
 
         String users = ace + "users" + separator;
@@ -126,116 +126,117 @@ public class AceEnvironment {
         setNewLine(System.getProperty("line.separator"));
     }
 
-    public static String getFilePath() {
-        return filePath;
-    }
 
-    public static void setFilePath(String filePath) {
-        AceEnvironment.filePath = filePath;
-    }
-
-    public static String getImagesPath() {
-        return imagesPath;
-    }
-
-    public static void setImagesPath(String imagesPath) {
-        AceEnvironment.imagesPath = imagesPath;
-    }
-
-    public static String getImagesThumbnail() {
-        return imagesThumbnail;
-    }
-
-    public static void setImagesThumbnail(String imagesThumbnail) {
-        AceEnvironment.imagesThumbnail = imagesThumbnail;
-    }
-
-    public static String getVideoM3u8() {
-        return videoM3u8;
-    }
-
-    public static void setVideoM3u8(String videoM3u8) {
-        AceEnvironment.videoM3u8 = videoM3u8;
-    }
-
-    public static String getVideoPath() {
-        return videoPath;
-    }
-
-    public static void setVideoPath(String videoPath) {
-        AceEnvironment.videoPath = videoPath;
-    }
-
-    public static String getMisc() {
-        return misc;
-    }
-
-    public static void setMisc(String misc) {
-        AceEnvironment.misc = misc;
-    }
-
-    public static String getSeparator() {
+    public String getSeparator() {
         return separator;
     }
 
-    public static void setSeparator(String separator) {
-        AceEnvironment.separator = separator;
-    }
-
-    public static String getRoot() {
+    public String getRoot() {
         return root;
     }
 
-    public static void setRoot(String root) {
-        AceEnvironment.root = root;
+    public void setRoot(String root) {
+        this.root = root;
     }
 
-    public static String getUsers() {
-        return users;
-    }
-
-    public static void setUsers(String users) {
-        AceEnvironment.users = users;
-    }
-
-    public static String getAce() {
+    public String getAce() {
         return ace;
     }
 
-    public static void setAce(String ace) {
-        AceEnvironment.ace = ace;
+    public void setAce(String ace) {
+        this.ace = ace;
     }
 
-    public static String getTmp() {
+    public String getUsers() {
+        return users;
+    }
+
+    public void setUsers(String users) {
+        this.users = users;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getMisc() {
+        return misc;
+    }
+
+    public void setMisc(String misc) {
+        this.misc = misc;
+    }
+
+    public String getTmp() {
         return tmp;
     }
 
-    public static void setTmp(String tmp) {
-        AceEnvironment.tmp = tmp;
+    public void setTmp(String tmp) {
+        this.tmp = tmp;
     }
 
-    public static String getSystemTmpDir() {
+    public String getImagesPath() {
+        return imagesPath;
+    }
+
+    public void setImagesPath(String imagesPath) {
+        this.imagesPath = imagesPath;
+    }
+
+    public String getImagesThumbnail() {
+        return imagesThumbnail;
+    }
+
+    public void setImagesThumbnail(String imagesThumbnail) {
+        this.imagesThumbnail = imagesThumbnail;
+    }
+
+    public String getVideoPath() {
+        return videoPath;
+    }
+
+    public void setVideoPath(String videoPath) {
+        this.videoPath = videoPath;
+    }
+
+    public String getVideoM3u8() {
+        return videoM3u8;
+    }
+
+    public void setVideoM3u8(String videoM3u8) {
+        this.videoM3u8 = videoM3u8;
+    }
+
+    public String getSystemTmpDir() {
         return systemTmpDir;
     }
 
-    private static void setSystemTmpDir(String systemTmpDir) {
-        AceEnvironment.systemTmpDir = systemTmpDir;
+    public void setSystemTmpDir(String systemTmpDir) {
+        this.systemTmpDir = systemTmpDir;
     }
 
-    public static String getSystemDir() {
+    public String getSystemDir() {
         return systemDir;
     }
 
-    private static void setSystemDir(String systemDir) {
-        AceEnvironment.systemDir = systemDir;
+    public void setSystemDir(String systemDir) {
+        this.systemDir = systemDir;
     }
 
-    public static String getNewLine() {
+    public String getNewLine() {
         return newLine;
     }
 
-    private static void setNewLine(String newLine) {
-        AceEnvironment.newLine = newLine;
+    public void setNewLine(String newLine) {
+        this.newLine = newLine;
+    }
+
+    public void setSeparator(String separator) {
+        this.separator = separator;
     }
 }
 
