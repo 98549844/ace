@@ -1,0 +1,7 @@
+1. 查看版本version
+kubectl version
+
+2. 查看状态
+kubectl cluster-info
+kubectl get nodes
+kubectl describe no
