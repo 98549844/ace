@@ -15,6 +15,8 @@ services:
     # image: ace-img:latest
     container_name: application
     restart: always
+    volumes:
+      - /Users/garlam/ace/:/opt/workspace/ace/
     ports:
       - 8090:8090
     depends_on:
