@@ -36,7 +36,7 @@ public class IpAddressRestController extends CommonController {
     @GetMapping("/getLocation/{ip}")
     @Operation(summary = "Get location by Ip")
     public Response getIpLocationInfo(@PathVariable String ip) {
-        String ipLocal = ipUtil.getLocalCityInfo(ip);
+        String ipLocal = ipUtil.getRegion(ip);
         return Response.success(ipLocal);
     }
 

@@ -46,7 +46,7 @@ public class IpUtil implements ApplicationListener<WebServerInitializedEvent> {
     /**
      * 根据ip获取详细地址
      */
-    public String getLocalCityInfo(String ip) {
+    public String getRegion(String ip) {
         final Ip2regionSearcher ip2regionSearcher = ApplicationContextUtil.getBean(Ip2regionSearcher.class);
         IpInfo ipInfo = ip2regionSearcher.memorySearch(ip);
         if (!NullUtil.isNull(ipInfo)) {

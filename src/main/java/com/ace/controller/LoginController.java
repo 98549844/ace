@@ -11,6 +11,7 @@ import com.ace.service.FoldersService;
 import com.ace.service.ImagesService;
 import com.ace.service.LoginService;
 import com.ace.service.UsersService;
+import com.ace.util.IpUtil;
 import com.ace.util.RegionUtil;
 import com.util.DateTimeUtil;
 import com.util.NullUtil;
@@ -144,13 +145,7 @@ public class LoginController extends CommonController {
 
     private String getRegion() {
         String ip = RegionUtil.getIpAddr(getRequest());
-        //离线获取
-        String region = RegionUtil.getAddr(ip);
-        if (NullUtil.isNull(region)) {
-            //在线获取
-            region = RegionUtil.getRealAddressByIP(ip);
-        }
-        return region;
+        return new IpUtil().getRegion(ip);
     }
 
 }

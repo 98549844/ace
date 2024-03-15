@@ -27,33 +27,10 @@ public class RegionUtil extends CommonController {
     private static final Logger log = LogManager.getLogger(RegionUtil.class.getName());
 
 
-    // IP地址查询
-    public static final String IP_URL = "http://whois.pconline.com.cn/ipJson.jsp";
-    public static final String IP2REGION_PATH = "src/main/resources/ip2region/ip2region.xdb";
 
     // 未知地址
     public static final String UNKNOWN = "XX XX";
 
-    public static String getRealAddressByIP(String ip) {
-        // 内网不查询
-        if (ip.equals(constant.LOCAL_IP)) {
-            return "内网IP";
-        }
-        try {
-            String rspStr = sendGet(IP_URL, "ip=" + ip + "&json=true", "GBK");
-            if (StringUtils.isEmpty(rspStr)) {
-                log.error("获取地理位置异常 {}", ip);
-                return UNKNOWN;
-            }
-            JSONObject obj = JSONObject.parseObject(rspStr);
-            String region = obj.getString("pro");
-            String city = obj.getString("city");
-            return String.format("%s|%s", region, city);
-        } catch (Exception e) {
-            log.error("获取地理位置异常 {}", ip);
-        }
-        return UNKNOWN;
-    }
 
     public static String sendGet(String url, String param, String contentType) {
         StringBuilder result = new StringBuilder();
@@ -134,36 +111,6 @@ public class RegionUtil extends CommonController {
             ipAddress = "";
         }
         return ipAddress;
-    }
-
-    public static String getAddr(String ip) {
-        String project_dir = System.getProperty("user.dir");
-        String dbPath = project_dir + "/" + IP2REGION_PATH;
-        // 1 从 dbPath 加载整个 xdb 到内存。
-        byte[] cBuff;
-        try {
-            cBuff = Searcher.loadContentFromFile(dbPath);
-        } catch (Exception e) {
-            log.error("failed to load ip2region.xdb from {}", dbPath, e);
-            return null;
-        }
-
-        // 2、使用上述的 cBuff 创建一个完全基于内存的查询对象。
-        Searcher searcher;
-        try {
-            searcher = Searcher.newWithBuffer(cBuff);
-        } catch (Exception e) {
-            log.info("failed to create content cached searcher: %s\n", e);
-            return null;
-        }
-        // 3、查询
-        try {
-            String region = searcher.search(ip);
-            return region;
-        } catch (Exception e) {
-            log.info("failed to search: {}", ip, e);
-        }
-        return null;
     }
 }
 
