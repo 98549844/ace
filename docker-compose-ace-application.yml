@@ -12,7 +12,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    # image: ace-img:latest
+    #    image: 87548744/ace:v3.2
     container_name: application
     restart: always
     volumes:
