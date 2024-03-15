@@ -56,6 +56,10 @@ public class UsersRestController extends CommonController {
         this.rolesService = rolesService;
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/addDefaultUsers")
+    public AjaxResponse addDefaultAdminUsers() {
+        return userRolePermissionRestController.addDefaultAdminUsers();
+    }
 
     @Operation(summary = "查询用户角色")
     @RequestMapping(method = RequestMethod.GET, value = "/getRoles/{userAccount}")
@@ -141,7 +145,7 @@ public class UsersRestController extends CommonController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return AjaxResponse.error(new ResponseException("user has " + roleCode+" this role."));
+            return AjaxResponse.error(new ResponseException("user has " + roleCode + " this role."));
         }
     }
 
