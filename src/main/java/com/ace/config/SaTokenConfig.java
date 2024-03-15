@@ -58,6 +58,8 @@ public class SaTokenConfig implements WebMvcConfigurer {
                         "/")
                 //开放restController
                 .excludePathPatterns( "/rest/**")
+                //开放naiveController
+                .excludePathPatterns( "/naive/**")
                 //开方api
                 .excludePathPatterns( "/api/**")
                 .excludePathPatterns( "/pdf/**")
