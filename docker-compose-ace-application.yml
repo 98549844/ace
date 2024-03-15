@@ -20,6 +20,7 @@ services:
     depends_on:
       - redis
       - mysql
+      - rabbitmq
     networks:
       - ace-net
 
@@ -37,6 +38,21 @@ services:
       - 3306:3306
     networks:
       - ace-net
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq-3.8.16
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+      - 15674:15674
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+    networks:
+      - ace-net
+
 
   redis:
     image: redis:latest

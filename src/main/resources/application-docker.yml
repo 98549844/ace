@@ -186,13 +186,13 @@ spring:
       database: 0
 
 
-#  rabbitmq:
-#    #producer 生產者
-#    addresses: 192.168.1.100:5672
-#    connection-timeout: 15000
-#    username: garlam
-#    password: garlamau
-#    virtual-host: /
+  rabbitmq:
+    #producer 生產者
+    addresses: rabbitmq:5672
+    connection-timeout: 15000
+    username: admin
+    password: admin
+    virtual-host: /
 
     #receiver 消费者
     #rabbitmq:
