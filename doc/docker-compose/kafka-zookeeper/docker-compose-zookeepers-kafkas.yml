@@ -10,7 +10,7 @@ services:
   zoo1:
     image: zookeeper:latest
     container_name: zoo1   # 容器名称
-    restart: always       # 开机自启
+    restart: no       # always 开机自启 | no 默认重启策略。在任何情况下它都不会重新启动容器
     hostname: zoo1        # 主机名
     ports:
       - 2181:2181         # 端口号 左边是宿主机端口, 右边是容器内部端口
@@ -22,7 +22,7 @@ services:
   zoo2:
     image: zookeeper:latest
     container_name: zoo2
-    restart: always
+    restart: no
     hostname: zoo2
     ports:
       - 2182:2181
@@ -34,7 +34,7 @@ services:
   zoo3:
     image: zookeeper:latest
     container_name: zoo3
-    restart: always
+    restart: no
     hostname: zoo3
     ports:
       - 2183:2181
