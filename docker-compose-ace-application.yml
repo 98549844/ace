@@ -1,3 +1,4 @@
+# docker compose -f /Users/garlam/IdeaProjects/ace/docker-compose-ace-application.yml -p ace up -d
 version: '3.8'
 
 networks:
