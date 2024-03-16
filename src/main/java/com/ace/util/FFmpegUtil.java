@@ -158,7 +158,7 @@ public class FFmpegUtil {
         commands.add("index.m3u8");  // 生成m3u8文件
 
         log.info("transcodeToM3u8 commands: " + commands);
-        // 构建进程
+        log.info("构建进程: {}" , workDir.toString());
         Process process = new ProcessBuilder().command(commands).directory(workDir.toFile()).start();
         // 读取进程标准输出
         threadRunning(process);
@@ -171,6 +171,7 @@ public class FFmpegUtil {
                     log.info(line);
                 }
             } catch (IOException e) {
+                log.error("TranscodeToM3u8 Exception: {}", e.getMessage());
                 e.printStackTrace();
             }
         }).start();
@@ -178,16 +179,16 @@ public class FFmpegUtil {
         if (process.waitFor() != 0) {
             throw new RuntimeException("视频切片异常");
         }
-        // 切出封面
+        log.info("切出poster封面: {}", destFolder);
         if (!screenShots(source, String.join(File.separator, destFolder, "poster.jpg"), config.getPoster())) {
             throw new RuntimeException("封面截取异常");
         }
-        // 获取视频信息
+        log.info("获取视频信息: {}",source );
         MediaInfo mediaInfo = getMediaInfo(source);
         if (mediaInfo == null) {
             throw new RuntimeException("获取媒体信息异常");
         }
-        // 生成index.m3u8文件
+        log.info("生成index.m3u8文件: {}", destFolder);
         genIndex(String.join(File.separator, destFolder, "index.m3u8"), "ts/index.m3u8", mediaInfo.getFormat().getBitRate());
         // 删除keyInfo文件
         Files.delete(keyInfo);

@@ -64,7 +64,9 @@ public class MediaService {
         return getVideoPathList();
     }
 
-    /** 根据playId切片
+    /**
+     * 根据playId切片
+     *
      * @param playId
      * @return
      * @throws IOException
@@ -78,7 +80,9 @@ public class MediaService {
     }
 
 
-    /** 文件夹里没有切片的video都切
+    /**
+     * 文件夹里没有切片的video都切
+     *
      * @return
      * @throws IOException
      */
@@ -106,7 +110,9 @@ public class MediaService {
         return getActualList(t1);
     }
 
-    /** VideoPath 文件夹内video名字
+    /**
+     * VideoPath 文件夹内video名字
+     *
      * @return
      */
     private List getVideoPathList() {
@@ -131,6 +137,7 @@ public class MediaService {
     }
 
     private void getMultipartFileList(String path) throws IOException {
+        //注意, 必需要同一台服务器,否则会出现文件找不到
         File f = new File(path);
         File[] fs = f.listFiles();
         if (NullUtil.isNull(fs)) {
@@ -208,6 +215,7 @@ public class MediaService {
         } finally {
             // 始终删除临时文件
             Files.delete(tempFile);
+            log.info("临时文件删除: {}", tempFile.toString());
         }
     }
 

@@ -53,11 +53,12 @@ public class ResourceUtil extends CommonController {
         URI uri = ResourceUtil.class.getProtectionDomain().getCodeSource().getLocation().toURI();
         // tempPath: 文件保存路径
         String tempPath;
-        if (OsUtil.getOsName().equals(OsUtil.MAC)) {
+        String osName = OsUtil.getOsName();
+        if (osName.contains(OsUtil.MAC)) {
             tempPath = MAC_TMP;
-        } else if (OsUtil.getOsName().equals(OsUtil.LINUX)) {
+        } else if (osName.contains(OsUtil.LINUX)) {
             tempPath = LINUX_TMP;
-        } else if (OsUtil.getOsName().equals(OsUtil.WINDOWS)) {
+        } else if (osName.contains(OsUtil.WINDOWS)) {
             log.error("没配windows temp文件夹");
             throw new Exception("WINDOWS 系统, temp文件夹未配置");
         } else {
