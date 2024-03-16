@@ -356,6 +356,8 @@
             )
         });
         /***************/
+
+        //foreach account status
         $.each($("input.input-hidden"), function () {
             const userId = $(this).attr('id');
             //  console.log($(this).attr("type"));
@@ -381,6 +383,8 @@
                 },
             });
         });
+
+        //init multiple list
         if (!ace.vars['touch']) { //检查是否为非触摸设备. 如果不是触摸设备, 将执行以下代码块
             $('.chosen-select').chosen({allow_single_deselect: true}); //允许选择框的选项中取消选择
             //$('.chosen-select')来选中具有chosen-select类的元素，
@@ -398,7 +402,7 @@
                 }).trigger('resize.chosen');
             //resize chosen on sidebar collapse/expand
             $(document).on('settings.ace.chosen', function (e, event_name, event_val) {
-                if (event_name != 'sidebar_collapsed') return;
+                if (event_name !== 'sidebar_collapsed') return;
                 $('.chosen-select').each(function () {
                     const $this = $(this);
                     $this.next().css({'width': $this.parent().width()});
@@ -453,6 +457,7 @@
         }
     })
 
+    //user roles multiple list
     const $userTable = $('#userTable');
     $userTable.on('click', '.btn.btn-sm.btn-info.pull-right', function () {
         const userId = $(this).attr('id').split('btnUpdateRoles-')[1];
@@ -488,6 +493,7 @@
         });
     });
 
+    //update user name
     $('.profile-info-value.spanUserName span').click('click', function () {
         const spanId = $(this).attr("id");
         const userAcc = spanId.split('span-')[1];
