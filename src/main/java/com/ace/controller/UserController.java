@@ -297,7 +297,6 @@ public class UserController extends CommonController {
         user = usersService.saveAndFlush(user);
         if (getCurrentUser().getUserAccount().equals(user.getUserAccount())) {
             setUsersSaSession(user);
-            System.out.println("current user: "+getCurrentUser().getUsername());
         }
         return AjaxResponse.success(user);
     }

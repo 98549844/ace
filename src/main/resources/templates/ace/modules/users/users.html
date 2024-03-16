@@ -503,7 +503,7 @@
                 return;
             }
             $(this).parent().html("" + val + ""); //更新新的值
-            d = dialog({
+            const d = dialog({
                 title: '更新用户名',
                 content: '新用户名称: ' + val,
                 okValue: '确定',
@@ -519,7 +519,7 @@
                             $('#currentUserName').text(val);
                         }
                     })
-                    return true;
+                  //  return true;
                 },
                 cancelValue: '取消',
                 cancel: function (data) {
@@ -531,9 +531,14 @@
     })
 
     function updateUserName() {
+        //未解决按下enter不弹dialog box的问题
+        //代替上面$("input:focus").blur(function ()代码块
         $("input:focus").keydown(function (event) {
             if (event.keyCode === 13) {
                 const val = $(this).val();
+                if (val === '') {
+                    return;
+                }
                 $(this).parent().html("" + val + "");
                 const d = dialog({
                     title: '更新用户名',
