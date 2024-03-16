@@ -525,7 +525,7 @@
                             $('#currentUserName').text(val);
                         }
                     })
-                  //  return true;
+                    return true;
                 },
                 cancelValue: '取消',
                 cancel: function (data) {
@@ -537,10 +537,11 @@
     })
 
     function updateUserName() {
-        //未解决按下enter不弹dialog box的问题
         //代替上面$("input:focus").blur(function ()代码块
+        //用 enter 代替失焦提交新用户名
         $("input:focus").keydown(function (event) {
             if (event.keyCode === 13) {
+                event.preventDefault();
                 const val = $(this).val();
                 if (val === '') {
                     return;
