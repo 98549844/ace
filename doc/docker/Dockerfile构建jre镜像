@@ -1,0 +1,14 @@
+# 使用Ubuntu的最小化版作为基础镜像
+FROM ubuntu:latest
+
+MAINTAINER Garlam Au
+
+# 更新软件源并安装必要的软件包
+RUN apt-get update -y && \
+    apt-get install -y && \
+    apt-get install openjdk-17-jre -y && \
+    apt-get install openjdk-17-jdk -y && \
+    update-alternatives --config java # 查看openJDK被安装到什么地方, 这个在配置环境变量时会用到
+
+# 定义容器启动时执行的命令
+# CMD ["/bin/bash"]

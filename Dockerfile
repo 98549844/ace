@@ -1,7 +1,18 @@
 # FROM 指定基础镜像
-FROM hqzqaq/jre17-alpine-ffmpeg:1.0
-#FROM unitfinance/jdk17-sbt-scala:latest
+FROM unitfinance/jdk17-sbt-scala:latest
+#FROM linuxserver/ffmpeg:latest
+#FROM linuxserver/ffmpeg:amd64-6.1.1
+
+
 MAINTAINER Garlam Au
+
+# 更新软件源并安装必要的软件包
+#RUN apt-get update -y && \
+#    apt-get install -y && \
+#    apt-get install openjdk-17-jre -y && \
+#    apt-get install openjdk-17-jdk -y && \
+#    update-alternatives --config java # 查看openJDK被安装到什么地方, 这个在配置环境变量时会用到
+
 #VOLUME /tmp
 ADD target/ace-3.2.jar ace.jar
 EXPOSE 8090

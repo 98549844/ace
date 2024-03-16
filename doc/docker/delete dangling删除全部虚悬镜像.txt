@@ -1,2 +1,5 @@
 1. delete dangling image 删除全部虚悬镜像
-$ docker image prune
+docker image prune
+
+2. 删除所有已停止的容器、没有关联容器的镜像和网络，并构建缓存 小心使用
+docker system prune -a
