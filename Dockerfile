@@ -1,4 +1,5 @@
 # FROM 指定基础镜像
+#FROM hqzqaq/jre17-alpine-ffmpeg:1.0
 FROM unitfinance/jdk17-sbt-scala:latest
 MAINTAINER Garlam Au
 #VOLUME /tmp

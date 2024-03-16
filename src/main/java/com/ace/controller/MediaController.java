@@ -4,6 +4,7 @@ import com.ace.constant.AceEnvironment;
 import com.ace.controller.common.CommonController;
 import com.ace.service.FilesService;
 import com.ace.service.MediaService;
+import com.ace.util.ResourceUtil;
 import com.util.FileUtil;
 import com.util.PathUtil;
 import com.util.StringUtil;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -134,12 +136,13 @@ public class MediaController extends CommonController {
      * @param
      */
     @RequestMapping(value = "/media/getDefault.html", method = RequestMethod.GET)
-    public void getDefault(HttpServletResponse response) {
+    public void getDefault(HttpServletResponse response) throws Exception {
         log.info("access media/getDefault");
-        PathUtil pathUtil = new PathUtil();
-        String location = pathUtil.getResourcePath("static/assets/images/default.jpg");
+        ResourceUtil resourceUtil = new ResourceUtil();
+        String location = resourceUtil.getResourcePath("static/assets/images/default.jpg");
         filesService.get(location, response);
     }
+
 
     /**
      * 缩略图显示请求

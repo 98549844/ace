@@ -1,2 +1,2 @@
-
+1. delete dangling image 删除全部虚悬镜像
 $ docker image prune
