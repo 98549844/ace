@@ -170,7 +170,7 @@ public class MediaController extends CommonController {
         } catch (IOException e) {
             //如果读缩略图失败, 读取静态文件
             e.printStackTrace();
-            location = resourceUtil.getResourcePath("static/assets/images/nothing.png");
+            location = resourceUtil.getResourcePath("static/assets/images/error.png");
             filesService.get(location, response);
         }
     }
