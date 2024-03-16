@@ -46,7 +46,7 @@ public class MediaController extends CommonController {
     private final ResourceUtil resourceUtil;
 
     @Autowired
-    public MediaController(ResourceUtil resourceUtil,AceEnvironment aceEnvironment,MediaService mediaService, FilesService filesService) {
+    public MediaController(ResourceUtil resourceUtil, AceEnvironment aceEnvironment, MediaService mediaService, FilesService filesService) {
         this.filesService = filesService;
         this.mediaService = mediaService;
         this.videoPath = aceEnvironment.getVideoPath();
@@ -153,7 +153,7 @@ public class MediaController extends CommonController {
      */
     @RequestMapping(value = "/media/get/{uuid}", method = RequestMethod.GET)
     @ResponseBody
-    public void get(@PathVariable("uuid") String uuid, HttpServletResponse response) throws IOException {
+    public void get(@PathVariable("uuid") String uuid, HttpServletResponse response) throws Exception {
         log.info("access media/get/{}", uuid);
         String name;
         String ext = "jpg";
@@ -164,9 +164,15 @@ public class MediaController extends CommonController {
             name = uuid;
         }
         String location = videoM3u8 + name + FileUtil.separator + thumbnail;
-        filesService.get(location, response);
-        ImageIO.write(ImageIO.read(new File(location)), ext, response.getOutputStream());
-
+        try {
+            filesService.get(location, response);
+            ImageIO.write(ImageIO.read(new File(location)), ext, response.getOutputStream());
+        } catch (IOException e) {
+            //如果读缩略图失败, 读取静态文件
+            e.printStackTrace();
+            location = resourceUtil.getResourcePath("static/assets/images/nothing.png");
+            filesService.get(location, response);
+        }
     }
 
     // thumbnail: function => 只有是图片才会调用呢个js
