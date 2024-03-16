@@ -43,12 +43,15 @@ public class MediaController extends CommonController {
     private final String videoM3u8;
     private final String thumbnail = "thumbnail.jpg";
 
+    private final ResourceUtil resourceUtil;
+
     @Autowired
-    public MediaController(AceEnvironment aceEnvironment,MediaService mediaService, FilesService filesService) {
+    public MediaController(ResourceUtil resourceUtil,AceEnvironment aceEnvironment,MediaService mediaService, FilesService filesService) {
         this.filesService = filesService;
         this.mediaService = mediaService;
         this.videoPath = aceEnvironment.getVideoPath();
         this.videoM3u8 = aceEnvironment.getVideoM3u8();
+        this.resourceUtil = resourceUtil;
     }
 
     /**
@@ -118,11 +121,10 @@ public class MediaController extends CommonController {
      * 读取所有缩略图资料
      *
      * @return
-     * @throws IOException
      */
     @RequestMapping(value = "/media/getThumbnail.html", method = RequestMethod.GET)
     @ResponseBody
-    public List getThumbnail() throws IOException {
+    public List getThumbnail() {
         log.info("access media/getThumbnail.html");
         List list = mediaService.getThumbnail();
         return list;
@@ -138,7 +140,6 @@ public class MediaController extends CommonController {
     @RequestMapping(value = "/media/getDefault.html", method = RequestMethod.GET)
     public void getDefault(HttpServletResponse response) throws Exception {
         log.info("access media/getDefault");
-        ResourceUtil resourceUtil = new ResourceUtil();
         String location = resourceUtil.getResourcePath("static/assets/images/default.jpg");
         filesService.get(location, response);
     }
@@ -168,7 +169,7 @@ public class MediaController extends CommonController {
 
     }
 
-    // thumbnail: function => 好似只有是图片才会调用呢个js
+    // thumbnail: function => 只有是图片才会调用呢个js
     @RequestMapping(value = "/media/get/videoIcon.png", method = RequestMethod.GET)
     public void getVideoIcon(HttpServletResponse response) {
         log.info("access media/getVideoIcon");
@@ -186,8 +187,8 @@ public class MediaController extends CommonController {
     @ResponseBody
     public boolean delete(@PathVariable String uuid) {
         log.info("access media/delete => delete {}", uuid);
-        boolean rs = filesService.delete(uuid);
-        boolean deleteDir = filesService.deleteDirectories(videoM3u8 + uuid);
+        boolean rs = filesService.delete(uuid); //删除原文件和数据
+        boolean deleteDir = filesService.deleteDirectories(videoM3u8 + uuid); //删除切片文件和文件夹
         return rs && deleteDir;
     }
 }

@@ -1,5 +1,6 @@
 package com.ace.util;
 
+import com.ace.constant.AceEnvironment;
 import com.util.FileUtil;
 import com.util.OsUtil;
 import org.apache.logging.log4j.LogManager;
@@ -8,6 +9,7 @@ import com.ace.controller.common.CommonController;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.net.URI;
@@ -30,13 +32,15 @@ import java.util.zip.ZipEntry;
  * @Description:
  */
 
-
+@Component
 public class ResourceUtil extends CommonController {
     private static final Logger log = LogManager.getLogger(ResourceUtil.class.getName());
 
+    private final String tmpPath; // 文件临时保存路径
 
-    private static final String MAC_TMP = "/Users/garlam/ace/tmp";
-    private static final String LINUX_TMP = "/opt/workspace/ace/tmp/";
+    public ResourceUtil(AceEnvironment aceEnvironment) {
+        tmpPath = aceEnvironment.getTmp();
+    }
 
     /**
      * 同时支持IDEA和jar文件
@@ -52,30 +56,18 @@ public class ResourceUtil extends CommonController {
         // ResourceUtil为当前类名
         URI uri = ResourceUtil.class.getProtectionDomain().getCodeSource().getLocation().toURI();
         // tempPath: 文件保存路径
-        String tempPath;
-        String osName = OsUtil.getOsName();
-        if (osName.contains(OsUtil.MAC)) {
-            tempPath = MAC_TMP;
-        } else if (osName.contains(OsUtil.LINUX)) {
-            tempPath = LINUX_TMP;
-        } else if (osName.contains(OsUtil.WINDOWS)) {
-            log.error("没配windows temp文件夹");
-            throw new Exception("WINDOWS 系统, temp文件夹未配置");
-        } else {
-            throw new Exception("未知系统, 找不到文件");
-        }
 
         if (uri.toString().startsWith("file")) {
             // IDEA运行时，进行资源复制
-            copyLocalResourcesFileToTemp(resource + FileUtil.separator, "*", tempPath + FileUtil.separator + resource);
+            copyLocalResourcesFileToTemp(resource + FileUtil.separator, "*", tmpPath + FileUtil.separator + resource);
         } else {
             // 获取jar包所在路径
             String jarPath = uri.toString();
             uri = URI.create(jarPath.substring(jarPath.indexOf("file:"), jarPath.indexOf(".jar") + 4));
             // 打成jar包后，进行资源复制
-            copyJarResourcesFileToTemp(uri, tempPath, "BOOT-INF/classes/" + resource);
+            copyJarResourcesFileToTemp(uri, tmpPath, "BOOT-INF/classes/" + resource);
         }
-        return tempPath + FileUtil.separator + resource;
+        return tmpPath + resource;
     }
 
     /**

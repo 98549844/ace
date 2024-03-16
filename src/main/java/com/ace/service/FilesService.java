@@ -301,8 +301,8 @@ public class FilesService {
             log.info("file record not found, location is: {}", fileName);
             delFile(fileName);
         } else {
-            delFile(fs.getLocation());
-            delete(fs);
+            delFile(fs.getLocation()); // 删除文件
+            delete(fs); // 删除数据
         }
         return true;
     }

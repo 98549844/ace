@@ -68,13 +68,13 @@ public class AceEnvironment {
 
         if (osName.contains(OsUtil.WINDOWS)) {
             root = "C:" + separator;
-            msg = "ACE environment setup complete : Windows !!!";
+            msg = "ACE environment setup complete: Windows";
         } else if (osName.contains(OsUtil.MAC)) {
             root = "/Users/garlam" + separator;
-            msg = "ACE environment setup complete : MAC !!!";
+            msg = "ACE environment setup complete: MAC";
         } else if (osName.contains(OsUtil.LINUX)) {
             root = "/opt/workspace" + separator;
-            msg = "ACE environment setup complete : LINUX !!!";
+            msg = "ACE environment setup complete: LINUX";
         } else {
             msg = "WARNING => UNKNOWN OS, ACE Environment setup incomplete !!!";
             Console.println(msg, Console.RED, Console.BOLD);
@@ -98,7 +98,7 @@ public class AceEnvironment {
         String m3u8 = video + "m3u8" + separator;
 
         String miscellaneous = ace + "misc" + separator;
-        String tamp = ace + "tmp" + separator;
+        String tmp = ace + "tmp" + separator;
 
 
         //create folder
@@ -107,7 +107,7 @@ public class AceEnvironment {
         FileUtil.mkDirs(thumbnail); //已包括images
         FileUtil.mkDirs(m3u8); //已包括video
         FileUtil.mkDirs(miscellaneous);
-        FileUtil.mkDirs(tamp);
+        FileUtil.mkDirs(tmp);
 
         //set value for system use
         setSeparator(separator);
@@ -120,10 +120,10 @@ public class AceEnvironment {
         setVideoPath(video);
         setVideoM3u8(m3u8);
         setMisc(miscellaneous);
-        setTmp(tamp);
+        setTmp(tmp);
         setSystemDir(System.getProperty("user.dir"));
         setSystemTmpDir(System.getProperty("java.io.tmpdir"));
-        setNewLine(System.getProperty("line.separator"));
+        setNewLine(System.lineSeparator());
     }
 
 

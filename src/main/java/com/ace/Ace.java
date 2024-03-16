@@ -23,19 +23,7 @@ public class Ace {
 
 
     public static void main(String[] args) throws Exception {
-        String stringList = "[\"2\",\"ADMIN\",\"DISABLE\"]";
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<String> listData = objectMapper.readValue(stringList, new TypeReference<List<String>>() {
-        });
-        String a = listData.get(0);
-        System.out.println(listData.get(0));
-        System.out.println(listData.get(1));
-        System.out.println(listData.get(2));
-
-        ListUtil.removeElement(listData, a);
-        for (String aa : listData) {
-            System.out.println(aa);
-        }
+        cangJieCheck(null);
 
     }
 
