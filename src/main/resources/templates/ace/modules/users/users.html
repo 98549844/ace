@@ -499,7 +499,10 @@
         $("input:focus").blur(function () {
             //当获得焦点的输入框失去焦点时  用此输入框中的值替代输入框
             const val = $(this).val();
-            $(this).parent().html("" + val + "");
+            if (val === '') {
+                return;
+            }
+            $(this).parent().html("" + val + ""); //更新新的值
             d = dialog({
                 title: '更新用户名',
                 content: '新用户名称: ' + val,
@@ -557,8 +560,6 @@
             }
         });
     }
-
-
 
 
 </script>
