@@ -97,7 +97,8 @@
                                             <input type="hidden" th:value="${rowUser.userId}" th:id="${rowUser.userId}"
                                                    class="input-hidden"/>
                                             <td th:text="${rowUser.userAccount}"></td>
-                                            <td th:text="${rowUser.Username}"></td>
+                                            <td th:text="${rowUser.Username}"
+                                                th:id="'tdUsername-'+${rowUser.userAccount}"></td>
 
                                             <td th:if="${rowUser.enabled}">
                                                 <span th:id="'enable-'+${rowUser.userId}">
@@ -185,9 +186,9 @@
                                                             <div class="profile-user-info profile-user-info-striped">
                                                                 <div class="profile-info-row">
                                                                     <div class="profile-info-name"> Username</div>
-
-                                                                    <div class="profile-info-value">
-                                                                        <span th:text="${rowUser.Username}"></span>
+                                                                    <div class="profile-info-value spanUserName">
+                                                                        <span th:text="${rowUser.Username}"
+                                                                              th:id="'span-'+${rowUser.userAccount}"></span>
                                                                     </div>
                                                                 </div>
 
@@ -486,6 +487,78 @@
             }
         });
     });
+
+    $('.profile-info-value.spanUserName span').click('click', function () {
+        const spanId = $(this).attr("id");
+        const userAcc = spanId.split('span-')[1];
+
+        const originVal = $(this).text();
+        $(this).html("<input type='text' style='width:50%;'>");
+        $(this).find("input").val("" + originVal + "").focus();
+
+        $("input:focus").blur(function () {
+            //当获得焦点的输入框失去焦点时  用此输入框中的值替代输入框
+            const val = $(this).val();
+            $(this).parent().html("" + val + "");
+            d = dialog({
+                title: '更新用户名',
+                content: '新用户名称: ' + val,
+                okValue: '确定',
+                ok: function () {
+                    this.title('updating …');
+                    $.ajax({
+                        type: "get", // 以get方式发起请求
+                        url: `/ace/users/update/${userAcc}/${val}`,
+                        success(data) {
+                            //更新table userName
+                            const tdUserName = 'tdUsername-' + userAcc;
+                            $('#' + tdUserName).text(val);
+                            $('#currentUserName').text(val);
+                        }
+                    })
+                    return true;
+                },
+                cancelValue: '取消',
+                cancel: function (data) {
+                    $('#' + spanId).text("" + originVal + "");
+                }
+            });
+            d.showModal();
+        });
+    })
+
+    function updateUserName() {
+        $("input:focus").keydown(function (event) {
+            if (event.keyCode === 13) {
+                const val = $(this).val();
+                $(this).parent().html("" + val + "");
+                const d = dialog({
+                    title: '更新用户名',
+                    content: '新用户名称: ' + val,
+                    okValue: '确定',
+                    ok: function () {
+                        this.title('updating …');
+                        $.ajax({
+                            type: "get",
+                            url: `/ace/users/update/${userAcc}/${val}`,
+                            success(data) {
+                                const tdUserName = 'tdUsername-' + userAcc;
+                                $('#' + tdUserName).text(val);
+                            }
+                        });
+                        return true;
+                    },
+                    cancelValue: '取消',
+                    cancel: function (data) {
+                        $('#' + spanId).text("" + originVal + "");
+                    }
+                });
+                d.showModal(); // 将此行移动到此处
+            }
+        });
+    }
+
+
 
 
 </script>

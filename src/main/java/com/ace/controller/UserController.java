@@ -4,6 +4,8 @@ package com.ace.controller;
 import cn.dev33.satoken.stp.StpUtil;
 import com.ace.constant.AceEnvironment;
 import com.ace.controller.common.CommonController;
+import com.ace.exception.ResponseException;
+import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.Files;
 import com.ace.models.entity.Roles;
 import com.ace.models.entity.UserRoles;
@@ -124,7 +126,6 @@ public class UserController extends CommonController {
     @RequestMapping(value = "/enable.html", method = RequestMethod.GET)
     public ModelAndView setEnable(@RequestParam(value = "userId") Long userId) {
         getPermission();
-
         log.info("userId: {}", userId);
         ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
 
@@ -183,13 +184,10 @@ public class UserController extends CommonController {
         // 判断：当前账号是否含有指定权限, 返回true或false
         boolean hasPermission = StpUtil.hasPermission("user-update");
         log.info("hasPermission: {}", hasPermission);
-
         // 校验：当前账号是否含有指定权限, 如果验证未通过，则抛出异常: NotPermissionException
         StpUtil.checkPermission("user-update");
-
         // 校验：当前账号是否含有指定权限 [指定多个，必须全部验证通过]
         StpUtil.checkPermissionAnd("user-update", "user-delete");
-
         // 校验：当前账号是否含有指定权限 [指定多个，只要其一验证通过即可]
         StpUtil.checkPermissionOr("user-update", "user-delete");
     }
@@ -287,5 +285,21 @@ public class UserController extends CommonController {
         return fs;
     }
 
+    @RequestMapping(value = "/update/{userAccount}/{username}", method = RequestMethod.GET)
+    @ResponseBody
+    public AjaxResponse updateUserName(@PathVariable String userAccount, @PathVariable String username) {
+        log.info("update username: {}", username);
+        Users user = usersService.findByUserAccount(userAccount);
+        if (NullUtil.isNull(username)) {
+            return AjaxResponse.error(new ResponseException("请输入新用户名称"));
+        }
+        user.setUsername(username);
+        user = usersService.saveAndFlush(user);
+        if (getCurrentUser().getUserAccount().equals(user.getUserAccount())) {
+            setUsersSaSession(user);
+            System.out.println("current user: "+getCurrentUser().getUsername());
+        }
+        return AjaxResponse.success(user);
+    }
 
 }
