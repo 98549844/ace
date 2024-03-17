@@ -15,7 +15,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
         //information link https://blog.csdn.net/qq_28289405/article/details/81279742
         //information link https://blog.csdn.net/qq_43799161/article/details/125315579
         //打war包的时候才需要这个类
-        log.info("using for building a war file and deploying it into container !!!");
+        log.info("using for building a war file and deploying it into tomcat !!!");
         return application.sources(AceApplication.class);
     }
 
