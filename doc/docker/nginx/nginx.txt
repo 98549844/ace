@@ -1,7 +1,13 @@
 1.
 docker pull nginx
 2.
-docker run --name nginx_7080 -p 7080:80 -d nginx
+docker run --name nginx-7080 -p 7080:80 -d nginx:latest
+docker run -di \
+--name=nginx-90 -p 90:80 \
+-v /Users/garlam/IdeaProjects/hmall/hmall-nginx/html/hmall-portal:/usr/share/nginx/html \
+nginx:latest
+
+
 参数说明：
 -name nginx：容器名称
 -p 8080:80： 端口进行映射, 将本地 8080 端口映射到容器内部的 80 端口
