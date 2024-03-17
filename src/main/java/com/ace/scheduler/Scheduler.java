@@ -29,7 +29,7 @@ public class Scheduler {
 
     //@Scheduled(cron = "0 */1 * * * ?")
     //直接指定时间间隔，例如：5秒 = 5000
-    @Scheduled(fixedRate = 600000)
+    @Scheduled(fixedRate = 600000) //十分钟执行一次
     private void runClearLog() throws IOException {
         ClearLog c = new ClearLog();
         c.clearLog();

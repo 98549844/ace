@@ -64,6 +64,7 @@ public class ClearLog {
     }
 
     private void clearingLogFile(File file) {
+        log.info("clean up log4j: "+ file.getAbsolutePath() );
         File[] files = file.listFiles();
         if (NullUtil.isNonNull(file)) {
             for (File f : files) {
