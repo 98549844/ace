@@ -4,7 +4,7 @@ docker pull nginx
 docker run --name nginx-7080 -p 7080:80 -d nginx:latest
 docker run -di \
 --name=nginx-90 -p 90:80 \
--v /Users/garlam/IdeaProjects/hmall/hmall-nginx/html/hmall-portal:/usr/share/nginx/html \
+-v /Users/garlam/IdeaProjects/ace/doc/spring-cloud/notes:/usr/share/nginx/html \
 nginx:latest
 
 
