@@ -1,6 +1,8 @@
 package com.ace.restController;
 
+import com.ace.exception.ResponseException;
 import com.ace.mapper.AccessLogMapper;
+import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.AccessLog;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.transform.Source;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,20 +40,21 @@ public class AccessRestController {
 
 
     @Operation(summary = "get access log")
-    @RequestMapping(method = RequestMethod.GET, value = "/get")
-    public boolean getAll() {
+    @RequestMapping(method = RequestMethod.GET, value = "/get.html")
+    public AjaxResponse getAll() {
         List<AccessLog> ls = accessLogMapper.selectAll();
         log.info("ACCESS LOG TIMES: {}", ls.size());
+        if (ls.isEmpty()) {
+            return AjaxResponse.error(new ResponseException("log is empty"));
+        }
         //just get first 10
         for (int i = 0; i < 10; i++) {
             ls.get(i).setAccessTime(LocalDateTime.now());
             accessLogMapper.updateByPrimaryKey(ls.get(i));
-            System.out.println(ls.get(i).getLogId()+"; ");
+            System.out.println(ls.get(i).getLogId() + "; ");
         }
-
-        return true;
+        return AjaxResponse.success(true);
     }
-
 
 }
 
