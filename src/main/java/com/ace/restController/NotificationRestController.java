@@ -9,14 +9,17 @@ import com.util.SleepUtil;
 import com.util.UUID;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.hadoop.fs.shell.Count;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @Classname: NotificationRestController
@@ -58,14 +61,33 @@ public class NotificationRestController extends CommonController {
         return AjaxResponse.success(messages);
     }
 
-    /** generate polling
+    /**
+     * generate polling
+     *
      * @return
      */
+    @Async("asyncTaskExecutor")
     @RequestMapping(value = "/polling.html", method = RequestMethod.GET)
-    public String polling() {
-        SleepUtil.sleep(1);
-        String ace = "Ace Application => " + UUID.get(10);
-        return ace;
+    public CompletableFuture<String> polling() {
+        ++count;
+        SleepUtil.sleep(RandomUtil.getRangeInt(1, 5));
+      //  String ace = "Ace Application => " + " (thread id =>" + getThreadId() + ")  随机数=>" + UUID.get(10);
+        String ace = "Ace Application => " + "  随机数=>" + UUID.get(10);
+        return CompletableFuture.completedFuture(ace);
     }
+
+    private String getThreadId(){
+        // 设置线程ID到ThreadLocal
+        threadId.set(Thread.currentThread().getId());
+        // 执行异步操作
+        // 获取线程ID
+        Long currentThreadId = threadId.get();
+        // 清除ThreadLocal中的线程ID
+        threadId.remove();
+        // 返回异步结果和线程ID
+        return currentThreadId.toString();
+    }
+    private static int count;
+    private ThreadLocal<Long> threadId = new ThreadLocal<>();
 }
 

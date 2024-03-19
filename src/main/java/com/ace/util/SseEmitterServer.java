@@ -34,7 +34,7 @@ public class SseEmitterServer {
     /**
      * 使用map对象，便于根据userId来获取对应的SseEmitter，或者放redis里面
      */
-    private static Map<String, SseEmitter> sseEmitterMap = new ConcurrentHashMap<>();
+    public static Map<String, SseEmitter> sseEmitterMap = new ConcurrentHashMap<>();
 
     /**
      * 创建用户连接并返回 SseEmitter

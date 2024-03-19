@@ -32,8 +32,25 @@ public class NotificationService {
         return pushMessageDao.findAll();
     }
 
+    public List<PushMessage> findByReceiver(String receiver) {
+        return pushMessageDao.findByReceiver(receiver);
+    }
+
+    public void deleteByReceiver(String receiver) {
+        pushMessageDao.deleteByReceiver(receiver);
+    }
+
+    public void deleteById(Long msgId) {
+        pushMessageDao.deleteById(msgId);
+    }
+
+
     public void saveAll(List<PushMessage> pushMessages) {
         pushMessageDao.saveAll(pushMessages);
+    }
+
+    public void save(PushMessage pushMessage) {
+        pushMessageDao.save(pushMessage);
     }
 
 

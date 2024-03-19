@@ -42,21 +42,6 @@
                         <strong><h3 id="message"></h3></strong>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         <!-- PAGE CONTENT ENDS -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -78,11 +63,50 @@
     let source = null;
     let userId = [[${currentUser.userId}]]
 
+    $(document).ready(function () {
+        $.ajax({
+            url: `/rest/SseEmitter/connectAfterSend/${userId}`, // 替换为实际的数据源 URL
+            type: 'GET',
+            dataType: 'json', // 根据数据源的类型选择合适的数据类型
+            success: function (data) {
+                // 在数据成功加载后执行的回调函数
+                // 在这里处理返回的数据
+                const size = data.data.length;
+                for (let i = 0; i < size; i++) {
+                    setMessageInnerHTML(data.data[i].message);
+                }
+            },
+            error: function (xhr, status, error) {
+                // 在出现错误时执行的回调函数
+                console.log(error);
+            }
+        });
+    });
+
+    // jQuery(function ($) {
+    //     $.each($("#message"), function () {
+    //         $.ajax({
+    //             type: "get", // 以get方式发起请求
+    //             url: `/rest/SseEmitter/connectAfterSend/${userId}`,
+    //             dataType: "json",
+    //             success(ajaxResponse) {
+    //                 let text = "";
+    //                 for (let i = 0; i < ajaxResponse.data.length; i++) {
+    //                     alert("aaa :  " + ajaxResponse.data[i])
+    //                 }
+    //             },
+    //             error(data) {
+    //                 window.location.href = '500.html';
+    //             },
+    //         });
+    //     });
+    // });
 
     if (window.EventSource) {
         // 建立连接
-        source = new EventSource('http://localhost:8088/rest/SseEmitter/connect/'+userId);
+        source = new EventSource('http://localhost:8088/rest/SseEmitter/connect/' + userId);
         setMessageInnerHTML("连接用户=" + userId);
+
         /**
          * 连接一旦建立，就会触发open事件
          * 另一种写法：source.onopen = function (event) {}
@@ -103,7 +127,7 @@
          * 或者：
          * 另一种写法：source.onerror = function (event) {}
          */
-        source.addEventListener('error', function(e) {
+        source.addEventListener('error', function (e) {
             if (e.readyState === EventSource.CLOSED) {
                 setMessageInnerHTML("连接关闭");
             } else {
@@ -116,7 +140,7 @@
 
 
     // 监听窗口关闭事件，主动去关闭sse连接，如果服务端设置永不过期，浏览器关闭后手动清理服务端数据
-    window.onbeforeunload = function() {
+    window.onbeforeunload = function () {
         closeSse();
     };
 
