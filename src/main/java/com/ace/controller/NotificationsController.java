@@ -7,6 +7,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 
 /**
@@ -21,23 +38,28 @@ import org.springframework.web.servlet.ModelAndView;
 public class NotificationsController extends CommonController {
     private static final Logger log = LogManager.getLogger(NotificationsController.class.getName());
 
-    @RequestMapping(value = "/notifications.html", method = RequestMethod.GET)
-    public ModelAndView notifications() {
+
+
+    @RequestMapping(value = "/polling.html", method = RequestMethod.GET)
+    public ModelAndView polling() {
         if (!isLogin()) {
             return logout();
         }
-        ModelAndView modelAndView = super.page("ace/modules/notifications/notifications");
+        ModelAndView modelAndView = super.page("ace/modules/notifications/polling");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/push.html", method = RequestMethod.GET)
-    public ModelAndView push() {
+    @RequestMapping(value = "/ssePolling.html", method = RequestMethod.GET)
+    public ModelAndView ssePolling() {
         if (!isLogin()) {
             return logout();
         }
-        ModelAndView modelAndView = super.page("ace/modules/notifications/push");
+        ModelAndView modelAndView = super.page("ace/modules/notifications/ssePolling");
         return modelAndView;
     }
+
+
+
 
 }
 

@@ -91,16 +91,6 @@ public class SaTokenConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**");
     }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        //设置CORS（跨域资源共享）配置
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000")
-                .allowCredentials(true)
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .maxAge(3600);
-    }
-
     // Sa-Token 标签方言 (Thymeleaf版)
     @Bean
     public SaTokenDialect getSaTokenDialect() {
