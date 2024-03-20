@@ -85,7 +85,7 @@ public class SseEmitterRestController {
     /**
      * 发送给单个人
      */
-    @Operation(summary = "发送消息")
+    @Operation(summary = "发送消息", description = "{ \"userId\":\"2\", \"message\":\"Ace Application\" }")
     @PostMapping("/sendUser")
     public ResponseEntity<String> sendUser(@RequestBody Map<String, String> param) {
         String userId = param.get("userId");

@@ -9,7 +9,6 @@ import com.util.SleepUtil;
 import com.util.UUID;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.apache.hadoop.fs.shell.Count;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.scheduling.annotation.Async;
@@ -70,9 +69,9 @@ public class NotificationRestController extends CommonController {
     @RequestMapping(value = "/polling.html", method = RequestMethod.GET)
     public CompletableFuture<String> polling() {
         ++count;
-        SleepUtil.sleep(RandomUtil.getRangeInt(1, 5));
-      //  String ace = "Ace Application => " + " (thread id =>" + getThreadId() + ")  随机数=>" + UUID.get(10);
-        String ace = "Ace Application => " + "  随机数=>" + UUID.get(10);
+        SleepUtil.sleep(RandomUtil.getRangeInt(1, 8));
+        String ace = "Ace Application => " + " (thread id =>" + getThreadId() + ")  随机数=>" + UUID.get(10);
+      //  String ace = "Ace Application => " + "  随机数=>" + UUID.get(10);
         return CompletableFuture.completedFuture(ace);
     }
 
