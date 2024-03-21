@@ -7,5 +7,5 @@ flush privileges;#立即启用配置
 
 grant select,insert,update,delete,create on ace.* to garlam;#用户授权数据库
 commit;
-drop schema imagegallery;#删除数据库
+drop schema ace;#删除数据库
 
