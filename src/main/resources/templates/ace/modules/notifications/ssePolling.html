@@ -83,25 +83,6 @@
         });
     });
 
-    // jQuery(function ($) {
-    //     $.each($("#message"), function () {
-    //         $.ajax({
-    //             type: "get", // 以get方式发起请求
-    //             url: `/rest/SseEmitter/connectAfterSend/${userId}`,
-    //             dataType: "json",
-    //             success(ajaxResponse) {
-    //                 let text = "";
-    //                 for (let i = 0; i < ajaxResponse.data.length; i++) {
-    //                     alert("aaa :  " + ajaxResponse.data[i])
-    //                 }
-    //             },
-    //             error(data) {
-    //                 window.location.href = '500.html';
-    //             },
-    //         });
-    //     });
-    // });
-
     if (window.EventSource) {
         // 建立连接
         source = new EventSource('http://localhost:8088/rest/SseEmitter/connect/' + userId);

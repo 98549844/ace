@@ -50,14 +50,6 @@ public class SseEmitterRestController {
     @Operation(summary = "count")
     @GetMapping("/connect/{userId}")
     public SseEmitter connect(@PathVariable String userId) {
-//        List<PushMessage> pushMessages = notificationService.findByReceiver(userId);
-//        for (PushMessage pm : pushMessages) {
-//            Map<String, String> param = new HashMap<>();
-//            param.put("userId", pm.getReceiver());
-//            param.put("message", pm.getContent());
-//            sendUser(param);
-//        }
-
         return SseEmitterServer.connect(userId);
     }
 

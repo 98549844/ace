@@ -1,0 +1,15 @@
+docker run -di --name=pxc1 --net=ace-net -p 3311:3306 \
+-v pxc-v1:/var/lib/mysql --privileged -e MYSQL_ROOT_PASSWORD=root \
+-e CLUSTER_NAME=cluster1 -e XTRABACKUP_PASSWORD=root pxc-cluster:latest
+
+docker run -di --name=pxc2 --net=ace-net -p 3312:3306 \
+-v pxc-v2:/var/lib/mysql --privileged -e MYSQL_ROOT_PASSWORD=root  \
+-e CLUSTER_NAME=cluster1 -e XTRABACKUP_PASSWORD=root -e CLUSTER_JOIN=pxc1 pxc-cluster:latest
+
+docker run -di --name=pxc3 --net=ace-net -p 3313:3306 \
+-v pxc-v3:/var/lib/mysql --privileged -e MYSQL_ROOT_PASSWORD=root \
+-e CLUSTER_NAME=cluster1 -e XTRABACKUP_PASSWORD=root -e CLUSTER_JOIN=pxc2 pxc-cluster:latest
+
+docker run -di --name=pxc4 --net=ace-net -p 3314:3306 \
+-v pxc-v4:/var/lib/mysql --privileged -e MYSQL_ROOT_PASSWORD=root \
+-e CLUSTER_NAME=cluster1 -e XTRABACKUP_PASSWORD=root -e CLUSTER_JOIN=pxc3 pxc-cluster:latest
