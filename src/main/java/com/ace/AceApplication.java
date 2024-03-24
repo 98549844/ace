@@ -17,6 +17,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.stereotype.Indexed;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.IOException;
@@ -38,12 +39,15 @@ import java.io.IOException;
 @EnableCaching
 @EnableJpaAuditing //for baseEntity using
 @EnableAsync
+@Indexed // 为要注入的bean进行index索引
 public class AceApplication {
     private static final Logger log = LogManager.getLogger(AceApplication.class.getName());
     public static ApplicationContext applicationContext;
 
 
     public static void main(String[] args) throws IOException {
+        long start = System.currentTimeMillis();
+
         // applicationContext = SpringApplication.run(AceApplication.class, args);
         SpringApplication application = new SpringApplication(AceApplication.class); //实例化application, 内含丰富多功能提供调用
         applicationContext = application.run(AceApplication.class, args); //run application并付值给applicationContext上下文
@@ -77,6 +81,7 @@ public class AceApplication {
         System.out.println("AceEnvironment文件储存路径 =>");
         AceEnvironment environment = ApplicationContextUtil.getBean(AceEnvironment.class);
         GetterSetterUtil.getterValue(environment);
+        System.out.println(System.currentTimeMillis() - start);
     }
 
 }

@@ -101,6 +101,10 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-indexer</artifactId>
+        </dependency>
         <!-- <dependency>
             //如果引入在cmd直接运行jar, 只能单线程
             <groupId>org.springframework.boot</groupId>

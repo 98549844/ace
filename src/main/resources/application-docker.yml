@@ -47,8 +47,8 @@ mybatis:
 #  video-folder: "C:\\ACE\\videos"
 
 spring:
-  #main:
-  #  lazy-initialization: true
+  main:
+    lazy-initialization: true
   #配置为 true 表示所有 Bean 都将延迟初始化。可以一定程度上提高启动速度,但是第一次访问可能较慢
   application:
     name: "Project for Ace Application - Spring Boot 3"
