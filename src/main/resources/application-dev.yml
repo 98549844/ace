@@ -47,7 +47,7 @@ mybatis:
 
 spring:
   #main:
-  #  lazy-initialization: true
+  #  lazy-initialization: true  # 不要打开懒加载, 会引起sa-token未能获取applicationContent上下文
   #配置为 true 表示所有 Bean 都将延迟初始化。可以一定程度上提高启动速度,但是第一次访问可能较慢
   application:
     name: "Project for Ace Application - Spring Boot 3"

@@ -109,5 +109,11 @@ public class AceApplicationRestController {
             return AjaxResponse.success(key + ": " + properties.get(key));
         }
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/getApplicationContent")
+    public AjaxResponse getApplicationContent() {
+        String[] beans = BeanUtil.getBeanNames(BeanUtil.getApplicationContext());
+        return AjaxResponse.success(beans);
+    }
 }
 
