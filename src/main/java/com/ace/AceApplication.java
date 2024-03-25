@@ -81,7 +81,8 @@ public class AceApplication {
         System.out.println("AceEnvironment文件储存路径 =>");
         AceEnvironment environment = ApplicationContextUtil.getBean(AceEnvironment.class);
         GetterSetterUtil.getterValue(environment);
-        System.out.println(System.currentTimeMillis() - start);
+        long result = (System.currentTimeMillis() - start) / 1000;
+        System.out.println("Ace Application 启动用时: " + result + " 秒");
     }
 
 }
