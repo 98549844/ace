@@ -18,7 +18,7 @@ services:
     volumes:
       - /Users/garlam/ace/:/opt/workspace/ace/
     ports:
-      - 8090:8090
+      - 8888:8888
     depends_on:
       - redis
       - mysql
