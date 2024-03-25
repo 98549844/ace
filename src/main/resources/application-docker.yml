@@ -42,9 +42,8 @@ mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-# 存储转码视频的文件夹地址
-#app:
-#  video-folder: "C:\\ACE\\videos"
+
+
 
 spring:
   main:
@@ -113,16 +112,17 @@ spring:
   #https://mysqlconnector.net/connection-options/
   #MySQL 8.0 Public Key Retrieval is not allowed 错误的解决方法
   #allowPublicKeyRetrieval=true
+  #docker 内部沟通, 端口要写内部端口, 不要写影射端口
 
   datasource:
     #driver-class-name: org.mariadb.jdbc.Driver
     #url: jdbc:mariadb://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
     #    url: jdbc:log4jdbc:mysql://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
-    url: jdbc:log4jdbc:mysql://mysql:3310/ace?characterEncoding=UTF-8&useUnicode=true&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    url: jdbc:log4jdbc:mysql://mysql:3306/ace?characterEncoding=UTF-8&useUnicode=true&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
     #driver-class-name: com.mysql.jdbc.Driver # for mysql5.7
     #driver-class-name: com.mysql.cj.jdbc.Driver # for mysql8.0
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy #only support mysql5.7 driver class
-    username: garlam
+    username: root
     password: root
 
 
