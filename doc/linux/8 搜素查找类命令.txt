@@ -6,6 +6,8 @@ find [路径] [选项]
 -atime +n天数 查找n天前的资料
 | wc -l 总计文件和目录数量
 find 路径 +200M -300M
+find / -name application.yml # 搜寻根目录那名称叫application.yml的文件的路经
+
 
 locate [文件名] 快速定位文件
 第一次运行locate要运行updatedb命令
