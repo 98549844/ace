@@ -104,7 +104,7 @@ public class UserReport {
             } else if (OsUtil.getOsName().contains(OsUtil.MAC)) {
                 fileOutputStream = new FileOutputStream("/Users/garlam/IdeaProjects/ace/src/main/resources/files/" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
             } else if (OsUtil.getOsName().contains(OsUtil.WINDOWS)) {
-                fileOutputStream = new FileOutputStream("C:\\ideaPorject\\ace\\src\\main\\resources\\files\\" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
+                fileOutputStream = new FileOutputStream("C:\\IdeaProjects\\ace\\src\\main\\resources\\files\\" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
             }
 
             report.toPdf(fileOutputStream);//打印的pdf地址
