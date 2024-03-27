@@ -25,6 +25,7 @@ target/
 *.ear
 *.exe
 .mvn
+log4j
 src/main/resources/log4j
 #src/main/java/com/config/RabbitMQConfig.java
 #src/main/java/com/config/RedisConfig.java

@@ -1,7 +1,7 @@
 package com.ace.scheduler;
 
 
-import com.ace.scheduler.task.ClearLog;
+import com.ace.scheduler.task.CleanLog;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -31,7 +31,7 @@ public class Scheduler {
     //直接指定时间间隔，例如：5秒 = 5000
     @Scheduled(fixedRate = 600000) //十分钟执行一次
     private void runClearLog() throws IOException {
-        ClearLog c = new ClearLog();
+        CleanLog c = new CleanLog();
         c.clearLog();
     }
 

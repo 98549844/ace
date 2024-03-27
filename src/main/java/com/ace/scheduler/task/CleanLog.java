@@ -10,8 +10,8 @@ import com.util.PathUtil;
 import java.io.File;
 import java.io.IOException;
 
-public class ClearLog {
-    private static final Logger log = LogManager.getLogger(ClearLog.class.getName());
+public class CleanLog {
+    private static final Logger log = LogManager.getLogger(CleanLog.class.getName());
     private static final String path = PathUtil.getSystemPath();
     private static final String windowsErrorPath = path + "\\log4j\\error\\";
     private static final String windowsInfoPath = path + "\\log4j\\info\\";
@@ -72,7 +72,7 @@ public class ClearLog {
     }
 
     private void clearingLogFile(File file) {
-        log.info("clean up log4j: "+ file.getAbsolutePath() );
+        log.info("clean up log4j: " + file.getAbsolutePath());
         File[] files = file.listFiles();
         if (NullUtil.isNonNull(file)) {
             for (File f : files) {
@@ -81,5 +81,9 @@ public class ClearLog {
         }
     }
 
+    public static void main(String[] args) throws IOException {
+        CleanLog cleanLog = new CleanLog();
+        cleanLog.clearLog();
+    }
 
 }
