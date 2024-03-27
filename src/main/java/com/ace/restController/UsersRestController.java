@@ -61,9 +61,17 @@ public class UsersRestController extends CommonController {
         return userRolePermissionRestController.addDefaultAdminUsers();
     }
 
+
+    @Operation(summary = "查询用户")
+    @RequestMapping(method = RequestMethod.GET, value = "/get/{userAccount}")
+    public AjaxResponse getUserByUserAccount(@PathVariable String userAccount) {
+        Users user = usersService.findByUserAccount(userAccount);
+        return AjaxResponse.success(user);
+    }
+
     @Operation(summary = "查询用户角色")
     @RequestMapping(method = RequestMethod.GET, value = "/getRoles/{userAccount}")
-    public AjaxResponse getUserById(@PathVariable String userAccount) {
+    public AjaxResponse getUserRoleByUserAccount(@PathVariable String userAccount) {
         Users user = usersService.findByUserAccount(userAccount);
         List<Roles> rolesList = rolesService.getRolesByUserId(user.getUserId());
         List<String> r = new ArrayList<>();
