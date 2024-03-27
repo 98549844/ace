@@ -2,6 +2,7 @@ package com.ace.report;
 
 import com.lowagie.text.pdf.BaseFont;
 import com.ace.config.ReportConfig;
+import com.util.OsUtil;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports;
 import net.sf.dynamicreports.report.builder.column.Columns;
@@ -97,21 +98,20 @@ public class UserReport {
         try {
             //显示报表, main方法会挂起,不会close, 关闭预览窗口后不退出程序
             report.show(false);
-            try {
-                FileOutputStream fileOutputStream = new FileOutputStream("/Users/garlam/IdeaProjects/ace/src/main/resources/files/" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
-                //FileOutputStream fileOutputStream = new FileOutputStream("C:\\ideaPorject\\ace\\src\\main\\resources\\files\\" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
-                report.toPdf(fileOutputStream);//打印的pdf地址
-                try {
-                    fileOutputStream.flush();  //保证pdf输出完毕
-                    fileOutputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                conn.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+            FileOutputStream fileOutputStream = null;
+            if (OsUtil.getOsName().contains(OsUtil.LINUX)) {
+                fileOutputStream = new FileOutputStream("/Users/garlam/IdeaProjects/ace/src/main/resources/files/" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
+            } else if (OsUtil.getOsName().contains(OsUtil.MAC)) {
+                fileOutputStream = new FileOutputStream("/Users/garlam/IdeaProjects/ace/src/main/resources/files/" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
+            } else if (OsUtil.getOsName().contains(OsUtil.WINDOWS)) {
+                fileOutputStream = new FileOutputStream("C:\\ideaPorject\\ace\\src\\main\\resources\\files\\" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
             }
-        } catch (DRException e) {
+
+            report.toPdf(fileOutputStream);//打印的pdf地址
+            fileOutputStream.flush();  //保证pdf输出完毕
+            fileOutputStream.close();
+            conn.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
