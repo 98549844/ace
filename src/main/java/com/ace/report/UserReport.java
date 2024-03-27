@@ -18,6 +18,7 @@ import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -41,6 +42,9 @@ public class UserReport {
     private static final Logger log = LogManager.getLogger(UserReport.class.getName());
     private final ReportConfig reportConfig;
 
+    private final static String port = "3310";
+    private static final String url = "jdbc:log4jdbc:mysql://localhost:" + port + "/ace?characterEncoding=UTF-8&useUnicode=true&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true";
+
     // get application datasource to receive data
     public UserReport(ReportConfig reportConfig) {
         this.reportConfig = reportConfig;
@@ -58,7 +62,7 @@ public class UserReport {
     public static Connection getConn() throws ClassNotFoundException, SQLException {
         Class.forName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
         // return (Connection) DriverManager.getConnection("jdbc:mariadb://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8", "root", "garlamau");
-        return DriverManager.getConnection("jdbc:log4jdbc:mysql://localhost:3306/ace?characterEncoding=UTF-8&useUnicode=true&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8", "root", "root");
+        return DriverManager.getConnection(url, "root", "root");
     }
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
@@ -82,14 +86,7 @@ public class UserReport {
 
         report.setPageFormat(PageType.A5); //设置每一页的格式
 
-        report.columns(
-                        Columns.column("操作日期", "createdDate", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER),
-                        Columns.column("用户姓名", "username", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER),
-                        Columns.column("ip", "ip", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER),
-                        Columns.column("主机", "hostName", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER),
-                        Columns.column("用户ID", "userId", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER),
-                        Columns.column("email", "email", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER))
-                .setColumnStyle(fontStyleBuilder)   //查询的数据的字体格式
+        report.columns(Columns.column("操作日期", "createdDate", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("用户姓名", "username", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("ip", "ip", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("主机", "hostName", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("用户ID", "userId", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER), Columns.column("email", "email", DataTypes.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER)).setColumnStyle(fontStyleBuilder)   //查询的数据的字体格式
                 .setColumnTitleStyle(columnTitleStl) //设置列名的风格
                 .setHighlightDetailEvenRows(true)  //偶数行高亮显示
                 .title(Components.text("用户列表").setStyle(titleStl))//标题
