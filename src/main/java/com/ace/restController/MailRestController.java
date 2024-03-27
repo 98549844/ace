@@ -31,7 +31,6 @@ import java.io.File;
 
 @RestController
 @RequestMapping("/rest")
-//@Api(tags = {"mail"})
 @Tag(name = "Mail")
 public class MailRestController {
     private static final Logger log = LogManager.getLogger(MailRestController.class.getName());
