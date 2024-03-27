@@ -53,8 +53,8 @@ public class SseEmitterRestController {
         return SseEmitterServer.connect(userId);
     }
 
-    @Operation(summary = "连接sse后发送消息")
-    @GetMapping("/connectAfterSend/{userId}")
+    @Operation(summary = "接收server sent消息")
+    @GetMapping("/serverSentMessage/{userId}")
     public AjaxResponse connectAfterSend(@PathVariable String userId) {
         log.info("access connectAfterSend");
         List<PushMessage> pushMessages = notificationService.findByReceiver(userId);
@@ -69,7 +69,6 @@ public class SseEmitterRestController {
             pushMessageList.add(param);
         }
         notificationService.deleteByReceiver(userId);
-
         return AjaxResponse.success(pushMessageList);
     }
 

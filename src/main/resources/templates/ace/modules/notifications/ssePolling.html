@@ -65,7 +65,7 @@
 
     $(document).ready(function () {
         $.ajax({
-            url: `/rest/SseEmitter/connectAfterSend/${userId}`, // 替换为实际的数据源 URL
+            url: `/rest/SseEmitter/serverSentMessage/${userId}`, // 替换为实际的数据源 URL
             type: 'GET',
             dataType: 'json', // 根据数据源的类型选择合适的数据类型
             success: function (data) {
