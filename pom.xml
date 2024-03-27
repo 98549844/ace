@@ -54,6 +54,10 @@
                     <groupId>org.springframework</groupId>
                     <artifactId>*</artifactId>
                 </exclusion>
+                <exclusion> <!--打印pdf冲突, 需要排除-->
+                    <groupId>org.eclipse.birt.runtime.3_7_1</groupId>
+                    <artifactId>com.lowagie.text</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>

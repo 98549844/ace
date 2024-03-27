@@ -98,8 +98,8 @@ public class UserReport {
             //显示报表, main方法会挂起,不会close, 关闭预览窗口后不退出程序
             report.show(false);
             try {
-                // FileOutputStream fileOutputStream = new FileOutputStream("/Users/garlam/IdeaProjects/ace/src/main/resources/files/" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
-                FileOutputStream fileOutputStream = new FileOutputStream("C:\\ideaPorject\\ace\\src\\main\\resources\\files\\" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
+                FileOutputStream fileOutputStream = new FileOutputStream("/Users/garlam/IdeaProjects/ace/src/main/resources/files/" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
+                //FileOutputStream fileOutputStream = new FileOutputStream("C:\\ideaPorject\\ace\\src\\main\\resources\\files\\" + System.currentTimeMillis() + ".pdf");//构建一个pdf存放的输出位置
                 report.toPdf(fileOutputStream);//打印的pdf地址
                 try {
                     fileOutputStream.flush();  //保证pdf输出完毕
