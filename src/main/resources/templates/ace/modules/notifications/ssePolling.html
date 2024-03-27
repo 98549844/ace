@@ -84,9 +84,8 @@
     });
 
     if (window.EventSource) {
-        const currentHost = 'http://' + window.location.host; // 192.168.1.100:8088/
         // 建立连接
-        source = new EventSource(currentHost + '/rest/SseEmitter/connect/' + userId);
+        source = new EventSource('/rest/SseEmitter/connect/' + userId);
         setMessageInnerHTML("连接用户=" + userId);
 
         /**
