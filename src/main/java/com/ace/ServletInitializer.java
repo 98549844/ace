@@ -11,12 +11,11 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
 
     @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        //information link https://blog.csdn.net/qq_28289405/article/details/81279742
-        //information link https://blog.csdn.net/qq_43799161/article/details/125315579
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder springApplicationBuilder) {
+        //information link https://pdai.tech/md/spring/springboot/springboot-x-deploy-war.html
         //打war包的时候才需要这个类
         log.info("using for building a war file and deploying it into tomcat !!!");
-        return application.sources(AceApplication.class);
+        return springApplicationBuilder.sources(AceApplication.class);
     }
 
 }
