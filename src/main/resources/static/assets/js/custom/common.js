@@ -8,6 +8,17 @@ jQuery(function ($) {
    // getIcon();
 });
 
+function printUrl(){
+    const currentURL = window.location.href; // fullUrl
+    const currentPathname = window.location.pathname; // /ace/index.html
+    const currentHost = window.location.host; // 192.168.1.100:8088/
+    const currentPort = window.location.port; // 8088
+    alert(currentURL)
+    alert(currentPathname)
+    alert(currentHost)
+    alert(currentPort)
+}
+
 function getIcon() {
     alert("ccc");
     let iconHtml = "";
@@ -41,7 +52,6 @@ function setTitle() {
     } else {
         $("title").html("Ace Application");
     }
-
 }
 
 //循环左边menu, 用作控制class
