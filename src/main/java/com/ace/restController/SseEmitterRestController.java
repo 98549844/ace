@@ -58,10 +58,10 @@ public class SseEmitterRestController {
     public AjaxResponse connectAfterSend(@PathVariable String userId) {
         log.info("access connectAfterSend");
         List<PushMessage> pushMessages = notificationService.findByReceiver(userId);
-        if (pushMessages.isEmpty()) {
-            return null;
-        }
         List<Map<String, String>> pushMessageList = new ArrayList<>();
+        if (pushMessages.isEmpty()) {
+            return AjaxResponse.success(pushMessageList);
+        }
         for (PushMessage pm : pushMessages) {
             Map<String, String> param = new HashMap<>();
             param.put("userId", pm.getReceiver());
