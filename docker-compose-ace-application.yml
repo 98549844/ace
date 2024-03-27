@@ -14,6 +14,7 @@ services:
       dockerfile: Dockerfile
     #    image: 87548744/ace:v3.2
     container_name: application
+    hostname: application
     restart: always
     volumes:
       - /Users/garlam/ace/:/opt/workspace/ace/
@@ -30,6 +31,7 @@ services:
     image: mysql:latest
     container_name: mysql-8
     restart: always
+    hostname: mysql-8
     # platform: linux/x86_64
     environment:
       MYSQL_DATABASE: ace
@@ -44,6 +46,7 @@ services:
   rabbitmq:
     image: rabbitmq:management
     container_name: rabbitmq-3
+    hostname: rabbitmq-3
     restart: always
     ports:
       - 5672:5672
@@ -60,6 +63,7 @@ services:
     image: redis:latest
     container_name: redis-7
     restart: always
+    hostname: redis-7
     ports:
       - 6379:6379
     networks:
