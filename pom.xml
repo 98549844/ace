@@ -24,7 +24,7 @@
     </properties>
 
     <dependencies>
-        <!--https://github.com/98549844/utilities.git-->
+        <!--https://github.com/98549844/ace-cloud/tree/main/ace-utilities-->
         <dependency>
             <groupId>com.ace</groupId>
             <artifactId>ace-utilities</artifactId>
