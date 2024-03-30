@@ -1,8 +1,8 @@
 package com.ace.report;
 
-import com.lowagie.text.pdf.BaseFont;
 import com.ace.config.ReportConfig;
-import com.util.OsUtil;
+import com.ace.utilities.OsUtil;
+import com.lowagie.text.pdf.BaseFont;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports;
 import net.sf.dynamicreports.report.builder.column.Columns;
@@ -11,15 +11,11 @@ import net.sf.dynamicreports.report.builder.datatype.DataTypes;
 import net.sf.dynamicreports.report.builder.style.StyleBuilder;
 import net.sf.dynamicreports.report.constant.HorizontalAlignment;
 import net.sf.dynamicreports.report.constant.PageType;
-import net.sf.dynamicreports.report.exception.DRException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.Color;
-import java.io.FileNotFoundException;
+import java.awt.*;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

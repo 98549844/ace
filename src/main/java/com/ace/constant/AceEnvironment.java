@@ -1,8 +1,8 @@
 package com.ace.constant;
 
-import com.util.Console;
-import com.util.FileUtil;
-import com.util.OsUtil;
+import com.ace.utilities.Console;
+import com.ace.utilities.FileUtil;
+import com.ace.utilities.OsUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.core.annotation.Order;

@@ -1,7 +1,7 @@
 package com.ace.config;
 
 import cn.dev33.satoken.stp.StpUtil;
-import com.util.NullUtil;
+import com.ace.utilities.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.DisposableBean;

@@ -2,17 +2,14 @@ package com.ace.restController;
 
 import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.PushMessage;
-import com.ace.models.entity.Users;
 import com.ace.service.NotificationService;
 import com.ace.util.SseEmitterServer;
-import com.util.NullUtil;
+import com.ace.utilities.NullUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;

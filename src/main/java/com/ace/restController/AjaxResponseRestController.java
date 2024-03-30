@@ -4,7 +4,7 @@ import com.ace.controller.common.CommonController;
 import com.ace.exception.ResponseException;
 import com.ace.exception.ResponseExceptionType;
 import com.ace.models.common.AjaxResponse;
-import com.util.NullUtil;
+import com.ace.utilities.NullUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

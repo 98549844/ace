@@ -4,7 +4,7 @@ import com.ace.dao.RolePermissionsDao;
 import com.ace.models.entity.Permissions;
 import com.ace.models.entity.RolePermissions;
 import com.ace.models.entity.Roles;
-import com.util.EntityUtil;
+import com.ace.utilities.EntityUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

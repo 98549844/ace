@@ -3,7 +3,7 @@ package com.ace.controller;
 import com.ace.constant.AceEnvironment;
 import com.ace.controller.common.CommonController;
 import com.ace.service.FilesService;
-import com.util.FileUtil;
+import com.ace.utilities.FileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

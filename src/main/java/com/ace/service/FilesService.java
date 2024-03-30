@@ -4,8 +4,8 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.ace.dao.FilesDao;
 import com.ace.models.entity.Files;
 import com.ace.models.entity.Users;
-import com.util.FileUtil;
-import com.util.NullUtil;
+import com.ace.utilities.FileUtil;
+import com.ace.utilities.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.util.UUID;
+import com.ace.utilities.UUID;
 
 /**
  * @Classname: FileService

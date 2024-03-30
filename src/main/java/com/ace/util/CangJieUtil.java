@@ -1,7 +1,7 @@
 package com.ace.util;
 
-import com.util.FileUtil;
-import com.util.NullUtil;
+import com.ace.utilities.FileUtil;
+import com.ace.utilities.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.ace.controller.common.CommonController;

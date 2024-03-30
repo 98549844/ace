@@ -5,7 +5,7 @@ import com.ace.controller.common.CommonController;
 import com.ace.models.entity.Folders;
 import com.ace.service.FilesService;
 import com.ace.service.FoldersService;
-import com.util.PathUtil;
+import com.ace.utilities.PathUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

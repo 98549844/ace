@@ -4,7 +4,7 @@ import com.ace.models.entity.Permissions;
 import com.ace.models.entity.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.util.NullUtil;
+import com.ace.utilities.NullUtil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

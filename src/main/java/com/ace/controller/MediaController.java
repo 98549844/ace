@@ -5,9 +5,8 @@ import com.ace.controller.common.CommonController;
 import com.ace.service.FilesService;
 import com.ace.service.MediaService;
 import com.ace.util.ResourceUtil;
-import com.util.FileUtil;
-import com.util.PathUtil;
-import com.util.StringUtil;
+import com.ace.utilities.FileUtil;
+import com.ace.utilities.StringUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
@@ -22,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 
 /**

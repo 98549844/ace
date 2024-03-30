@@ -27,8 +27,8 @@
         <!--https://github.com/98549844/utilities.git-->
         <dependency>
             <groupId>com.ace</groupId>
-            <artifactId>utilities</artifactId>
-            <version>6.1</version>
+            <artifactId>ace-utilities</artifactId>
+            <version>1.0</version>
             <exclusions>
                 <exclusion>
                     <artifactId>log4j</artifactId>

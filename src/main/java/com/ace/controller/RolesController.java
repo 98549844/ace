@@ -8,7 +8,7 @@ import com.ace.models.entity.Roles;
 import com.ace.service.PermissionsService;
 import com.ace.service.RolePermissionsService;
 import com.ace.service.RolesService;
-import com.util.NullUtil;
+import com.ace.utilities.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

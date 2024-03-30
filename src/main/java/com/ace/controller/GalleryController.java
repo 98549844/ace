@@ -4,7 +4,7 @@ import com.ace.constant.AceEnvironment;
 import com.ace.controller.common.CommonController;
 import com.ace.models.entity.Files;
 import com.ace.service.ImagesService;
-import com.util.UUID;
+import com.ace.utilities.UUID;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

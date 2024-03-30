@@ -4,7 +4,7 @@ import com.ace.api.AceApi;
 import com.ace.api.Blockchain;
 import com.ace.api.Response;
 import com.ace.models.common.AjaxResponse;
-import com.util.GsonUtil;
+import com.ace.utilities.GsonUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

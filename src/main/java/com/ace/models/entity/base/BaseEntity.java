@@ -1,6 +1,6 @@
 package com.ace.models.entity.base;
 
-import com.util.NullUtil;
+import com.ace.utilities.NullUtil;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
