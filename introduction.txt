@@ -1,0 +1,29 @@
+My name is Au Ka Lam, and I graduated from delia memorial school in 2010
+
+and I as technician to start my career paths in the same year
+I worked at DHL and datapipe separately
+my job duty is datacenter daily operation
+and help end user sovle their problem
+private network, domain concept and infrastructure management
+are valuable experience for my career
+
+afterward, i am luckily,
+I was employed Synergis,it providing me great opportunities for my development
+I learned how to handle customer needs and the advice concept of java programs
+
+But unfortunately, Synergis' parent company HsinChong went bankrupt, so the I.T department re-structure,
+and I am also one of them
+
+Afterwards, i complete my professional deploma
+I worked on various government and private enterprise projects in different vendor companies
+Mainly government projects,
+
+When I as SA in PCCW, I mainly worked on two projects, the APLS of SFC,
+which mainly focused on the electronic approval of documents for the company's listing
+
+And then in the cmis of police force, I am the module owner of the property module of cmis
+Mainly fixing high concurrency, bugs, and changing business logic based on actual needs at the time,
+Of course, these all need to be communicated with and approved by the system owner of the policy force
+
+in my last job, also this is a vendor and i worked a lot of gov project
+One of them is housing authorty's HASS report migratetion
