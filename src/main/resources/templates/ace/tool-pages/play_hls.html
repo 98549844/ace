@@ -64,15 +64,39 @@
 
         const currentPathname = window.location.pathname; // /ace/index.html
         const currentHost = window.location.host; // 192.168.1.100:8088/
-        // const url = 'http://' + currentHost + '/ace/play/[[${playId}]]';
-        const url = 'http://localhost:8088/ace/play/ts/index.m3u8/[[${playId}]]'
+         const url = 'http://' + currentHost + '/ace/play/[[${playId}]]';
+       // const url = 'http://localhost:8088/ace/play/ts/index.m3u8/[[${playId}]]'
         // const url = 'http://localhost:8088/ace/play/ts/[[${playId}]]/index.m3u8';
         // const url = 'https://1500005692.vod2.myqcloud.com/43843706vodtranscq1500005692/62656d94387702300542496289/v.f100240.m3u8';
 
         const video = document.getElementById('player-container-id');
-        alert(url);
+
+        let config = {
+            // hls config
+            xhrSetup: function (xhr, url) {
+                console.log('1 origin url:' + url);
+                //用手机播放, xhr不生效
+                const playId = '/[[${playId}]]';
+                if (url.indexOf('.ts') !== -1 || url.indexOf('key') !== -1) {
+                    url = url + playId;
+                    if (url.indexOf('.ts') !== -1) {
+                        console.log('4 ts url:' + url);
+                    } else if (url.indexOf('key') !== -1) {
+                        console.log('3 key url:' + url);
+                    }
+
+                } else if (url.indexOf('index') !== -1) {
+                    url = 'play/ts/index.m3u8' + playId;
+                    console.log('2 m3u8 url:' + url);
+
+                    // url = 'media/play/ts/index.m3u8?uuid=[[${playId}]]'; for requestParam
+                }
+                xhr.open('GET', url, true);
+            }
+        }
+        console.log(url);
         // 渲染到播放器
-        const hls = new Hls();
+        const hls = new Hls(config);
         hls.loadSource(url);
         hls.attachMedia(video);
     });
