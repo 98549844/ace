@@ -63,7 +63,7 @@ public class PlayController extends CommonController {
     @RequestMapping(value = "/play/{uuid}", method = RequestMethod.GET)
     @ResponseBody
     public void play(@PathVariable String uuid, HttpServletResponse response) {
-        log.info("access ace/play uuid: {}", uuid);
+        log.info("1. access ace/play uuid: {}", uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + indexM3U8;
         log.info("Location: {}", location);
         //ModelAndView modelAndView = super.page("ace/tool-pages/play");
@@ -73,7 +73,7 @@ public class PlayController extends CommonController {
 
 
     /**
-     * 2 get index.m3u8 info
+     * 2. get index.m3u8 info
      * access m3u8
      *
      * @param uuid
@@ -82,7 +82,17 @@ public class PlayController extends CommonController {
     @RequestMapping(value = "/play/ts/index.m3u8/{uuid}", method = RequestMethod.GET)
     @ResponseBody
     public void getM3U8(@PathVariable String uuid, HttpServletResponse response) {
-        log.info("access play/ts/index.m3u8/{}", uuid);
+        //if (uuid.contains(".ts")) {
+        //    getTs(response, uuid,  "4758400b-26c8-49b6-8b08-0df4b621bc52");
+        //} else if (uuid.contains("key")) {
+        //    getKey("4758400b-26c8-49b6-8b08-0df4b621bc52", response);
+        //} else {
+        //    log.info("2. access play/ts/index.m3u8/{}", uuid);
+        //    String location = videoM3u8 + uuid + FileUtil.separator + tsIndexM3U8;
+        //    log.info("Location: {}", location);
+        //    filesService.get(location, response);
+        //}
+        log.info("2. access play/ts/index.m3u8/{}", uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + tsIndexM3U8;
         log.info("Location: {}", location);
         filesService.get(location, response);
@@ -90,7 +100,7 @@ public class PlayController extends CommonController {
 
 
     /**
-     * 3 get ts key
+     * 3. get ts key
      * access TS key
      *
      * @param uuid
@@ -99,14 +109,14 @@ public class PlayController extends CommonController {
     @RequestMapping(value = "/play/ts/index.m3u8/key/{uuid}", method = RequestMethod.GET)
     @ResponseBody
     public void getKey(@PathVariable String uuid, HttpServletResponse response) {
-        log.info("access play/ts/index.m3u8/key/{}", uuid);
+        log.info("3. access play/ts/index.m3u8/key/{}", uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + tsKey;
         log.info("Location: {}", location);
         filesService.get(location, response);
     }
 
     /**
-     * 4 get ts media to play
+     * 4. get ts media to play
      * 加载TS切片
      *
      * @param response
@@ -116,7 +126,7 @@ public class PlayController extends CommonController {
     @RequestMapping(value = "/play/ts/index.m3u8/{ts}/{uuid}", method = RequestMethod.GET)
     @ResponseBody
     public void getTs(HttpServletResponse response, @PathVariable String ts, @PathVariable String uuid) {
-        log.info("access play/ts/index.m3u8/{}/{}", ts, uuid);
+        log.info("4. access play/ts/index.m3u8/{}/{}", ts, uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + "ts" + FileUtil.separator + ts;
         log.info("Location: {}", location);
         filesService.get(location, response);
