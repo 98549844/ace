@@ -21,6 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * @Description:
  */
 
+//@CrossOrigin(origins = "http://192.168.1.100:8088")
 @Controller
 @RequestMapping("/ace")
 public class PlayController extends CommonController {
@@ -34,7 +35,7 @@ public class PlayController extends CommonController {
 
 
     @Autowired
-    public PlayController(AceEnvironment aceEnvironment,FilesService filesService) {
+    public PlayController(AceEnvironment aceEnvironment, FilesService filesService) {
         this.filesService = filesService;
         this.videoM3u8 = aceEnvironment.getVideoM3u8();
 
@@ -51,7 +52,8 @@ public class PlayController extends CommonController {
         return modelAndView;
     }
 
-    /** 1. access player page
+    /**
+     * 1. access player page
      * 开始加载媒体准备播放
      *
      * @param uuid
@@ -70,7 +72,8 @@ public class PlayController extends CommonController {
     }
 
 
-    /** 2 get index.m3u8 info
+    /**
+     * 2 get index.m3u8 info
      * access m3u8
      *
      * @param uuid
@@ -85,7 +88,9 @@ public class PlayController extends CommonController {
         filesService.get(location, response);
     }
 
-    /** 3 get ts key
+
+    /**
+     * 3 get ts key
      * access TS key
      *
      * @param uuid
@@ -100,7 +105,8 @@ public class PlayController extends CommonController {
         filesService.get(location, response);
     }
 
-    /** 4 get ts media to play
+    /**
+     * 4 get ts media to play
      * 加载TS切片
      *
      * @param response

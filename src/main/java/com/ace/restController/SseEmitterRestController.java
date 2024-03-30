@@ -25,7 +25,7 @@ import java.util.Map;
  * @Author: garlam
  * @Description:
  */
-@CrossOrigin(origins = "http://192.168.1.100:8088")
+@CrossOrigin
 @RestController
 @RequestMapping("/rest/SseEmitter")
 @Tag(name = "SSE Server Site Event")
