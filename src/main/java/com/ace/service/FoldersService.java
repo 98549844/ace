@@ -7,6 +7,7 @@ import com.ace.models.entity.Folders;
 import com.ace.models.entity.Users;
 import com.ace.utilities.FileUtil;
 import com.ace.utilities.NullUtil;
+import com.ace.utilities.OsUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,17 @@ public class FoldersService {
     }
 
     public Folders getRootFolder(Users currentUser) {
-        return foldersDao.findByFolderNameAndParentId(currentUser.getUserAccount(), 0l);
+        String osName = OsUtil.getOsName();
+        String osType = OsUtil.UNKNOWN;
+        if (osName.contains(OsUtil.WINDOWS)) {
+            osType = OsUtil.WINDOWS;
+        } else if (osName.contains(OsUtil.MAC)) {
+            osType = OsUtil.MAC;
+        } else if (osName.contains(OsUtil.LINUX)) {
+        } else {
+            osType = OsUtil.LINUX;
+        }
+        return foldersDao.findByFolderNameAndParentIdAndOsType(currentUser.getUserAccount(), 0l, osType);
     }
 
     public List<Folders> getFolders(Users currentUser, Long parentId) {

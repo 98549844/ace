@@ -2,6 +2,8 @@ package com.ace.models.entity;
 
 import com.ace.constant.AceEnvironment;
 import com.ace.models.entity.base.BaseEntity;
+import com.ace.utilities.Console;
+import com.ace.utilities.OsUtil;
 import jakarta.persistence.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -52,9 +54,32 @@ public class Folders extends BaseEntity {
     @Column
     private String sharedUserId;
 
+    @Column
+    private String osType;
+
     @Transient
     private List<Folders> subFolders = new ArrayList<>();
-    ;
+
+    public Folders() {
+        String osName = OsUtil.getOsName();
+        if (osName.contains(OsUtil.WINDOWS)) {
+            this.osType = OsUtil.WINDOWS;
+        } else if (osName.contains(OsUtil.MAC)) {
+            this.osType = OsUtil.MAC;
+        } else if (osName.contains(OsUtil.LINUX)) {
+        } else {
+            this.osType = OsUtil.LINUX;
+        }
+    }
+
+
+    public String getOsType() {
+        return osType;
+    }
+
+    public void setOsType(String osType) {
+        this.osType = osType;
+    }
 
     public Long getId() {
         return id;
