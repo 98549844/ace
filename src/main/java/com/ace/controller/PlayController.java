@@ -63,7 +63,7 @@ public class PlayController extends CommonController {
     @RequestMapping(value = "/play/{uuid}", method = RequestMethod.GET)
     @ResponseBody
     public void play(@PathVariable String uuid, HttpServletResponse response) {
-        log.info("1. access ace/play uuid: {}", uuid);
+        log.info("1. access /ace/play/{}=>", uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + indexM3U8;
         log.info("Location: {}", location);
         //ModelAndView modelAndView = super.page("ace/tool-pages/play");
@@ -92,7 +92,7 @@ public class PlayController extends CommonController {
         //    log.info("Location: {}", location);
         //    filesService.get(location, response);
         //}
-        log.info("2. access play/ts/index.m3u8/{}", uuid);
+        log.info("2. access /ace/play/ts/index.m3u8/{}=>", uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + tsIndexM3U8;
         log.info("Location: {}", location);
         filesService.get(location, response);
@@ -109,7 +109,7 @@ public class PlayController extends CommonController {
     @RequestMapping(value = "/play/ts/index.m3u8/key/{uuid}", method = RequestMethod.GET)
     @ResponseBody
     public void getKey(@PathVariable String uuid, HttpServletResponse response) {
-        log.info("3. access play/ts/index.m3u8/key/{}", uuid);
+        log.info("3. access /ace/play/ts/index.m3u8/key/{}=>", uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + tsKey;
         log.info("Location: {}", location);
         filesService.get(location, response);
@@ -126,7 +126,7 @@ public class PlayController extends CommonController {
     @RequestMapping(value = "/play/ts/index.m3u8/{ts}/{uuid}", method = RequestMethod.GET)
     @ResponseBody
     public void getTs(HttpServletResponse response, @PathVariable String ts, @PathVariable String uuid) {
-        log.info("4. access play/ts/index.m3u8/{}/{}", ts, uuid);
+        log.info("4. access /ace/play/ts/index.m3u8/{}/{}", ts, uuid);
         String location = videoM3u8 + uuid + FileUtil.separator + "ts" + FileUtil.separator + ts;
         log.info("Location: {}", location);
         filesService.get(location, response);
