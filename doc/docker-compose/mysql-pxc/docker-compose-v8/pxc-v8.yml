@@ -18,7 +18,8 @@ services:
   mysql8-1:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-pxc
+    #image: percona/percona-xtradb-cluster:latest
     container_name: mysql8-1
     hostname: mysql8-1
     restart: always
@@ -41,7 +42,8 @@ services:
   mysql8-2:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-pxc
+    #image: percona/percona-xtradb-cluster:latest
     container_name: mysql8-2
     hostname: mysql8-2
     restart: always
@@ -67,7 +69,8 @@ services:
   mysql8-3:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-pxc
+    #image: percona/percona-xtradb-cluster:latest
     container_name: mysql8-3
     hostname: mysql8-3
     restart: always
@@ -89,3 +92,22 @@ services:
     networks:
       pxc-net:
         ipv4_address: 172.25.0.13
+
+
+  pxc-haproxy:
+    build:
+      context: ./haproxy
+      dockerfile: Dockerfile-haproxy
+    #image: pxc-haproxy
+    container_name: pxc-haproxy
+    hostname: pxc-haproxy
+    # restart: always
+    ports:
+      - 6033:3306
+      - 33066:33066
+    privileged: true
+    depends_on:
+      - mysql8-3
+    networks:
+      pxc-net:
+        ipv4_address: 172.25.0.14

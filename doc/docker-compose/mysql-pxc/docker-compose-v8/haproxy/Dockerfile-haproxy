@@ -1,0 +1,4 @@
+FROM percona/percona-xtradb-cluster:latest
+MAINTAINER Garlam Au
+COPY ./config-file/haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
+
