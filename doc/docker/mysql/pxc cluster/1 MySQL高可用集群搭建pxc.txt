@@ -3,7 +3,8 @@ https://www.jianshu.com/p/e8084a60fe88
 
 1 MySQL高可用集群搭建(pxc)
 01 拉取pxc镜像
-    docker pull percona/percona-xtradb-cluster
+    docker pull percona/percona-xtradb-cluster:latest (mysql 8.0 pxc 需要证书)
+    docker pull percona/percona-xtradb-cluster:5.7 (mysql 5.7 不需要证书)
 
 02 复制pxc镜像(实则重命名)
     docker tag percona/percona-xtradb-cluster:latest pxc-cluster
@@ -34,7 +35,7 @@ docker run -d -p 3311:3306 \
 -e MYSQL_ROOT_PASSWORD=root \
 -e CLUSTER_NAME=PXC \
 -e XTRABACKUP_PASSWORD=root \
---privileged --name=pxc-node1 \
+--privileged --name=pxc-node1 \ //容器设置为特权模式+容器名称
 --net=ace-net \
 pxc-cluster:latest
 
@@ -93,3 +94,18 @@ pxc-cluster:latest
     (3)MySQL工具连接测试
         Jetbrains Datagrip
 
+
+
+命令	            说明
+-d	            代表创建的容器在后台运行
+-p	            端口映射 宿主机端口:容器端口
+-v	            路径映射
+-e              MYSQL_ROOT_PASSWORD=abc123456	指定mysql的root账号密码为abc123456
+-e              CLUSTER_NAME=PXC	执行名称为PXC
+-e              XTRABACKUP_PASSWORD=abc123456	指定mysql数据同步时用的密码为abc123456
+–privileged	    给最高的权限
+–name=node1	    节点名称node1
+–net=net1	    使用的内部网段
+–ip 172.18.0.2	分发的ip地址
+
+原文链接：https://blog.csdn.net/xyxc202/article/details/110049254

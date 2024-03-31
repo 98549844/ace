@@ -1,0 +1,86 @@
+version: '3.8'
+networks:
+  pxc-net: # 网络名
+    name: pxc-net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
+
+volumes:
+  pxc-v1:
+  pxc-v2:
+  pxc-v3:
+
+services:
+
+
+#mysql -h localhost -u root -p
+  mysql-1:
+    image: percona/percona-xtradb-cluster:5.7
+    container_name: mysql-1
+    hostname: mysql-1
+    restart: always
+    privileged: true # 容器设置为特权模式
+    environment:
+      MYSQL_DATABASE: ace
+      MYSQL_USER: garlam
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      CLUSTER_NAME: PXC
+      XTRABACKUP_PASSWORD: root
+ #   volumes:
+ #     - pxc-v1:/var/lib/mysql
+    ports:
+      - 3311:3306
+    networks:
+      pxc-net:
+        ipv4_address: 172.25.0.11
+
+  mysql-2:
+    image: percona/percona-xtradb-cluster:5.7
+    container_name: mysql-2
+    hostname: mysql-2
+    restart: always
+    privileged: true # 容器设置为特权模式
+    environment:
+      MYSQL_DATABASE: ace
+      MYSQL_USER: garlam
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      CLUSTER_NAME: PXC
+      XTRABACKUP_PASSWORD: root
+      CLUSTER_JOIN: mysql-1
+  #  volumes:
+  #    - pxc-v2:/var/lib/mysql
+    ports:
+      - 3312:3306
+    depends_on:
+      - mysql-1
+    networks:
+      pxc-net:
+        ipv4_address: 172.25.0.12
+
+  mysql-3:
+    image: percona/percona-xtradb-cluster:5.7
+    container_name: mysql-3
+    hostname: mysql-3
+    restart: always
+    privileged: true # 容器设置为特权模式
+    environment:
+      MYSQL_DATABASE: ace
+      MYSQL_USER: garlam
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      CLUSTER_NAME: PXC
+      XTRABACKUP_PASSWORD: root
+      CLUSTER_JOIN: mysql-1
+  #  volumes:
+  #    - pxc-v3:/var/lib/mysql
+    ports:
+      - 3313:3306
+    depends_on:
+      - mysql-2
+    networks:
+      pxc-net:
+        ipv4_address: 172.25.0.13
