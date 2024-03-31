@@ -1,0 +1,5 @@
+ca的东西生成过后，需要建立配置cert.cnf(放在cert/config下)
+
+/cert/conf/cert.cnf
+/cert/conf/server-cert.pem
+/cert/conf/client-cert.pem

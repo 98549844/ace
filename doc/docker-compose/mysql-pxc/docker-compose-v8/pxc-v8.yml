@@ -1,0 +1,91 @@
+#docker compose -f /Users/garlam/IdeaProjects/ace-cloud/Docker-compose.yml -p ace-cloud up -d
+version: '3.8'
+networks:
+  pxc-net: # 网络名
+    name: pxc-net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
+
+volumes:
+  pxc-v1:
+  pxc-v2:
+  pxc-v3:
+
+services:
+  #mysql -h localhost -u root -p
+  mysql8-1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mysql8-1
+    hostname: mysql8-1
+    restart: always
+    privileged: true # 容器设置为特权模式
+    environment:
+      MYSQL_DATABASE: ace
+      MYSQL_USER: garlam
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      CLUSTER_NAME: PXC
+      XTRABACKUP_PASSWORD: root
+    #   volumes:
+    #     - pxc-v1:/var/lib/mysql
+    ports:
+      - 3311:3306
+    networks:
+      pxc-net:
+        ipv4_address: 172.25.0.11
+
+  mysql8-2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mysql8-2
+    hostname: mysql8-2
+    restart: always
+    privileged: true # 容器设置为特权模式
+    environment:
+      MYSQL_DATABASE: ace
+      MYSQL_USER: garlam
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      CLUSTER_NAME: PXC
+      XTRABACKUP_PASSWORD: root
+      CLUSTER_JOIN: mysql8-1
+    #  volumes:
+    #    - pxc-v2:/var/lib/mysql
+    ports:
+      - 3312:3306
+    depends_on:
+      - mysql8-1
+    networks:
+      pxc-net:
+        ipv4_address: 172.25.0.12
+
+  mysql8-3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mysql8-3
+    hostname: mysql8-3
+    restart: always
+    privileged: true # 容器设置为特权模式
+    environment:
+      MYSQL_DATABASE: ace
+      MYSQL_USER: garlam
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      CLUSTER_NAME: PXC
+      XTRABACKUP_PASSWORD: root
+      CLUSTER_JOIN: mysql8-1
+    #  volumes:
+    #    - pxc-v3:/var/lib/mysql
+    ports:
+      - 3313:3306
+    depends_on:
+      - mysql8-2
+    networks:
+      pxc-net:
+        ipv4_address: 172.25.0.13
