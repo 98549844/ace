@@ -11,7 +11,6 @@ grant select,insert,update,delete,create on ace.* to garlam;#用户授权数据�
 commit;
 drop schema ace;#删除数据库
 
-select * from ace.users;
 
 -- auto-generated definition
 create table ace.users
@@ -57,3 +56,8 @@ INSERT INTO ace.users (userId, createdBy, createdDate, lastUpdateDate, lastUpdat
 INSERT INTO ace.users (userId, createdBy, createdDate, lastUpdateDate, lastUpdatedBy, version, age, dateOfBirth, description, domain, email, enabled, expireDate, gender, hostName, ip, loginDateTime, mobile, password, region, remark, status, userAccount, username) VALUES (8, 0, '2024-03-27 07:37:32.246619', '2024-03-27 07:37:32.246619', 0, 1, 0, '2024-03-27 07:37:31.043728', 'user', null, 'frank_chow@qq.com', true, '2027-03-27 07:37:31.043740', 'M', null, null, null, '55550000', '$2a$11$1WxTAU0v0WjYT0.tCsHEvOeVd61XiHEzba.dEFIwFwAgmU6Sv4g12', null, null, 'ACTIVE', 'frank', 'Frank Chow');
 INSERT INTO ace.users (userId, createdBy, createdDate, lastUpdateDate, lastUpdatedBy, version, age, dateOfBirth, description, domain, email, enabled, expireDate, gender, hostName, ip, loginDateTime, mobile, password, region, remark, status, userAccount, username) VALUES (9, 0, '2024-03-27 07:37:32.247231', '2024-03-27 07:37:32.247231', 0, 1, 0, '2024-03-27 07:37:31.043729', 'disable', null, 'eric_luk@qq.com', true, '2027-03-27 07:37:31.043741', 'M', null, null, null, '55550000', '$2a$11$rNst76MuwHs7Go5EmZm8/.SmgMB00aKYuGD6ZBbbvNHccEWwa5Z7u', null, null, 'ACTIVE', 'eric', 'Eric Luk');
 INSERT INTO ace.users (userId, createdBy, createdDate, lastUpdateDate, lastUpdatedBy, version, age, dateOfBirth, description, domain, email, enabled, expireDate, gender, hostName, ip, loginDateTime, mobile, password, region, remark, status, userAccount, username) VALUES (10, 0, '2024-03-27 07:37:32.248018', '2024-03-27 07:37:32.248018', 0, 1, 0, '2024-03-27 07:37:31.043729', 'administrator', null, 'root@ace.com', true, '2027-03-27 07:37:31.043742', 'M', null, null, null, null, '$2a$11$uST2NT8YICPn8ZrPGysNZO1i6DS8PkfTP2sumBMtlqGZGiDmoAhlS', null, null, 'ACTIVE', 'root', 'Root');
+commit ;
+
+select * from users;
+CREATE USER 'haproxy'@'%' IDENTIFIED BY '';
+flush privileges;
