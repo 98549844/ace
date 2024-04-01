@@ -1,5 +1,0 @@
-1.查看容器是否运行
-docker ps -a
-
-2.修改容器为自启动
-docker container update --restart=always mariadb

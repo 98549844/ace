@@ -1,7 +1,0 @@
-在terminal输入
-
-显示路径栏
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool TRUE;killall Finder
-
-隐藏路径栏
-defaults delete com.apple.finder _FXShowPosixPathInTitle;killall Finder

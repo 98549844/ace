@@ -1,2 +1,0 @@
-Java爬虫，调用Chrome、Firefox获取页面信息使用Jsoup解析，以及Jsoup爬取简单页面
-https://blog.csdn.net/weixin_43025522/article/details/119170882

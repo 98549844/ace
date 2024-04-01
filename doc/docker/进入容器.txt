@@ -1,5 +1,0 @@
-进入docker shell =>
-docker exec -it CONTAINER_ID /bin/bash
-docker exec -it AceApplication /bin/bash
-docker exec -it mysql-8.0 /bin/bash
-docker exec -it linux-ubuntu /bin/bash

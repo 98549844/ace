@@ -1,5 +1,0 @@
-1.停止docker
-docker stop -t=3 oracle11g
-
-2.直接kill docker
-docker kill oracle11g

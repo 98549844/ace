@@ -1,2 +1,0 @@
-用 docker 部署kafka
-https://blog.csdn.net/lijiewen2017/article/details/127609875

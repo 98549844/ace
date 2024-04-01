@@ -1,5 +1,0 @@
-docker logout
-docker login -u "garlam_au@qq.com" -p "Garlam1986" docker.io
-docker images
-docker tag ace-application:latest 87548744/ace:v3.2
-docker push 87548744/ace:v3.2

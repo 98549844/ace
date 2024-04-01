@@ -1,8 +1,0 @@
-系统关机和重启
-shutdown        Hello, 1分钟后关机
-shutdown -h now 立刻关机
-shutdown -h 10  hello, 10分钟后关机
-shutdown -r now 立刻重启
-halt            立刻关机
-reboot          立刻重启
-sync            内存数据同歩到磁盘

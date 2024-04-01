@@ -1,2 +1,0 @@
-1. java安装路径在in MacOs
-/usr/libexec/java_home

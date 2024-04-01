@@ -1,6 +1,0 @@
-输入npm语句的时候报错：npm : 无法加载文件 E:\nodejs\node_global\npm.ps1，因为在此系统上禁止运行脚本
-
-解决方法
-
-运行命令：set-ExecutionPolicy remotesigned
-再次运行 NPM 指令 即可

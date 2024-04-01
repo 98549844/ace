@@ -1,4 +1,0 @@
-修改容器为自启动
-docker container update --restart=always redis
-
-docker container stop

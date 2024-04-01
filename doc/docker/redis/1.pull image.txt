@@ -1,9 +1,0 @@
-1.下载镜像到docker
-docker pull redis:latest
-
-
-
-
-
-
-

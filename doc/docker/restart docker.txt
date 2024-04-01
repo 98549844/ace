@@ -1,7 +1,0 @@
-1.重启docker container
-docker restart mariadb [mariadb => container id]
-
-
-关闭Docker服务,再重新启动Docker服务
-net stop com.docker.service
-net start com.docker.service

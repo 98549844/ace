@@ -1,9 +1,0 @@
-Websphere installation application location
-C:\Program Files\IBM\WebSphere\AppServer\profiles\AppSrv01\installedApps\NBK-2022-LEN017Node01Cell\Ace2Demo.ear\Ace2DemoWeb.war
-
-directory to modify xhtml files directly
-
-
-
-server systemOut.log location
-C:\Program Files\IBM\WebSphere\AppServer\profiles\AppSrv01\logs\server1

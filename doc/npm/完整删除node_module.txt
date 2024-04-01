@@ -1,4 +1,0 @@
-npm cache clean --force #强制清除缓存
-rm -rf node_modules #删除node_modules
-rm package-lock.json #删除package-lock.json
-npm install #重安装依赖

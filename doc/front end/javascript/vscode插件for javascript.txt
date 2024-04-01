@@ -1,2 +1,0 @@
-error lens:     语法检查器
-live server:    实时服务器

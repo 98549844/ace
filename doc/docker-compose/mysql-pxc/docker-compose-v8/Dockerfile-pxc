@@ -1,5 +1,0 @@
-FROM mysql:latest
-MAINTAINER Garlam Au
-COPY ./cert /cert
-COPY ./cert/conf /etc/percona-xtradb-cluster.conf.d
-# copy SSL证书到mysql8

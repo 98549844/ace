@@ -1,4 +1,0 @@
-<build>
-        <!--定义sourceDir文件夹-->
-        <sourceDirectory>src/</sourceDirectory>
-</build>

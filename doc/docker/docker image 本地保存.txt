@@ -1,8 +1,0 @@
-
-1. 可以先将image备份(save)到本地
-docker save -o mysql8.0.29.tar mysql:8.0.29
--o: 就是指定输出的文件路径
-
-2. 本地加载image
-docker load -i mysql8.0.29.tar
--i: 表示要上传的文件名

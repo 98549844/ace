@@ -1,3 +1,0 @@
-copy shortcut.xml to this path
-C:\Users\garlam\AppData\Roaming\Notepad++
-C:\Users\kalam_au\AppData\Roaming\Notepad++

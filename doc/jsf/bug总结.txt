@@ -1,3 +1,0 @@
-1.  javax.faces.FacesException: Unable to find CDI BeanManager的解决方法
-1.1 https://blog.csdn.net/WMXTW/article/details/125733508
-1.2 web.xml的version下降 4.0 => 3.1

@@ -1,3 +1,0 @@
-TypeError: this.libOptions.parse is not a function
-原因:版本过高,downgrade to 8.22
-npm install eslint@8.22.0 --save-exact

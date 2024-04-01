@@ -1,5 +1,0 @@
-关闭自动启动
-docker container update --restart=no container_id
-
-开启自动启动
-docker container update --restart=always container_id

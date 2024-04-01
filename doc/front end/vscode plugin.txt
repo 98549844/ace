@@ -1,3 +1,0 @@
-vscode plugin
-1. VS Code ESLint extension
-2. JS JSX Snippets

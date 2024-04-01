@@ -1,8 +1,0 @@
-通过docker快速实现OpenVPN搭建
-https://blog.csdn.net/zhangshenghang/article/details/135292267
-
-使用 docker 构建 openvpn 服务
-https://www.jianshu.com/p/29489cb1692b
-
-docker-compose安装部署openvpn，实现内网通信
-https://baijiahao.baidu.com/s?id=1738773475208047721&wfr=spider&for=pc

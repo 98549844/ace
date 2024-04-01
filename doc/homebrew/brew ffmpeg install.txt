@@ -1,5 +1,0 @@
-1. brew installation
-brew install ffmpeg
-
-2. ffmpeg version
-ffmpeg -version

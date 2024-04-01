@@ -1,8 +1,0 @@
-CREATE TABLE `xxx`(
-`id`: xxx
-xxx: xxx
-xxx: xxx
-xxx: xxx
-) DEFAULT CHARSET = utf8mb4
-
-utf8mb4:可以保存中文文字和表情包, 不出现乱码

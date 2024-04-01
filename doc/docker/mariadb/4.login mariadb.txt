@@ -1,8 +1,0 @@
-1.进入容器的终端
-docker exec -it mariadb bash
-
-2.login mariadb
-mysql -uroot -p
-
-3.show databases
-    show databases;
