@@ -79,10 +79,7 @@
 
         const currentHost = window.location.host; // 192.168.1.100:8088/
         const url = 'http://' + currentHost + "/ace/websocket/" + cid;
-      //  const reqUrl = "ace/websocket/" + cid;
 
-
-      //  var reqUrl = "http://localhost:8081/websocket/" + cid;
         console.log("cid->" + cid + "  |  " + "url->" + url);
         socket = new WebSocket(url.replace("http", "ws"));
         //打开事件
