@@ -39,12 +39,12 @@ public class WebSocketServer {
     /**
      * 静态变量，用来记录当前在线连接数，线程安全的类。
      */
-    private static AtomicInteger onlineSessionClientCount = new AtomicInteger(0);
+    private static final AtomicInteger onlineSessionClientCount = new AtomicInteger(0);
 
     /**
      * 存放所有在线的客户端
      */
-    private static Map<String, Session> onlineSessionClientMap = new ConcurrentHashMap<>();
+    private static final Map<String, Session> onlineSessionClientMap = new ConcurrentHashMap<>();
 
     /**
      * 连接sid和连接会话

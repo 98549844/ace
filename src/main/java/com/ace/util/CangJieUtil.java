@@ -22,7 +22,7 @@ public class CangJieUtil extends CommonController {
     private static final Logger log = LogManager.getLogger(CangJieUtil.class.getName());
 
 
-    private final static String dist = "/Users/garlam/IdeaProjects/ace/doc/input code/倉頡常用难字集.txt";
+    private final static String dist = "/Users/garlam/IdeaProjects/documents/doc/input code/倉頡常用难字集.txt";
 
     public static void checkCangJieCode(String code) throws IOException {
         log.info("倉頡常用难字集查詢");
