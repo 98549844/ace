@@ -114,7 +114,7 @@ public class WebSocketServer {
         /**
          * 模拟约定：如果未指定sid信息，则群发，否则就单独发送
          */
-        if (toSid == null || toSid == "" || "".equalsIgnoreCase(toSid)) {
+        if (toSid == null || toSid.equals("") || "".equalsIgnoreCase(toSid)) {
             sendToAll(msg);
         } else {
             sendToOne(toSid, msg);
