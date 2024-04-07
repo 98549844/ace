@@ -40,10 +40,10 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         传递来的数据值cid:
-                        <input type="text" th:value="${cid}" id="cid"/>
-                        <p>【toUserId】：
-                        <div><input id="toUserId" name="toUserId" type="text" value="user-1"></div>
-                        <p>【toUserId】：
+                        <div><input type="text" th:value="${cid}" id="cid" placeholder="sender"/></div>
+                        <p>【FromUserId】：
+                        <div><input id="toUserId" name="toUserId" type="text" value="root" placeholder="receiver"></div>
+                        <p>【ToUserId】：
                         <div><input id="contentText" name="contentText" type="text" value="hello websocket"></div>
                         <p>【操作】：
                         <div>
