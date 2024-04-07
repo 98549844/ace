@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{ace/pb-pages/header :: header}">
+    <!-- inline styles related to this page -->
+</head>
+
+<body class="no-skin">
+<div id="navbar" class="navbar navbar-default ace-save-state"
+     th:insert="~{ace/pb-pages/navbar :: navbar}"></div>
+
+<div class="main-container ace-save-state" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.loadState('main-container')
+        } catch (e) {
+        }
+    </script>
+
+    <div id="sidebar" class="sidebar responsive ace-save-state"
+         th:insert="~{ace/pb-pages/sidebar :: sidebar}">
+    </div>
+
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="breadcrumbs" th:insert="~{ace/pb-pages/breadcrumbs :: breadcrumbs}"></div>
+            <div class="page-content">
+                <div class="ace-settings-container" id="ace-settings-container"
+                     th:insert="~{ace/pb-pages/ace-settings-container :: ace-settings-container}">
+                </div><!-- /.ace-settings-container -->
+
+                <div class="page-header">
+                    <h1>
+                        Media Player
+                        <small>
+                            <i class="ace-icon fa fa-angle-double-right"></i>
+                            Streaming
+                        </small>
+                    </h1>
+                </div><!-- /.page-header -->
+                <div class="row col-xs-12">
+                    <video id="video" width="500" height="400" controls="controls"></video>
+                    <!-- PAGE CONTENT ENDS -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+
+    <div class="footer" th:insert="~{ace/pb-pages/footer :: footer}">
+    </div>
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse"
+       th:insert="~{ace/pb-pages/btn-scroll-up :: btn-scroll-up}">
+    </a>
+</div><!-- /.main-container -->
+
+<div th:insert="~{ace/pb-pages/common-script :: common-script}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<script type="application/javascript">
+
+
+    // jQuery(function ($) {
+    //     // 设置封面
+    //     const currentPathname = window.location.pathname; // /ace/index.html
+    //     const currentHost = window.location.host; // 192.168.1.100:8088/
+    //     const url = 'http://' + currentHost + '/ace/demo';
+    //
+    //     const video = document.getElementById('video');
+    //     video.poster = message.data.poster;
+    //
+    //     console.log(url);
+    //     // 渲染到播放器
+    //     const hls = new Hls();
+    //     hls.loadSource(url);
+    //     hls.attachMedia(video);
+    // });
+
+
+    $(document).ready(function () {
+        const currentHost = window.location.host;
+        const url = 'http://' + currentHost + '/ace/demo';
+        $.ajax({
+            url: url, // 替换为实际的数据源 URL
+            type: 'GET',
+            dataType: 'json', // 根据数据源的类型选择合适的数据类型
+            success: function (result) {
+                alert("result:  "+ result.success);
+                const video = document.getElementById('video');
+                video.poster = result.data.poster;
+
+                console.log(url);
+                // 渲染到播放器
+                const hls = new Hls();
+                hls.loadSource(result.data.m3u8);
+                hls.attachMedia(video);
+
+            },
+            error: function (xhr, status, error) {
+                // 在出现错误时执行的回调函数
+                console.log(error);
+            }
+        });
+    });
+
+</script>
+
+
+</body>
+</html>
