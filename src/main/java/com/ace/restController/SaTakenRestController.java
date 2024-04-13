@@ -76,6 +76,7 @@ public class SaTakenRestController extends CommonController {
         log.info("isLogin {} ", StpUtil.isLogin());
         result.add("isLogin: "+ StpUtil.isLogin());
 
+
         // 检验当前会话是否已经登录, 如果未登录，则抛出异常：`NotLoginException`
         StpUtil.checkLogin();
         log.info("checkLogin success");
