@@ -12,6 +12,7 @@ import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.Users;
 import com.ace.service.UsersService;
 import com.ace.utilities.NullUtil;
+import io.netty.util.ResourceLeakTracker;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -62,23 +63,27 @@ public class SaTakenRestController extends CommonController {
         return "当前session是否登录：" + StpUtil.isLogin();
     }
 
-    @RequestMapping(value = "/api/current", method = RequestMethod.GET)
-    public AjaxResponse apiInfo() {
-        // 标记当前会话登录的账号id
-        // 建议的参数类型：long | int | String， 不可以传入复杂类型，如：User、Admin等等
-        Users users = usersService.findUsersById(1001l);
+    @RequestMapping(value = "/api/setCurrentUser/{userAccount}", method = RequestMethod.GET)
+    public AjaxResponse apiInfo(@PathVariable String userAccount) {
+        List<String> result = new ArrayList<>();
+
+        Users users = usersService.findByUserAccount(userAccount);
         StpUtil.login(users.getUserId());
-        log.info("login success {} ", users.getUserId());
+        log.info("login success UserId: {}", users.getUserId());
+        result.add("Login success UserId: "+ users.getUserId());
 
         // 获取当前会话是否已经登录，返回true=已登录，false=未登录
         log.info("isLogin {} ", StpUtil.isLogin());
+        result.add("isLogin: "+ StpUtil.isLogin());
 
         // 检验当前会话是否已经登录, 如果未登录，则抛出异常：`NotLoginException`
         StpUtil.checkLogin();
         log.info("checkLogin success");
+        result.add("checkLogin success");
 
         // 获取当前会话账号id, 如果未登录，则抛出异常：`NotLoginException`
         log.info("getLoginId {} ", StpUtil.getLoginId());
+        result.add("getLoginId: "+ StpUtil.getLoginId());
 
         // 类似查询API还有：
         log.info("String {} ", StpUtil.getLoginIdAsString());    // 获取当前会话账号id, 并转化为`String`类型
@@ -86,30 +91,40 @@ public class SaTakenRestController extends CommonController {
         log.info("Long {} ", StpUtil.getLoginIdAsLong());      // 获取当前会话账号id, 并转化为`long`类型
         // 获取当前会话账号id, 如果未登录，则返回null
         log.info("getLoginIdDefaultNull {}", StpUtil.getLoginIdDefaultNull());
+        result.add("LoginId as String: "+ StpUtil.getLoginIdAsString());
+        result.add("LoginId as int: "+ StpUtil.getLoginIdAsInt());
+        result.add("LoginId as Long: "+ StpUtil.getLoginIdAsLong());
+        result.add("getLoginIdDefaultNull: "+ StpUtil.getLoginIdDefaultNull());
 
         // 获取当前会话账号id, 如果未登录，则返回默认值 （`defaultValue`可以为任意类型）
         RequestAttributes request = RequestContextHolder.getRequestAttributes();
         log.info("getSessionId {} ", StpUtil.getLoginId(request.getSessionId()));
+        result.add("getSessionId: "+ StpUtil.getLoginId(request.getSessionId()));
 
         // 获取当前`StpLogic`的token名称
         String tokenName = StpUtil.getTokenName();
         log.info("tokenName {} ", tokenName);
+        result.add("tokenName: "+ tokenName);
 
         // 获取当前会话的token值
         String tokenValue = StpUtil.getTokenValue();
         log.info("tokenValue: {} ", tokenValue);
+        result.add("tokenValue: "+ tokenValue);
 
         // 获取指定token对应的账号id，如果未登录，则返回 null
         log.info("getLoginIdByToken {} ", StpUtil.getLoginIdByToken(tokenValue));
-
+        result.add("getLoginIdByToken: " + StpUtil.getLoginIdByToken(tokenValue));
 
         // 获取当前会话的token信息参数
         log.info("getTokenInfo {} ", StpUtil.getTokenInfo());
+        result.add("getTokenInfo: " + StpUtil.getTokenInfo());
 
         // 当前会话注销登录
         StpUtil.logout();
         log.info("logout success");
-        return AjaxResponse.success();
+        result.add("logout success");
+
+        return AjaxResponse.success(result);
     }
 
     @RequestMapping(value = "/api/getSessionbyKeyword/{keyword}", method = RequestMethod.GET)
