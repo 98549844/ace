@@ -1,6 +1,5 @@
 package com.ace.config;
 
-import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.thymeleaf.dialect.SaTokenDialect;
@@ -8,7 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -48,47 +46,17 @@ public class SaTokenConfig implements WebMvcConfigurer {
         // registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin())) //after 1.31
         registry.addInterceptor(new SaInterceptor(handler -> StpUtil.checkLogin())) //after 1.31
                 //开放登陆,注册 url
-                .excludePathPatterns(
-                        "/ace/login.html",
-                        "/ace/login.html/*/*",
-                        "/ace/logging.html",
-                        "/ace/registration.html",
-                        "/ace/password/reset.html",
-                        "/ace/logout.html",
-                        "/")
+                .excludePathPatterns("/ace/login.html", "/ace/login.html/*/*", "/ace/logging.html", "/ace/registration.html", "/ace/password/reset.html", "/ace/logout.html", "/")
                 //开放restController
-                .excludePathPatterns( "/rest/**")
+                .excludePathPatterns("/rest/**")
                 //开放naiveController
-                .excludePathPatterns( "/naive/**")
+                .excludePathPatterns("/naive/**")
                 //开方api
-                .excludePathPatterns( "/api/**")
-                .excludePathPatterns( "/pdf/**")
-              //.excludePathPatterns( "/assets/**") //url一定不能以assets开头, 不然就所有url都开放
-                .excludePathPatterns(
-                        "/assets/**/*.js",
-                        "/assets/**/*.png",
-                        "/assets/**/*.jpg",
-                        "/assets/**/*.gif",
-                        "/assets/favicon.ico",
-                        "/assets/**/*.css",
-                        "/assets/**/*.woff2",
-                        "/assets/**/*.woff",
-                        "/assets/**/*.ttf",
-                        "/assets/**/*.svg",
-                        "/assets/**/*.eot",
-                        "/assets/**/*.swf",
-                        "/assets/**/*.map",
-                        "/assets/images/**")
+                .excludePathPatterns("/api/**").excludePathPatterns("/pdf/**")
+                //.excludePathPatterns( "/assets/**") //url一定不能以assets开头, 不然就所有url都开放
+                .excludePathPatterns("/assets/**/*.js", "/assets/**/*.png", "/assets/**/*.jpg", "/assets/**/*.gif", "/assets/favicon.ico", "/assets/**/*.css", "/assets/**/*.woff2", "/assets/**/*.woff", "/assets/**/*.ttf", "/assets/**/*.svg", "/assets/**/*.eot", "/assets/**/*.swf", "/assets/**/*.map", "/assets/images/**")
                 //swagger
-                .excludePathPatterns("/doc.html")
-                .excludePathPatterns(
-                        "/swagger-ui.html",
-                        "/csrf",
-                        "/webjars/**",
-                        "/swagger-resources/**",
-                        "/v2/**",
-                        "/v3/**")
-                .addPathPatterns("/**");
+                .excludePathPatterns("/doc.html").excludePathPatterns("/swagger-ui.html", "/csrf", "/webjars/**", "/swagger-resources/**", "/v2/**", "/v3/**").addPathPatterns("/**");
     }
 
     // Sa-Token 标签方言 (Thymeleaf版)
@@ -96,5 +64,16 @@ public class SaTokenConfig implements WebMvcConfigurer {
     public SaTokenDialect getSaTokenDialect() {
         return new SaTokenDialect();
     }
+
+
+    //lazy-initialization: true
+    //Sa-Token 自动配置入口类 SaBeanInject 被延迟加载了
+    //只需要手动指定懒加载排除掉 SaBeanInject 就可以
+    /*
+    @Bean
+    LazyInitializationExcludeFilter integrationLazyInitExcludeFilter() {
+        return LazyInitializationExcludeFilter.forBeanTypes(SaBeanInject.class);
+    }
+    */
 }
 
