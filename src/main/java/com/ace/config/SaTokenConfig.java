@@ -75,5 +75,8 @@ public class SaTokenConfig implements WebMvcConfigurer {
         return LazyInitializationExcludeFilter.forBeanTypes(SaBeanInject.class);
     }
     */
+
+    //https://sa-token.cc/doc.html#/plugin/jwt-extend?id=%e5%92%8c-jwt-%e9%9b%86%e6%88%90
+    //集成jwt
 }
 
