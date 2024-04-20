@@ -43,6 +43,23 @@ services:
     networks:
       - ace-net
 
+# for ace-application 开发环境使用
+#  mysql-ace:
+#    image: mysql:latest
+#    container_name: mysql-ace
+#    restart: always
+#    hostname: mysql-8
+#    # platform: linux/x86_64
+#    environment:
+#      MYSQL_DATABASE: ace
+#      MYSQL_USER: garlam
+#      MYSQL_PASSWORD: root
+#      MYSQL_ROOT_PASSWORD: root
+#    ports:
+#      - 3388:3306
+#    networks:
+#      - ace-net
+
   rabbitmq:
     image: rabbitmq:management
     container_name: rabbitmq-3
@@ -57,7 +74,6 @@ services:
       - RABBITMQ_DEFAULT_PASS=admin
     networks:
       - ace-net
-
 
   redis:
     image: redis:latest

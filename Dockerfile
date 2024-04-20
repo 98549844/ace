@@ -1,6 +1,7 @@
 # FROM 指定基础镜像
-FROM unitfinance/jdk17-sbt-scala:latest
-#FROM linuxserver/ffmpeg:latest
+#FROM unitfinance/jdk17-sbt-scala:latest
+FROM amazoncorretto:17-alpine3.19-jdk
+# 体积更小的jdk17
 #FROM linuxserver/ffmpeg:amd64-6.1.1
 
 
