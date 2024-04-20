@@ -172,6 +172,9 @@ spring:
     properties:
       hibernate:
         format_sql: false
+        schema_update:
+          unique_constraint_strategy: RECREATE_QUIETLY
+          # 默认配置是：先删除+后创建,RECREATE_QUIETLY: 遇到重复/不存在的约束时，不报错，直接删除旧约束重新创建新约束
         #use_sql_comments: true
         #对应的entity
     #  redis:
