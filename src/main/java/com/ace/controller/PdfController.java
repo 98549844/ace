@@ -51,7 +51,7 @@ public class PdfController extends CommonController {
     //http://localhost:8088/api/pdf/generate/getPage.html
     @RequestMapping(value = "/getPage.html", method = RequestMethod.GET)
     public ModelAndView getPage() {
-        ModelAndView modelAndView = super.pageWithOutLogin("ace/modules/report/pdf/template");
+        ModelAndView modelAndView = super.pageWithOutLogin("ace/modules/reports/pdf/template");
         modelAndView.addObject("data", pdfService.exampleData());
         return modelAndView;
     }

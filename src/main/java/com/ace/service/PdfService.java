@@ -49,7 +49,7 @@ public class PdfService {
             Data data = exampleData();
             context.setVariable("data", data);
             //url+context渲染html页面
-            String template = "templates/ace/modules/report/pdf/template.html";
+            String template = "templates/ace/modules/reports/pdf/template.html";
             String renderHtmlContent = templateEngine.process(template, context);
             String xHtml = convertToXHtml(renderHtmlContent);
 
