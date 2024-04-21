@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rest/api")
-//@Api(tags = "api")
 @Tag(name = "Api")
 public class ApiRestController {
     private static final Logger log = LogManager.getLogger(ApiRestController.class.getName());

@@ -35,7 +35,7 @@ public class ReportController extends CommonController {
     @RequestMapping(value = "/report/list.html", method = RequestMethod.GET)
     public ModelAndView getReports() {
         log.info("access reports/list");
-        ModelAndView modelAndView = super.page("ace/modules/reports/reports-list");
+        ModelAndView modelAndView = super.page("ace/modules/reports/report-list");
         modelAndView.addObject("reports", reportsService.getReportList());
         return modelAndView;
     }
