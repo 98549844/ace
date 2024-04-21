@@ -85,11 +85,39 @@
                         <div class="widget-body">
                             <div class="widget-main">
                                 <div id="editorMD">
-                                    <textarea style="display:none;">
-[TOC]
+                <textarea style="display:none;">[TOC]
+
 #### Disabled options
+
 - TeX (Based on KaTeX);
-                                    </textarea>
+- Emoji;
+- Task lists;
+- HTML tags decode;
+- Flowchart and Sequence Diagram;
+
+#### Editor.md directory
+
+    editor.md/
+            lib/
+            css/
+            scss/
+            tests/
+            fonts/
+            images/
+            plugins/
+            examples/
+            languages/
+            editormd.js
+            ...
+
+```html
+&lt;!-- English --&gt;
+&lt;script src="../dist/js/languages/en.js"&gt;&lt;/script&gt;
+
+&lt;!-- 繁體中文 --&gt;
+&lt;script src="../dist/js/languages/zh-tw.js"&gt;&lt;/script&gt;
+```
+</textarea>
                                 </div>
                                 <div class="wizard-actions">
                                     <button class="btn btn-success btn-next" id="commit">
@@ -116,10 +144,12 @@
 
 <div th:insert="~{ace/pb-pages/common-script :: common-script}"></div>
 <!-- page specific plugin scripts -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/editor.md@1.5.0/css/editormd.min.css">
-<script src="https://cdn.jsdelivr.net/npm/editor.md@1.5.0/editormd.min.js"></script>
+<!--http://editor.md.ipandao.com -->
+<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/editor.md@1.5.0/css/editormd.min.css">-->
+<!--<script src="https://cdn.jsdelivr.net/npm/editor.md@1.5.0/editormd.min.js"></script>-->
 
-<script th:src="@{/assets/js/jquery-ui.custom.min.js}"></script>
+<link rel="stylesheet" th:href="@{/assets/css/editormd.css}"/>
+<script th:src="@{/assets/js/editormd.min.js}"></script>
 
 <!--<script th:src="@{/assets/js/editorMD/marked.min.js}"></script>-->
 <!--<script th:src="@{/assets/js/editorMD/prettify.min.js}"></script>-->
@@ -129,7 +159,6 @@
 <!--<script th:src="@{/assets/js/editorMD/flowchart.min.js}"></script>-->
 <!--<script th:src="@{/assets/js/editorMD/jquery.flowchart.min.js}"></script>-->
 
-<!--http://editor.md.ipandao.com -->
 <script type="text/javascript">
 
     let editorMD;
@@ -138,13 +167,14 @@
             width: "90%",
             height: 768,
             syncScrolling: "single",
+            emoji: false,
+            path: "/assets/js/editorMD/",
 
-            emoji: true,
-            imageUpload: true,
-            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp", "mp4"], //editormd支持上传视频 //https://blog.csdn.net/chunyuan314/article/details/81021729
+            imageUpload: true, //同意图片上传
+            //imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp", "mp4"], //editormd支持上传视频 //https://blog.csdn.net/chunyuan314/article/details/81021729
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
             imageUploadURL: "/ace/report/upload.html",  // 设置图片上传的服务器端接收URL
 
-            path: "/assets/js/editorMD/"
 
             // springboot对静态资源的访问默认都在public,static或自己配置的目录下，
             // 因此不要…/static这种写法了. 假如html放在templates下，editormd文件放在static目录下
@@ -159,6 +189,18 @@
         //testEditor.getPreviewedHTML();  // 获取预览窗口里的 HTML，在开启 watch 且没有开启 saveHTMLToTextarea 时使用
 
         // 创建reports对象
+        const subject = $("#report-subject").val();
+        const level = $("#report-level").val();
+        if (subject.length === 0) {
+            alert("请填写标题！");
+            return;
+        }
+        if (level.length === 0) {
+            alert("请选择级别！");
+            return;
+        }
+
+
         const userAccount = '[[${currentUser.userAccount}]]';
         const reports = {
             subject: $("#report-subject").val(),
