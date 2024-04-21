@@ -2,12 +2,14 @@ package com.ace.models.entity;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.ace.models.entity.base.BaseEntity;
+import com.ace.utilities.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 /**
@@ -55,7 +57,7 @@ public class Reports extends BaseEntity {
     @Column
     private LocalDateTime reportDate = LocalDateTime.now();
     @Column
-    private Long reporter;
+    private String reporter;
 
 
     public Long getReportId() {
@@ -123,14 +125,18 @@ public class Reports extends BaseEntity {
         this.reportDate = reportDate;
     }
 
-    public Long getReporter() {
+    public String getReporter() {
         return reporter;
     }
 
-    public void setReporter() {
-        //当前user session
-        Users user = (Users) StpUtil.getSession().get("user");
-        this.reporter = user.getUserId();
+    public void setReporter(String reporter) {
+        if (NullUtil.isNull(reporter)) {
+            Users user = (Users) StpUtil.getSession().get("user");
+            this.reporter = user.getUserAccount();
+        } else {
+            this.reporter = reporter;
+        }
     }
+
 }
 

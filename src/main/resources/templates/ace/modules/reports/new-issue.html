@@ -135,10 +135,12 @@
 
     $("#commit").on("click", function () {
         // 创建reports对象
+        const userAccount = '[[${currentUser.userAccount}]]';
         const reports = {
             subject: $("#report-subject").val(),
             level: $("#report-level").val(),
-            content: editMde.value()
+            content: editMde.value(),
+            reporter: userAccount
         };
         $.ajax({
             url: "/ace/report/commitNewIssue",

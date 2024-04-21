@@ -65,7 +65,7 @@
                                         <input type="hidden" th:value="${rowReport.reportId}"
                                                th:id="${rowReport.reportId}" class="input-hidden"/>
                                         <td th:text="${rowReport.level}"></td>
-                                        <td th:text="${rowReport.title}"></td>
+                                        <td th:text="${rowReport.subject}"></td>
                                         <td th:text="${rowReport.status}"></td>
                                         <td th:text="${#temporals.format(rowReport.lastUpdateDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                         <td th:text="${rowReport.reporter}"></td>
