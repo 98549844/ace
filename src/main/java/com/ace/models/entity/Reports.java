@@ -36,7 +36,8 @@ public class Reports extends BaseEntity {
     @Column(nullable = false)
     private String subject;
     @Lob
-    @Column(nullable = false)
+    @Basic(fetch = FetchType.LAZY)
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String content;
     @Column
     private String status = NEW; //NEW, FOLLOWING, CLOSE

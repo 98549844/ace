@@ -84,8 +84,9 @@
 
                         <div class="widget-body">
                             <div class="widget-main">
-                                <div id="editorMD">
-                                    <textarea style="display:none;">
+                                <div id="fuelux-wizard-container mdeContainer">
+                                    <label for="editor"></label>
+                                    <textarea id="editor">
 [TOC]
 #### Disabled options
 - TeX (Based on KaTeX);
@@ -96,18 +97,18 @@
 
 #### Editor.md directory
 
-editor.md/
-lib/
-css/
-scss/
-tests/
-fonts/
-images/
-plugins/
-examples/
-languages/
-editormd.js
-...
+    editor.md/
+            lib/
+            css/
+            scss/
+            tests/
+            fonts/
+            images/
+            plugins/
+            examples/
+            languages/
+            editormd.js
+            ...
 
 ```html
 &lt;!-- English --&gt;
@@ -116,6 +117,8 @@ editormd.js
 &lt;!-- 繁體中文 --&gt;
 &lt;script src="../dist/js/languages/zh-tw.js"&gt;&lt;/script&gt;
 ```
+
+
                                     </textarea>
                                 </div>
                                 <div class="wizard-actions">
@@ -143,41 +146,34 @@ editormd.js
 
 <div th:insert="~{ace/pb-pages/common-script :: common-script}"></div>
 <!-- page specific plugin scripts -->
-<script src="https://cdn.jsdelivr.net/npm/editor.md@1.5.0/editormd.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/editor.md@1.5.0/css/editormd.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<!--https://simplemde.com/ 官方网站-->
 
-<!--http://editor.md.ipandao.com -->
 <script>
 
-    let editorMD;
-    $(function () {
-        editorMD = editormd("editorMD", {
-            width: "90%",
-            height: 768,
-            syncScrolling: "single",
-            path: "/assets/js/editorMD/",
-            imageUpload: true,
-            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp", "mp4"], //editormd支持上传视频 //https://blog.csdn.net/chunyuan314/article/details/81021729
-            imageUploadURL: "your-image-upload-url"  // 设置图片上传的服务器端接收URL
-
-            // springboot对静态资源的访问默认都在public,static或自己配置的目录下，
-            // 因此不要…/static这种写法了. 假如html放在templates下，editormd文件放在static目录下
-            // 那么，此时path如下即可: "/editorMD/lib/"
-            //https://blog.csdn.net/qq_43615903/article/details/105720376
-        });
+    const editMde = new SimpleMDE({
+        element: document.getElementById('editor'),
+        autofocus: true,
+        toolbar: ["bold", "italic", "heading", "strikethrough", "|",
+            "quote", "unordered-list", "ordered-list", "|",
+            "link", "image", "table", "code", "|",
+            "horizontal-rule", "fullscreen", "preview"
+        ],
+        // initialValue: '## Stuff.... ', //初始值
+        //  hideIcons: ['guide', 'fullscreen', 'side-by-side'] 隐藏icon
+        // guide implmentation is open to you
+        // fullscreen and sxs muss up layout
     });
+    //  editMde.value('# Sample Markdown\n- one\n- two\n- three');
 
     $("#commit").on("click", function () {
-        //testEditor.getMarkdown();       // 获取 Markdown 源码
-        //testEditor.getHTML();           // 获取 Textarea 保存的 HTML 源码
-        //testEditor.getPreviewedHTML();  // 获取预览窗口里的 HTML，在开启 watch 且没有开启 saveHTMLToTextarea 时使用
-
         // 创建reports对象
         const userAccount = '[[${currentUser.userAccount}]]';
         const reports = {
             subject: $("#report-subject").val(),
             level: $("#report-level").val(),
-            content: editorMD.getMarkdown(),
+            content: editMde.value(),
             reporter: userAccount
         };
         $.ajax({
