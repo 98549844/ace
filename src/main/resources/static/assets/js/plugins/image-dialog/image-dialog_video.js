@@ -46,12 +46,16 @@
                     action += "&callback=" + settings.uploadCallbackURL + "&dialog_id=editormd-image-dialog-" + guid;
                 }
 
+                imageLang.title = "添加图片/视频";
+                imageLang.url = "图片/视频地址";
+                imageLang.alt = "图片/视频描述";
+                imageLang.link = "图片/视频链接";
                 var dialogContent = ( (settings.imageUpload) ? "<form action=\"" + action +"\" target=\"" + iframeName + "\" method=\"post\" enctype=\"multipart/form-data\" class=\"" + classPrefix + "form\">" : "<div class=\"" + classPrefix + "form\">" ) +
                                         ( (settings.imageUpload) ? "<iframe name=\"" + iframeName + "\" id=\"" + iframeName + "\" guid=\"" + guid + "\"></iframe>" : "" ) +
                                         "<label>" + imageLang.url + "</label>" +
                                         "<input type=\"text\" data-url />" + (function(){
                                             return (settings.imageUpload) ? "<div class=\"" + classPrefix + "file-input\">" +
-                                                                                "<input type=\"file\" name=\"" + classPrefix + "image-file\" accept=\"image/*\" />" +
+                                                                                "<input type=\"file\" name=\"" + classPrefix + "image-file\" accept=\"image/*,video/*\" />" +
                                                                                 "<input type=\"submit\" value=\"" + imageLang.uploadButton + "\" />" +
                                                                             "</div>" : "";
                                         })() +
@@ -91,6 +95,20 @@
                                 return false;
                             }
 
+                            if (url.endsWith(".mp4")) {
+                                var videoHtml = '<video class="video-js" controls preload="auto" width="100%" poster="" data-setup=\'{"aspectRatio":"16:9"}\'>\
+                                <source src="' + url + '" type=\'video/mp4\' >\
+                                </<p class="vjs-no-js">\
+                                To view this video please enable JavaScript\
+                                </p>\
+                                </video>';
+                                videoHtml = "\n" + videoHtml + "\n";
+                                cm.replaceSelection(videoHtml);
+                                cm.setCursor(cursor.line, cursor.ch + 2);
+                                this.hide().lockScreen(false).hideMask();
+                                return false;
+                            }
+
 							var altAttr = (alt !== "") ? " \"" + alt + "\"" : "";
 
                             if (link === "" || link === "http://")
@@ -119,7 +137,7 @@
 
                             //删除对话框
                             this.remove();
-                            
+
                             return false;
                         }]
                     }
@@ -131,7 +149,10 @@
                     return ;
                 }
 
-				var fileInput  = dialog.find("[name=\"" + classPrefix + "image-file\"]");
+                $(".editormd-image-dialog").css({'width': '500px'});
+                $(".editormd-dialog-container").css({'top': '-18px'});
+                $(".editormd-form label").css({'width': '105px'});
+				var fileInput = dialog.find("[name=\"" + classPrefix + "image-file\"]");
 
 				fileInput.bind("change", function() {
 					var fileName  = fileInput.val();
