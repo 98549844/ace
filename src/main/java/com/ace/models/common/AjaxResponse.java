@@ -1,5 +1,6 @@
 package com.ace.models.common;
 
+import com.ace.constant.MessageConstants;
 import com.ace.exception.ResponseException;
 import com.ace.exception.ResponseExceptionType;
 import org.apache.logging.log4j.LogManager;
@@ -56,7 +57,7 @@ public class AjaxResponse {
         AjaxResponse resultBean = new AjaxResponse();
         resultBean.setOk(true);
         resultBean.setCode(200);
-        resultBean.setMessage("success");
+        resultBean.setMessage(MessageConstants.SUCCESS);
         resultBean.setData(data);
         return resultBean;
     }

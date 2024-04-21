@@ -76,8 +76,8 @@ public class LoginController extends CommonController {
 
     @RequestMapping(value = "/ace/logging.html", method = RequestMethod.POST)
     public ModelAndView logging(String userAccount, String password, String rememberMe, String deviceType) {
-        log.info("userAccount: " + userAccount);
-        log.info("password: " + password);
+        log.info("userAccount: {}", userAccount);
+        log.info("password: {}", password);
         log.info("rememberMe: {}", rememberMe);
 
         ModelAndView modelAndView;

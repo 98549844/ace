@@ -5,7 +5,7 @@ import com.ace.constant.MessageConstants;
 
 public class ApiResponse<T>  {
     private Boolean success = true;
-    private String message = MessageConstants.MESSAGE_SUCCESS;
+    private String message = MessageConstants.SUCCESS;
     private String code = MessageConstants.CODE_SUCCESS;
     private T data;
 

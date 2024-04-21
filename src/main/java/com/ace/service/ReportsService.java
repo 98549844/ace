@@ -64,6 +64,10 @@ public class ReportsService {
         return reportsDao.saveAndFlush(reports);
     }
 
+    public Reports save(Reports reports) {
+        return reportsDao.save(reports);
+    }
+
     public void deleteById(Long reportId) {
         reportsDao.deleteById(reportId);
     }

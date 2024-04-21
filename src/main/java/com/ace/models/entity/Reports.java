@@ -32,7 +32,7 @@ public class Reports extends BaseEntity {
     @Column
     private Long subReportId = 0L;
     @Column(nullable = false)
-    private String title;
+    private String subject;
     @Lob
     @Column(nullable = false)
     private String content;
@@ -74,12 +74,13 @@ public class Reports extends BaseEntity {
         this.subReportId = subReportId;
     }
 
-    public String getTitle() {
-        return title;
+
+    public String getSubject() {
+        return subject;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public String getContent() {
@@ -127,6 +128,7 @@ public class Reports extends BaseEntity {
     }
 
     public void setReporter() {
+        //当前user session
         Users user = (Users) StpUtil.getSession().get("user");
         this.reporter = user.getUserId();
     }

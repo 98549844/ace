@@ -1,6 +1,8 @@
 package com.ace.controller;
 
+import com.ace.constant.MessageConstants;
 import com.ace.controller.common.CommonController;
+import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.Reports;
 import com.ace.models.info.ReportsInfo;
 import com.ace.service.ReportsService;
@@ -40,21 +42,34 @@ public class ReportController extends CommonController {
         return modelAndView;
     }
 
-    /** 未测试
-     * @param reports
+    /**
      * @return
      */
     @RequestMapping(value = "/report/newIssue.html", method = RequestMethod.GET)
-    public ModelAndView newIssue(@ModelAttribute Reports reports) {
-        log.info("access reports/newIssue.html => create new issue");
+    public ModelAndView newIssue() {
+        log.info("access reports/newIssue.html");
         ModelAndView modelAndView = super.page("ace/modules/reports/new-issue");
-        //   reports = reportsService.saveAndFlush(reports);
-        modelAndView.addObject("report", reports);
         return modelAndView;
     }
 
+    /**
+     * @param reports
+     * @return
+     */
+    @RequestMapping(value = "/report/commitNewIssue", method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxResponse commitIssue(@ModelAttribute Reports reports) {
+        log.info("access report/commitIssue => create new issue");
+        reports.setStatus(Reports.NEW);
+        reportsService.save(reports);
 
-    /** 未完成
+        return AjaxResponse.success(MessageConstants.SUCCESS);
+    }
+
+
+    /**
+     * 未完成
+     *
      * @param reportId
      * @return
      */
@@ -68,7 +83,9 @@ public class ReportController extends CommonController {
     }
 
 
-    /** 未完成
+    /**
+     * 未完成
+     *
      * @param reportsInfo
      * @return
      */
@@ -82,7 +99,9 @@ public class ReportController extends CommonController {
         return modelAndView;
     }
 
-    /** 未完成
+    /**
+     * 未完成
+     *
      * @param reportId
      * @return
      */
