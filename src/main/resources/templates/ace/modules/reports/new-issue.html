@@ -84,6 +84,10 @@
 
                         <div class="widget-body">
                             <div class="widget-main">
+                                <div id="doc-content">
+                                    <textarea style="display:none;">${message.detail }</textarea>
+                                </div>
+
                                 <div id="editorMD">
                                     <textarea style="display:none;">
 [TOC]
@@ -143,8 +147,18 @@ editormd.js
 
 <div th:insert="~{ace/pb-pages/common-script :: common-script}"></div>
 <!-- page specific plugin scripts -->
-<script src="https://cdn.jsdelivr.net/npm/editor.md@1.5.0/editormd.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/editor.md@1.5.0/css/editormd.min.css">
+<script src="https://cdn.jsdelivr.net/npm/editor.md@1.5.0/editormd.min.js"></script>
+
+<script th:src="@{/assets/js/jquery-ui.custom.min.js}"></script>
+
+<script th:src="@{/assets/js/editorMD/marked.min.js}"></script>
+<script th:src="@{/assets/js/editorMD/prettify.min.js}"></script>
+<script th:src="@{/assets/js/editorMD/raphael.min.js}"></script>
+<script th:src="@{/assets/js/editorMD/underscore.min.js}"></script>
+<script th:src="@{/assets/js/editorMD/sequence-diagram.min.js}"></script>
+<script th:src="@{/assets/js/editorMD/flowchart.min.js}"></script>
+<script th:src="@{/assets/js/editorMD/jquery.flowchart.min.js}"></script>
 
 <!--http://editor.md.ipandao.com -->
 <script>
@@ -158,7 +172,7 @@ editormd.js
             path: "/assets/js/editorMD/",
             imageUpload: true,
             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp", "mp4"], //editormd支持上传视频 //https://blog.csdn.net/chunyuan314/article/details/81021729
-            imageUploadURL: "your-image-upload-url"  // 设置图片上传的服务器端接收URL
+            imageUploadURL: "/ace/report/upload.html"  // 设置图片上传的服务器端接收URL
 
             // springboot对静态资源的访问默认都在public,static或自己配置的目录下，
             // 因此不要…/static这种写法了. 假如html放在templates下，editormd文件放在static目录下
@@ -201,6 +215,17 @@ editormd.js
         });
     });
 
+    let testEditor;
+    $(function () {
+        testEditor = editormd.markdownToHTML("doc-content", {//注意：这里是上面DIV的id
+            htmlDecode: "style,script,iframe",
+            emoji: true,
+            taskList: true,
+            tex: true, // 默认不解析
+            flowChart: true, // 默认不解析
+            sequenceDiagram: true, // 默认不解析
+            codeFold: true,
+        });});
     /* document.addEventListener('paste', (event) => {
         console.log('粘贴事件', event)
     });*/

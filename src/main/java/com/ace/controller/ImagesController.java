@@ -37,7 +37,7 @@ public class ImagesController extends CommonController {
     private final String imagePath;
     private final String imagesThumbnail;
 
-    public ImagesController(AceEnvironment aceEnvironment,FilesService filesService, ImagesService imagesService) {
+    public ImagesController(AceEnvironment aceEnvironment, FilesService filesService, ImagesService imagesService) {
         this.imagesService = imagesService;
         this.filesService = filesService;
         this.imagePath = aceEnvironment.getImagesPath();

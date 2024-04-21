@@ -1,6 +1,7 @@
 package com.ace;
 
 import com.ace.util.CangJieUtil;
+import com.alibaba.fastjson2.JSONObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,8 +20,12 @@ public class Ace {
 
 
     public static void main(String[] args) throws Exception {
-        cangJieCheck(null);
+        JSONObject res = new JSONObject();
+        res.put("url", "Constant.WEB_ROOT");
+        res.put("success", 1);
+        res.put("message", "upload success!");
 
+        System.out.println(res);
     }
 
     private static void cangJieCheck(String code) throws IOException {
