@@ -45,13 +45,13 @@
                         </a>
                         <div class="widget-box">
                             <div class="widget-header">
-                                <h4 class="widget-title">Inline Forms</h4>
+                                <h4 class="widget-title">Report search criteria</h4>
                             </div>
 
                             <div class="widget-body">
                                 <div class="widget-main">
                                     <form class="form-inline">
-                                        <div class="col-xs-12 col-sm-2">
+                                        <div class="col-xs-12 col-sm-1">
                                             <select class="col-xs-6 chosen-select form-control" id="report-level"
                                                     data-placeholder="Choose a State...">
                                                 <option value=""></option>
@@ -158,7 +158,6 @@
     $(".btn.btn-xs.btn-danger.delete-user").on("click", function () {
         let id = $(this).attr('id');
         let reportId = id.split("delete-")[1];
-
 
         d = dialog({
             title: 'Delete issue report',

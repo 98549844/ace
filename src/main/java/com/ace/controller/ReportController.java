@@ -8,9 +8,8 @@ import com.ace.models.entity.Reports;
 import com.ace.models.info.ReportsInfo;
 import com.ace.service.FilesService;
 import com.ace.service.ReportsService;
-import com.ace.utilities.DateTimeUtil;
-import com.alibaba.fastjson2.JSONObject;
-import jakarta.servlet.http.HttpServletResponse;
+import com.ace.utilities.ListUtil;
+import com.ace.utilities.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -70,6 +70,25 @@ public class ReportController extends CommonController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/report/search.html", method = RequestMethod.GET)
+    @ResponseBody
+    public static AjaxResponse reportSearch(@RequestParam(value = "level") String level, @RequestParam(value = "criteria") String criteria) {
+        log.info("access report/search.html");
+
+        if (NullUtil.isNonNull(criteria)) {
+            List<String> criteriaLs = ListUtil.stringArrayToList(criteria.split(" "));
+
+            for (String s : criteriaLs) {
+                System.out.println(s);
+            }
+        }
+
+
+        return AjaxResponse.success();
+    }
+
+
+
     /**
      * @param reports
      * @return
@@ -89,17 +108,17 @@ public class ReportController extends CommonController {
      */
     @RequestMapping(value = "/report/upload.html", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> uploadImg(HttpServletRequest request, @RequestParam(value = "editormd-image-file", required = false) MultipartFile file){
-        Map<String,Object> map = new HashMap<>();
-        if (file != null){
+    public Map<String, Object> uploadImg(HttpServletRequest request, @RequestParam(value = "editormd-image-file", required = false) MultipartFile file) {
+        Map<String, Object> map = new HashMap<>();
+        if (file != null) {
             //获取此项目的tomcat路径
             String webapp = request.getSession().getServletContext().getRealPath("/");
-            try{
+            try {
                 //获取文件名
                 String filename = file.getOriginalFilename();
                 java.util.UUID uuid = UUID.randomUUID();
                 String name = "";
-                if (filename != null){
+                if (filename != null) {
                     name = filename.substring(filename.lastIndexOf(".")); //获取文件后缀名
                 }
                 // 图片的路径+文件名称
@@ -113,10 +132,10 @@ public class ReportController extends CommonController {
                 }
                 // 把上传的临时图片，复制到当前项目的webapp路径
                 FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(destFile));
-                map.put("success",1); //设置回显的数据 0 表示上传失败，1 表示上传成功
-                map.put("message","上传成功"); //提示的信息，上传成功或上传失败及错误信息等
-                map.put("url",fileName); //图片回显的url 上传成功时才返回
-            }catch (Exception e){
+                map.put("success", 1); //设置回显的数据 0 表示上传失败，1 表示上传成功
+                map.put("message", "上传成功"); //提示的信息，上传成功或上传失败及错误信息等
+                map.put("url", fileName); //图片回显的url 上传成功时才返回
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -188,8 +207,6 @@ public class ReportController extends CommonController {
     }
 
     /**
-     * 未完成
-     *
      * @param reportId
      * @return
      */
