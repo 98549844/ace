@@ -43,6 +43,37 @@
                         <a th:href="@{/ace/report/newIssue.html}">
                             <button class="btn btn-success">New Issue</button>
                         </a>
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                <h4 class="widget-title">Inline Forms</h4>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <form class="form-inline">
+                                        <div class="col-xs-12 col-sm-2">
+                                            <select class="col-xs-6 chosen-select form-control" id="report-level"
+                                                    data-placeholder="Choose a State...">
+                                                <option value=""></option>
+                                                <option value="SUGGESTION">SUGGESTION</option>
+                                                <option value="WARNING">WARNING</option>
+                                                <option value="ERROR">ERROR</option>
+                                                <option value="CRITICAL">CRITICAL</option>
+                                                <option value="FATAL">FATAL</option>
+                                                <option value="INFO">INFO</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" class="col-xs-6" placeholder="搜索内容" id="searchCriteria"/>
+
+                                        <button type="button" class="btn btn-info btn-sm" id="searchBtn">
+                                            <i class="ace-icon fa fa-search bigger-110"></i>
+                                            Search
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                         <p><b class="arrow"></b></p>
 
                         <div class="col-xs-12">
@@ -59,7 +90,7 @@
                                 </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody id="report-tbody">
                                 <div th:each="rowReport:${reports}">
                                     <tr th:id="'tr-'+${rowReport.reportId}">
                                         <input type="hidden" th:value="${rowReport.reportId}"
@@ -117,6 +148,12 @@
 
 <script>
 
+    $('#searchBtn').on('click', function () {
+        const level = $("#report-level").val();
+        const criteria = $('#searchCriteria').val().trim();
+        alert('level: ' + level);
+        alert('criteria: ' + criteria);
+    });
 
     $(".btn.btn-xs.btn-danger.delete-user").on("click", function () {
         let id = $(this).attr('id');
@@ -143,8 +180,6 @@
             }
         });
         d.showModal();
-
-
     });
 
 
