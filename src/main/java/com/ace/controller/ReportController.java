@@ -9,19 +9,23 @@ import com.ace.models.info.ReportsInfo;
 import com.ace.service.FilesService;
 import com.ace.service.ReportsService;
 import com.ace.utilities.DateTimeUtil;
-import com.ace.utilities.UUID;
 import com.alibaba.fastjson2.JSONObject;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * @Classname: ReportController
@@ -85,38 +89,72 @@ public class ReportController extends CommonController {
      */
     @RequestMapping(value = "/report/upload.html", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject upload(@RequestParam(value = "editormd-image-file") MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        String trueFileName = file.getOriginalFilename();
-
-        String suffix = trueFileName.substring(trueFileName.lastIndexOf("."));
-
-        String fileName = DateTimeUtil.getCurrentDateTimeAsFileName() + "-" + UUID.get(8) + suffix;
-
-        String path = request.getSession().getServletContext().getRealPath("/assets/msg/upload/");
-        System.out.println(path);
-
-        File targetFile = new File(path, fileName);
-        if(!targetFile.exists()){
-            targetFile.mkdirs();
+    public Map<String,Object> uploadImg(HttpServletRequest request, @RequestParam(value = "editormd-image-file", required = false) MultipartFile file){
+        Map<String,Object> map = new HashMap<>();
+        if (file != null){
+            //获取此项目的tomcat路径
+            String webapp = request.getSession().getServletContext().getRealPath("/");
+            try{
+                //获取文件名
+                String filename = file.getOriginalFilename();
+                java.util.UUID uuid = UUID.randomUUID();
+                String name = "";
+                if (filename != null){
+                    name = filename.substring(filename.lastIndexOf(".")); //获取文件后缀名
+                }
+                // 图片的路径+文件名称
+                String fileName = "/upload/" + uuid + name;
+                // 图片的在服务器上面的物理路径
+                File destFile = new File(webapp, fileName);
+                // 生成upload目录
+                File parentFile = destFile.getParentFile();
+                if (!parentFile.exists()) {
+                    parentFile.mkdirs();// 自动生成upload目录
+                }
+                // 把上传的临时图片，复制到当前项目的webapp路径
+                FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(destFile));
+                map.put("success",1); //设置回显的数据 0 表示上传失败，1 表示上传成功
+                map.put("message","上传成功"); //提示的信息，上传成功或上传失败及错误信息等
+                map.put("url",fileName); //图片回显的url 上传成功时才返回
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
-
-        //保存
-        try {
-            file.transferTo(targetFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        JSONObject res = new JSONObject();
-       // res.put("url", Constant.WEB_ROOT + "assets/msg/upload/" + fileName);
-        res.put("success", 1);
-        res.put("message", "upload success!");
-
-        return res;
-
+        return map;
     }
+    //@ResponseBody
+    //public JSONObject upload(@RequestParam(value = "editormd-image-file") MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    //
+    //    String trueFileName = file.getOriginalFilename();
+    //
+    //    String suffix = trueFileName.substring(trueFileName.lastIndexOf("."));
+    //
+    //    String fileName = DateTimeUtil.getCurrentDateTimeAsFileName() + "-" + UUID.get(8) + suffix;
+    //
+    //    String path = request.getSession().getServletContext().getRealPath("/assets/msg/upload/");
+    //    System.out.println(path);
+    //
+    //    File targetFile = new File(path, fileName);
+    //    if(!targetFile.exists()){
+    //        targetFile.mkdirs();
+    //    }
+    //
+    //    //保存
+    //    try {
+    //        file.transferTo(targetFile);
+    //    } catch (Exception e) {
+    //        e.printStackTrace();
+    //    }
+    //
+    //
+    //    JSONObject res = new JSONObject();
+    //   // res.put("url", Constant.WEB_ROOT + "assets/msg/upload/" + fileName);
+    //    res.put("success", 1);
+    //    res.put("message", "upload success!");
+    //
+    //    return res;
+    //
+    //}
 
 
     /**
