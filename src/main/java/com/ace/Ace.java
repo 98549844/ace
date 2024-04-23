@@ -20,12 +20,8 @@ public class Ace {
 
 
     public static void main(String[] args) throws Exception {
-        JSONObject res = new JSONObject();
-        res.put("url", "Constant.WEB_ROOT");
-        res.put("success", 1);
-        res.put("message", "upload success!");
 
-        System.out.println(res);
+
     }
 
     private static void cangJieCheck(String code) throws IOException {
