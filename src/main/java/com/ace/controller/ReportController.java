@@ -72,21 +72,12 @@ public class ReportController extends CommonController {
 
     @RequestMapping(value = "/report/search.html", method = RequestMethod.GET)
     @ResponseBody
-    public static AjaxResponse reportSearch(@RequestParam(value = "level") String level, @RequestParam(value = "criteria") String criteria) {
+    public AjaxResponse reportSearch(@RequestParam(value = "level") String level, @RequestParam(value = "criteria") String criteria) {
         log.info("access report/search.html");
-
-        if (NullUtil.isNonNull(criteria)) {
-            List<String> criteriaLs = ListUtil.stringArrayToList(criteria.split(" "));
-
-            for (String s : criteriaLs) {
-                System.out.println(s);
-            }
-        }
-
-
-        return AjaxResponse.success();
+        Reports reports = new Reports();
+        reports.setLevel(level);
+        return AjaxResponse.success(reportsService.search(reports, criteria));
     }
-
 
 
     /**

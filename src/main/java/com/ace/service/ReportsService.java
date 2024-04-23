@@ -4,6 +4,10 @@ import com.ace.dao.ReportsDao;
 import com.ace.models.entity.Reports;
 import com.ace.models.info.ReportsInfo;
 import com.ace.util.BeanUtil;
+import com.ace.utilities.ListUtil;
+import com.ace.utilities.NullUtil;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * @Classname: ReportsService
@@ -24,10 +29,13 @@ public class ReportsService {
     private static final Logger log = LogManager.getLogger(ReportsService.class.getName());
 
     private final ReportsDao reportsDao;
+    private final EntityManager entityManager;
+
 
     @Autowired
-    public ReportsService(ReportsDao reportsDao) {
+    public ReportsService(ReportsDao reportsDao, EntityManager entityManager) {
         this.reportsDao = reportsDao;
+        this.entityManager = entityManager;
     }
 
     public List<Reports> getReportList() {
@@ -71,6 +79,31 @@ public class ReportsService {
     public void deleteById(Long reportId) {
         reportsDao.deleteById(reportId);
     }
+
+
+
+    public List<Reports> search(Reports reports, String criteria) {
+        StringBuilder sql = new StringBuilder("select reportId, createdBy, createdDate, lastUpdateDate, lastUpdatedBy, version, attachment, content, level, reportDate, reporter, status, subReportId, subject from reports where 1=1 ");
+        sql.append("and subReportId = 0 "); //只看主report
+        if (NullUtil.isNonNull(reports)) {
+            sql.append("and level = '").append(reports.getLevel()).append("'");
+        }
+
+        if (NullUtil.isNonNull(criteria)) {
+            List<String> criteriaList = ListUtil.stringArrayToList(criteria.split(" "));
+            sql.append("and ");
+            for (String s : criteriaList) {
+                sql.append("subject like '%").append(s).append("%' or ");
+                sql.append("content like '%").append(s).append("%' or ");
+            }
+        }
+        sql = new StringBuilder(sql.substring(0, sql.length() - 3));//扣除最后一个or
+        System.out.println("native sql: " + sql);
+        Query query = entityManager.createNativeQuery(sql.toString());
+        List<Reports> results = query.getResultList();
+        return results;
+    }
+
 
 }
 
