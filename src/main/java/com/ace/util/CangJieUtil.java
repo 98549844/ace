@@ -34,10 +34,15 @@ public class CangJieUtil extends CommonController {
             }
         } else {
             //搜索
+            String result = "";
             for (String s : list) {
                 if (s.contains(code)) {
                     System.out.println(s);
+                    result = "x";
                 }
+            }
+            if("".equals(result)){
+                log.info("没有查询到结果");
             }
         }
     }
