@@ -44,9 +44,9 @@ services:
       - ace-net
 
 # for ace-application 开发环境使用
-#  mysql-ace:
+#  mysql-dev:
 #    image: mysql:latest
-#    container_name: mysql-ace
+#    container_name: mysql-dev
 #    restart: always
 #    hostname: mysql-8
 #    # platform: linux/x86_64
