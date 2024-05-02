@@ -81,7 +81,11 @@ public class ReportsService {
     }
 
 
-
+    /** 动态sql查询
+     * @param reports
+     * @param criteria
+     * @return
+     */
     public List<Reports> search(Reports reports, String criteria) {
         StringBuilder sql = new StringBuilder("select reportId, createdBy, createdDate, lastUpdateDate, lastUpdatedBy, version, attachment, content, level, reportDate, reporter, status, subReportId, subject from reports where 1=1 ");
         sql.append("and subReportId = 0 "); //只看主report
