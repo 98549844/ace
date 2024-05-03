@@ -1,8 +1,8 @@
 # FROM 指定基础镜像
 #FROM unitfinance/jdk17-sbt-scala:latest
-FROM amazoncorretto:17-alpine3.19-jdk
+
 # 体积更小的jdk17
-#FROM linuxserver/ffmpeg:amd64-6.1.1
+FROM amazoncorretto:17-alpine3.19-jdk
 
 
 MAINTAINER Garlam Au
@@ -13,11 +13,11 @@ MAINTAINER Garlam Au
 #    apt-get install openjdk-17-jre -y && \
 #    apt-get install openjdk-17-jdk -y && \
 #    update-alternatives --config java # 查看openJDK被安装到什么地方, 这个在配置环境变量时会用到
-RUN apk update upgrade \
-    && apk add --no-cache procps unzip curl bash tzdata \
-    && apk add yasm && apk add ffmpeg \
-    && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-    && echo "Asia/Shanghai" > /etc/timezone
+#RUN apk update upgrade \
+#    && apk add --no-cache procps unzip curl bash tzdata \
+#    && apk add yasm && apk add ffmpeg \
+#    && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+#    && echo "Asia/Shanghai" > /etc/timezone
 
 
 #VOLUME /tmp
