@@ -32,26 +32,26 @@ public class CleanLog {
             FileUtil.mkDirs(macInfoPath);
 
             File errorFolder = new File(macErrorPath);
-            clearingLogFile(errorFolder);
+            cleanLogFile(errorFolder);
 
             File infoFolder = new File(macInfoPath);
-            clearingLogFile(infoFolder);
+            cleanLogFile(infoFolder);
 
             File warnFolder = new File(macWarnPath);
-            clearingLogFile(warnFolder);
+            cleanLogFile(warnFolder);
         } else if (osName.contains(OsUtil.WINDOWS)) {
             FileUtil.mkDirs(windowsErrorPath);
             FileUtil.mkDirs(windowsWarnPath);
             FileUtil.mkDirs(windowsInfoPath);
 
             File errorFolder = new File(windowsErrorPath);
-            clearingLogFile(errorFolder);
+            cleanLogFile(errorFolder);
 
             File infoFolder = new File(windowsInfoPath);
-            clearingLogFile(infoFolder);
+            cleanLogFile(infoFolder);
 
             File warnFolder = new File(windowsWarnPath);
-            clearingLogFile(warnFolder);
+            cleanLogFile(warnFolder);
         } else if (osName.contains(OsUtil.LINUX)) {
             FileUtil.mkDirs(linuxErrorPath);
             FileUtil.mkDirs(linuxWarnPath);
@@ -59,20 +59,20 @@ public class CleanLog {
 
             //for docker container
             File errorFolder = new File(linuxErrorPath);
-            clearingLogFile(errorFolder);
+            cleanLogFile(errorFolder);
 
             File infoFolder = new File(linuxInfoPath);
-            clearingLogFile(infoFolder);
+            cleanLogFile(infoFolder);
 
             File warnFolder = new File(linuxWarnPath);
-            clearingLogFile(warnFolder);
+            cleanLogFile(warnFolder);
         } else {
             throw new IOException("UNKNOWN OPERATION SYSTEM: " + osName);
         }
     }
 
-    private void clearingLogFile(File file) {
-        log.info("clean up log4j: " + file.getAbsolutePath());
+    private void cleanLogFile(File file) {
+        log.info("clean up log4j: {}", file.getAbsolutePath());
         File[] files = file.listFiles();
         if (NullUtil.isNonNull(file)) {
             for (File f : files) {

@@ -62,7 +62,13 @@ public class ResourceUtil extends CommonController {
         } else {
             // 获取jar包所在路径
             String jarPath = uri.toString();
-            uri = URI.create(jarPath.substring(jarPath.indexOf("file:"), jarPath.indexOf(".jar") + 4));
+            if (jarPath.contains("file:")) {
+                uri = URI.create(jarPath.substring(jarPath.indexOf("file:"), jarPath.indexOf(".jar") + 4));
+            } else if(jarPath.contains("nested:")){
+                uri = URI.create(jarPath.substring(jarPath.indexOf("nested:"), jarPath.indexOf(".jar") + 4));
+            }else{
+                throw new Exception("jar包路径格式不正确");
+            }
             // 打成jar包后，进行资源复制
             copyJarResourcesFileToTemp(uri, tmpPath, "BOOT-INF/classes/" + resource);
         }
