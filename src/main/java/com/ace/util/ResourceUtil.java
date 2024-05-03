@@ -53,7 +53,8 @@ public class ResourceUtil extends CommonController {
     public String getResourcePath(String resource) throws Exception {
         // ResourceUtil为当前类名
         URI uri = ResourceUtil.class.getProtectionDomain().getCodeSource().getLocation().toURI();
-        // tempPath: 文件保存路径
+        System.out.println("resource静态资源uri: " + uri);
+        //jar:nested:/ace.jar 没有处理
 
         if (uri.toString().startsWith("file")) {
             // IDEA运行时，进行资源复制

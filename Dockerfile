@@ -13,6 +13,12 @@ MAINTAINER Garlam Au
 #    apt-get install openjdk-17-jre -y && \
 #    apt-get install openjdk-17-jdk -y && \
 #    update-alternatives --config java # 查看openJDK被安装到什么地方, 这个在配置环境变量时会用到
+RUN apk update upgrade \
+    && apk add --no-cache procps unzip curl bash tzdata \
+    && apk add yasm && apk add ffmpeg \
+    && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && echo "Asia/Shanghai" > /etc/timezone
+
 
 #VOLUME /tmp
 ADD target/ace-3.2.jar ace.jar

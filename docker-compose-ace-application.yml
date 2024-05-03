@@ -48,7 +48,7 @@ services:
 #    image: mysql:latest
 #    container_name: mysql-dev
 #    restart: always
-#    hostname: mysql-8
+#    hostname: mysql-dev
 #    # platform: linux/x86_64
 #    environment:
 #      MYSQL_DATABASE: ace

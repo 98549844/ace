@@ -19,8 +19,12 @@ public class Ace {
 
 
     public static void main(String[] args) throws Exception {
-
-
+        String jarPath = "file:/Users/garlam/IdeaProjects/ace/target/classes/static/assets/images/default.jpg";
+        String aa = "jar:nested:/ace.jar/!BOOT-INF/classes/!/";
+        System.out.println(jarPath.indexOf("file:"));
+        System.out.println(jarPath.indexOf(".jar"));
+        System.out.println(aa.indexOf("file:"));
+        System.out.println(aa.indexOf(".jar"));
     }
 
     private static void cangJieCheck(String code) throws IOException {
