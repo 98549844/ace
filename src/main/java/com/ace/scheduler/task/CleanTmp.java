@@ -21,16 +21,15 @@ public class CleanTmp {
 
     public void clean(String tmpPath) {
         try {
-            log.info("Cleaning tmp folder: {}", tmpPath);
             //删除tmp文件夹,包括子文件夹和子文件
             FileUtil.deleteDirectories(tmpPath);
             //创建tmp文件夹
             FileUtil.mkDirs(tmpPath);
+            log.info("Clean tmp folder: {}", tmpPath);
         } catch (Exception e) {
             log.error("Error cleaning tmp folder: {}", e.getMessage());
         }
     }
-
 
 
 }

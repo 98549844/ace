@@ -230,10 +230,10 @@ public class FilesService {
             }
             // 获取文件名
             String fileName = file.getOriginalFilename();
-            log.info("上传的文件名为：" + fileName);//写日志
+            log.info("上传的文件名为：{}", fileName);//写日志
             // 获取文件的后缀名
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
-            log.info("文件的后缀名为：" + suffixName);//写日志
+            log.info("文件的后缀名为：{}", suffixName);//写日志
             // 设置文件存储路径
             String path = storageLocation + fileName;
             File dest = new File(new File(path).getAbsolutePath());// dist为文件，有多级目录的文件
