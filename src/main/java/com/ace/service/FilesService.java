@@ -184,12 +184,14 @@ public class FilesService {
         while ((bytesRead = is.read(buffer)) != -1) {
             baos.write(buffer, 0, bytesRead);
         }
-
         byte[] data = baos.toByteArray();
         OutputStream os = response.getOutputStream();
-        os.write(data);
 
+        os.write(data);
         os.flush();
+        baos.flush();
+
+        baos.close();
         os.close();
         is.close();
     }
