@@ -54,7 +54,6 @@ public class ResourceUtil extends CommonController {
         // ResourceUtil为当前类名
         URI uri = ResourceUtil.class.getProtectionDomain().getCodeSource().getLocation().toURI();
         System.out.println("resource静态资源uri: " + uri);
-        //jar:nested:/ace.jar 没有处理
 
         if (uri.toString().startsWith("file")) {
             // IDEA运行时，进行资源复制

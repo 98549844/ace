@@ -3,17 +3,16 @@ package com.ace.restController;
 import com.ace.config.AceConfig;
 import com.ace.config.ReportConfig;
 import com.ace.models.common.AjaxResponse;
+import com.ace.utilities.PropertiesUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,27 +28,27 @@ import java.util.List;
 @RequestMapping("/rest/ace")
 @Tag(name = "AceProperties")
 @EnableConfigurationProperties
-public class AceRestController {
-    private final static Logger log = LogManager.getLogger(AceRestController.class.getName());
+public class AcePropertiesRestController {
+    private final static Logger log = LogManager.getLogger(AcePropertiesRestController.class.getName());
 
     private final AceConfig aceConfig;
     private final ReportConfig reportConfig;
 
+
     @Autowired
-    public AceRestController(AceConfig aceConfig, ReportConfig reportConfig) {
+    public AcePropertiesRestController(AceConfig aceConfig, ReportConfig reportConfig) {
         this.aceConfig = aceConfig;
         this.reportConfig = reportConfig;
-
     }
 
     @Operation(summary = "get ace properties")
     @RequestMapping(method = RequestMethod.GET, value = "/get.html")
     public AjaxResponse getAceProperties() {
-        log.info("aceConfig.getName(): " + aceConfig.getName());
-        log.info("aceConfig.getVersion():" + aceConfig.getVersion());
-        log.info("aceConfig.profile " + aceConfig.getProfile());
-        log.info("aceConfig.isSwaggerEnable(): " + aceConfig.isSwaggerEnable());
-        log.info("aceConfig.getProfile(): " + aceConfig.getProfile());
+        log.info("aceConfig.getName(): {}", aceConfig.getName());
+        log.info("aceConfig.getVersion():{}", aceConfig.getVersion());
+        log.info("aceConfig.profile {}", aceConfig.getProfile());
+        log.info("aceConfig.isSwaggerEnable(): {}", aceConfig.isSwaggerEnable());
+        log.info("aceConfig.getProfile(): {}", aceConfig.getProfile());
 
         List<String> aceList = new ArrayList<>();
         aceList.add("Ace Profile: " + aceConfig.getProfile());
@@ -61,6 +60,12 @@ public class AceRestController {
         aceList.add(reportConfig.getPassword());
 
         return AjaxResponse.success(aceList);
+    }
+
+    @Operation(summary = "direct get ace properties")
+    @RequestMapping(method = RequestMethod.GET, value = "/directGet/{filePath}")
+    public AjaxResponse getDirectAceProperties(@PathVariable String filePath) throws IOException {
+        return AjaxResponse.success(PropertiesUtil.get(filePath));
     }
 
 

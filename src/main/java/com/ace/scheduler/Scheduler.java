@@ -35,15 +35,15 @@ public class Scheduler {
         this.tmp = aceEnvironment.getTmp();
     }
 
-    //@Scheduled(cron = "0 */1 * * * ?")
     //直接指定时间间隔，例如：5秒 = 5000
-    @Scheduled(fixedRate = 600000) //十分钟执行一次
+    //@Scheduled(fixedRate = 600000) //十分钟执行一次
+    @Scheduled(cron = "0 0 */3 * * ?") // 每三小时执行一次
     private void cleanLog() throws IOException {
         CleanLog c = new CleanLog();
         c.clearLog();
     }
 
-    @Scheduled(cron = "0 0 1 1 * ?") //每月1号凌晨1点执行一次
+        @Scheduled(cron = "0 0 23 * * ?") //每天23点执行一次
     private void cleanTmp() {
         CleanTmp cleanTmp = new CleanTmp();
         cleanTmp.clean(tmp);

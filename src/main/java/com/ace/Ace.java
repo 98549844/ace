@@ -1,10 +1,14 @@
 package com.ace;
 
 import com.ace.util.CangJieUtil;
+import com.ace.utilities.PropertiesUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * @Classname: Ace
@@ -18,13 +22,25 @@ public class Ace {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
 
-    public static void main(String[] args) throws Exception {
-        String jarPath = "file:/Users/garlam/IdeaProjects/ace/target/classes/static/assets/images/default.jpg";
-        String aa = "jar:nested:/ace.jar/!BOOT-INF/classes/!/";
-        System.out.println(jarPath.indexOf("file:"));
-        System.out.println(jarPath.indexOf(".jar"));
-        System.out.println(aa.indexOf("file:"));
-        System.out.println(aa.indexOf(".jar"));
+    public static void main(String[] args) throws IOException {
+
+        String a =PropertiesUtil.get("application-prod.yml");
+        System.out.println(a);
+
+        //InputStream inputStream = Ace.class.getResourceAsStream("/application-prod.yml");
+        //if (inputStream != null) {
+        //    // 在这里处理文件的输入流
+        //    // 例如，使用 BufferedReader 读取文本文件
+        //    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        //    String line;
+        //    while ((line = reader.readLine()) != null) {
+        //        System.out.println(line);
+        //    }
+        //    reader.close();
+        //
+        //} else {
+        //    System.out.println("无法找到文件！");
+        //}
     }
 
     private static void cangJieCheck(String code) throws IOException {
