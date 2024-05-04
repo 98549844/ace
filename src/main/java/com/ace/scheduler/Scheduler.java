@@ -43,7 +43,7 @@ public class Scheduler {
         c.clearLog();
     }
 
-        @Scheduled(cron = "0 0 23 * * ?") //每天23点执行一次
+    @Scheduled(cron = "0 0 23 * * ?") //每天23点执行一次
     private void cleanTmp() {
         CleanTmp cleanTmp = new CleanTmp();
         cleanTmp.clean(tmp);
