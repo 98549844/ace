@@ -6,6 +6,7 @@ import com.ace.models.entity.Files;
 import com.ace.models.entity.Users;
 import com.ace.utilities.FileUtil;
 import com.ace.utilities.NullUtil;
+import com.ace.utilities.PropertiesUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -148,7 +149,7 @@ public class FilesService {
                 response.setContentType("application/force-download");
                 // 设置文件名
                 response.addHeader("Content-Disposition", "attachment;fileName=" + f.getOriginationName());
-                outputStream(response, file);
+                outputStream(file, response);
                 return true;
             } catch (IOException ioe) {
                 ioe.printStackTrace();
@@ -160,7 +161,33 @@ public class FilesService {
     }
 
     /**
-     * 处理文件流请求
+     * 处理文件流请求, read from jar
+     * 响应输出文件
+     *
+     * @param response
+     */
+    public void getAsStream(String path, HttpServletResponse response) {
+        try {
+            outputStream(path, response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void outputStream(String propertiesPath, HttpServletResponse response) throws IOException {
+        InputStream is = FilesService.class.getResourceAsStream(FileUtil.separator + propertiesPath);;
+        OutputStream os = response.getOutputStream();
+        byte[] buffer = new byte[1024]; // 图片文件流缓存池
+        while (is.read(buffer) != -1) {
+            os.write(buffer);
+        }
+        os.flush();
+        os.close();
+        is.close();
+    }
+
+    /**
+     * 处理文件流请求, read from file
      * 响应输出文件
      *
      * @param response
@@ -168,13 +195,13 @@ public class FilesService {
     public void get(String path, HttpServletResponse response) {
         File file = new File(path);
         try {
-            outputStream(response, file);
+            outputStream(file, response);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void outputStream(HttpServletResponse response, File file) throws IOException {
+    private void outputStream(File file, HttpServletResponse response) throws IOException {
         InputStream is = new FileInputStream(file);
         OutputStream os = response.getOutputStream();
         byte[] buffer = new byte[1024]; // 图片文件流缓存池

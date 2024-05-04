@@ -138,8 +138,12 @@ public class MediaController extends CommonController {
     @RequestMapping(value = "/media/getDefault.html", method = RequestMethod.GET)
     public void getDefault(HttpServletResponse response) throws Exception {
         log.info("access media/getDefault");
-        String location = resourceUtil.getResourcePath("static/assets/images/default.jpg");
-        filesService.get(location, response);
+        String defaultJPG = "static/assets/images/default.jpg";
+        filesService.getAsStream(defaultJPG, response);
+
+        // 生產环境里, 从jar复制到本地tmp文件夹, 再读取tmp文件夹的图片文件
+        // String location = resourceUtil.getResourcePath(defaultJPG);
+        // filesService.get(location, response);
     }
 
 
