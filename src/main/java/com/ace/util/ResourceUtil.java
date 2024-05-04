@@ -51,7 +51,12 @@ public class ResourceUtil extends CommonController {
      * @return
      */
     public String getResourcePath(String resource) throws Exception {
-        // ResourceUtil为当前类名
+        //检查tmp文件夹是否存在,提高读图性能
+        File f = new File(tmpPath + resource);
+        if (f.exists()) {
+            return tmpPath + resource;
+        }
+
         URI uri = ResourceUtil.class.getProtectionDomain().getCodeSource().getLocation().toURI();
         System.out.println("resource静态资源uri: " + uri);
 
@@ -63,9 +68,9 @@ public class ResourceUtil extends CommonController {
             String jarPath = uri.toString();
             if (jarPath.contains("file:")) {
                 uri = URI.create(jarPath.substring(jarPath.indexOf("file:"), jarPath.indexOf(".jar") + 4));
-            } else if(jarPath.contains("nested:")){
+            } else if (jarPath.contains("nested:")) {
                 uri = URI.create(jarPath.substring(jarPath.indexOf("nested:"), jarPath.indexOf(".jar") + 4));
-            }else{
+            } else {
                 throw new Exception("jar包路径格式不正确");
             }
             // 打成jar包后，进行资源复制
