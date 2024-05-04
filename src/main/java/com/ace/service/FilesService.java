@@ -94,7 +94,7 @@ public class FilesService {
     public List<Files> findFilesByFileNameNotInOrderByLastUpdateDateDesc(List<String> fileList) {
         if (NullUtil.isNull(fileList)) {
             //避免list == 0时query null data 情况
-            log.warn("folder is empty !!!");
+            log.warn("folder is empty !");
             fileList = new ArrayList<>();
             fileList.add("");
         }
@@ -174,13 +174,21 @@ public class FilesService {
         }
     }
 
+
     private void outputStream(String propertiesPath, HttpServletResponse response) throws IOException {
-        InputStream is = FilesService.class.getResourceAsStream(FileUtil.separator + propertiesPath);;
-        OutputStream os = response.getOutputStream();
+        InputStream is = FilesService.class.getResourceAsStream(FileUtil.separator + propertiesPath);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
         byte[] buffer = new byte[1024]; // 图片文件流缓存池
-        while (is.read(buffer) != -1) {
-            os.write(buffer);
+        int bytesRead;
+        while ((bytesRead = is.read(buffer)) != -1) {
+            baos.write(buffer, 0, bytesRead);
         }
+
+        byte[] data = baos.toByteArray();
+        OutputStream os = response.getOutputStream();
+        os.write(data);
+
         os.flush();
         os.close();
         is.close();
