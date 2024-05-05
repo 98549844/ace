@@ -187,6 +187,14 @@ spring:
       port: 6379
       host: redis
       database: 0
+    mongodb:
+      host: mongodb
+      port: 27017
+      database: ace
+      username: root
+      password: root
+      auto-index-creation: true
+      authentication-database: admin
 
 
   rabbitmq:
