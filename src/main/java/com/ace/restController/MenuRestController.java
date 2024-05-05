@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/menu")
-//@Api(tags = "menu")
 @Tag(name = "Menu")
 public class MenuRestController {
 	private final static Logger log = LogManager.getLogger(MenuRestController.class.getName());
