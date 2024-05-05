@@ -3,7 +3,7 @@ package com.ace.restController;
 import com.ace.config.AceConfig;
 import com.ace.config.ReportConfig;
 import com.ace.models.common.AjaxResponse;
-import com.ace.utilities.PropertiesUtil;
+import com.ace.utilities.ResourcesUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
@@ -65,7 +65,7 @@ public class AcePropertiesRestController {
     @Operation(summary = "direct get ace properties")
     @RequestMapping(method = RequestMethod.GET, value = "/directGet/{filePath}")
     public AjaxResponse getDirectAceProperties(@PathVariable String filePath) throws IOException {
-        return AjaxResponse.success(PropertiesUtil.get(filePath));
+        return AjaxResponse.success(ResourcesUtil.get(filePath));
     }
 
 

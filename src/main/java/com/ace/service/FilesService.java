@@ -6,7 +6,6 @@ import com.ace.models.entity.Files;
 import com.ace.models.entity.Users;
 import com.ace.utilities.FileUtil;
 import com.ace.utilities.NullUtil;
-import com.ace.utilities.PropertiesUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

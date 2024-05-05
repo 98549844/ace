@@ -1,7 +1,7 @@
 package com.ace;
 
 import com.ace.util.CangJieUtil;
-import com.ace.utilities.PropertiesUtil;
+import com.ace.utilities.ResourcesUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,7 +21,7 @@ public class Ace {
 
     public static void main(String[] args) throws IOException {
 
-        String a =PropertiesUtil.get("application-prod.yml");
+        String a = ResourcesUtil.get("application-prod.yml");
         System.out.println(a);
 
         //InputStream inputStream = Ace.class.getResourceAsStream("/application-prod.yml");
