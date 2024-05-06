@@ -85,7 +85,19 @@ services:
     networks:
       - ace-net
 
-
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    hostname: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: ace
+    ports:
+      - 27017:27017
+    networks:
+      - ace-net
 
 
 
