@@ -86,7 +86,7 @@ public class UserRolePermissionRestController extends CommonController {
 
         if (NullUtil.isNull(admin)) {
             admin = new Users();
-            admin.setPassword(passwordEncoder.encode("909394"));//password 909394
+            admin.setPassword(passwordEncoder.encode("admin"));//password admin
             admin.setUserAccount("admin");
             admin.setUsername("administrator");
             admin.setDescription(Users.ADMINISTRATOR);
@@ -112,7 +112,6 @@ public class UserRolePermissionRestController extends CommonController {
 
         if (NullUtil.isNull(garlam)) {
             garlam = new Users();
-            //garlam.setPassword("$2a$11$gNnG0zfbKr8c7M3YX9Frn.HaKPS1hFsmgKPt4F6LXnEmmE0FAhV8C");
             garlam.setPassword(passwordEncoder.encode("909394"));//password 909394
             garlam.setUserAccount("garlam");
             garlam.setUsername("garlam");
