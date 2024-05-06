@@ -102,7 +102,6 @@ public class UserController extends CommonController {
             Long userId = Long.parseLong(listData.get(0));
             userRolesService.deleteUserRolesByUserId(userId);
             if (listData.size() == 1) {
-                //没有选择弱了Code,默认选deny
                 Roles role = rolesService.findByRoleCode(Roles.DISABLE);
                 UserRoles ur = new UserRoles();
                 ur.setUserId(userId);

@@ -480,10 +480,17 @@
                 if (roleTable === '') {
                     $('#userId-' + userId).text('DISABLE');
                 } else {
-
+                    const d = dialog({
+                        title: '用户组更新',
+                        content: "用户组已更新为: " + roleTable,
+                        cancel: false,
+                        ok: function () {
+                        }
+                    });
+                    d.show();
                     $('#userId-' + userId).text(roleTable);
                 }
-                console.log('update:' + response);
+                console.log(roleTable + ' updated:' + response);
                 // 处理后台响应的逻辑
             },
             error: function (xhr, status, error) {
