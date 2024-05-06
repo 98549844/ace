@@ -16,7 +16,7 @@ import java.util.List;
 public class Users extends BaseEntity implements Serializable {
 
     //users_description
-    public static final String ADMINISTRATOR = "administrator";
+    public static final String ADMIN = "admin";
     // public static final String Editor = "Editor"; // part of read update insert
     public static final String DISABLE = "disable";
     public static final String USER = "user"; // read update

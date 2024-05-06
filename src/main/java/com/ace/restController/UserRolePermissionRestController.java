@@ -89,7 +89,7 @@ public class UserRolePermissionRestController extends CommonController {
             admin.setPassword(passwordEncoder.encode("admin"));//password admin
             admin.setUserAccount("admin");
             admin.setUsername("administrator");
-            admin.setDescription(Users.ADMINISTRATOR);
+            admin.setDescription(Users.ADMIN);
             admin.setEmail("admin@ace.com");
             admin.setMobile("0000 0000");
             admin.setGender(null);
@@ -115,7 +115,7 @@ public class UserRolePermissionRestController extends CommonController {
             garlam.setPassword(passwordEncoder.encode("909394"));//password 909394
             garlam.setUserAccount("garlam");
             garlam.setUsername("garlam");
-            garlam.setDescription(Users.ADMINISTRATOR);
+            garlam.setDescription(Users.ADMIN);
             garlam.setEmail("garlam@ace.com");
             garlam.setMobile("9518 6540");
             garlam.setGender("M");
@@ -281,7 +281,7 @@ public class UserRolePermissionRestController extends CommonController {
         for (Users nonDefaultUser : nonDefaultUsers) {
             UserRoles userRoles = new UserRoles();
             switch (nonDefaultUser.getDescription()) {
-                case Users.ADMINISTRATOR:
+                case Users.ADMIN:
                     userRoles.setUserId(nonDefaultUser.getUserId());
                     userRoles.setRoleId(roleAdmin.getRoleId());
                     break;

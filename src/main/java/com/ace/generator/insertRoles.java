@@ -71,7 +71,7 @@ public class insertRoles {
         r3.setRoleCode(Roles.USER);
         r4.setRoleCode(Roles.VIEWER);
 
-        r1.setRoleName(Users.ADMINISTRATOR);
+        r1.setRoleName(Users.ADMIN);
         r2.setRoleName(Users.DISABLE);
         r3.setRoleName(Users.USER);
         r4.setRoleName(Users.VIEWER);
