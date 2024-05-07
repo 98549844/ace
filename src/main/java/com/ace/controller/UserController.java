@@ -118,7 +118,7 @@ public class UserController extends CommonController {
                 userRolesService.save(ur);
             }
             Users user = usersService.findUsersById(userId);
-            user.setDescription(sb.toString());
+            user.setDescription(sb.toString().trim());
             usersService.save(user);
         } catch (Exception e) {
             e.printStackTrace();
