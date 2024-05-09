@@ -22,7 +22,7 @@ public class CacheMapService {
     private Map<String, Object> map;
 
     public CacheMapService() {
-        this.map = new HashMap();
+        this.map = new HashMap<>();
     }
 
     public Map<String, Object> getMap() {
