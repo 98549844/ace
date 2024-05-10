@@ -46,7 +46,12 @@ public class SaTokenConfig implements WebMvcConfigurer {
         // registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin())) //after 1.31
         registry.addInterceptor(new SaInterceptor(handler -> StpUtil.checkLogin())) //after 1.31
                 //开放登陆,注册 url
-                .excludePathPatterns("/ace/login.html", "/ace/login.html/*/*", "/ace/logging.html", "/ace/registration.html", "/ace/password/reset.html", "/ace/logout.html", "/")
+                .excludePathPatterns("/ace/login.html",
+                                     "/ace/login.html/*/*",
+                                     "/ace/logging.html",
+                                     "/ace/registration.html",
+                                     "/ace/password/reset.html",
+                                     "/ace/logout.html", "/")
                 //开放restController
                 .excludePathPatterns("/rest/**")
                 //开放naiveController
@@ -54,9 +59,29 @@ public class SaTokenConfig implements WebMvcConfigurer {
                 //开方api
                 .excludePathPatterns("/api/**").excludePathPatterns("/pdf/**")
                 //.excludePathPatterns( "/assets/**") //url一定不能以assets开头, 不然就所有url都开放
-                .excludePathPatterns("/assets/**/*.js", "/assets/**/*.png", "/assets/**/*.jpg", "/assets/**/*.gif", "/assets/favicon.ico", "/assets/**/*.css", "/assets/**/*.woff2", "/assets/**/*.woff", "/assets/**/*.ttf", "/assets/**/*.svg", "/assets/**/*.eot", "/assets/**/*.swf", "/assets/**/*.map", "/assets/images/**")
+                .excludePathPatterns("/assets/**/*.js",
+                                      "/assets/**/*.png",
+                                      "/assets/**/*.jpg",
+                                      "/assets/**/*.gif",
+                                      "/assets/favicon.ico",
+                                      "/assets/**/*.css",
+                                      "/assets/**/*.woff2",
+                                      "/assets/**/*.woff",
+                                      "/assets/**/*.ttf",
+                                      "/assets/**/*.svg",
+                                      "/assets/**/*.eot",
+                                      "/assets/**/*.swf",
+                                      "/assets/**/*.map",
+                                      "/assets/images/**")
                 //swagger
-                .excludePathPatterns("/doc.html").excludePathPatterns("/swagger-ui.html", "/csrf", "/webjars/**", "/swagger-resources/**", "/v2/**", "/v3/**").addPathPatterns("/**");
+                .excludePathPatterns("/doc.html")
+                .excludePathPatterns("/swagger-ui.html",
+                                      "/csrf",
+                                      "/webjars/**",
+                                      "/swagger-resources/**",
+                                      "/v2/**",
+                                      "/v3/**")
+                .addPathPatterns("/**");
     }
 
     // Sa-Token 标签方言 (Thymeleaf版)
