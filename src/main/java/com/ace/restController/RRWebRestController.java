@@ -43,69 +43,23 @@ public class RRWebRestController {
     @Operation(summary = "保存记录")
     @RequestMapping(method = RequestMethod.POST, value = "/save.html")
     public AjaxResponse save(@RequestBody String data) {
-        //Map<String, Object> data ;
-        // System.out.println("token:  " + data.get("token"));
-        // System.out.println("body:  " + data.get("body"));
-        dataList.add(data);
+        System.out.println("save data: " + !data.isEmpty());
         tmp = data;
-        System.out.println(data);
-        if (dataList.size() > 100) {
-            dataList = new ArrayList<>();
-        }
-
-        //System.out.println(data);
-        //String[] dataArr = data.split("&");
-        //token = dataArr[0].split("=");
-        //body = dataArr[1].split("=");
-        //dataMap.put(token[0], token[1]);
-        //dataMap.put(body[0], body[1]);
-        //dataList.add(body[1]);
-        //System.out.println("body: " + body[1]);
-
         return AjaxResponse.success(data);
     }
 
-    //@Operation(summary = "保存记录")
-    //@RequestMapping(method = RequestMethod.POST, value = "/save.html")
-    //public AjaxResponse save(@RequestBody Map<String, Object> data) {
-    //    //Map<String, Object> data ;
-    //    // System.out.println("token:  " + data.get("token"));
-    //    // System.out.println("body:  " + data.get("body"));
-    //    dataList.add(data.get("body").toString());
-    //    if (dataList.size() > 100) {
-    //        dataList = new ArrayList<>();
-    //    }
-    //
-    //    //System.out.println(data);
-    //    //String[] dataArr = data.split("&");
-    //    //token = dataArr[0].split("=");
-    //    //body = dataArr[1].split("=");
-    //    //dataMap.put(token[0], token[1]);
-    //    //dataMap.put(body[0], body[1]);
-    //    //dataList.add(body[1]);
-    //    //System.out.println("body: " + body[1]);
-    //
-    //    return AjaxResponse.success(data.get("body").toString());
-    //}
 
     @Operation(summary = "回放")
     @RequestMapping(method = RequestMethod.GET, value = "/playback/{playbackId}")
     public String playback(@PathVariable String playbackId) {
-        log.info("access rrweb playbackId: {}", playbackId);
-        // System.out.println(dataMap.get(body[0]));
-        StringBuilder sb = new StringBuilder();
-        for (String s : dataList) {
-            sb.append(s);
-        }
-        System.out.println(sb);
-        //  return AjaxResponse.success(sb.toString());
+        log.info("access RRWeb playbackId: {}", playbackId);
+        // return AjaxResponse.success(tmp);
         return tmp;
     }
 
     @Operation(summary = "回放列表")
     @RequestMapping(method = RequestMethod.GET, value = "/getPlaybackList.html")
     public AjaxResponse getPlaybackList() {
-
         return AjaxResponse.success(true);
     }
 
