@@ -5,28 +5,31 @@
 jQuery(function ($) {
     docReady();
     setTitle();
-   // getIcon();
+    // getIcon();
 });
 
-function printUrl(){
+function printUrl() {
     const currentURL = window.location.href; // fullUrl
     const currentPathname = window.location.pathname; // /ace/index.html
     const currentHost = window.location.host; // 192.168.1.100:8088/
     const currentPort = window.location.port; // 8088
-    alert(currentURL)
-    alert(currentPathname)
-    alert(currentHost)
-    alert(currentPort)
+
+    const result = 'currentURL: ' + currentURL + '\n' +
+        'currentPathname: ' + currentPathname + '\n' +
+        'currentHost: ' + currentHost + '\n' +
+        'currentPort: ' + currentPort + '\n';
+
+    alert(result)
 }
 
 function getIcon() {
     alert("ccc");
     let iconHtml = "";
-    const fileName ='garlam-icon-eb15156e8cd34808be55447fa84f4f49';
+    const fileName = 'garlam-icon-eb15156e8cd34808be55447fa84f4f49';
     //拿不到值
     const username = /*[[${currentUser.username}]]*/ '';
-   // const icon = /*[[${icon}]]*/ '';
-   // alert(username + "  " + icon);
+    // const icon = /*[[${icon}]]*/ '';
+    // alert(username + "  " + icon);
     iconHtml = iconHtml + `<img class="nav-user-photo" src="/ace/users/avatar/get/${fileName}" alt="150x150"/>
                              <span class="user-info">
                                 <small>Welcome,</small>

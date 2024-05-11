@@ -1,5 +1,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="common-script">
+<!--<div></div> 如出现嵌套head, <div>换成<th:block>-->
+<th:block th:fragment="common-script">
 
     <!--[if IE]>
     <script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
@@ -47,5 +48,56 @@
     <script th:src="@{/assets/js/bootstrap-tag.min.js}"></script>
     <script th:src="@{/assets/js/bootstrap-editable.min.js}"></script>
     <script th:src="@{/assets/js/ace-editable.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/rrweb@latest/dist/rrweb.min.js"></script>
+    <!--<script th:src="@{/assets/js/rrweb/rrweb-record.2.0.0.alpha4.min.js}"></script>-->
+    <!--<link rel="stylesheet" th:href="@{/assets/js/rrweb/rrweb.min.2.0.0.alpha4.css}"/>-->
 
-</div>
+    <script type="text/javascript">
+
+        jQuery(function ($) {
+            alert("common-script.html 加载完成");
+            printUrl();
+            rrweb.record({
+                emit(event) {
+                    // 用任意方式存储 event
+                    console.log(event);
+                    events.push(event);
+                },
+            });
+        });
+
+        // rrweb行为录制
+        let events = [];
+
+        // 每 10 秒调用一次 save 方法，避免请求过多
+        setInterval(save, 5 * 1000);
+
+        // save 函数用于将 events 发送至后端存入，并重置 events 数组
+        function save() {
+            if (events.length === 0) {
+                return;
+            }
+            const body = JSON.stringify({events});
+            events = [];
+            $.ajax({
+                type: "POST",
+                url: "/rest/rrweb/save.html", //访问的链接
+                dataType: 'text',
+                data: {
+                    token: "拿回这个playback的id",
+                    motion: body
+                },
+                success: function (res) {  //成功的回调函数
+                    const data = JSON.parse(res);
+                    console.log(data.code);
+                },
+                error: function (e) {
+                    alert("error: " + e);
+                }
+            });
+        }
+
+
+    </script>
+</th:block>
+
