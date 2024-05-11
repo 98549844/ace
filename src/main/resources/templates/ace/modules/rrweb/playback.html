@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{ace/pb-pages/header :: header}">
+    <!-- inline styles related to this page -->
+</head>
+
+<body class="no-skin">
+<div id="navbar" class="navbar navbar-default ace-save-state"
+     th:insert="~{ace/pb-pages/navbar :: navbar}"></div>
+
+<div class="main-container ace-save-state" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.loadState('main-container')
+        } catch (e) {
+        }
+    </script>
+
+    <div id="sidebar" class="sidebar responsive ace-save-state"
+         th:insert="~{ace/pb-pages/sidebar :: sidebar}">
+    </div>
+
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="breadcrumbs" th:insert="~{ace/pb-pages/breadcrumbs :: breadcrumbs}"></div>
+            <div class="page-content">
+                <div class="ace-settings-container" id="ace-settings-container"
+                     th:insert="~{ace/pb-pages/ace-settings-container :: ace-settings-container}">
+                </div><!-- /.ace-settings-container -->
+
+                <div class="page-header">
+                    <h1>
+                        RRWeb Player
+                    </h1>
+                </div><!-- /.page-header -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <br>
+                        <label id="test-label"> </label>
+                        <br>
+                        <input type="button" value="record action" onclick="record()"/>
+                        <br/>
+                        <input type="button" value="alertmessage" onclick="alertmessage()"/>
+                        <br/>
+                        <input type="button" value="changedom layout" onclick="changelayout()"/>
+                        <br/>
+                        <input type="button" value="replay action" onclick="replay()"/>
+                        <div id="addcontent">
+                            <!-- PAGE CONTENT ENDS -->
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                    <div id="rrweb-player"></div>
+
+                </div>
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+
+    <div class="footer" th:insert="~{ace/pb-pages/footer :: footer}">
+    </div>
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse"
+       th:insert="~{ace/pb-pages/btn-scroll-up :: btn-scroll-up}">
+    </a>
+</div><!-- /.main-container -->
+
+<div th:insert="~{ace/pb-pages/common-script :: common-script}"></div>
+<!-- page specific plugin scripts -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rrweb-player@latest/dist/style.css"/>
+<script src="https://cdn.jsdelivr.net/npm/rrweb-player@latest/dist/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/rrweb@latest/dist/rrweb.min.js"></script>
+
+<script type="application/javascript">
+    window.events = [];
+
+    function alertmessage() {
+        alert("dalongdemo")
+
+    }
+
+    function changelayout() {
+        const el = document.getElementById("addcontent");
+        const h2el = document.createElement("h2");
+        h2el.innerHTML = "this is a demo h2"
+        el.appendChild(h2el)
+    }
+
+    function record() {
+        rrweb.record({
+            emit(event) {
+                // 将 event 存入 events 数组中
+                events.push(event);
+            },
+        });
+    }
+
+    function replay() {
+        let playbackId = 'playback-id';
+        $.ajax({
+            type: "GET",
+            url: "/rest/rrweb/playback/" + playbackId, //访问的链接
+            dataType: 'json',
+            success: function (resp) {  //成功的回调函数
+               // alert(resp)
+                const records = JSON.parse(resp);
+                // const records = resp.data;
+                new rrwebPlayer({
+                    // target: document.body, // 可以自定义 DOM 元素
+                    target: document.getElementById("rrweb-player"),
+                    data: {
+                        events,
+                        // records,
+                    },
+                });
+            },
+            error: function (e) {
+                console.log("error:" + e.message);
+            }
+        });
+
+
+        // new rrwebPlayer({
+        //     target: document.getElementById("rrweb-player"), // 可以自定义 DOM 元素
+        //     data: {
+        //         events,
+        //     },
+        // });
+    }
+
+    // save 函数用于将 events 发送至后端存入，并重置 events 数组
+    function save() {
+        const body = JSON.stringify(window.events);
+        if (events.length === 0) {
+            return;
+        }
+        fetch("/rest/rrweb/save.html", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body,
+        });
+    }
+
+    // 每 10 秒调用一次 save 方法，避免请求过多
+    setInterval(save, 5 * 1000);
+</script>
+
+<!--<script type="text/javascript">
+    setInterval(test, 1 * 100);
+
+    function test() {
+        $('#test-label').html(Math.random() * 100);
+    }
+
+
+    document.querySelector("#start-btn").onclick = function () {
+        let playbackId = 'playback-id';
+        $.ajax({
+            type: "GET",
+            url: "/rest/rrweb/playback/" + playbackId, //访问的链接
+            dataType: 'json',
+            success: function (res) {  //成功的回调函数
+                //  const events = JSON.parse(res.data);
+                const events = res.data;
+                //  const replayer = new rrweb.Replayer(events);
+                //  replayer.play();
+                new rrwebPlayer({
+                   // target: document.body, // 可以自定义 DOM 元素
+                    target: document.getElementById("rrweb-player"),
+                    props: {
+                        events,
+                    },
+                });
+            },
+            error: function (e) {
+                console.log("error:" + e.message);
+            }
+        });
+    }
+</script>-->
+
+</body>
+</html>

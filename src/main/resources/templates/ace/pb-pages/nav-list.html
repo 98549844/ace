@@ -504,7 +504,7 @@
 
     <li class="">
         <a th:href="@{/#}" class="menu dropdown-toggle">
-            <i class="menu-icon fa fa-envelope"></i>
+            <i class="menu-icon fa fa-comments-o"></i>
             <span class="menu-text">
                 WebSocket
                 <span class="badge badge-primary">1</span>
@@ -520,6 +520,41 @@
                 <a class="menu" th:href="@{/ace/webSocket.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     Simple IM
+                </a>
+                <b class="arrow"></b>
+            </li>
+        </ul>
+    </li>
+
+
+    <li class="">
+        <a th:href="@{/#}" class="menu dropdown-toggle">
+            <i class="menu-icon fa fa-camera-retro"></i>
+            <span class="menu-text">
+                RRWeb recorder
+                <span class="badge badge-primary">1</span>
+            </span>
+
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+
+        <b class="arrow"></b>
+
+        <ul class="submenu">
+            <li class="">
+                <a class="menu" th:href="@{/ace/getPlaybackList.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    List
+                </a>
+                <b class="arrow"></b>
+            </li>
+        </ul>
+        <ul class="submenu">
+            <li class="">
+                <!--<a class="menu" th:href="@{'/ace/playback/'+${playbackId}}">-->
+                <a class="menu" th:href="@{'/ace/playback/'+'playback-id'}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    PlayBack
                 </a>
                 <b class="arrow"></b>
             </li>

@@ -48,15 +48,15 @@
     <script th:src="@{/assets/js/bootstrap-tag.min.js}"></script>
     <script th:src="@{/assets/js/bootstrap-editable.min.js}"></script>
     <script th:src="@{/assets/js/ace-editable.min.js}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/rrweb@latest/dist/rrweb.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/rrweb@latest/dist/rrweb.min.js"></script>-->
     <!--<script th:src="@{/assets/js/rrweb/rrweb-record.2.0.0.alpha4.min.js}"></script>-->
     <!--<link rel="stylesheet" th:href="@{/assets/js/rrweb/rrweb.min.2.0.0.alpha4.css}"/>-->
 
-    <script type="text/javascript">
+   <!-- <script type="text/javascript">
 
         jQuery(function ($) {
-            alert("common-script.html 加载完成");
-            printUrl();
+           // alert("common-script.html 加载完成");
+          //  printUrl();
             rrweb.record({
                 emit(event) {
                     // 用任意方式存储 event
@@ -79,17 +79,36 @@
             }
             const body = JSON.stringify({events});
             events = [];
+            // $.ajax({
+            //     type: "POST",
+            //     url: "/rest/rrweb/save.html", //访问的链接
+            //     dataType: 'text',
+            //     data: {
+            //         token: "playback-id",
+            //         motion: body
+            //     },
+            //     success: function (res) {  //成功的回调函数
+            //         const data = JSON.parse(res);
+            //         console.log(data.code);
+            //     },
+            //     error: function (e) {
+            //         alert("error: " + e);
+            //     }
+            // });
+
             $.ajax({
                 type: "POST",
                 url: "/rest/rrweb/save.html", //访问的链接
-                dataType: 'text',
-                data: {
-                    token: "拿回这个playback的id",
-                    motion: body
-                },
+                dataType: "json",  // 修改为 "json"
+                contentType: "application/json",  // 添加 contentType
+
+                data: JSON.stringify({
+                    token: "playback-id",
+                    body: body
+                }),
                 success: function (res) {  //成功的回调函数
-                    const data = JSON.parse(res);
-                    console.log(data.code);
+                   // const data = JSON.parse(res);
+                    console.log(res.code);
                 },
                 error: function (e) {
                     alert("error: " + e);
@@ -98,6 +117,6 @@
         }
 
 
-    </script>
+    </script>-->
 </th:block>
 
