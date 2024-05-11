@@ -43,7 +43,6 @@ public class RRWebRestController {
     @Operation(summary = "保存记录")
     @RequestMapping(method = RequestMethod.POST, value = "/save.html")
     public AjaxResponse save(@RequestBody String data) {
-        System.out.println("save data: " + !data.isEmpty());
         tmp = data;
         return AjaxResponse.success(data);
     }

@@ -73,9 +73,9 @@
         // save 函数用于将 events 发送至后端存入，并重置 events 数组
         function save() {
             const body = JSON.stringify(events);
-            if (events.length === 0) {
-                return;
-            }
+            // if (events.length === 0) {
+            //     return;
+            // }
             fetch("/rest/rrweb/save.html", {
                 method: "POST",
                 headers: {
