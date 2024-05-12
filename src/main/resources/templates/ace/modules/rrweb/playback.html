@@ -71,7 +71,7 @@
 <script src="https://cdn.jsdelivr.net/npm/rrweb@latest/dist/rrweb.min.js"></script>
 
 <script type="application/javascript">
-  //  window.events = [];
+    //  window.events = [];
 
     // function alertmessage() {
     //     alert("dalongdemo")
@@ -102,7 +102,7 @@
             url: "/rest/rrweb/playback/" + playbackId, //访问的链接
             dataType: 'json',
             success: function (resp) {  //成功的回调函数
-                const records = resp //.data;
+                const records = JSON.parse(resp.data);
                 new rrwebPlayer({
                     target: document.getElementById("rrweb-player"),
                     data: {
@@ -132,7 +132,7 @@
     // }
 
     // 每 10 秒调用一次 save 方法，避免请求过多
-   // setInterval(save, 5 * 1000);
+    // setInterval(save, 5 * 1000);
 </script>
 
 

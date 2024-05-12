@@ -76,6 +76,7 @@
             // if (events.length === 0) {
             //     return;
             // }
+            events = []; // 重置 events 数组
             fetch("/rest/rrweb/save.html", {
                 method: "POST",
                 headers: {
