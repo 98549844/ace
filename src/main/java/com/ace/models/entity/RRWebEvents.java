@@ -33,8 +33,48 @@ public class RRWebEvents extends BaseEntity {
     @Column
     private String userAccount;
     @Column
-    private StringBuilder eventData;
+    private String eventData;
 
 
+    public Long getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(String userAccount) {
+        this.userAccount = userAccount;
+    }
+
+
+    public String getEventData() {
+        return eventData;
+    }
+
+    public void setEventData(String eventData) {
+        this.eventData = eventData;
+    }
 }
 

@@ -2,6 +2,8 @@ package com.ace.restController;
 
 import com.ace.controller.common.CommonController;
 import com.ace.models.common.AjaxResponse;
+import com.ace.models.entity.RRWebEvents;
+import com.ace.service.RRWebService;
 import com.ace.utilities.FileUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,6 +31,12 @@ import java.util.List;
 public class RRWebRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(RRWebRestController.class.getName());
 
+    private final RRWebService rrWebService;
+
+    public RRWebRestController(RRWebService rrWebService) {
+        this.rrWebService = rrWebService;
+    }
+
     //  StringBuilder tmp = new StringBuilder();
     int count = 1;
     List<String> tmp = new ArrayList<>();
@@ -46,11 +54,10 @@ public class RRWebRestController extends CommonController {
     }
 
 
-
     @Operation(summary = "回放")
-    @RequestMapping(method = RequestMethod.GET, value = "/playback/{playbackId}")
-    public AjaxResponse playback(@PathVariable String playbackId) throws IOException {
-        log.info("access RRWeb playbackId: {}", playbackId);
+    @RequestMapping(method = RequestMethod.GET, value = "/playback/{userAccount}")
+    public AjaxResponse playback(@PathVariable String userAccount) throws IOException {
+        log.info("access RRWeb userAccount: {}", userAccount);
 
         StringBuilder data = new StringBuilder();
         for (String s : tmp) {
@@ -63,10 +70,10 @@ public class RRWebRestController extends CommonController {
 
         String result = "[" + data.substring(0, data.length() - 1) + "]";
 
-        String p = "/Users/garlam/IdeaProjects/ace/src/main/java/com/ace/restController/aaa/";
-        String seven = "playback.json";
+      //  String p = "/Users/garlam/IdeaProjects/ace/src/main/java/com/ace/restController/aaa/";
+      //  String seven = "playback.json";
 
-        FileUtil.rewrite(p + seven, result);
+       // FileUtil.rewrite(p + seven, result);
         return AjaxResponse.success(result);
         //  return tmp;
     }
