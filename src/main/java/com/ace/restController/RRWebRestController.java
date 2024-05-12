@@ -1,23 +1,14 @@
 package com.ace.restController;
 
-import com.ace.exception.ResponseException;
 import com.ace.models.common.AjaxResponse;
-import com.ace.models.entity.AccessLog;
-import com.ace.utilities.FastJson2Util;
 import com.ace.utilities.FileUtil;
-import com.alibaba.fastjson2.JSONObject;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
 
 
 /**
@@ -27,7 +18,7 @@ import java.util.Map;
  * @Description:
  */
 
-
+//https://www.cnblogs.com/pijunqi/p/14480346.html
 //https://blog.csdn.net/blackcat88/article/details/88972515
 @RestController
 @RequestMapping("/rest/rrweb")
@@ -35,18 +26,14 @@ import java.util.Map;
 public class RRWebRestController {
     private static final Logger log = LogManager.getLogger(RRWebRestController.class.getName());
 
-    String tmp;
+    StringBuilder tmp = new StringBuilder();
 
     @Operation(summary = "保存记录")
     @RequestMapping(method = RequestMethod.POST, value = "/save.html")
     public AjaxResponse save(@RequestBody String data) {
-        tmp = data;
-        String p = "/Users/garlam/IdeaProjects/ace/src/main/java/com/ace/restController/";
-        String f = "_data.txt";
-        FileUtil.write(p, f, data, false);
+        tmp.append(data);
 
-
-        return AjaxResponse.success(data);
+        return AjaxResponse.success(tmp);
     }
 
 

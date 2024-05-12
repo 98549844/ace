@@ -54,7 +54,7 @@
 
     <script type="text/javascript">
 
-        jQuery(function ($) {
+        jQuery(function () {
             rrweb.record({
                 emit(event) {
                     // 用任意方式存储 event
@@ -82,7 +82,7 @@
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body,
+                body: body,
             });
         }
 
