@@ -20,7 +20,7 @@ public class Ace {
 
     public static void main(String[] args) throws IOException {
 
-
+        cangJieCheck(null);
     }
 
     private static void cangJieCheck(String code) throws IOException {

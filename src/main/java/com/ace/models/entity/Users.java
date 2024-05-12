@@ -75,12 +75,14 @@ public class Users extends BaseEntity implements Serializable {
     @Column
     private boolean enabled = true; // user account
 
+    @Column
+    private boolean isRecord = false; // 控制rrweb开启记录
+
     @Transient
     private String currentUserPath;
 
     @Transient
     private String icon = "";
-
 
     @Transient
     private List<Roles> roles ;
@@ -260,5 +262,13 @@ public class Users extends BaseEntity implements Serializable {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public boolean isRecord() {
+        return isRecord;
+    }
+
+    public void setRecord(boolean record) {
+        isRecord = record;
     }
 }

@@ -21,6 +21,7 @@ public class InsertUsers {
         Users u6 = new Users();
         Users u7 = new Users();
         Users u8 = new Users();
+        Users u9 = new Users();
 
         u1.setDateOfBirth(LocalDateTime.now());
         u2.setDateOfBirth(LocalDateTime.now());
@@ -30,6 +31,7 @@ public class InsertUsers {
         u6.setDateOfBirth(LocalDateTime.now());
         u7.setDateOfBirth(LocalDateTime.now());
         u8.setDateOfBirth(LocalDateTime.now());
+        u9.setDateOfBirth(LocalDateTime.now());
 
         u1.setExpireDate(LocalDateTime.now().plusYears(3));
         u2.setExpireDate(LocalDateTime.now().plusYears(3));
@@ -39,6 +41,7 @@ public class InsertUsers {
         u6.setExpireDate(LocalDateTime.now().plusYears(3));
         u7.setExpireDate(LocalDateTime.now().plusYears(3));
         u8.setExpireDate(LocalDateTime.now().plusYears(3));
+        u9.setExpireDate(LocalDateTime.now().plusYears(3));
 
         u1.setCreatedDate(LocalDateTime.now());
         u2.setCreatedDate(LocalDateTime.now());
@@ -48,6 +51,7 @@ public class InsertUsers {
         u6.setCreatedDate(LocalDateTime.now());
         u7.setCreatedDate(LocalDateTime.now());
         u8.setCreatedDate(LocalDateTime.now());
+        u9.setCreatedDate(LocalDateTime.now());
 
         u1.setCreatedBy(1001l);
         u2.setCreatedBy(2001l);
@@ -57,6 +61,7 @@ public class InsertUsers {
         u6.setCreatedBy(6001l);
         u7.setCreatedBy(7001l);
         u8.setCreatedBy(0l);
+        u9.setCreatedBy(0l);
 
         u1.setDescription(Users.ADMIN);
         u2.setDescription(Users.USER);
@@ -66,6 +71,7 @@ public class InsertUsers {
         u6.setDescription(Users.USER);
         u7.setDescription(Users.DISABLE);
         u8.setDescription(Users.ADMIN);
+        u9.setDescription(Users.USER);
 
 
         u1.setEmail("timothy_au@qq.com");
@@ -76,15 +82,17 @@ public class InsertUsers {
         u6.setEmail("frank_chow@qq.com");
         u7.setEmail("eric_luk@qq.com");
         u8.setEmail("root@ace.com");
+        u9.setEmail("moni@ace.com");
 
         u1.setGender("M");
         u2.setGender("M");
-        u3.setGender("M");
+        u3.setGender("F");
         u4.setGender("M");
-        u5.setGender("M");
+        u5.setGender("F");
         u6.setGender("M");
         u7.setGender("M");
         u8.setGender("M");
+        u9.setGender("F");
 
 
         u1.setLastUpdatedBy(1001l);
@@ -95,6 +103,7 @@ public class InsertUsers {
         u6.setLastUpdatedBy(6001l);
         u7.setLastUpdatedBy(7001l);
         u8.setLastUpdatedBy(0l);
+        u9.setLastUpdatedBy(0l);
 
 
         u1.setLastUpdateDate(LocalDateTime.now());
@@ -105,6 +114,7 @@ public class InsertUsers {
         u6.setLastUpdateDate(LocalDateTime.now());
         u7.setLastUpdateDate(LocalDateTime.now());
         u8.setLastUpdateDate(LocalDateTime.now());
+        u9.setLastUpdateDate(LocalDateTime.now());
 
 
         u1.setMobile("55550000");
@@ -114,6 +124,8 @@ public class InsertUsers {
         u5.setMobile("55550000");
         u6.setMobile("55550000");
         u7.setMobile("55550000");
+        u8.setMobile("55550000");
+        u9.setMobile("55550000");
 
 
         u1.setPassword(password);
@@ -124,6 +136,7 @@ public class InsertUsers {
         u6.setPassword(password);
         u7.setPassword(password);
         u8.setPassword(password);
+        u9.setPassword(password);
 
 
         u1.setEnabled(true);
@@ -134,6 +147,17 @@ public class InsertUsers {
         u6.setEnabled(true);
         u7.setEnabled(true);
         u8.setEnabled(true);
+        u9.setEnabled(true);
+
+        u1.setRecord(false);
+        u2.setRecord(false);
+        u3.setRecord(false);
+        u4.setRecord(false);
+        u5.setRecord(false);
+        u6.setRecord(false);
+        u7.setRecord(false);
+        u8.setRecord(false);
+        u9.setRecord(true);
 
         u1.setStatus(Users.ACTIVE);
         u2.setStatus(Users.ACTIVE);
@@ -143,6 +167,7 @@ public class InsertUsers {
         u6.setStatus(Users.ACTIVE);
         u7.setStatus(Users.ACTIVE);
         u8.setStatus(Users.ACTIVE);
+        u9.setStatus(Users.ACTIVE);
 
 
         u1.setUserAccount("timothy");
@@ -153,6 +178,7 @@ public class InsertUsers {
         u6.setUserAccount("frank");
         u7.setUserAccount("eric");
         u8.setUserAccount("root");
+        u8.setUserAccount("moni");
 
         u1.setUsername("Timothy Au");
         u2.setUsername("Peter Wong");
@@ -162,6 +188,7 @@ public class InsertUsers {
         u6.setUsername("Frank Chow");
         u7.setUsername("Eric Luk");
         u8.setUsername("Root");
+        u9.setUsername("Moni");
 
         usersList.add(u1);
         usersList.add(u2);
@@ -171,6 +198,7 @@ public class InsertUsers {
         usersList.add(u6);
         usersList.add(u7);
         usersList.add(u8);
+        usersList.add(u9);
 
         return usersList;
     }
