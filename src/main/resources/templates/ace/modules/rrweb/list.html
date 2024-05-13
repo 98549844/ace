@@ -62,7 +62,7 @@
                                     <tbody>
                                     <div th:each="event:${events}">
                                         <tr>
-                                            <input type="hidden" th:value="${event.eventId}" th:id="${event.eventId}"
+                                            <input type="hidden" th:value="${event.userAccount}" th:id="${event.userAccount}"
                                                    class="input-hidden"/>
                                             <input type="hidden" th:value="${event.uuid}" th:id="${event.uuid}"
                                                    class="input-hidden"/>
@@ -75,7 +75,8 @@
 
                                             <td class="hidden-480">
                                                 <a href="#">
-                                                    <span class="label label-sm label-info" id="playback">ace.com</span>
+                                                    <span class="label label-sm label-info"
+                                                          th:id="'playback-'+${event.uuid}">Playback</span>
                                                 </a>
                                             </td>
 
@@ -132,10 +133,31 @@
 <script src="https://cdn.jsdelivr.net/npm/rrweb-player@latest/dist/index.js"></script>
 
 <script type="application/javascript">
-    $('#playback').on('click', function () {
+    // $('.label.label-sm.label-info').on('click', function () {
+    //     d.showModal(document.getElementById('playback-list'));
+    //     const uuid = $(this).attr("id").split("playback-")[1];
+    //     replay(userAccount , uuid);
+    // });
+
+    // $('tbody').on('click', 'tr', function () {
+    //     const ids = [];
+    //     $('tbody').find('input[type="hidden"]').each(function () {
+    //         ids.push($(this).attr('id'));
+    //     });
+    //     alert(ids);
+    // });
+
+    $('tr').on('click', function () {
+        const ids = [];
+        $(this).find('input[type="hidden"]').each(function () {
+            ids.push($(this).attr('id'));
+        });
+        const userAccount = ids[0];
+        const uuid = ids[1];
         d.showModal(document.getElementById('playback-list'));
-        replay();
+        replay(userAccount, uuid);
     });
+
 
     d = dialog({
         title: '回放',
@@ -144,9 +166,7 @@
     });
 
 
-    function replay() {
-        const userAccount = '[[${currentUser.userAccount}]]';
-        const uuid = 'ba41261a';
+    function replay(userAccount, uuid) {
         $.ajax({
             type: "GET",
             url: "/rest/rrweb/playback/" + userAccount + "/" + uuid, //访问的链接
