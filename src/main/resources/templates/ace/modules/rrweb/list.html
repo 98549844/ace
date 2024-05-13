@@ -133,19 +133,6 @@
 <script src="https://cdn.jsdelivr.net/npm/rrweb-player@latest/dist/index.js"></script>
 
 <script type="application/javascript">
-    // $('.label.label-sm.label-info').on('click', function () {
-    //     d.showModal(document.getElementById('playback-list'));
-    //     const uuid = $(this).attr("id").split("playback-")[1];
-    //     replay(userAccount , uuid);
-    // });
-
-    // $('tbody').on('click', 'tr', function () {
-    //     const ids = [];
-    //     $('tbody').find('input[type="hidden"]').each(function () {
-    //         ids.push($(this).attr('id'));
-    //     });
-    //     alert(ids);
-    // });
 
     $('tr').on('click', function () {
         const ids = [];
@@ -154,16 +141,17 @@
         });
         const userAccount = ids[0];
         const uuid = ids[1];
+        d = dialog({
+            title: '回放',
+            content: '<div id="rrweb-player"></div>'
+            //    content: '回放录影'
+        });
         d.showModal(document.getElementById('playback-list'));
         replay(userAccount, uuid);
     });
 
 
-    d = dialog({
-        title: '回放',
-        content: '<div id="rrweb-player"></div>'
-        //    content: '回放录影'
-    });
+
 
 
     function replay(userAccount, uuid) {
