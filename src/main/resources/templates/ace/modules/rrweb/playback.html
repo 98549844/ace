@@ -93,10 +93,14 @@
     // }
 
     function replay() {
-        let playbackId = 'playback-id';
+       // let playbackId = 'playback-id';
+        const userAccount = '[[${currentUser.userAccount}]]';
+        const uuid = 'ba41261a';
+
+
         $.ajax({
             type: "GET",
-            url: "/rest/rrweb/playback/" + playbackId, //访问的链接
+            url: "/rest/rrweb/playback/" + userAccount + "/" + uuid, //访问的链接
             dataType: 'json',
             success: function (resp) {  //成功的回调函数
                 const records = JSON.parse(resp.data);

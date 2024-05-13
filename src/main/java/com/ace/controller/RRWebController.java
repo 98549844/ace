@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,10 +42,14 @@ public class RRWebController extends CommonController {
         log.info("access /getPlaybackList.html");
         ModelAndView view = super.page("ace/modules/rrweb/list");
         List<RRWebEvents> events = rrWebService.getByHeads();
-
-        view.addObject("events", events);
-
-        return super.page("ace/modules/rrweb/list");
+        // view.addObject("events", events);
+        List<RRWebEvents> tmp = new ArrayList<>();
+        tmp.add(events.get(0));
+        tmp.add(events.get(0));
+        tmp.add(events.get(0));
+        tmp.add(events.get(0));
+        view.addObject("events", tmp);
+        return view;
     }
 
 

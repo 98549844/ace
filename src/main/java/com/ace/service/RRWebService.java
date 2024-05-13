@@ -37,12 +37,29 @@ public class RRWebService {
         rrWebDao.save(rrWebEvents);
     }
 
+    /** 包含大数据eventData
+     * @param userAccount
+     * @param uuid
+     * @return
+     */
+    public List<RRWebEvents> findByUserAccountAndUuidOrderByCreatedByAsc(String userAccount, String uuid) {
+       return rrWebDao.findByUserAccountAndUuidOrderByCreatedByAsc(userAccount, uuid);
+    }
+
+    /** 不包含大数据eventData
+     * @param userAccount
+     * @param uuid
+     * @return
+     */
     public List<RRWebEvents> getByUserAccountAndUuidOrderByCreatedByAsc(String userAccount, String uuid) {
         List<Map<String, Object>> objecList = rrWebDao.getByUserAccountAndUuidOrderByCreatedByAsc(userAccount, uuid);
         return getRRWebWithOutEventData(objecList);
     }
 
 
+    /** 不包含大数据eventData
+     * @return
+     */
     public List<RRWebEvents> getByHeads() {
         List<Map<String, Object>> objecList = rrWebDao.getBySerialOrderByCreatedByAsc();
         return getRRWebWithOutEventData(objecList);

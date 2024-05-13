@@ -20,6 +20,8 @@ public interface RRWebDao extends JpaRepository<RRWebEvents, Long>, JpaSpecifica
     @Query(nativeQuery = true, value = "select eventId, createdBy, createdDate, lastUpdateDate, lastUpdatedBy, version, userAccount, userName, userId, uuid, serial from rrweb_events where userAccount = :#{#userAccount} and uuid = :#{#uuid} order by createdDate asc")
     List<Map<String, Object>> getByUserAccountAndUuidOrderByCreatedByAsc(@Param("userAccount") String userAccount, @Param("uuid") String uuid);
 
+    List<RRWebEvents> findByUserAccountAndUuidOrderByCreatedByAsc(String userAccount, String uuid);
+
 
     @Query(nativeQuery = true, value = "select eventId, createdBy, createdDate, lastUpdateDate, lastUpdatedBy, version, userAccount, userName, userId, uuid, serial from rrweb_events where serial = 1 order by createdDate asc")
     List<Map<String, Object>> getBySerialOrderByCreatedByAsc();

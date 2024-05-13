@@ -48,6 +48,8 @@ public class RRWebRestController extends CommonController {
         rrWebEvents.setUserAccount(user.getUserAccount());
         rrWebEvents.setUserId(user.getUserId());
         rrWebEvents.setUserName(user.getUsername());
+        String eventData = rrWebEvents.getEventData().trim();
+        rrWebEvents.setEventData(eventData);
         rrWebService.save(rrWebEvents);
         return AjaxResponse.success(true);
     }
@@ -56,18 +58,21 @@ public class RRWebRestController extends CommonController {
     @Operation(summary = "回放")
     @RequestMapping(method = RequestMethod.GET, value = "/playback/{userAccount}/{uuid}")
     public AjaxResponse playback(@PathVariable String userAccount, @PathVariable String uuid) throws IOException {
-        log.info("access RRWeb userAccount: {}", userAccount);
+        log.info("RRWeb userAccount: {} | uuid: {}", userAccount, uuid);
 
-        List<RRWebEvents> events = rrWebService.getByUserAccountAndUuidOrderByCreatedByAsc(userAccount, uuid);
+        List<RRWebEvents> events = rrWebService.findByUserAccountAndUuidOrderByCreatedByAsc(userAccount, uuid);
 
         StringBuilder data = new StringBuilder();
-        for (String s : tmp) {
-            String trimmed = s.trim();
-            if (trimmed.length() > 2) {
-                String sub = trimmed.substring(1, trimmed.length() - 1) + ',';
+        for (RRWebEvents ev : events) {
+            String eventData = ev.getEventData();
+            //eventData 不大过2,表示只有中括号, 而且不含数据, 跳过拼接数据
+            if (eventData.length() > 2) {
+                //拆中括号"[" "]", 拼入逗号 ","
+                String sub = eventData.substring(1, eventData.length() - 1) + ',';
                 data.append(sub);
             }
         }
+        //拼接中括号"[ ]"
         String result = "[" + data.substring(0, data.length() - 1) + "]";
         return AjaxResponse.success(result);
     }
