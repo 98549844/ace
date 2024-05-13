@@ -66,5 +66,7 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
     @Query(nativeQuery = true, value = "select u.* from users u order by u.loginDateTime desc limit :#{#limit}")
     List<Users> findUsersOrderByLoginDateTime(@Param("limit") Integer limit);
 
+    List<Users> findAllByRecord(boolean isRecord);
+
 
 }

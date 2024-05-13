@@ -191,17 +191,23 @@
 
         <ul class="submenu">
             <li class="">
+                <a class="menu" th:href="@{/ace/surveillance.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    被记录者
+                </a>
+                <b class="arrow"></b>
+            </li>
+            <li class="">
                 <a class="menu" th:href="@{/ace/getPlaybackList.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
-                    List
+                    回放列表
                 </a>
                 <b class="arrow"></b>
             </li>
         </ul>
         <ul class="submenu">
             <li class="">
-                <!--<a class="menu" th:href="@{'/ace/playback/'+${playbackId}}">-->
-                <a class="menu" th:href="@{'/ace/playback/'+'playback-id'}">
+                <a class="menu" th:href="@{'/ace/playback.html'}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     PlayBack
                 </a>

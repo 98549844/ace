@@ -65,7 +65,6 @@
 <!-- page specific plugin scripts -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rrweb-player@latest/dist/style.css"/>
 <script src="https://cdn.jsdelivr.net/npm/rrweb-player@latest/dist/index.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/rrweb@latest/dist/rrweb.min.js"></script>
 
 <script type="application/javascript">
     //  window.events = [];
@@ -96,8 +95,6 @@
        // let playbackId = 'playback-id';
         const userAccount = '[[${currentUser.userAccount}]]';
         const uuid = 'ba41261a';
-
-
         $.ajax({
             type: "GET",
             url: "/rest/rrweb/playback/" + userAccount + "/" + uuid, //访问的链接

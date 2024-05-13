@@ -52,7 +52,7 @@ public class Users extends BaseEntity implements Serializable {
     private String gender;
     @Column
     private LocalDateTime dateOfBirth;
-    private long age = 0L;
+    private Long age = 0L;
     @Column
     private LocalDateTime loginDateTime;
     @Column
@@ -73,10 +73,10 @@ public class Users extends BaseEntity implements Serializable {
     private LocalDateTime expireDate;
 
     @Column
-    private boolean enabled = true; // user account
+    private Boolean enabled = true; // user account
 
     @Column
-    private boolean isRecord = false; // 控制rrweb开启记录
+    private Boolean record = false; // 控制rrweb开启记录
 
     @Transient
     private String currentUserPath;
@@ -264,11 +264,12 @@ public class Users extends BaseEntity implements Serializable {
         this.icon = icon;
     }
 
+
     public boolean isRecord() {
-        return isRecord;
+        return record;
     }
 
     public void setRecord(boolean record) {
-        isRecord = record;
+        this.record = record;
     }
 }

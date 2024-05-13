@@ -29,7 +29,7 @@
                 </div><!-- /.ace-settings-container -->
 
                 <div class="page-header">
-                    <h1>
+                    <h1 id="playback-list">
                         Playback List
                     </h1>
                 </div><!-- /.page-header -->
@@ -75,7 +75,7 @@
 
                                             <td class="hidden-480">
                                                 <a href="#">
-                                                    <span class="label label-sm label-info">ace.com</span>
+                                                    <span class="label label-sm label-info" id="playback">ace.com</span>
                                                 </a>
                                             </td>
 
@@ -95,24 +95,6 @@
 
                                                         <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
                                                             <li>
-                                                                <a href="#" class="tooltip-info" data-rel="tooltip"
-                                                                   title="View">
-																			<span class="blue">
-																				<i class="ace-icon fa fa-search-plus bigger-120"></i>
-																			</span>
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                                <a href="#" class="tooltip-success" data-rel="tooltip"
-                                                                   title="Edit">
-																			<span class="green">
-																				<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																			</span>
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
                                                                 <a href="#" class="tooltip-error" data-rel="tooltip"
                                                                    title="Delete">
 																			<span class="red">
@@ -126,10 +108,9 @@
                                             </td>
                                     </div>
                                     </tr>
-
-
                                     </tbody>
                                 </table>
+                                <!--<div id="rrweb-player"></div>-->
                             </div><!-- /.span -->
                         </div><!-- /.row -->
 
@@ -147,7 +128,46 @@
 
 <div th:insert="~{ace/pb-pages/common-script :: common-script}"></div>
 <!-- page specific plugin scripts -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rrweb-player@latest/dist/style.css"/>
+<script src="https://cdn.jsdelivr.net/npm/rrweb-player@latest/dist/index.js"></script>
 
+<script type="application/javascript">
+    $('#playback').on('click', function () {
+        d.showModal(document.getElementById('playback-list'));
+        replay();
+    });
+
+    d = dialog({
+        title: '回放',
+        content: '<div id="rrweb-player"></div>'
+        //    content: '回放录影'
+    });
+
+
+    function replay() {
+        const userAccount = '[[${currentUser.userAccount}]]';
+        const uuid = 'ba41261a';
+        $.ajax({
+            type: "GET",
+            url: "/rest/rrweb/playback/" + userAccount + "/" + uuid, //访问的链接
+            dataType: 'json',
+            success: function (resp) {  //成功的回调函数
+                const records = JSON.parse(resp.data);
+                new rrwebPlayer({
+                    target: document.getElementById("rrweb-player"),
+                    data: {
+                        events: records,
+                    },
+                });
+            },
+            error: function (e) {
+                console.log("error:" + e.message);
+            }
+        });
+    }
+
+
+</script>
 
 </body>
 </html>

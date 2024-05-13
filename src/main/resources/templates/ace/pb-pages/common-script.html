@@ -53,16 +53,16 @@
     <!--<link rel="stylesheet" th:href="@{/assets/js/rrweb/rrweb.min.2.0.0.alpha4.css}"/>-->
 
     <script type="text/javascript">
-        jQuery(function () {
-            uuid = getUuid().slice(0, 8);
-            rrweb.record({
-                emit(event) {
-                    // 用任意方式存储 event
-                    console.log(event);
-                    events.push(event);
-                },
-            });
-        });
+        // jQuery(function () {
+        //     uuid = getUuid().slice(0, 8);
+        //     rrweb.record({
+        //         emit(event) {
+        //             // 用任意方式存储 event
+        //             console.log(event);
+        //             events.push(event);
+        //         },
+        //     });
+        // });
 
         let uuid;
         let serial = 1;

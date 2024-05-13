@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{ace/pb-pages/header :: header}">
+    <!-- inline styles related to this page -->
+</head>
+
+<body class="no-skin">
+<div id="navbar" class="navbar navbar-default ace-save-state"
+     th:insert="~{ace/pb-pages/navbar :: navbar}"></div>
+
+<div class="main-container ace-save-state" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.loadState('main-container')
+        } catch (e) {
+        }
+    </script>
+
+    <div id="sidebar" class="sidebar responsive ace-save-state"
+         th:insert="~{ace/pb-pages/sidebar :: sidebar}">
+    </div>
+
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="breadcrumbs" th:insert="~{ace/pb-pages/breadcrumbs :: breadcrumbs}"></div>
+            <div class="page-content">
+                <div class="ace-settings-container" id="ace-settings-container"
+                     th:insert="~{ace/pb-pages/ace-settings-container :: ace-settings-container}">
+                </div><!-- /.ace-settings-container -->
+
+                <div class="page-header">
+                    <h1>
+                        Surveillance List
+                    </h1>
+                </div><!-- /.page-header -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table id="simple-table" class="table  table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>帐号</th>
+                                        <th>用户名</th>
+                                        <th>
+                                            <i class="ace-icon glyphicon glyphicon-film"></i>
+                                            记录
+                                        </th>
+
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <div th:each="su:${surveillance}">
+                                        <tr>
+                                            <input type="hidden" th:value="${su.userId}" th:id="${su.userId}"
+                                                   class="input-hidden"/>
+                                            <td th:text="${su.userAccount}"></td>
+                                            <td th:text="${su.username}"></td>
+                                            <!--<td th:text="${su.record}"></td>-->
+
+                                            <td th:if="${su.record}">
+                                                <span th:id="'record-'+${su.userId}">
+                                                    <strong class="green">开启</strong></span>
+                                                <input th:id="'check-'+${su.userId}" checked=""
+                                                       th:checked="${su.record}"
+                                                       th:if="${su.userId} ne ${currentUser.userId}"
+                                                       type="checkbox"
+                                                       class="ace ace-switch ace-switch-5 "/>
+                                                <span class="lbl middle"></span>
+                                            </td>
+
+                                            <td th:if="${not su.record}" class="col-sm-2">
+                                                <span th:id="'record-'+${su.userId}">
+                                                    <strong class="red">关闭</strong></span>
+                                                <input th:id="'check-'+${su.userId}" checked=""
+                                                       th:checked="${su.record}"
+                                                       th:if="${su.userId} ne ${currentUser.userId}"
+                                                       type="checkbox"
+                                                       class="ace ace-switch ace-switch-5 "/>
+                                                <span class="lbl middle"></span>
+                                            </td>
+                                    </div>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <!--<div id="rrweb-player"></div>-->
+                            </div><!-- /.span -->
+                        </div><!-- /.row -->
+
+
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+
+    <div class="footer" th:insert="~{ace/pb-pages/footer :: footer}">
+    </div>
+</div><!-- /.main-container -->
+
+<div th:insert="~{ace/pb-pages/common-script :: common-script}"></div>
+<!-- page specific plugin scripts -->
+
+
+</body>
+</html>

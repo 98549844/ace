@@ -178,7 +178,7 @@ public class InsertUsers {
         u6.setUserAccount("frank");
         u7.setUserAccount("eric");
         u8.setUserAccount("root");
-        u8.setUserAccount("moni");
+        u9.setUserAccount("moni");
 
         u1.setUsername("Timothy Au");
         u2.setUsername("Peter Wong");

@@ -409,5 +409,9 @@ public class UsersService {
         }
     }
 
+    public List<Users> findAllByRecord(){
+        return usersDao.findAllByRecord(true);
+    }
+
 }
 
