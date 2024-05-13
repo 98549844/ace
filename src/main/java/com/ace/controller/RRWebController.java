@@ -2,6 +2,8 @@ package com.ace.controller;
 
 import com.ace.controller.common.CommonController;
 import com.ace.models.common.AjaxResponse;
+import com.ace.models.entity.RRWebEvents;
+import com.ace.service.RRWebService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -26,10 +29,21 @@ import java.io.IOException;
 public class RRWebController extends CommonController {
     private static final Logger log = LogManager.getLogger(RRWebController.class.getName());
 
+    private final RRWebService rrWebService;
+
+    public RRWebController(RRWebService rrWebService) {
+        this.rrWebService = rrWebService;
+    }
+
 
     @RequestMapping(method = RequestMethod.GET, value = "/getPlaybackList.html")
     public ModelAndView getPlaybackList() {
         log.info("access /getPlaybackList.html");
+        ModelAndView view = super.page("ace/modules/rrweb/list");
+        List<RRWebEvents> events = rrWebService.getByHeads();
+
+        view.addObject("events", events);
+
         return super.page("ace/modules/rrweb/list");
     }
 

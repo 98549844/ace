@@ -27,12 +27,19 @@ public class RRWebEvents extends BaseEntity {
     @Column
     private Long eventId;
     @Column
-    private String url;
-    @Column
     private Long userId;
     @Column
     private String userAccount;
     @Column
+    private String userName;
+    @Column
+    private String uuid;
+    @Column
+    private Integer serial = 0;
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String eventData;
 
 
@@ -44,12 +51,12 @@ public class RRWebEvents extends BaseEntity {
         this.eventId = eventId;
     }
 
-    public String getUrl() {
-        return url;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Long getUserId() {
@@ -75,6 +82,22 @@ public class RRWebEvents extends BaseEntity {
 
     public void setEventData(String eventData) {
         this.eventData = eventData;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public Integer getSerial() {
+        return serial;
+    }
+
+    public void setSerial(Integer serial) {
+        this.serial = serial;
     }
 }
 

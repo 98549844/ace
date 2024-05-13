@@ -1,12 +1,297 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <ul class="nav nav-list" th:fragment="nav-list">
     <!--左菜单列--> <!--active: selected menu-->
-    <li class="active">
+    <li class="">
         <a class="menu" th:href="@{/ace/index.html}">
             <i class="menu-icon fa fa-tachometer"></i>
             <span class="menu-text"> Dashboard </span>
         </a>
         <b class="arrow"></b>
+    </li>
+
+    <li class="">
+        <a class="menu" th:href="@{/ace/calendar.html}">
+            <i class="menu-icon fa fa-calendar"></i>
+            <span class="menu-text">
+                Calendar
+                <span class="badge badge-transparent tooltip-error" title="2 Important Events">
+                    <i class="ace-icon fa fa-exclamation-triangle red bigger-130"></i>
+                </span>
+            </span>
+        </a>
+
+        <b class="arrow"></b>
+    </li>
+
+    <li class="">
+        <a class="menu" th:href="@{/ace/files.html}">
+            <i class="menu-icon fa fa-folder-open"></i>
+            <span class="menu-text"> Files 未开发完</span>
+        </a>
+        <b class="arrow"></b>
+    </li>
+
+    <li class="">
+        <a class="menu" th:href="@{/ace/gallery.html}">
+            <i class="menu-icon fa fa-picture-o"></i>
+            <span class="menu-text"> Gallery </span>
+        </a>
+        <b class="arrow"></b>
+    </li>
+    <li class="">
+        <a class="menu" th:href="@{/ace/media.html}">
+            <i class="menu-icon fa fa-video-camera"></i>
+            <span class="menu-text"> Media </span>
+        </a>
+        <b class="arrow"></b>
+    </li>
+
+    <li class="" id="userMenu">
+        <a th:href="@{/#}" class="menu dropdown-toggle">
+            <i class="menu-icon fa fa-users"></i>
+            <span class="menu-text">
+                用户管理
+                <span class="badge badge-primary">3</span>
+            </span>
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+
+        <b class="arrow"></b>
+
+        <ul class="submenu">
+            <li class="" id="userSubMenu1">
+                <a class="menu" th:href="@{/ace/users/users.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    用户列表
+                </a>
+                <b class="arrow"></b>
+            </li>
+
+            <li class="" id="userSubMenu2">
+                <a class="menu" th:href="@{/ace/roles.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    角色列表
+                </a>
+                <b class="arrow"></b>
+            </li>
+
+            <li class="" id="userSubMenu3">
+                <a class="menu" th:href="@{/ace/permissions.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    权限列表
+                </a>
+                <b class="arrow"></b>
+            </li>
+            <li class="" id="userSubMenu4">
+                <a class="menu" th:href="@{/ace/menu.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    菜单管理
+                </a>
+                <b class="arrow"></b>
+            </li>
+        </ul>
+    </li>
+
+    <li class="" id="issueReport">
+        <a th:href="@{/#}" class="menu dropdown-toggle">
+            <i class="menu-icon fa fa-bug"></i>
+            <span class="menu-text">
+                Reports
+                <span class="badge badge-primary">3</span>
+            </span>
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+
+        <b class="arrow"></b>
+
+        <ul class="submenu">
+            <li class="" id="reportList">
+                <a class="menu" th:href="@{/ace/report/list.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    报告列表
+                </a>
+                <b class="arrow"></b>
+            </li>
+        </ul>
+    </li>
+
+
+    <li class="">
+        <a th:href="@{/#}" class="menu dropdown-toggle">
+            <i class="menu-icon fa fa-envelope"></i>
+            <span class="menu-text">
+                Notifications
+                <span class="badge badge-primary">1</span>
+            </span>
+
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+
+        <b class="arrow"></b>
+
+
+        <ul class="submenu">
+            <li class="">
+                <a class="menu" th:href="@{/ace/polling.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    定时推送消息
+                </a>
+                <b class="arrow"></b>
+            </li>
+        </ul>
+        <ul class="submenu">
+            <li class="">
+                <a class="menu" th:href="@{/ace/ssePolling.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    实时推送消息
+                </a>
+                <b class="arrow"></b>
+            </li>
+        </ul>
+    </li>
+
+
+    <li class="">
+        <a th:href="@{/#}" class="menu dropdown-toggle">
+            <i class="menu-icon fa fa-comments-o"></i>
+            <span class="menu-text">
+                WebSocket
+                <span class="badge badge-primary">1</span>
+            </span>
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+
+        <b class="arrow"></b>
+
+
+        <ul class="submenu">
+            <li class="">
+                <a class="menu" th:href="@{/ace/webSocket.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    Simple IM
+                </a>
+                <b class="arrow"></b>
+            </li>
+        </ul>
+    </li>
+
+
+    <li class="">
+        <a th:href="@{/#}" class="menu dropdown-toggle">
+            <i class="menu-icon fa fa-camera-retro"></i>
+            <span class="menu-text">
+                RRWeb recorder
+                <span class="badge badge-primary">1</span>
+            </span>
+
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+
+        <b class="arrow"></b>
+
+        <ul class="submenu">
+            <li class="">
+                <a class="menu" th:href="@{/ace/getPlaybackList.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    List
+                </a>
+                <b class="arrow"></b>
+            </li>
+        </ul>
+        <ul class="submenu">
+            <li class="">
+                <!--<a class="menu" th:href="@{'/ace/playback/'+${playbackId}}">-->
+                <a class="menu" th:href="@{'/ace/playback/'+'playback-id'}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    PlayBack
+                </a>
+                <b class="arrow"></b>
+            </li>
+        </ul>
+    </li>
+
+    <li class="">
+        <a th:href="@{/#}" class="menu dropdown-toggle">
+            <i class="menu-icon fa fa-tag"></i>
+            <span class="menu-text"> More Pages </span>
+
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+
+        <b class="arrow"></b>
+
+        <ul class="submenu">
+            <li class="">
+                <a th:href="@{'/ace/users/profile.html/'+${currentUser.userId}}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    User Profile
+                </a>
+
+                <b class="arrow"></b>
+            </li>
+
+            <li class="">
+                <a class="menu" th:href="@{/ace/inbox.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    Inbox
+                </a>
+
+                <b class="arrow"></b>
+            </li>
+
+            <li class="">
+                <a class="menu" th:href="@{/ace/pricing.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    Pricing Tables
+                </a>
+
+                <b class="arrow"></b>
+            </li>
+
+            <li class="">
+                <a class="menu" th:href="@{/ace/invoice.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    Invoice
+                </a>
+
+                <b class="arrow"></b>
+            </li>
+
+            <li class="">
+                <a class="menu" th:href="@{/ace/timeline.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    Timeline
+                </a>
+
+                <b class="arrow"></b>
+            </li>
+
+            <li class="">
+                <a class="menu" th:href="@{/ace/search.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    Search Results
+                </a>
+
+                <b class="arrow"></b>
+            </li>
+
+            <li class="">
+                <a class="menu" th:href="@{/ace/email.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    Email Templates
+                </a>
+
+                <b class="arrow"></b>
+            </li>
+
+            <!--<li class="">
+                <a class="menu" th:href="@{/ace/logout.html}">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    Login &amp; Register
+                </a>
+                <b class="arrow"></b>
+            </li>-->
+        </ul>
     </li>
 
     <!--======================================================================================================-->
@@ -274,292 +559,6 @@
         <b class="arrow"></b>
     </li>
     <!--======================================================================================================-->
-
-    <li class="">
-        <a class="menu" th:href="@{/ace/calendar.html}">
-            <i class="menu-icon fa fa-calendar"></i>
-
-            <span class="menu-text">
-                Calendar
-                <span class="badge badge-transparent tooltip-error" title="2 Important Events">
-                    <i class="ace-icon fa fa-exclamation-triangle red bigger-130"></i>
-                </span>
-            </span>
-        </a>
-
-        <b class="arrow"></b>
-    </li>
-
-    <li class="">
-        <a class="menu" th:href="@{/ace/files.html}">
-            <i class="menu-icon fa fa-folder-open"></i>
-            <span class="menu-text"> Files 未开发完</span>
-        </a>
-        <b class="arrow"></b>
-    </li>
-
-    <li class="">
-        <a class="menu" th:href="@{/ace/gallery.html}">
-            <i class="menu-icon fa fa-picture-o"></i>
-            <span class="menu-text"> Gallery </span>
-        </a>
-        <b class="arrow"></b>
-    </li>
-    <li class="">
-        <a class="menu" th:href="@{/ace/media.html}">
-            <i class="menu-icon fa fa-video-camera"></i>
-            <span class="menu-text"> Media </span>
-        </a>
-        <b class="arrow"></b>
-    </li>
-
-    <li class="">
-        <a th:href="@{/#}" class="menu dropdown-toggle">
-            <i class="menu-icon fa fa-tag"></i>
-            <span class="menu-text"> More Pages </span>
-
-            <b class="arrow fa fa-angle-down"></b>
-        </a>
-
-        <b class="arrow"></b>
-
-        <ul class="submenu">
-            <li class="">
-                <a th:href="@{'/ace/users/profile.html/'+${currentUser.userId}}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    User Profile
-                </a>
-
-                <b class="arrow"></b>
-            </li>
-
-            <li class="">
-                <a class="menu" th:href="@{/ace/inbox.html}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    Inbox
-                </a>
-
-                <b class="arrow"></b>
-            </li>
-
-            <li class="">
-                <a class="menu" th:href="@{/ace/pricing.html}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    Pricing Tables
-                </a>
-
-                <b class="arrow"></b>
-            </li>
-
-            <li class="">
-                <a class="menu" th:href="@{/ace/invoice.html}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    Invoice
-                </a>
-
-                <b class="arrow"></b>
-            </li>
-
-            <li class="">
-                <a class="menu" th:href="@{/ace/timeline.html}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    Timeline
-                </a>
-
-                <b class="arrow"></b>
-            </li>
-
-            <li class="">
-                <a class="menu" th:href="@{/ace/search.html}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    Search Results
-                </a>
-
-                <b class="arrow"></b>
-            </li>
-
-            <li class="">
-                <a class="menu" th:href="@{/ace/email.html}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    Email Templates
-                </a>
-
-                <b class="arrow"></b>
-            </li>
-
-            <!--<li class="">
-                <a class="menu" th:href="@{/ace/logout.html}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    Login &amp; Register
-                </a>
-                <b class="arrow"></b>
-            </li>-->
-        </ul>
-    </li>
-
-    <li class="" id="userMenu">
-        <a th:href="@{/#}" class="menu dropdown-toggle">
-            <i class="menu-icon fa fa-users"></i>
-            <span class="menu-text">
-                用户管理
-                <span class="badge badge-primary">3</span>
-            </span>
-            <b class="arrow fa fa-angle-down"></b>
-        </a>
-
-        <b class="arrow"></b>
-
-        <ul class="submenu">
-            <li class="" id="userSubMenu1">
-                <a class="menu" th:href="@{/ace/users/users.html}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    用户列表
-                </a>
-                <b class="arrow"></b>
-            </li>
-
-            <li class="" id="userSubMenu2">
-                <a class="menu" th:href="@{/ace/roles.html}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    角色列表
-                </a>
-                <b class="arrow"></b>
-            </li>
-
-            <li class="" id="userSubMenu3">
-                <a class="menu" th:href="@{/ace/permissions.html}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    权限列表
-                </a>
-                <b class="arrow"></b>
-            </li>
-            <li class="" id="userSubMenu4">
-                <a class="menu" th:href="@{/ace/menu.html}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    菜单管理
-                </a>
-                <b class="arrow"></b>
-            </li>
-        </ul>
-    </li>
-
-    <li class="" id="issueReport">
-        <a th:href="@{/#}" class="menu dropdown-toggle">
-            <i class="menu-icon fa fa-bug"></i>
-            <span class="menu-text">
-                Reports
-                <span class="badge badge-primary">3</span>
-            </span>
-            <b class="arrow fa fa-angle-down"></b>
-        </a>
-
-        <b class="arrow"></b>
-
-        <ul class="submenu">
-            <li class="" id="reportList">
-                <a class="menu" th:href="@{/ace/report/list.html}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    报告列表
-                </a>
-                <b class="arrow"></b>
-            </li>
-        </ul>
-    </li>
-
-
-    <li class="">
-        <a th:href="@{/#}" class="menu dropdown-toggle">
-            <i class="menu-icon fa fa-envelope"></i>
-            <span class="menu-text">
-                Notifications
-                <span class="badge badge-primary">1</span>
-            </span>
-
-            <b class="arrow fa fa-angle-down"></b>
-        </a>
-
-        <b class="arrow"></b>
-
-
-        <ul class="submenu">
-            <li class="">
-                <a class="menu" th:href="@{/ace/polling.html}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    定时推送消息
-                </a>
-                <b class="arrow"></b>
-            </li>
-        </ul>
-        <ul class="submenu">
-            <li class="">
-                <a class="menu" th:href="@{/ace/ssePolling.html}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    实时推送消息
-                </a>
-                <b class="arrow"></b>
-            </li>
-        </ul>
-    </li>
-
-
-    <li class="">
-        <a th:href="@{/#}" class="menu dropdown-toggle">
-            <i class="menu-icon fa fa-comments-o"></i>
-            <span class="menu-text">
-                WebSocket
-                <span class="badge badge-primary">1</span>
-            </span>
-            <b class="arrow fa fa-angle-down"></b>
-        </a>
-
-        <b class="arrow"></b>
-
-
-        <ul class="submenu">
-            <li class="">
-                <a class="menu" th:href="@{/ace/webSocket.html}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    Simple IM
-                </a>
-                <b class="arrow"></b>
-            </li>
-        </ul>
-    </li>
-
-
-    <li class="">
-        <a th:href="@{/#}" class="menu dropdown-toggle">
-            <i class="menu-icon fa fa-camera-retro"></i>
-            <span class="menu-text">
-                RRWeb recorder
-                <span class="badge badge-primary">1</span>
-            </span>
-
-            <b class="arrow fa fa-angle-down"></b>
-        </a>
-
-        <b class="arrow"></b>
-
-        <ul class="submenu">
-            <li class="">
-                <a class="menu" th:href="@{/ace/getPlaybackList.html}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    List
-                </a>
-                <b class="arrow"></b>
-            </li>
-        </ul>
-        <ul class="submenu">
-            <li class="">
-                <!--<a class="menu" th:href="@{'/ace/playback/'+${playbackId}}">-->
-                <a class="menu" th:href="@{'/ace/playback/'+'playback-id'}">
-                    <i class="menu-icon fa fa-caret-right"></i>
-                    PlayBack
-                </a>
-                <b class="arrow"></b>
-            </li>
-        </ul>
-    </li>
 
 
     <li class="">

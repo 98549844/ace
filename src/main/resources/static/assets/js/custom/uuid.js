@@ -1,4 +1,4 @@
-function getUuid() {
+function getUuidFromServer() {
     let uuid;
     $.ajax({
         type: "get", // 以get方式发起请求

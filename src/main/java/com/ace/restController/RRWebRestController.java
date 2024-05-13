@@ -3,8 +3,8 @@ package com.ace.restController;
 import com.ace.controller.common.CommonController;
 import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.RRWebEvents;
+import com.ace.models.entity.Users;
 import com.ace.service.RRWebService;
-import com.ace.utilities.FileUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
@@ -37,27 +37,28 @@ public class RRWebRestController extends CommonController {
         this.rrWebService = rrWebService;
     }
 
-    //  StringBuilder tmp = new StringBuilder();
-    int count = 1;
     List<String> tmp = new ArrayList<>();
 
     @Operation(summary = "保存记录")
     @RequestMapping(method = RequestMethod.POST, value = "/save.html")
-    public AjaxResponse save(@RequestBody String data) {
-        tmp.add(data);
-
-        String p = "/Users/garlam/IdeaProjects/ace/src/main/java/com/ace/restController/aaa/";
-        String f = count + ".json";
-        FileUtil.write(p, f, data, false);
-        ++count;
+    public AjaxResponse save(@ModelAttribute RRWebEvents rrWebEvents) {
+        tmp.add(rrWebEvents.getEventData());
+        Users user = getCurrentUser();
+        //set user info from session
+        rrWebEvents.setUserAccount(user.getUserAccount());
+        rrWebEvents.setUserId(user.getUserId());
+        rrWebEvents.setUserName(user.getUsername());
+        rrWebService.save(rrWebEvents);
         return AjaxResponse.success(true);
     }
 
 
     @Operation(summary = "回放")
-    @RequestMapping(method = RequestMethod.GET, value = "/playback/{userAccount}")
-    public AjaxResponse playback(@PathVariable String userAccount) throws IOException {
+    @RequestMapping(method = RequestMethod.GET, value = "/playback/{userAccount}/{uuid}")
+    public AjaxResponse playback(@PathVariable String userAccount, @PathVariable String uuid) throws IOException {
         log.info("access RRWeb userAccount: {}", userAccount);
+
+        List<RRWebEvents> events = rrWebService.getByUserAccountAndUuidOrderByCreatedByAsc(userAccount, uuid);
 
         StringBuilder data = new StringBuilder();
         for (String s : tmp) {
@@ -67,15 +68,8 @@ public class RRWebRestController extends CommonController {
                 data.append(sub);
             }
         }
-
         String result = "[" + data.substring(0, data.length() - 1) + "]";
-
-      //  String p = "/Users/garlam/IdeaProjects/ace/src/main/java/com/ace/restController/aaa/";
-      //  String seven = "playback.json";
-
-       // FileUtil.rewrite(p + seven, result);
         return AjaxResponse.success(result);
-        //  return tmp;
     }
 
     @Operation(summary = "回放列表")

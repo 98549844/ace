@@ -212,12 +212,12 @@
             drop: function(date) { // this function is called when something is dropped
 
                 // retrieve the dropped element's stored Event Object
-                var originalEventObject = $(this).data('eventObject');
-                var $extraEventClass = $(this).attr('data-class');
+                const originalEventObject = $(this).data('eventObject');
+                const $extraEventClass = $(this).attr('data-class');
 
 
                 // we need to copy it, so that multiple events don't have a reference to the same object
-                var copiedEventObject = $.extend({}, originalEventObject);
+                const copiedEventObject = $.extend({}, originalEventObject);
 
                 // assign it the date that was reported
                 copiedEventObject.start = date;
@@ -239,7 +239,6 @@
             selectable: true,
             selectHelper: true,
             select: function(start, end, allDay) {
-
                 bootbox.prompt("New Event Title:", function(title) {
                     if (title !== null) {
                         calendar.fullCalendar('renderEvent',

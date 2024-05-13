@@ -66,7 +66,6 @@ public class LoginController extends CommonController {
         if (NullUtil.isNull(admin)) {
             userRolePermissionRestController.addDefaultAdminUsers();
         }
-
         if (isLogin()) {
             return super.page("ace/index.html");
         } else {
