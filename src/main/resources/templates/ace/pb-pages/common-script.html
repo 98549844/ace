@@ -79,7 +79,8 @@
                 // userAccount: '[[${currentUser.userAccount}]]',
                 // url: window.location.pathname,
                 eventData: JSON.stringify(events),
-                uuid: uuid
+                uuid: uuid,
+                serial: serial
             };
             events = []; // 重置 events 数组
             $.ajax({

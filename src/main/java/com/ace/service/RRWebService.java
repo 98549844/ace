@@ -2,12 +2,17 @@ package com.ace.service;
 
 import com.ace.dao.RRWebDao;
 import com.ace.models.entity.RRWebEvents;
+import com.ace.utilities.DateTimeUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -33,12 +38,41 @@ public class RRWebService {
     }
 
     public List<RRWebEvents> getByUserAccountAndUuidOrderByCreatedByAsc(String userAccount, String uuid) {
-        return rrWebDao.getByUserAccountAndUuidOrderByCreatedByAsc(userAccount, uuid);
+        List<Map<String, Object>> objecList = rrWebDao.getByUserAccountAndUuidOrderByCreatedByAsc(userAccount, uuid);
+        return getRRWebWithOutEventData(objecList);
     }
 
 
     public List<RRWebEvents> getByHeads() {
-        return rrWebDao.getBySerialOrderByCreatedByAsc();
+        List<Map<String, Object>> objecList = rrWebDao.getBySerialOrderByCreatedByAsc();
+        return getRRWebWithOutEventData(objecList);
+    }
+
+
+    /**
+     * List<Map<String, Object>> 转换成 List<RRWebEvents> , 不包含EventData
+     *
+     * @param objectList
+     * @return events
+     */
+    private List<RRWebEvents> getRRWebWithOutEventData(List<Map<String, Object>> objectList) {
+        List<RRWebEvents> events = new ArrayList<>();
+        for (Map<String, Object> obj : objectList) {
+            RRWebEvents event = new RRWebEvents();
+            event.setEventId((Long) obj.get("eventId"));
+            event.setCreatedBy((Long) obj.get("createdBy"));
+            event.setCreatedDate(DateTimeUtil.toLocalDateTime((Timestamp) obj.get("createdDate")));
+            event.setLastUpdateDate(DateTimeUtil.toLocalDateTime((Timestamp) obj.get("lastUpdateDate")));
+            event.setLastUpdatedBy((Long) obj.get("lastUpdatedBy"));
+            event.setVersion((Integer) obj.get("version"));
+            event.setUserAccount((String) obj.get("userAccount"));
+            event.setUserName((String) obj.get("userName"));
+            event.setUserId((Long) obj.get("userId"));
+            event.setUuid((String) obj.get("uuid"));
+            event.setSerial((Integer) obj.get("serial"));
+            events.add(event);
+        }
+        return events;
     }
 
 }
