@@ -5,6 +5,7 @@ import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.RRWebEvents;
 import com.ace.models.entity.Users;
 import com.ace.service.RRWebService;
+import com.ace.service.UsersService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
@@ -32,9 +33,11 @@ public class RRWebRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(RRWebRestController.class.getName());
 
     private final RRWebService rrWebService;
+    private final UsersService usersService;
 
-    public RRWebRestController(RRWebService rrWebService) {
+    public RRWebRestController(RRWebService rrWebService, UsersService usersService) {
         this.rrWebService = rrWebService;
+        this.usersService = usersService;
     }
 
     List<String> tmp = new ArrayList<>();
@@ -44,7 +47,7 @@ public class RRWebRestController extends CommonController {
     public AjaxResponse save(@ModelAttribute RRWebEvents rrWebEvents) {
         tmp.add(rrWebEvents.getEventData());
         Users user = getCurrentUser();
-        //set user info from session
+        //从session拿取用户资料set到rrWebEvents对像里
         rrWebEvents.setUserAccount(user.getUserAccount());
         rrWebEvents.setUserId(user.getUserId());
         rrWebEvents.setUserName(user.getUsername());
@@ -75,6 +78,20 @@ public class RRWebRestController extends CommonController {
         //拼接中括号"[ ]"
         String result = "[" + data.substring(0, data.length() - 1) + "]";
         return AjaxResponse.success(result);
+    }
+
+    @Operation(summary = "获取是否开始record")
+    @RequestMapping(method = RequestMethod.GET, value = "/getRecord/{record}")
+    public AjaxResponse getRecord(@PathVariable boolean record) {
+        Users user = getCurrentUser();
+        if (record) {
+            user.setRecord(false);
+        } else {
+            user.setRecord(true);
+        }
+        setUsersSaSession(user);
+        usersService.save(user);
+        return AjaxResponse.success(user.isRecord());
     }
 
     @Operation(summary = "回放列表")
