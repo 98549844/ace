@@ -39,8 +39,7 @@ public class RRWebEvents extends BaseEntity {
     @Column
     private Integer serial = 0;
 
-    @Transient
-    private Duration duration;
+
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
@@ -103,14 +102,6 @@ public class RRWebEvents extends BaseEntity {
 
     public void setSerial(Integer serial) {
         this.serial = serial;
-    }
-
-    public Duration getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Duration duration) {
-        this.duration = duration;
     }
 }
 

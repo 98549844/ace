@@ -44,10 +44,6 @@
                                         <th>帐号</th>
                                         <th>用户名</th>
                                         <th>
-                                            <i class="ace-icon glyphicon glyphicon-film"></i>
-                                            时长
-                                        </th>
-                                        <th>
                                             <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
                                             记录时间
                                         </th>
@@ -70,7 +66,6 @@
                                                 <a th:text="${event.userAccount}"></a>
                                             </td>
                                             <td th:text="${event.userName}"></td>
-                                            <td th:text="${#temporals.format(event.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                             <td th:text="${#temporals.format(event.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
 
                                             <td class="hidden-480">
