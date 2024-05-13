@@ -76,7 +76,7 @@ public class Users extends BaseEntity implements Serializable {
     private Boolean enabled = true; // user account
 
     @Column
-    private Boolean record = false; // 控制rrweb开启记录
+    private Boolean record = true; // 控制rrweb开启记录
 
     @Transient
     private String currentUserPath;
