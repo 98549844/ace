@@ -49,20 +49,21 @@
     <script th:src="@{/assets/js/bootstrap-editable.min.js}"></script>
     <script th:src="@{/assets/js/ace-editable.min.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/rrweb@latest/dist/rrweb.min.js"></script>
-    <!--<script th:src="@{/assets/js/rrweb/rrweb-record.2.0.0.alpha4.min.js}"></script>-->
-    <!--<link rel="stylesheet" th:href="@{/assets/js/rrweb/rrweb.min.2.0.0.alpha4.css}"/>-->
 
     <script type="text/javascript">
-        // jQuery(function () {
-        //     uuid = getUuid().slice(0, 8);
-        //     rrweb.record({
-        //         emit(event) {
-        //             // 用任意方式存储 event
-        //             console.log(event);
-        //             events.push(event);
-        //         },
-        //     });
-        // });
+        let isRecord = JSON.parse('[[${currentUser.record}]]');
+        jQuery(function () {
+            if (isRecord) {
+                uuid = getUuid().slice(0, 8);
+                rrweb.record({
+                    emit(event) {
+                        // 用任意方式存储 event
+                        console.log(event);
+                        events.push(event);
+                    },
+                });
+            }
+        });
 
         let uuid;
         let serial = 1;
@@ -70,7 +71,7 @@
         let events = [];
 
         // 每 10 秒调用一次 save 方法，避免请求过多
-       // setInterval(save, 10 * 1000);
+        // setInterval(save, 10 * 1000);
 
         function save() {
             const data = {
@@ -101,57 +102,49 @@
 
         }
 
+        //控制左菜单顶部录影器js
+        //放入jq function里, 可以重复弹mouseover
+        //放在jq function外, 只弹一次mouseover
+        const mouseoverDialog = dialog({
+            content: '录影器',
+            quickClose: true// 点击空白处快速关闭
+        });
+        setTimeout(function () {
+                mouseoverDialog.close().remove();
+            }, 2000
+        )
+        $('#rrweb-recorder').on('mouseover', function () {
+            mouseoverDialog.show(document.getElementById('rrweb-recorder'));
+        })
 
-        // save 函数用于将 events 发送至后端存入，并重置 events 数组
-        function save1() {
-            // const data = {
-            //     userId: '[[${currentUser.userId}]]',
-            //     userAccount: '[[${currentUser.userAccount}]]',
-            //     url: window.location.pathname,
-            //     eventData: events
-            // };
-            // const body = JSON.stringify(data);
+        $('#rrweb-recorder').on('click', function () {
+            let okValue = '停止';
+            if (isRecord) {
+                okValue = '开始';
+            }
+            const clickDialog = dialog({
+                title: '录影器',
+                content: `是否${okValue}录制`,
+                okValue: okValue,
+                ok: function () {
+                    $.ajax({
+                        type: "GET",
+                        url: "/rest/rrweb/getRecord/" + isRecord, //访问的链接
+                        dataType: 'json',
+                        success: function (resp) {  //成功的回调函数
 
 
-            const body = JSON.stringify(events);
-            // if (events.length === 0) {
-            //     return;
-            // }
-            events = []; // 重置 events 数组
-            fetch("/rest/rrweb/save.html", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
+                        },
+                        error: function (e) {
+                            console.log("error:" + e.message);
+                        }
+                    });
+                    this.title(`${okValue}录影…`);
+                    return true;
                 },
-                body: body,
             });
-        }
-
-        // save 函数用于将 events 发送至后端存入，并重置 events 数组
-        // function save() {
-        //     if (events.length === 0) {
-        //         return;
-        //     }
-        //     const body = JSON.stringify({events});
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "/rest/rrweb/save.html", //访问的链接
-        //         dataType: "json",  // 修改为 "json"
-        //         contentType: "application/json",  // 添加 contentType
-        //
-        //         data: JSON.stringify({
-        //             token: "playback-id",
-        //             body: body
-        //         }),
-        //         success: function (resp) {  //成功的回调函数
-        //            // const data = JSON.parse(res);
-        //             console.log(resp.code);
-        //         },
-        //         error: function (e) {
-        //             alert("error: " + e.message);
-        //         }
-        //     });
-        // }
+            clickDialog.show();
+        })
 
 
     </script>

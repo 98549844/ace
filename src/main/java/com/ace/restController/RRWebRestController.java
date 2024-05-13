@@ -83,6 +83,7 @@ public class RRWebRestController extends CommonController {
     @Operation(summary = "获取是否开始record")
     @RequestMapping(method = RequestMethod.GET, value = "/getRecord/{record}")
     public AjaxResponse getRecord(@PathVariable boolean record) {
+        log.info("access record: {}", record);
         Users user = getCurrentUser();
         if (record) {
             user.setRecord(false);
