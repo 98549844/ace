@@ -1,6 +1,6 @@
 <!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
 <!--<head><head> 如出现嵌套head, th:block-->
-<head th:fragment="header">
+<th:block th:fragment="header">
     <!--common head start-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta charset="utf-8"/>
@@ -57,5 +57,5 @@
     <![endif]-->
     <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
     <!--common head end-->
-</head>
+</th:block>
 <!--</div>-->
