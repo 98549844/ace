@@ -282,11 +282,8 @@
                 </tr>`;
     }
 
-    const admin = '[[${currentUser.roleGroup}]]';
-
     $(".btn.btn-xs.btn-danger").on('click', function () {
-
-        if (admin.indexOf("admin") === -1) {
+        if (!isAdmin()) {
             const checkAdminDialog = dialog({
                 title: '用户权限不足',
                 content: '用户不是admin, 不允许执行该操作'

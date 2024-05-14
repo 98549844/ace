@@ -326,7 +326,6 @@
 
 
 <script type="text/javascript">
-    const admin = '[[${currentUser.roleGroup}]]';
     jQuery(function ($) {
         /***************/
         $('.show-details-btn').on('click', function (e) {
@@ -341,7 +340,7 @@
             const btnDangerId = $(this).attr("id");
             const userId = btnDangerId.split("-");
 
-            if (admin.indexOf("admin") === -1) {
+            if (!isAdmin()) {
                 const checkAdminDialog = dialog({
                     title: '用户权限不足',
                     content: '用户不是admin, 没有权限删除用户'
@@ -385,7 +384,7 @@
             const checkId = $(this).attr("id");
             const userId = checkId.split("-")[1];
 
-            if (admin.indexOf("admin") === -1) {
+            if (!isAdmin()) {
                 const checkAdminDialog = dialog({
                     title: '用户权限不足',
                     content: '用户不是admin, 没有权限更改用户状态'
@@ -509,7 +508,7 @@
     //user roles multiple list
     const $userTable = $('#userTable');
     $userTable.on('click', '.btn.btn-sm.btn-info.pull-right', function () {
-        if (admin.indexOf("admin") === -1) {
+        if (!isAdmin()) {
             const checkAdminDialog = dialog({
                 title: '用户权限不足',
                 content: '用户不是admin, 不允许执行该操作'

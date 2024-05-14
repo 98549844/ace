@@ -8,6 +8,12 @@ jQuery(function ($) {
     // getIcon();
 });
 
+function isAdmin() {
+    const admin = '[[${currentUser.roleGroup}]]';
+    return admin.indexOf("admin") !== -1;
+}
+
+
 function getUUID() {
     //使用浏览器内置api生成uuid
     return crypto.randomUUID();
@@ -16,7 +22,7 @@ function getUUID() {
 //https://blog.csdn.net/tiven_/article/details/135554988
 function getUuid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        const r = Math.random() * 16 | 0, v = c === 'x'? r : (r & 0x3 | 0x8);
+        const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
 }
