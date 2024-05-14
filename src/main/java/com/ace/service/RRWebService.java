@@ -87,6 +87,7 @@ public class RRWebService {
             event.setUserId((Long) obj.get("userId"));
             event.setUuid((String) obj.get("uuid"));
             event.setSerial((Integer) obj.get("serial"));
+            event.setRecorder((String) obj.get("recorder"));
             events.add(event);
         }
         return events;

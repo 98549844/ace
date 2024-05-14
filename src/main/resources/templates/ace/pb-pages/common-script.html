@@ -54,9 +54,8 @@
         let isRecord = JSON.parse('[[${currentUser.record}]]');
         jQuery(function () {
             if (isRecord) {
-                record()
-            } else {
-                clearInterval(saveInterval);
+                record();
+                saveInterval = setInterval(save, 10 * 1000); //启动保存间隔
             }
         });
 
@@ -67,6 +66,9 @@
                     // 用任意方式存储 event
                     console.log(event);
                     events.push(event);
+                    if (stopRecord) {
+                        stopFn(); //手动控制停止录制
+                    }
                 },
             });
         }
@@ -77,7 +79,9 @@
         let events = [];
 
         // 每 10 秒调用一次 save 方法，避免请求过多
-        let saveInterval = setInterval(save, 10 * 1000);
+        let saveInterval;
+
+        let recorder = 'system';
 
         function save() {
             const data = {
@@ -87,7 +91,8 @@
                 // url: window.location.pathname,
                 eventData: JSON.stringify(events),
                 uuid: uuid,
-                serial: serial
+                serial: serial,
+                recorder: recorder
             };
             events = []; // 重置 events 数组
             $.ajax({
@@ -123,40 +128,40 @@
             mouseoverDialog.show(document.getElementById('rrweb-recorder'));
         })
 
+        let stopRecord = false;
+        // 控制sidebar-shortcuts录影键function
         $('#rrweb-recorder').on('click', function () {
-            let okValue = '停止';
-            if (isRecord) {
-                okValue = '开始';
+            let okValue = '开始';
+            let content = `<label>是否开始录制</label>
+                            <br>
+                          <label>录制期间, 请勿跳转其他页面 !</label>`;
+
+            if (stopRecord) {
+                okValue = '停止';
+                content = `<label>确定停止录制 ?</label>`;
             }
-            const clickDialog = dialog({
+
+            const rrwebDialog = dialog({
                 title: '录影器',
-                content: `是否${okValue}录制`,
+                content: content,
                 okValue: okValue,
                 ok: function () {
-                    $.ajax({
-                        type: "GET",
-                        url: "/rest/rrweb/getRecord/" + isRecord, //访问的链接
-                        dataType: 'json',
-                        success: function (resp) {  //成功的回调函数
-                            isRecord = resp.data;
-                            if (isRecord) {
-                                record();
-                            } else {
-                                clearInterval(saveInterval);
-                            }
-                        },
-                        error: function (e) {
-                            console.log("error:" + e.message);
-                        }
-                    });
-                    this.title(`${okValue}录影…`);
-                    return true;
+                    if (stopRecord) {
+                        events = []; // 重置 events 数组
+                        clearInterval(saveInterval);
+                        record(); // 停止录制 因为stopRecord是公用参数, 可以外部调用
+                        stopRecord = false;
+                    } else {
+                        recorder = '[[${currentUser.userAccount}]]'
+                        record();
+                        saveInterval = setInterval(save, 10 * 1000); //重启保存间隔
+                        stopRecord = true;
+                        return true;
+                    }
                 },
             });
-            clickDialog.show();
+            rrwebDialog.show();
         })
-
-
     </script>
 </th:block>
 

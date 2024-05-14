@@ -51,6 +51,7 @@
                                             <i class="ace-icon glyphicon glyphicon-play"></i>
                                             播放
                                         </th>
+                                        <th>记录人</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -58,7 +59,8 @@
                                     <tbody>
                                     <div th:each="event:${events}">
                                         <tr>
-                                            <input type="hidden" th:value="${event.userAccount}" th:id="${event.userAccount}"
+                                            <input type="hidden" th:value="${event.userAccount}"
+                                                   th:id="${event.userAccount}"
                                                    class="input-hidden"/>
                                             <input type="hidden" th:value="${event.uuid}" th:id="${event.uuid}"
                                                    class="input-hidden"/>
@@ -74,7 +76,7 @@
                                                           th:id="'playback-'+${event.uuid}">Playback</span>
                                                 </a>
                                             </td>
-
+                                            <td th:text="${event.recorder}"></td>
                                             <td>
                                                 <div class="hidden-sm hidden-xs btn-group">
                                                     <button class="btn btn-xs btn-danger">
@@ -144,9 +146,6 @@
         d.showModal(document.getElementById('playback-list'));
         replay(userAccount, uuid);
     });
-
-
-
 
 
     function replay(userAccount, uuid) {

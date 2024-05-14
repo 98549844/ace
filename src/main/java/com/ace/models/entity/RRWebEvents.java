@@ -38,7 +38,8 @@ public class RRWebEvents extends BaseEntity {
     private String uuid;
     @Column
     private Integer serial = 0;
-
+    @Column
+    private String recorder ;
 
 
     @Lob
@@ -102,6 +103,14 @@ public class RRWebEvents extends BaseEntity {
 
     public void setSerial(Integer serial) {
         this.serial = serial;
+    }
+
+    public String getRecorder() {
+        return recorder;
+    }
+
+    public void setRecorder(String recorder) {
+        this.recorder = recorder;
     }
 }
 

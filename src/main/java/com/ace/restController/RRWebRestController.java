@@ -80,21 +80,6 @@ public class RRWebRestController extends CommonController {
         return AjaxResponse.success(result);
     }
 
-    @Operation(summary = "获取是否开始record")
-    @RequestMapping(method = RequestMethod.GET, value = "/getRecord/{record}")
-    public AjaxResponse getRecord(@PathVariable boolean record) {
-        log.info("access record: {}", record);
-        Users user = getCurrentUser();
-        if (record) {
-            user.setRecord(false);
-        } else {
-            user.setRecord(true);
-        }
-        setUsersSaSession(user);
-        usersService.save(user);
-        return AjaxResponse.success(user.isRecord());
-    }
-
     @Operation(summary = "回放列表")
     @RequestMapping(method = RequestMethod.GET, value = "/getPlaybackList.html")
     public AjaxResponse getPlaybackList() {
