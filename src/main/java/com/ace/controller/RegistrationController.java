@@ -37,6 +37,7 @@ public class RegistrationController extends CommonController {
         ModelAndView modelAndView;
 
         if (!usersService.validate(users)) {
+            //检查提交的资料是否为空
             log.error("users information incorrect");
             modelAndView = super.redirect("ace/login.html?msg=error");
             String msg = "information error";
@@ -48,7 +49,7 @@ public class RegistrationController extends CommonController {
         Integer count = usersService.countByUserAccountOrEmail(users);
         if (count == 0) {
             usersService.accountRegistration(users);
-            log.info("新建用户：" + users.getUserAccount());
+            log.info("新建用户：{}", users.getUserAccount());
             modelAndView = super.page("ace/login.html");
             String msg = "Please login your account";
             modelAndView.addObject("msg", msg);
