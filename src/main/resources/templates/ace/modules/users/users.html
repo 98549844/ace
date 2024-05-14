@@ -326,7 +326,7 @@
 
 
 <script type="text/javascript">
-
+    const admin = '[[${currentUser.description}]]';
     jQuery(function ($) {
         /***************/
         $('.show-details-btn').on('click', function (e) {
@@ -340,6 +340,17 @@
         $("button.btn-danger").on('click', function (e) {
             const btnDangerId = $(this).attr("id");
             const userId = btnDangerId.split("-");
+
+            if (admin.indexOf("admin") === -1) {
+                const checkAdminDialog = dialog({
+                    title: '用户权限不足',
+                    content: '因为你不是admin, 没有权限删除用户'
+                });
+                checkAdminDialog.show();
+                return;
+            } // 检查当前用户是否admin
+
+
             const d = dialog({
                 title: 'Delete User',
                 content: 'Are you sure to delete this user ?',
@@ -373,6 +384,16 @@
         $(":checkbox").on('click', function (e) {
             const checkId = $(this).attr("id");
             const userId = checkId.split("-")[1];
+
+            if (admin.indexOf("admin") === -1) {
+                const checkAdminDialog = dialog({
+                    title: '用户权限不足',
+                    content: '因为你不是admin, 没有权限更改用户状态'
+                });
+                checkAdminDialog.show();
+                return;
+            } // 检查当前用户是否admin
+
             $.ajax(
                 {
                     type: "GET",
