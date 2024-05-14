@@ -3,9 +3,9 @@
     <!--注脚-->
     <div class="footer-inner">
         <div class="footer-content">
-			<span class="bigger-120">
+			<span class="bigger-120" id="footer-text">
 				<span class="blue bolder">Ace</span>
-				Application &copy; 2013-2023
+				<!--Application &copy; 1986-yyyy-->
 			</span>
             <span class="action-buttons">
 				<a th:href="@{/#}">
@@ -29,4 +29,15 @@
     <div id="loading_img" style="display: none;">
         <img th:src="@{/assets/images/ajax-loaders/ajax-loader-8.gif}" alt="Loading..."/>
     </div>
+
+    <script type="text/javascript">
+        //页面加载完成后, 插入当前年份到footer
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentYear = new Date().getFullYear();
+            const footer = 'Application &copy; 1986-' + currentYear
+            const footerText = document.getElementById('footer-text');
+            footerText.innerHTML += footer;
+        });
+
+    </script>
 </div>
