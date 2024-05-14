@@ -282,7 +282,19 @@
                 </tr>`;
     }
 
+    const admin = '[[${currentUser.description}]]';
+
     $(".btn.btn-xs.btn-danger").on('click', function () {
+
+        if (admin.indexOf("admin") === -1) {
+            const checkAdminDialog = dialog({
+                title: '用户权限不足',
+                content: '用户不是admin, 不允许执行该操作'
+            });
+            checkAdminDialog.show();
+            return;
+        } // 检查当前用户是否admin
+
         const btnDangerId = $(this).attr("id");
         const roleId = btnDangerId.split('btnDanger-')[1];
         d = dialog({
