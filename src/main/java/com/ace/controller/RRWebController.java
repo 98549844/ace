@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -40,8 +41,20 @@ public class RRWebController extends CommonController {
     @RequestMapping(method = RequestMethod.GET, value = "/playbackList.html")
     public ModelAndView playbackList() {
         log.info("access /ace/playbackList.html");
+        Users users = getCurrentUser();
+
         ModelAndView view = super.page("ace/modules/rrweb/list");
         List<RRWebEvents> events = rrWebService.getByHeads();
+        if (!users.getDescription().contains(Users.ADMIN)) {
+            List<RRWebEvents> ownerEvents = new ArrayList<>();
+            for (RRWebEvents event : events) {
+                if (event.getUserAccount().equals(users.getUserAccount())) {
+                    ownerEvents.add(event);
+                }
+            }
+            view.addObject("events", ownerEvents);
+            return view;
+        }
         view.addObject("events", events);
         return view;
     }
@@ -51,7 +64,6 @@ public class RRWebController extends CommonController {
         log.info("access /ace/surveillance.html");
         ModelAndView view = super.page("ace/modules/rrweb/surveillance");
         List<Users> surveillance = usersService.findAll();
-
         view.addObject("surveillance", surveillance);
         return view;
     }

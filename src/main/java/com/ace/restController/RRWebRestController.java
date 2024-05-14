@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -85,6 +86,20 @@ public class RRWebRestController extends CommonController {
     public AjaxResponse getPlaybackList() {
         return AjaxResponse.success(true);
     }
+
+    //  @RequestMapping(value = "/enable.html", method = RequestMethod.GET)
+    //  public ModelAndView setEnable(@RequestParam(value = "userId") Long userId) {
+
+    @Operation(summary = "更新isRecord")
+    @RequestMapping(method = RequestMethod.GET, value = "/updateIsRecord.html")
+    public AjaxResponse updateIsRecord(@RequestParam(value = "userId") Long userId) {
+        Users users = usersService.findUsersById(userId);
+        users.setRecord(!users.isRecord());
+        users = usersService.saveAndFlush(users);
+        System.out.println("users update: " + users.isRecord());
+        return AjaxResponse.success(users.isRecord());
+    }
+
 
     @Operation(summary = "删除回放影片")
     @RequestMapping(method = RequestMethod.GET, value = "/delete/{uuid}")

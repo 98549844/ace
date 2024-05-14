@@ -383,8 +383,8 @@
                     success: function (ajaxResult) {
                         $("#enable-" + userId[1]).html(ajaxResult);
                     },
-                    error: function () {
-                        alert("AJAX FAILURE");
+                    error: function (e) {
+                        alert("error: " + e.message);
                     }
                 }
             )

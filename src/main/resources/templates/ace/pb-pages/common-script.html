@@ -131,6 +131,15 @@
         let stopRecord = false;
         // 控制sidebar-shortcuts录影键function
         $('#rrweb-recorder').on('click', function () {
+            if (isRecord) {
+                falseRecord()
+            } else {
+                manualRecord()
+            }
+        })
+
+        //for真实手动录制
+        function manualRecord() {
             let okValue = '开始';
             let content = `<label>是否开始录制</label>
                             <br>
@@ -161,7 +170,35 @@
                 },
             });
             rrwebDialog.show();
-        })
+        }
+
+        //本身已经被系统自动记录, 这里不再重复录制
+        function falseRecord() {
+            let okValue = '开始';
+            let content = `<label>是否开始录制</label>
+                            <br>
+                          <label>录制期间, 请勿跳转其他页面 !</label>`;
+
+            if (stopRecord) {
+                okValue = '停止';
+                content = `<label>确定停止录制 ?</label>`;
+            }
+
+            const rrwebDialog = dialog({
+                title: '录影器',
+                content: content,
+                okValue: okValue,
+                ok: function () {
+                    if (stopRecord) {
+                        stopRecord = false;
+                    } else {
+                        stopRecord = true;
+                        return true;
+                    }
+                },
+            });
+            rrwebDialog.show();
+        }
     </script>
 </th:block>
 

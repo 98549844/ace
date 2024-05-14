@@ -58,7 +58,6 @@
                                                    class="input-hidden"/>
                                             <td th:text="${su.userAccount}"></td>
                                             <td th:text="${su.username}"></td>
-                                            <!--<td th:text="${su.record}"></td>-->
 
                                             <td th:if="${su.record}">
                                                 <span th:id="'record-'+${su.userId}">
@@ -104,6 +103,35 @@
 <div th:insert="~{ace/pb-pages/common-script :: common-script}"></div>
 <!-- page specific plugin scripts -->
 
+
+<script type="application/javascript">
+    $(":checkbox").on('click', function (e) {
+        const checkId = $(this).attr("id");
+        const userId = checkId.split("check-")[1];
+        $.ajax(
+            {
+                type: "GET",
+                url: "/rest/rrweb/updateIsRecord.html",
+                data: {userId: userId},
+                cache: false,
+                success: function (resp) {
+                    if (resp.data) {
+                        $('#record-' + userId).html('<strong class="green">开启</strong>');
+                        $('#check-' + userId).html('<input type="checkbox" checked="checked" class="ace ace-switch ace-switch-5">');
+                    } else {
+                        $('#record-' + userId).html('<strong class="red">关闭</strong>');
+                        $('#check-' + userId).html('<input type="checkbox" class="ace ace-switch ace-switch-5">');
+                    }
+                },
+                error: function (e) {
+                    alert("error: " + e.message);
+                }
+            }
+        )
+    });
+
+
+</script>
 
 </body>
 </html>
