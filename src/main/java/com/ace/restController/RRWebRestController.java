@@ -44,11 +44,11 @@ public class RRWebRestController extends CommonController {
     @Operation(summary = "保存记录")
     @RequestMapping(method = RequestMethod.POST, value = "/save.html")
     public AjaxResponse save(@ModelAttribute RRWebEvents rrWebEvents) {
-        log.info("access /rrweb/save: {} ", rrWebEvents.getUuid());
-        if (NullUtil.isNull(rrWebEvents.getEventData())) {
+        if (NullUtil.isNull(rrWebEvents) || NullUtil.isNull(rrWebEvents.getEventData())) {
             log.info("EventData is empty !");
             return AjaxResponse.success(true);
         }
+        log.info("access /rrweb/save: {} ", rrWebEvents.getUuid());
 
         Users user = getCurrentUser();
         //从session拿取用户资料set到rrWebEvents对像里

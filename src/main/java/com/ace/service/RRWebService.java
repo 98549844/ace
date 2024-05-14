@@ -24,7 +24,7 @@ import java.util.Map;
 public class RRWebService {
     private static final Logger log = LogManager.getLogger(RRWebService.class.getName());
 
-    private RRWebDao rrWebDao;
+    private final RRWebDao rrWebDao;
 
     public RRWebService(RRWebDao rrWebDao) {
         this.rrWebDao = rrWebDao;

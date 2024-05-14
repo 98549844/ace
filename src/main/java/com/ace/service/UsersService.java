@@ -224,8 +224,8 @@ public class UsersService {
         users.setExpireDate(LocalDateTime.now().plusYears(3));
         Users u = usersDao.saveAndFlush(users);
 
-        //default role is viewer
-        Roles role = rolesService.findByRoleCode(Roles.VIEWER);
+        //default role is user
+        Roles role = rolesService.findByRoleCode(Roles.USER);
 
         UserRoles userRoles = new UserRoles();
         userRoles.setUserId(u.getUserId());

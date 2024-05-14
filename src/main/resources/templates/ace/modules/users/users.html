@@ -69,7 +69,7 @@
                                         <th class="detail-col">Details</th>
                                         <th>Account</th>
                                         <th>User Name</th>
-                                        <th class="hidden-480">Account Status</th>
+                                        <th class="hidden-480">Status</th>
                                         <th class="hidden-480">Roles</th>
                                         <th class="hidden-480">Region</th>
                                         <th>
@@ -424,12 +424,8 @@
                     let text = "";
                     for (let i = 0; i < data.length; i++) {
                         text = text + data[i].roleCode + "  ";
-                        //如果user已经在disable组, hidden enable button
-                        /*if ('DISABLE' === data[i].roleCode) {
-                            $("#check-"+userId).remove();
-                        }*/
                     }
-                    $("#userId-" + userId).text(text);
+                    $("#userId-" + userId).text(text.trim());
                 },
                 error(data) {
                     window.location.href = '500.html';

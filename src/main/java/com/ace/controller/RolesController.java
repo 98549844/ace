@@ -51,7 +51,8 @@ public class RolesController extends CommonController {
     @ResponseBody
     public List<Roles> getRolesByUserId(@PathVariable Long userId) {
         log.info("access roles/getByUserId/{}", userId);
-        return rolesService.getRolesByUserId(userId);
+        List<Roles> roles = rolesService.getRolesByUserId(userId);
+        return roles;
     }
 
 

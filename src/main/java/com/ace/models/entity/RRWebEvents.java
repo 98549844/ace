@@ -20,7 +20,7 @@ import java.time.Duration;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "rrweb_events",
         uniqueConstraints =
-                {@UniqueConstraint(name = "constraint_userUuidSerial", columnNames = {"uuid","serial"})})
+                {@UniqueConstraint(name = "constraint_userAccountUuidSerial", columnNames = {"userAccount","uuid","serial"})})
 @Entity
 public class RRWebEvents extends BaseEntity {
     private static final Logger log = LogManager.getLogger(RRWebEvents.class.getName());
