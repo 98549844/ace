@@ -306,7 +306,7 @@ public class UsersRestController extends CommonController {
         Map m = new HashMap();
         m.put("userAccount", user.getUserAccount());
         m.put("enable", user.isEnabled());
-        m.put("roles description", user.getDescription());
+        m.put("roles RoleGroup", user.getRoleGroup());
 
         return AjaxResponse.success(m);
     }

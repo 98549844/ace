@@ -266,7 +266,7 @@
                                                                     <div class="profile-info-name"> About Me</div>
 
                                                                     <div class="profile-info-value">
-                                                                        <span th:text="${rowUser.description}"/>
+                                                                        <span th:text="${rowUser.roleGroup}"/>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -326,7 +326,7 @@
 
 
 <script type="text/javascript">
-    const admin = '[[${currentUser.description}]]';
+    const admin = '[[${currentUser.roleGroup}]]';
     jQuery(function ($) {
         /***************/
         $('.show-details-btn').on('click', function (e) {
@@ -499,7 +499,7 @@
                     // 处理后台响应的逻辑
                 },
                 error: function (xhr, status, error) {
-                    alert('AJAX error:' + error);
+                    alert('error:' + error.message);
                     // 处理 AJAX 错误的逻辑
                 }
             });
@@ -513,6 +513,15 @@
     //user roles multiple list
     const $userTable = $('#userTable');
     $userTable.on('click', '.btn.btn-sm.btn-info.pull-right', function () {
+        if (admin.indexOf("admin") === -1) {
+            const checkAdminDialog = dialog({
+                title: '用户权限不足',
+                content: '用户不是admin, 不允许执行该操作'
+            });
+            checkAdminDialog.show();
+            return;
+        } // 检查当前用户是否admin
+
         const userId = $(this).attr('id').split('btnUpdateRoles-')[1];
         const roles = [];
         roles.push(userId);
@@ -521,8 +530,8 @@
         const formFieldSelectId = 'form-field-select-' + userId;
         $(`#${formFieldSelectId} option:selected`).each(function () {
             const text = $(this).text();
-            roles.push(text);
-            roleTable = roleTable + text + "  ";
+            roles.push(text); //发送角色到后端
+            roleTable = roleTable + text + "  "; //拼接给前端
         });
         $.ajax({
             url: '/ace/users/updateRoles.html', // 替换为实际的后台 URL
@@ -541,7 +550,7 @@
                         }
                     });
                     d.show();
-                    $('#userId-' + userId).text(roleTable);
+                    $('#userId-' + userId).text(roleTable.trim());
                 }
                 console.log(roleTable + ' updated:' + response);
                 // 处理后台响应的逻辑

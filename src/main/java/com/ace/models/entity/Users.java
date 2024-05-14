@@ -43,7 +43,7 @@ public class Users extends BaseEntity implements Serializable {
 
     private String username;
     @Column
-    private String description;
+    private String roleGroup; //用户角色组
     @Column
     private String email;
     @Column
@@ -127,12 +127,13 @@ public class Users extends BaseEntity implements Serializable {
         this.username = username;
     }
 
-    public String getDescription() {
-        return description;
+
+    public String getRoleGroup() {
+        return roleGroup;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRoleGroup(String roleGroup) {
+        this.roleGroup = roleGroup;
     }
 
     public String getEmail() {

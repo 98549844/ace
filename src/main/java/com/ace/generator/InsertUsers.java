@@ -63,15 +63,15 @@ public class InsertUsers {
         u8.setCreatedBy(0l);
         u9.setCreatedBy(0l);
 
-        u1.setDescription(Users.ADMIN);
-        u2.setDescription(Users.USER);
-        u3.setDescription(Users.VIEWER);
-        u4.setDescription(Users.DISABLE);
-        u5.setDescription(Users.VIEWER);
-        u6.setDescription(Users.USER);
-        u7.setDescription(Users.DISABLE);
-        u8.setDescription(Users.ADMIN);
-        u9.setDescription(Users.USER);
+        u1.setRoleGroup(Users.ADMIN);
+        u2.setRoleGroup(Users.USER);
+        u3.setRoleGroup(Users.VIEWER);
+        u4.setRoleGroup(Users.DISABLE);
+        u5.setRoleGroup(Users.VIEWER);
+        u6.setRoleGroup(Users.USER);
+        u7.setRoleGroup(Users.DISABLE);
+        u8.setRoleGroup(Users.ADMIN);
+        u9.setRoleGroup(Users.USER);
 
 
         u1.setEmail("timothy_au@qq.com");

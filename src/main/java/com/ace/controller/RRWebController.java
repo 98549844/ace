@@ -45,7 +45,7 @@ public class RRWebController extends CommonController {
 
         ModelAndView view = super.page("ace/modules/rrweb/list");
         List<RRWebEvents> events = rrWebService.getByHeads();
-        if (!users.getDescription().contains(Users.ADMIN)) {
+        if (!users.getRoleGroup().contains(Users.ADMIN)) {
             List<RRWebEvents> ownerEvents = new ArrayList<>();
             for (RRWebEvents event : events) {
                 if (event.getUserAccount().equals(users.getUserAccount())) {

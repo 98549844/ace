@@ -219,7 +219,7 @@ public class UsersService {
     @Transactional
     public Users accountRegistration(Users users) {
         users.setPassword(passwordEncoder.encode(users.getPassword()));
-        users.setDescription(Users.VIEWER);
+        users.setRoleGroup(Users.VIEWER);
         users.setUsername("ace" + RandomUtil.getRangeInt(1, 999) + "_" + users.getUserAccount());
         users.setExpireDate(LocalDateTime.now().plusYears(3));
         Users u = usersDao.saveAndFlush(users);

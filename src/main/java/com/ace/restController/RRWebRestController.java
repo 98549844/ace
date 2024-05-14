@@ -6,15 +6,14 @@ import com.ace.models.entity.RRWebEvents;
 import com.ace.models.entity.Users;
 import com.ace.service.RRWebService;
 import com.ace.service.UsersService;
+import com.ace.utilities.NullUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,12 +40,16 @@ public class RRWebRestController extends CommonController {
         this.usersService = usersService;
     }
 
-    List<String> tmp = new ArrayList<>();
 
     @Operation(summary = "保存记录")
     @RequestMapping(method = RequestMethod.POST, value = "/save.html")
     public AjaxResponse save(@ModelAttribute RRWebEvents rrWebEvents) {
-        tmp.add(rrWebEvents.getEventData());
+        log.info("access /rrweb/save: {} ", rrWebEvents.getUuid());
+        if (NullUtil.isNull(rrWebEvents.getEventData())) {
+            log.info("EventData is empty !");
+            return AjaxResponse.success(true);
+        }
+
         Users user = getCurrentUser();
         //从session拿取用户资料set到rrWebEvents对像里
         rrWebEvents.setUserAccount(user.getUserAccount());
@@ -103,7 +106,7 @@ public class RRWebRestController extends CommonController {
     public AjaxResponse delete(@PathVariable String uuid) {
         log.info("access /rrweb/delete: {} ", uuid);
         boolean result = false;
-        if (getCurrentUser().getDescription().contains(Users.ADMIN)) {
+        if (getCurrentUser().getRoleGroup().contains(Users.ADMIN)) {
             result = rrWebService.deleteByUuid(uuid);
         }
         return AjaxResponse.success(result);
