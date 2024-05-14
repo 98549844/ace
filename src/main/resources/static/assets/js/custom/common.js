@@ -28,7 +28,7 @@ function getUuid() {
 }
 
 function printUrl() {
-    const currentURL = window.location.href; // fullUrl
+    const currentURL = window.location.href; // http://192.168.1.100:8088/ace/index.html
     const currentPathname = window.location.pathname; // /ace/index.html
     const currentHost = window.location.host; // 192.168.1.100:8088/
     const currentPort = window.location.port; // 8088
