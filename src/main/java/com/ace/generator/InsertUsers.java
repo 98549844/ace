@@ -152,10 +152,10 @@ public class InsertUsers {
         u1.setRecord(false);
         u2.setRecord(false);
         u3.setRecord(false);
-        u4.setRecord(false);
+        u4.setRecord(true);
         u5.setRecord(false);
-        u6.setRecord(false);
-        u7.setRecord(false);
+        u6.setRecord(true);
+        u7.setRecord(true);
         u8.setRecord(false);
         u9.setRecord(true);
 
