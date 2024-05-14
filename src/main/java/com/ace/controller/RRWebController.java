@@ -37,9 +37,9 @@ public class RRWebController extends CommonController {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/getPlaybackList.html")
-    public ModelAndView getPlaybackList() {
-        log.info("access /ace/getPlaybackList.html");
+    @RequestMapping(method = RequestMethod.GET, value = "/playbackList.html")
+    public ModelAndView playbackList() {
+        log.info("access /ace/playbackList.html");
         ModelAndView view = super.page("ace/modules/rrweb/list");
         List<RRWebEvents> events = rrWebService.getByHeads();
         view.addObject("events", events);

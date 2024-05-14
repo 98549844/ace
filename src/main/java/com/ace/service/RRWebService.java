@@ -6,10 +6,8 @@ import com.ace.utilities.DateTimeUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,16 +35,20 @@ public class RRWebService {
         rrWebDao.save(rrWebEvents);
     }
 
-    /** 包含大数据eventData
+    /**
+     * 包含大数据eventData
+     *
      * @param userAccount
      * @param uuid
      * @return
      */
     public List<RRWebEvents> findByUserAccountAndUuidOrderByCreatedByAsc(String userAccount, String uuid) {
-       return rrWebDao.findByUserAccountAndUuidOrderByCreatedByAsc(userAccount, uuid);
+        return rrWebDao.findByUserAccountAndUuidOrderByCreatedByAsc(userAccount, uuid);
     }
 
-    /** 不包含大数据eventData
+    /**
+     * 不包含大数据eventData
+     *
      * @param userAccount
      * @param uuid
      * @return
@@ -57,7 +59,9 @@ public class RRWebService {
     }
 
 
-    /** 不包含大数据eventData
+    /**
+     * 不包含大数据eventData
+     *
      * @return
      */
     public List<RRWebEvents> getByHeads() {
@@ -65,6 +69,16 @@ public class RRWebService {
         return getRRWebWithOutEventData(objecList);
     }
 
+    public boolean deleteByUuid(String uuid) {
+        try {
+            rrWebDao.deleteByUuid(uuid);
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     /**
      * List<Map<String, Object>> 转换成 List<RRWebEvents> , 不包含EventData

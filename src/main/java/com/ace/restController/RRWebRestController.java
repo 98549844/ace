@@ -86,6 +86,17 @@ public class RRWebRestController extends CommonController {
         return AjaxResponse.success(true);
     }
 
+    @Operation(summary = "删除回放影片")
+    @RequestMapping(method = RequestMethod.GET, value = "/delete/{uuid}")
+    public AjaxResponse delete(@PathVariable String uuid) {
+        log.info("access /rrweb/delete: {} ", uuid);
+        boolean result = false;
+        if (getCurrentUser().getDescription().contains(Users.ADMIN)) {
+            result = rrWebService.deleteByUuid(uuid);
+        }
+        return AjaxResponse.success(result);
+    }
+
 }
 
 
