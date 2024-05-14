@@ -189,8 +189,9 @@
 
         <b class="arrow"></b>
 
+
         <ul class="submenu">
-            <li class="">
+            <li class="" th:if="${currentUser.description.contains('admin')}">
                 <a class="menu" th:href="@{/ace/surveillance.html}">
                     <i class="menu-icon fa fa-caret-right"></i>
                     被记录者
