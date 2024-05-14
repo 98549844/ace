@@ -87,9 +87,6 @@ public class RRWebRestController extends CommonController {
         return AjaxResponse.success(true);
     }
 
-    //  @RequestMapping(value = "/enable.html", method = RequestMethod.GET)
-    //  public ModelAndView setEnable(@RequestParam(value = "userId") Long userId) {
-
     @Operation(summary = "更新isRecord")
     @RequestMapping(method = RequestMethod.GET, value = "/updateIsRecord.html")
     public AjaxResponse updateIsRecord(@RequestParam(value = "userId") Long userId) {

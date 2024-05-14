@@ -142,7 +142,7 @@ public class UserController extends CommonController {
             modelAndView.addObject("ajaxResult", "<strong class=\"green\">Enable</strong>");
         }
         usersService.save(user);
-        kickout(user.getUserId());
+        kickout(user.getUserId()); //disable的同时把该用户踢走
         return modelAndView;
     }
 

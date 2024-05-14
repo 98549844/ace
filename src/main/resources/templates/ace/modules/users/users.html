@@ -369,19 +369,18 @@
             d.showModal();
         });
 
-        /***************/
         //set account enable/disable
         $(":checkbox").on('click', function (e) {
             const checkId = $(this).attr("id");
-            const userId = checkId.split("-");
+            const userId = checkId.split("-")[1];
             $.ajax(
                 {
                     type: "GET",
                     url: "/ace/users/enable.html",
-                    data: {userId: userId[1]},
+                    data: {userId: userId},
                     cache: false,
                     success: function (ajaxResult) {
-                        $("#enable-" + userId[1]).html(ajaxResult);
+                        $("#enable-" + userId).html(ajaxResult);
                     },
                     error: function (e) {
                         alert("error: " + e.message);
@@ -389,7 +388,6 @@
                 }
             )
         });
-        /***************/
 
         //foreach account status
         $.each($("input.input-hidden"), function () {
