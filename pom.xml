@@ -115,6 +115,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-indexer</artifactId>
         </dependency>
+        <!--引入aspectj-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
         <!-- <dependency>
             //如果引入在cmd直接运行jar, 只能单线程
             <groupId>org.springframework.boot</groupId>

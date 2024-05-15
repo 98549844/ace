@@ -84,12 +84,6 @@ public class RRWebRestController extends CommonController {
         return AjaxResponse.success(result);
     }
 
-    @Operation(summary = "回放列表")
-    @RequestMapping(method = RequestMethod.GET, value = "/getPlaybackList.html")
-    public AjaxResponse getPlaybackList() {
-        return AjaxResponse.success(true);
-    }
-
     @Operation(summary = "更新isRecord")
     @RequestMapping(method = RequestMethod.GET, value = "/updateIsRecord.html")
     public AjaxResponse updateIsRecord(@RequestParam(value = "userId") Long userId) {

@@ -3,6 +3,7 @@ package com.ace.controller;
 import com.ace.controller.common.CommonController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @Description:
  */
 
-
+@Controller
 public class CssController extends CommonController {
     private static final Logger log = LogManager.getLogger(CssController.class.getName());
 

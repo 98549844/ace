@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -23,9 +24,16 @@ public class AccessLog extends BaseEntity implements Serializable {
     @Column(name = "operator")
     private String operator;
     @Column(name = "description")
-    private String description;
+    private String description = NORMAL;
+    private static final String NORMAL = "normal";
+    private static final String EXCEPTION = "exception";
+
+
     @Column(name = "accessTime")
     private LocalDateTime accessTime;
+
+    private String clazz;
+    private String exception;
 
     public Long getLogId() {
         return logId;
