@@ -41,6 +41,8 @@ public interface FilesDao extends JpaRepository<Files, Long>, JpaSpecificationEx
 
     List<Files> findFilesByStatusOrderByCreatedDateDesc(String status, Pageable pageable);
 
+    List<Files> findFilesByStatusOrderByOwnerAscCreatedDateDesc(String status, Pageable pageable);
+
     List<Files> findFilesByFileNameInAndStatusOrderByCreatedDateDesc(List<String> fileName, String status);
 
     List<Files> findFilesByFileNameInAndStatusInOrderByCreatedDateDesc(List<String> fileName, List<String> status);

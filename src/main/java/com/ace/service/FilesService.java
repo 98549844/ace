@@ -451,6 +451,11 @@ public class FilesService {
         return filesDao.findFilesByStatusOrderByCreatedDateDesc(status, pageable);
     }
 
+    public List<Files> findFilesByStatusOrderByOwnerAscCreatedDateDesc(String status, int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        return filesDao.findFilesByStatusOrderByOwnerAscCreatedDateDesc(status, pageable);
+    }
+
     public List<Files> findFilesByStatusAndOwnerOrderByCreatedDateDesc(String status, String ownerId, int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         return filesDao.findFilesByStatusAndOwnerOrderByCreatedDateDesc(status, ownerId, pageable);

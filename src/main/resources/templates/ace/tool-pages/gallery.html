@@ -121,7 +121,8 @@
                 <div class="col-xs-6" th:if="${currentUser.roleGroup.contains('admin')}">
                     <label class="text-info">View All</label>
                     <label>
-                        <input class="ace ace-switch ace-switch-7" type="checkbox" checked="checked"/>
+                        <input class="ace ace-switch ace-switch-7" type="checkbox" checked="checked"
+                               id="view-checkBtn"/>
                         <span class="lbl"></span>
                     </label>
                 </div>
@@ -273,6 +274,21 @@
         initColorbox();
     });
 
+    const owner = '[[${currentUser.userAccount}]]';
+    let viewAll = true;
+    function displayView() {
+        if (viewAll) {
+            $("#imageDiv li:not(." + owner + ")").hide();
+            viewAll = false;
+        } else {
+            $("#imageDiv li:not(." + owner + ")").show();
+            viewAll = true;
+        }
+    }
+
+    $('#view-checkBtn').on('click', displayView)
+
+
     //----------------------------------------------------------------------------------------------------------------------
     //图片查询中正对浏览器主页面滚动事件处理(瀑布流)。只能使用window方式绑定，使用document方式不起作用
     $(window).on('scroll', function () {
@@ -305,6 +321,7 @@
                 for (let i = 0; i < data.length; i++) {
                     const fileName = data[i].fileName;
                     const ext = data[i].ext;
+                    const owner = data[i].owner;
                     let toolsClass = "tools tools-bottom";
                     let side = 250;
                     if (isMobile()) {
@@ -312,7 +329,7 @@
                         side = 100;
                     }
 
-                    html = html + `<li id="li-${fileName}" class="lazy">
+                    html = html + `<li id="li-${fileName}" class="lazy ${owner}">
                                         <a href="image/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
                                             <img width="${side}" height="${side}" alt="150x150" src="image/get/${fileName}" id="img-${fileName}">
                                         </a>
@@ -330,7 +347,7 @@
                                                 <i class="ace-icon fa fa-times red"></i>
                                             </a>
                                         </div>
-                                        <label class="text-info">&nbsp;&nbsp;&nbsp;${data[i].owner}</label>
+                                        <label class="text-info">&nbsp;&nbsp;&nbsp;${owner}</label>
                                     </li>`;
                 }
                 $("#imageDiv").append(html);
@@ -375,13 +392,14 @@
                 for (let i = 0; i < data.length; i++) {
                     const fileName = data[i].fileName;
                     const ext = data[i].ext;
+                    const owner = data[i].owner;
                     let toolsClass = "tools tools-bottom";
                     let side = 250;
                     if (isMobile()) {
                         toolsClass = "tools tools-bottom in";
                         side = 100;
                     }
-                    html = html + `<li id="li-${fileName}" class="lazy">
+                    html = html + `<li id="li-${fileName}" class="lazy ${owner}">
                                         <a href="image/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
                                             <img width="${side}" height="${side}" alt="150x150" src="image/get/${fileName}" id="img-${fileName}">
                                         </a>
@@ -399,7 +417,7 @@
                                                 <i class="ace-icon fa fa-times red"></i>
                                             </a>
                                         </div>
-                                        <label class="text-info">&nbsp;&nbsp;&nbsp;${data[i].owner}</label>
+                                        <label class="text-info">&nbsp;&nbsp;&nbsp;${owner}</label>
                                     </li>`;
                 }
                 $("#imageDiv").html(html);
@@ -443,6 +461,7 @@
             success(data) {
                 const fileName = data.fileName;
                 const ext = data.ext;
+                const owner = data.owner;
                 let toolsClass = "tools tools-bottom";
                 let side = 250;
                 if (isMobile()) {
@@ -451,7 +470,7 @@
                 }
 
                 let html = "";
-                html = html + `<li id="li-${fileName}" class="lazy">
+                html = html + `<li id="li-${fileName}" class="lazy ${owner}">
                                     <a href="image/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
                                         <img width="${side}" height="${side}" alt="150x150"  src="image/get/${fileName}" id="img-${fileName}">
                                     </a>
@@ -469,6 +488,7 @@
                                             <i class="ace-icon fa fa-times red"></i>
                                         </a>
                                     </div>
+                                    <label class="text-info">&nbsp;&nbsp;&nbsp;${owner}</label>
                                 </li>`;
                 $("#li-" + imgId + "").replaceWith(html);
                 initColorbox();
