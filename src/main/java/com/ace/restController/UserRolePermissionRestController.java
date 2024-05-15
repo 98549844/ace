@@ -101,6 +101,7 @@ public class UserRolePermissionRestController extends CommonController {
             admin.setDomain("ace.com");
             admin.setRemark("ACE APPLICATION");
             admin.setEnabled(true);
+            admin.setRecord(false);
             admin.setExpireDate(LocalDateTime.now().plusYears(100L));
             admin = usersService.saveAndFlush(admin);
 
@@ -127,6 +128,7 @@ public class UserRolePermissionRestController extends CommonController {
             garlam.setDomain("ace.com");
             garlam.setRemark("ACE APPLICATION");
             garlam.setEnabled(true);
+            garlam.setRecord(false);
             garlam.setExpireDate(LocalDateTime.now().plusYears(100L));
             garlam = usersService.saveAndFlush(garlam);
 

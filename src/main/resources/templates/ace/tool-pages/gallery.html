@@ -15,7 +15,8 @@
         }
     </script>
 
-    <div id="sidebar" class="sidebar responsive ace-save-state" th:insert="~{templates/ace/pb-pages/sidebar :: sidebar}">
+    <div id="sidebar" class="sidebar responsive ace-save-state"
+         th:insert="~{templates/ace/pb-pages/sidebar :: sidebar}">
     </div>
 
     <div class="main-content">
@@ -36,12 +37,12 @@
                     </h1>
                 </div><!-- /.page-header -->
 
-                <!--th:if="${currentUser.roleGroup.contains('admin')}"-->
 
-                <button class="btn btn-app btn-danger btn-sm" id="delete-all">
+                <button class="btn btn-app btn-danger btn-sm pull-right" id="delete-all">
                     <i class="ace-icon fa fa-trash-o bigger-200"></i>
                     Delete All
                 </button>
+
                 <div class="col-xs-11">
                     <div id="accordion" class="page-header accordion-style1 panel-group">
                         <div class="panel panel-default">
@@ -117,13 +118,20 @@
                     </div>
                 </div>
 
+                <div class="col-xs-6" th:if="${currentUser.roleGroup.contains('admin')}">
+                    <label class="text-info">View All</label>
+                    <label>
+                        <input class="ace ace-switch ace-switch-7" type="checkbox" checked="checked"/>
+                        <span class="lbl"></span>
+                    </label>
+                </div>
+
+
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <div>
                             <ul class="ace-thumbnails clearfix" id="imageDiv">
-
-
                             </ul>
                         </div><!-- PAGE CONTENT ENDS -->
 
@@ -148,13 +156,11 @@
 <script th:src="@{/assets/js/custom/colorbox.js}"></script>
 
 
-
 <script type="text/javascript">
     let count = 0;
     jQuery(function ($) {
         Dropzone.options.dropZone = {
             url: "image/uploads.html",
-
             previewTemplate: $('#preview-template').html(),
             paramName: "files", // 提交的参数,默认为file
             thumbnailHeight: 120,
@@ -324,6 +330,7 @@
                                                 <i class="ace-icon fa fa-times red"></i>
                                             </a>
                                         </div>
+                                        <label class="text-info">&nbsp;&nbsp;&nbsp;${data[i].owner}</label>
                                     </li>`;
                 }
                 $("#imageDiv").append(html);
@@ -374,7 +381,6 @@
                         toolsClass = "tools tools-bottom in";
                         side = 100;
                     }
-
                     html = html + `<li id="li-${fileName}" class="lazy">
                                         <a href="image/get/${fileName}${ext}" data-rel="colorbox" class="cboxElement">
                                             <img width="${side}" height="${side}" alt="150x150" src="image/get/${fileName}" id="img-${fileName}">
@@ -393,6 +399,7 @@
                                                 <i class="ace-icon fa fa-times red"></i>
                                             </a>
                                         </div>
+                                        <label class="text-info">&nbsp;&nbsp;&nbsp;${data[i].owner}</label>
                                     </li>`;
                 }
                 $("#imageDiv").html(html);

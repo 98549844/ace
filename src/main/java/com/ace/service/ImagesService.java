@@ -86,7 +86,7 @@ public class ImagesService extends CommonController {
             //Admin roles access all images
             filesLs = filesService.findFilesByStatusOrderByCreatedDateDesc(Files.COMPRESSED, paging);
         } else {
-            filesLs = filesService.findFilesByStatusAndOwnerOrderByCreatedDateDesc(Files.COMPRESSED, users.getUserId().toString(), paging);
+            filesLs = filesService.findFilesByStatusAndOwnerOrderByCreatedDateDesc(Files.COMPRESSED, users.getUserAccount(), paging);
         }
         List<Files> result = new ArrayList<>();
         for (Files f : filesLs) {

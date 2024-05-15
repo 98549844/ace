@@ -58,7 +58,5 @@ public class FilesRestController {
         }
         return AjaxResponse.success(result);
     }
-
-
 }
 
