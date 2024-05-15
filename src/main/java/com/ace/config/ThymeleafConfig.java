@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.*;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-/**
+/** Thymeleaf 配置 和 sa-token 配置 是独立的
  * @Classname: ThymeleafConfig
  * @Date: 1/7/2021 2:27 上午
  * @Author: garlam
@@ -42,7 +42,9 @@ public class ThymeleafConfig implements WebMvcConfigurer {
     //开启拼截器
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //registry.addInterceptor(new Interceptor()).addPathPatterns("/**").excludePathPatterns("/js/**", "/css/**", "/images/**");
+        //registry.addInterceptor(new Interceptor())
+        //.addPathPatterns("/**")
+        //.excludePathPatterns("/js/**", "/css/**", "/images/**");
         //addPathPatterns("/**")对所有请求都拦截，但是排除了/toLogin和/login请求的拦截
         InterceptorRegistration interceptorRegistration = registry.addInterceptor(new Interceptor());
         interceptorRegistration.excludePathPatterns("/images/**");
@@ -66,7 +68,8 @@ public class ThymeleafConfig implements WebMvcConfigurer {
         // 将templates目录下的CSS、JS文件映射为静态资源，防止Spring把这些资源识别成thymeleaf模版
         //  registry.addResourceHandler("/templates/**.js").addResourceLocations("classpath:/templates/");
         //  registry.addResourceHandler("/templates/**.css").addResourceLocations("classpath:/templates/");
-        // 其他静态资源
+
+        // 其他静态资源 "/"映射"/static/"目录
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
         // registry.addResourceHandler("/files/**").addResourceLocations("classpath:/static/files/");
         // swagger增加url映射
@@ -96,7 +99,5 @@ public class ThymeleafConfig implements WebMvcConfigurer {
         resolver.setCheckExistence(true);
         return resolver;
     }
-
-
 }
 

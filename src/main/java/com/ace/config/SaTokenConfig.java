@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
-/**
+/** Thymeleaf 配置 和 sa-token 配置 是独立的
  * @Classname: SaTokenConfig
  * @Date: 12/12/2021 10:31 AM
  * @Author: garlam
