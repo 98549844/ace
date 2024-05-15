@@ -295,15 +295,18 @@
         if (scrollTop() + windowHeight() >= (documentHeight() - 50/*滚动响应区域高度取50px*/)) {
             appendImageLi();
         }
+        if (!viewAll) {
+            $("#imageDiv li:not(." + owner + ")").hide();
+        }
     });
-
 
     function appendImageLi() {
         //scroll到底加载
         if (scrollDown()) {
             appendImages();
-            initColorbox();
+            // initColorbox(); //未知comment了它, 有没有错误
         }
+
     }
 
     //在上传过程中, browser高度会变, 从而令到paging的值有误差, 可以用分页解决问题
