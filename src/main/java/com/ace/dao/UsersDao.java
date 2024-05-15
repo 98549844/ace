@@ -46,6 +46,8 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
 
     Integer countByUserAccountOrEmail(String userAccount, String email);
 
+    int countByUserId(Long userId);
+
     Users findUsersByEmail(String email);
 
     void deleteAll();

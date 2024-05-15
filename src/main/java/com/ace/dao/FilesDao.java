@@ -25,7 +25,7 @@ import java.util.List;
 @Transactional
 public interface FilesDao extends JpaRepository<Files, Long>, JpaSpecificationExecutor<Files> {
 
-  //  List<Files> findFilesByOriginationName(String fileName);
+    //  List<Files> findFilesByOriginationName(String fileName);
 
     Files findFilesByFileName(String fileName);
 
@@ -49,23 +49,23 @@ public interface FilesDao extends JpaRepository<Files, Long>, JpaSpecificationEx
 
     List<Files> findFilesByFileNameInAndStatusAndOwnerOrderByCreatedDateDesc(List<String> fileName, String status, String ownerId, Pageable pageable);
 
-    List<Files> findFilesByStatusAndOwnerOrderByCreatedDateDesc( String status, String ownerId, Pageable pageable);
+    List<Files> findFilesByStatusAndOwnerOrderByCreatedDateDesc(String status, String ownerId, Pageable pageable);
 
     List<Files> findFilesByFileNameInAndStatusInAndOwnerOrderByCreatedDateDesc(List<String> fileName, List<String> status, String ownerId);
 
     List<Files> findFilesByFileNameNotInOrderByLastUpdateDateDesc(List<String> filesName);
 
-  //  List<Files> findFilesByFileNameNotInAndPathNotIn(Collection<String> fileName, Collection<String> path);
-
     List<Files> findFilesByPathAndFileNameNotIn(String path, Collection<String> fileName);
 
     List<Files> findFilesByOwner(String owner);
+
+    @Query(nativeQuery = true, value = "select distinct owner from files order by owner asc")
+    List<String> getAllDistinctOwner();
 
     @Modifying
     @Transactional
     @Query("delete from Files fs where fs.owner = :#{#owner}")
     void deleteFilesByOwner(@Param("owner") String owner);
-
 
 
 }

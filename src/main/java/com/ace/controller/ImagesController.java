@@ -129,12 +129,12 @@ public class ImagesController extends CommonController {
         log.info("access image/delete/all account => {}", getCurrentUser().getUserAccount());
         //只delete 数据库, 没有delete文件
         Users user = getCurrentUser();
-        List<Files> ls = filesService.findFilesByOwner(user);
+        List<Files> ls = filesService.findFilesByOwner(user.getUserId().toString());
         for (Files l : ls) {
             FileUtil.delete(l.getLocation());
             FileUtil.delete(imagesThumbnail + l.getFileName() + l.getExt());
         }
-        return filesService.deleteByUserId(user);
+        return filesService.deleteByUserId(user.getUserId());
     }
 
     /**

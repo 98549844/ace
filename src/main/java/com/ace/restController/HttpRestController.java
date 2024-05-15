@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rest/httpInfo")
-//@Api(tags = "http")
 @Tag(name = "Http")
 @EnableConfigurationProperties
 public class HttpRestController extends CommonController {

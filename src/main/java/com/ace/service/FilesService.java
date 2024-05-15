@@ -310,9 +310,9 @@ public class FilesService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteByUserId(Users user) {
+    public boolean deleteByUserId(Long userId) {
         try {
-            filesDao.deleteFilesByOwner(String.valueOf(user.getUserId()));
+            filesDao.deleteFilesByOwner(userId.toString());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -320,10 +320,21 @@ public class FilesService {
         }
     }
 
-    public List findFilesByOwner(Users user) {
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteByOwner(String owner) {
+        try {
+            filesDao.deleteFilesByOwner(owner);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List findFilesByOwner(String owner) {
         List<Files> ls = new ArrayList<>();
         try {
-            ls = filesDao.findFilesByOwner(String.valueOf(user.getUserId()));
+            ls = filesDao.findFilesByOwner(owner);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -349,6 +360,40 @@ public class FilesService {
         }
         log.error("delete file fail => {}", location);
         return false;
+    }
+
+    public boolean delFiles(List<String> locations) {
+        try {
+            for (String location : locations) {
+                delFile(location);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean delFileList(List<Files> files) {
+        try {
+            for (Files file : files) {
+                String location = file.getLocation();
+                delFile(location);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Distinct 所有用户id
+     *
+     * @return
+     */
+    public List<String> getAllDistinctOwner() {
+        return filesDao.getAllDistinctOwner();
     }
 
     public boolean deleteDirectories(String directory) {
