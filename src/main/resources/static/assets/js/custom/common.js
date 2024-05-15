@@ -14,19 +14,6 @@ function isAdmin() {
 }
 
 
-function getUUID() {
-    //使用浏览器内置api生成uuid
-    return crypto.randomUUID();
-}
-
-//https://blog.csdn.net/tiven_/article/details/135554988
-function getUuid() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
-}
-
 function printUrl() {
     const currentURL = window.location.href; // http://192.168.1.100:8088/ace/index.html
     const currentPathname = window.location.pathname; // /ace/index.html
