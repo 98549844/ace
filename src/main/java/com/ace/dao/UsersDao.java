@@ -44,7 +44,9 @@ public interface UsersDao extends JpaRepository<Users, Long>, JpaSpecificationEx
 
     List<Users> findByUserAccountNotIn(List<String> userAccounts);
 
-    Integer countByUserAccountOrEmail(String userAccount, String email);
+    int countByUserAccountOrEmail(String userAccount, String email);
+
+    int countByUserAccount(String userAccount);
 
     int countByUserId(Long userId);
 

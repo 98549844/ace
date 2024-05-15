@@ -43,7 +43,7 @@ public class FilesRestController {
         List<String> owners = filesService.getAllDistinctOwner();
         List<String> result = new LinkedList<>();
         for (String owner : owners) {
-            int isExist = usersService.countByUserId(Long.parseLong(owner));
+            int isExist = usersService.countByUserAccount(owner);
             result.add(owner);
             if (isExist == 0) {
                 List<Files> ls = filesService.findFilesByOwner(owner);

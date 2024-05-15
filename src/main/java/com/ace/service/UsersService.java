@@ -272,6 +272,10 @@ public class UsersService {
         return usersDao.countByUserAccountOrEmail(users.getUserAccount(), users.getEmail());
     }
 
+    public int countByUserAccount(String userAccount) {
+        return usersDao.countByUserAccount(userAccount);
+    }
+
     public int countByUserId(Long userId) {
         return usersDao.countByUserId(userId);
     }

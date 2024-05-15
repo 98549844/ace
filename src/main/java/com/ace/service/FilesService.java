@@ -57,7 +57,7 @@ public class FilesService {
                 file.setLocation(file.getPath() + file.getFileName() + file.getExt());
             } else {
                 Users users = (Users) StpUtil.getSession().get("user");
-                file.setOwner(users.getUserId().toString());
+                file.setOwner(users.getUserAccount());
             }
         }
         return filesDao.saveAll(files);
@@ -75,7 +75,7 @@ public class FilesService {
             file.setLocation(file.getPath() + file.getFileName() + file.getExt());
         } else {
             Users users = (Users) StpUtil.getSession().get("user");
-            file.setOwner(users.getUserId().toString());
+            file.setOwner(users.getUserAccount());
         }
         return filesDao.save(file);
     }
@@ -85,7 +85,7 @@ public class FilesService {
             file.setLocation(file.getPath() + file.getFileName() + file.getExt());
         } else {
             Users users = (Users) StpUtil.getSession().get("user");
-            file.setOwner(users.getUserId().toString());
+            file.setOwner(users.getUserAccount());
         }
         return filesDao.saveAndFlush(file);
     }

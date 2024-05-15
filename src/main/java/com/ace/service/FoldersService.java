@@ -180,7 +180,7 @@ public class FoldersService {
     }
 
     private boolean isOwner(Folders folder, Users currentUser) {
-        return folder.getOwnerId().equals(currentUser.getUserId());
+        return folder.getOwnerId().equals(currentUser.getUserAccount());
     }
 
     /**
