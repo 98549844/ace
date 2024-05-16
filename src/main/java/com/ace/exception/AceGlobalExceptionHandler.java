@@ -92,7 +92,6 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
 //    用于处理应用程序中的错误和异常. 当应用程序抛出未处理的异常时,
 //    Spring Boot会自动将请求重定向到/error路径.
 //    通过自定义@ControllerAdvice和定义一个处理/error路径的方法, 可以实现自定义的错误处理逻辑.
-//
 //    步骤:
 //    创建一个@ControllerAdvice类, 用于处理全局的异常和错误.
 //    在该类中, 使用@ExceptionHandler注解定义方法来处理特定类型的异常.
@@ -140,8 +139,8 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ModelAndView exceptionHandler(Exception e) {
-       // String requestURL = super.getRequest().getRequestURL().toString();
-       // int status = super.getResponse().getStatus();
+        // String requestURL = super.getRequest().getRequestURL().toString();
+        // int status = super.getResponse().getStatus();
         ModelAndView modelAndView;
         if (e instanceof NotLoginException) {
             StringWriter sw = new StringWriter();
@@ -163,6 +162,8 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
                 modelAndView.addObject("msg", "Session timeout");
             }
             modelAndView.addObject(Css.css, Css.red);
+            modelAndView.addObject("expMsg", message);
+            modelAndView.addObject("stackTrace", stackTrace);
             return modelAndView;
         } /*else if(e instanceof ClientAbortException){
             return null;}*/ else {
@@ -176,6 +177,8 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
             modelAndView = exceptionModelAndView("ace/error", Css.faGear, 999, warningMsg);
             String exceptionMsg = "<strong style=\"color: red\">" + e.getMessage() + "</strong>" + "<br><br>" + stackTrace;
             modelAndView.addObject("exceptionMsg", exceptionMsg);
+            modelAndView.addObject("expMsg", e.getMessage());
+            modelAndView.addObject("stackTrace", stackTrace);
             return modelAndView;
         }
     }

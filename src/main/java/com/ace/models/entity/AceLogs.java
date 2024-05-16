@@ -33,13 +33,14 @@ public class AceLogs extends BaseEntity implements Serializable {
 
     @Column(name = "clazz")
     private String clazz;
-    @Column(name = "exception")
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "exception", columnDefinition = "LONGTEXT")
     private String exception = NONE;
     public static final String NONE = "none";
-    public static final String EXCEPTION = "exception";
 
-    @Column(name = "aspectType")
-    private String aspectType;
+    @Column(name = "aspectFlow", columnDefinition = "VARCHAR(10000)")
+    private String aspectFlow;
     public static final String BEFORE = "Before";
     public static final String AFTER_RETURNING = "AfterReturning";
     public static final String AFTER_THROWING = "AfterThrowing";
@@ -95,11 +96,11 @@ public class AceLogs extends BaseEntity implements Serializable {
         this.exception = exception;
     }
 
-    public String getAspectType() {
-        return aspectType;
+    public String getAspectFlow() {
+        return aspectFlow;
     }
 
-    public void setAspectType(String aspectType) {
-        this.aspectType = aspectType;
+    public void setAspectFlow(String aspectFlow) {
+        this.aspectFlow = aspectFlow;
     }
 }

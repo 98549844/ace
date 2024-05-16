@@ -51,7 +51,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
                                      "/ace/logging.html",
                                      "/ace/registration.html",
                                      "/ace/password/reset.html",
-                                     "/ace/logout.html", "/")
+                                     "/")
                 //开放restController
                 .excludePathPatterns("/rest/**")
                 //开放naiveController
@@ -75,6 +75,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
                                       "/assets/images/**")
                 //swagger
                 .excludePathPatterns("/doc.html")
+                .excludePathPatterns("/doc.html/**")
                 .excludePathPatterns("/swagger-ui.html",
                                       "/csrf",
                                       "/webjars/**",
