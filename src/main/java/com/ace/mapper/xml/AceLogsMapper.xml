@@ -13,11 +13,12 @@
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="exception" jdbcType="VARCHAR" property="exception"/>
         <result column="operator" jdbcType="VARCHAR" property="operator"/>
+        <result column="aspectFlow" jdbcType="VARCHAR" property="aspectFlow"/>
     </resultMap>
     <sql id="Base_Column_List">
         logId
         , createdBy, createdDate, lastUpdatedBy, lastUpdateDate, version, accessTime, clazz,
-    description, exception, `operator`
+    description, exception, `operator`, aspectFlow
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -43,11 +44,13 @@
             useGeneratedKeys="true">
         insert into aceLogs (createdBy, createdDate, lastUpdatedBy,
                              lastUpdateDate, version, accessTime,
-                             description, `operator`, clazz, `exception`)
+                             description, `operator`, clazz, `exception`,
+                             aspectFlow)
         values (#{createdBy,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP}, #{lastUpdatedBy,jdbcType=VARCHAR},
                 #{lastUpdateDate,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER}, #{accessTime,jdbcType=TIMESTAMP},
                 #{description,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR},
-                #{clazz,jdbcType=VARCHAR}, #{exception,jdbcType=VARCHAR})
+                #{clazz,jdbcType=VARCHAR}, #{exception,jdbcType=VARCHAR}
+                   , #{aspectFlow,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" keyColumn="logId" keyProperty="logId" parameterType="com.ace.models.entity.AceLogs"
             useGeneratedKeys="true">
@@ -83,6 +86,9 @@
             <if test="exception != null">
                 `exception`,
             </if>
+            <if test="aspectFlow != null">
+                aspectFlow,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="createdBy != null">
@@ -115,6 +121,9 @@
             <if test="exception != null">
                 #{exception,jdbcType=VARCHAR},
             </if>
+            <if test="aspectFlow != null">
+                #{exception,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.ace.models.entity.AceLogs">
@@ -139,7 +148,7 @@
                 accessTime = #{accessTime,jdbcType=TIMESTAMP},
             </if>
             <if test="description != null">
-                description = #{description,jdbcType=VARCHAR},
+                `description` = #{description,jdbcType=VARCHAR},
             </if>
             <if test="operator != null">
                 `operator` = #{operator,jdbcType=VARCHAR},
@@ -149,6 +158,9 @@
             </if>
             <if test="exception != null">
                 `exception` = #{exception,jdbcType=VARCHAR},
+            </if>
+            <if test="aspectFlow != null">
+                aspectFlow = #{exception,jdbcType=VARCHAR},
             </if>
         </set>
         where logId = #{logId,jdbcType=BIGINT}
@@ -164,7 +176,8 @@
             description    = #{description,jdbcType=VARCHAR},
             `operator`     = #{operator,jdbcType=VARCHAR},
             clazz          = #{clazz,jdbcType=VARCHAR},
-            `exception`    = #{exception,jdbcType=VARCHAR}
+            `exception`    = #{exception,jdbcType=VARCHAR},
+            aspectFlow     = #{aspectFlow,jdbcType=VARCHAR}
         where logId = #{logId,jdbcType=BIGINT}
     </update>
 </mapper>
