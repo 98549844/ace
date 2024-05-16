@@ -1,5 +1,9 @@
 package com.ace.aspectj;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.stereotype.Component;
 import com.ace.controller.common.CommonController;
 import com.ace.models.entity.AceLogs;
 import com.ace.service.AceLogsService;
@@ -17,16 +21,19 @@ import java.time.LocalDateTime;
 
 
 /**
- * @Classname: TransactionAspect
- * @Date: 16/5/24 AM12:25
+ * @Classname: LogsAspect
+ * @Date: 17/5/24 AM2:39
  * @Author: garlam
  * @Description:
  */
 
-@Aspect
-@Component
-public class TransactionAspect extends CommonController {
-    private static final Logger log = LogManager.getLogger(TransactionAspect.class.getName());
+//打开comment后，开启@Aspect和@Component
+//切面日志开启
+//@Aspect
+//@Component
+public class LogsAspect extends CommonController{
+    private static final Logger log = LogManager.getLogger(LogsAspect.class.getName());
+
 
     //execution 表达式是 AspectJ 中最常用的切点表达式
     //execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern) throws-pattern?)
@@ -51,10 +58,9 @@ public class TransactionAspect extends CommonController {
     // @args是针对参数注解
     private final AceLogsService aceLogsService;
 
-    public TransactionAspect(AceLogsService aceLogsService) {
+    public LogsAspect(AceLogsService aceLogsService) {
         this.aceLogsService = aceLogsService;
     }
-
 
     //joinPoint.getSignature().getName()  方法名
     //joinPoint.getSignature().getDeclaringTypeName()  full package path
@@ -90,10 +96,8 @@ public class TransactionAspect extends CommonController {
             ModelAndView modelAndView = (ModelAndView) result;
             String stackTrace = (String) modelAndView.getModel().get("stackTrace");
             String expMsg = (String) modelAndView.getModel().get("expMsg");
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("exp message: ").append(expMsg).append(PathUtil.newLine());
-            stringBuilder.append("exp stackTrace: ").append(stackTrace);
-            this.logs.setException(stringBuilder.toString());
+            String stringBuilder = "exp message: " + expMsg + PathUtil.newLine() + "exp stackTrace: " + stackTrace;
+            this.logs.setException(stringBuilder);
         }
 
         this.logs.setAspectFlow(this.logs.getAspectFlow() + AceLogs.AFTER_RETURNING + "->");
@@ -182,4 +186,6 @@ public class TransactionAspect extends CommonController {
     }
     */
 
+
 }
+
