@@ -15,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Indexed;
@@ -33,13 +34,14 @@ import java.io.IOException;
         属于Spring框架(@Component,@Service,@Controller,@Repository,@Entity), 扫描范围默认情况下是启动类坐在的同名包及其子孙包
 */
 @SpringBootApplication
-@ComponentScan({"com", "com.ace.util"})
-@MapperScan("com.ace.mapper")
-@EnableTransactionManagement
-@EnableCaching
+@ComponentScan({"com", "com.ace.util"}) //扫描当前包及其子包
+@MapperScan("com.ace.mapper") //扫描mapper接口
+@EnableTransactionManagement //开启事务管理
+@EnableCaching //开启缓存
 @EnableJpaAuditing //for baseEntity using
-@EnableAsync
+@EnableAsync //开启异步调用
 @Indexed // 为要注入的bean进行index索引
+@EnableAspectJAutoProxy // 相当xml配置 <aop:aspectj-autoproxy/>
 public class AceApplication {
     private static final Logger log = LogManager.getLogger(AceApplication.class.getName());
     public static ApplicationContext applicationContext;

@@ -76,8 +76,8 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
     private static final String NotLoginException = "cn.dev33.satoken.exception.NotLoginException";
 
     private void logException(String message, String stackTrace) {
-        log.warn("URL: " + super.getRequest().getRequestURL().toString());
-        log.warn("HTTP_METHOD: " + super.getRequest().getMethod());
+        log.warn("URL: {}", super.getRequest().getRequestURL().toString());
+        log.warn("HTTP_METHOD: {}", super.getRequest().getMethod());
         log.warn("error code: {}", super.getResponse().getStatus());
         log.warn("Exception message: {}", message);
         if (stackTrace.contains(NotLoginException)) {

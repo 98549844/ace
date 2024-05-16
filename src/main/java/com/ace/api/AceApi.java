@@ -14,10 +14,8 @@ import org.springframework.web.service.annotation.PostExchange;
 
 
 
-//@HttpExchange("/rest")
 public interface AceApi {
 
-    //call target controller url
     @GetExchange("/rest/users/getUsers")
     AjaxResponse getAllUsers();
 

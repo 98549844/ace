@@ -1,9 +1,9 @@
 package com.ace.restController;
 
 import com.ace.exception.ResponseException;
-import com.ace.mapper.AccessLogMapper;
+import com.ace.mapper.AceLogsMapper;
 import com.ace.models.common.AjaxResponse;
-import com.ace.models.entity.AccessLog;
+import com.ace.models.entity.AceLogs;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.xml.transform.Source;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,10 +29,10 @@ import java.util.List;
 public class AccessRestController {
     private static final Logger log = LogManager.getLogger(AccessRestController.class.getName());
 
-    private final AccessLogMapper accessLogMapper;
+    private final AceLogsMapper accessLogMapper;
 
     @Autowired
-    public AccessRestController(AccessLogMapper accessLogMapper) {
+    public AccessRestController(AceLogsMapper accessLogMapper) {
         this.accessLogMapper = accessLogMapper;
     }
 
@@ -42,7 +40,7 @@ public class AccessRestController {
     @Operation(summary = "get access log")
     @RequestMapping(method = RequestMethod.GET, value = "/get.html")
     public AjaxResponse getAll() {
-        List<AccessLog> ls = accessLogMapper.selectAll();
+        List<AceLogs> ls = accessLogMapper.selectAll();
         log.info("ACCESS LOG TIMES: {}", ls.size());
         if (ls.isEmpty()) {
             return AjaxResponse.error(new ResponseException("log is empty"));

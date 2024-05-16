@@ -1,6 +1,7 @@
 package com.ace.models.entity;
 
 import com.ace.models.entity.base.BaseEntity;
+import com.ace.utilities.FileUtil;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -11,29 +12,40 @@ import java.time.LocalDateTime;
 
 
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "accessLog")
+@Table(name = "aceLogs")
 @Entity
-public class AccessLog extends BaseEntity implements Serializable {
+public class AceLogs extends BaseEntity implements Serializable {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(strategy = "identity", name = "id")
     @Column(name = "logId")
     private Long logId;
 
     @Column(name = "operator")
-    private String operator;
+    private String operator = NONE;
     @Column(name = "description")
     private String description = NORMAL;
     private static final String NORMAL = "normal";
-    private static final String EXCEPTION = "exception";
-
 
     @Column(name = "accessTime")
     private LocalDateTime accessTime;
 
+    @Column(name = "clazz")
     private String clazz;
-    private String exception;
+    @Column(name = "exception")
+    private String exception = NONE;
+    public static final String NONE = "none";
+    public static final String EXCEPTION = "exception";
+
+    @Column(name = "aspectType")
+    private String aspectType;
+    public static final String BEFORE = "Before";
+    public static final String AFTER_RETURNING = "AfterReturning";
+    public static final String AFTER_THROWING = "AfterThrowing";
+    public static final String AFTER = "After";
+    public static final String AROUND = "Around";
+
 
     public Long getLogId() {
         return logId;
@@ -65,5 +77,29 @@ public class AccessLog extends BaseEntity implements Serializable {
 
     public void setAccessTime(LocalDateTime accessTime) {
         this.accessTime = accessTime;
+    }
+
+    public String getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(String clazz) {
+        this.clazz = clazz;
+    }
+
+    public String getException() {
+        return exception;
+    }
+
+    public void setException(String exception) {
+        this.exception = exception;
+    }
+
+    public String getAspectType() {
+        return aspectType;
+    }
+
+    public void setAspectType(String aspectType) {
+        this.aspectType = aspectType;
     }
 }

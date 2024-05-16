@@ -23,7 +23,7 @@ import java.lang.annotation.*;
 //RetentionPolicy.RUNTIME表示保留在运行时，
 //我们可以通过反射去获取注解信息
 //@Documented表示会被包含在javadoc中
-@Target(ElementType.METHOD)
+@Target(ElementType.METHOD) //定意了自定义注解的使用范围为方法 @AceLog("自定义内容")
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface AceLog {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ace.mapper.AccessLogMapper">
-    <resultMap id="BaseResultMap" type="com.ace.models.entity.AccessLog">
+<mapper namespace="com.ace.mapper.AceLogsMapper">
+    <resultMap id="BaseResultMap" type="com.ace.models.entity.AceLogs">
         <id column="logId" jdbcType="BIGINT" property="logId"/>
         <result column="createdBy" jdbcType="VARCHAR" property="createdBy"/>
         <result column="createdDate" jdbcType="TIMESTAMP" property="createdDate"/>
@@ -9,45 +9,49 @@
         <result column="lastUpdateDate" jdbcType="TIMESTAMP" property="lastUpdateDate"/>
         <result column="version" jdbcType="INTEGER" property="version"/>
         <result column="accessTime" jdbcType="TIMESTAMP" property="accessTime"/>
+        <result column="clazz" jdbcType="VARCHAR" property="clazz"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="exception" jdbcType="VARCHAR" property="exception"/>
         <result column="operator" jdbcType="VARCHAR" property="operator"/>
     </resultMap>
     <sql id="Base_Column_List">
         logId
-        , createdBy, createdDate, lastUpdatedBy, lastUpdateDate, version, accessTime,
-    description, `operator`
+        , createdBy, createdDate, lastUpdatedBy, lastUpdateDate, version, accessTime, clazz,
+    description, exception, `operator`
     </sql>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from accessLog
+        from aceLogs
         where logId = #{logId,jdbcType=BIGINT}
     </select>
 
-    <select id="selectAll"  resultMap="BaseResultMap">
+    <select id="selectAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from accessLog
+        from aceLogs
     </select>
 
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete
-        from accessLog
+        from aceLogs
         where logId = #{logId,jdbcType=BIGINT}
     </delete>
-    <insert id="insert" keyColumn="logId" keyProperty="logId" parameterType="com.ace.models.entity.AccessLog"
+    <insert id="insert" keyColumn="logId" keyProperty="logId" parameterType="com.ace.models.entity.AceLogs"
             useGeneratedKeys="true">
-        insert into accessLog (createdBy, createdDate, lastUpdatedBy,
-                                lastUpdateDate, version, accessTime,
-                                description, `operator`)
+        insert into aceLogs (createdBy, createdDate, lastUpdatedBy,
+                             lastUpdateDate, version, accessTime,
+                             description, `operator`, clazz, `exception`)
         values (#{createdBy,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP}, #{lastUpdatedBy,jdbcType=VARCHAR},
                 #{lastUpdateDate,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER}, #{accessTime,jdbcType=TIMESTAMP},
-                #{description,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR})
+                #{description,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR},
+                #{clazz,jdbcType=VARCHAR}, #{exception,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" keyColumn="logId" keyProperty="logId" parameterType="com.ace.models.entity.AccessLog"
+    <insert id="insertSelective" keyColumn="logId" keyProperty="logId" parameterType="com.ace.models.entity.AceLogs"
             useGeneratedKeys="true">
-        insert into accessLog
+        insert into aceLogs
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="createdBy != null">
                 createdBy,
@@ -72,6 +76,12 @@
             </if>
             <if test="operator != null">
                 `operator`,
+            </if>
+            <if test="clazz != null">
+                clazz,
+            </if>
+            <if test="exception != null">
+                `exception`,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -99,10 +109,16 @@
             <if test="operator != null">
                 #{operator,jdbcType=VARCHAR},
             </if>
+            <if test="clazz != null">
+                #{clazz,jdbcType=VARCHAR},
+            </if>
+            <if test="exception != null">
+                #{exception,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.ace.models.entity.AccessLog">
-        update accessLog
+    <update id="updateByPrimaryKeySelective" parameterType="com.ace.models.entity.AceLogs">
+        update aceLogs
         <set>
             <if test="createdBy != null">
                 createdBy = #{createdBy,jdbcType=VARCHAR},
@@ -128,19 +144,27 @@
             <if test="operator != null">
                 `operator` = #{operator,jdbcType=VARCHAR},
             </if>
+            <if test="clazz != null">
+                clazz = #{clazz,jdbcType=VARCHAR},
+            </if>
+            <if test="exception != null">
+                `exception` = #{exception,jdbcType=VARCHAR},
+            </if>
         </set>
         where logId = #{logId,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.ace.models.entity.AccessLog">
-        update accessLog
-        set createdBy       = #{createdBy,jdbcType=VARCHAR},
-            createdDate     = #{createdDate,jdbcType=TIMESTAMP},
-            lastUpdatedBy   = #{lastUpdatedBy,jdbcType=VARCHAR},
+    <update id="updateByPrimaryKey" parameterType="com.ace.models.entity.AceLogs">
+        update aceLogs
+        set createdBy      = #{createdBy,jdbcType=VARCHAR},
+            createdDate    = #{createdDate,jdbcType=TIMESTAMP},
+            lastUpdatedBy  = #{lastUpdatedBy,jdbcType=VARCHAR},
             lastUpdateDate = #{lastUpdateDate,jdbcType=TIMESTAMP},
-            version          = #{version,jdbcType=INTEGER},
-            accessTime      = #{accessTime,jdbcType=TIMESTAMP},
-            description      = #{description,jdbcType=VARCHAR},
-            `operator`         = #{operator,jdbcType=VARCHAR}
+            version        = #{version,jdbcType=INTEGER},
+            accessTime     = #{accessTime,jdbcType=TIMESTAMP},
+            description    = #{description,jdbcType=VARCHAR},
+            `operator`     = #{operator,jdbcType=VARCHAR},
+            clazz          = #{clazz,jdbcType=VARCHAR},
+            `exception`    = #{exception,jdbcType=VARCHAR}
         where logId = #{logId,jdbcType=BIGINT}
     </update>
 </mapper>

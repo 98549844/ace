@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
  * @Description:
  */
 //https://blog.csdn.net/weixin_45131680/article/details/136192847
+//https://blog.csdn.net/u010675669/article/details/88576940
 
 @Aspect
 @Component
@@ -36,6 +37,8 @@ public class AceAspect {
      * com.annotation包及子包下所有的类的有三个参数，第一个参数为String类型，
      * 第二个参数为任意类型，第三个参数为Long类型的方法
      * execution(@annotation(com.lingyejun.annotation.Lingyejun))
+     * !execution(* com.example.YourClass.*(..)) 排除com.example.YourClass包下的所有方法
+     *
      */
 
     @Pointcut(value = "@annotation(com.ace.aspectj.AceLog)")

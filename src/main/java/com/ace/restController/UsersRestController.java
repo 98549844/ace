@@ -158,7 +158,7 @@ public class UsersRestController extends CommonController {
         }
     }
 
-    @AceLog("Ace Aspectj") //自定义aspect
+    // @AceLog("Ace Aspectj") //自定义aspect
     @Operation(summary = "查询所有用户")
     @RequestMapping(method = RequestMethod.GET, value = "/getUsers")
     public AjaxResponse getUsers() {

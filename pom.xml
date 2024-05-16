@@ -120,6 +120,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
 
         <!-- <dependency>
             //如果引入在cmd直接运行jar, 只能单线程

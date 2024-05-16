@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rest/exception")
-//@Api(tags = "exception")
 @Tag(name = "Exception")
 public class ExceptionRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(ExceptionRestController.class.getName());
@@ -29,8 +28,12 @@ public class ExceptionRestController extends CommonController {
     public AjaxResponse nullPointerException() {
         Users users = null;
         System.out.println(users.getUserAccount());
-
         return AjaxResponse.success("SUCCESS");
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/ok")
+    public AjaxResponse ok() {
+        return AjaxResponse.success(true);
     }
 
 }
