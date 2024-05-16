@@ -185,13 +185,13 @@
         <dependency>
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-spring-boot3-starter</artifactId>
-            <version>1.37.0</version>
+            <version>1.38.0</version>
         </dependency>
         <!-- 在 thymeleaf 标签中使用 Sa-Token -->
         <dependency>
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-dialect-thymeleaf</artifactId>
-            <version>1.37.0</version>
+            <version>1.38.0</version>
         </dependency>
 
         <!--video codec use only and image base64 convertor-->
