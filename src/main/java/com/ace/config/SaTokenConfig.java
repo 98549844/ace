@@ -58,13 +58,15 @@ public class SaTokenConfig implements WebMvcConfigurer {
                 //开放naiveController
                 .excludePathPatterns("/naive/**")
                 //开方api
-                .excludePathPatterns("/api/**").excludePathPatterns("/pdf/**")
+                .excludePathPatterns("/api/**")
+                .excludePathPatterns("/pdf/**")
                 //.excludePathPatterns( "/assets/**") //url一定不能以assets开头, 不然就所有url都开放
                 .excludePathPatterns("/assets/**/*.js",
                                       "/assets/**/*.png",
                                       "/assets/**/*.jpg",
                                       "/assets/**/*.gif",
                                       "/assets/favicon.ico",
+                                      "/favicon.ico",
                                       "/assets/**/*.css",
                                       "/assets/**/*.woff2",
                                       "/assets/**/*.woff",

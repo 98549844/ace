@@ -460,6 +460,12 @@ public class FilesService {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         return filesDao.findFilesByStatusAndOwnerOrderByCreatedDateDesc(status, ownerId, pageable);
     }
+
+    public int countByLocation(String location) {
+        return filesDao.countByLocation(location);
+    }
+
+
 }
 
 

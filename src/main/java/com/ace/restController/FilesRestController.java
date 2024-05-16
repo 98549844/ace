@@ -1,9 +1,11 @@
 package com.ace.restController;
 
+import com.ace.constant.AceEnvironment;
 import com.ace.models.common.AjaxResponse;
 import com.ace.models.entity.Files;
 import com.ace.service.FilesService;
 import com.ace.service.UsersService;
+import com.ace.utilities.FileUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
@@ -31,15 +33,18 @@ public class FilesRestController {
 
     private final UsersService usersService;
     private final FilesService filesService;
+    private final AceEnvironment aceEnvironment;
 
-    public FilesRestController(UsersService usersService, FilesService filesService) {
+
+    public FilesRestController(UsersService usersService, FilesService filesService, AceEnvironment aceEnvironment) {
         this.usersService = usersService;
         this.filesService = filesService;
+        this.aceEnvironment = aceEnvironment;
     }
 
-    @Operation(summary = "清理用户不存在的文件")
-    @RequestMapping(method = RequestMethod.GET, value = "/delete.html")
-    public AjaxResponse delete() {
+    @Operation(summary = "清理用户|拥有者不存在的文件", description = "清理用户|拥有者不存在的文件,但依然存在本地文件夹的文件")
+    @RequestMapping(method = RequestMethod.GET, value = "/deleteFilesWithOutOwner.html")
+    public AjaxResponse deleteFilesWithOutOwner() {
         List<String> owners = filesService.getAllDistinctOwner();
         List<String> result = new LinkedList<>();
         for (String owner : owners) {
@@ -58,5 +63,38 @@ public class FilesRestController {
         }
         return AjaxResponse.success(result);
     }
+
+
+    @Operation(summary = "清理图片库中无记录的图片", description = "清理数据库没有图片记录,但存在在本地文件夹的图片")
+    @RequestMapping(method = RequestMethod.GET, value = "/deleteFilesWithOutRecord.html")
+    public AjaxResponse deleteFilesWithOutRecord() {
+        String imagePath = aceEnvironment.getImagesPath();
+        List<String> localFiles = FileUtil.getCurrentFolderAbsoluteFilesPath(imagePath);
+        List<String> result = new LinkedList<>();
+        int size = 0;
+        for (String fileLocation : localFiles) {
+            int count = filesService.countByLocation(fileLocation);
+            if (count == 0) {
+                //文件存在, 但是数据库没有记录, 删除文件
+                FileUtil.delete(fileLocation);
+                result.add(fileLocation);
+            }
+            ++size;
+        }
+        result.add("Total deleted files: " + size);
+        return AjaxResponse.success(result);
+    }
+
+    @Operation(summary = "清空thumbnail缩略图文件夹")
+    @RequestMapping(method = RequestMethod.GET, value = "/clearThumbnail.html")
+    public AjaxResponse clearThumbnail() {
+        String thumbnail = aceEnvironment.getImagesThumbnail();
+        //删除ImagesThumbnail文件夹,包括ImagesThumbnail自已下的所有子文件夹和子文件
+        FileUtil.deleteDirectories(thumbnail);
+        //创建ImagesThumbnail文件夹
+        FileUtil.mkDirs(thumbnail);
+        return AjaxResponse.success("SUCCESS");
+    }
+
 }
 

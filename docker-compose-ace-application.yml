@@ -17,7 +17,7 @@ services:
     hostname: application
     restart: always
     volumes:
-      - /Users/garlam/ace/:/opt/workspace/ace/
+      - /Users/garlam/docker/ace/:/opt/workspace/ace/
     ports:
       - 8090:8090
     depends_on:

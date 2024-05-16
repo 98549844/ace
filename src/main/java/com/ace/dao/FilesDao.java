@@ -61,6 +61,8 @@ public interface FilesDao extends JpaRepository<Files, Long>, JpaSpecificationEx
 
     List<Files> findFilesByOwner(String owner);
 
+    int countByLocation(String location);
+
     @Query(nativeQuery = true, value = "select distinct owner from files order by owner asc")
     List<String> getAllDistinctOwner();
 
