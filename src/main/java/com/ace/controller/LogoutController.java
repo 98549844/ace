@@ -21,18 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class LogoutController extends CommonController {
     private static final Logger log = LogManager.getLogger(LogoutController.class.getName());
 
-
-//    @RequestMapping(value = {"/logout.html", "/ace/logout.html", "/ace/**/logout.html"}, method = RequestMethod.GET)
-//    public AjaxResponse doLogout() {
-//        log.info("logout()");
-//        logout(getCurrentUser().getUserId(), getDevice());
-//        String msg = "Logout success";
-//        Map<String, String> map = new HashMap();
-//        map.put("msg", msg);
-//        map.put(Css.css, Css.green);
-//        return AjaxResponse.success(map);
-//    }
-
     @RequestMapping(value = {"/logout.html", "/ace/logout.html", "/ace/**/logout.html"}, method = RequestMethod.GET)
     public ModelAndView logout() {
         if (isLogin()) {
@@ -44,9 +32,29 @@ public class LogoutController extends CommonController {
         String msg = "Logout success";
         modelAndView.addObject("msg", msg);
         modelAndView.addObject(Css.css, Css.green);
-        log.info(msg+" !");
+        log.info(msg);
         return modelAndView;
     }
 
 
+    /*
+    ajax logout 异步提交拆成两个方法
+    @RequestMapping(value = "/ace/logout.html", method = RequestMethod.GET)
+    public ModelAndView logout() {
+        ModelAndView modelAndView = new ModelAndView("ace/login.html");
+        String msg = "Logout success";
+        modelAndView.addObject("msg", msg);
+        modelAndView.addObject(Css.css, Css.green);
+        log.info("{} !", msg);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = {"/rest/logout.html"}, method = RequestMethod.GET)
+    @ResponseBody
+    public AjaxResponse loggingOut() {
+        log.info("logging out !");
+        logout(getCurrentUser().getUserId(), getDevice());
+        return AjaxResponse.success(true);
+    }
+    */
 }

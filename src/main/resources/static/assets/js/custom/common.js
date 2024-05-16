@@ -8,16 +8,15 @@ jQuery(function ($) {
     // getIcon();
 });
 
-function isAdmin() {
-    const admin = '[[${currentUser.roleGroup}]]';
-    return admin.indexOf("admin") !== -1;
+function isAdmin(admin) {
+    return admin.indexOf("ADMIN") !== -1;
 }
 
 
 function printUrl() {
     const currentURL = window.location.href; // http://192.168.1.100:8088/ace/index.html
     const currentPathname = window.location.pathname; // /ace/index.html
-    const currentHost = window.location.host; // 192.168.1.100:8088/
+    const currentHost = window.location.host; // 192.168.1.100:8088
     const currentPort = window.location.port; // 8088
 
     const result = 'currentURL: ' + currentURL + '\n' +
@@ -105,21 +104,20 @@ function logout() {
     //  /ace/logout.html
     d = dialog({
         title: 'Logout',
-        content: 'Are you confirm log out !!!',
+        content: 'Confirm to logout ?',
         okValue: 'Confirm',
         ok: function () {
             this.title('Logging out …');
             $.ajax({
                 type: "get", // 以get方式发起请求
                 url: "logout.html",
+                // 绝对路径 url: 'http://' + window.location.host + '/rest/logout.html',
                 success(data) {
-                    // let css = data.data.msgCss;
-                    // const msg = data.data.msg;
-                    // window.location.href = '/ace/login.html/' + css + '/' + msg;
                     window.location.href = '/ace/logout.html';
+                   // 绝对路径  window.location.href = 'http://' + window.location.host + '/ace/logout.html';
+
                 }
             })
-
             /*  setTimeout(() => {
               }, 3000);*/
             //   location.href = '/ace/login.html';
