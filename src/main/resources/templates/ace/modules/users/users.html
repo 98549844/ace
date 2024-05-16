@@ -344,7 +344,7 @@
             if (!isAdmin(admin)) {
                 const checkAdminDialog = dialog({
                     title: '用户权限不足',
-                    content: '用户不是admin, 没有权限删除用户'
+                    content: '用户不是ADMIN, 没有权限删除用户'
                 });
                 checkAdminDialog.show();
                 return;
@@ -389,7 +389,7 @@
             if (!isAdmin(admin)) {
                 const checkAdminDialog = dialog({
                     title: '用户权限不足',
-                    content: '用户不是admin, 没有权限更改用户状态'
+                    content: '用户不是ADMIN, 没有权限更改用户状态'
                 });
                 checkAdminDialog.show();
                 return;
@@ -514,7 +514,7 @@
         if (!isAdmin(admin)) {
             const checkAdminDialog = dialog({
                 title: '用户权限不足',
-                content: '用户不是admin, 不允许执行该操作'
+                content: '用户不是ADMIN, 不允许执行该操作'
             });
             checkAdminDialog.show();
             return;
