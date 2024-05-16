@@ -34,7 +34,7 @@ public class JpaAuditorAwareConfig implements AuditorAware<Long> {
             Users user = (Users) StpUtil.getSession().get("user");
             return Optional.of(user.getUserId());
         } else {
-            log.info("UserId not found, set default value 0 !!!");
+            log.info("UserId not found, set default value 0 !");
             return Optional.of(0l);
         }
     }

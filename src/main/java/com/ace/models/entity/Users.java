@@ -16,11 +16,11 @@ import java.util.List;
 public class Users extends BaseEntity implements Serializable {
 
     //users_description
-    public static final String ADMIN = "admin";
+    public static final String ADMIN = "ADMIN";
     // public static final String Editor = "Editor"; // part of read update insert
-    public static final String DISABLE = "disable";
-    public static final String USER = "user"; // read update
-    public static final String VIEWER = "viewer"; // read only
+    public static final String DISABLE = "DISABLE";
+    public static final String USER = "USER"; // read update
+    public static final String VIEWER = "VIEWER"; // read only
 
     public static final String ACTIVE = "ACTIVE";
     public static final String INACTIVE = "INACTIVE";

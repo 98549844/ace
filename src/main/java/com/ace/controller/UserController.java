@@ -110,7 +110,7 @@ public class UserController extends CommonController {
             }
             StringBuilder sb = new StringBuilder();
             for (int i = 1; i < listData.size(); i++) {
-                sb.append(listData.get(i).toLowerCase() + " ");
+                sb.append(listData.get(i) + " ");
                 Roles role = rolesService.findByRoleCode(listData.get(i));
                 UserRoles ur = new UserRoles();
                 ur.setUserId(userId);
