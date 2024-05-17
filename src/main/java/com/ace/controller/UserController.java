@@ -32,6 +32,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -79,7 +80,7 @@ public class UserController extends CommonController {
     @RequestMapping(value = "/getUsers/{Paging}", method = RequestMethod.GET)
     @ResponseBody
     public AjaxResponse getUsersByPaging(@PathVariable Integer Paging) {
-        List<Users> usersList=usersService.getUsersOrderByLoginDateTimeLimit(Paging, 15);
+        List<Users> usersList = usersService.getUsersOrderByLoginDateTimeLimit(Paging, 15);
         return AjaxResponse.success(usersList);
     }
 

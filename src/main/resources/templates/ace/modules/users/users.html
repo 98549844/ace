@@ -356,11 +356,9 @@
 <div th:insert="~{ace/pb-pages/common-script :: common-script}"></div>
 <!-- page specific plugin scripts -->
 
-
 <!-- inline scripts related to this page -->
-
-
 <script type="text/javascript">
+    const admin = '[[${currentUser.roleGroup}]]';
     jQuery(function ($) {
         /***************/
         $('.show-details-btn').on('click', function (e) {
@@ -375,7 +373,6 @@
             const btnDangerId = $(this).attr("id");
             const userId = btnDangerId.split("-");
 
-            const admin = '[[${currentUser.roleGroup}]]';
             if (!isAdmin(admin)) {
                 const checkAdminDialog = dialog({
                     title: '用户权限不足',
@@ -420,7 +417,6 @@
             const checkId = $(this).attr("id");
             const userId = checkId.split("-")[1];
 
-            const admin = '[[${currentUser.roleGroup}]]';
             if (!isAdmin(admin)) {
                 const checkAdminDialog = dialog({
                     title: '用户权限不足',
@@ -545,7 +541,6 @@
     //user roles multiple list
     const $userTable = $('#userTable');
     $userTable.on('click', '.btn.btn-sm.btn-info.pull-right', function () {
-        const admin = '[[${currentUser.roleGroup}]]';
         if (!isAdmin(admin)) {
             const checkAdminDialog = dialog({
                 title: '用户权限不足',
