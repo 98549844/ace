@@ -140,21 +140,25 @@ public class FilesService {
      * @return
      */
     public boolean download(String fileName, HttpServletResponse response) {
+        String location;
         Files f = findFilesByFileName(fileName);
-        File file = new File(f.getLocation());
-        if (!NullUtil.isNull(fileName) && file.exists()) {
-            try {
-                // 设置强制下载不打开
-                response.setContentType("application/force-download");
-                // 设置文件名
-                response.addHeader("Content-Disposition", "attachment;fileName=" + f.getOriginationName());
-                outputStream(file, response);
-                return true;
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-                return false;
-            }
+        File file;
+        if (NullUtil.isNull(f) || NullUtil.isNull(f.getLocation())) {
+            location = fileName;
+            file = new File(location);
+            fileName = file.getName();
         } else {
+            file = new File(f.getLocation());
+            fileName = f.getOriginationName();
+        } try {
+            // 设置强制下载不打开
+            response.setContentType("application/force-download");
+            // 设置文件名
+            response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);
+            outputStream(file, response);
+            return true;
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
             return false;
         }
     }
