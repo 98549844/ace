@@ -129,7 +129,7 @@ public class UserController extends CommonController {
             user.setRoleGroup(sb.toString().trim());
             user = usersService.saveAndFlush(user);
             if (!user.getRoleGroup().contains(Users.ADMIN)) {
-                logout(user.getUserId()); //更新角色后踢出
+                kickout(user.getUserId()); //更新角色后踢出
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -172,13 +172,17 @@ public class UserController extends CommonController {
     }
 
     @RequestMapping(value = "/search.html", method = RequestMethod.GET)
-    public ModelAndView getUserById(String username) {
+    public ModelAndView searchByUsername(String username) {
         log.info("username: {}", username);
         List<Users> userList;
         if (NullUtil.isNull(username) || username.isEmpty()) {
             userList = usersService.findUsersOrderByLoginDateTime(30);
         } else {
             userList = usersService.findUsersByUsernameLikeIgnoreCaseOrderByLoginDateTime(username);
+        }
+        List<Roles> roles = rolesService.findAll();
+        for (Users users : userList) {
+            users.setRoles(roles);
         }
         ModelAndView modelAndView = super.page("ace/modules/users/users");
         modelAndView.addObject("searchCriteria", username);
