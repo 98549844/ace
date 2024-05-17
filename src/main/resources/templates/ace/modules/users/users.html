@@ -416,6 +416,7 @@
         $(":checkbox").on('click', function (e) {
             const checkId = $(this).attr("id");
             const userId = checkId.split("-")[1];
+            const checkStatus = $(this).is(":checked");
 
             if (!isAdmin(admin)) {
                 const checkAdminDialog = dialog({
@@ -423,6 +424,7 @@
                     content: '用户不是ADMIN, 没有权限更改用户状态'
                 });
                 checkAdminDialog.show();
+                $(this).prop("checked", !checkStatus);
                 return;
             } // 检查当前用户是否admin
 
