@@ -140,6 +140,13 @@ public class UsersService {
         return usersList;
     }
 
+    public List<Users> getUsersOrderByLoginDateTimeLimit(Integer paging, Integer limit) {
+        paging = paging * limit;
+        List<Users> usersList = usersDao.getUsersOrderByLoginDateTimeLimit(paging, limit);
+        calcAge(usersList);
+        return usersList;
+    }
+
 
     public Users findByUserAccount(Users ur) throws UserNotFoundException, PasswordNotMatchException {
         Users user = usersDao.findByUserAccount(ur.getUserAccount());
@@ -417,7 +424,7 @@ public class UsersService {
         }
     }
 
-    public List<Users> findAllByRecord(){
+    public List<Users> findAllByRecord() {
         return usersDao.findAllByRecord(true);
     }
 

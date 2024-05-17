@@ -76,6 +76,13 @@ public class UserController extends CommonController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/getUsers/{Paging}", method = RequestMethod.GET)
+    @ResponseBody
+    public AjaxResponse getUsersByPaging(@PathVariable Integer Paging) {
+        List<Users> usersList=usersService.getUsersOrderByLoginDateTimeLimit(Paging, 15);
+        return AjaxResponse.success(usersList);
+    }
+
     @RequestMapping(value = "/expire/update.html", method = RequestMethod.POST)
     @ResponseBody
     public boolean updateExpire(@RequestBody String newDateTime) throws Exception {
