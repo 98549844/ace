@@ -118,15 +118,30 @@
                     </div>
                 </div>
 
-                <div class="col-xs-6" th:if="${currentUser.roleGroup.contains('ADMIN')}" >
-                    <label class="text-info">View All</label>
-                    <label>
-                        <input class="ace ace-switch ace-switch-7" type="checkbox" checked="checked"
-                               id="view-checkBtn"/>
-                        <span class="lbl"></span>
-                    </label>
-                </div>
+                <div class="row" th:if="${currentUser.roleGroup.contains('ADMIN')}">
+                    <div class="col-lg-3 col-xs-12 col-sm-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control search-query" placeholder="search 功能未完成">
+                            <span class="input-group-btn">
+                        <button type="button"
+                                class="btn btn-inverse btn-white">
+                            <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                            Search
+                        </button>
+                    </span>
+                        </div>
+                    </div>
 
+
+                    <div class="col-xs-6">
+                        <label class="text-info">View All</label>
+                        <label>
+                            <input class="ace ace-switch ace-switch-7" type="checkbox" checked="checked"
+                                   id="view-checkBtn"/>
+                            <span class="lbl"></span>
+                        </label>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-xs-12">
