@@ -51,9 +51,6 @@ function setTitle() {
     if (pName.indexOf("/ace/") !== -1) {
         const t = pName.split("/ace/")[1].split(".html")[0];
         let m = t.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase());
-        if ("Index" === m) {
-            m = "Dashboard";
-        }
         //首字母大写
         $("title").html("Ace " + m);
         $("#breadcrumb2").text(m);

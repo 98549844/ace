@@ -30,6 +30,13 @@ public class AceController extends CommonController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/dashboard.html", method = RequestMethod.GET)
+    public ModelAndView dashboard() {
+        log.info("access ace/dashboard.html");
+        ModelAndView modelAndView = super.page("ace/tool-pages/dashboard");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/blank.html", method = RequestMethod.GET)
     public ModelAndView blank() {
         log.info("access ace/blank.html");
