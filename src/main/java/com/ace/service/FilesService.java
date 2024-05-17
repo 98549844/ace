@@ -150,7 +150,8 @@ public class FilesService {
         } else {
             file = new File(f.getLocation());
             fileName = f.getOriginationName();
-        } try {
+        }
+        try {
             // 设置强制下载不打开
             response.setContentType("application/force-download");
             // 设置文件名
@@ -216,12 +217,20 @@ public class FilesService {
 
     private void outputStream(File file, HttpServletResponse response) throws IOException {
         InputStream is = new FileInputStream(file);
-        OutputStream os = response.getOutputStream();
-        byte[] buffer = new byte[1024]; // 图片文件流缓存池
-        while (is.read(buffer) != -1) {
-            os.write(buffer);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        byte[] buffer = new byte[1024]; // 文件流缓存池
+        int bytesRead;
+        while ((bytesRead = is.read(buffer)) != -1) {
+            baos.write(buffer, 0, bytesRead);
         }
+        byte[] data = baos.toByteArray();
+        OutputStream os = response.getOutputStream();
+
+        os.write(data);
         os.flush();
+        baos.flush();
+        baos.close();
         os.close();
         is.close();
     }
