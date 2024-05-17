@@ -21,6 +21,15 @@ import org.springframework.web.servlet.ModelAndView;
 public class AceController extends CommonController {
     private static final Logger log = LogManager.getLogger(AceController.class.getName());
 
+    @RequestMapping(value = "/introduction.html", method = RequestMethod.GET)
+    public ModelAndView introduction() {
+        if (!isLogin()) {
+            return logout();
+        }
+        ModelAndView modelAndView = super.page("ace/introduction");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
     public ModelAndView index() {
         if (!isLogin()) {
