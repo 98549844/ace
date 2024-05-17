@@ -119,7 +119,7 @@
                                 </table>
                             </div><!-- /.span -->
                         </div><!-- /.row -->
-                        <!--<label><a th:href="@{/cv/garlam-resume.docx}">download my resume</a></label>-->
+                        <label th:if="${currentUser.roleGroup.contains('ADMIN')}"><a th:href="@{/cv/garlam-resume.docx}">download my resume</a></label>
 
                         <!-- PAGE CONTENT ENDS -->
                     </div><!-- /.col -->

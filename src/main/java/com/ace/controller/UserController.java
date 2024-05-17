@@ -127,7 +127,10 @@ public class UserController extends CommonController {
             }
             Users user = usersService.findUsersById(userId);
             user.setRoleGroup(sb.toString().trim());
-            usersService.save(user);
+            user = usersService.saveAndFlush(user);
+            if (!user.getRoleGroup().contains(Users.ADMIN)) {
+                logout(user.getUserId()); //更新角色后踢出
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
