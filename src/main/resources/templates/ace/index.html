@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{ace/pb-pages/header :: header}">
+    <!-- inline styles related to this page -->
+</head>
+
+<body class="no-skin">
+<div id="navbar" class="navbar navbar-default ace-save-state"
+     th:insert="~{ace/pb-pages/navbar :: navbar}"></div>
+
+<div class="main-container ace-save-state" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.loadState('main-container')
+        } catch (e) {
+        }
+    </script>
+
+    <div id="sidebar" class="sidebar responsive ace-save-state"
+         th:insert="~{ace/pb-pages/sidebar :: sidebar}">
+    </div>
+
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="breadcrumbs" th:insert="~{ace/pb-pages/breadcrumbs :: breadcrumbs}"></div>
+            <div class="page-content">
+                <div class="ace-settings-container" id="ace-settings-container"
+                     th:insert="~{ace/pb-pages/ace-settings-container :: ace-settings-container}">
+                </div><!-- /.ace-settings-container -->
+
+                <div class="page-header">
+                    <!--内容主题-->
+                    <h1>
+                        Index
+                        <small>
+                            <i class="ace-icon fa fa-angle-double-right"></i>
+                            overview &amp; stats
+                        </small>
+                    </h1>
+                </div><!-- /.page-header -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <a th:href="@{/ace/features.html}">
+                            <h3 class="text-info"><i class="ace-icon fa fa-hand-o-right"></i>更多Ace Application介绍
+                            </h3>
+                        </a>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table id="simple-table" class="table  table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Domain</th>
+                                        <th>Technical Knowledge and Skill Set</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>Language</td>
+                                        <td class="hidden-480">Java | Javascript | Html | CSS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Familiar framework</td>
+                                        <td class="hidden-480">Spring-Cloud | SpringFramework | SpringFramework |
+                                            SpringSecurity | JPA | Hibernate | Mybatis | JPA | Junit
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Render engineer</td>
+                                        <td class="hidden-480">Thymeleaf | Jsp | Jsf</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Database</td>
+                                        <td class="hidden-480">Oracle pl/sql | Mysql | Sql Server | MongoDB</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Front-end</td>
+                                        <td class="hidden-480">JQuery | Ajax | Vue</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Middleware</td>
+                                        <td class="hidden-480">Redis | Kafka | RabbitMQ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Source control</td>
+                                        <td class="hidden-480">Git | Svn</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Build tools</td>
+                                        <td class="hidden-480">Maven | Gradle</td>
+                                    </tr>
+                                    <tr>
+                                        <td>DevOps</td>
+                                        <td class="hidden-480">Docker</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Other</td>
+                                        <td class="hidden-480">Docker</td>
+                                    </tr>
+                                    <tr>
+                                        <td>DevOps</td>
+                                        <td class="hidden-480">Xml | RestfulApi | Jstl | Json | Websocket | SSM | ccna
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- /.span -->
+                        </div><!-- /.row -->
+
+
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+
+    <div class="footer" th:insert="~{ace/pb-pages/footer :: footer}">
+    </div>
+</div><!-- /.main-container -->
+
+<div th:insert="~{ace/pb-pages/common-script :: common-script}"></div>
+<!-- page specific plugin scripts -->
+
+
+</body>
+</html>

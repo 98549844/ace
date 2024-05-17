@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -72,6 +73,26 @@ public class ImagesController extends CommonController {
         List ls = imagesService.getImagesByLimit(getCurrentUser(), paging);
         return ls;
     }
+
+    /**
+     * get images limitation
+     *
+     * @return
+     * @throws IOException
+     */
+   /* @RequestMapping(value = "/getImagesByLimit.html/{paging}/{owner}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Files> getImagesByOwnerLimit(@PathVariable(value = "paging") int paging, @PathVariable(value = "owner") String owner) throws IOException {
+        log.info("access getImagesByOwnerLimit.html owner paging: {} {}", owner, paging);
+        List<Files> ls = imagesService.getImagesByLimit(getCurrentUser(), paging);
+        List<Files> ownerLs = new LinkedList<>();
+        for (Files f : ls) {
+            if (f.getOwner().contains(owner)) {
+                ownerLs.add(f);
+            }
+        }
+        return ownerLs;
+    }*/
 
     /**
      * 图片上传

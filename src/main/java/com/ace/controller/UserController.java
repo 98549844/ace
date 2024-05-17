@@ -164,12 +164,13 @@ public class UserController extends CommonController {
     public ModelAndView getUserById(String username) {
         log.info("username: {}", username);
         List<Users> userList;
-        if (NullUtil.isNull(username) || "".equals(username)) {
+        if (NullUtil.isNull(username) || username.isEmpty()) {
             userList = usersService.findUsersOrderByLoginDateTime(30);
         } else {
             userList = usersService.findUsersByUsernameLikeIgnoreCaseOrderByLoginDateTime(username);
         }
         ModelAndView modelAndView = super.page("ace/modules/users/users");
+        modelAndView.addObject("searchCriteria", username);
         modelAndView.addObject("users", userList);
         return modelAndView;
     }

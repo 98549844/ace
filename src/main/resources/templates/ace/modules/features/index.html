@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{ace/pb-pages/header :: header}">
+    <!-- inline styles related to this page -->
+</head>
+
+<body class="no-skin">
+<div id="navbar" class="navbar navbar-default ace-save-state"
+     th:insert="~{ace/pb-pages/navbar :: navbar}"></div>
+
+<div class="main-container ace-save-state" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.loadState('main-container')
+        } catch (e) {
+        }
+    </script>
+
+    <div id="sidebar" class="sidebar responsive ace-save-state"
+         th:insert="~{ace/pb-pages/sidebar :: sidebar}">
+    </div>
+
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="breadcrumbs" th:insert="~{ace/pb-pages/breadcrumbs :: breadcrumbs}"></div>
+            <div class="page-content">
+                <div class="ace-settings-container" id="ace-settings-container"
+                     th:insert="~{ace/pb-pages/ace-settings-container :: ace-settings-container}">
+                </div><!-- /.ace-settings-container -->
+
+                <div class="page-header">
+                    <h1>
+                        <a th:href="@{/ace/features.html}">Features</a>
+                    </h1>
+                </div><!-- /.page-header -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <h2>Ace Application 技朮栈和功能介绍</h2>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table id="simple-table" class="table  table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th><i class="ace-icon glyphicon glyphicon-cog"></i></th>
+                                        <th>Stack | 技朮栈</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>前端</td>
+                                        <td class="hidden-480">Thymeleaf | Html | CSS | Javascript | JQuery | Ajax</td>
+                                    </tr>
+                                    <tr>
+                                        <td>后端</td>
+                                        <td class="hidden-480">Java | SpringBoot | Sa-Token
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>数据库</td>
+                                        <td class="hidden-480">Mysql | MongoDB</td>
+                                    </tr>
+                                    <tr>
+                                        <td>中间件</td>
+                                        <td class="hidden-480">Redis | RabbitMQ | Kafka</td>
+                                    </tr>
+                                    <tr>
+                                        <td>版本管理</td>
+                                        <td class="hidden-480">Git</td>
+                                    </tr>
+                                    <tr>
+                                        <td>DevOps</td>
+                                        <td class="hidden-480">Docker</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- /.span -->
+                        </div><!-- /.row -->
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table id="function-table" class="table  table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Component</th>
+                                        <th>Stack | 技朮栈</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-folder-open"></i>
+                                            <a th:href="@{/ace/files.html}">
+                                                &nbsp;&nbsp;&nbsp;Files 未完成开发
+                                            </a>
+                                        </td>
+
+                                        <td class="hidden-480">1. 树状文件列表 2. 文件上传 3. 文件下载 4. 文件分享 5.
+                                            文件搜索 6.文件预览
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-picture-o"></i>
+                                            <a th:href="@{/ace/gallery.html}">
+                                                &nbsp;&nbsp;&nbsp;相册 | Gallery
+                                            </a>
+                                        </td>
+                                        <td class="hidden-480">1. 相册列表 2. 相册上传 3. 相册下载 4. 相册预览</td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-video-camera"></i>
+                                            <a th:href="@{/ace/media.html}">
+                                                &nbsp;&nbsp;&nbsp;Media 未完成开发
+                                            </a>
+                                        </td>
+                                        <td class="hidden-480">1. 影片上下载 2. 影片播放 3. 影片切片缓存</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-users"></i>
+                                            <a th:href="@{/ace/users/users.html}">
+                                                &nbsp;&nbsp;&nbsp;用户管理
+                                            </a>
+                                        </td>
+                                        <td class="hidden-480">1. 用户列表 | 2. 权限控制 | 3. 角色列表 | 4. 权限列表 |
+                                            5. 菜单管理(未完成开发)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-bug"></i>
+                                            <a th:href="@{/ace/report/list.html}">
+                                                &nbsp;&nbsp;&nbsp;bug reports 开发中
+                                            </a>
+                                        </td>
+                                        <td class="hidden-480">1. 报告列表 | 2. 新增报告 | 3. 编辑/更新报告 | 4.
+                                            删除报告
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-envelope"></i>
+                                            <a th:href="@{/ace/polling.html}">
+                                                &nbsp;&nbsp;&nbsp;Notifications | SSM
+                                            </a>
+                                        </td>
+                                        <td class="hidden-480">1. 定时推送消息 | 2. 实时推送消息</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-comments-o"></i>
+                                            <a th:href="@{/ace/webSocket.html}">
+                                                &nbsp;&nbsp;&nbsp;WebSocket
+                                            </a>
+                                        </td>
+                                        <td class="hidden-480">1. IM | 即时通讯(开发中)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-camera-retro"></i>
+                                            <a th:href="@{/ace/playbackList.html}">
+                                                &nbsp;&nbsp;&nbsp;Web Record
+                                            </a>
+                                        </td>
+                                        <td class="hidden-480">1. 播放使用者页面活动</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- /.span -->
+                        </div><!-- /.row -->
+
+
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+
+    <div class="footer" th:insert="~{ace/pb-pages/footer :: footer}">
+    </div>
+</div><!-- /.main-container -->
+
+<div th:insert="~{ace/pb-pages/common-script :: common-script}"></div>
+<!-- page specific plugin scripts -->
+
+
+</body>
+</html>

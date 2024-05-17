@@ -78,21 +78,19 @@ public class ImagesService extends CommonController {
         // return FileUtil.getNamesOrderByLastModifiedDate(imagesThumbnail, true);
     }
 
-
-    public List getImagesByLimit(Users users, int paging) {
-        List<Roles> rolesList = rolesService.getRolesByUserId(users.getUserId());
+    public List<Files> getImagesByLimit(Users user, int paging) {
         List<Files> filesLs;
-        if (Roles.ADMIN.equals(rolesList.get(0).getRoleCode())) {
+        if (user.getRoleGroup().contains(Users.ADMIN)) {
             //Admin roles access all images
             filesLs = filesService.findFilesByStatusOrderByOwnerAscCreatedDateDesc(Files.COMPRESSED, paging);
         } else {
-            filesLs = filesService.findFilesByStatusAndOwnerOrderByCreatedDateDesc(Files.COMPRESSED, users.getUserAccount(), paging);
+            filesLs = filesService.findFilesByStatusAndOwnerOrderByCreatedDateDesc(Files.COMPRESSED, user.getUserAccount(), paging);
         }
         List<Files> result = new ArrayList<>();
         for (Files f : filesLs) {
             File original = new File(f.getLocation()); //原图
             File thumbnail = new File(imagesThumbnail + f.getFileName() + f.getExt()); //缩略图
-            if (original.exists() && !f.getFileName().contains(users.getUserAccount())) {
+            if (original.exists() && !f.getFileName().contains(user.getUserAccount())) {
                 //文件名包含userAccount,定义为头像
                 result.add(f);
                 if (!thumbnail.exists()) {

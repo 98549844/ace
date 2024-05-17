@@ -29,7 +29,7 @@ public class GalleryController extends CommonController {
     private final ImagesService imagesService;
     private final String imagesThumbnail;
 
-    public GalleryController(AceEnvironment aceEnvironment,ImagesService imagesService) {
+    public GalleryController(AceEnvironment aceEnvironment, ImagesService imagesService) {
         this.imagesService = imagesService;
         this.imagesThumbnail = aceEnvironment.getImagesThumbnail();
     }
@@ -46,6 +46,16 @@ public class GalleryController extends CommonController {
         log.info("access gallery.html");
         return super.page("ace/tool-pages/gallery");
     }
+
+/*    @RequestMapping(value = "/getGalleryByOwner.html", method = RequestMethod.GET)
+    public ModelAndView searchGalleryByOwner(String owner) {
+        log.info("access getGalleryByOwner.html");
+
+        ModelAndView view = super.page("ace/tool-pages/gallery");
+        view.addObject("searchCriteria", owner);
+
+        return super.page("ace/tool-pages/gallery");
+    }*/
 
     /**
      * 缩略图显示请求

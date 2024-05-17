@@ -37,6 +37,13 @@ public class AceController extends CommonController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/features.html", method = RequestMethod.GET)
+    public ModelAndView features() {
+        log.info("access ace/features.html");
+        ModelAndView modelAndView = super.page("ace/modules/features/index");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/blank.html", method = RequestMethod.GET)
     public ModelAndView blank() {
         log.info("access ace/blank.html");
@@ -69,13 +76,6 @@ public class AceController extends CommonController {
         ModelAndView modelAndView = super.page("ace/tool-pages/faq");
         return modelAndView;
     }
-
-/*    @RequestMapping(value = "/profile.html", method = RequestMethod.GET)
-    public ModelAndView profile() {
-        log.info("access ace/profile.html");
-        ModelAndView modelAndView = super.page("ace/tool-pages/profile");
-        return modelAndView;
-    }*/
 
     @RequestMapping(value = "/inbox.html", method = RequestMethod.GET)
     public ModelAndView inbox() {
@@ -135,14 +135,14 @@ public class AceController extends CommonController {
 
     @RequestMapping(value = "/treeview.html", method = RequestMethod.GET)
     public ModelAndView treeView() {
-        log.info("access ace/email.html");
+        log.info("access ace/treeview");
         ModelAndView modelAndView = super.page("ace/tool-pages/treeview");
         return modelAndView;
     }
 
     @RequestMapping(value = "/jquery-ui.html", method = RequestMethod.GET)
     public ModelAndView jqueryUi() {
-        log.info("access ace/email.html");
+        log.info("access ace/jquery-ui");
         ModelAndView modelAndView = super.page("ace/tool-pages/jquery-ui");
         return modelAndView;
     }
