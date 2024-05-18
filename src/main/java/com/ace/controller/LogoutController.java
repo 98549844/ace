@@ -28,7 +28,7 @@ public class LogoutController extends CommonController {
             logout(getCurrentUser().getUserId(), getDevice());
             return null;
         }
-        ModelAndView modelAndView = new ModelAndView("ace/login.html");
+        ModelAndView modelAndView = super.page("ace/login.html");
         String msg = "Logout success";
         modelAndView.addObject("msg", msg);
         modelAndView.addObject(Css.css, Css.green);
