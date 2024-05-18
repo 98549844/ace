@@ -1,7 +1,6 @@
 package com.ace.restController;
 
 import com.ace.api.Response;
-import com.ace.models.common.AjaxResponse;
 import com.ace.util.IpUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

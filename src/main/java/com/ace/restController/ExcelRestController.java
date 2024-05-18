@@ -1,6 +1,6 @@
 package com.ace.restController;
 
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.entity.Columns;
 import com.ace.models.entity.Users;
 import com.ace.service.DataBaseService;
@@ -46,7 +46,7 @@ public class ExcelRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{table}")
-    public AjaxResponse generateTableToExcel(@PathVariable String table) throws ClassNotFoundException {
+    public RespResult generateTableToExcel(@PathVariable String table) throws ClassNotFoundException {
 
         List<Columns> list = dataBaseService.getColumnName(table);
         List<String> columns = new ArrayList<>();
@@ -59,7 +59,7 @@ public class ExcelRestController {
         easyExcelUtil.write(fileName, users, new Users());
         // write(users);
 
-        return AjaxResponse.success(list);
+        return RespResult.success(list);
     }
 
 

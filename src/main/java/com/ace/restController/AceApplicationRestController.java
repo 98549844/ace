@@ -1,7 +1,7 @@
 package com.ace.restController;
 
 import com.ace.AceApplication;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.entity.Users;
 import com.ace.service.UsersService;
 import com.ace.util.BeanUtil;
@@ -48,7 +48,7 @@ public class AceApplicationRestController {
 
     @Operation(summary = "Init Default User")
     @RequestMapping(method = RequestMethod.GET, value = "/initDefaultUser")
-    public AjaxResponse GenerateDefaultUser() {
+    public RespResult GenerateDefaultUser() {
         userRolePermissionRestController.defaultUser();
 
         List<Users> users = usersService.findAll();
@@ -57,18 +57,18 @@ public class AceApplicationRestController {
             result.add(user.getUserAccount());
             result.add(user.getStatus());
         }
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @Operation(summary = "Init Roles Permissions")
     @RequestMapping(method = RequestMethod.GET, value = "/initRolesPermissions")
-    public AjaxResponse initRolesPermissions() {
+    public RespResult initRolesPermissions() {
         log.info("init roles and permissions relation !!!");
         return userRolePermissionRestController.buildRolesPermissions();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getBean")
-    public AjaxResponse getBean(@RequestParam(required = false) String key) {
+    public RespResult getBean(@RequestParam(required = false) String key) {
         if (NullUtil.isNull(key)) {
             log.info("print all bean name !!!");
             //print all loaded BeanName and properties value
@@ -81,7 +81,7 @@ public class AceApplicationRestController {
             for (int i = 0; i < beanSize; i++) {
                 result.add(i + ". " + beanNames[i]);
             }
-            return AjaxResponse.success(result);
+            return RespResult.success(result);
         } else {
             boolean result = BeanUtil.isExist(key);
             String message;
@@ -95,25 +95,25 @@ public class AceApplicationRestController {
                 map.put("Result", false);
                 map.put("BeanName", message);
             }
-            return AjaxResponse.success(map);
+            return RespResult.success(map);
         }
     }
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/getProperties")
-    public AjaxResponse getProperties(@RequestParam(required = false) String key) {
+    public RespResult getProperties(@RequestParam(required = false) String key) {
         Map<String, String> properties = PropertiesUtil.getLoadedProperties();
         if (NullUtil.isNull(key)) {
-            return AjaxResponse.success(properties);
+            return RespResult.success(properties);
         } else {
-            return AjaxResponse.success(key + ": " + properties.get(key));
+            return RespResult.success(key + ": " + properties.get(key));
         }
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getApplicationContent")
-    public AjaxResponse getApplicationContent() {
+    public RespResult getApplicationContent() {
         String[] beans = BeanUtil.getBeanNames(BeanUtil.getApplicationContext());
-        return AjaxResponse.success(beans);
+        return RespResult.success(beans);
     }
 }
 

@@ -1,10 +1,9 @@
 package com.ace.restController;
 
-import com.ace.aspectj.AceLog;
 import com.ace.controller.common.CommonController;
 import com.ace.exception.ResponseException;
 import com.ace.generator.InsertUsers;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.entity.Roles;
 import com.ace.models.entity.UserRoles;
 import com.ace.models.entity.Users;
@@ -58,21 +57,21 @@ public class UsersRestController extends CommonController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/addDefaultUsers")
-    public AjaxResponse addDefaultAdminUsers() {
+    public RespResult addDefaultAdminUsers() {
         return userRolePermissionRestController.addDefaultAdminUsers();
     }
 
 
     @Operation(summary = "查询用户")
     @RequestMapping(method = RequestMethod.GET, value = "/get/{userAccount}")
-    public AjaxResponse getUserByUserAccount(@PathVariable String userAccount) {
+    public RespResult getUserByUserAccount(@PathVariable String userAccount) {
         Users user = usersService.findByUserAccount(userAccount);
-        return AjaxResponse.success(user);
+        return RespResult.success(user);
     }
 
     @Operation(summary = "查询用户角色")
     @RequestMapping(method = RequestMethod.GET, value = "/getRoles/{userAccount}")
-    public AjaxResponse getUserRoleByUserAccount(@PathVariable String userAccount) {
+    public RespResult getUserRoleByUserAccount(@PathVariable String userAccount) {
         Users user = usersService.findByUserAccount(userAccount);
         List<Roles> rolesList = rolesService.getRolesByUserId(user.getUserId());
         List<String> r = new ArrayList<>();
@@ -81,16 +80,16 @@ public class UsersRestController extends CommonController {
         }
         Map<String, List> urp = new HashMap<>();
         urp.put(user.getUserAccount(), r);
-        return AjaxResponse.success(urp);
+        return RespResult.success(urp);
     }
 
     @Operation(summary = "根据userAccount更新角色组", description = "清空原有用户的角色并更新, List<String> = xxx,xxx")
     @RequestMapping(method = RequestMethod.GET, value = "/updateRoles/{userAccount}/{rolesCode}")
-    public AjaxResponse updateUserRoles(@PathVariable String userAccount, @NotNull @PathVariable List<String> rolesCode) {
+    public RespResult updateUserRoles(@PathVariable String userAccount, @NotNull @PathVariable List<String> rolesCode) {
         List<Roles> rolesList = rolesService.findRolesByRoleCodeIn(ListUtil.convertToUpperCase(rolesCode));
         if (rolesList.isEmpty()) {
             log.warn(rolesCode + " 查询不到结果");
-            return AjaxResponse.error(new ResponseException("查无相关角色: " + rolesCode));
+            return RespResult.error(new ResponseException("查无相关角色: " + rolesCode));
         }
         Users user = usersService.findByUserAccount(userAccount);
         //删除用户和角色关系
@@ -104,18 +103,18 @@ public class UsersRestController extends CommonController {
             userRoles = userRolesService.saveAndFlush(userRoles);
             map.put(userRoles.getUserRolesId(), user.getUserAccount() + " => " + r.getRoleCode());
         }
-        return AjaxResponse.success(map);
+        return RespResult.success(map);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/get/{userId}")
-    public AjaxResponse getUserById(@PathVariable Long userId) {
+    public RespResult getUserById(@PathVariable Long userId) {
         Users user = usersService.findUsersById(userId);
-        return AjaxResponse.success(user);
+        return RespResult.success(user);
     }
 
     @Operation(summary = "删除用户角色")
     @RequestMapping(method = RequestMethod.POST, value = "/deleteBy/{userAccount}/{roleCode}")
-    public AjaxResponse deleteByUserAccount(@PathVariable String userAccount, @PathVariable String roleCode) {
+    public RespResult deleteByUserAccount(@PathVariable String userAccount, @PathVariable String roleCode) {
         roleCode = roleCode.toUpperCase();
         log.info("userAccount: {}  roleCode: {}", userAccount, roleCode);
         try {
@@ -126,16 +125,16 @@ public class UsersRestController extends CommonController {
             if (NullUtil.isNull(userRolesService.findUserRolesByUserIdAndRoleId(userId, roleId))) {
                 userRolesService.deleteUserRolesByUserIdAndRoleId(user.getUserId(), roles.getRoleId());
             }
-            return AjaxResponse.success(true);
+            return RespResult.success(true);
         } catch (Exception e) {
             e.printStackTrace();
-            return AjaxResponse.error(new ResponseException("operation fail !"));
+            return RespResult.error(new ResponseException("operation fail !"));
         }
     }
 
     @Operation(summary = "新增用户角色")
     @RequestMapping(method = RequestMethod.POST, value = "/addBy/{userAccount}/{roleCode}")
-    public AjaxResponse addByUserAccount(@PathVariable String userAccount, @PathVariable String roleCode) {
+    public RespResult addByUserAccount(@PathVariable String userAccount, @PathVariable String roleCode) {
         roleCode = roleCode.toUpperCase();
         log.info("userAccount: {}  roleCode: {}", userAccount, roleCode);
         try {
@@ -148,48 +147,48 @@ public class UsersRestController extends CommonController {
             userRoles.setRoleId(roles.getRoleId());
             if (NullUtil.isNull(userRolesService.findUserRolesByUserIdAndRoleId(userId, roleId))) {
                 userRolesService.save(userRoles);
-                return AjaxResponse.success(true);
+                return RespResult.success(true);
             }
-            return AjaxResponse.error(new ResponseException("operation fail !"));
+            return RespResult.error(new ResponseException("operation fail !"));
 
         } catch (Exception e) {
             e.printStackTrace();
-            return AjaxResponse.error(new ResponseException("user has " + roleCode + " this role."));
+            return RespResult.error(new ResponseException("user has " + roleCode + " this role."));
         }
     }
 
     // @AceLog("Ace Aspectj") //自定义aspect
     @Operation(summary = "查询所有用户")
     @RequestMapping(method = RequestMethod.GET, value = "/getUsers")
-    public AjaxResponse getUsers() {
+    public RespResult getUsers() {
         List<Users> ls = usersService.findAll();
         Map<Long, String> map = new HashMap<>();
         for (Users user : ls) {
             map.put(user.getUserId(), user.getUserAccount());
         }
-        return AjaxResponse.success(map);
+        return RespResult.success(map);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getUsersByMybatis")
-    public AjaxResponse getUsersByMybatis() {
+    public RespResult getUsersByMybatis() {
         List<Users> ls = usersService.findAllByMybatis();
         List<String> result = new ArrayList<>();
         for (Users user : ls) {
             String u = user.getUsername() + "   [" + user.getPassword() + "]";
             result.add(u);
         }
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getUsersLikeNameByMybatis/{username}")
-    public AjaxResponse getUsersLikeNameByMybatis(@PathVariable String username) {
+    public RespResult getUsersLikeNameByMybatis(@PathVariable String username) {
         List<Users> ls = usersService.findUsersLikeNameByMybatis(username);
         List<String> result = new ArrayList<>();
         for (Users user : ls) {
             String u = user.getUsername() + "   [" + user.getPassword() + "]";
             result.add(u);
         }
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
 
@@ -200,7 +199,7 @@ public class UsersRestController extends CommonController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET, value = "/updateUserByMybatis/{acc}")
-    public AjaxResponse updateUserByMybatis(@PathVariable String acc) {
+    public RespResult updateUserByMybatis(@PathVariable String acc) {
 
         Users users = usersService.findUserByMybatis(acc);
         log.info("before version: " + users.getVersion());
@@ -216,20 +215,20 @@ public class UsersRestController extends CommonController {
         log.info("after version: " + users.getVersion());
         log.info("COMPLETE !!!");
 
-        return AjaxResponse.success(users);
+        return RespResult.success(users);
     }
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/deleteAllUser")
-    public AjaxResponse deleteAllUser() {
+    public RespResult deleteAllUser() {
         usersService.deleteAll();
         userRolesService.deleteAll();
-        return AjaxResponse.success("All users and roles relation deleted");
+        return RespResult.success("All users and roles relation deleted");
     }
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/deleteUsersWithoutDefaultUsers")
-    public AjaxResponse deleteUsersWithoutDefaultUsers() {
+    public RespResult deleteUsersWithoutDefaultUsers() {
         List<String> defaultUserAccounts = new ArrayList<>();
         defaultUserAccounts.add("admin");
         defaultUserAccounts.add("garlam");
@@ -245,13 +244,13 @@ public class UsersRestController extends CommonController {
         usersService.deleteAll(users);
         userRolesService.deleteAll(userRoles);
 
-        return AjaxResponse.success("All users and roles relation deleted, but not include default user account");
+        return RespResult.success("All users and roles relation deleted, but not include default user account");
     }
 
 
     @Operation(summary = "sample用户生成")
     @RequestMapping(method = RequestMethod.GET, value = "/genSampleUser")
-    public AjaxResponse genSampleUser(boolean remap) {
+    public RespResult genSampleUser(boolean remap) {
         //generate users data
         //default password = 909394
         String password = passwordEncoder.encode("909394");
@@ -267,12 +266,12 @@ public class UsersRestController extends CommonController {
             String u = user.getUsername() + "   [ 909394 ]";
             result.add(u);
         }
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/reEncodePassword")
-    public AjaxResponse reEncodePassword(@RequestParam("password") String password) {
+    public RespResult reEncodePassword(@RequestParam("password") String password) {
         //get all user
         log.info("password: {}", password);
         List<Users> ls = usersService.findAll();
@@ -284,11 +283,11 @@ public class UsersRestController extends CommonController {
             usersWithReEncodePassword.add(users);
         }
         usersService.saveAll(usersWithReEncodePassword);
-        return AjaxResponse.success("All password re-encoded");
+        return RespResult.success("All password re-encoded");
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/validatePassword/{password}")
-    public AjaxResponse validatePassword(@PathVariable String password) {
+    public RespResult validatePassword(@PathVariable String password) {
         log.info("password: {}", password);
         //get all user
         List<Users> ls = usersService.findAll();
@@ -298,11 +297,11 @@ public class UsersRestController extends CommonController {
             log.info("encode: {}", match);
             result.add(users.getUsername() + "[ " + match + " ]");
         }
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/enable/{userAccount}/{enable}")
-    public AjaxResponse setEnableByUserAccount(@NotNull @PathVariable String userAccount, @PathVariable boolean enable) {
+    public RespResult setEnableByUserAccount(@NotNull @PathVariable String userAccount, @PathVariable boolean enable) {
         Users user = usersService.findByUserAccount(userAccount);
         user.setEnabled(enable);
 
@@ -311,7 +310,7 @@ public class UsersRestController extends CommonController {
         m.put("enable", user.isEnabled());
         m.put("roles RoleGroup", user.getRoleGroup());
 
-        return AjaxResponse.success(m);
+        return RespResult.success(m);
     }
 
 }

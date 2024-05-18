@@ -1,7 +1,7 @@
 package com.ace.restController;
 
 import com.ace.controller.common.CommonController;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.view.FormData;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
@@ -28,12 +28,12 @@ public class VueRestController extends CommonController {
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/get.html")
-    public AjaxResponse getAceVueProperties() {
+    public RespResult getAceVueProperties() {
         List aceList = new ArrayList();
         aceList.add("[ ACE ]");
         aceList.add("version 2.5");
         System.out.println("[ ACE ]" + "   " + "version 2.5");
-        return AjaxResponse.success(aceList);
+        return RespResult.success(aceList);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getAce.html")
@@ -44,18 +44,18 @@ public class VueRestController extends CommonController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/formData.html")
-    public AjaxResponse text(@RequestBody FormData formData) {
+    public RespResult text(@RequestBody FormData formData) {
         String ace = "[ ACE ]" + " ";
         String name = formData.getName() + " ";
         String email = formData.getEmail() + " ";
         String result = ace + name + email;
         System.out.println(result);
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getSessionId.html")
-    public AjaxResponse getSessionId() {
-        return AjaxResponse.success(getHttpSessionId());
+    public RespResult getSessionId() {
+        return RespResult.success(getHttpSessionId());
     }
 }
 

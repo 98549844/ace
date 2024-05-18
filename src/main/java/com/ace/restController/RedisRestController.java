@@ -1,7 +1,7 @@
 package com.ace.restController;
 
 import com.ace.exception.ResponseException;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.entity.Users;
 import com.ace.service.RedisService;
 import com.ace.service.UsersService;
@@ -42,117 +42,117 @@ public class RedisRestController {
 
     @Operation(summary = "Match key", description = "* for match symbol")
     @RequestMapping(method = RequestMethod.GET, value = "/match/{key}")
-    public AjaxResponse match(@PathVariable(value = "key") String key) {
+    public RespResult match(@PathVariable(value = "key") String key) {
         List<String> result = redisService.scan(key);
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @Operation(summary = "Get all")
     @RequestMapping(method = RequestMethod.GET, value = "/getAll")
-    public AjaxResponse getAll() {
+    public RespResult getAll() {
         Set<String> keys = redisService.getKeys();
         Map<String, Object> result = new HashMap<>();
         for (String key : keys) {
             Object obj = redisService.get(key);
             result.put(key, FastJson2Util.ObjectToJson(obj)); // object 转换成json
         }
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
 
     @Operation(summary = "Check key exist")
     @RequestMapping(method = RequestMethod.GET, value = "/exist/{key}")
-    public AjaxResponse exist(@PathVariable(value = "key") String key) {
-        return AjaxResponse.success(redisService.keyExists(key));
+    public RespResult exist(@PathVariable(value = "key") String key) {
+        return RespResult.success(redisService.keyExists(key));
     }
 
     @Operation(summary = "Delete", description = "xxx for single, using ',' for split, xxx,xxx,xxx... for multi !!!")
     @RequestMapping(method = RequestMethod.GET, value = "/delete")
-    public AjaxResponse delete(@RequestParam(value = "key") String... key) {
+    public RespResult delete(@RequestParam(value = "key") String... key) {
         log.info("key: {}", (Object) key);
         redisService.delete(key);
-        return AjaxResponse.success(true);
+        return RespResult.success(true);
     }
 
 
     @Operation(summary = "Get value by key")
     @RequestMapping(method = RequestMethod.GET, value = "/get/{key}")
-    public AjaxResponse getValueByKey(@PathVariable(value = "key") String key) {
+    public RespResult getValueByKey(@PathVariable(value = "key") String key) {
         //  return AjaxResponse.success(redisService.get(key));
         Object obj = redisService.get(key);
         String result = FastJson2Util.ObjectToJson(obj);
         System.out.println(result);
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @Operation(summary = "Get hash by key")
     @RequestMapping(method = RequestMethod.GET, value = "/getHash/{key}")
-    public AjaxResponse getHashByKey(@PathVariable(value = "key") String key) {
+    public RespResult getHashByKey(@PathVariable(value = "key") String key) {
         Map<Object, Object> obj = redisService.hashGet(key);
         String result = FastJson2Util.ObjectToJson(obj);
         System.out.println(result);
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @Operation(summary = "Get type by key")
     @RequestMapping(method = RequestMethod.GET, value = "/getType/{key}")
-    public AjaxResponse getTypeByKey(@PathVariable(value = "key") String key) {
+    public RespResult getTypeByKey(@PathVariable(value = "key") String key) {
         DataType type = redisService.getType(key);
         Map result = new HashMap();
         result.put("key", key);
         result.put("type", type.name());
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @Operation(summary = "Get all types")
     @RequestMapping(method = RequestMethod.GET, value = "/getAllTypes")
-    public AjaxResponse getTypes() {
+    public RespResult getTypes() {
         Set<String> keys = redisService.getKeys();
         Map result = new HashMap();
         for (String key : keys) {
             DataType type = redisService.getType(key);
             result.put("key=>" + key, "type:" + type.name());
         }
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
 
     @Operation(summary = "Get all keys")
     @RequestMapping(method = RequestMethod.GET, value = "/getKeys")
-    public AjaxResponse getKeys() {
+    public RespResult getKeys() {
         Set<String> keys = redisService.getKeys();
-        return AjaxResponse.success(keys);
+        return RespResult.success(keys);
     }
 
 
     @Operation(summary = "Set key value")
     @RequestMapping(method = RequestMethod.GET, value = "/set/{key}/{value}")
-    public AjaxResponse set(@PathVariable String key, @PathVariable String value) {
-        return AjaxResponse.success(redisService.set(key, value));
+    public RespResult set(@PathVariable String key, @PathVariable String value) {
+        return RespResult.success(redisService.set(key, value));
     }
 
     @Operation(summary = "Set key value using post method")
     @RequestMapping(value = "/set", method = RequestMethod.POST)
-    public AjaxResponse post(@RequestParam("key") String key, @RequestParam("body") Object body) {
-        return AjaxResponse.success(redisService.set(key, body));
+    public RespResult post(@RequestParam("key") String key, @RequestParam("body") Object body) {
+        return RespResult.success(redisService.set(key, body));
     }
 
     @Operation(summary = "Rename key")
     @RequestMapping(value = "/renameKey/{oldKey}/{newKey}", method = RequestMethod.PUT)
-    public AjaxResponse renameKey(@PathVariable String oldKey, @PathVariable String newKey) {
+    public RespResult renameKey(@PathVariable String oldKey, @PathVariable String newKey) {
         boolean result = redisService.renameKey(oldKey, newKey);
         if (result) {
-            return AjaxResponse.success(true);
+            return RespResult.success(true);
         } else {
-            return AjaxResponse.error(new ResponseException("rename key exist, use other key"));
+            return RespResult.error(new ResponseException("rename key exist, use other key"));
         }
     }
 
 
     @Operation(summary = "Clear all ")
     @RequestMapping(method = RequestMethod.GET, value = "/clearAll")
-    public AjaxResponse clearAll() {
-        return AjaxResponse.success(redisService.clearAll());
+    public RespResult clearAll() {
+        return RespResult.success(redisService.clearAll());
     }
 
     @Operation(summary = "GetVersion")
@@ -169,7 +169,7 @@ public class RedisRestController {
 
     @Operation(summary = "Get users by redis")
     @RequestMapping(method = RequestMethod.GET, value = "/getUsersByRedis")
-    public AjaxResponse getUsersByRedis() {
+    public RespResult getUsersByRedis() {
         Object object = redisService.get("all");
         if (NullUtil.isNull(object)) {
             List<Users> users = usersService.findAll();
@@ -183,12 +183,12 @@ public class RedisRestController {
         ls.add(redisService.get(user.getUsername()));
         ls.add(redisService.get("all"));
 
-        return AjaxResponse.success(ls);
+        return RespResult.success(ls);
     }
 
     @Operation(summary = "redis connection status")
     @RequestMapping(method = RequestMethod.GET, value = "/getConnection")
-    public AjaxResponse connection() {
+    public RespResult connection() {
         String status;
         if (redisService.getConnection()) {
             status = "closed";
@@ -196,7 +196,7 @@ public class RedisRestController {
             status = "connected";
         }
         String connection = "Redis connection status: " + status;
-        return AjaxResponse.success(connection);
+        return RespResult.success(connection);
     }
 
 }

@@ -2,7 +2,7 @@ package com.ace.restController;
 
 import com.ace.exception.PasswordNotMatchException;
 import com.ace.exception.UserNotFoundException;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.entity.Columns;
 import com.ace.models.entity.Users;
 import com.ace.service.DataBaseService;
@@ -44,24 +44,24 @@ public class MariaDBRestController {
 
 
     @RequestMapping(value = "/tableList", method = RequestMethod.GET)
-    public AjaxResponse getTableList() throws ClassNotFoundException {
+    public RespResult getTableList() throws ClassNotFoundException {
 
         List<String> list = dataBaseService.getAllTableName();
-        return AjaxResponse.success(list);
+        return RespResult.success(list);
     }
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/{table}")
-    public AjaxResponse getColumnByTable(@PathVariable String table) throws ClassNotFoundException {
+    public RespResult getColumnByTable(@PathVariable String table) throws ClassNotFoundException {
 
         List<Columns> list = dataBaseService.getColumnName(table);
-        return AjaxResponse.success(list);
+        return RespResult.success(list);
     }
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public AjaxResponse getConnection() {
-        return AjaxResponse.success("getConnection success");
+    public RespResult getConnection() {
+        return RespResult.success("getConnection success");
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/hibernate/getAll")

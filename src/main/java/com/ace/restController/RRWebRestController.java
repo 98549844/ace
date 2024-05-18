@@ -1,7 +1,7 @@
 package com.ace.restController;
 
 import com.ace.controller.common.CommonController;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.entity.RRWebEvents;
 import com.ace.models.entity.Users;
 import com.ace.service.RRWebService;
@@ -43,10 +43,10 @@ public class RRWebRestController extends CommonController {
 
     @Operation(summary = "保存记录")
     @RequestMapping(method = RequestMethod.POST, value = "/save.html")
-    public AjaxResponse save(@ModelAttribute RRWebEvents rrWebEvents) {
+    public RespResult save(@ModelAttribute RRWebEvents rrWebEvents) {
         if (NullUtil.isNull(rrWebEvents) || NullUtil.isNull(rrWebEvents.getEventData())) {
             log.info("EventData is empty !");
-            return AjaxResponse.success(true);
+            return RespResult.success(true);
         }
         log.info("access /rrweb/save: {} ", rrWebEvents.getUuid());
 
@@ -58,13 +58,13 @@ public class RRWebRestController extends CommonController {
         String eventData = rrWebEvents.getEventData().trim();
         rrWebEvents.setEventData(eventData);
         rrWebService.save(rrWebEvents);
-        return AjaxResponse.success(true);
+        return RespResult.success(true);
     }
 
 
     @Operation(summary = "回放")
     @RequestMapping(method = RequestMethod.GET, value = "/playback/{userAccount}/{uuid}")
-    public AjaxResponse playback(@PathVariable String userAccount, @PathVariable String uuid) throws IOException {
+    public RespResult playback(@PathVariable String userAccount, @PathVariable String uuid) throws IOException {
         log.info("RRWeb userAccount: {} | uuid: {}", userAccount, uuid);
 
         List<RRWebEvents> events = rrWebService.findByUserAccountAndUuidOrderByCreatedByAsc(userAccount, uuid);
@@ -81,29 +81,29 @@ public class RRWebRestController extends CommonController {
         }
         //拼接中括号"[ ]"
         String result = "[" + data.substring(0, data.length() - 1) + "]";
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @Operation(summary = "更新isRecord")
     @RequestMapping(method = RequestMethod.GET, value = "/updateIsRecord.html")
-    public AjaxResponse updateIsRecord(@RequestParam(value = "userId") Long userId) {
+    public RespResult updateIsRecord(@RequestParam(value = "userId") Long userId) {
         Users users = usersService.findUsersById(userId);
         users.setRecord(!users.isRecord());
         users = usersService.saveAndFlush(users);
         System.out.println("users update: " + users.isRecord());
-        return AjaxResponse.success(users.isRecord());
+        return RespResult.success(users.isRecord());
     }
 
 
     @Operation(summary = "删除回放影片")
     @RequestMapping(method = RequestMethod.GET, value = "/delete/{uuid}")
-    public AjaxResponse delete(@PathVariable String uuid) {
+    public RespResult delete(@PathVariable String uuid) {
         log.info("access /rrweb/delete: {} ", uuid);
         boolean result = false;
         if (getCurrentUser().getRoleGroup().contains(Users.ADMIN)) {
             result = rrWebService.deleteByUuid(uuid);
         }
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
 }

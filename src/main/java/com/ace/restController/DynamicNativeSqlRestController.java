@@ -1,6 +1,6 @@
 package com.ace.restController;
 
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.service.ReportsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -43,11 +43,11 @@ public class DynamicNativeSqlRestController {
      */
     @Operation(summary = "执行原生sql")
     @GetMapping(value = "/execute.html")
-    public AjaxResponse executeNativeSql(String sql) {
+    public RespResult executeNativeSql(String sql) {
         log.info("sql: {}", sql);
         Query query = entityManager.createNativeQuery(sql);
         List<Object[]> results = query.getResultList();
-        return AjaxResponse.success(results);
+        return RespResult.success(results);
     }
 
     //@Operation(summary = "执行report sql")

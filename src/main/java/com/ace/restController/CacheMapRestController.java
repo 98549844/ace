@@ -1,6 +1,6 @@
 package com.ace.restController;
 
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.service.CacheMapService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,19 +35,19 @@ public class CacheMapRestController {
 
     @Operation(summary = "set")
     @RequestMapping(method = RequestMethod.GET, value = "/set/{key}/{value}")
-    public AjaxResponse set(@PathVariable String key, @PathVariable String value) {
+    public RespResult set(@PathVariable String key, @PathVariable String value) {
         Map map = new HashMap();
         map.put(key, value);
         cacheMapService.setMap(map);
-        return AjaxResponse.success(true);
+        return RespResult.success(true);
     }
 
 
     @Operation(summary = "getMap")
     @RequestMapping(method = RequestMethod.GET, value = "/getCacheMap")
-    public AjaxResponse getMap() {
+    public RespResult getMap() {
         Map map = cacheMapService.getMap();
-        return AjaxResponse.success(map);
+        return RespResult.success(map);
     }
 
     @Operation(summary = "get")
@@ -55,35 +55,35 @@ public class CacheMapRestController {
     public Object get(@PathVariable String key) {
         String result = cacheMapService.getString(key);
 
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
 
     }
 
     @Operation(summary = "put")
     @RequestMapping(method = RequestMethod.GET, value = "/put/{key}/{value}")
-    public AjaxResponse put(@PathVariable String key, @PathVariable String value) {
+    public RespResult put(@PathVariable String key, @PathVariable String value) {
 
         cacheMapService.put(key, value);
         String result = cacheMapService.getString(key);
 
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
 
     }
 
     @Operation(summary = "delete")
     @RequestMapping(method = RequestMethod.GET, value = "/delete/{key}")
-    public AjaxResponse delete(@PathVariable String key) {
+    public RespResult delete(@PathVariable String key) {
         cacheMapService.delete(key);
         String result = cacheMapService.getString(key);
 
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @Operation(summary = "flush")
     @RequestMapping(method = RequestMethod.GET, value = "/flush")
-    public AjaxResponse flush() {
+    public RespResult flush() {
         cacheMapService.flush();
-        return AjaxResponse.success(true);
+        return RespResult.success(true);
 
     }
 

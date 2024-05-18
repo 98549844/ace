@@ -48,8 +48,8 @@ public class RabbitMQRestController {
     public void sendDirectQueue() {
         String ace = "[ ACE ]";
         for (int i = 0; i < 10; i++) {
-            log.info(ace + "  " + "version::" + i);
-            this.amqpTemplate.convertAndSend(RabbitMQConfig.QUEUE, ace + "  " + "version::" + i);
+            log.info("{}  version: {}", ace, i);
+            this.amqpTemplate.convertAndSend(RabbitMQConfig.QUEUE, ace + "  " + "version: " + i);
             SleepUtil.sleep(1);
         }
     }

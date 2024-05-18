@@ -1,10 +1,8 @@
 package com.ace.restController;
 
-import com.ace.api.Response;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.mongodb.Reports;
 import com.ace.utilities.RandomUtil;
-import com.mongodb.client.result.DeleteResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
@@ -44,61 +42,61 @@ public class MongodbRestController {
 
     @Operation(summary = "findAll")
     @GetMapping("/findAll.html")
-    public AjaxResponse findAll() {
+    public RespResult findAll() {
         List<Reports> result = mongoTemplate.findAll(Reports.class);
         Map map = new LinkedHashMap();
         map.put("total", result.size());
         for (Reports reports : result) {
             map.put(reports.getReportId() + " " + reports.getSubject(), reports.getContent());
         }
-        return AjaxResponse.success(map);
+        return RespResult.success(map);
     }
 
     @Operation(summary = "findById")
     @GetMapping("/find/{id}")
-    public AjaxResponse findById(@PathVariable String id) {
+    public RespResult findById(@PathVariable String id) {
         Reports result = mongoTemplate.findById(id, Reports.class);
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @Operation(summary = "findByCriteria")
     @GetMapping("/find/{key}/{criteria}")
-    public AjaxResponse updateByCriteria(@PathVariable String key, @PathVariable String criteria) {
+    public RespResult updateByCriteria(@PathVariable String key, @PathVariable String criteria) {
         // 查询条件
         Query query = new Query(Criteria.where(key).is(criteria));
         List<Reports> result = mongoTemplate.find(query, Reports.class);
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @Operation(summary = "updateSubjectById")
     @GetMapping("/updateSubject/{id}/{subject}")
-    public AjaxResponse updateSubjectById(@PathVariable Long id, @PathVariable String subject) {
+    public RespResult updateSubjectById(@PathVariable Long id, @PathVariable String subject) {
         Reports result = mongoTemplate.findById(id, Reports.class);
         result.setSubject(subject);
         mongoTemplate.save(result);
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @Operation(summary = "updateFieldById")
     @GetMapping("/updateFieldById/{id}/{key}/{newValue}")
-    public AjaxResponse updateFieldById(@PathVariable Long id, @PathVariable String key, @PathVariable String newValue) {
+    public RespResult updateFieldById(@PathVariable Long id, @PathVariable String key, @PathVariable String newValue) {
         Query query = new Query(Criteria.where("reportId").is(id));
         // 修改内容
         Update update = new Update().set(key, newValue);
         mongoTemplate.updateMulti(query, update, Reports.class);
 
         Reports result = mongoTemplate.findById(id, Reports.class);
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
 
     @Operation(summary = "updateContentById")
     @GetMapping("/updateContentById/{id}/{content}")
-    public AjaxResponse updateContentById(@PathVariable Long id, @PathVariable String content) {
+    public RespResult updateContentById(@PathVariable Long id, @PathVariable String content) {
         Reports result = mongoTemplate.findById(id, Reports.class);
         result.setContent(content);
         mongoTemplate.save(result);
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
 
@@ -110,7 +108,7 @@ public class MongodbRestController {
      */
     @Operation(summary = "save")
     @GetMapping("/save.html")
-    public AjaxResponse save() {
+    public RespResult save() {
         List<Reports> reportsList = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             Reports reports = new Reports();
@@ -121,7 +119,7 @@ public class MongodbRestController {
         }
 
         List<Reports> result = mongoTemplate.findAll(Reports.class);
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     /**
@@ -132,7 +130,7 @@ public class MongodbRestController {
      */
     @Operation(summary = "insert")
     @GetMapping("/insert.html")
-    public AjaxResponse insert() {
+    public RespResult insert() {
 
         List<Reports> reportsList = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
@@ -144,27 +142,27 @@ public class MongodbRestController {
         mongoTemplate.insertAll(reportsList);
 
         List<Reports> result = mongoTemplate.findAll(Reports.class);
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
 
     @Operation(summary = "deleteById")
     @GetMapping("/delete/{id}")
-    public AjaxResponse deleteById(@PathVariable String id) {
+    public RespResult deleteById(@PathVariable String id) {
         Query query = new Query(Criteria.where("reportId").is(id));
         mongoTemplate.remove(query, Reports.class);
         String result = "reportId: " + id + " deleted successfully";
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @Operation(summary = "deleteAll")
     @GetMapping("/deleteAll.html")
-    public AjaxResponse deleteAll() {
+    public RespResult deleteAll() {
         List<Reports> reports = mongoTemplate.findAll(Reports.class);
         Query query = new Query();
         mongoTemplate.remove(query, Reports.class);
         String result = "Total " + reports.size() + " reports deleted successfully";
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
 }

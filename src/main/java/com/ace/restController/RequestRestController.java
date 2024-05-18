@@ -1,6 +1,6 @@
 package com.ace.restController;
 
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,8 +24,8 @@ public class RequestRestController {
     private static final Logger log = LogManager.getLogger(RequestRestController.class.getName());
 
     @RequestMapping(method = RequestMethod.POST, value = "/post")
-    public AjaxResponse getRequest(MultipartHttpServletRequest request) {
-        return AjaxResponse.success(request);
+    public RespResult getRequest(MultipartHttpServletRequest request) {
+        return RespResult.success(request);
     }
 
 }

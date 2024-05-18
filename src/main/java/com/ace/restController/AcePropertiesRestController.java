@@ -2,7 +2,7 @@ package com.ace.restController;
 
 import com.ace.config.AceConfig;
 import com.ace.config.ReportConfig;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.utilities.ResourcesUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -43,7 +43,7 @@ public class AcePropertiesRestController {
 
     @Operation(summary = "get ace properties")
     @RequestMapping(method = RequestMethod.GET, value = "/get.html")
-    public AjaxResponse getAceProperties() {
+    public RespResult getAceProperties() {
         log.info("aceConfig.getName(): {}", aceConfig.getName());
         log.info("aceConfig.getVersion():{}", aceConfig.getVersion());
         log.info("aceConfig.profile {}", aceConfig.getProfile());
@@ -59,13 +59,13 @@ public class AcePropertiesRestController {
         aceList.add(reportConfig.getUserName());
         aceList.add(reportConfig.getPassword());
 
-        return AjaxResponse.success(aceList);
+        return RespResult.success(aceList);
     }
 
     @Operation(summary = "direct get ace properties")
     @RequestMapping(method = RequestMethod.GET, value = "/directGet/{filePath}")
-    public AjaxResponse getDirectAceProperties(@PathVariable String filePath) throws IOException {
-        return AjaxResponse.success(ResourcesUtil.get(filePath));
+    public RespResult getDirectAceProperties(@PathVariable String filePath) throws IOException {
+        return RespResult.success(ResourcesUtil.get(filePath));
     }
 
 

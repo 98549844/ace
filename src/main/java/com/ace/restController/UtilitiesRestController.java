@@ -1,6 +1,6 @@
 package com.ace.restController;
 
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.utilities.OsUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
@@ -26,10 +26,10 @@ public class UtilitiesRestController {
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/getOSInformation")
-    public AjaxResponse getOSInformation() {
+    public RespResult getOSInformation() {
         OsUtil.getOsInfo();
         String osName = OsUtil.getOsName();
-        return AjaxResponse.success(osName);
+        return RespResult.success(osName);
     }
 
 }

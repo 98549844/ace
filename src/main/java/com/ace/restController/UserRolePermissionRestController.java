@@ -2,7 +2,7 @@ package com.ace.restController;
 
 import com.ace.controller.common.CommonController;
 import com.ace.exception.ResponseException;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.entity.*;
 import com.ace.service.*;
 import com.ace.utilities.MapUtil;
@@ -70,7 +70,7 @@ public class UserRolePermissionRestController extends CommonController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/addDefaultUsers")
-    public AjaxResponse addDefaultAdminUsers() {
+    public RespResult addDefaultAdminUsers() {
         if (rolesService.findAll().isEmpty() || permissionsService.findAll().isEmpty()) {
             log.warn("roles or permission is empty, rebuild default roles and permission ...");
             buildRolesPermissions();
@@ -138,15 +138,15 @@ public class UserRolePermissionRestController extends CommonController {
             userRolesService.save(garlamUsersRoles);
 
         }
-        return AjaxResponse.success("User: administrator and garlam has been generated into roles");
+        return RespResult.success("User: administrator and garlam has been generated into roles");
     }
 
     @Operation(summary = "删除所有角色和权限数据")
     @RequestMapping(method = RequestMethod.GET, value = "/deleteAllRolePermission")
-    public AjaxResponse deleteAllRolePermission() {
+    public RespResult deleteAllRolePermission() {
         rolesService.deleteAll();
         permissionsService.deleteAll();
-        return AjaxResponse.success("Roles and Permission deleted !");
+        return RespResult.success("Roles and Permission deleted !");
     }
 
     /**
@@ -156,7 +156,7 @@ public class UserRolePermissionRestController extends CommonController {
      */
     @Operation(summary = "重建角色和权限关系")
     @RequestMapping(method = RequestMethod.GET, value = "/buildRolesPermissions")
-    public AjaxResponse buildRolesPermissions() {
+    public RespResult buildRolesPermissions() {
         int rSize = rolesService.findAll().size();
         int pSize = permissionsService.findAll().size();
         if (0 == rSize && 0 == pSize) {
@@ -173,7 +173,7 @@ public class UserRolePermissionRestController extends CommonController {
             log.info("Permission size: {}", permissionsService.findAll().size());
             log.warn("请清空roles和permission数据 !");
             String c = "Rebuild roles permission fail !!! " + " Roles size: " + rSize + " Permission size: " + pSize;
-            return AjaxResponse.error(new ResponseException(c));
+            return RespResult.error(new ResponseException(c));
         }
 
         //insert default roles
@@ -239,7 +239,7 @@ public class UserRolePermissionRestController extends CommonController {
             }
         }
         //   }
-        return AjaxResponse.success("角色和权限关系已重建");
+        return RespResult.success("角色和权限关系已重建");
     }
 
 
@@ -250,7 +250,7 @@ public class UserRolePermissionRestController extends CommonController {
      */
     @Operation(summary = "重建现有用户的角色和权限, 默认用户除外")
     @RequestMapping(method = RequestMethod.GET, value = "/rebuildUsersRolesPermission")
-    public AjaxResponse rebuildUsersRolesPermissionRelation() {
+    public RespResult rebuildUsersRolesPermissionRelation() {
         //find default users
         List<String> accounts = new ArrayList<>();
         accounts.add("admin");
@@ -365,14 +365,14 @@ public class UserRolePermissionRestController extends CommonController {
                     break;
             }
         }
-        return AjaxResponse.success("除去默认用户, 其他用户已重新建立角色和权限关系");
+        return RespResult.success("除去默认用户, 其他用户已重新建立角色和权限关系");
     }
 
 
 
     @Operation(summary = "查询用户的角色权限关系,java实现")
     @RequestMapping(method = RequestMethod.GET, value = "/findUserRolePermissionByUserAccount/{userAccount}")
-    public AjaxResponse findUserRolePermissionByUserAccount(@PathVariable String userAccount) {
+    public RespResult findUserRolePermissionByUserAccount(@PathVariable String userAccount) {
         log.info("user {} 的角色和权限", userAccount);
         Users users = usersService.findByUserAccount(userAccount);
         List<Roles> rolesList = rolesService.getRolesByUserId(users.getUserId());
@@ -388,13 +388,13 @@ public class UserRolePermissionRestController extends CommonController {
         }
         Map<String, Map<String, Map>> urp = new HashMap<>();
         urp.put(users.getUserAccount(), r);
-        return AjaxResponse.success(urp);
+        return RespResult.success(urp);
     }
 
 
     @Operation(summary = "查询用户的角色权限关系,sql实现")
     @RequestMapping(method = RequestMethod.GET, value = "/findUserRolePermissionByUserAcc/{userAccount}")
-    public AjaxResponse findUserRolePermissionByUserAcc(@PathVariable String userAccount) {
+    public RespResult findUserRolePermissionByUserAcc(@PathVariable String userAccount) {
         log.info("user {} 的角色和权限", userAccount);
 
         List<Map> list = usersService.findUserRolePermissionByUserAccount(userAccount);
@@ -403,12 +403,12 @@ public class UserRolePermissionRestController extends CommonController {
             System.out.println("--------------");
             mapUtil.iterateMapKeySet(map);
         }
-        return AjaxResponse.success(list);
+        return RespResult.success(list);
     }
 
     @Operation(summary = "查询所有用户的角色权限关系,sql实现")
     @RequestMapping(method = RequestMethod.GET, value = "/findUserRolePermission")
-    public AjaxResponse findUserRolePermission() {
+    public RespResult findUserRolePermission() {
         log.info("List detail by USERS对像");
         List<Map> list = usersService.findUserRolePermission();
         MapUtil mapUtil = new MapUtil();
@@ -416,11 +416,11 @@ public class UserRolePermissionRestController extends CommonController {
             System.out.println("--------------");
             mapUtil.iterateMapKeySet(map);
         }
-        return AjaxResponse.success(list);
+        return RespResult.success(list);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/findUserRolePermissionDetail")
-    public AjaxResponse findUserRolePermissionDetail() {
+    public RespResult findUserRolePermissionDetail() {
         log.info("List detail by UserRolePermission");
         List<Map> list = usersService.findUserRolePermissionDetail();
         MapUtil mapUtil = new MapUtil();
@@ -428,11 +428,11 @@ public class UserRolePermissionRestController extends CommonController {
             System.out.println("--------------");
             mapUtil.iterateMapKeySet(map);
         }
-        return AjaxResponse.success(list);
+        return RespResult.success(list);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getUserRolePermissionById/{userId}")
-    public AjaxResponse getUserRolePermissionById(@PathVariable String userId) {
+    public RespResult getUserRolePermissionById(@PathVariable String userId) {
         log.info("List detail by UserRolePermission Mybatis");
         Long id = Long.valueOf(userId);
         List<Map> m0 = usersService.findAllUserRolePermissionByMybatis();
@@ -467,12 +467,12 @@ public class UserRolePermissionRestController extends CommonController {
         result.add(result2);
         result.add(getUsersByHibernate);
 
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @Operation(summary = "查詢用户的角色和权根关系")
     @RequestMapping(method = RequestMethod.GET, value = "/getByUserAccount/{userAccount}")
-    public AjaxResponse getUserRolePermissionByUserAccount(@PathVariable String userAccount) {
+    public RespResult getUserRolePermissionByUserAccount(@PathVariable String userAccount) {
         log.info("List detail by UserRolePermission Mybatis");
         Users user = usersService.findByUserAccount(userAccount);
         List<Map> getUsersByHibernate = usersService.findUserRolePermissionDetailById(user.getUserId());
@@ -492,7 +492,7 @@ public class UserRolePermissionRestController extends CommonController {
             m.put("ip", map.get("ip"));
             results.add(m);
         }
-        return AjaxResponse.success(results);
+        return RespResult.success(results);
     }
 }
 

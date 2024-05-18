@@ -1,7 +1,7 @@
 package com.ace.restController;
 
 import com.ace.constant.AceEnvironment;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.entity.Files;
 import com.ace.service.FilesService;
 import com.ace.service.UsersService;
@@ -44,7 +44,7 @@ public class FilesRestController {
 
     @Operation(summary = "清理用户|拥有者不存在的文件", description = "清理用户|拥有者不存在的文件,但依然存在本地文件夹的文件")
     @RequestMapping(method = RequestMethod.GET, value = "/deleteFilesWithOutOwner.html")
-    public AjaxResponse deleteFilesWithOutOwner() {
+    public RespResult deleteFilesWithOutOwner() {
         List<String> owners = filesService.getAllDistinctOwner();
         List<String> result = new LinkedList<>();
         for (String owner : owners) {
@@ -61,13 +61,13 @@ public class FilesRestController {
                 filesService.delFileList(ls);
             }
         }
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
 
     @Operation(summary = "清理图片库中无记录的图片", description = "清理数据库没有图片记录,但存在在本地文件夹的图片")
     @RequestMapping(method = RequestMethod.GET, value = "/deleteFilesWithOutRecord.html")
-    public AjaxResponse deleteFilesWithOutRecord() {
+    public RespResult deleteFilesWithOutRecord() {
         String imagePath = aceEnvironment.getImagesPath();
         List<String> localFiles = FileUtil.getCurrentFolderAbsoluteFilesPath(imagePath);
         List<String> result = new LinkedList<>();
@@ -82,18 +82,18 @@ public class FilesRestController {
             ++size;
         }
         result.add("Total deleted files: " + size);
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @Operation(summary = "清空thumbnail缩略图文件夹")
     @RequestMapping(method = RequestMethod.GET, value = "/clearThumbnail.html")
-    public AjaxResponse clearThumbnail() {
+    public RespResult clearThumbnail() {
         String thumbnail = aceEnvironment.getImagesThumbnail();
         //删除ImagesThumbnail文件夹,包括ImagesThumbnail自已下的所有子文件夹和子文件
         FileUtil.deleteDirectories(thumbnail);
         //创建ImagesThumbnail文件夹
         FileUtil.mkDirs(thumbnail);
-        return AjaxResponse.success("SUCCESS");
+        return RespResult.success("SUCCESS");
     }
 
 }

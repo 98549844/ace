@@ -1,6 +1,6 @@
 package com.ace.restController;
 
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -38,7 +38,7 @@ public class DefaultThreadPoolRestController {
     @Operation(summary = "读取默认线性池参数")
     @GetMapping(value = "/getDefaultConfig")
     // 读取默认线程池的配置
-    public AjaxResponse readDefaultThreadPoolConfig() {
+    public RespResult readDefaultThreadPoolConfig() {
 
         List<String> ls = new ArrayList<>();
 
@@ -70,7 +70,7 @@ public class DefaultThreadPoolRestController {
         System.out.println(concurrencyLimitStr);
         ls.add(concurrencyLimitStr);
 
-        return AjaxResponse.success(ls);
+        return RespResult.success(ls);
     }
 
 }

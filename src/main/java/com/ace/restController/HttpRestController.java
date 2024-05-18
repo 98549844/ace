@@ -1,7 +1,7 @@
 package com.ace.restController;
 
 import com.ace.controller.common.CommonController;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.util.HttpUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
@@ -26,8 +26,8 @@ public class HttpRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(HttpRestController.class.getName());
 
     @RequestMapping(method = RequestMethod.GET, value = "/get")
-    public AjaxResponse httpInfo() {
-        return AjaxResponse.success(HttpUtil.requestInfo(getRequest()));
+    public RespResult httpInfo() {
+        return RespResult.success(HttpUtil.requestInfo(getRequest()));
     }
 
 

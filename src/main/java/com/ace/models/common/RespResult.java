@@ -14,8 +14,8 @@ import org.apache.logging.log4j.Logger;
  */
 
 
-public class AjaxResponse {
-    private static final Logger log = LogManager.getLogger(AjaxResponse.class.getName());
+public class RespResult {
+    private static final Logger log = LogManager.getLogger(RespResult.class.getName());
 
 
     private boolean isOk;
@@ -25,9 +25,9 @@ public class AjaxResponse {
 
 
     //请求出现异常时的响应数据封装
-    public static AjaxResponse error(ResponseException e) {
+    public static RespResult error(ResponseException e) {
 
-        AjaxResponse resultBean = new AjaxResponse();
+        RespResult resultBean = new RespResult();
         resultBean.setOk(false);
         resultBean.setCode(e.getCode());
 
@@ -45,16 +45,16 @@ public class AjaxResponse {
         return resultBean;
     }
 
-    public static AjaxResponse success() {
-        AjaxResponse resultBean = new AjaxResponse();
+    public static RespResult success() {
+        RespResult resultBean = new RespResult();
         resultBean.setOk(true);
         resultBean.setCode(200);
         resultBean.setMessage("success");
         return resultBean;
     }
 
-    public static AjaxResponse success(Object data) {
-        AjaxResponse resultBean = new AjaxResponse();
+    public static RespResult success(Object data) {
+        RespResult resultBean = new RespResult();
         resultBean.setOk(true);
         resultBean.setCode(200);
         resultBean.setMessage(MessageConstants.SUCCESS);
@@ -62,8 +62,8 @@ public class AjaxResponse {
         return resultBean;
     }
 
-    public static AjaxResponse warn(Object data) {
-        AjaxResponse resultBean = new AjaxResponse();
+    public static RespResult warn(Object data) {
+        RespResult resultBean = new RespResult();
         resultBean.setOk(true);
         resultBean.setCode(200);
         resultBean.setMessage("warning");

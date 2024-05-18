@@ -1,6 +1,6 @@
 package com.ace.restController.naive;
 
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
@@ -27,19 +27,19 @@ public class LoginNaiveController extends CommonController {
 
     @Operation(summary = "login")
     @RequestMapping(value = {"/ace/login.html", "/"}, method = RequestMethod.GET)
-    public AjaxResponse login() {
+    public RespResult login() {
         log.info("access naive/ace/login.html" );
-        return AjaxResponse.success("true");
+        return RespResult.success("true");
 
     }
 
     @Operation(summary = "process logging")
     @RequestMapping(value = {"/ace/logging.html", "/"}, method = RequestMethod.POST)
-    public AjaxResponse logging() {
+    public RespResult logging() {
         log.info("access naive/ace/logging.html" );
 
 
-        return AjaxResponse.success("true");
+        return RespResult.success("true");
     }
 
 }

@@ -1,6 +1,6 @@
 package com.ace.api;
 
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.PostExchange;
@@ -17,9 +17,9 @@ import org.springframework.web.service.annotation.PostExchange;
 public interface AceApi {
 
     @GetExchange("/rest/users/getUsers")
-    AjaxResponse getAllUsers();
+    RespResult getAllUsers();
 
     @PostExchange("/rest/users/get/{userId}")
-    AjaxResponse getUserById(@PathVariable Long userId);
+    RespResult getUserById(@PathVariable Long userId);
 
 }

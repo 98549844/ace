@@ -1,6 +1,6 @@
 package com.ace.restController;
 
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.util.AnnotationMapperUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
@@ -37,10 +37,10 @@ public class UrlMapperUtilRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/get")
-    public AjaxResponse getUrlMapping() {
+    public RespResult getUrlMapping() {
         AnnotationMapperUtil annotationMapperUtil = new AnnotationMapperUtil();
         List<String> url = annotationMapperUtil.getUrl();
-        return AjaxResponse.success(url);
+        return RespResult.success(url);
     }
 
 }

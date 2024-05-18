@@ -1,6 +1,6 @@
 package com.ace.restController;
 
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.entity.PushMessage;
 import com.ace.service.NotificationService;
 import com.ace.util.SseEmitterServer;
@@ -52,12 +52,12 @@ public class SseEmitterRestController {
 
     @Operation(summary = "接收server sent消息")
     @GetMapping("/serverSentMessage/{userId}")
-    public AjaxResponse connectAfterSend(@PathVariable String userId) {
+    public RespResult connectAfterSend(@PathVariable String userId) {
         log.info("access connectAfterSend");
         List<PushMessage> pushMessages = notificationService.findByReceiver(userId);
         List<Map<String, String>> pushMessageList = new ArrayList<>();
         if (pushMessages.isEmpty()) {
-            return AjaxResponse.success(pushMessageList);
+            return RespResult.success(pushMessageList);
         }
         for (PushMessage pm : pushMessages) {
             Map<String, String> param = new HashMap<>();
@@ -66,7 +66,7 @@ public class SseEmitterRestController {
             pushMessageList.add(param);
         }
         notificationService.deleteByReceiver(userId);
-        return AjaxResponse.success(pushMessageList);
+        return RespResult.success(pushMessageList);
     }
 
 

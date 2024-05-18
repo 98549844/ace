@@ -2,7 +2,7 @@ package com.ace.restController;
 
 import com.ace.exception.ResponseException;
 import com.ace.mapper.AceLogsMapper;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.entity.AceLogs;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/rest/accessLog")
+@RequestMapping("/rest/aceLogs")
 @Tag(name = "Access")
 public class AccessRestController {
     private static final Logger log = LogManager.getLogger(AccessRestController.class.getName());
@@ -39,11 +39,11 @@ public class AccessRestController {
 
     @Operation(summary = "get access log")
     @RequestMapping(method = RequestMethod.GET, value = "/get.html")
-    public AjaxResponse getAll() {
+    public RespResult getAll() {
         List<AceLogs> ls = accessLogMapper.selectAll();
         log.info("ACCESS LOG TIMES: {}", ls.size());
         if (ls.isEmpty()) {
-            return AjaxResponse.error(new ResponseException("log is empty"));
+            return RespResult.error(new ResponseException("log is empty"));
         }
         //just get first 10
         for (int i = 0; i < 10; i++) {
@@ -51,7 +51,7 @@ public class AccessRestController {
             accessLogMapper.updateByPrimaryKey(ls.get(i));
             System.out.println(ls.get(i).getLogId() + "; ");
         }
-        return AjaxResponse.success(true);
+        return RespResult.success(true);
     }
 
 }

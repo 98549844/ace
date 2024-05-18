@@ -1,7 +1,7 @@
 package com.ace.restController;
 
 import com.ace.controller.common.CommonController;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.utilities.FastJson2Util;
 import com.ace.utilities.MapUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,45 +31,45 @@ public class SessionRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(SessionRestController.class.getName());
 
     @RequestMapping(method = RequestMethod.GET, value = "/getId.html")
-    public AjaxResponse getId() {
+    public RespResult getId() {
         String sessionId = super.getHttpSessionId();
-        return AjaxResponse.success(sessionId);
+        return RespResult.success(sessionId);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getSaId.html")
-    public AjaxResponse getSaId() {
+    public RespResult getSaId() {
         if (isLogin()) {
-            return AjaxResponse.success(getSaSession().getId());
+            return RespResult.success(getSaSession().getId());
         } else {
-            return AjaxResponse.warn("SaSession null, login is " + isLogin());
+            return RespResult.warn("SaSession null, login is " + isLogin());
         }
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/setAttribute.html")
-    public AjaxResponse setHttpAttribute(@RequestParam("attr") String attr, @RequestParam("val") Object val, HttpSession session) {
+    public RespResult setHttpAttribute(@RequestParam("attr") String attr, @RequestParam("val") Object val, HttpSession session) {
         session.setAttribute(attr, val);
-        return AjaxResponse.success(session.getAttribute(attr));
+        return RespResult.success(session.getAttribute(attr));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/setCommonAttribute.html")
-    public AjaxResponse setCommonAttribute(@RequestParam("attr") String attr, @RequestParam("val") Object val) {
+    public RespResult setCommonAttribute(@RequestParam("attr") String attr, @RequestParam("val") Object val) {
         setHttpSession(attr, val);
-        return AjaxResponse.success(getHttpSession(attr));
+        return RespResult.success(getHttpSession(attr));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/setSaAttribute.html")
-    public AjaxResponse setSaAttribute(@RequestParam("attr") String attr, @RequestParam("val") Object val) {
+    public RespResult setSaAttribute(@RequestParam("attr") String attr, @RequestParam("val") Object val) {
         if (isLogin()) {
             setSaSession(attr, val);
-            return AjaxResponse.success(getSaSession().get(attr));
+            return RespResult.success(getSaSession().get(attr));
         } else {
-            return AjaxResponse.warn("SaLogin: " + isLogin());
+            return RespResult.warn("SaLogin: " + isLogin());
 
         }
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getAllHttpSessionAttr.html")
-    public AjaxResponse getAllHttpSessionAttr(HttpSession session) {
+    public RespResult getAllHttpSessionAttr(HttpSession session) {
         List sessionResult = new ArrayList();
         Enumeration<String> attrs = session.getAttributeNames();
         sessionResult.add("http session Id: " + getHttpSessionId());
@@ -78,11 +78,11 @@ public class SessionRestController extends CommonController {
             Object value = session.getAttribute(name);
             sessionResult.add(name + ": " + value);
         }
-        return AjaxResponse.success(sessionResult);
+        return RespResult.success(sessionResult);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getAllSaSessionAttr.html")
-    public AjaxResponse getAllSaSessionAttr() {
+    public RespResult getAllSaSessionAttr() {
         List sessionResult = new ArrayList();
         if (isLogin()) {
             sessionResult.add("sa session Id: " + getSaSessionId());
@@ -92,10 +92,10 @@ public class SessionRestController extends CommonController {
                 Object val = map.get(key);
                 sessionResult.add(key + ": " + FastJson2Util.ObjectToJson(val));
             }
-            return AjaxResponse.success(sessionResult);
+            return RespResult.success(sessionResult);
         } else {
             sessionResult.add("SaLogin: " + isLogin());
-            return AjaxResponse.warn(sessionResult);
+            return RespResult.warn(sessionResult);
         }
     }
 }

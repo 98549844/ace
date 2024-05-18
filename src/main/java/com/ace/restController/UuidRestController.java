@@ -1,6 +1,6 @@
 package com.ace.restController;
 
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.utilities.UUID;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
@@ -25,8 +25,8 @@ public class UuidRestController {
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/get.html")
-    public AjaxResponse getUuid() {
-        return AjaxResponse.success(UUID.get());
+    public RespResult getUuid() {
+        return RespResult.success(UUID.get());
     }
 }
 

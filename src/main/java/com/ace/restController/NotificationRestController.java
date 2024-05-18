@@ -1,7 +1,7 @@
 package com.ace.restController;
 
 import com.ace.controller.common.CommonController;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.entity.PushMessage;
 import com.ace.service.NotificationService;
 import com.ace.utilities.RandomUtil;
@@ -41,7 +41,7 @@ public class NotificationRestController extends CommonController {
 
     @Operation(summary = "Generate Sample Data")
     @RequestMapping(method = RequestMethod.GET, value = "/generate.html")
-    public AjaxResponse generateSampleDate() {
+    public RespResult generateSampleDate() {
         System.out.println("push message generating");
         List<PushMessage> messages = new ArrayList<>();
         for (int i = 0; i < 5000; i++) {
@@ -57,7 +57,7 @@ public class NotificationRestController extends CommonController {
         notificationService.saveAll(messages);
 
         System.out.println("push message generated");
-        return AjaxResponse.success(messages);
+        return RespResult.success(messages);
     }
 
     /**

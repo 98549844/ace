@@ -3,7 +3,7 @@ package com.ace.restController;
 import com.ace.api.AceApi;
 import com.ace.api.Blockchain;
 import com.ace.api.Response;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.utilities.GsonUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
@@ -37,7 +37,7 @@ public class ApiRestController {
     @GetMapping("/getAllUsers")
     public Response getAllUsers() {
         log.info("access api");
-        AjaxResponse ajaxResponse = aceApi.getAllUsers();
+        RespResult ajaxResponse = aceApi.getAllUsers();
         log.info(ajaxResponse.getData());
         return Response.success(ajaxResponse);
     }
@@ -45,7 +45,7 @@ public class ApiRestController {
     @GetMapping("/get/{userId}")
     public Response getById(@PathVariable Long userId) {
         log.info("access api.getUserById: {}", userId);
-        AjaxResponse ajaxResponse = aceApi.getUserById(userId);
+        RespResult ajaxResponse = aceApi.getUserById(userId);
         log.info(ajaxResponse.getData());
         return Response.success(ajaxResponse);
     }

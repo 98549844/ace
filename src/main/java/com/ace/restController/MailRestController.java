@@ -1,7 +1,7 @@
 package com.ace.restController;
 
 import com.ace.exception.ResponseException;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.common.Email;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -47,7 +47,7 @@ public class MailRestController {
 
     @Operation(summary = "Sample mail")
     @PostMapping("/mail.html")
-    public AjaxResponse sendEmail(@RequestBody Email email) {
+    public RespResult sendEmail(@RequestBody Email email) {
         String status;
         try {
             SimpleMailMessage message = new SimpleMailMessage();
@@ -57,11 +57,11 @@ public class MailRestController {
             message.setText(email.getContent().toString()); // 内容
             javaMailSender.send(message);
             status = "success";
-            return AjaxResponse.success(status);
+            return RespResult.success(status);
         } catch (Exception e) {
             status = e.getMessage();
             e.printStackTrace();
-            return AjaxResponse.error(new ResponseException(status));
+            return RespResult.error(new ResponseException(status));
         }
 
     }
@@ -69,7 +69,7 @@ public class MailRestController {
 
     @PostMapping("/htmlEmail.html")
     @Operation(summary = "Html mail")
-    public AjaxResponse sendHtmlEmail(@RequestBody Email email) {
+    public RespResult sendHtmlEmail(@RequestBody Email email) {
         String status;
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
@@ -81,18 +81,18 @@ public class MailRestController {
             helper.setText(email.getContent(), true);
             javaMailSender.send(message);
             status = "success";
-            return AjaxResponse.success(status);
+            return RespResult.success(status);
         } catch (Exception e) {
             status = e.getMessage();
             e.printStackTrace();
-            return AjaxResponse.error(new ResponseException(status));
+            return RespResult.error(new ResponseException(status));
         }
     }
 
 
     @PostMapping("/mailWithAttachments.html")
     @Operation(summary = "Mail with attachments")
-    public AjaxResponse sendAttachmentsMail(@RequestBody Email email) {
+    public RespResult sendAttachmentsMail(@RequestBody Email email) {
         String status;
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
@@ -107,11 +107,11 @@ public class MailRestController {
             helper.addAttachment(f.getName(), file);
             javaMailSender.send(message);
             status = "success !";
-            return AjaxResponse.success(status);
+            return RespResult.success(status);
         } catch (Exception e) {
             status = e.getMessage();
             e.printStackTrace();
-            return AjaxResponse.error(new ResponseException(status));
+            return RespResult.error(new ResponseException(status));
         }
     }
 

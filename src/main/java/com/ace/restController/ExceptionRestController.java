@@ -1,7 +1,7 @@
 package com.ace.restController;
 
 import com.ace.controller.common.CommonController;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.entity.Users;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
@@ -25,15 +25,15 @@ public class ExceptionRestController extends CommonController {
     private static final Logger log = LogManager.getLogger(ExceptionRestController.class.getName());
 
     @RequestMapping(method = RequestMethod.GET, value = "/nullPointerException")
-    public AjaxResponse nullPointerException() {
+    public RespResult nullPointerException() {
         Users users = null;
         System.out.println(users.getUserAccount());
-        return AjaxResponse.success("SUCCESS");
+        return RespResult.success("SUCCESS");
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/ok")
-    public AjaxResponse ok() {
-        return AjaxResponse.success(true);
+    public RespResult ok() {
+        return RespResult.success(true);
     }
 
 }

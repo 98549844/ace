@@ -1,5 +1,6 @@
 package com.ace.restController;
 
+import com.ace.models.common.RespResult;
 import com.ace.models.entity.Menu;
 import com.ace.service.MenuService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,21 +27,18 @@ public class MenuRestController {
 	}
 
 	@RequestMapping(value = "/tree.html", method = RequestMethod.GET)
-	public List<Menu> getMenuTree() {
+	public RespResult getMenuTree() {
 		log.info("Generate Menu Tree");
-
 		List<Menu> menuTree = menuService.getMenuTree();
-
-		return menuTree;
+		return RespResult.success(menuTree);
 	}
 
 
 	@RequestMapping(value = "/list.html", method = RequestMethod.GET)
-	public List<Menu> getMenuList() {
+	public RespResult getMenuList() {
 		log.info("Generate Menu List");
 
 		List<Menu> menuList = menuService.getMenuList();
-
-		return menuList;
+		return RespResult.success(menuList);
 	}
 }

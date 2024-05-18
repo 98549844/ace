@@ -3,7 +3,7 @@ package com.ace.restController;
 import com.ace.controller.common.CommonController;
 import com.ace.exception.ResponseException;
 import com.ace.generator.insertRoles;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.entity.Permissions;
 import com.ace.models.entity.Roles;
 import com.ace.models.entity.Users;
@@ -54,7 +54,7 @@ public class RolesRestController extends CommonController {
 
     @Operation(summary = "重建角色", description = "删除所有角色并重建")
     @RequestMapping(method = RequestMethod.GET, value = "/rebuildRoles")
-    public AjaxResponse rebuildRoles() {
+    public RespResult rebuildRoles() {
         Users user = usersService.findByUserAccount("garlam");
         rolesService.deleteAll();
         log.info("All roles DELETED !");
@@ -70,30 +70,30 @@ public class RolesRestController extends CommonController {
         for (Roles role : ls) {
             map.put(role.getRoleId(), role.getRoleCode());
         }
-        return AjaxResponse.success(map);
+        return RespResult.success(map);
     }
 
     @Operation(summary = "查詢所有角色")
     @RequestMapping(method = RequestMethod.GET, value = "/getAll")
-    public AjaxResponse getRoles() {
+    public RespResult getRoles() {
         List<Roles> ls = rolesService.findAll();
         List<String> result = new ArrayList<>();
         for (Roles roles : ls) {
             String u = "   [" + roles.getRoleCode() + "]";
             result.add(u);
         }
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/deleteAllRole")
-    public AjaxResponse deleteAllRole() {
+    public RespResult deleteAllRole() {
         rolesService.deleteAll();
-        return AjaxResponse.success("All roles deleted");
+        return RespResult.success("All roles deleted");
     }
 
     @Operation(summary = "根据roleCode查所属权限")
     @RequestMapping(method = RequestMethod.GET, value = "/getPermissionByRoleCode/{roleCode}")
-    public AjaxResponse getPermissionByRoleCode(@PathVariable String roleCode) {
+    public RespResult getPermissionByRoleCode(@PathVariable String roleCode) {
         roleCode = roleCode.toUpperCase();
         List<Permissions> permissionsList = rolePermissionsService.findPermissionsByRoleCode(roleCode);
         List<Map> result = new ArrayList<>();
@@ -105,39 +105,39 @@ public class RolesRestController extends CommonController {
             ps.put("description", p.getDescription());
             result.add(ps);
         }
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
 
     @Operation(summary = "查询角色状态", description = "ACTIVE / INACTIVE")
     @RequestMapping(method = RequestMethod.GET, value = "/status/{roleCode}")
-    public AjaxResponse setStatusByRoleCode(@NotNull @PathVariable String roleCode) {
+    public RespResult setStatusByRoleCode(@NotNull @PathVariable String roleCode) {
         Roles roles = rolesService.findByRoleCode(roleCode);
         if(NullUtil.isNull(roles)){
-            return AjaxResponse.error(new ResponseException("找不到 "+roleCode+" 资料"));
+            return RespResult.error(new ResponseException("找不到 "+roleCode+" 资料"));
         }
         Map map = new HashMap();
         map.put("Role Code", roles.getRoleCode());
         map.put("status", roles.getStatus());
-        return AjaxResponse.success(map);
+        return RespResult.success(map);
     }
 
     @Operation(summary = "控制角色开关", description = "ACTIVE / INACTIVE")
     @RequestMapping(method = RequestMethod.GET, value = "/status/{roleCode}/{status}")
-    public AjaxResponse setStatusByRoleCode(@NotNull @PathVariable String roleCode, @NotNull @PathVariable String status) {
+    public RespResult setStatusByRoleCode(@NotNull @PathVariable String roleCode, @NotNull @PathVariable String status) {
         Roles roles = rolesService.findByRoleCode(roleCode);
         status = status.toUpperCase();
         if (Roles.ACTIVE.equals(status) || Roles.INACTIVE.equals(status)) {
             roles.setStatus(status.toUpperCase());
             roles = rolesService.saveAndFlush(roles);
         } else {
-            return AjaxResponse.error(new ResponseException("status code 不正确, 请输入 ACTIVE / INACTIVE"));
+            return RespResult.error(new ResponseException("status code 不正确, 请输入 ACTIVE / INACTIVE"));
         }
         Map map = new HashMap();
         map.put("Role Code", roles.getRoleCode());
         map.put("status", roles.getStatus());
 
-        return AjaxResponse.success(map);
+        return RespResult.success(map);
     }
 }
 

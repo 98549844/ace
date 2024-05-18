@@ -3,13 +3,11 @@ package com.ace.controller;
 import com.ace.constant.AceEnvironment;
 import com.ace.constant.MessageConstants;
 import com.ace.controller.common.CommonController;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.entity.Reports;
 import com.ace.models.info.ReportsInfo;
 import com.ace.service.FilesService;
 import com.ace.service.ReportsService;
-import com.ace.utilities.ListUtil;
-import com.ace.utilities.NullUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -72,11 +69,11 @@ public class ReportController extends CommonController {
 
     @RequestMapping(value = "/report/search.html", method = RequestMethod.GET)
     @ResponseBody
-    public AjaxResponse reportSearch(@RequestParam(value = "level") String level, @RequestParam(value = "criteria") String criteria) {
+    public RespResult reportSearch(@RequestParam(value = "level") String level, @RequestParam(value = "criteria") String criteria) {
         log.info("access report/search.html");
         Reports reports = new Reports();
         reports.setLevel(level);
-        return AjaxResponse.success(reportsService.search(reports, criteria));
+        return RespResult.success(reportsService.search(reports, criteria));
     }
 
 
@@ -86,12 +83,12 @@ public class ReportController extends CommonController {
      */
     @RequestMapping(value = "/report/commitNewIssue", method = RequestMethod.POST)
     @ResponseBody
-    public AjaxResponse commitIssue(@ModelAttribute Reports reports) {
+    public RespResult commitIssue(@ModelAttribute Reports reports) {
         log.info("access report/commitIssue => create new issue");
         reports.setStatus(Reports.NEW);
         reportsService.save(reports);
 
-        return AjaxResponse.success(MessageConstants.SUCCESS);
+        return RespResult.success(MessageConstants.SUCCESS);
     }
 
     /**

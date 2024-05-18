@@ -8,11 +8,10 @@ import cn.dev33.satoken.stp.StpInterface;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.temp.SaTempInterface;
 import com.ace.controller.common.CommonController;
-import com.ace.models.common.AjaxResponse;
+import com.ace.models.common.RespResult;
 import com.ace.models.entity.Users;
 import com.ace.service.UsersService;
 import com.ace.utilities.NullUtil;
-import io.netty.util.ResourceLeakTracker;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -49,13 +48,13 @@ public class SaTakenRestController extends CommonController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public AjaxResponse doLogin(String username, String password) {
+    public RespResult doLogin(String username, String password) {
         Users users = usersService.findUsersById(1001l);
         if (NullUtil.isNonNull(users.getUserId())) {
             StpUtil.login(users.getUserId());
-            return AjaxResponse.success(users.getUsername() + " login success !");
+            return RespResult.success(users.getUsername() + " login success !");
         }
-        return AjaxResponse.success(users.getUsername() + " login fail !");
+        return RespResult.success(users.getUsername() + " login fail !");
     }
 
     @RequestMapping(value = "/isLogin", method = RequestMethod.GET)
@@ -64,7 +63,7 @@ public class SaTakenRestController extends CommonController {
     }
 
     @RequestMapping(value = "/api/setCurrentUser/{userAccount}", method = RequestMethod.GET)
-    public AjaxResponse apiInfo(@PathVariable String userAccount) {
+    public RespResult apiInfo(@PathVariable String userAccount) {
         List<String> result = new ArrayList<>();
 
         Users users = usersService.findByUserAccount(userAccount);
@@ -124,11 +123,11 @@ public class SaTakenRestController extends CommonController {
         log.info("logout success");
         result.add("logout success");
 
-        return AjaxResponse.success(result);
+        return RespResult.success(result);
     }
 
     @RequestMapping(value = "/api/getSessionbyKeyword/{keyword}", method = RequestMethod.GET)
-    public AjaxResponse getSession(@PathVariable String keyword) {
+    public RespResult getSession(@PathVariable String keyword) {
         //  keyword: 查询关键字，只有包括这个字符串的token值才会被查询出来
         //  start: 数据开始处索引, 值为-1时代表一次性取出所有数据
         //  size: 要获取的数据条数
@@ -154,12 +153,12 @@ public class SaTakenRestController extends CommonController {
         list.add(searchTokenValue);
         list.add(searchSessionId);
         list.add(searchTokenSessionId);
-        return AjaxResponse.success(list);
+        return RespResult.success(list);
     }
 
 
     @RequestMapping(value = "/userSession", method = RequestMethod.GET)
-    public AjaxResponse userSession() {
+    public RespResult userSession() {
         Users users = usersService.findByUserAccount("garlam");
         StpUtil.login(users.getUserId());
 
@@ -194,11 +193,11 @@ public class SaTakenRestController extends CommonController {
         log.info("getSessionBySessionId: {}", getSessionBySessionId);
         log.info("dataMap: {}", dataMap.keySet());
 
-        return AjaxResponse.success();
+        return RespResult.success();
     }
 
     @RequestMapping(value = "/getSaManager", method = RequestMethod.GET)
-    public AjaxResponse getSaManager() {
+    public RespResult getSaManager() {
         SaTokenConfig saTokenConfig = SaManager.getConfig();                // 获取全局配置对象
         SaTokenDao saTokenDao = SaManager.getSaTokenDao();                  // 获取数据持久化对象
         StpInterface stpInterface = SaManager.getStpInterface();            // 获取权限认证对象
@@ -219,7 +218,7 @@ public class SaTakenRestController extends CommonController {
         ls.add(saTempInterface);
         //  ls.add(stpLogic);
 
-        return AjaxResponse.success("OK");
+        return RespResult.success("OK");
     }
 
 }
