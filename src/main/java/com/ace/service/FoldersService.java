@@ -50,16 +50,16 @@ public class FoldersService {
 
     public Folders getRootFolder(Users currentUser) {
         String osName = OsUtil.getOsName();
-        String osType = OsUtil.UNKNOWN;
+        String osType;
         if (osName.contains(OsUtil.WINDOWS)) {
             osType = OsUtil.WINDOWS;
         } else if (osName.contains(OsUtil.MAC)) {
             osType = OsUtil.MAC;
         } else if (osName.contains(OsUtil.LINUX)) {
-        } else {
             osType = OsUtil.LINUX;
-        }
-        return foldersDao.findByFolderNameAndParentIdAndOsType(currentUser.getUserAccount(), 0l, osType);
+        } else {
+            osType = OsUtil.UNKNOWN;
+        } return foldersDao.findByFolderNameAndParentIdAndOsType(currentUser.getUserAccount(), 0l, osType);
     }
 
     public List<Folders> getFolders(Users currentUser, Long parentId) {

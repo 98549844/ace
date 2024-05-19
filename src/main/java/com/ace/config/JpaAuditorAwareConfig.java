@@ -1,5 +1,6 @@
 package com.ace.config;
 
+import cn.dev33.satoken.exception.NotWebContextException;
 import cn.dev33.satoken.stp.StpUtil;
 import com.ace.models.entity.Users;
 import org.apache.logging.log4j.LogManager;
@@ -29,14 +30,20 @@ public class JpaAuditorAwareConfig implements AuditorAware<Long> {
      */
     @Override
     public Optional<Long> getCurrentAuditor() {
-        boolean isLogin = StpUtil.isLogin();
-        if (isLogin) {
-            Users user = (Users) StpUtil.getSession().get("user");
-            return Optional.of(user.getUserId());
-        } else {
-            log.info("UserId not found, set default value 0 !");
+        try {
+            boolean isLogin = StpUtil.isLogin();
+            if (isLogin) {
+                Users user = (Users) StpUtil.getSession().get("user");
+                return Optional.of(user.getUserId());
+            } else {
+                log.info("UserId not found, set default value 0 !");
+                return Optional.of(0l);
+            }
+        } catch (NotWebContextException e) {
+            log.info("创建默户管理帐号");
             return Optional.of(0l);
         }
+
     }
 }
 

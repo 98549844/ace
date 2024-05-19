@@ -15,7 +15,7 @@ services:
     #    image: 87548744/ace:v3.2
     container_name: application
     hostname: application
-    restart: always
+   # restart: always
     volumes:
       - /Users/garlam/docker/ace/:/opt/workspace/ace/
     ports:
@@ -44,21 +44,21 @@ services:
       - ace-net
 
 # for ace-application 开发环境使用
-#  mysql-dev:
-#    image: mysql:latest
-#    container_name: mysql-dev
-#    restart: always
-#    hostname: mysql-dev
-#    # platform: linux/x86_64
-#    environment:
-#      MYSQL_DATABASE: ace
-#      MYSQL_USER: garlam
-#      MYSQL_PASSWORD: root
-#      MYSQL_ROOT_PASSWORD: root
-#    ports:
-#      - 3388:3306
-#    networks:
-#      - ace-net
+  mysql-dev:
+    image: mysql:latest
+    container_name: mysql-dev
+    restart: always
+    hostname: mysql-dev
+    # platform: linux/x86_64
+    environment:
+      MYSQL_DATABASE: ace
+      MYSQL_USER: garlam
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3388:3306
+    networks:
+      - ace-net
 
   rabbitmq:
     image: rabbitmq:management

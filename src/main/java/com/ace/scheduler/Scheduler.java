@@ -2,8 +2,12 @@ package com.ace.scheduler;
 
 
 import com.ace.constant.AceEnvironment;
+import com.ace.models.entity.Users;
+import com.ace.restController.UserRolePermissionRestController;
 import com.ace.scheduler.task.CleanLog;
 import com.ace.scheduler.task.CleanTmp;
+import com.ace.service.UsersService;
+import com.ace.utilities.NullUtil;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -30,9 +34,15 @@ import java.io.IOException;
 public class Scheduler {
 
     private final String tmp;
+    private final UsersService usersService;
+    private final UserRolePermissionRestController userRolePermissionRestController;
 
-    public Scheduler(AceEnvironment aceEnvironment) {
+
+
+    public Scheduler(AceEnvironment aceEnvironment, UsersService usersService, UserRolePermissionRestController userRolePermissionRestController) {
         this.tmp = aceEnvironment.getTmp();
+        this.usersService = usersService;
+        this.userRolePermissionRestController = userRolePermissionRestController;
     }
 
     //直接指定时间间隔，例如：5秒 = 5000
@@ -47,6 +57,15 @@ public class Scheduler {
     private void cleanTmp() {
         CleanTmp cleanTmp = new CleanTmp();
         cleanTmp.clean(tmp);
+    }
+
+    @Scheduled(initialDelay = 0) //立即执行一次
+    private void addDefaultAdminUsersIfNotExist() {
+        Users admin = usersService.findByUserAccount("admin");
+        Users root = usersService.findByUserAccount("root");
+        if (NullUtil.isNull(admin) || NullUtil.isNull(root)) {
+            userRolePermissionRestController.addDefaultAdminUsers();
+        }
     }
 
 }

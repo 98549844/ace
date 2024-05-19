@@ -45,27 +45,21 @@ public class LoginController extends CommonController {
     private final String usersFolder;
     private final String separator;
     private final ImagesService imagesService;
-    private final UserRolePermissionRestController userRolePermissionRestController;
 
 
     @Autowired
-    public LoginController(AceEnvironment aceEnvironment, LoginService loginService, UsersService usersService, FoldersService foldersService, ImagesService imagesService, UserRolePermissionRestController userRolePermissionRestController) {
+    public LoginController(AceEnvironment aceEnvironment, LoginService loginService, UsersService usersService, FoldersService foldersService, ImagesService imagesService) {
         this.loginService = loginService;
         this.usersService = usersService;
         this.foldersService = foldersService;
         this.imagesService = imagesService;
         this.usersFolder = aceEnvironment.getUsers();
         this.separator = aceEnvironment.getSeparator();
-        this.userRolePermissionRestController = userRolePermissionRestController;
     }
 
 
     @RequestMapping(value = {"/ace/login.html", "/"}, method = RequestMethod.GET)
     public ModelAndView login() {
-        Users admin = usersService.findByUserAccount("admin");
-        if (NullUtil.isNull(admin)) {
-            userRolePermissionRestController.addDefaultAdminUsers();
-        }
         if (isLogin()) {
             return super.page("ace/index.html");
         } else {

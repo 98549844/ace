@@ -60,8 +60,8 @@ public class UserRolePermissionRestController extends CommonController {
     public void defaultUser() {
         Users admin = usersService.findByUserAccount("admin");
         Users garlam = usersService.findByUserAccount("garlam");
-        if (NullUtil.isNull(admin) || NullUtil.isNull(garlam)) {
-            log.warn("administrator/garlam was DESTROYED");
+        Users root = usersService.findByUserAccount("root");
+        if (NullUtil.isNull(admin) || NullUtil.isNull(garlam) || NullUtil.isNull(root)) {
             addDefaultAdminUsers();
             log.info("administrator/garlam rebuild success !!!");
             return;
@@ -82,6 +82,7 @@ public class UserRolePermissionRestController extends CommonController {
 
         //create default user
         Users admin = usersService.findByUserAccount("admin");
+        Users root = usersService.findByUserAccount("root");
         Users garlam = usersService.findByUserAccount("garlam");
 
         if (NullUtil.isNull(admin)) {
@@ -91,8 +92,8 @@ public class UserRolePermissionRestController extends CommonController {
             admin.setUsername("administrator");
             admin.setRoleGroup(Users.ADMIN);
             admin.setEmail("admin@ace.com");
-            admin.setMobile("0000 0000");
-            admin.setGender(null);
+            admin.setMobile("00000000");
+            admin.setGender("M");
             admin.setDateOfBirth(LocalDateTime.now());
             admin.setLoginDateTime(LocalDateTime.now());
             admin.setStatus(Users.ACTIVE);
@@ -105,10 +106,39 @@ public class UserRolePermissionRestController extends CommonController {
             admin.setExpireDate(LocalDateTime.now().plusYears(100L));
             admin = usersService.saveAndFlush(admin);
 
-            UserRoles adminUsersRoles = new UserRoles();
-            adminUsersRoles.setRoleId(adminRoles.getRoleId());
-            adminUsersRoles.setUserId(admin.getUserId());
-            userRolesService.save(adminUsersRoles);
+            UserRoles rootUsersRoles = new UserRoles();
+            rootUsersRoles.setRoleId(adminRoles.getRoleId());
+            rootUsersRoles.setUserId(admin.getUserId());
+            userRolesService.save(rootUsersRoles);
+        }
+
+        if (NullUtil.isNull(root)) {
+            root = new Users();
+            root.setPassword(passwordEncoder.encode("root"));//password admin
+            root.setUserAccount("root");
+            root.setUsername("Root");
+            root.setRoleGroup(Users.ADMIN);
+            root.setEmail("root@ace.com");
+            root.setMobile("00000000");
+            root.setGender("M");
+            root.setDateOfBirth(LocalDateTime.now());
+            root.setLoginDateTime(LocalDateTime.now());
+            root.setStatus(Users.ACTIVE);
+            root.setDomain("ace.com");
+            root.setIp("127.0.0.1");
+            root.setDomain("ace.com");
+            root.setRemark("ACE APPLICATION");
+            root.setEnabled(true);
+            root.setRecord(false);
+            root.setExpireDate(LocalDateTime.now().plusYears(100L));
+            root = usersService.saveAndFlush(root);
+
+
+
+            UserRoles rootUsersRoles = new UserRoles();
+            rootUsersRoles.setRoleId(adminRoles.getRoleId());
+            rootUsersRoles.setUserId(root.getUserId());
+            userRolesService.save(rootUsersRoles);
         }
 
         if (NullUtil.isNull(garlam)) {
@@ -369,7 +399,6 @@ public class UserRolePermissionRestController extends CommonController {
     }
 
 
-
     @Operation(summary = "查询用户的角色权限关系,java实现")
     @RequestMapping(method = RequestMethod.GET, value = "/findUserRolePermissionByUserAccount/{userAccount}")
     public RespResult findUserRolePermissionByUserAccount(@PathVariable String userAccount) {
@@ -382,7 +411,7 @@ public class UserRolePermissionRestController extends CommonController {
         for (Roles rs : rolesList) {
             Map p = new HashMap();
             for (Permissions ps : permissions) {
-                p.put("权限代码:"+ps.getPermissionCode() , ps.getAction());
+                p.put("权限代码:" + ps.getPermissionCode(), ps.getAction());
             }
             r.put(rs.getRoleCode(), p);
         }

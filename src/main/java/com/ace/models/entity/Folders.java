@@ -67,8 +67,9 @@ public class Folders extends BaseEntity {
         } else if (osName.contains(OsUtil.MAC)) {
             this.osType = OsUtil.MAC;
         } else if (osName.contains(OsUtil.LINUX)) {
-        } else {
             this.osType = OsUtil.LINUX;
+        } else {
+            this.osType = OsUtil.UNKNOWN;
         }
     }
 
