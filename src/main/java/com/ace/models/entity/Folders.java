@@ -90,7 +90,6 @@ public class Folders extends BaseEntity {
         this.id = id;
     }
 
-
     public Long getParentId() {
         return parentId;
     }
