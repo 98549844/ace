@@ -15,7 +15,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-public class CommonController {
+public abstract class CommonController {
     private final Log log = LogFactory.getLog(this.getClass());
 
     /**
