@@ -207,7 +207,7 @@ public class ImagesService extends CommonController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        log.info("compressing thumbnail complete !!!");
+        log.info("compressing thumbnail complete !");
     }
 
     private void compressImages(List<String> ls) {

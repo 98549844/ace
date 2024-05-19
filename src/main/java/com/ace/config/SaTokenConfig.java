@@ -22,7 +22,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SaTokenConfig implements WebMvcConfigurer {
     private static final Logger log = LogManager.getLogger(SaTokenConfig.class.getName());
 
-/*    @Override
+    /*
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new SaInterceptor(handle -> {
             try {
@@ -35,7 +36,6 @@ public class SaTokenConfig implements WebMvcConfigurer {
             }
         })).addPathPatterns("/**");
     }*/
-
 
     //springboot
     // 注册拦截器
@@ -65,7 +65,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
                                       "/assets/**/*.png",
                                       "/assets/**/*.jpg",
                                       "/assets/**/*.gif",
-                                      "/assets/favicon.ico",
+                                      //"/assets/favicon.ico",
                                       "/favicon.ico",
                                       "/assets/**/*.css",
                                       "/assets/**/*.woff2",
