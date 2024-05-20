@@ -116,7 +116,7 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <div>
-                            <ul class="ace-thumbnails clearfix" id="imageDiv">
+                            <ul class="ace-thumbnails clearfix" id="mediaDiv">
                             </ul>
                         </div><!-- PAGE CONTENT ENDS -->
 
@@ -182,6 +182,7 @@
                                 const fileName = data[i].fileName;
                                 const ext = data[i].ext;
                                 const status = data[i].status;
+                                const owner = data[i].owner;
 
                                 let fragment = "";
                                 let aHref = `media/get/${fileName}${ext}`;
@@ -205,9 +206,10 @@
                                                 <i class="ace-icon fa fa-times red"></i>
                                             </a>
                                         </div>
+                                        <label class="text-info">&nbsp;&nbsp;&nbsp;${owner}</label>
                                     </li>`;
                             }
-                            $("#imageDiv").html(html);
+                            $("#mediaDiv").html(html);
                         },
                         error(data) {
                             window.location.href = '500.html';
@@ -292,6 +294,7 @@
                     const fileName = data[i].fileName;
                     const ext = data[i].ext;
                     const status = data[i].status;
+                    const owner = data[i].owner;
 
                     let fragment = "";
                     let aHref = `media/get/${fileName}${ext}`;
@@ -316,9 +319,10 @@
                                     <i class="ace-icon fa fa-times red"></i>
                                 </a>
                             </div>
+                            <label class="text-info">&nbsp;&nbsp;&nbsp;${owner}</label>
                         </li>`;
                 }
-                $("#imageDiv").html(html);
+                $("#mediaDiv").html(html);
                 loadingDialog.close().remove();
             },
             error(data) {

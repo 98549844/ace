@@ -1,6 +1,7 @@
 package com.ace.dao;
 
 import com.ace.models.entity.Files;
+import com.ace.models.entity.Users;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -60,6 +61,9 @@ public interface FilesDao extends JpaRepository<Files, Long>, JpaSpecificationEx
     List<Files> findFilesByPathAndFileNameNotIn(String path, Collection<String> fileName);
 
     List<Files> findFilesByOwner(String owner);
+
+    List<Files> findFilesByOwnerAndPathOrderByCreatedDate(String owner,String  videoPath);
+
 
     int countByLocation(String location);
 

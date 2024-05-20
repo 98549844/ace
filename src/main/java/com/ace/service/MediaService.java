@@ -50,12 +50,27 @@ public class MediaService {
         this.videoPath = aceEnvironment.getVideoPath();
     }
 
-    public List getThumbnail() {
+    public List findFilesByOwnerOrderByCreatedDate(String owner) {
+        return filesService.findFilesByOwnerAndPathOrderByCreatedDate(owner, videoPath);
+    }
+
+    /**
+     * 直接读取视频文件夹里的视频文件名
+     *
+     * @return
+     */
+    public List getAllThumbnail() {
         List<String> videoList = FileUtil.getFileNamesWithExt(videoPath);
         List<String> names = FileUtil.getNames(videoList);
         return getActualList(names);
     }
 
+    /**
+     * 直读文件夹资料
+     *
+     * @param t1
+     * @return
+     */
     private List getActualList(List<String> t1) {
         //根据folder实际文件控制数据库, 删除不存文件数据
         List<String> fName = FileUtil.getNames(t1);

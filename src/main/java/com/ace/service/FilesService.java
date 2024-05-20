@@ -345,13 +345,11 @@ public class FilesService {
     }
 
     public List findFilesByOwner(String owner) {
-        List<Files> ls = new ArrayList<>();
-        try {
-            ls = filesDao.findFilesByOwner(owner);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ls;
+        return filesDao.findFilesByOwner(owner);
+    }
+
+    public List findFilesByOwnerAndPathOrderByCreatedDate(String owner,String  videoPath) {
+        return filesDao.findFilesByOwnerAndPathOrderByCreatedDate(owner, videoPath);
     }
 
 

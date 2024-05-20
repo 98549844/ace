@@ -2,6 +2,8 @@ package com.ace.controller;
 
 import com.ace.constant.AceEnvironment;
 import com.ace.controller.common.CommonController;
+import com.ace.models.entity.Files;
+import com.ace.models.entity.Users;
 import com.ace.service.FilesService;
 import com.ace.service.MediaService;
 import com.ace.util.ResourceUtil;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,11 +58,10 @@ public class MediaController extends CommonController {
     /**
      * access to media
      *
-     * @param request
      * @return
      */
     @RequestMapping(value = "/media.html", method = RequestMethod.GET)
-    public ModelAndView media(HttpServletRequest request) {
+    public ModelAndView media() {
         log.info("access ace/media.html");
         return super.page("ace/tool-pages/media");
     }
@@ -124,8 +126,17 @@ public class MediaController extends CommonController {
     @ResponseBody
     public List getThumbnail() {
         log.info("access media/getThumbnail.html");
-        List list = mediaService.getThumbnail();
-        return list;
+        Users user = getCurrentUser();
+
+        List<Files> list = mediaService.findFilesByOwnerOrderByCreatedDate(user.getUserAccount());
+        //  List<String> result = new ArrayList<>();
+        if (user.getRoleGroup().contains(Users.ADMIN)) {
+            //admin可以看到所有缩略图/影片
+            return mediaService.getAllThumbnail();
+        } else {
+            //普通用户只能看到自己的缩略图/影片
+            return list;
+        }
     }
 
 
