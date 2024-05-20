@@ -64,6 +64,8 @@ public interface FilesDao extends JpaRepository<Files, Long>, JpaSpecificationEx
 
     List<Files> findFilesByOwnerAndPathOrderByCreatedDate(String owner,String  videoPath);
 
+    List<Files> findFilesByPathOrderByCreatedDate(String  videoPath);
+
 
     int countByLocation(String location);
 

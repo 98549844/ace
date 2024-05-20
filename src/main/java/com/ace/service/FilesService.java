@@ -348,8 +348,12 @@ public class FilesService {
         return filesDao.findFilesByOwner(owner);
     }
 
-    public List findFilesByOwnerAndPathOrderByCreatedDate(String owner,String  videoPath) {
+    public List findFilesByOwnerAndPathOrderByCreatedDate(String owner, String videoPath) {
         return filesDao.findFilesByOwnerAndPathOrderByCreatedDate(owner, videoPath);
+    }
+
+    public List findFilesByPathOrderByCreatedDate(String videoPath) {
+        return filesDao.findFilesByPathOrderByCreatedDate(videoPath);
     }
 
 

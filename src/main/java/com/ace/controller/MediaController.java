@@ -132,7 +132,7 @@ public class MediaController extends CommonController {
         //  List<String> result = new ArrayList<>();
         if (user.getRoleGroup().contains(Users.ADMIN)) {
             //admin可以看到所有缩略图/影片
-            return mediaService.getAllThumbnail();
+            return mediaService.findFilesByPathOrderByCreatedDate();
         } else {
             //普通用户只能看到自己的缩略图/影片
             return list;

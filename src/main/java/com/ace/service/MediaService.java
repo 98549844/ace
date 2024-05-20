@@ -54,6 +54,10 @@ public class MediaService {
         return filesService.findFilesByOwnerAndPathOrderByCreatedDate(owner, videoPath);
     }
 
+    public List findFilesByPathOrderByCreatedDate() {
+        return filesService.findFilesByPathOrderByCreatedDate(videoPath);
+    }
+
     /**
      * 直接读取视频文件夹里的视频文件名
      *
