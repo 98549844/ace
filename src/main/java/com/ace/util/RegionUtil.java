@@ -78,13 +78,23 @@ public class RegionUtil extends CommonController {
         String ipAddress;
         try {
             ipAddress = request.getHeader("x-forwarded-for");
-            if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+            String unknown = "unknown";
+            if (ipAddress == null || ipAddress.isEmpty() || unknown.equalsIgnoreCase(ipAddress)) {
                 ipAddress = request.getHeader("Proxy-Client-IP");
             }
-            if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+            if (ipAddress == null || ipAddress.isEmpty() || unknown.equalsIgnoreCase(ipAddress)) {
                 ipAddress = request.getHeader("WL-Proxy-Client-IP");
             }
-            if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+            if (ipAddress == null || ipAddress.isEmpty() || unknown.equalsIgnoreCase(ipAddress)) {
+                ipAddress = request.getHeader("HTTP_CLIENT_IP");
+            }
+            if (ipAddress == null || ipAddress.isEmpty() || unknown.equalsIgnoreCase(ipAddress)) {
+                ipAddress = request.getHeader("HTTP_X_FORWARDED_FOR");
+            }
+            if (ipAddress == null || ipAddress.isEmpty() || unknown.equalsIgnoreCase(ipAddress)) {
+                ipAddress = request.getRemoteAddr();
+            }
+            if (ipAddress == null || ipAddress.isEmpty() || unknown.equalsIgnoreCase(ipAddress)) {
                 ipAddress = request.getRemoteAddr();
                 if (ipAddress.equals(constant.LOCAL_IP)) {
                     // 根据网卡取本机配置的IP

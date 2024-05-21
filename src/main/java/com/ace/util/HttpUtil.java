@@ -170,9 +170,9 @@ public class HttpUtil {
         System.out.println(System.getProperty("os.name"));
         System.out.println(System.getProperty("os.version"));
         System.out.println(System.getProperty("os.arch"));
-        requestInfo.add("os.name : " + System.getProperty("os.name"));
-        requestInfo.add("os.version : " + System.getProperty("os.version"));
-        requestInfo.add("os.arch : " + System.getProperty("os.arch"));
+        requestInfo.add("os.name: " + System.getProperty("os.name"));
+        requestInfo.add("os.version: " + System.getProperty("os.version"));
+        requestInfo.add("os.arch: " + System.getProperty("os.arch"));
 
         System.out.println(request.getHeader("user-agent")); //返回客户端浏览器的版本号, 类型
         System.out.println(request.getMethod()); //: 获得客户端向服务器端传送数据的方法有get, post, put等类型
