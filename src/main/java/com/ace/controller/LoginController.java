@@ -7,7 +7,6 @@ import com.ace.exception.PasswordNotMatchException;
 import com.ace.exception.UserNotFoundException;
 import com.ace.models.entity.Files;
 import com.ace.models.entity.Users;
-import com.ace.restController.UserRolePermissionRestController;
 import com.ace.service.FoldersService;
 import com.ace.service.ImagesService;
 import com.ace.service.LoginService;
@@ -17,6 +16,7 @@ import com.ace.util.RegionUtil;
 import com.ace.utilities.DateTimeUtil;
 import com.ace.utilities.NullUtil;
 import com.ace.utilities.SqlUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +59,7 @@ public class LoginController extends CommonController {
 
 
     @RequestMapping(value = {"/ace/login.html", "/"}, method = RequestMethod.GET)
-    public ModelAndView login() {
+    public ModelAndView login(HttpServletRequest request) {
         if (isLogin()) {
             return super.page("ace/index.html");
         } else {

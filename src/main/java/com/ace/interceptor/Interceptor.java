@@ -1,5 +1,6 @@
 package com.ace.interceptor;
 
+import com.ace.util.IpUtil;
 import com.ace.utilities.Console;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,7 +30,9 @@ public class Interceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         int status = response.getStatus();
         String RequestURI = request.getRequestURI();
-        Console.println("status code: " + status + " -- Request uri: " + RequestURI, Console.BOLD,Console.FLUORESCENT_GREEN);
+        String clientIp = IpUtil.getIpAddr(request);
+
+        Console.println("clientIp: " + clientIp + ":" + request.getRemotePort() + " - status code: " + status + " - Request uri: " + RequestURI, Console.BOLD, Console.FLUORESCENT_GREEN);
         return true;
     }
 
