@@ -299,7 +299,7 @@ public class FilesService {
                 multipartFile.transferTo(targetFile);
                 list.add(fileName);
             } catch (IOException e) {
-                log.error("文件上传异常: " + e);
+                log.error("文件上传异常: {}", e.getMessage());
             }
 
             f.setOriginationName(originalFilename);
@@ -314,7 +314,7 @@ public class FilesService {
             } else if (FileUtil.isVideo(f.getLocation())) {
                 f.setType(Files.VIDEO);
             } else {
-                log.warn("File type undefine !!!");
+                log.warn("File mineType undefined !");
             }
             fs.add(f);
         }
