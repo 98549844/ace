@@ -136,7 +136,7 @@ public abstract class CommonController {
         ModelAndView modelAndView = null;
         try {
             log.info("重定向地址：" + url);
-            modelAndView = new ModelAndView("redirect:" + url);
+            modelAndView = new ModelAndView("redirect:" + url); // 重定向到指定页面格式 redirect:/xxx.html
             if (isLogin()) {
                 Users user = getCurrentUser();
                 modelAndView.addObject("currentUser", user);
