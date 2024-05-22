@@ -68,10 +68,11 @@ public class LoginController extends CommonController {
     }
 
     @RequestMapping(value = "/ace/logging.html", method = RequestMethod.POST)
-    public ModelAndView logging(String userAccount, String password, String rememberMe, String deviceType) {
+    public ModelAndView logging(String userAccount, String password, String rememberMe, String deviceType, String preUri) {
         log.info("userAccount: {}", userAccount);
         log.info("password: {}", password);
         log.info("rememberMe: {}", rememberMe);
+        log.info("preUri: {}", preUri);
 
         ModelAndView modelAndView;
         String msg;
@@ -132,7 +133,12 @@ public class LoginController extends CommonController {
         foldersService.createCurrentUserDefaultFolder(currentUserPath, getCurrentUser());
         getCurrentUser().setCurrentUserPath(currentUserPath);
 
-        modelAndView = super.redirect("ace/index.html");
+        if (NullUtil.isNonNull(preUri)) {
+            // http://192.168.1.100:8088/ace/gallery.html
+            modelAndView = super.redirect(preUri);
+        } else {
+            modelAndView = super.redirect("/ace/index.html");
+        }
         return modelAndView;
     }
 

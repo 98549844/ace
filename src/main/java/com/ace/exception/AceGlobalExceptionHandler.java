@@ -164,6 +164,7 @@ public class AceGlobalExceptionHandler extends CommonController implements Error
             modelAndView.addObject(Css.css, Css.red);
             modelAndView.addObject("expMsg", message);
             modelAndView.addObject("stackTrace", stackTrace);
+            modelAndView.addObject("preUri", super.getRequest().getRequestURI());
             return modelAndView;
         } /*else if(e instanceof ClientAbortException){
             return null;}*/ else {
