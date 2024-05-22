@@ -82,7 +82,7 @@ public class LoginController extends CommonController {
             msg = "Account/Password empty";
             modelAndView = loginService.loginError(msg);
             return modelAndView;
-        } else if (NullUtil.isNonNull(userAccount) && NullUtil.isNonNull(password)) {
+        } else {
             if (isLogin()) {
                 log.info("Logged into Ace");
                 return super.page("ace/index.html");
@@ -134,7 +134,6 @@ public class LoginController extends CommonController {
         getCurrentUser().setCurrentUserPath(currentUserPath);
 
         if (NullUtil.isNonNull(preUri)) {
-            // http://192.168.1.100:8088/ace/gallery.html
             modelAndView = super.redirect(preUri);
         } else {
             modelAndView = super.redirect("/ace/index.html");
