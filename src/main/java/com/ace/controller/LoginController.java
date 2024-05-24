@@ -134,6 +134,7 @@ public class LoginController extends CommonController {
         getCurrentUser().setCurrentUserPath(currentUserPath);
 
         if (NullUtil.isNonNull(preUri)) {
+            // 跳转到之前访问的页面
             modelAndView = super.redirect(preUri);
         } else {
             modelAndView = super.redirect("/ace/index.html");

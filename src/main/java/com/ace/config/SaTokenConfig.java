@@ -37,6 +37,8 @@ public class SaTokenConfig implements WebMvcConfigurer {
         })).addPathPatterns("/**");
     }*/
 
+    //SaRouter
+    //https://sa-token.cc/doc.html#/use/route-check?id=%e8%b7%af%e7%94%b1%e6%8b%a6%e6%88%aa%e9%89%b4%e6%9d%83
     //springboot
     // 注册拦截器
     @Override
