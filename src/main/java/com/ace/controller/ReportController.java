@@ -8,6 +8,7 @@ import com.ace.models.entity.Reports;
 import com.ace.models.info.ReportsInfo;
 import com.ace.service.FilesService;
 import com.ace.service.ReportsService;
+import com.ace.utilities.FastJson2Util;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -96,7 +97,7 @@ public class ReportController extends CommonController {
      */
     @RequestMapping(value = "/report/upload.html", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> uploadImg(HttpServletRequest request, @RequestParam(value = "editormd-image-file", required = false) MultipartFile file) {
+    public String uploadImg(HttpServletRequest request, @RequestParam(value = "editormd-image-file", required = false) MultipartFile file) {
         Map<String, Object> map = new HashMap<>();
         if (file != null) {
             //获取此项目的tomcat路径
@@ -127,7 +128,7 @@ public class ReportController extends CommonController {
                 e.printStackTrace();
             }
         }
-        return map;
+        return FastJson2Util.ObjectToJson(map);
     }
     //@ResponseBody
     //public JSONObject upload(@RequestParam(value = "editormd-image-file") MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
