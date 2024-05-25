@@ -122,6 +122,7 @@ public class ImagesService extends CommonController {
 
     /**
      * 根据文件名读取文件
+     * fileName一定要包含后缀名，否则无法正确读取文件
      *
      * @param fileName
      * @param response
@@ -131,6 +132,7 @@ public class ImagesService extends CommonController {
         String name;
         String ext;
         if (!fileName.contains(".")) {
+            //这段else if已经不太需要, 观察一段时间
             //不包含".", 查数据库获获
             Files f = filesService.findFilesByFileName(fileName);
             ext = f.getExt().split("\\.")[1];

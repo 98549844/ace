@@ -2,6 +2,7 @@ package com.ace;
 
 import com.ace.controller.common.CommonController;
 import com.ace.util.CangJieUtil;
+import com.alibaba.fastjson2.JSON;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,6 +23,8 @@ public class Ace {
 
 
     public static void main(String[] args) throws IOException {
+
+
     }
 
     private static void cangJieCheck(String code) throws IOException {

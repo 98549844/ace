@@ -67,6 +67,7 @@ public class GalleryController extends CommonController {
     @ResponseBody
     public void get(@PathVariable("fileName") String fileName, HttpServletResponse response) throws IOException {
         log.info("access image/get/{}", fileName);
+        //fileName一定要包含后缀名，否则无法正确读取文件
         imagesService.get(imagesThumbnail, fileName, response);
     }
 
