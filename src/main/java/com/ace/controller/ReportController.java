@@ -130,40 +130,11 @@ public class ReportController extends CommonController {
         }
         return FastJson2Util.ObjectToJson(map);
         //上传图片返回url问题解决, 但没有心机调整正确的url. 有心机再搞
+        //https://www.jianshu.com/p/5d654cf267d9  Editor.md图片粘贴插入插件的开发
+        // https://www.codehui.net/info/39.html Editor.md图片粘贴插入插件的开发
     }
-    //@ResponseBody
-    //public JSONObject upload(@RequestParam(value = "editormd-image-file") MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
-    //
-    //    String trueFileName = file.getOriginalFilename();
-    //
-    //    String suffix = trueFileName.substring(trueFileName.lastIndexOf("."));
-    //
-    //    String fileName = DateTimeUtil.getCurrentDateTimeAsFileName() + "-" + UUID.get(8) + suffix;
-    //
-    //    String path = request.getSession().getServletContext().getRealPath("/assets/msg/upload/");
-    //    System.out.println(path);
-    //
-    //    File targetFile = new File(path, fileName);
-    //    if(!targetFile.exists()){
-    //        targetFile.mkdirs();
-    //    }
-    //
-    //    //保存
-    //    try {
-    //        file.transferTo(targetFile);
-    //    } catch (Exception e) {
-    //        e.printStackTrace();
-    //    }
-    //
-    //
-    //    JSONObject res = new JSONObject();
-    //   // res.put("url", Constant.WEB_ROOT + "assets/msg/upload/" + fileName);
-    //    res.put("success", 1);
-    //    res.put("message", "upload success!");
-    //
-    //    return res;
-    //
-    //}
+
+
 
 
     /**
