@@ -129,6 +129,7 @@ public class ReportController extends CommonController {
             }
         }
         return FastJson2Util.ObjectToJson(map);
+        //上传图片返回url问题解决, 但没有心机调整正确的url. 有心机再搞
     }
     //@ResponseBody
     //public JSONObject upload(@RequestParam(value = "editormd-image-file") MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
