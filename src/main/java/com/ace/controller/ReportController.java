@@ -102,8 +102,6 @@ public class ReportController extends CommonController {
         if (file != null) {
             try {
                 String filename = "/ace/image/get/" + filesService.upload(file, null, filePath);
-                //String fileName = "/ace/image/get/" + "c72477751dd642a1acbc74c6d0919a0c.jpg";
-
                 map.put("success", 1); //设置回显的数据 0 表示上传失败，1 表示上传成功
                 map.put("message", "上传成功"); //提示的信息，上传成功或上传失败及错误信息等
                 map.put("url", filename); //图片回显的url 上传成功时才返回
@@ -118,49 +116,6 @@ public class ReportController extends CommonController {
         //https://www.jianshu.com/p/5d654cf267d9  Editor.md图片粘贴插入插件的开发
         // https://www.codehui.net/info/39.html Editor.md图片粘贴插入插件的开发
     }
-
-    /**
-     * 图片上传
-     */
-    //@RequestMapping(value = "/report/upload.html", method = RequestMethod.POST)
-    //@ResponseBody
-    //public String uploadImg(HttpServletRequest request, @RequestParam(value = "editormd-image-file", required = false) MultipartFile file) {
-    //    Map<String, Object> map = new HashMap<>();
-    //    if (file != null) {
-    //        //获取此项目的tomcat路径
-    //        String webapp = request.getSession().getServletContext().getRealPath("/");
-    //        try {
-    //            //获取文件名
-    //            String filename = file.getOriginalFilename();
-    //            java.util.UUID uuid = UUID.randomUUID();
-    //            String name = "";
-    //            if (filename != null) {
-    //                name = filename.substring(filename.lastIndexOf(".")); //获取文件后缀名
-    //            }
-    //            // 图片的路径+文件名称
-    //            // String fileName = "/image/get/" + uuid + name;
-    //            String fileName = "/ace/image/get/" + "c72477751dd642a1acbc74c6d0919a0c.jpg";
-    //            // 图片的在服务器上面的物理路径
-    //            File destFile = new File(webapp, fileName);
-    //            // 生成upload目录
-    //            File parentFile = destFile.getParentFile();
-    //            if (!parentFile.exists()) {
-    //                parentFile.mkdirs();// 自动生成upload目录
-    //            }
-    //            // 把上传的临时图片，复制到当前项目的webapp路径
-    //            FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(destFile));
-    //            map.put("success", 1); //设置回显的数据 0 表示上传失败，1 表示上传成功
-    //            map.put("message", "上传成功"); //提示的信息，上传成功或上传失败及错误信息等
-    //            map.put("url", fileName); //图片回显的url 上传成功时才返回
-    //        } catch (Exception e) {
-    //            e.printStackTrace();
-    //        }
-    //    }
-    //    return FastJson2Util.ObjectToJson(map);
-    //    //上传图片返回url问题解决, 但没有心机调整正确的url. 有心机再搞
-    //    //https://www.jianshu.com/p/5d654cf267d9  Editor.md图片粘贴插入插件的开发
-    //    // https://www.codehui.net/info/39.html Editor.md图片粘贴插入插件的开发
-    //}
 
 
     /**
