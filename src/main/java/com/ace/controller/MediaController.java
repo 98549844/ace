@@ -96,7 +96,7 @@ public class MediaController extends CommonController {
         log.info("access media/m3u8StreamProcess.html playId=>{}", playId);
         log.info("FFmpeg start processing ...");
         List list = mediaService.getM3U8ByPlayId(playId);
-        log.info("FFmpeg process complete !!!");
+        log.info("FFmpeg process complete !");
         return list;
     }
 

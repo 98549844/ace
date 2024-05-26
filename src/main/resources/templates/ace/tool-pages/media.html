@@ -15,7 +15,8 @@
         }
     </script>
 
-    <div id="sidebar" class="sidebar responsive ace-save-state" th:insert="~{templates/ace/pb-pages/sidebar :: sidebar}">
+    <div id="sidebar" class="sidebar responsive ace-save-state"
+         th:insert="~{templates/ace/pb-pages/sidebar :: sidebar}">
     </div>
 
     <div class="main-content">
@@ -337,9 +338,7 @@
         let ext = $(this).attr('ext').split(".");
         let playId = id.split("play-")[1];
         if (isMobile()) {
-            window.location.href = `play.html?playId=${playId}`;
-            // alert("function developing ...")
-            //  window.location.href = `mobile/play.html/${ext[1]}/${playId}`; //thrown IO exception
+            window.location.href = `mobile/play.html/${ext[1]}/${playId}`; //thrown IO exception
         } else {
             window.location.href = `play.html?playId=${playId}`;
         }

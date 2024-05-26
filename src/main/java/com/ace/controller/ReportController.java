@@ -4,6 +4,7 @@ import com.ace.constant.AceEnvironment;
 import com.ace.constant.MessageConstants;
 import com.ace.controller.common.CommonController;
 import com.ace.models.common.RespResult;
+import com.ace.models.entity.Files;
 import com.ace.models.entity.Reports;
 import com.ace.models.info.ReportsInfo;
 import com.ace.service.FilesService;
@@ -93,7 +94,7 @@ public class ReportController extends CommonController {
     }
 
     /**
-     * 图片上传
+     * 上传
      */
     @RequestMapping(value = "/report/upload.html", method = RequestMethod.POST)
     @ResponseBody
@@ -101,7 +102,16 @@ public class ReportController extends CommonController {
         Map<String, Object> map = new HashMap<>();
         if (file != null) {
             try {
-                String filename = "/ace/image/get/" + filesService.upload(file, null, filePath);
+                Files f = filesService.upload(file, null, filePath);
+                String preUrl;
+                if (f.getType().equals(Files.IMAGE)) {
+                    preUrl = "/ace/image/get/";
+                } else if (f.getType().equals(Files.VIDEO)) {
+                    preUrl = "/ace/video/play/";
+                } else {
+                    throw new RuntimeException("未知的文件类型, 无法预览, 文件后缀为: " + f.getExt());
+                }
+                String filename = preUrl + f.getFileName() + f.getExt();
                 map.put("success", 1); //设置回显的数据 0 表示上传失败，1 表示上传成功
                 map.put("message", "上传成功"); //提示的信息，上传成功或上传失败及错误信息等
                 map.put("url", filename); //图片回显的url 上传成功时才返回

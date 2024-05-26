@@ -2,6 +2,7 @@ package com.ace.controller;
 
 import com.ace.constant.AceEnvironment;
 import com.ace.controller.common.CommonController;
+import com.ace.models.entity.Files;
 import com.ace.models.entity.Folders;
 import com.ace.service.FilesService;
 import com.ace.service.FoldersService;
@@ -67,7 +68,8 @@ public class FileController extends CommonController {
     @RequestMapping(value = "/files/upload", method = RequestMethod.POST)
     public ModelAndView upload(@RequestParam("file") MultipartFile file) {
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-        String result = filesService.upload(file, null, filePath);
+        Files f = filesService.upload(file, null, filePath);
+        String result = f.getFileName() + f.getExt();
         return modelAndView;
     }
 

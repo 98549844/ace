@@ -271,7 +271,7 @@ public class FilesService {
      * @param path
      * @return
      */
-    public String upload(MultipartFile file, String uuid, String path) { //注意参数
+    public Files upload(MultipartFile file, String uuid, String path) { //注意参数
         Files f = new Files();
         // 源文件名
         String originalFilename = file.getOriginalFilename();
@@ -319,8 +319,9 @@ public class FilesService {
         } catch (IOException e) {
             log.error("文件上传异常: {}", e.getMessage());
         }
-        save(f);
-        return fileName + suffix;
+        f = saveAndFlush(f);
+        return f;
+        //  return fileName + suffix;
     }
 
     /**

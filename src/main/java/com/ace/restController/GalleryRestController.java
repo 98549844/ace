@@ -1,6 +1,7 @@
 package com.ace.restController;
 
 import com.ace.constant.AceEnvironment;
+import com.ace.models.entity.Files;
 import com.ace.service.FilesService;
 import com.ace.utilities.NullUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -99,7 +100,9 @@ public class GalleryRestController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String upload(@RequestParam("file") MultipartFile file) {    //注意参数
-        String result = filesService.upload(file, null, imagesPath);
+        Files f = filesService.upload(file, null, imagesPath);
+        String result = f.getFileName() + f.getExt();
+       // String result = filesService.upload(file, null, imagesPath);
         return result;
     }
 
