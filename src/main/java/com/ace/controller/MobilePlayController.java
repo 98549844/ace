@@ -55,11 +55,10 @@ public class MobilePlayController extends CommonController {
     @GetMapping(value = "/stream/play.html/{ext}/{playId}")
     public ResponseEntity<StreamingResponseBody> streamPlay(
             @PathVariable("playId") String playId, @PathVariable("ext") String ext,
-            @RequestHeader(value = "Range", required = false) String rangeHeader) throws IOException {
+            @RequestHeader(value = "Range", required = false) String rangeHeader) {
         log.info("access stream/play.html {} ; {}", ext, playId);
-        String mediaName = videoPath + playId + "." + ext;
-        return mobilePlayService.getResponseStream (mediaName, rangeHeader);
-
+        String mediaName = videoPath + playId + "." + ext; //这里可以查数据库直接拿到路径而不需要拼, 日后再改
+        return mobilePlayService.getResponseStream(mediaName, rangeHeader);
     }
 
 
