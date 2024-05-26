@@ -1,8 +1,8 @@
 /*
  * Editor.md
  *
- * @file        editormd.css 
- * @version     v1.5.0 
+ * @file        editormd.css
+ * @version     v1.5.0
  * @description Open source online markdown editor.
  * @license     MIT License
  * @author      Pandao
@@ -392,16 +392,17 @@
   z-index: 99998;
 }
 
+/*控制markdown.md的loading.gif尺寸css*/
 .editormd-container-mask,
 .editormd-dialog-mask-con {
   background: url(../images/loading.gif) no-repeat center center;
-  -webkit-background-size: 32px 32px;
+  -webkit-background-size: 126px 22px;
   /* Chrome, iOS, Safari */
-  -moz-background-size: 32px 32px;
+  -moz-background-size: 126px 22px;
   /* Firefox 3.6~4.0 */
-  -o-background-size: 32px 32px;
+  -o-background-size: 126px 22px;
   /* Opera 9.5 */
-  background-size: 32px 32px;
+  background-size: 126px 22px;
   /* IE9+, New */
 }
 
@@ -3118,8 +3119,8 @@
 .editormd-logo-7x:before,
 .editormd-logo-8x:before {
   content: "\e1987";
-  /* 
-  HTML Entity &#xe1987; 
+  /*
+  HTML Entity &#xe1987;
   example: <span class="editormd-logo">&#xe1987;</span>
   */
 }
