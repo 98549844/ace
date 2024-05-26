@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -76,7 +75,6 @@ public class ImagesController extends CommonController {
     }
 
     /**
-     *
      * 响应输出图片文件
      *
      * @param fileName
@@ -85,8 +83,7 @@ public class ImagesController extends CommonController {
     @ResponseBody
     public void get(@PathVariable("fileName") String fileName, HttpServletResponse response) throws IOException {
         log.info("access image/get/{}", fileName);
-        //fileName一定要包含后缀名，否则无法正确读取文件
-        imagesService.get(imagesThumbnail, fileName, response);
+        imagesService.get(fileName, response);
     }
 
     /**

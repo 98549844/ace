@@ -122,27 +122,24 @@ public class ImagesService extends CommonController {
 
     /**
      * 根据文件名读取文件
-     * fileName一定要包含后缀名，否则无法正确读取文件
      *
      * @param fileName
      * @param response
      * @throws IOException
      */
-    public void get(String location, String fileName, HttpServletResponse response) throws IOException {
-        String name;
-        String ext;
-        if (!fileName.contains(".")) {
-            //这段else if已经不太需要, 观察一段时间
-            //不包含".", 查数据库获获
-            Files f = filesService.findFilesByFileName(fileName);
-            ext = f.getExt().split("\\.")[1];
-            name = fileName + f.getExt();
-        } else {
-            name = fileName;
-            ext = fileName.split("\\.")[1];
+    public void get(String fileName, HttpServletResponse response) throws IOException {
+        String name = fileName;
+        if (fileName.contains(".")) {
+            name = fileName.split("\\.")[0];
         }
-        System.out.println("file location: " + location + name);
-        ImageIO.write(ImageIO.read(new File(location + name)), ext, response.getOutputStream());
+        Files f = filesService.findFilesByFileName(name);
+        String ext = f.getExt().split("\\.")[1]; //这个ext不可以有"."点号
+        String location = f.getLocation();
+        if (f.getPath().equals(imagePath)) {
+            //如果是读取图片, 则读取压缩图片, 如果日后有需要, 怎再改
+            location = imagesThumbnail + f.getFileName() + f.getExt();
+        }
+        ImageIO.write(ImageIO.read(new File(location)), ext, response.getOutputStream());
     }
 
     /**

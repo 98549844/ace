@@ -4,18 +4,17 @@ import com.ace.constant.AceEnvironment;
 import com.ace.service.FilesService;
 import com.ace.utilities.NullUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
-
 
 
 //https://blog.csdn.net/qq_35416214/article/details/106231487
@@ -47,7 +46,7 @@ public class GalleryRestController {
     private final String imagesPath;
 
     @Autowired
-    public GalleryRestController(AceEnvironment aceEnvironment,FilesService filesService) {
+    public GalleryRestController(AceEnvironment aceEnvironment, FilesService filesService) {
         this.filesService = filesService;
         this.imagesPath = aceEnvironment.getImagesPath();
     }
@@ -100,7 +99,7 @@ public class GalleryRestController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String upload(@RequestParam("file") MultipartFile file) {    //注意参数
-        String result = filesService.upload(imagesPath, file);
+        String result = filesService.upload(file, null, imagesPath);
         return result;
     }
 

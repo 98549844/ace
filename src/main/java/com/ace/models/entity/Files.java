@@ -34,7 +34,7 @@ public class Files extends BaseEntity {
     @Column
     private String ext;
     @Column
-    private String type = "File type undefine"; //默认文件种类
+    private String type = "File type undefined"; //默认文件种类
     public static final String IMAGE = "image";
     public static final String VIDEO = "video";
     public static final String APPLICATION = "application";
@@ -46,7 +46,7 @@ public class Files extends BaseEntity {
     private String path;
     @Column
     private Long size;
-    @Column
+    @Column(nullable = false, unique = true)
     private String fileName;
     @Column
     private int count = 0;

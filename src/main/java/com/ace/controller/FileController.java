@@ -40,7 +40,7 @@ public class FileController extends CommonController {
     private final String filesPath;
 
     @Autowired
-    public FileController(AceEnvironment aceEnvironment,FilesService filesService, FoldersService foldersService) {
+    public FileController(AceEnvironment aceEnvironment, FilesService filesService, FoldersService foldersService) {
         this.filesService = filesService;
         this.foldersService = foldersService;
         this.filesPath = aceEnvironment.getFilePath();
@@ -67,7 +67,7 @@ public class FileController extends CommonController {
     @RequestMapping(value = "/files/upload", method = RequestMethod.POST)
     public ModelAndView upload(@RequestParam("file") MultipartFile file) {
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
-        String result = filesService.upload(filePath, file);
+        String result = filesService.upload(file, null, filePath);
         return modelAndView;
     }
 

@@ -235,7 +235,7 @@ public class FilesService {
         is.close();
     }
 
-    public String upload(String storageLocation, MultipartFile file) { //注意参数
+/*    public String upload(String storageLocation, MultipartFile file) { //注意参数
         try {
             if (file.isEmpty()) {
                 return "file is empty";
@@ -254,22 +254,90 @@ public class FilesService {
                 dest.getParentFile().mkdirs();// 新建文件夹
             }
             file.transferTo(dest);// 文件写入
-            return "upload success";
+            return "success";
         } catch (IllegalStateException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "upload fail";
+        return "fail";
+    }*/
+
+    /**
+     * 上传单文件, 文件名包括后缀
+     *
+     * @param file
+     * @param uuid
+     * @param path
+     * @return
+     */
+    public String upload(MultipartFile file, String uuid, String path) { //注意参数
+        Files f = new Files();
+        // 源文件名
+        String originalFilename = file.getOriginalFilename();
+        // 文件格式
+        String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
+        // 新文件名，避免文件名重复，造成文件替换问题
+        if (NullUtil.isNull(uuid)) {
+            uuid = UUID.get();
+            log.info("Ace Application UUID: {}", uuid);
+            f.setRemark("ACE Application UUID: " + uuid);
+        } else {
+            f.setRemark("UUID: " + uuid);
+        }
+
+        String fileName = uuid;
+        // 文件存储全路径
+        File targetFile = new File(path + fileName + suffix);
+        // 判断文件存储目录是否存在，不存在则新建目录
+        if (!targetFile.getParentFile().exists()) {
+            targetFile.getParentFile().mkdir();
+        }
+
+        f.setOriginationName(originalFilename);
+        f.setExt(suffix.toLowerCase());
+        f.setFileName(fileName);
+        f.setLocation(path + fileName + suffix);
+        f.setPath(path);
+        f.setSize((file.getSize()));
+        if (FileUtil.isImage(f.getLocation())) {
+            f.setType(Files.IMAGE);
+        } else if (FileUtil.isVideo(f.getLocation())) {
+            f.setType(Files.VIDEO);
+        } else {
+            String mimeType = FileUtil.getMimeType(f.getLocation());
+            if (NullUtil.isNonNull(mimeType)) {
+                f.setType(FileUtil.getMimeType(f.getLocation()));
+                log.info("File mineType {}", mimeType);
+            } else {
+                log.info("File mineType {}", mimeType);
+            }
+        }
+        try {
+            // 将文件保存
+            file.transferTo(targetFile);
+        } catch (IOException e) {
+            log.error("文件上传异常: {}", e.getMessage());
+        }
+        save(f);
+        return fileName + suffix;
     }
 
+    /**
+     * 上传多文件
+     *
+     * @param files
+     * @param uuid
+     * @param path
+     * @return
+     */
     public List uploads(MultipartFile[] files, String uuid, String path) {
         // 存储上传成功的文件名，响应给客户端
-        List<String> list = new ArrayList<>();
+        List<String> resltList = new ArrayList<>();
         // 判断文件数组长度
         if (files.length == 0) {
-            list.add("请选择文件");
-            return list;
+            resltList.add("请选择文件");
+            return resltList;
         }
         List<Files> fs = new ArrayList<>();
         for (MultipartFile multipartFile : files) {
@@ -294,14 +362,6 @@ public class FilesService {
             if (!targetFile.getParentFile().exists()) {
                 targetFile.getParentFile().mkdir();
             }
-            try {
-                // 将文件保存
-                multipartFile.transferTo(targetFile);
-                list.add(fileName);
-            } catch (IOException e) {
-                log.error("文件上传异常: {}", e.getMessage());
-            }
-
             f.setOriginationName(originalFilename);
             f.setExt(suffix.toLowerCase());
             f.setFileName(fileName);
@@ -314,12 +374,23 @@ public class FilesService {
             } else if (FileUtil.isVideo(f.getLocation())) {
                 f.setType(Files.VIDEO);
             } else {
-                log.warn("File mineType undefined !");
+                String mimeType = FileUtil.getMimeType(f.getLocation());
+                if (NullUtil.isNonNull(mimeType)) {
+                    f.setType(FileUtil.getMimeType(f.getLocation()));
+                }
+                log.info("File mineType {}", mimeType);
             }
             fs.add(f);
+            try {
+                // 将文件保存
+                multipartFile.transferTo(targetFile);
+                resltList.add(fileName);
+            } catch (IOException e) {
+                log.error("文件上传异常: {}", e.getMessage());
+            }
         }
         saveAll(fs);
-        return list;
+        return resltList;
     }
 
     @Transactional(rollbackFor = Exception.class)

@@ -221,7 +221,7 @@ public class UserController extends CommonController {
     @ResponseBody
     public void get(@PathVariable("fileName") String fileName, HttpServletResponse response) throws IOException {
         log.info("access avatar/get/{}", fileName);
-        imagesService.get(usersPath, fileName, response);
+        imagesService.get(fileName, response);
     }
 
     public static void main(String[] args) throws IOException {
