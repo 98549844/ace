@@ -26,15 +26,6 @@ import java.io.IOException;
 public class GalleryController extends CommonController {
     private static final Logger log = LogManager.getLogger(GalleryController.class.getName());
 
-    private final ImagesService imagesService;
-    private final String imagesThumbnail;
-
-    public GalleryController(AceEnvironment aceEnvironment, ImagesService imagesService) {
-        this.imagesService = imagesService;
-        this.imagesThumbnail = aceEnvironment.getImagesThumbnail();
-    }
-
-
     /**
      * access to gallery page
      *
@@ -63,13 +54,13 @@ public class GalleryController extends CommonController {
      *
      * @param fileName
      */
-    @RequestMapping(value = "/image/get/{fileName}", method = RequestMethod.GET)
+  /*  @RequestMapping(value = "/image/get/{fileName}", method = RequestMethod.GET)
     @ResponseBody
     public void get(@PathVariable("fileName") String fileName, HttpServletResponse response) throws IOException {
         log.info("access image/get/{}", fileName);
         //fileName一定要包含后缀名，否则无法正确读取文件
         imagesService.get(imagesThumbnail, fileName, response);
-    }
+    }*/
 
     /**
      * 图片旋转
@@ -79,13 +70,13 @@ public class GalleryController extends CommonController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/thumbnail/rotate/{direction}/{uuid}", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/thumbnail/rotate/{direction}/{uuid}", method = RequestMethod.GET)
     @ResponseBody
     public Files rotate(@PathVariable String direction, @PathVariable String uuid) throws Exception {
         log.info("access image/rotate => rotate {} {}", direction, uuid);
         Files f = imagesService.rotateDesc(direction, imagesThumbnail, uuid, UUID.get());
         return f;
-    }
+    }*/
 
 }
 
