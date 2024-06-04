@@ -37,7 +37,8 @@ public class NotificationRestController extends CommonController {
     public NotificationRestController(NotificationService notificationService) {
         this.notificationService = notificationService;
     }
-
+    private static int count;
+    private final ThreadLocal<Long> threadId = new ThreadLocal<>();
 
     @Operation(summary = "Generate Sample Data")
     @RequestMapping(method = RequestMethod.GET, value = "/generate.html")
@@ -86,7 +87,6 @@ public class NotificationRestController extends CommonController {
         // 返回异步结果和线程ID
         return currentThreadId.toString();
     }
-    private static int count;
-    private ThreadLocal<Long> threadId = new ThreadLocal<>();
+
 }
 

@@ -46,7 +46,7 @@ public class Files extends BaseEntity {
     private String path;
     @Column
     private Long size;
-    @Column(nullable = false, unique = true, length = 1024) //String 对象加上length限制, 才能把nullable和unique生效
+    @Column(nullable = false, unique = true) //String 对象加上length限制, 才能把nullable和unique生效
     private String fileName;
     @Column
     private int count = 0;
