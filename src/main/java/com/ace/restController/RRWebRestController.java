@@ -64,7 +64,7 @@ public class RRWebRestController extends CommonController {
 
     @Operation(summary = "回放")
     @RequestMapping(method = RequestMethod.GET, value = "/playback/{userAccount}/{uuid}")
-    public RespResult playback(@PathVariable String userAccount, @PathVariable String uuid) throws IOException {
+    public RespResult playback(@PathVariable String userAccount, @PathVariable String uuid) {
         log.info("RRWeb userAccount: {} | uuid: {}", userAccount, uuid);
         List<RRWebEvents> events = rrWebService.findByUserAccountAndUuidOrderByCreatedByAsc(userAccount, uuid);
         String result = rrWebService.appendEventData(events);
