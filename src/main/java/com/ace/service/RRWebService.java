@@ -107,5 +107,21 @@ public class RRWebService {
         return events;
     }
 
+
+    public String appendEventData(List<RRWebEvents> events) {
+        StringBuilder data = new StringBuilder();
+        for (RRWebEvents ev : events) {
+            String eventData = ev.getEventData();
+            //eventData 不大过2,表示只有中括号, 而且不含数据, 跳过拼接数据
+            if (eventData.length() > 2) {
+                //拆中括号"[" "]", 拼入逗号 ","
+                String sub = eventData.substring(1, eventData.length() - 1) + ',';
+                data.append(sub);
+            }
+        }
+        //拼接中括号"[ ]"
+        String result = "[" + data.substring(0, data.length() - 1) + "]";
+        return result;
+    }
 }
 
