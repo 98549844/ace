@@ -18,18 +18,16 @@ import java.io.StringWriter;
  */
 
 
-public class Ace {
+public class Ace extends CangJieUtil{
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
 
     public static void main(String[] args) throws IOException {
-
+        checkCangJieCode(null);
 
     }
 
-    private static void cangJieCheck(String code) throws IOException {
-        CangJieUtil.checkCangJieCode(code);
-    }
+
 
 }
 
