@@ -34,14 +34,12 @@ public class DataSourceRestController {
 
     @GetMapping("/get")
     public RespResult getDatasource() throws SQLException {
-        Connection connection  = dataSource.getConnection();
+        Connection connection = dataSource.getConnection();
         String url = connection.getMetaData().getURL();
-        log.info("access to get datasource: {}",url);
+        log.info("access to get datasource: {}", url);
 
-        return RespResult.success("datasource: "+url);
+        return RespResult.success("datasource: " + url);
     }
-
-
 
 
 }
