@@ -200,8 +200,8 @@ spring:
 
 
   rabbitmq:
-    #producer 生產者
-    addresses: 192.168.1.100:5672
+    #producer 生產者 ip:192.168.1.100
+    addresses: 127.0.0.1:5672
     connection-timeout: 15000
     username: admin
     password: admin
