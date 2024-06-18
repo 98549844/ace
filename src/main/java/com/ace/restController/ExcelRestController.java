@@ -7,6 +7,7 @@ import com.ace.service.DataBaseService;
 import com.ace.service.UsersService;
 import com.ace.utilities.EasyExcelUtil;
 import com.alibaba.excel.read.builder.ExcelReaderSheetBuilder;
+import com.alibaba.excel.read.metadata.ReadSheet;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,20 +29,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/easyExcel")
-//@Api(tags = "easyExcel")
-@Tag(name = "Excel")
+@Tag(name = "EasyExcel")
 public class ExcelRestController {
     private static final Logger log = LogManager.getLogger(ExcelRestController.class.getName());
 
     //final static String mac_path = "/Users/garlam/IdeaProjects/ace/src/main/resources/files/output/";
     //final static String mac_fileName = mac_path + "excel.xls";
 
-    //final static String windows_path = "C:\\Users\\Garlam.Au\\IdeaProjects\\ace\\src\\main\\resources\\files\\output\\";
-    //final static String windows_fileName = windows_path + "excel.xls";
+    final static String windows_path = "C:\\Users\\Garlam.Au\\IdeaProjects\\ace\\src\\main\\resources\\files\\output\\";
+    final static String fileName = windows_path + "excel.xls";
 
-
-    final static String windows_path = "C:\\Users\\Garlam.Au\\IdeaProjects\\ace\\src\\main\\java\\com\\ace\\winhanverky\\";
-    final static String windows_fileName = windows_path + "ORDER-TDF - FW24 - MFO.xlsx";
 
     private final DataBaseService dataBaseService;
     private final UsersService usersService;
@@ -64,23 +61,28 @@ public class ExcelRestController {
         List<Users> users = usersService.findAll();
 
         EasyExcelUtil easyExcelUtil = new EasyExcelUtil();
-        easyExcelUtil.write(windows_fileName, users, new Users());
+        easyExcelUtil.write(fileName, users, new Users());
         return RespResult.success(list);
     }
 
 
-    final static String windows_filePath ="C:\\Users\\Garlam.Au\\IdeaProjects\\ace\\src\\main\\java\\com\\ace\\winhanverky\\ORDER-TDF - FW24 - MFO.xlsx";
-    final static String sheetName ="PO Plan";
-
-
-
-    @RequestMapping(method = RequestMethod.GET, value = "read")
+    //會throw Could not initialize class com.alibaba.excel.analysis.v07.XlsxSaxAnalyser
+    //Exception java.lang.NoClassDefFoundError: org/apache/poi/util/POILogFactory
+    @RequestMapping(method = RequestMethod.GET, value = "/read")
     public RespResult read() throws ClassNotFoundException {
         EasyExcelUtil easyExcelUtil = new EasyExcelUtil();
-        easyExcelUtil.read(windows_filePath);
-        ExcelReaderSheetBuilder excelReaderSheetBuilder = easyExcelUtil.getSheet(sheetName);
+        String p = "C:\\Users\\Garlam.Au\\IdeaProjects\\ace\\src\\main\\resources\\files\\output\\ORDER-TDF-FW24-MFO.xlsx";
+        easyExcelUtil.read(p);
+        ExcelReaderSheetBuilder excelReaderSheetBuilder = easyExcelUtil.getSheet(p, "PO Plan");
 
-        return RespResult.success(excelReaderSheetBuilder);
+        ReadSheet readSheet = excelReaderSheetBuilder.build();
+        System.out.println(readSheet);
+        System.out.println("1." + readSheet.getCustomConverterList());
+        System.out.println("2." + readSheet.getCustomReadListenerList());
+        System.out.println("3." + readSheet.getHead());
+        System.out.println("4." + readSheet.getHeadRowNumber());
+
+        return RespResult.success(excelReaderSheetBuilder.build());
     }
 
 }
