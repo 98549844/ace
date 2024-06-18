@@ -6,6 +6,7 @@ import com.ace.models.entity.Users;
 import com.ace.service.DataBaseService;
 import com.ace.service.UsersService;
 import com.ace.utilities.EasyExcelUtil;
+import com.alibaba.excel.read.builder.ExcelReaderSheetBuilder;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,11 +33,18 @@ import java.util.List;
 public class ExcelRestController {
     private static final Logger log = LogManager.getLogger(ExcelRestController.class.getName());
 
-    final static String path = "/Users/garlam/IdeaProjects/ace/src/main/resources/files/output/";
-    final static String fileName = path + "excel.xls";
+    //final static String mac_path = "/Users/garlam/IdeaProjects/ace/src/main/resources/files/output/";
+    //final static String mac_fileName = mac_path + "excel.xls";
 
-    private DataBaseService dataBaseService;
-    private UsersService usersService;
+    //final static String windows_path = "C:\\Users\\Garlam.Au\\IdeaProjects\\ace\\src\\main\\resources\\files\\output\\";
+    //final static String windows_fileName = windows_path + "excel.xls";
+
+
+    final static String windows_path = "C:\\Users\\Garlam.Au\\IdeaProjects\\ace\\src\\main\\java\\com\\ace\\winhanverky\\";
+    final static String windows_fileName = windows_path + "ORDER-TDF - FW24 - MFO.xlsx";
+
+    private final DataBaseService dataBaseService;
+    private final UsersService usersService;
 
 
     @Autowired
@@ -45,7 +53,7 @@ public class ExcelRestController {
         this.usersService = usersService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{table}")
+    @RequestMapping(method = RequestMethod.GET, value = "/generate/{table}")
     public RespResult generateTableToExcel(@PathVariable String table) throws ClassNotFoundException {
 
         List<Columns> list = dataBaseService.getColumnName(table);
@@ -56,12 +64,24 @@ public class ExcelRestController {
         List<Users> users = usersService.findAll();
 
         EasyExcelUtil easyExcelUtil = new EasyExcelUtil();
-        easyExcelUtil.write(fileName, users, new Users());
-        // write(users);
-
+        easyExcelUtil.write(windows_fileName, users, new Users());
         return RespResult.success(list);
     }
 
+
+    final static String windows_filePath ="C:\\Users\\Garlam.Au\\IdeaProjects\\ace\\src\\main\\java\\com\\ace\\winhanverky\\ORDER-TDF - FW24 - MFO.xlsx";
+    final static String sheetName ="PO Plan";
+
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "read")
+    public RespResult read() throws ClassNotFoundException {
+        EasyExcelUtil easyExcelUtil = new EasyExcelUtil();
+        easyExcelUtil.read(windows_filePath);
+        ExcelReaderSheetBuilder excelReaderSheetBuilder = easyExcelUtil.getSheet(sheetName);
+
+        return RespResult.success(excelReaderSheetBuilder);
+    }
 
 }
 
