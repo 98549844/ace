@@ -66,14 +66,27 @@ public class ExcelRestController {
     }
 
 
+    final static String xlsFile = "C:\\Users\\Garlam.Au\\IdeaProjects\\ace\\src\\main\\resources\\files\\output\\excel.xls";
+    final static String xlsSheetName = "template";
+
+    final static String xlsxFile = "C:\\Users\\Garlam.Au\\IdeaProjects\\ace\\src\\main\\resources\\files\\output\\ORDER-TDF-FW24-MFO.xlsx";
+    final static String xlsxSheetName = "PO Plan";
+
     //會throw Could not initialize class com.alibaba.excel.analysis.v07.XlsxSaxAnalyser
     //Exception java.lang.NoClassDefFoundError: org/apache/poi/util/POILogFactory
-    @RequestMapping(method = RequestMethod.GET, value = "/read")
-    public RespResult read() throws ClassNotFoundException {
+    @RequestMapping(method = RequestMethod.GET, value = "/read/{order}")
+    public RespResult read(@PathVariable int order) throws ClassNotFoundException {
+        String p = xlsFile;
+        String sheetName = xlsSheetName;
+
+        if (order == 1) {
+            p = xlsxFile;
+            sheetName = xlsxSheetName;
+        }
+
         EasyExcelUtil easyExcelUtil = new EasyExcelUtil();
-        String p = "C:\\Users\\Garlam.Au\\IdeaProjects\\ace\\src\\main\\resources\\files\\output\\ORDER-TDF-FW24-MFO.xlsx";
         easyExcelUtil.read(p);
-        ExcelReaderSheetBuilder excelReaderSheetBuilder = easyExcelUtil.getSheet(p, "PO Plan");
+        ExcelReaderSheetBuilder excelReaderSheetBuilder = easyExcelUtil.getSheet(p, sheetName);
 
         ReadSheet readSheet = excelReaderSheetBuilder.build();
         System.out.println(readSheet);
