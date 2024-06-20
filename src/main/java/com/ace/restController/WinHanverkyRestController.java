@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import redis.clients.jedis.Connection;
 import redis.clients.jedis.Jedis;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Classname: WinHanverkyRestController
@@ -30,9 +28,31 @@ public class WinHanverkyRestController {
 
     final static String KEYS = "KEYS *";
 
+
+    @Operation(summary = "get All Keys", description = "* for match symbol <br>" + "password: #R%diS@li%356* / #R%diS@li%356*UaT <br>" + "uat internet host: r-3nsqfv3t3vt73sw531.redis.rds.aliyuncs.com <br>" + "uat outernet host: r-3nsqfv3t3vt73sw531pd.redis.rds.aliyuncs.com  <br>" + "prod internet host: r-3nse6ueaxcd8hjmyf0.redis.rds.aliyuncs.com <br>" + "prod outernet host: r-3nse6ueaxcd8hjmyf0pd.redis.rds.aliyuncs.com <br>")
+    @RequestMapping(method = RequestMethod.GET, value = "/getAllKeys")
+    public RespResult getAllKeys(@RequestParam(value = "host", required = false) String host, @RequestParam(value = "port", required = false) Integer port, @RequestParam(value = "password", required = false) String password) {
+        host = host == null ? "localhost" : host;
+        port = port == null ? 6379 : port;
+
+        //outer net
+        Jedis jedis = new Jedis(host, port);
+        // 认证，如果需要的话
+        if (NullUtil.isNonNull(password)) {
+            jedis.auth(password);
+        }
+        jedis.connect();
+        Set<String> keys = jedis.keys("*");
+        List<String> result = new ArrayList<>();
+        for (String k : keys) {
+            result.add("key:" + k + "-" + "type:" + jedis.type(k));
+        }
+        return RespResult.success(result);
+    }
+
     @Operation(summary = "get Redis KeyValue", description = "* for match symbol <br>" + "password: #R%diS@li%356* / #R%diS@li%356*UaT <br>" + "uat internet host: r-3nsqfv3t3vt73sw531.redis.rds.aliyuncs.com <br>" + "uat outernet host: r-3nsqfv3t3vt73sw531pd.redis.rds.aliyuncs.com  <br>" + "prod internet host: r-3nse6ueaxcd8hjmyf0.redis.rds.aliyuncs.com <br>" + "prod outernet host: r-3nse6ueaxcd8hjmyf0pd.redis.rds.aliyuncs.com <br>")
     @RequestMapping(method = RequestMethod.GET, value = "/get")
-    public RespResult getRedisKeysValues(@RequestParam(value = "host", required = false) String host, @RequestParam(value = "port", required = false) Integer port, @RequestParam(value = "password", required = false) String password, @RequestParam(value = "key", required = false) String key, @RequestParam(value = "outputResult", required = false) String outputResult) throws Exception {
+    public RespResult getKeysValues(@RequestParam(value = "host", required = false) String host, @RequestParam(value = "port", required = false) Integer port, @RequestParam(value = "password", required = false) String password, @RequestParam(value = "key", required = false) String key, @RequestParam(value = "outputResult", required = false) String outputResult) throws Exception {
         host = host == null ? "localhost" : host;
         port = port == null ? 6379 : port;
         key = key == null ? KEYS : key;
@@ -80,6 +100,7 @@ public class WinHanverkyRestController {
         return RespResult.success(result);
     }
 
+
     final static String STRING = "string";
     final static String HASH = "hash";
     final static String LIST = "list";
@@ -93,7 +114,7 @@ public class WinHanverkyRestController {
             case STRING -> jedis.get(key);
             case HASH -> jedis.hgetAll(key); //二維空間數組
             case LIST -> jedis.lrange(key, 0, -1);
-                // 第一个是key，第二个是起始位置，第三个是结束位置，jedis.llen获取长度 -1表示取得所有
+            // 第一个是key，第二个是起始位置，第三个是结束位置，jedis.llen获取长度 -1表示取得所有
             case SET -> jedis.smembers(key);
             case STREAM -> "STREAM沒有處理";
             default -> new Object();
