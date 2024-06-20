@@ -20,7 +20,8 @@ services:
     hostname: application
     # restart: always
     volumes:
-      - /Users/garlam/docker/ace/:/opt/workspace/ace/
+      #  - /Users/garlam/docker/ace/:/opt/workspace/ace/
+      - C:\ace\:/opt/workspace/ace/
     ports:
       - 8090:8090
     depends_on:
@@ -48,7 +49,7 @@ services:
       ace-net:
         ipv4_address: 172.25.0.11
 
-# for ace-application 开发环境使用
+  # for ace-application 开发环境使用
   mysql-dev:
     image: mysql:latest
     container_name: mysql-dev

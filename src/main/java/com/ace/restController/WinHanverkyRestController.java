@@ -42,17 +42,20 @@ public class WinHanverkyRestController {
             jedis.auth(password);
         }
         jedis.connect();
+        if(!jedis.isConnected()){
+            return RespResult.success("Redis connection fail !");
+        }
         Set<String> keys = jedis.keys("*");
         List<String> result = new ArrayList<>();
         for (String k : keys) {
-            result.add("key:" + k + "-" + "type:" + jedis.type(k));
+            result.add("key:" + k + "  " + "type:" + jedis.type(k));
         }
         return RespResult.success(result);
     }
 
-    @Operation(summary = "get Redis KeyValue", description = "* for match symbol <br>" + "password: #R%diS@li%356* / #R%diS@li%356*UaT <br>" + "uat internet host: r-3nsqfv3t3vt73sw531.redis.rds.aliyuncs.com <br>" + "uat outernet host: r-3nsqfv3t3vt73sw531pd.redis.rds.aliyuncs.com  <br>" + "prod internet host: r-3nse6ueaxcd8hjmyf0.redis.rds.aliyuncs.com <br>" + "prod outernet host: r-3nse6ueaxcd8hjmyf0pd.redis.rds.aliyuncs.com <br>")
+    @Operation(summary = "get Redis KeyValue", description = "* for match symbol <br>" + "password: #R%diS@li%356* / #R%diS@li%356*UaT <br>" + "uat internet host: r-3nsqfv3t3vt73sw531.redis.rds.aliyuncs.com <br>" + "uat outernet host: r-3nsqfv3t3vt73sw531pd.redis.rds.aliyuncs.com  <br>" + "prod internet host: r-3nse6ueaxcd8hjmyf0.redis.rds.aliyuncs.com <br>" + "prod outernet host: r-3nse6ueaxcd8hjmyf0pd.redis.rds.aliyuncs.com <br>"+"output result save in \\\\H018FE0100519\\ace\\misc\\result.txt <br>")
     @RequestMapping(method = RequestMethod.GET, value = "/get")
-    public RespResult getKeysValues(@RequestParam(value = "host", required = false) String host, @RequestParam(value = "port", required = false) Integer port, @RequestParam(value = "password", required = false) String password, @RequestParam(value = "key", required = false) String key, @RequestParam(value = "outputResult", required = false) String outputResult) throws Exception {
+    public RespResult getKeysValues(@RequestParam(value = "host", required = false) String host, @RequestParam(value = "port", required = false) Integer port, @RequestParam(value = "password", required = false) String password, @RequestParam(value = "key", required = false) String key, @RequestParam(value = "output", required = false) boolean output) throws Exception {
         host = host == null ? "localhost" : host;
         port = port == null ? 6379 : port;
         key = key == null ? KEYS : key;
@@ -64,6 +67,9 @@ public class WinHanverkyRestController {
             jedis.auth(password);
         }
         jedis.connect();
+        if(!jedis.isConnected()){
+            return RespResult.success("Redis connection fail !");
+        }
 
         Map result = new LinkedHashMap();
         result.put("host", host);
@@ -89,14 +95,11 @@ public class WinHanverkyRestController {
         // 关闭连接
         jedis.close();
 
-        if (NullUtil.isNonNull(outputResult)) {
+        if (output) {
             String fileName = "result.txt";
-            String file = outputResult + fileName;
-            FileUtil.mkDirs(file);
-            FileUtil.write(outputResult, fileName, result.get("result"), false);
+            String filePath = "/opt/workspace/ace/misc/";
+            FileUtil.write(filePath, fileName, result.get("result"), false);
         }
-
-
         return RespResult.success(result);
     }
 
