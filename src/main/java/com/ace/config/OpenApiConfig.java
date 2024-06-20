@@ -4,12 +4,18 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springdoc.core.customizers.OpenApiCustomizer;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 /**
  * @Classname: OpenApiConfig
@@ -44,5 +50,39 @@ public class OpenApiConfig {
                         .license(new License().name("Apache 2.0")
                         .url("https://AceApplication.com/ace")));
     }
+
+    @Bean
+    public GroupedOpenApi winHanverkyApi() {
+        return GroupedOpenApi.builder()
+                .group("Win-Hanverky")
+                .pathsToMatch("/rest/winhanvery/**")
+                .packagesToScan("com.ace.restController.WinHanverkyRestController")
+               // .addOpenApiCustomizer(sortTagsAlphabetically())
+                .build();
+    }
+
+    //.pathsToMatch 和 .packagesToScan 是or的關係
+    @Bean
+    public GroupedOpenApi aceApi() {
+        return GroupedOpenApi.builder()
+                .group("Ace-Application")
+                .pathsToMatch("/rest/**")
+                .packagesToScan("com.ace.restController.*")
+               // .addOpenApiCustomizer(sortTagsAlphabetically())
+                .build();
+    }
+
+    //按字母顺序
+    //https://blog.csdn.net/neusoft2016/article/details/130975683
+    //openApi.getTags() is null 未解決
+    private OpenApiCustomizer sortTagsAlphabetically() {
+        return openApi -> openApi.setTags(openApi.getTags()
+                .stream()
+                .sorted(Comparator.comparing(tag -> StringUtils.stripAccents(tag.getName())))
+                .collect(Collectors.toList()));
+    }
+
+
+
 }
 

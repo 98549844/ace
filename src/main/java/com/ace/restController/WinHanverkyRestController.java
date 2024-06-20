@@ -1,13 +1,17 @@
 package com.ace.restController;
 
 import com.ace.models.common.RespResult;
-import com.ace.utilities.*;
+import com.ace.utilities.FastJson2Util;
+import com.ace.utilities.FileUtil;
+import com.ace.utilities.NullUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.web.bind.annotation.*;
-import redis.clients.jedis.Connection;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import redis.clients.jedis.Jedis;
 
 import java.util.*;
@@ -27,7 +31,6 @@ public class WinHanverkyRestController {
     private static final Logger log = LogManager.getLogger(WinHanverkyRestController.class.getName());
 
     final static String KEYS = "KEYS *";
-
 
     @Operation(summary = "get All Keys", description = "* for match symbol <br>" + "password: #R%diS@li%356* / #R%diS@li%356*UaT <br>" + "uat internet host: r-3nsqfv3t3vt73sw531.redis.rds.aliyuncs.com <br>" + "uat outernet host: r-3nsqfv3t3vt73sw531pd.redis.rds.aliyuncs.com  <br>" + "prod internet host: r-3nse6ueaxcd8hjmyf0.redis.rds.aliyuncs.com <br>" + "prod outernet host: r-3nse6ueaxcd8hjmyf0pd.redis.rds.aliyuncs.com <br>")
     @RequestMapping(method = RequestMethod.GET, value = "/getAllKeys")
@@ -53,7 +56,7 @@ public class WinHanverkyRestController {
         return RespResult.success(result);
     }
 
-    @Operation(summary = "get Redis KeyValue", description = "* for match symbol <br>" + "password: #R%diS@li%356* / #R%diS@li%356*UaT <br>" + "uat internet host: r-3nsqfv3t3vt73sw531.redis.rds.aliyuncs.com <br>" + "uat outernet host: r-3nsqfv3t3vt73sw531pd.redis.rds.aliyuncs.com  <br>" + "prod internet host: r-3nse6ueaxcd8hjmyf0.redis.rds.aliyuncs.com <br>" + "prod outernet host: r-3nse6ueaxcd8hjmyf0pd.redis.rds.aliyuncs.com <br>"+"output result save in \\\\H018FE0100519\\ace\\misc\\result.txt <br>")
+    @Operation(summary = "get Redis KeyValue", description = "* for match symbol <br>" + "password: #R%diS@li%356* / #R%diS@li%356*UaT <br>" + "uat internet host: r-3nsqfv3t3vt73sw531.redis.rds.aliyuncs.com <br>" + "uat outernet host: r-3nsqfv3t3vt73sw531pd.redis.rds.aliyuncs.com  <br>" + "prod internet host: r-3nse6ueaxcd8hjmyf0.redis.rds.aliyuncs.com <br>" + "prod outernet host: r-3nse6ueaxcd8hjmyf0pd.redis.rds.aliyuncs.com <br>"+"output result save in \\ \\H018FE0100519\\ace\\misc\\result.txt <br>")
     @RequestMapping(method = RequestMethod.GET, value = "/get")
     public RespResult getKeysValues(@RequestParam(value = "host", required = false) String host, @RequestParam(value = "port", required = false) Integer port, @RequestParam(value = "password", required = false) String password, @RequestParam(value = "key", required = false) String key, @RequestParam(value = "output", required = false) boolean output) throws Exception {
         host = host == null ? "localhost" : host;
@@ -111,7 +114,7 @@ public class WinHanverkyRestController {
     //final static String
     final static String STREAM = "stream";
 
-    private Object getValue(Jedis jedis, String type, String key) throws Exception {
+    private Object getValue(Jedis jedis, String key, String type) throws Exception {
         System.out.println("key: " + key + " type: " + type);
         return switch (type) {
             case STRING -> jedis.get(key);
