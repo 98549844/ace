@@ -63,7 +63,11 @@ public class RedisRestController {
     @Operation(summary = "Check key exist")
     @RequestMapping(method = RequestMethod.GET, value = "/exist/{key}")
     public RespResult exist(@PathVariable(value = "key") String key) {
-        return RespResult.success(redisService.keyExists(key));
+        if (redisService.keyExists(key)) {
+            return RespResult.success("key exist");
+        }else{
+            return RespResult.success("key not exist !");
+        }
     }
 
     @Operation(summary = "Delete", description = "xxx for single, using ',' for split, xxx,xxx,xxx... for multi !!!")
@@ -104,7 +108,7 @@ public class RedisRestController {
         return RespResult.success(result);
     }
 
-    @Operation(summary = "Get all types")
+    @Operation(summary = "Get types")
     @RequestMapping(method = RequestMethod.GET, value = "/getAllTypes")
     public RespResult getTypes() {
         Set<String> keys = redisService.getKeys();
@@ -155,17 +159,6 @@ public class RedisRestController {
         return RespResult.success(redisService.clearAll());
     }
 
-    @Operation(summary = "GetVersion")
-    @RequestMapping(method = RequestMethod.GET, value = "/getVersion")
-    public String getVersion() {
-        redisService.set("ace", "<<< ace >>>");
-        redisService.set("version", "版本 3.0", 10);
-        System.out.println(redisService.get("ace"));
-        System.out.println(redisService.get("version"));
-
-        return redisService.get("ace") + ":" + redisService.get("version");
-    }
-
 
     @Operation(summary = "Get users by redis")
     @RequestMapping(method = RequestMethod.GET, value = "/getUsersByRedis")
@@ -186,7 +179,7 @@ public class RedisRestController {
         return RespResult.success(ls);
     }
 
-    @Operation(summary = "redis connection status")
+    @Operation(summary = "Redis connection status")
     @RequestMapping(method = RequestMethod.GET, value = "/getConnection")
     public RespResult connection() {
         String status;

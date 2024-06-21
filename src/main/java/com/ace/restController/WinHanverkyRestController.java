@@ -34,9 +34,12 @@ public class WinHanverkyRestController {
 
     @Operation(summary = "get All Keys", description = "* for match symbol <br>" + "password: #R%diS@li%356* / #R%diS@li%356*UaT <br>" + "uat internet host: r-3nsqfv3t3vt73sw531.redis.rds.aliyuncs.com <br>" + "uat outernet host: r-3nsqfv3t3vt73sw531pd.redis.rds.aliyuncs.com  <br>" + "prod internet host: r-3nse6ueaxcd8hjmyf0.redis.rds.aliyuncs.com <br>" + "prod outernet host: r-3nse6ueaxcd8hjmyf0pd.redis.rds.aliyuncs.com <br>")
     @RequestMapping(method = RequestMethod.GET, value = "/getAllKeys")
-    public RespResult getAllKeys(@RequestParam(value = "host", required = false) String host, @RequestParam(value = "port", required = false) Integer port, @RequestParam(value = "password", required = false) String password) {
+    public RespResult getAllKeys(@RequestParam(value = "host", required = false) String host,
+                                 //@RequestParam(value = "port", required = false) Integer port,
+                                 @RequestParam(value = "password", required = false) String password) {
         host = host == null ? "localhost" : host;
-        port = port == null ? 6379 : port;
+        //port = port == null ? 6379 : port;
+        int port = 6379;
 
         //outer net
         Jedis jedis = new Jedis(host, port);
@@ -58,9 +61,14 @@ public class WinHanverkyRestController {
 
     @Operation(summary = "get Redis KeyValue", description = "* for match symbol <br>" + "password: #R%diS@li%356* / #R%diS@li%356*UaT <br>" + "uat internet host: r-3nsqfv3t3vt73sw531.redis.rds.aliyuncs.com <br>" + "uat outernet host: r-3nsqfv3t3vt73sw531pd.redis.rds.aliyuncs.com  <br>" + "prod internet host: r-3nse6ueaxcd8hjmyf0.redis.rds.aliyuncs.com <br>" + "prod outernet host: r-3nse6ueaxcd8hjmyf0pd.redis.rds.aliyuncs.com <br>"+"output result save in \\ \\H018FE0100519\\ace\\misc\\result.txt <br>")
     @RequestMapping(method = RequestMethod.GET, value = "/get")
-    public RespResult getKeysValues(@RequestParam(value = "host", required = false) String host, @RequestParam(value = "port", required = false) Integer port, @RequestParam(value = "password", required = false) String password, @RequestParam(value = "key", required = false) String key, @RequestParam(value = "output", required = false) boolean output) throws Exception {
+    public RespResult getKeysValues(@RequestParam(value = "host", required = false) String host,
+                                    //@RequestParam(value = "port", required = false) Integer port,
+                                    @RequestParam(value = "password", required = false) String password,
+                                    @RequestParam(value = "key", required = false) String key,
+                                    @RequestParam(value = "output", required = false) boolean output) throws Exception {
         host = host == null ? "localhost" : host;
-        port = port == null ? 6379 : port;
+        //port = port == null ? 6379 : port;
+        int port = 6379;
         key = key == null ? KEYS : key;
 
         //outer net
