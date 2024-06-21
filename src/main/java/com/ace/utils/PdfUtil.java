@@ -1,12 +1,12 @@
-package com.ace.util;
+package com.ace.utils;
 
+import com.ace.utilities.NullUtil;
+import com.ace.utilities.RandomUtil;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Image;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.*;
-import com.ace.utilities.NullUtil;
-import com.ace.utilities.RandomUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.pdfbox.pdmodel.PDDocument;

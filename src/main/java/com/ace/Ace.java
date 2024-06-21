@@ -1,14 +1,10 @@
 package com.ace;
 
-import com.ace.controller.common.CommonController;
-import com.ace.util.CangJieUtil;
-import com.alibaba.fastjson2.JSON;
+import com.ace.utils.CangJieUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 /**
  * @Classname: Ace

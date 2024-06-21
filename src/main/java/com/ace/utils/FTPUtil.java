@@ -1,4 +1,4 @@
-package com.ace.util;
+package com.ace.utils;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
@@ -16,10 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Classname: FTPUtil
- * @Date: 2023/2/6 下午 05:22
- * @Author: kalam_au
- * @Description:
+ * ace-utilities.FTPUtils 未被承繼
  */
 
 //@Component
@@ -116,7 +113,7 @@ public class FTPUtil {
                 }
             }
         } catch (IOException e) {
-            log.error("错误" + e);
+            log.error("错误: {}", e.getMessage());
         }
         return list;
     }
@@ -152,7 +149,7 @@ public class FTPUtil {
                 log.info("FTP连接成功!");
             }
         } catch (Exception e) {
-            log.info("登陆FTP失败，请检查FTP相关配置信息是否正确！" + e);
+            log.error("登陆FTP失败,请检查FTP相关配置信息是否正确! {}", e.getMessage());
             Assert.isTrue(false, ERROR_CONN + e.getMessage());
             return null;
         }
@@ -191,25 +188,5 @@ public class FTPUtil {
         return flag;
     }
 }
-
-/*
-@RestController
-@RequestMapping("/test")
-public class TestController {
-    @Autowired
-    private FTPUtils ftpUtils;
-
-    *//**
- * 读取ftp上的pdf文件
- *//*
-    @GetMapping("/readPdfFile")
-    public void readPdfFile(HttpServletResponse resp, String path) throws Exception {
-        valid(path);
-        //直接返回pdf
-        ftpUtils.readFile(path,resp);
-        String filename = path.substring(path.lastIndexOf("/")+1);
-        resp.setContentType("application/pdf;charset=UTF-8");
-        resp.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, "utf-8"));
-    }*/
 
 

@@ -3,7 +3,7 @@ package com.ace.service;
 import com.ace.dao.ReportsDao;
 import com.ace.models.entity.Reports;
 import com.ace.models.info.ReportsInfo;
-import com.ace.util.BeanUtil;
+import com.ace.utils.BeanUtil;
 import com.ace.utilities.ListUtil;
 import com.ace.utilities.NullUtil;
 import jakarta.persistence.EntityManager;

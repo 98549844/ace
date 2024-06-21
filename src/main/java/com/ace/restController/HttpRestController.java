@@ -2,7 +2,7 @@ package com.ace.restController;
 
 import com.ace.controller.common.CommonController;
 import com.ace.models.common.RespResult;
-import com.ace.util.HttpUtil;
+import com.ace.utils.HttpUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

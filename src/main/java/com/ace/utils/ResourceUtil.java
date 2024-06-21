@@ -1,8 +1,8 @@
-package com.ace.util;
+package com.ace.utils;
 
 import com.ace.constant.AceEnvironment;
-import com.ace.controller.common.CommonController;
 import com.ace.utilities.FileUtil;
+import com.ace.utilities.ResourcesUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.Resource;
@@ -18,7 +18,6 @@ import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
 import java.util.jar.JarFile;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 
@@ -31,7 +30,7 @@ import java.util.zip.ZipEntry;
  */
 
 @Component
-public class ResourceUtil extends CommonController {
+public class ResourceUtil extends ResourcesUtil {
     private static final Logger log = LogManager.getLogger(ResourceUtil.class.getName());
 
     private final String tmpPath; // 文件临时保存路径
@@ -127,7 +126,7 @@ public class ResourceUtil extends CommonController {
      */
     private void copyJarResourcesFileToTemp(URI path, String tempPath, String filePrefix) {
         try {
-            List<Map.Entry<ZipEntry, InputStream>> collect = readJarFile(new JarFile(path.getPath()), filePrefix).collect(Collectors.toList());
+            List<Map.Entry<ZipEntry, InputStream>> collect = readJarFile(new JarFile(path.getPath()), filePrefix).toList();
             for (Map.Entry<ZipEntry, InputStream> entry : collect) {
                 // 文件相对路径
                 String key = entry.getKey().getName();

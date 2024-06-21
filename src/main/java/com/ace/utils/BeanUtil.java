@@ -1,4 +1,4 @@
-package com.ace.util;
+package com.ace.utils;
 
 import com.ace.AceApplication;
 import com.ace.utilities.NullUtil;

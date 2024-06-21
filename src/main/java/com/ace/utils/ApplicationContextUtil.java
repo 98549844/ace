@@ -1,4 +1,4 @@
-package com.ace.util;
+package com.ace.utils;
 
 import com.ace.AceApplication;
 import org.apache.logging.log4j.LogManager;

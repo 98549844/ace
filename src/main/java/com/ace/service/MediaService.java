@@ -6,7 +6,7 @@ import com.ace.models.common.TranscodeConfig;
 import com.ace.models.entity.Roles;
 import com.ace.models.entity.Users;
 import com.ace.utilities.*;
-import com.ace.util.FFmpegUtil;
+import com.ace.utils.FFmpegUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,5 @@
 package com.ace.models.entity;
 
-import com.ace.constant.AceEnvironment;
 import com.ace.models.entity.base.BaseEntity;
 import com.ace.utilities.Console;
 import com.ace.utilities.OsUtil;

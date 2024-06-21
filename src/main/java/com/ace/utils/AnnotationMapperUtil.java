@@ -1,4 +1,4 @@
-package com.ace.util;
+package com.ace.utils;
 
 import com.ace.AceApplication;
 import org.apache.logging.log4j.LogManager;
@@ -11,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Method;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

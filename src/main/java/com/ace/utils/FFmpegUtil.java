@@ -1,10 +1,10 @@
-package com.ace.util;
+package com.ace.utils;
 
+import com.ace.utilities.StringUtil;
+import com.ace.utilities.SystemUtil;
 import com.google.gson.Gson;
 import com.ace.models.common.MediaInfo;
 import com.ace.models.common.TranscodeConfig;
-import com.ace.utilities.StringUtil;
-import com.ace.utilities.SystemUtil;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

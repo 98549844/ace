@@ -4,9 +4,9 @@ import cn.dev33.satoken.SaManager;
 import com.ace.config.AceConfig;
 import com.ace.config.BrowserConfig;
 import com.ace.constant.AceEnvironment;
-import com.ace.util.*;
 import com.ace.utilities.GetterSetterUtil;
 import com.ace.utilities.MapUtil;
+import com.ace.utils.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mybatis.spring.annotation.MapperScan;
@@ -34,7 +34,7 @@ import java.io.IOException;
         属于Spring框架(@Component,@Service,@Controller,@Repository,@Entity), 扫描范围默认情况下是启动类坐在的同名包及其子孙包
 */
 @SpringBootApplication
-@ComponentScan({"com", "com.ace.util"}) //扫描当前包及其子包
+@ComponentScan({"com", "com.ace.utils"}) //扫描当前包及其子包
 @MapperScan("com.ace.mapper") //扫描mapper接口
 @EnableTransactionManagement //开启事务管理
 @EnableCaching //开启缓存

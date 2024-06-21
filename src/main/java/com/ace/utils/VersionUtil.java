@@ -1,10 +1,15 @@
-package com.ace.util;
+package com.ace.utils;
 
 import com.ace.utilities.Console;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringBootVersion;
 import org.springframework.core.SpringVersion;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.ace.tools.MavenTool.*;
 
 /**
  * @Classname: SpringUtil
@@ -31,6 +36,13 @@ public class VersionUtil {
         Console.println("Spring Boot Version: " + SpringBootVersion.getVersion(), Console.BOLD);
     }
 
+    public static void getThymeleafVersion() {
+        String command = "dependency:list -DincludeArtifactIds=thymeleaf";
+        List<String> commands = new ArrayList<>();
+        commands.add(mavenWindowsHome);
+        commands.add(command);
+        run(preparedCommands(commands));
+    }
 
 }
 

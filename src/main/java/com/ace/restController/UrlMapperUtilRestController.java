@@ -1,7 +1,7 @@
 package com.ace.restController;
 
 import com.ace.models.common.RespResult;
-import com.ace.util.AnnotationMapperUtil;
+import com.ace.utils.AnnotationMapperUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

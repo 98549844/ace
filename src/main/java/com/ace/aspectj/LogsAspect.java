@@ -2,17 +2,12 @@ package com.ace.aspectj;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.aspectj.lang.annotation.Aspect;
-import org.springframework.stereotype.Component;
 import com.ace.controller.common.CommonController;
 import com.ace.models.entity.AceLogs;
 import com.ace.service.AceLogsService;
 import com.ace.utilities.PathUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.PrintWriter;

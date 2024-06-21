@@ -1,14 +1,14 @@
 package com.ace.config;
 
 
-import com.ace.util.BeanUtil;
+import com.ace.utils.BeanUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import com.ace.utilities.Console;
 import com.ace.utilities.TypeUtil;
-import com.ace.util.IpUtil;
+import com.ace.utils.IpUtil;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

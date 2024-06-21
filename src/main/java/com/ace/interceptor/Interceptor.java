@@ -1,17 +1,14 @@
 package com.ace.interceptor;
 
-import com.ace.util.IpUtil;
+import com.ace.utils.IpUtil;
 import com.ace.utilities.Console;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
 
 /**
  * @Classname: Interceptor

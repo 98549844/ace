@@ -1,7 +1,7 @@
 package com.ace.restController;
 
 import com.ace.api.Response;
-import com.ace.util.IpUtil;
+import com.ace.utils.IpUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;

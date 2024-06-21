@@ -3,7 +3,7 @@ package com.ace.restController;
 import com.ace.models.common.RespResult;
 import com.ace.models.entity.PushMessage;
 import com.ace.service.NotificationService;
-import com.ace.util.SseEmitterServer;
+import com.ace.utils.SseEmitterServer;
 import com.ace.utilities.NullUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
