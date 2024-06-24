@@ -68,7 +68,7 @@ public class RedisRestController {
         }else{
             return RespResult.success("key not exist !");
         }
-    }
+   }
 
     @Operation(summary = "Delete", description = "xxx for single, using ',' for split, xxx,xxx,xxx... for multi !!!")
     @RequestMapping(method = RequestMethod.GET, value = "/delete")
@@ -82,7 +82,6 @@ public class RedisRestController {
     @Operation(summary = "Get value by key")
     @RequestMapping(method = RequestMethod.GET, value = "/get/{key}")
     public RespResult getValueByKey(@PathVariable(value = "key") String key) {
-        //  return AjaxResponse.success(redisService.get(key));
         Object obj = redisService.get(key);
         String result = FastJson2Util.ObjectToJson(obj);
         System.out.println(result);
