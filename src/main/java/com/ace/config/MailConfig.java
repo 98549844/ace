@@ -2,6 +2,7 @@ package com.ace.config;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -20,14 +21,24 @@ import java.util.Properties;
 public class MailConfig {
     private static final Logger log = LogManager.getLogger(MailConfig.class.getName());
 
+    @Value("${ace.mail.username}")
+    private String from;
+    @Value("${ace.mail.password}")
+    private String password;
+    @Value("${ace.mail.host}")
+    private String host;
+    @Value("${ace.mail.port}")
+    private int port;
+
+
     @Bean
     public JavaMailSender getJavaMailOutlookSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.office365.com");
-        mailSender.setPort(587);
+        mailSender.setHost(host);
+        mailSender.setPort(port);
 
-        mailSender.setUsername("garlam.au@win-hanverky.com.hk");
-        mailSender.setPassword("P@ssw0rd1122");
+        mailSender.setUsername(from);
+        mailSender.setPassword(password);
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.smtp.auth", "true");
