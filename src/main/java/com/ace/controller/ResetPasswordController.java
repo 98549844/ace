@@ -32,8 +32,8 @@ import jakarta.servlet.http.HttpSession;
 public class ResetPasswordController extends CommonController {
     private static final Logger log = LogManager.getLogger(ResetPasswordController.class.getName());
 
-    @Value("${spring.mail.username}")
-    private String from;
+    //@Value("${spring.mail.username}")
+    private String from = "未設置";
     private final UsersService usersService;
     private final JavaMailSender javaMailSender;
 

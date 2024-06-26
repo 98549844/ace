@@ -57,7 +57,14 @@ public class OpenApiConfig {
                 .group("Win-Hanverky")
                 .pathsToMatch("/rest/winhanvery/**")
                 .packagesToScan("com.ace.restController.WinHanverkyRestController")
-               // .addOpenApiCustomizer(sortTagsAlphabetically())
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi mailApi() {
+        return GroupedOpenApi.builder()
+                .group("Mail")
+                .pathsToMatch("/rest/mail/**")
                 .build();
     }
 
@@ -68,21 +75,8 @@ public class OpenApiConfig {
                 .group("Ace-Application")
                 .pathsToMatch("/rest/**")
                 .packagesToScan("com.ace.restController.*")
-               // .addOpenApiCustomizer(sortTagsAlphabetically())
                 .build();
     }
-
-    //按字母顺序
-    //https://blog.csdn.net/neusoft2016/article/details/130975683
-    //openApi.getTags() is null 未解決
-    private OpenApiCustomizer sortTagsAlphabetically() {
-        return openApi -> openApi.setTags(openApi.getTags()
-                .stream()
-                .sorted(Comparator.comparing(tag -> StringUtils.stripAccents(tag.getName())))
-                .collect(Collectors.toList()));
-    }
-
-
 
 }
 

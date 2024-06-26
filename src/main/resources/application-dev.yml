@@ -70,21 +70,23 @@ spring:
     password: root
 
 
+#  由MailConfig.java配置
+#  mail:
+#    host: smtp.qq.com
+#    username: 87548744@qq.com
+#    password: pcwasirqmgpkcbbi
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#            required: true
+#    default-encoding: UTF-8
+#    port: 465
+#    protocol: smtps
 
-  mail:
-    host: smtp.qq.com
-    username: 87548744@qq.com
-    password: pcwasirqmgpkcbbi
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
-    default-encoding: UTF-8
-    port: 465
-    protocol: smtps
+
 
   mvc:
     static-path-pattern: /static/** # js ,css 等静态文件路径

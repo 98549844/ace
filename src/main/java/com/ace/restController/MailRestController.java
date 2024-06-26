@@ -30,15 +30,15 @@ import java.io.File;
  */
 
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/rest/mail")
 @Tag(name = "Mail")
 public class MailRestController {
     private static final Logger log = LogManager.getLogger(MailRestController.class.getName());
 
     private final JavaMailSender javaMailSender;
 
-    @Value("${spring.mail.username}")
-    private String from;
+    //@Value("${spring.mail.username}")
+    //private String from;
 
     @Autowired
     public MailRestController(JavaMailSender javaMailSender) {
@@ -46,22 +46,20 @@ public class MailRestController {
     }
 
     @Operation(summary = "Sample mail")
-    @PostMapping("/mail.html")
+    @PostMapping("/sample.html")
     public RespResult sendEmail(@RequestBody Email email) {
         String status;
         try {
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(from);
+            message.setFrom(email.getFrom());
             message.setTo(email.getTo()); // 接收地址
             message.setSubject(email.getSubject()); // 标题
-            message.setText(email.getContent().toString()); // 内容
+            message.setText(email.getContent()); // 内容
             javaMailSender.send(message);
-            status = "success";
-            return RespResult.success(status);
+            return RespResult.success(RespResult.SUCCESS);
         } catch (Exception e) {
-            status = e.getMessage();
             e.printStackTrace();
-            return RespResult.error(new ResponseException(status));
+            return RespResult.error(new ResponseException(e.getMessage()));
         }
 
     }
@@ -74,7 +72,7 @@ public class MailRestController {
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(from);
+            helper.setFrom(email.getFrom());
             helper.setTo(email.getTo()); // 接收地址
             helper.setSubject(email.getSubject()); // 标题
             // 带HTML格式的内容
@@ -97,7 +95,7 @@ public class MailRestController {
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(from);
+            helper.setFrom(email.getFrom());
             helper.setTo(email.getTo()); // 接收地址
             helper.setSubject(email.getSubject()); // 标题
             helper.setText(email.getContent()); // 内容

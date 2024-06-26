@@ -21,7 +21,23 @@ public class MailConfig {
     private static final Logger log = LogManager.getLogger(MailConfig.class.getName());
 
     @Bean
-    public JavaMailSender getJavaMailSender() {
+    public JavaMailSender getJavaMailOutlookSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.office365.com");
+        mailSender.setPort(587);
+
+        mailSender.setUsername("garlam.au@win-hanverky.com.hk");
+        mailSender.setPassword("P@ssw0rd1122");
+
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.transport.protocol", "smtp");
+        return mailSender;
+    }
+
+    //@Bean
+    public JavaMailSender getJavaQQMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.qq.com");
         mailSender.setPort(465);

@@ -23,10 +23,12 @@ public class RespResult {
     private String message;
     private Object data;
 
+    public static final String SUCCESS = "success";
+    public static final String WARNING = "warning";
+
 
     //请求出现异常时的响应数据封装
     public static RespResult error(ResponseException e) {
-
         RespResult resultBean = new RespResult();
         resultBean.setOk(false);
         resultBean.setCode(e.getCode());
@@ -49,7 +51,7 @@ public class RespResult {
         RespResult resultBean = new RespResult();
         resultBean.setOk(true);
         resultBean.setCode(200);
-        resultBean.setMessage("success");
+        resultBean.setMessage(SUCCESS);
         return resultBean;
     }
 
@@ -66,7 +68,7 @@ public class RespResult {
         RespResult resultBean = new RespResult();
         resultBean.setOk(true);
         resultBean.setCode(200);
-        resultBean.setMessage("warning");
+        resultBean.setMessage(WARNING);
         resultBean.setData(data);
         return resultBean;
     }
