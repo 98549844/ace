@@ -32,8 +32,8 @@ import jakarta.servlet.http.HttpSession;
 public class ResetPasswordController extends CommonController {
     private static final Logger log = LogManager.getLogger(ResetPasswordController.class.getName());
 
-    //@Value("${spring.mail.username}")
-    private String from = "未設置";
+    @Value("${ace.mail.form}")
+    private String from;
     private final UsersService usersService;
     private final JavaMailSender javaMailSender;
 
@@ -47,7 +47,7 @@ public class ResetPasswordController extends CommonController {
     public ModelAndView reset(String email) throws MessagingException {
         email = email.trim();
         log.info("access ace/password/reset.html");
-        log.info("reset password email: " + email);
+        log.info("reset password email: {}", email);
         Users users = usersService.findUsersByEmail(email);
         ModelAndView modelAndView;
         String msg;
@@ -66,8 +66,10 @@ public class ResetPasswordController extends CommonController {
             emailHelper.setText("Click here to reset Ace Application login password"); // 内容
             String uuid = UUID.get();
             setSession(uuid);
-            //javaMailSender.send(message);
-            modelAndView = super.page("reset password 页面没有做好");
+            javaMailSender.send(message);
+            log.info("Reset password success !");
+            //modelAndView = super.page("reset password 页面没有做好");
+            modelAndView = null;
         }
         return modelAndView;
     }
