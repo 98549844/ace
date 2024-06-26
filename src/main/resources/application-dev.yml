@@ -277,6 +277,9 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     disable-swagger-default-url: true
+    tags-sorter: alpha
+    #swagger 排序
+    #https://www.jb51.net/program/30297196q.htm#_label5
   packages-to-scan: com.ace.restController
 
 #  springboot admin client side
