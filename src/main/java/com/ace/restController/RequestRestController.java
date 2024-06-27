@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @RestController
 @RequestMapping("/rest/request")
-//@Api(tags = "request")
 @Tag(name = "Request")
 public class RequestRestController {
     private static final Logger log = LogManager.getLogger(RequestRestController.class.getName());

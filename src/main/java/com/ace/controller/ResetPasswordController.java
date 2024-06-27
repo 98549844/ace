@@ -32,7 +32,7 @@ import jakarta.servlet.http.HttpSession;
 public class ResetPasswordController extends CommonController {
     private static final Logger log = LogManager.getLogger(ResetPasswordController.class.getName());
 
-    @Value("${ace.mail.form}")
+    @Value("${ace.mail.username}")
     private String from;
     private final UsersService usersService;
     private final JavaMailSender javaMailSender;

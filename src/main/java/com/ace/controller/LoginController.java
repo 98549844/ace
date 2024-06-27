@@ -127,7 +127,6 @@ public class LoginController extends CommonController {
                 return modelAndView;
             }
         }
-        //modelAndView = super.page("ace/index.html");
         //创建当前用户文件夹
         String currentUserPath = usersFolder + getCurrentUser().getUserAccount() + separator;
         foldersService.createCurrentUserDefaultFolder(currentUserPath, getCurrentUser());
