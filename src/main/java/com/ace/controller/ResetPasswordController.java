@@ -49,12 +49,11 @@ public class ResetPasswordController extends CommonController {
         log.info("access ace/password/reset.html");
         log.info("reset password email: {}", email);
         Users users = usersService.findUsersByEmail(email);
-        ModelAndView modelAndView;
         String msg;
+        ModelAndView modelAndView = super.page("ace/login.html");
         if (NullUtil.isNull(users) || NullUtil.isNull(users.getUserId())) {
             msg = "Email not registered";
             log.warn("message: {}", msg);
-            modelAndView = super.page("ace/login.html");
             modelAndView.addObject("msg", msg);
             modelAndView.addObject(Css.css, Css.red);
         } else {
@@ -68,8 +67,11 @@ public class ResetPasswordController extends CommonController {
             setSession(uuid);
             javaMailSender.send(message);
             log.info("Reset password success !");
-            //modelAndView = super.page("reset password 页面没有做好");
-            modelAndView = null;
+            modelAndView = super.page("ace/login.html");
+            msg = "Sent reset mail";
+            modelAndView.addObject("msg", msg);
+            modelAndView.addObject(Css.css, Css.green);
+
         }
         return modelAndView;
     }
