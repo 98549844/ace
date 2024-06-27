@@ -36,7 +36,7 @@ public class MediaInfo {
         @SerializedName("codec_name")
         private String codecName;
         @SerializedName("codec_long_name")
-        private String codecLongame;
+        private String codecLongName;
         @SerializedName("profile")
         private String profile;
     }

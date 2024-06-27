@@ -28,7 +28,7 @@ public class RedisService {
     //Could not read JSON:Unrecognized token 'test' 解决方法
     //https://blog.csdn.net/zxy2361380031/article/details/134222034
     private final RedisTemplate<String, Object> redisTemplate;
-    private StringRedisTemplate stringRedisTemplate;
+    private final StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     public RedisService(RedisTemplate<String, Object> redisTemplate, StringRedisTemplate stringRedisTemplate) {
