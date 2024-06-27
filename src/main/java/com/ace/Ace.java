@@ -18,7 +18,7 @@ public class Ace extends CangJieUtil{
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         checkCangJieCode(null);
 
     }

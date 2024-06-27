@@ -1,12 +1,12 @@
 package com.ace.utils;
 
+import com.ace.controller.common.CommonController;
 import com.ace.utilities.FileUtil;
 import com.ace.utilities.NullUtil;
+import com.ace.utilities.OsUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.ace.controller.common.CommonController;
 
-import java.io.IOException;
 import java.util.List;
 
 
@@ -22,9 +22,23 @@ public class CangJieUtil extends CommonController {
     private static final Logger log = LogManager.getLogger(CangJieUtil.class.getName());
 
 
-    private final static String dist = "/Users/garlam/IdeaProjects/documents/doc/input code/倉頡常用难字集.txt";
+    private final static String macDist = "/Users/garlam/IdeaProjects/documents/doc/input code/倉頡常用难字集.txt";
+    private final static String windowsDist ="C:\\Users\\Garlam.Au\\IdeaProjects\\documents\\doc\\input code\\倉頡常用难字集.txt";
 
-    public static void checkCangJieCode(String code) throws IOException {
+    public static void checkCangJieCode(String code) throws Exception {
+        String dist;
+        String osName = OsUtil.getOsName();
+        if (osName.contains(OsUtil.WINDOWS)) {
+            dist = windowsDist;
+        } else if (osName.contains(OsUtil.MAC)) {
+            dist = macDist;
+        } else if (osName.contains(OsUtil.LINUX)) {
+            dist = null;
+        } else {
+            throw new Exception("OS type: " + OsUtil.UNKNOWN);
+        }
+
+
         log.info("倉頡常用难字集查詢");
         List<String> list = (List<String>) FileUtil.read(dist).get(FileUtil.LIST);
         if (NullUtil.isNull(code)) {
@@ -41,7 +55,7 @@ public class CangJieUtil extends CommonController {
                     result = "x";
                 }
             }
-            if("".equals(result)){
+            if ("".equals(result)) {
                 log.info("没有查询到结果");
             }
         }
