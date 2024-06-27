@@ -65,13 +65,20 @@ public class ResetPasswordController extends CommonController {
             emailHelper.setText("Click here to reset Ace Application login password"); // 内容
             String uuid = UUID.get();
             setSession(uuid);
-            javaMailSender.send(message);
-            log.info("Reset password success !");
             modelAndView = super.page("ace/login.html");
-            msg = "Sent reset mail";
-            modelAndView.addObject("msg", msg);
-            modelAndView.addObject(Css.css, Css.green);
-
+            try {
+                javaMailSender.send(message);
+                log.info("Reset password success !");
+                msg = "Sent reset mail";
+                modelAndView.addObject("msg", msg);
+                modelAndView.addObject(Css.css, Css.green);
+            } catch (Exception e) {
+                log.error(e.getMessage());
+                e.printStackTrace();
+                msg = "fail to send reset mail";
+                modelAndView.addObject("msg", msg);
+                modelAndView.addObject(Css.css, Css.red);
+            }
         }
         return modelAndView;
     }
