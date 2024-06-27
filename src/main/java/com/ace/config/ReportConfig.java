@@ -18,7 +18,7 @@ public class ReportConfig {
     private static final Logger log = LogManager.getLogger(ReportConfig.class.getName());
 
 
-    private AceEnvironment aceEnvironment;
+    private final AceEnvironment aceEnvironment;
 
     public ReportConfig(AceEnvironment aceEnvironment) {
         this.aceEnvironment = aceEnvironment;
