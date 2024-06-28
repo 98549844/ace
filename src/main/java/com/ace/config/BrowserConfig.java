@@ -23,9 +23,9 @@ public class BrowserConfig {
     private static final Log log = LogFactory.getLog(BrowserConfig.class);
 
   //  static String url = "http://localhost:8088/";
-    static String swaggerUrl = "http://localhost:8088/swagger-ui.html";
-    static String docUrl = "http://localhost:8088/doc.html";
-    public static String windowsBrowser = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+  private final static String swaggerUrl = "http://localhost:8088/swagger-ui.html";
+    private final static String docUrl = "http://localhost:8088/doc.html";
+    private final static String windowsBrowser = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 
     private String getUrl() {
         ApplicationContext applicationContext = BeanUtil.getApplicationContext();

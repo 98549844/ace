@@ -25,6 +25,7 @@
             <fileNamePattern>${LOG_PATH}/${APPDIR}/error/log-error-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
             <maxFileSize>100MB</maxFileSize>
+            <!--日志文件保留天数-->
             <maxHistory>60</maxHistory>
         </rollingPolicy>
         <append>true</append>
@@ -47,6 +48,7 @@
             <fileNamePattern>${LOG_PATH}/${APPDIR}/warn/log-warn-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
             <maxFileSize>100MB</maxFileSize>
+            <!--日志文件保留天数-->
             <maxHistory>60</maxHistory>
 
         </rollingPolicy>
@@ -70,6 +72,7 @@
             <fileNamePattern>${LOG_PATH}/${APPDIR}/info/log-info-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
             <maxFileSize>100MB</maxFileSize>
+            <!--日志文件保留天数-->
             <maxHistory>60</maxHistory>
         </rollingPolicy>
         <append>true</append>

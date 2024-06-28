@@ -56,6 +56,7 @@ public class MailRestController {
             message.setSubject(email.getSubject()); // 标题
             message.setText(email.getContent()); // 内容
             javaMailSender.send(message);
+            log.info("sent mail successful");
             return RespResult.success(RespResult.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
