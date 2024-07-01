@@ -21,7 +21,7 @@ RUN apk update upgrade \
 
 
 #VOLUME /tmp
-ADD target/ace-3.2.jar ace.jar
+ADD target/ace-3.3.jar ace.jar
 EXPOSE 8090
 # 暴露端口 与配置文件对应
 ENTRYPOINT ["java","-jar","ace.jar","--spring.profiles.active=docker"]
