@@ -20,7 +20,8 @@ services:
     hostname: application
     # restart: always
     volumes:
-      #  - /Users/garlam/docker/ace/:/opt/workspace/ace/
+      #- /Users/garlam/docker/ace/:/opt/workspace/ace/
+      #- /Users/garlam/IdeaProjects/ace/target/ace-3.3.jar:/ace.jar #實時掛載jar, 重啟docker容器即可更新jar內容
       - C:\ace\:/opt/workspace/ace/
       - C:\Users\Garlam.Au\IdeaProjects\ace\target\ace-3.3.jar:/ace.jar #實時掛載jar, 重啟docker容器即可更新jar內容
     ports:
