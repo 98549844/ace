@@ -58,20 +58,80 @@ spring:
       enabled: false
       additional-paths: src/main/java
 
-  mail:
-    host: smtp.qq.com
-    username: 87548744@qq.com
-    password: deaxbxucrtmybhdd
+  datasource:
+    #driver-class-name: org.mariadb.jdbc.Driver
+    #url: jdbc:mariadb://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
+    #    url: jdbc:log4jdbc:mysql://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
+    url: jdbc:log4jdbc:mysql://mysql:3306/ace?characterEncoding=UTF-8&useUnicode=true&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    #driver-class-name: com.mysql.jdbc.Driver # for mysql5.7
+    #driver-class-name: com.mysql.cj.jdbc.Driver # for mysql8.0
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy #only support mysql5.7 driver class
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      # 空闲连接存活最大时间，默认600000（10分钟）
+      idle-timeout: 180000
+      # 连接池最大连接数，默认是10
+      maximum-pool-size: 10
+      # 此属性控制从池返回的连接的默认自动提交行为,默认值：true
+      auto-commit: true
+      # 连接池名称
+      pool-name: MyHikariCP
+      # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+      max-lifetime: 1800000
+      # 数据库连接超时时间,默认30秒，即30000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+
+  jpa:
+    #database-platform: org.hibernate.dialect.MySQLDialect
+    #com.ace.models.entity.files > private String fileName; 注解不生效问题
+    hibernate:
+      naming:
+        #使用驼峰式命名生成table
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+      #create:
+      #根据entity新建表, 原table不动
+      #create-drop:
+      #把表删了再重建
+      #update:
+      #第一次启动根据实体建立表结构，之后启动会根据实体的改变更新表结构，之前的数据都在
+      #validate:
+      #会验证创建数据库表结构，只会和数据库中的表进行比较，不会创建新表，
+      #但是会插入新值，运行程序会校验实体字段与数据库已有的表的字段类型是否相同，不同会报错
+    #去掉WARN spring.jpa.open-in-view is enabled by default
+    open-in-view: true
+    show-sql: false
     properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
-    default-encoding: UTF-8
-    port: 465
-    protocol: smtps
+      hibernate:
+        format_sql: false
+        schema_update:
+          unique_constraint_strategy: RECREATE_QUIETLY
+          # 默认配置是：先删除+后创建,RECREATE_QUIETLY: 遇到重复/不存在的约束时，不报错，直接删除旧约束重新创建新约束
+          # https://blog.csdn.net/qq_40109075/article/details/125486015
+        #use_sql_comments: true
+        #对应的entity
+
+#  由MailConfig.java配置
+#  mail:
+#    host: smtp.qq.com
+#    username: 87548744@qq.com
+#    password: pcwasirqmgpkcbbi
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#            required: true
+#    default-encoding: UTF-8
+#    port: 465
+#    protocol: smtps
+
+
 
   mvc:
     static-path-pattern: /static/** # js ,css 等静态文件路径
@@ -109,22 +169,9 @@ spring:
       resolve-lazily: false #不延迟解析
       file-size-threshold: 1MB # 超过1Mb, 就IO到临时目录
 
-  #https://mysqlconnector.net/connection-options/
-  #MySQL 8.0 Public Key Retrieval is not allowed 错误的解决方法
-  #allowPublicKeyRetrieval=true
-  #docker 内部沟通, 端口要写内部端口, 不要写影射端口
-
-  datasource:
-    #driver-class-name: org.mariadb.jdbc.Driver
-    #url: jdbc:mariadb://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
-    #    url: jdbc:log4jdbc:mysql://localhost:3306/ace?characterEncoding=UTF-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
-    url: jdbc:log4jdbc:mysql://mysql:3306/ace?characterEncoding=UTF-8&useUnicode=true&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
-    #driver-class-name: com.mysql.jdbc.Driver # for mysql5.7
-    #driver-class-name: com.mysql.cj.jdbc.Driver # for mysql8.0
-    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy #only support mysql5.7 driver class
-    username: root
-    password: root
-
+    #https://mysqlconnector.net/connection-options/
+    #MySQL 8.0 Public Key Retrieval is not allowed 错误的解决方法
+    #allowPublicKeyRetrieval=true
 
     #    remote:
     #      #spring.datasource.url 数据库的 JDBC URL
@@ -134,49 +181,7 @@ spring:
     #      username: root
     #      password: garlamau
 
-    type: com.zaxxer.hikari.HikariDataSource
-    hikari:
-      minimum-idle: 5
-      # 空闲连接存活最大时间，默认600000（10分钟）
-      idle-timeout: 180000
-      # 连接池最大连接数，默认是10
-      maximum-pool-size: 10
-      # 此属性控制从池返回的连接的默认自动提交行为,默认值：true
-      auto-commit: true
-      # 连接池名称
-      pool-name: MyHikariCP
-      # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
-      max-lifetime: 1800000
-      # 数据库连接超时时间,默认30秒，即30000
-      connection-timeout: 30000
-      connection-test-query: SELECT 1
 
-  jpa:
-    hibernate:
-      naming:
-        #使用驼峰式命名生成table
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      ddl-auto: update
-      #create:
-      #根据entity新建表, 原table不动
-      #create-drop:
-      #把表删了再重建
-      #update:
-      #第一次启动根据实体建立表结构，之后启动会根据实体的改变更新表结构，之前的数据都在
-      #validate:
-      #会验证创建数据库表结构，只会和数据库中的表进行比较，不会创建新表，
-      #但是会插入新值，运行程序会校验实体字段与数据库已有的表的字段类型是否相同，不同会报错
-    #去掉WARN spring.jpa.open-in-view is enabled by default
-    open-in-view: true
-    show-sql: false
-    properties:
-      hibernate:
-        format_sql: false
-        schema_update:
-          unique_constraint_strategy: RECREATE_QUIETLY
-          # 默认配置是：先删除+后创建,RECREATE_QUIETLY: 遇到重复/不存在的约束时，不报错，直接删除旧约束重新创建新约束
-        #use_sql_comments: true
-        #对应的entity
     #  redis:
     #    # Redis服务器地址
     #    host: localhost
@@ -198,7 +203,7 @@ spring:
 
 
   rabbitmq:
-    #producer 生產者
+    #producer 生產者 ip:192.168.1.100
     addresses: rabbitmq:5672
     connection-timeout: 15000
     username: admin
@@ -274,6 +279,9 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     disable-swagger-default-url: true
+    tags-sorter: alpha
+    #swagger 排序
+    #https://www.jb51.net/program/30297196q.htm#_label5
   packages-to-scan: com.ace.restController
 
 #  springboot admin client side
