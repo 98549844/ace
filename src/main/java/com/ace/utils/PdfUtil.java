@@ -2,6 +2,9 @@ package com.ace.utils;
 
 import com.ace.utilities.NullUtil;
 import com.ace.utilities.RandomUtil;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Image;
@@ -21,7 +24,9 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -38,10 +43,11 @@ public class PdfUtil {
     public static void main(String[] args) throws IOException {
         PdfUtil pdfUtil = new PdfUtil();
         try {
-            List<InputStream> pdfs = new ArrayList<InputStream>();
-            pdfs.add(new FileInputStream("c:\\aa.pdf"));
-            pdfs.add(new FileInputStream("c:\\bb.pdf"));
-            OutputStream output = new FileOutputStream("c:\\merge.pdf");
+            List<InputStream> pdfs = new LinkedList<>();
+            pdfs.add(new FileInputStream("C:\\Users\\Garlam.Au\\IdeaProjects\\ace\\src\\main\\java\\com\\ace\\utils\\PdfUtil-Sample.pdf"));
+            pdfs.add(new FileInputStream("C:\\Users\\Garlam.Au\\IdeaProjects\\ace\\src\\main\\java\\com\\ace\\utils\\PdfUtil-Sample1.pdf"));
+            pdfs.add(new FileInputStream("C:\\Users\\Garlam.Au\\IdeaProjects\\ace\\src\\main\\java\\com\\ace\\utils\\PdfUtil-Sample2.pdf"));
+            OutputStream output = new FileOutputStream("C:\\ace\\misc\\merge.pdf");
             pdfUtil.concatPDFs(pdfs, output, true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,7 +55,71 @@ public class PdfUtil {
     }
 
 
-    /** 多份pdf串连成一份pdf
+    /**
+     * https://blog.csdn.net/ThinkPet/article/details/131256428
+     * txt文本文件  转pdf文件
+     *
+     * @param textPath F:/data/te616.txt
+     * @param pdfPath  F:/data/aet618.pdf
+     * @throws com.itextpdf.text.DocumentException
+     * @throws IOException
+     */
+    public static void textToPdf(String textPath, String pdfPath) throws com.itextpdf.text.DocumentException, IOException {
+        com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
+        OutputStream os = new FileOutputStream(pdfPath);
+        com.itextpdf.text.pdf.PdfWriter.getInstance(doc, os);
+        doc.open();
+        //指定 使用内置的中文字体
+        com.itextpdf.text.pdf.BaseFont baseFont = com.itextpdf.text.pdf.BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", com.itextpdf.text.pdf.BaseFont.EMBEDDED);
+        Font font = new Font(baseFont, 12, Font.NORMAL);
+        //指定输出编码为UTF-8
+        InputStreamReader isr = new InputStreamReader(new FileInputStream(new File(textPath)), StandardCharsets.UTF_8);
+        BufferedReader br = new BufferedReader(isr);
+        String str;
+        while ((str = br.readLine()) != null) {
+            doc.add(new Paragraph(str, font));
+        }
+        isr.close();
+        br.close();
+        doc.close();
+    }
+
+    /**
+     * 读取pdf文件的内容
+     *
+     * @param filename
+     * @return String
+     */
+    public static String readPDF(String filename) {
+        StringBuilder result = new StringBuilder();
+        try {
+            com.itextpdf.text.pdf.PdfReader reader = new com.itextpdf.text.pdf.PdfReader(filename);
+            int countPage = reader.getNumberOfPages();
+            for (int i = 1; i <= countPage; i++) {
+                result.append(PdfTextExtractor.getTextFromPage(reader, i));
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result.toString();
+    }
+
+    /** 重載concatPDFs方法, 功能是一樣的
+     * @param streamArrayOfPdfFiles
+     * @param outputStream
+     * @param pagination
+     */
+    public void concatPDFs(InputStream[] streamArrayOfPdfFiles, OutputStream outputStream, boolean pagination) {
+        List<InputStream> streamOfPdfFiles = new LinkedList<>();
+        streamOfPdfFiles.addAll(Arrays.asList(streamArrayOfPdfFiles));
+        concatPDFs(streamOfPdfFiles, outputStream, pagination);
+    }
+
+
+    /**
+     * 多份pdf串连成一份pdf
+     *
      * @param streamOfPdfFiles
      * @param outputStream
      * @param pagination
@@ -58,7 +128,7 @@ public class PdfUtil {
         Document document = new Document();
         try {
             List<InputStream> pdfs = streamOfPdfFiles;
-            List<PdfReader> readers = new ArrayList<>();
+            List<PdfReader> readers = new LinkedList<>();
             int totalPages = 0;
 
             // Create Readers for the pdfs.
@@ -71,8 +141,7 @@ public class PdfUtil {
             PdfWriter writer = PdfWriter.getInstance(document, outputStream);
 
             document.open();
-            BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA,
-                    BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+            BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
             PdfContentByte cb = writer.getDirectContent(); // Holds the PDF
 
             PdfImportedPage page;
@@ -86,16 +155,13 @@ public class PdfUtil {
                     document.newPage();
                     pageOfCurrentReaderPDF++;
                     currentPageNumber++;
-                    page = writer.getImportedPage(pdfReader,
-                            pageOfCurrentReaderPDF);
+                    page = writer.getImportedPage(pdfReader, pageOfCurrentReaderPDF);
                     cb.addTemplate(page, 0, 0);
                     // Code for pagination.
                     if (pagination) {
                         cb.beginText();
                         cb.setFontAndSize(bf, 9);
-                        cb.showTextAligned(PdfContentByte.ALIGN_CENTER, ""
-                                        + currentPageNumber + " of " + totalPages, 520,
-                                5, 0);
+                        cb.showTextAligned(PdfContentByte.ALIGN_CENTER, "" + currentPageNumber + " of " + totalPages, 520, 5, 0);
                         cb.endText();
                     }
                 }
@@ -107,11 +173,9 @@ public class PdfUtil {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (document.isOpen())
-                document.close();
+            if (document.isOpen()) document.close();
             try {
-                if (outputStream != null)
-                    outputStream.close();
+                if (outputStream != null) outputStream.close();
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }
@@ -126,7 +190,7 @@ public class PdfUtil {
      * @throws IOException
      * @throws DocumentException
      */
-    public static void generatePdfFromUrl(String targetUrl, String pdfLocation) throws IOException, DocumentException {
+    public static void htmlToPdf(String targetUrl, String pdfLocation) throws IOException, DocumentException {
         OutputStream outputStream = new FileOutputStream(pdfLocation);
         HtmlUtil htmlUtil = new HtmlUtil();
         String html = htmlUtil.getHtmlFromUrl(targetUrl);
