@@ -73,7 +73,7 @@ public class PdfUtil {
         com.itextpdf.text.pdf.BaseFont baseFont = com.itextpdf.text.pdf.BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", com.itextpdf.text.pdf.BaseFont.EMBEDDED);
         Font font = new Font(baseFont, 12, Font.NORMAL);
         //指定输出编码为UTF-8
-        InputStreamReader isr = new InputStreamReader(new FileInputStream(new File(textPath)), StandardCharsets.UTF_8);
+        InputStreamReader isr = new InputStreamReader(new FileInputStream(textPath), StandardCharsets.UTF_8);
         BufferedReader br = new BufferedReader(isr);
         String str;
         while ((str = br.readLine()) != null) {
