@@ -22,7 +22,7 @@ services:
     volumes:
       #  - /Users/garlam/docker/ace/:/opt/workspace/ace/
       - C:\ace\:/opt/workspace/ace/
-      - C:\Users\Garlam.Au\IdeaProjects\ace\target\ace-3.3.jar:/ace.jar #掛載jar, 重啟docker容器即可更新jar內容
+      - C:\Users\Garlam.Au\IdeaProjects\ace\target\ace-3.3.jar:/ace.jar #實時掛載jar, 重啟docker容器即可更新jar內容
     ports:
       - 8090:8090
     depends_on:
