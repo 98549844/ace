@@ -1,12 +1,13 @@
 server:
   port: 8088
   tomcat:
-    uri-encoding: UTF-8
+    uri-encoding: utf-8
     connection-timeout: 60000
   servlet:
     encoding:
       charset: UTF-8
     #context-path: 配置上下文
+
 
 # Sa-Token配置
 sa-token:
