@@ -37,13 +37,11 @@ public class MenuService {
 
 	public List getMenuList() {
 		List<Menu> menuList = menuDao.findAll();
-
 		return menuList;
 	}
 
 	public List getMenuTree() {
 		List<Menu> menuList = menuDao.findAll();
-
 		MenuService menuService = new MenuService(menuList);
 		List<Menu> menuTree = menuService.buildTree();
 

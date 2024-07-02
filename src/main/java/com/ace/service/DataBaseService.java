@@ -22,6 +22,7 @@ public class DataBaseService {
     private static final Logger log = LogManager.getLogger(DataBaseService.class.getName());
 
     private DataBaseMapper dataBaseMapper;
+    private final static String schema = "ace";
 
     @Autowired
     public void setDataBaseMapper(DataBaseMapper dataBaseMapper) {
@@ -29,14 +30,11 @@ public class DataBaseService {
     }
 
 
-
-    public List<String> getAllTableName (){
-        String schema = "ace";
+    public List<String> getAllTableName() {
         return dataBaseMapper.getAllTableName(schema);
     }
 
-    public List<Columns> getColumnName (String tableName){
-        String schema = "ace";
+    public List<Columns> getColumnName(String tableName) {
         return dataBaseMapper.getColumnNameByTable(tableName, schema);
     }
 

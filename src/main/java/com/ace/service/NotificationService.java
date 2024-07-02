@@ -20,7 +20,7 @@ import java.util.List;
 public class NotificationService {
     private static final Logger log = LogManager.getLogger(NotificationService.class.getName());
 
-    private PushMessageDao pushMessageDao;
+    private final PushMessageDao pushMessageDao;
 
 
     @Autowired
