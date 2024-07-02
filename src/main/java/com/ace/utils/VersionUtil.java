@@ -26,6 +26,7 @@ public class VersionUtil {
     public static void main(String[] args) {
         showSpringFrameworkVersion();
         showSpringbootVersion();
+      //  getThymeleafVersion();
     }
 
     public static void showSpringFrameworkVersion() {
