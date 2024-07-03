@@ -24,7 +24,7 @@
     </properties>
 
     <dependencies>
-        <!--https://github.com/98549844/ace-cloud/tree/main/ace-utilities 34534534-->
+        <!--https://github.com/98549844/ace-cloud/tree/main/ace-utilities -->
         <!--需要引入ace-cloud的子模组ace-utilities-->
         <dependency>
             <groupId>com.ace</groupId>
