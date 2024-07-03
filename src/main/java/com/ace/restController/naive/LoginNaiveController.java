@@ -29,8 +29,9 @@ public class LoginNaiveController extends CommonController {
     @RequestMapping(value = {"/ace/login.html", "/"}, method = RequestMethod.GET)
     public RespResult login() {
         log.info("access naive/ace/login.html" );
-        return RespResult.success("true");
 
+
+        return RespResult.success("true");
     }
 
     @Operation(summary = "process logging")
