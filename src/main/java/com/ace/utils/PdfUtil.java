@@ -87,13 +87,13 @@ public class PdfUtil {
     /**
      * 读取pdf文件的内容
      *
-     * @param filename
+     * @param filePath
      * @return String
      */
-    public static String readPDF(String filename) {
+    public static String read(String filePath) {
         StringBuilder result = new StringBuilder();
         try {
-            com.itextpdf.text.pdf.PdfReader reader = new com.itextpdf.text.pdf.PdfReader(filename);
+            com.itextpdf.text.pdf.PdfReader reader = new com.itextpdf.text.pdf.PdfReader(filePath);
             int countPage = reader.getNumberOfPages();
             for (int i = 1; i <= countPage; i++) {
                 result.append(PdfTextExtractor.getTextFromPage(reader, i));

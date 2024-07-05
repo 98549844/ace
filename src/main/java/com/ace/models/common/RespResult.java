@@ -59,7 +59,7 @@ public class RespResult {
         RespResult resultBean = new RespResult();
         resultBean.setOk(true);
         resultBean.setCode(200);
-        resultBean.setMessage(MessageConstants.SUCCESS);
+        resultBean.setMessage(SUCCESS);
         resultBean.setData(data);
         return resultBean;
     }

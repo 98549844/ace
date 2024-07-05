@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 /**
  * @Classname: Ace
@@ -14,7 +15,7 @@ import java.io.IOException;
  */
 
 
-public class Ace extends CangJieUtil{
+public class Ace extends CangJieUtil {
     private static final Logger log = LogManager.getLogger(Ace.class.getName());
 
 
@@ -22,7 +23,6 @@ public class Ace extends CangJieUtil{
         checkCangJieCode(null);
 
     }
-
 
 
 }
