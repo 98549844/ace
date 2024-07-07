@@ -68,6 +68,14 @@ public class OpenApiConfig {
                 .build();
     }
 
+    @Bean
+    public GroupedOpenApi systemApi() {
+        return GroupedOpenApi.builder()
+                .group("System")
+                .pathsToMatch("/rest/system/**")
+                .build();
+    }
+
     //.pathsToMatch 和 .packagesToScan 是or的關係
     @Bean
     public GroupedOpenApi aceApi() {

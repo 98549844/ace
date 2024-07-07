@@ -17,12 +17,12 @@ import org.springframework.web.context.ContextLoader;
 public class ApplicationContextUtil {
     private static final Logger log = LogManager.getLogger(ApplicationContextUtil.class.getName());
 
-    public ApplicationContext getApplicationContext() {
+    public static ApplicationContext getApplicationContext() {
         log.info("get applicationContext from application main method");
         return AceApplication.applicationContext;
     }
 
-    public ApplicationContext getApplicationContextFromContextLoader() {
+    public static ApplicationContext getApplicationContextFromContextLoader() {
         log.info("get applicationContext from ContextLoader.getCurrentWebApplicationContext");
         return ContextLoader.getCurrentWebApplicationContext();
     }
