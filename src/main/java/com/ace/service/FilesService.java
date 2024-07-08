@@ -132,7 +132,7 @@ public class FilesService {
 
 
     /**
-     * 处理图片显示请求
+     * 处理文件下載请求
      * 响应输出图片文件
      *
      * @param fileName

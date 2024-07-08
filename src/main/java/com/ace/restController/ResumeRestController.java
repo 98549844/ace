@@ -34,8 +34,8 @@ public class ResumeRestController {
     }
 
     /**
-     * 缩略图显示请求
-     * 响应输出图片文件
+     * 文件下載请求
+     * 响应输出文件
      */
     @RequestMapping(value = "/get.html", method = RequestMethod.GET)
     public void get(HttpServletResponse response) throws IOException {
