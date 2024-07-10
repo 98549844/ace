@@ -144,10 +144,12 @@ public class FilesService {
         Files f = findFilesByFileName(fileName);
         File file;
         if (NullUtil.isNull(f) || NullUtil.isNull(f.getLocation())) {
+            //沒有數據, filename就是location
             location = fileName;
             file = new File(location);
             fileName = file.getName();
         } else {
+            //有數據, 在數據裡根據filename找出location
             file = new File(f.getLocation());
             fileName = f.getOriginationName();
         }
