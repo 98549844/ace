@@ -23,7 +23,6 @@ import java.util.List;
 //https://blog.csdn.net/qq_38762237/article/details/81282444
 @RestController
 @RequestMapping("/rest/gallery")
-//@Api(tags = "gallery")
 @Tag(name = "Gallery")
 public class GalleryRestController {
     private static final Logger log = LogManager.getLogger(GalleryRestController.class.getName());
