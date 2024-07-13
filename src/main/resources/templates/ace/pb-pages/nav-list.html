@@ -224,6 +224,14 @@
         </ul>
     </li>
 
+    <li class="">
+        <a class="menu" th:href="@{/ace/qrcode.html}">
+            <i class="menu-icon fa fa-picture-o"></i>
+            <span class="menu-text"> QRCode </span>
+        </a>
+        <b class="arrow"></b>
+    </li>
+
     <!--======================================================================================================-->
     <li class="" th:if="${currentUser.roleGroup.contains('ADMIN')}">
         <a class="menu" th:href="@{/ace/dashboard.html}">

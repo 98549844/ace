@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/rest/qrcode")
 @Tag(name = "QR Code")
-public class QRRestController {
-    private static final Logger log = LogManager.getLogger(QRRestController.class.getName());
+public class QrCodeRestController {
+    private static final Logger log = LogManager.getLogger(QrCodeRestController.class.getName());
 
     private QRCodeService qrCodeService;
 
-    public QRRestController(QRCodeService qrCodeService) {
+    public QrCodeRestController(QRCodeService qrCodeService) {
         this.qrCodeService = qrCodeService;
     }
 
