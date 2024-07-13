@@ -28,9 +28,9 @@ function printUrl() {
 }
 
 function getIcon() {
-    alert("ccc");
+    alert("common.js => getIcon()");
     let iconHtml = "";
-    const fileName = 'garlam-icon-eb15156e8cd34808be55447fa84f4f49';
+    const fileName = 'garlam-icon-xxxxx';
     //拿不到值
     const username = /*[[${currentUser.username}]]*/ '';
     // const icon = /*[[${icon}]]*/ '';
@@ -49,6 +49,7 @@ function setTitle() {
     const pName = window.location.pathname;
     //  alert("pName: "+pName);
     if (pName.indexOf("/ace/") !== -1) {
+        //"/ace/" 存在
         const t = pName.split("/ace/")[1].split(".html")[0];
         let m = t.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase());
         //首字母大写
