@@ -1,7 +1,7 @@
 package com.ace.service;
 
 import cn.dev33.satoken.stp.StpUtil;
-import com.ace.constant.AceEnvironment;
+import com.ace.constants.AceEnvironment;
 import com.ace.models.common.TranscodeConfig;
 import com.ace.models.entity.Roles;
 import com.ace.models.entity.Users;

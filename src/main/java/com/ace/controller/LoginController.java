@@ -1,7 +1,7 @@
 package com.ace.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
-import com.ace.constant.AceEnvironment;
+import com.ace.constants.AceEnvironment;
 import com.ace.controller.common.CommonController;
 import com.ace.exception.PasswordNotMatchException;
 import com.ace.exception.UserNotFoundException;

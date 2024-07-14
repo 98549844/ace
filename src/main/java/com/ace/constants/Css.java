@@ -1,4 +1,4 @@
-package com.ace.constant;
+package com.ace.constants;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

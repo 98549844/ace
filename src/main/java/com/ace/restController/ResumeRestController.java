@@ -1,6 +1,6 @@
 package com.ace.restController;
 
-import com.ace.constant.AceEnvironment;
+import com.ace.constants.AceEnvironment;
 import com.ace.exception.ResponseException;
 import com.ace.models.common.RespResult;
 import com.ace.service.FilesService;
@@ -12,8 +12,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-
-import static com.ace.constant.constant.OK;
 
 
 /**

@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.Hashtable;
 
+import static com.ace.constants.constant.PNG;
+
 
 /**
  * @Classname: QRCodeService
@@ -58,7 +60,7 @@ public class QRCodeService {
 
             // 将图片转换为 Base64 编码
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
+            ImageIO.write(bufferedImage, PNG, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream.toByteArray();
 
             return Base64.getEncoder().encodeToString(byteArray);

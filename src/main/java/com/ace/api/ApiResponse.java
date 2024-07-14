@@ -1,7 +1,7 @@
 package com.ace.api;
 
 
-import com.ace.constant.MessageConstants;
+import com.ace.constants.MessageConstants;
 
 public class ApiResponse<T>  {
     private Boolean success = true;

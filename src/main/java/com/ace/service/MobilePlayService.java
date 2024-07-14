@@ -1,6 +1,6 @@
 package com.ace.service;
 
-import com.ace.constant.AceEnvironment;
+import com.ace.constants.AceEnvironment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpHeaders;

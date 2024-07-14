@@ -15,7 +15,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 
-import static com.ace.constant.constant.UTF_8;
+import static com.ace.constants.constant.UTF_8;
 
 /**
  * @Classname: PdfService

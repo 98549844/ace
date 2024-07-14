@@ -1,7 +1,7 @@
 package com.ace.controller;
 
-import com.ace.constant.AceEnvironment;
-import com.ace.constant.MessageConstants;
+import com.ace.constants.AceEnvironment;
+import com.ace.constants.MessageConstants;
 import com.ace.controller.common.CommonController;
 import com.ace.models.common.RespResult;
 import com.ace.models.entity.Files;

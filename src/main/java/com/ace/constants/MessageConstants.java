@@ -1,4 +1,4 @@
-package com.ace.constant;
+package com.ace.constants;
 
 public class MessageConstants {
     private MessageConstants() {

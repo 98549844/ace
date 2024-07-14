@@ -1,6 +1,6 @@
 package com.ace.utils;
 
-import com.ace.constant.AceEnvironment;
+import com.ace.constants.AceEnvironment;
 import com.ace.utilities.FileUtil;
 import com.ace.utilities.ResourcesUtil;
 import org.apache.logging.log4j.LogManager;

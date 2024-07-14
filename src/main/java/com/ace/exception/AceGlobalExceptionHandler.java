@@ -1,7 +1,7 @@
 package com.ace.exception;
 
 import cn.dev33.satoken.exception.NotLoginException;
-import com.ace.constant.Css;
+import com.ace.constants.Css;
 import com.ace.controller.common.CommonController;
 import com.ace.models.entity.Users;
 import com.ace.utilities.NullUtil;

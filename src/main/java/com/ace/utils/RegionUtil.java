@@ -1,6 +1,6 @@
 package com.ace.utils;
 
-import com.ace.constant.constant;
+import com.ace.constants.constant;
 import com.ace.controller.common.CommonController;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;

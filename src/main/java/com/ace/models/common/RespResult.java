@@ -1,6 +1,5 @@
 package com.ace.models.common;
 
-import com.ace.constant.MessageConstants;
 import com.ace.exception.ResponseException;
 import com.ace.exception.ResponseExceptionType;
 import org.apache.logging.log4j.LogManager;

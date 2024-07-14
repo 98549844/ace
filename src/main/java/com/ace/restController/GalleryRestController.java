@@ -1,6 +1,6 @@
 package com.ace.restController;
 
-import com.ace.constant.AceEnvironment;
+import com.ace.constants.AceEnvironment;
 import com.ace.models.entity.Files;
 import com.ace.service.FilesService;
 import com.ace.utilities.NullUtil;

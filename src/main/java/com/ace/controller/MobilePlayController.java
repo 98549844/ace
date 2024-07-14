@@ -1,6 +1,6 @@
 package com.ace.controller;
 
-import com.ace.constant.AceEnvironment;
+import com.ace.constants.AceEnvironment;
 import com.ace.controller.common.CommonController;
 import com.ace.service.MobilePlayService;
 import org.apache.logging.log4j.LogManager;
@@ -11,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
-
-import java.io.IOException;
 
 /**
  * @Classname: DplayerController

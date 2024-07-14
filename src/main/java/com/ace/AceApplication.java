@@ -3,7 +3,7 @@ package com.ace;
 import cn.dev33.satoken.SaManager;
 import com.ace.config.AceConfig;
 import com.ace.config.BrowserConfig;
-import com.ace.constant.AceEnvironment;
+import com.ace.constants.AceEnvironment;
 import com.ace.utilities.Console;
 import com.ace.utilities.GetterSetterUtil;
 import com.ace.utilities.MapUtil;
