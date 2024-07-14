@@ -12,8 +12,10 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Hashtable;
@@ -32,6 +34,8 @@ import java.util.Hashtable;
 public class QRCodeService {
     private static final Logger log = LogManager.getLogger(QRCodeService.class.getName());
 
+    int width = 250;
+    int height = 250;
 
     /**
      * 生成包含指定内容的二维码图片，并返回该二维码的 Base64 编码表示.
@@ -41,8 +45,7 @@ public class QRCodeService {
      */
     public String generateQRCodeImage(String text) {
         try {
-            int width = 250;
-            int height = 250;
+
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
             Hashtable<EncodeHintType, Object> hintMap = new Hashtable<>();
             hintMap.put(EncodeHintType.CHARACTER_SET, "UTF-8");
@@ -51,8 +54,7 @@ public class QRCodeService {
             BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hintMap);
 
             //BitMatrix 转换为 BufferedImage
-            MatrixToImageConfig matrixToImageConfig = new MatrixToImageConfig();
-            BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix, matrixToImageConfig);
+            BufferedImage bufferedImage = toBufferedImage(bitMatrix);
 
             // 将图片转换为 Base64 编码
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -65,12 +67,55 @@ public class QRCodeService {
         }
     }
 
-    public static void main(String[] args) {
-        QRCodeService qrCodeService = new QRCodeService();
-        String base64 = qrCodeService.generateQRCodeImage("https://www.baidu.com");
-        System.out.println(base64);
+    /**
+     * 给二维码添加logo
+     *
+     * @return java.awt.image.BufferedImage
+     * @Date 2023/09/24 22:33
+     * @Param [bufferedImage, logoFile]
+     */
+    private BufferedImage addQrCodeLogo(BufferedImage bufferedImage, File logoFile) throws IOException {
+        Graphics2D graphics = bufferedImage.createGraphics();
+        int matrixWidth = bufferedImage.getWidth();
+        int matrixHeigh = bufferedImage.getHeight();
+
+        // 读取logo图片文件
+        BufferedImage logo = ImageIO.read(logoFile);
+        int logoWidth = logo.getWidth();
+        int logoHeight = logo.getHeight();
+
+        //  计算logo放置位置
+        int x = bufferedImage.getWidth() / 5 * 2;
+        int y = bufferedImage.getHeight() / 5 * 2;
+        int width = matrixWidth / 5;
+        int height = matrixHeigh / 5;
+
+        // 开始绘制图片
+        graphics.drawImage(logo, x, y, width, height, null);
+        graphics.drawRoundRect(x, y, logoWidth, logoHeight, 15, 15);
+        graphics.setStroke(new BasicStroke(5.0F, 1, 1));
+        graphics.setColor(Color.white);
+        graphics.drawRect(x, y, logoWidth, logoHeight);
+
+        graphics.dispose();
+        bufferedImage.flush();
+        return bufferedImage;
     }
 
+
+    /**
+     * 转换为BufferedImage
+     *
+     * @return java.awt.image.BufferedImage
+     * @Date 2023/09/24 22:32
+     * @Param [bitMatrix]
+     */
+    private BufferedImage toBufferedImage(BitMatrix bitMatrix) throws IOException, WriterException {
+        //MatrixToImageConfig matrixToImageConfig = new MatrixToImageConfig(); //默认黑白色
+        MatrixToImageConfig matrixToImageConfig = new MatrixToImageConfig(0xFF000001, 0xFFFFFFFF);
+        BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix, matrixToImageConfig);
+        return bufferedImage;
+    }
 
 
 }
