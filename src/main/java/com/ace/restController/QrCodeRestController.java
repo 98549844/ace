@@ -40,45 +40,6 @@ public class QrCodeRestController {
     @GetMapping(value = "/generateQR.html")
     public String generateQR(@RequestParam String data) {
         String qrCodeImage = qrCodeService.generateQRCodeImage(data);
-        System.out.println(qrCodeImage);
         return qrCodeImage;
     }
 }
-
-/*
-简单qrcode html代码：
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QR 码生成示例</title>
-</head>
-<body>
-<h1>QR 码生成示例</h1>
-    <form id="productForm">
-        <label for="productInfo">产品信息：</label>
-        <input type="text" id="productInfo" name="productInfo" required>
-        <button type="submit">生成二维码</button>
-    </form>
-    <div id="qrCodeContainer"></div>
-
-        <script>
-        document.getElementById('productForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-            const productInfo = document.getElementById('productInfo').value;
-    fetch(`/api/v1/qr/generate?productInfo=${encodeURIComponent(productInfo)}`)
-            .then(response => response.text())
-            .then(data => {
-                const img = document.createElement('img');
-    img.src = `data:image/png;base64,${data}`;
-                const container = document.getElementById('qrCodeContainer');
-    container.innerHTML = ''; // 清空之前的图片
-    container.appendChild(img);
-            })
-            .catch(error => console.error('生成二维码时发生错误:', error));
-});
-    </script>
-</body>
-</html>
-*/
