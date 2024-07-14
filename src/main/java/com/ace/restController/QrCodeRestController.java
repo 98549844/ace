@@ -29,8 +29,8 @@ public class QrCodeRestController {
 
     /**
      * 嵌入  <img src="data:image/png;base64,*base64编码字符串*">
-     * <img src="data:image/jpeg;base64,*base64编码字符串*">.
-     * <p>
+     *      <img src="data:image/jpeg;base64,*base64编码字符串*">.
+     *
      * 生成产品信息的二维码
      *
      * @param data 产品信息（如：生产日期、地点等）

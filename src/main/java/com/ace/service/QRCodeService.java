@@ -50,7 +50,7 @@ public class QRCodeService {
             // 生成二维码图片
             BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hintMap);
 
-          //  BufferedImage bufferedImage = bitMatrix.toBufferedImage();
+            //BitMatrix 转换为 BufferedImage
             MatrixToImageConfig matrixToImageConfig = new MatrixToImageConfig();
             BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix, matrixToImageConfig);
 

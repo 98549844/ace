@@ -41,6 +41,7 @@
                         <!--浏览器提示:"请填写此字段"，表单novalidate属性-->
                         <form id="dataForm">
                             <label for="dataInfo">data：</label>
+                            <!--for的作用是当点击label时, pointer会指向input, 因为input的id被label包裹邦定-->
                             <input type="text" id="dataInfo" name="dataInfo" required>
                             <button class="btn btn-info" type="submit">
                                 <i class="ace-icon fa fa-check bigger-110"></i>
@@ -68,6 +69,8 @@
     document.getElementById('dataForm').addEventListener('submit', function (event) {
         event.preventDefault();
         const data = document.getElementById('dataInfo').value;
+        // https://blog.csdn.net/qq_45677671/article/details/123837481
+        // fetch详细用法
         fetch(`/rest/qrcode/generateQR.html?data=${encodeURIComponent(data)}`)
             .then(response => response.text())
             .then(data => {
