@@ -79,7 +79,7 @@ public class QRCodeService {
     private BufferedImage addQrCodeLogo(BufferedImage bufferedImage, File logoFile) throws IOException {
         Graphics2D graphics = bufferedImage.createGraphics();
         int matrixWidth = bufferedImage.getWidth();
-        int matrixHeigh = bufferedImage.getHeight();
+        int matrixHigh = bufferedImage.getHeight();
 
         // 读取logo图片文件
         BufferedImage logo = ImageIO.read(logoFile);
@@ -90,7 +90,7 @@ public class QRCodeService {
         int x = bufferedImage.getWidth() / 5 * 2;
         int y = bufferedImage.getHeight() / 5 * 2;
         int width = matrixWidth / 5;
-        int height = matrixHeigh / 5;
+        int height = matrixHigh / 5;
 
         // 开始绘制图片
         graphics.drawImage(logo, x, y, width, height, null);

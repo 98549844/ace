@@ -41,5 +41,6 @@ public class QrCodeRestController {
     public String generateQR(@RequestParam String data) {
         String qrCodeImage = qrCodeService.generateQRCodeImage(data);
         return qrCodeImage;
+        // return base64;
     }
 }
