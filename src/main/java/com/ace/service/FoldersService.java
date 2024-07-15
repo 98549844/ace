@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.ace.constants.constant.*;
+
 /**
  * @Classname: CacheService
  * @Date: 2023/5/17 下午 04:36
@@ -164,16 +166,16 @@ public class FoldersService {
                 save(newFolder);
                 FileUtil.mkDirs(newFolderPath);
                 String msg = "Folder " + newFolderName + " create success !";
-                status.put("status", constant.SUCCESS);
+                status.put("status", SUCCESS);
                 status.put("msg", msg);
             } else {
                 String msg = "Create " + newFolderName + " fail ! " + "access denied";
-                status.put("status", constant.DENIED);
+                status.put("status", DENIED);
                 status.put("msg", msg);
             }
         } else {
             String msg = "Folder " + newFolderName + " exist !";
-            status.put("status", constant.EXIST);
+            status.put("status", EXIST);
             status.put("msg", msg);
         }
         return status;
