@@ -253,6 +253,10 @@
                         alert(message);
                     }
                 });
+                //当上传完成后的事件，接受的数据为JSON格式
+                this.on("complete", function (data) {
+                   // alert("upload complete")
+                });
                 this.on("removedfile", function (file) {
                     const ext = file.name.split('.')[1];
                     $.ajax({
