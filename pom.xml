@@ -95,6 +95,10 @@
                     <artifactId>flying-saucer-core</artifactId>
                     <groupId>org.xhtmlrenderer</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>commons-codec</artifactId>
+                    <groupId>commons-codec</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -516,6 +520,10 @@
                 <exclusion>
                     <artifactId>guava</artifactId>
                     <groupId>com.google.guava</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-codec</artifactId>
+                    <groupId>commons-codec</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
