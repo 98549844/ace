@@ -389,13 +389,6 @@
             <version>3.2.6</version>
         </dependency>
 
-        <!--utilities included-->
-        <!--<dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>easyexcel</artifactId>
-            <version>3.1.5</version>
-        </dependency>-->
-
         <!--
         本地装有谷歌浏览器和ChromeDriver
         chromedriver地址:
@@ -445,12 +438,6 @@
             <artifactId>spring-boot-starter-log4jdbc</artifactId>
             <version>1.1.0</version>
         </dependency>
-        <!--2013年弃用版本-->
-        <!--<dependency>
-            <groupId>org.bgee.log4jdbc-log4j2</groupId>
-            <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
-            <version>1.16</version>
-        </dependency>-->
 
         <dependency>
             <groupId>com.zaxxer</groupId>
