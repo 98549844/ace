@@ -26,7 +26,7 @@ public class DisposableConfig implements DisposableBean {
     private HttpServletRequest request;
 
     private HttpServletRequest getRequest() {
-        if (NullUtil.isNonNull(RequestContextHolder.getRequestAttributes())) {
+        if (NullUtil.nonNull(RequestContextHolder.getRequestAttributes())) {
             ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
             request = servletRequestAttributes.getRequest();
             return request;
