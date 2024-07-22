@@ -45,7 +45,7 @@ public class WinHanverkyRestController {
         //outer net
         Jedis jedis = new Jedis(host, port);
         // 认证，如果需要的话
-        if (NullUtil.isNonNull(password)) {
+        if (NullUtil.nonNull(password)) {
             try {
                 jedis.auth(password);
             } catch (Exception e) {
@@ -79,7 +79,7 @@ public class WinHanverkyRestController {
         //outer net
         Jedis jedis = new Jedis(host, port);
         // 认证，如果需要的话
-        if (NullUtil.isNonNull(password)) {
+        if (NullUtil.nonNull(password)) {
             jedis.auth(password);
         }
         jedis.connect();

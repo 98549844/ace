@@ -92,7 +92,7 @@ public class RolesController extends CommonController {
         log.info("roleCode: {}", roleCode);
         Roles roles = rolesService.findByRoleCode(roleCode);
         ModelAndView modelAndView = super.page("ace/pb-pages/ajax-result");
-        if (NullUtil.isNonNull(roles)) {
+        if (NullUtil.nonNull(roles)) {
             log.info("exist");
             modelAndView.addObject("ajaxResult", "exist");
         } else {

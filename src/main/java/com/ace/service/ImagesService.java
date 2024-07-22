@@ -236,7 +236,7 @@ public class ImagesService extends CommonController {
         Map mp = ListUtil.getNonDeduplicateElements(ls, thumbnailList);
         compressImages((List<String>) mp.get(ListUtil.LIST_1)); //原图有, 但缩略图没有, 并压缩生成缩略图
         thumbnailList = (List<String>) mp.get(ListUtil.LIST_2); //原图没有, 但缩略图存在
-        if (NullUtil.isNonNull(thumbnailList)) {
+        if (NullUtil.nonNull(thumbnailList)) {
             //原图已删, 删除掉缩略图
             for (String s : thumbnailList) {
                 FileUtil.delete(imagesThumbnail + s);

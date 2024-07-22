@@ -52,7 +52,7 @@ public class FilesService {
      */
     public List<Files> saveAll(List<Files> files) {
         for (Files file : files) {
-            if (NullUtil.isNonNull(file.getId())) {
+            if (NullUtil.nonNull(file.getId())) {
                 //file id not null , update location
                 file.setLocation(file.getPath() + file.getFileName() + file.getExt());
             } else {
@@ -70,7 +70,7 @@ public class FilesService {
      * @return
      */
     public Files save(Files file) {
-        if (NullUtil.isNonNull(file.getId())) {
+        if (NullUtil.nonNull(file.getId())) {
             //更新location
             file.setLocation(file.getPath() + file.getFileName() + file.getExt());
         } else {
@@ -81,7 +81,7 @@ public class FilesService {
     }
 
     public Files saveAndFlush(Files file) {
-        if (NullUtil.isNonNull(file.getId())) {
+        if (NullUtil.nonNull(file.getId())) {
             file.setLocation(file.getPath() + file.getFileName() + file.getExt());
         } else {
             Users users = (Users) StpUtil.getSession().get("user");
@@ -308,7 +308,7 @@ public class FilesService {
             f.setType(Files.VIDEO);
         } else {
             String mimeType = FileUtil.getMimeType(f.getLocation());
-            if (NullUtil.isNonNull(mimeType)) {
+            if (NullUtil.nonNull(mimeType)) {
                 f.setType(FileUtil.getMimeType(f.getLocation()));
                 log.info("File mineType {}", mimeType);
             } else {
@@ -378,7 +378,7 @@ public class FilesService {
                 f.setType(Files.VIDEO);
             } else {
                 String mimeType = FileUtil.getMimeType(f.getLocation());
-                if (NullUtil.isNonNull(mimeType)) {
+                if (NullUtil.nonNull(mimeType)) {
                     f.setType(FileUtil.getMimeType(f.getLocation()));
                 }
                 log.info("File mineType {}", mimeType);

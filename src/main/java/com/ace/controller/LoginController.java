@@ -112,7 +112,7 @@ public class LoginController extends CommonController {
                 user.setIcon(userIconId);
 
                 //rememberMe = on 记住我
-                login(userId, deviceType, NullUtil.isNonNull(rememberMe));
+                login(userId, deviceType, NullUtil.nonNull(rememberMe));
 
                 log.info("UserId: {}", userId);
                 //  setIcon(user);
@@ -132,7 +132,7 @@ public class LoginController extends CommonController {
         foldersService.createCurrentUserDefaultFolder(currentUserPath, getCurrentUser());
         getCurrentUser().setCurrentUserPath(currentUserPath);
 
-        if (NullUtil.isNonNull(preUri)) {
+        if (NullUtil.nonNull(preUri)) {
             // 跳转到之前访问的页面
             modelAndView = super.redirect(preUri);
         } else {

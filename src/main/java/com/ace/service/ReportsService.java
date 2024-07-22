@@ -89,11 +89,11 @@ public class ReportsService {
     public List<Reports> search(Reports reports, String criteria) {
         StringBuilder sql = new StringBuilder("select reportId, createdBy, createdDate, lastUpdateDate, lastUpdatedBy, version, attachment, content, level, reportDate, reporter, status, subReportId, subject from reports where 1=1 ");
         sql.append("and subReportId = 0 "); //只看主report
-        if (NullUtil.isNonNull(reports)) {
+        if (NullUtil.nonNull(reports)) {
             sql.append("and level = '").append(reports.getLevel()).append("'");
         }
 
-        if (NullUtil.isNonNull(criteria)) {
+        if (NullUtil.nonNull(criteria)) {
             List<String> criteriaList = ListUtil.stringArrayToList(criteria.split(" "));
             sql.append("and ");
             for (String s : criteriaList) {

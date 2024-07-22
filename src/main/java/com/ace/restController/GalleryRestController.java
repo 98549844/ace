@@ -54,7 +54,7 @@ public class GalleryRestController {
 
     @GetMapping("/download")
     public String download(String filePath, HttpServletRequest request, HttpServletResponse response) {
-        if (NullUtil.isNonNull(filePath)) {
+        if (NullUtil.nonNull(filePath)) {
             //设置文件路径
             File file = new File(filePath);
             //File file = new File(realPath , fileName);
