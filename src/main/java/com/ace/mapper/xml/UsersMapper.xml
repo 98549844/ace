@@ -10,7 +10,6 @@
         <result column="version" jdbcType="INTEGER" property="version"/>
         <result column="age" jdbcType="BIGINT" property="age"/>
         <result column="dateOfBirth" jdbcType="TIMESTAMP" property="dateOfBirth"/>
-        <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="domain" jdbcType="VARCHAR" property="domain"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="enabled" jdbcType="BIT" property="enabled"/>
@@ -28,7 +27,7 @@
     </resultMap>
     <sql id="Base_Column_List">
         userId, createdBy, createdDate, lastUpdateDate, lastUpdatedBy, version, age, dateOfBirth,
-     description, `domain`, email, enabled, expireDate, gender, hostName, ip, loginDateTime,
+     `domain`, email, enabled, expireDate, gender, hostName, ip, loginDateTime,
      mobile, `password`, remark, `status`, userAccount, username
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -70,7 +69,6 @@
                u.version version,
                u.age age,
                u.dateOfBirth dateOfBirth,
-               u.description description,
                u.domain `domain`,
                u.email email,
                u.enabled enabled,
@@ -90,7 +88,6 @@
                r.roleName roleName,
                p.permissionsId permissionsId,
                p.action `action`,
-               p.description description,
                p.permissionCode permissionCode
         from role_permissions rp,
              permissions p,
@@ -115,7 +112,6 @@
                u.version version,
                u.age age,
                u.dateOfBirth dateOfBirth,
-               u.description description,
                u.domain `domain`,
                u.email email,
                u.enabled enabled,
@@ -145,7 +141,6 @@
                &#45;&#45; p.lastUpdatedBy,
                &#45;&#45; p.version,
                p.action `action`,
-               p.description description,
                &#45;&#45; p.enabled enabled,
                p.permissionCode permissionCode
         from role_permissions rp,
@@ -170,7 +165,6 @@
                u.username,
                p.action,
                r.roleCode,
-               u.description,
                u.userAccount
         from role_permissions rp,
              permissions p,
@@ -196,7 +190,7 @@
         <selectKey keyProperty="users.userId" order="AFTER" resultType="java.lang.Long"></selectKey>
         insert into users (createdBy, createdDate, lastUpdateDate,
         lastUpdatedBy, version, age,
-        dateOfBirth, description, `domain`,
+        dateOfBirth, `domain`,
         email, enabled, expireDate,
         gender, hostName, ip,
         loginDateTime, mobile, `password`,
@@ -204,7 +198,7 @@
         username)
         values (#{createdBy,jdbcType=BIGINT}, #{createdDate,jdbcType=TIMESTAMP}, #{lastUpdateDate,jdbcType=TIMESTAMP},
         #{lastUpdatedBy,jdbcType=BIGINT}, #{version,jdbcType=INTEGER}, #{age,jdbcType=BIGINT},
-        #{dateOfBirth}, #{description,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR},
+        #{dateOfBirth}, #{domain,jdbcType=VARCHAR},
         #{email,jdbcType=VARCHAR}, #{enabled,jdbcType=BIT}, #{expireDate,jdbcType=TIMESTAMP},
         #{gender,jdbcType=VARCHAR}, #{hostName,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR},
         #{loginDateTime,jdbcType=TIMESTAMP}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
@@ -235,9 +229,6 @@
             </if>
             <if test="dateOfBirth != null">
                 dateOfBirth,
-            </if>
-            <if test="description != null">
-                description,
             </if>
             <if test="domain != null">
                 `domain`,
@@ -303,9 +294,6 @@
             </if>
             <if test="dateOfBirth != null">
                 #{dateOfBirth,jdbcType=TIMESTAMP},
-            </if>
-            <if test="description != null">
-                #{description,jdbcType=VARCHAR},
             </if>
             <if test="domain != null">
                 #{domain,jdbcType=VARCHAR},
@@ -375,9 +363,6 @@
             <if test="dateOfBirth != null">
                 dateOfBirth = #{dateOfBirth,jdbcType=TIMESTAMP},
             </if>
-            <if test="description != null">
-                description = #{description,jdbcType=VARCHAR},
-            </if>
             <if test="domain != null">
                 `domain` = #{domain,jdbcType=VARCHAR},
             </if>
@@ -432,7 +417,6 @@
             version        = #{version,jdbcType=INTEGER},
             age            = #{age,jdbcType=BIGINT},
             dateOfBirth    = #{dateOfBirth,jdbcType=TIMESTAMP},
-            description    = #{description,jdbcType=VARCHAR},
             `domain`       = #{domain,jdbcType=VARCHAR},
             email          = #{email,jdbcType=VARCHAR},
             enabled        = #{enabled,jdbcType=BIT},
