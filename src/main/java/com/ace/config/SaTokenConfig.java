@@ -81,12 +81,13 @@ public class SaTokenConfig implements WebMvcConfigurer {
                 //swagger
                 .excludePathPatterns("/doc.html")
                 .excludePathPatterns("/doc.html/**")
-                .excludePathPatterns("/swagger-ui.html",
-                                      "/csrf",
-                                      "/webjars/**",
-                                      "/swagger-resources/**",
-                                      "/v2/**",
-                                      "/v3/**")
+                .excludePathPatterns("/swagger-ui.html/**",
+                                     "/swagger-ui/**",
+                                     "/csrf",
+                                     "/webjars/**",
+                                     "/swagger-resources/**",
+                                     "/v2/**",
+                                     "/v3/**")
                 .addPathPatterns("/**");
     }
 
