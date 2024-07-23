@@ -124,21 +124,21 @@ spring:
         #use_sql_comments: true
         #对应的entity
 
-#  由MailConfig.java配置
-#  mail:
-#    host: smtp.qq.com
-#    username: 87548744@qq.com
-#    password: pcwasirqmgpkcbbi
-#    properties:
-#      mail:
-#        smtp:
-#          auth: true
-#          starttls:
-#            enable: true
-#            required: true
-#    default-encoding: UTF-8
-#    port: 465
-#    protocol: smtps
+  #  由MailConfig.java配置
+  #  mail:
+  #    host: smtp.qq.com
+  #    username: 87548744@qq.com
+  #    password: pcwasirqmgpkcbbi
+  #    properties:
+  #      mail:
+  #        smtp:
+  #          auth: true
+  #          starttls:
+  #            enable: true
+  #            required: true
+  #    default-encoding: UTF-8
+  #    port: 465
+  #    protocol: smtps
 
 
 
