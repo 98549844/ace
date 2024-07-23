@@ -43,6 +43,14 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
+#https://blog.csdn.net/langruu/article/details/134597462
+#解决log4jdbc配置驱动报错 the new driver class is com.mysql.cj.jdbc.Driver
+log4jdbc:
+  auto:
+    load:
+      popular:
+        drivers: false
+  drivers: com.mysql.cj.jdbc.Driver
 
 
 spring:
