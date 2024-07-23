@@ -55,17 +55,15 @@ public class AceApplication {
         SpringApplication application = new SpringApplication(AceApplication.class); //实例化application, 内含丰富多功能提供调用
         applicationContext = application.run(AceApplication.class, args); //run application并付值给applicationContext上下文
 
-        //  print all loaded BeanName
         //Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
+        //  print all loaded BeanName
         //BeanUtil.getBeanNames(applicationContext);
         //Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
-
         //  print all loaded properties
         //PropertiesUtil.getLoadedProperties();
-        //Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
-
         //  print url and controller mapper
         //new AnnotationMapperUtil().getUrl();
+        //Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
 
         //iterate bean value by name
         //print server side information
