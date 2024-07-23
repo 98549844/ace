@@ -202,7 +202,7 @@ public class UsersRestController extends CommonController {
     public RespResult updateUserByMybatis(@PathVariable String acc) {
 
         Users users = usersService.findUserByMybatis(acc);
-        log.info("before version: " + users.getVersion());
+        log.info("before version: {}", users.getVersion());
 
         users.setIp(getRequest().getRemoteAddr());
         users.setHostName(getRequest().getRemoteHost());
