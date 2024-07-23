@@ -64,6 +64,9 @@ public class AceApplication {
         //PropertiesUtil.getLoadedProperties();
         //Console.println(SystemUtil.LINE, Console.BOLD, Console.MAGENTA);
 
+        //  print url and controller mapper
+        //new AnnotationMapperUtil().getUrl();
+
         //iterate bean value by name
         //print server side information
         BeanUtil beanUtil = applicationContext.getBean("beanUtil", BeanUtil.class);

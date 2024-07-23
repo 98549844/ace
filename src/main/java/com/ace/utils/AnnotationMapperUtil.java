@@ -1,6 +1,7 @@
 package com.ace.utils;
 
 import com.ace.AceApplication;
+import com.ace.utilities.Console;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeansException;
@@ -52,7 +53,6 @@ public class AnnotationMapperUtil implements ApplicationContextAware {
                 continue;
             }
             String path = requestMapping.value()[0];
-            log.info("-------------------------------------------");
             Method[] methods = value.getClass().getMethods();
             for (Method method : methods) {
                 //每个方法必定含有下面的注解中的其中一个
@@ -92,7 +92,11 @@ public class AnnotationMapperUtil implements ApplicationContextAware {
                 }
                 //log.info("url : {}  , desc : {}, system_code:{}", url, desc, system_code);
                 //log.info("Url: {}  , desc : {}", url, desc);
-                log.info("url: {}", url);
+
+                Console.print(method.getDeclaringClass().getName() + ": ", Console.GREEN);
+                Console.print(method.getName(), Console.FLUORESCENT_GREEN, Console.BOLD);
+                Console.print("-> ", Console.FLUORESCENT_BLUE);
+                Console.println(url, Console.BLUE, Console.BOLD);
                 list.add(url);
 
                 //url信息入库
