@@ -17,8 +17,6 @@ public class Ace extends CangJieUtil {
 
 
     public static void main(String[] args) throws Exception {
-        // timefold
-        //https://blog.csdn.net/dot_life/article/details/139668653
         checkCangJieCode(null);
 
     }
