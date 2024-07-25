@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootVersion;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,11 +50,13 @@ public class AcePropertiesRestController {
         log.info("aceConfig.profile {}", aceConfig.getProfile());
         log.info("aceConfig.isSwaggerEnable(): {}", aceConfig.isSwaggerEnable());
         log.info("aceConfig.getProfile(): {}", aceConfig.getProfile());
+        log.info("Springboot Version: {}", SpringBootVersion.getVersion());
 
         List<String> aceList = new ArrayList<>();
         aceList.add("Ace Profile: " + aceConfig.getProfile());
         aceList.add(aceConfig.getName());
         aceList.add(aceConfig.getVersion());
+        aceList.add("SpringBoot version "+SpringBootVersion.getVersion());
         aceList.add(aceConfig.getProfile());
         aceList.add(reportConfig.getUrl());
         aceList.add(reportConfig.getUserName());
