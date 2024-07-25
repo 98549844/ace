@@ -90,7 +90,7 @@ public class SessionRestController extends CommonController {
             List keyset = MapUtil.getKeySet(map);
             for (Object key : keyset) {
                 Object val = map.get(key);
-                sessionResult.add(key + ": " + FastJson2Util.ObjectToJson(val));
+                sessionResult.add(key + ": " + FastJson2Util.toJson(val));
             }
             return RespResult.success(sessionResult);
         } else {

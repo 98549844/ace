@@ -117,7 +117,7 @@ public class ReportController extends CommonController {
                 e.printStackTrace();
             }
         }
-        return FastJson2Util.ObjectToJson(map);
+        return FastJson2Util.toJson(map);
         //上传图片返回url问题解决, 但没有心机调整正确的url. 有心机再搞
         //https://www.jianshu.com/p/5d654cf267d9  Editor.md图片粘贴插入插件的开发
         // https://www.codehui.net/info/39.html Editor.md图片粘贴插入插件的开发

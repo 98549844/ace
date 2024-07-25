@@ -86,7 +86,7 @@ public class UserController extends CommonController {
     @RequestMapping(value = "/expire/update.html", method = RequestMethod.POST)
     @ResponseBody
     public boolean updateExpire(@RequestBody String newDateTime) throws Exception {
-        JSONObject jsonObject = FastJson2Util.JsonToObject(newDateTime);
+        JSONObject jsonObject = FastJson2Util.toObject(newDateTime);
         String dateTime = (String) jsonObject.get("newDateTime");
         Long userId = Long.parseLong((String) jsonObject.get("userId"));
         log.info("dateTime: {}", dateTime);

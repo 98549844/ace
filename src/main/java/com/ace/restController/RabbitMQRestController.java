@@ -98,7 +98,7 @@ public class RabbitMQRestController {
     public void receiverMessage(Channel channel, Message msg) {
         try {
             long msgTag = msg.getMessageProperties().getDeliveryTag();
-            Users users=  FastJson2Util.BytesArrayToObject(msg.getBody(),Users.class);
+            Users users=  FastJson2Util.toObject(msg.getBody(),Users.class);
             System.out.println(msgTag + ". " + RabbitMQConfig.QUEUE_MESSAGE + "【监听到消息】" + users.getUsername());
             // 手动确认,只确认当条消息, 默认是自动确认
             // channel.basicAck(msgTag, false);

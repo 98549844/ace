@@ -54,7 +54,7 @@ public class RedisRestController {
         Map<String, Object> result = new HashMap<>();
         for (String key : keys) {
             Object obj = redisService.get(key);
-            result.put(key, FastJson2Util.ObjectToJson(obj)); // object 转换成json
+            result.put(key, FastJson2Util.toJson(obj)); // object 转换成json
         }
         return RespResult.success(result);
     }
@@ -83,7 +83,7 @@ public class RedisRestController {
     @RequestMapping(method = RequestMethod.GET, value = "/get/{key}")
     public RespResult getValueByKey(@PathVariable(value = "key") String key) {
         Object obj = redisService.get(key);
-        String result = FastJson2Util.ObjectToJson(obj);
+        String result = FastJson2Util.toJson(obj);
         System.out.println(result);
         return RespResult.success(result);
     }
@@ -92,7 +92,7 @@ public class RedisRestController {
     @RequestMapping(method = RequestMethod.GET, value = "/getHash/{key}")
     public RespResult getHashByKey(@PathVariable(value = "key") String key) {
         Map<Object, Object> obj = redisService.hashGet(key);
-        String result = FastJson2Util.ObjectToJson(obj);
+        String result = FastJson2Util.toJson(obj);
         System.out.println(result);
         return RespResult.success(result);
     }
@@ -165,11 +165,11 @@ public class RedisRestController {
         Object object = redisService.get("all");
         if (NullUtil.isNull(object)) {
             List<Users> users = usersService.findAll();
-            redisService.set("all", FastJson2Util.ObjectToJson(users));
+            redisService.set("all", FastJson2Util.toJson(users));
         }
 
         Users user = usersService.findByUserAccount("garlam");
-        redisService.set(user.getUsername(), FastJson2Util.ObjectToJson(user));
+        redisService.set(user.getUsername(), FastJson2Util.toJson(user));
 
         List<Object> ls = new ArrayList<>();
         ls.add(redisService.get(user.getUsername()));

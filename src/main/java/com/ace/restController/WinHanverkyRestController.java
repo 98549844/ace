@@ -98,14 +98,14 @@ public class WinHanverkyRestController {
             System.out.println(keys);
             Map map = new LinkedHashMap();
             for (String k : keys) {
-                map.put(k, FastJson2Util.ObjectToJson(getValue(jedis, k, jedis.type(k))));
+                map.put(k, FastJson2Util.toJson(getValue(jedis, k, jedis.type(k))));
             }
             result.put("keys", keys);
             result.put("result", map);
 
         } else {
             result.put("key", key);
-            result.put("value", FastJson2Util.ObjectToJson(getValue(jedis, key, jedis.type(key))));
+            result.put("value", FastJson2Util.toJson(getValue(jedis, key, jedis.type(key))));
         }
 
         // 关闭连接
