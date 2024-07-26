@@ -54,7 +54,7 @@ public class ApiRestController {
     @GetMapping("/getFee")
     public Response getFeeEstimate() {
         String ajaxResponse = blockchain.getETH();
-        System.out.println(GsonUtil.getPrettyJson(ajaxResponse));
+        System.out.println(GsonUtil.formatJson(ajaxResponse));
         return Response.success(ajaxResponse);
     }
 

@@ -1,8 +1,14 @@
 package com.ace;
 
+import com.ace.generator.InsertUsers;
+import com.ace.models.entity.Users;
+import com.ace.utilities.FastJson2Util;
+import com.ace.utilities.GsonUtil;
 import com.ace.utils.CangJieUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 
 /**
  * @Classname: Ace
@@ -17,8 +23,11 @@ public class Ace extends CangJieUtil {
 
 
     public static void main(String[] args) throws Exception {
-        checkCangJieCode(null);
+      //  checkCangJieCode(null);
 
+        List<Users> user = InsertUsers.insertUsers();
+
+        System.out.println(FastJson2Util.formatJson(FastJson2Util.toJson(user)));
     }
 
 
