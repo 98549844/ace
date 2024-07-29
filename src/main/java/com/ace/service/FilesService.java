@@ -397,9 +397,9 @@ public class FilesService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteByUserId(Long userId) {
+    public boolean deleteByUserAccount(String userAccount) {
         try {
-            filesDao.deleteFilesByOwner(userId.toString());
+            filesDao.deleteFilesByOwner(userAccount);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
