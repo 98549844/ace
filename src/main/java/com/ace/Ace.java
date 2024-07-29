@@ -1,14 +1,13 @@
 package com.ace;
 
-import com.ace.generator.InsertUsers;
-import com.ace.models.entity.Users;
-import com.ace.utilities.FastJson2Util;
-import com.ace.utilities.GsonUtil;
 import com.ace.utils.CangJieUtil;
+import com.spire.pdf.FileFormat;
+import com.spire.pdf.PdfDocument;
+import com.spire.pdf.PdfPageBase;
+import com.spire.pdf.texts.PdfTextExtractOptions;
+import com.spire.pdf.texts.PdfTextExtractor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.List;
 
 /**
  * @Classname: Ace
@@ -23,11 +22,27 @@ public class Ace extends CangJieUtil {
 
 
     public static void main(String[] args) throws Exception {
-      //  checkCangJieCode(null);
+        String p = "C:\\Users\\Garlam.Au\\Downloads\\a1.pdf";
+        String excelPath = "C:\\Users\\Garlam.Au\\Downloads\\aa.xlsx";
 
-        List<Users> user = InsertUsers.insertUsers();
+        PdfDocument doc = new PdfDocument();
+        //加载PDF文档
+        doc.loadFromFile(p);
+        doc.saveToFile(excelPath, FileFormat.XLSX);
 
-        System.out.println(FastJson2Util.formatJson(FastJson2Util.toJson(user)));
+        // 获取第一页，遍历文档所有页便可提取文档所有文本内容
+        PdfPageBase page = doc.getPages().get(0);
+        // 创建PdfTextExtractor 对象
+        PdfTextExtractor textExtractor = new PdfTextExtractor(page);
+
+        // 创建PdfTextExtractOptions 对象
+        PdfTextExtractOptions extractOptions = new PdfTextExtractOptions();
+
+        // 从页面中提取文本
+        String text = textExtractor.extract(extractOptions);
+
+        System.out.println(text);
+
     }
 
 
