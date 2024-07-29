@@ -174,8 +174,9 @@
 
 <script type="text/javascript">
     let count = 0;
+    let myDropzone;
     jQuery(function ($) {
-        Dropzone.options.dropZone = {
+        dropZone = Dropzone.options.dropZone = {
             url: "image/uploads.html",
             previewTemplate: $('#preview-template').html(),
             paramName: "files", // 提交的参数,默认为file
@@ -203,7 +204,8 @@
             },*/
 
             init: function () {
-                const myDropzone = this;
+                myDropzone = this;
+
                 /*const submitButton = document.querySelector("#act-on-upload");
                 //为上传按钮添加点击事件
                 submitButton.addEventListener("click", function () {
@@ -386,7 +388,6 @@
 
     //----------------------------------------------------------------------------------------------------------------------
 
-
     //collapse触发
     $("a.accordion-toggle").on("click", function () {
         if (paging !== 0) {
@@ -394,7 +395,6 @@
         }
         loadImages();
     });
-
 
     //加载图片
     function loadImages() {
@@ -454,7 +454,6 @@
             }
         })
     }
-
 
     /* $(document).on('click', '.imageDelete', function(){
          alert(this.id)
@@ -560,6 +559,8 @@
                     // 将你的请求参数以问号拼接到url中进行参数传递
                     success(data) {
                         $("#imageDiv").html('');
+                        // 前端: 移除所有显示的附件
+                        myDropzone.removeAllFiles(true);
                         d.close().remove();
                     },
                     error(data) {
