@@ -143,6 +143,8 @@ public class ImagesController extends CommonController {
      */
     @RequestMapping(value = "/image/remove/{uuid}", method = RequestMethod.GET)
     public ModelAndView remove(@PathVariable String uuid) {
+        //前端delete-all 刪除所有文件後會, 因為dropzone的setting關係
+        //會調用this.on("removedfile", 因而ajax會調用remove controller
         ModelAndView modelAndView = super.page("ace/tool-pages/gallery");
         log.info("access image/remove => delete {}", uuid);
         modelAndView.addObject("delete", filesService.delete(uuid));
