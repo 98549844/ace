@@ -8,6 +8,7 @@ import com.spire.pdf.texts.PdfTextExtractOptions;
 import com.spire.pdf.texts.PdfTextExtractor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.spire.pdf.graphics.fonts.PdfUsedFont;
 
 /**
  * @Classname: Ace
@@ -28,7 +29,12 @@ public class Ace extends CangJieUtil {
         PdfDocument doc = new PdfDocument();
         //加载PDF文档
         doc.loadFromFile(p);
-        doc.saveToFile(excelPath, FileFormat.XLSX);
+        //获取文档中的所有字体
+        PdfUsedFont[] fonts = doc.getUsedFonts();
+
+
+
+        //doc.saveToFile(excelPath, FileFormat.XLSX);
 
         // 获取第一页，遍历文档所有页便可提取文档所有文本内容
         PdfPageBase page = doc.getPages().get(0);
