@@ -6,7 +6,7 @@ import com.ace.models.entity.Files;
 import com.ace.models.entity.Users;
 import com.ace.service.FilesService;
 import com.ace.service.MediaService;
-import com.ace.utils.ResourceUtil;
+import com.ace.utils.ResourcePathUtil;
 import com.ace.utilities.FileUtil;
 import com.ace.utilities.StringUtil;
 import jakarta.servlet.http.HttpServletResponse;
@@ -42,15 +42,15 @@ public class MediaController extends CommonController {
     private final String videoM3u8;
     private final String thumbnail = "thumbnail.jpg";
 
-    private final ResourceUtil resourceUtil;
+    private final ResourcePathUtil resourcePathUtil;
 
     @Autowired
-    public MediaController(ResourceUtil resourceUtil, AceEnvironment aceEnvironment, MediaService mediaService, FilesService filesService) {
+    public MediaController(ResourcePathUtil resourcePathUtil, AceEnvironment aceEnvironment, MediaService mediaService, FilesService filesService) {
         this.filesService = filesService;
         this.mediaService = mediaService;
         this.videoPath = aceEnvironment.getVideoPath();
         this.videoM3u8 = aceEnvironment.getVideoM3u8();
-        this.resourceUtil = resourceUtil;
+        this.resourcePathUtil = resourcePathUtil;
     }
 
     /**
@@ -152,7 +152,7 @@ public class MediaController extends CommonController {
         // filesService.getAsStream(defaultJPG, response); //使用流读取图片
 
         // 生產环境里, 从jar复制到本地tmp文件夹, 再读取tmp文件夹的图片文件
-        String location = resourceUtil.getResourcePath(defaultJPG);
+        String location = resourcePathUtil.getResourcePath(defaultJPG);
         filesService.get(location, response);
     }
 
@@ -182,7 +182,7 @@ public class MediaController extends CommonController {
         } catch (IOException e) {
             //如果读缩略图失败, 读取静态文件
             e.printStackTrace();
-            location = resourceUtil.getResourcePath("static/assets/images/error.png");
+            location = resourcePathUtil.getResourcePath("static/assets/images/error.png");
             filesService.get(location, response);
         }
     }

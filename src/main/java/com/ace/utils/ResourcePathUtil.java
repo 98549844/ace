@@ -30,12 +30,12 @@ import java.util.zip.ZipEntry;
  */
 
 @Component
-public class ResourceUtil extends ResourcesUtil {
-    private static final Logger log = LogManager.getLogger(ResourceUtil.class.getName());
+public class ResourcePathUtil extends ResourcesUtil {
+    private static final Logger log = LogManager.getLogger(ResourcePathUtil.class.getName());
 
     private final String tmpPath; // 文件临时保存路径
 
-    public ResourceUtil(AceEnvironment aceEnvironment) {
+    public ResourcePathUtil(AceEnvironment aceEnvironment) {
         tmpPath = aceEnvironment.getTmp();
     }
 
@@ -56,7 +56,7 @@ public class ResourceUtil extends ResourcesUtil {
             return tmpPath + resource;
         }
 
-        URI uri = ResourceUtil.class.getProtectionDomain().getCodeSource().getLocation().toURI();
+        URI uri = ResourcePathUtil.class.getProtectionDomain().getCodeSource().getLocation().toURI();
         System.out.println("resource静态资源uri: " + uri);
 
         if (uri.toString().startsWith("file")) {
