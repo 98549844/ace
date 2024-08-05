@@ -362,11 +362,6 @@
             <artifactId>ognl</artifactId>
             <version>3.4.3</version>
         </dependency>
-        <dependency>
-            <groupId>e-iceblue</groupId>
-            <artifactId>spire.pdf</artifactId>
-            <version>10.7.3</version>
-        </dependency>
 
         <dependency>
             <groupId>io.netty</groupId>
@@ -648,11 +643,6 @@
             <releases>
                 <enabled>false</enabled>
             </releases>
-        </repository>
-        <repository>
-            <id>com.e-iceblue</id>
-            <name>e-iceblue</name>
-            <url>https://repo.e-iceblue.cn/repository/maven-public/</url>
         </repository>
     </repositories>
     <pluginRepositories>
