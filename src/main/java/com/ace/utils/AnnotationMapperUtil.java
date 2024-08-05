@@ -33,7 +33,8 @@ public class AnnotationMapperUtil implements ApplicationContextAware {
         Map<String, Object> controllerBeans = applicationContext.getBeansWithAnnotation(Controller.class);
         // Map<String, Object> restControllerBeans = applicationContext.getBeansWithAnnotation(RestController.class);
 
-        List<String> list = new ArrayList<>(getUrl(controllerBeans, applicationContext));
+        List<String> list = new ArrayList<>();
+        list.addAll(getUrl(controllerBeans, applicationContext));
         // list.addAll(getUrl(restControllerBeans, applicationContext));
 
     }
