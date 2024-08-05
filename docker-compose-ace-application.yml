@@ -18,7 +18,7 @@ services:
     #    image: 87548744/ace:v3.2
     container_name: application
     hostname: application
-    # restart: always
+    restart: always
     volumes:
       #- /Users/garlam/docker/ace/:/opt/workspace/ace/
       #- /Users/garlam/IdeaProjects/ace/target/ace-3.3.jar:/ace.jar #實時掛載jar, 重啟docker容器即可更新jar內容
