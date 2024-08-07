@@ -72,7 +72,7 @@ public class CleanLog {
     }
 
     private void cleanLogFile(File file) {
-        log.info("clean up log4j: {}", file.getAbsolutePath());
+        log.info("cleanLog4j: {}", file.getAbsolutePath());
         File[] files = file.listFiles();
         if (NullUtil.nonNull(file)) {
             for (File f : files) {

@@ -24,7 +24,7 @@ public class CleanTmp {
             FileUtil.deleteDirectories(tmpPath);
             //创建tmp文件夹
             FileUtil.mkDirs(tmpPath);
-            log.info("Clean tmp folder: {}", tmpPath);
+            log.info("Clean TmpFolder: {}", tmpPath);
         } catch (Exception e) {
             log.error("Error cleaning tmp folder: {}", e.getMessage());
         }

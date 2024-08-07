@@ -1,0 +1,11 @@
+Number	statu		developer           remark
+CR004 	uat 		abi                 -> deployed in UAT and testing with user and james
+CR139 	developing 	abi/garlam/novo
+CR142 	developing 	sam                 -> planStartDay:2024-06-28 planUAT:2024-08-12
+CR153 	SIT 		sam
+
+CR178
+
+
+D-mop mail sender 完成/已上prod garlam
+
