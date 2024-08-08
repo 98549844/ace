@@ -9,3 +9,23 @@ CR178
 
 D-mop mail sender 完成/已上prod garlam
 
+
+CR                  Primary System          developer       status                      planedStartDate     planedUATDate
+CR-24-004-EN        CPO Portal              abi             06 - SIT                    2024-06-17          2024-08-12
+CR-24-008-EN        CPO Portal                              03 - Queuing                2024-08-06          2024-08-16
+CR-24-009-EN        Allocation Portal                       04 - Detail Requirement     2024-07-09          2024-07-30
+CR-24-011-PR        T2 Portal                               07 - UAT                    2024-06-11          2024-07-18
+CR-24-020-PR        T2 Portal                               03 - Queuing                2024-07-24          2024-09-11
+CR-24-056-EN        WIN Dashboard                           07 - UAT                    2024-02-19          2024-04-01
+CR-24-139-PR        Allocation Portal                       05 - Development            2024-07-08          2024-09-02
+CR-24-140-EN        WIN Dashboard                           05 - Development            2024-06-17          2024-07-23
+CR-24-142-PR        T2 Portal                               05 - Development            2024-06-28          2024-08-12
+CR-24-153-EN        T2 Portal                               07 - UAT                    2024-05-17          2024-06-03
+CR-24-160-EN        WIN Dashboard                           03 - Queuing                2024-07-22          2024-07-26
+CR-24-161-PR        WIN Dashboard                           02 - Initial Assessment     2024-08-01          2024-08-30
+CR-24-178-EN        Allocation Portal                       04 - Detail Requirement
+CR-24-183-EN        T2 Portal                               02 - Initial Assessment
+CR-24-192-EN        Allocation Portal                       02 - Initial Assessment
+CR-24-193-EN        T2 Portal                               02 - Initial Assessment
+CR-24-203-EN        Allocation Portal                       05 - Development
+CR-24-205-EN        WIN Dashboard                           01 - CR Created
